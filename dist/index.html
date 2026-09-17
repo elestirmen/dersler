@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1020" />
+    <meta
+      name="description"
+      content="Dersler, notlar ve kaynaklar için sade bir öğrenme alanı."
+    />
+    <title>Dersler — Öğrenme alanı</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #f4f7ff;
+        --muted: #a6b0c8;
+        --dim: #707b97;
+        --night: #0b1020;
+        --panel: rgba(24, 32, 57, 0.82);
+        --line: rgba(163, 179, 221, 0.16);
+        --blue: #82aaff;
+        --lime: #c6f36b;
+        --violet: #9c8cff;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(circle at 78% 5%, rgba(130, 170, 255, 0.18), transparent 30rem),
+          radial-gradient(circle at 0% 65%, rgba(156, 140, 255, 0.12), transparent 28rem),
+          var(--night);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      a { color: inherit; }
+
+      a:focus-visible {
+        outline: 3px solid var(--lime);
+        outline-offset: 5px;
+        border-radius: 8px;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 88px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        font-weight: 750;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid rgba(198, 243, 107, 0.55);
+        border-radius: 12px;
+        background: rgba(198, 243, 107, 0.1);
+        color: var(--lime);
+      }
+
+      .brand-mark svg { width: 21px; height: 21px; }
+
+      .brand small {
+        display: block;
+        margin-top: -3px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .header-link {
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      .header-link:hover { color: var(--ink); }
+
+      main { padding: 78px 0 96px; }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        gap: clamp(40px, 8vw, 104px);
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 22px;
+        color: var(--lime);
+        font-size: 0.78rem;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 5px rgba(198, 243, 107, 0.1);
+        content: "";
+      }
+
+      h1 {
+        max-width: 680px;
+        margin: 0;
+        font-size: clamp(3rem, 7vw, 6.4rem);
+        font-weight: 760;
+        letter-spacing: -0.075em;
+        line-height: 0.98;
+      }
+
+      h1 span { color: var(--blue); }
+
+      .lead {
+        max-width: 570px;
+        margin: 28px 0 34px;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.24rem);
+        line-height: 1.65;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 20px;
+        border: 1px solid var(--lime);
+        border-radius: 999px;
+        background: var(--lime);
+        color: #152000;
+        font-weight: 750;
+        text-decoration: none;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .button:hover {
+        box-shadow: 0 12px 32px rgba(198, 243, 107, 0.18);
+        transform: translateY(-2px);
+      }
+
+      .button svg { width: 18px; height: 18px; }
+
+      .hero-card {
+        position: relative;
+        min-height: 370px;
+        padding: 28px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: linear-gradient(145deg, rgba(35, 47, 82, 0.94), rgba(17, 23, 44, 0.92));
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.24);
+      }
+
+      .hero-card::before {
+        position: absolute;
+        top: -86px;
+        right: -70px;
+        width: 230px;
+        height: 230px;
+        border: 1px solid rgba(130, 170, 255, 0.28);
+        border-radius: 50%;
+        box-shadow: 0 0 0 28px rgba(130, 170, 255, 0.04), 0 0 0 57px rgba(130, 170, 255, 0.025);
+        content: "";
+      }
+
+      .card-label {
+        position: relative;
+        color: var(--dim);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .hero-card h2 {
+        position: relative;
+        margin: 68px 0 10px;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        letter-spacing: -0.055em;
+        line-height: 1;
+      }
+
+      .hero-card p {
+        position: relative;
+        max-width: 290px;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card-footer {
+        position: absolute;
+        right: 28px;
+        bottom: 28px;
+        left: 28px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--lime);
+      }
+
+      .status::before {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--lime);
+        content: "";
+      }
+
+      .section { margin-top: 126px; }
+
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-heading h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        letter-spacing: -0.05em;
+        line-height: 1.1;
+      }
+
+      .section-heading p {
+        max-width: 320px;
+        margin: 0;
+        color: var(--dim);
+        font-size: 0.95rem;
+        text-align: right;
+      }
+
+      .areas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .area {
+        min-height: 220px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--panel);
+      }
+
+      .area-number {
+        display: inline-block;
+        margin-bottom: 44px;
+        color: var(--violet);
+        font-size: 0.86rem;
+        font-weight: 750;
+      }
+
+      .area h3 {
+        margin: 0 0 8px;
+        font-size: 1.3rem;
+        letter-spacing: -0.03em;
+      }
+
+      .area p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.96rem;
+        line-height: 1.55;
+      }
+
+      footer {
+        padding: 24px 0 34px;
+        border-top: 1px solid var(--line);
+        color: var(--dim);
+        font-size: 0.86rem;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      @media (max-width: 760px) {
+        .shell { width: min(100% - 32px, 560px); }
+        .site-header { min-height: 76px; }
+        main { padding: 56px 0 72px; }
+        .hero { grid-template-columns: 1fr; gap: 52px; }
+        h1 { font-size: clamp(3.1rem, 17vw, 5.5rem); }
+        .hero-card { min-height: 330px; }
+        .section { margin-top: 88px; }
+        .section-heading { display: block; }
+        .section-heading p { margin-top: 12px; text-align: left; }
+        .areas { grid-template-columns: 1fr; }
+        .area { min-height: auto; }
+        .area-number { margin-bottom: 28px; }
+        .footer-inner { display: block; }
+        .footer-inner span { display: block; margin-top: 6px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .button { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header shell">
+      <a class="brand" href="/" aria-label="Dersler ana sayfa">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" />
+            <path d="M4 5.5v16M8 7h8M8 11h7" />
+          </svg>
+        </span>
+        <span>Dersler<small>perinet</small></span>
+      </a>
+      <a class="header-link" href="#baslangic">Başlangıç</a>
+    </header>
+
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Öğrenme alanı</p>
+          <h1 id="page-title">Daha iyi öğrenmek için <span>yer aç.</span></h1>
+          <p class="lead">
+            Dersler, kısa notlar ve güvenilir kaynaklar için sade bir başlangıç noktası.
+            İçerikler zamanla burada birikecek.
+          </p>
+          <a class="button" href="#baslangic">
+            Başlangıca git
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </div>
+
+        <aside class="hero-card" aria-label="Dersler durumu">
+          <span class="card-label">Alan 01 / hazırlık</span>
+          <h2>Dersler</h2>
+          <p>Konuları, ilerlemeyi ve öğrenme ritmini tek yerde toplamak için.</p>
+          <div class="card-footer">
+            <span class="status">Açık</span>
+            <span>İlk adım</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="baslangic" aria-labelledby="areas-title">
+        <div class="section-heading">
+          <h2 id="areas-title">Başlangıç için alanlar</h2>
+          <p>Bu iskelet, yeni içerik ve özelliklerle büyümeye hazır.</p>
+        </div>
+
+        <div class="areas">
+          <article class="area">
+            <span class="area-number">01</span>
+            <h3>Dersler</h3>
+            <p>Çalışılacak konular ve ders akışları için ana alan.</p>
+          </article>
+          <article class="area">
+            <span class="area-number">02</span>
+            <h3>Notlar</h3>
+            <p>Kısa özetleri ve kişisel öğrenme notlarını düzenlemek için.</p>
+          </article>
+          <article class="area">
+            <span class="area-number">03</span>
+            <h3>Kaynaklar</h3>
+            <p>Tekrar dönülecek bağlantılar ve yardımcı materyaller için.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-inner">
+        <span>dersler.perinet.org</span>
+        <span>Yeni bir başlangıç.</span>
+      </div>
+    </footer>
+  </body>
+</html>
