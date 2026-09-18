@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#f3f5fc" />
     <meta
       name="description"
-      content="Dersler, notlar ve kaynaklar için sade bir öğrenme alanı."
+      content="Fizik dersleri: serbest düşme, iki boyutta sabit ivmeli hareket ve Newton'un hareket yasaları. Her ders tek sayfada; konu anlatımı, etkileşimli laboratuvarlar, canlı grafikler, test ve indirilebilir sunum."
     />
-    <title>Dersler — Öğrenme alanı</title>
+    <title>Dersler — Fizik öğrenme alanı</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b9ee63'/%3E%3Cpath d='M18 20a6 6 0 0 1 6-6h22v32H24a6 6 0 0 0-6 6z' fill='none' stroke='%2316260a' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M18 20v32M26 22h16M26 30h13' fill='none' stroke='%2316260a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,6 +34,8 @@
         --blue: #2a5fd6;
         --lime: #3c8c21;
         --violet: #6348d4;
+        --amber: #a56209;
+        --rose: #c53455;
 
         --accent: #b9ee63;
         --accent-hover: #a9e648;
@@ -42,7 +44,25 @@
 
         --shadow-sm: 0 2px 6px rgba(18, 30, 70, 0.06);
         --shadow: 0 14px 34px rgba(18, 30, 70, 0.09);
+        --shadow-lg: 0 34px 90px rgba(18, 30, 70, 0.18);
         --header-bg: rgba(243, 245, 252, 0.82);
+        --track: #dfe5f3;
+
+        /* tuvale aktarılanlar */
+        --c-ink: #0f1730;
+        --c-muted: #4c5775;
+        --c-dim: #7c86a2;
+        --c-blue: #2a5fd6;
+        --c-lime: #3c8c21;
+        --c-violet: #6348d4;
+        --c-amber: #a56209;
+        --c-rose: #c53455;
+        --c-panel: rgba(255, 255, 255, 0.97);
+        --c-border: #e3e8f4;
+        --c-chip: rgba(255, 255, 255, 0.95);
+        --c-ring: #ffffff;
+        --c-outline: #26324f;
+        --c-scene: #ffffff;
       }
 
       :root[data-theme="dark"] {
@@ -65,6 +85,8 @@
         --blue: #82aaff;
         --lime: #c6f36b;
         --violet: #9c8cff;
+        --amber: #ffcb6b;
+        --rose: #ff8fa3;
 
         --accent: #c6f36b;
         --accent-hover: #d3f78c;
@@ -73,9 +95,27 @@
 
         --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
         --shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 40px 120px rgba(0, 0, 0, 0.55);
         --header-bg: rgba(11, 16, 32, 0.78);
+        --track: rgba(163, 179, 221, 0.2);
+
+        --c-ink: #f4f7ff;
+        --c-muted: #a6b0c8;
+        --c-dim: #7d88a6;
+        --c-blue: #82aaff;
+        --c-lime: #c6f36b;
+        --c-violet: #9c8cff;
+        --c-amber: #ffcb6b;
+        --c-rose: #ff8fa3;
+        --c-panel: rgba(13, 19, 38, 0.6);
+        --c-border: rgba(163, 179, 221, 0.18);
+        --c-chip: rgba(11, 16, 32, 0.86);
+        --c-ring: #0b1020;
+        --c-outline: #060a16;
+        --c-scene: #0d1224;
       }
 
+      /* ================= temel ================= */
       * { box-sizing: border-box; }
 
       html { scroll-behavior: smooth; }
@@ -97,14 +137,16 @@
       a { color: inherit; }
 
       a:focus-visible,
-      button:focus-visible {
+      button:focus-visible,
+      input:focus-visible {
         outline: 3px solid var(--blue);
-        outline-offset: 4px;
+        outline-offset: 3px;
         border-radius: 10px;
       }
 
       .shell { width: min(1140px, calc(100% - 44px)); margin: 0 auto; }
 
+      /* ================= üst bar ================= */
       .site-header {
         position: sticky;
         top: 0;
@@ -155,9 +197,9 @@
         text-transform: uppercase;
       }
 
-      .header-tools { display: flex; align-items: center; gap: 10px; }
+      .header-nav { display: flex; align-items: center; gap: 4px; }
 
-      .header-link {
+      .nav-link {
         padding: 7px 12px;
         border-radius: 999px;
         color: var(--muted);
@@ -167,7 +209,9 @@
         transition: background 160ms ease, color 160ms ease;
       }
 
-      .header-link:hover { background: var(--surface-3); color: var(--ink); }
+      .nav-link:hover { background: var(--surface-3); color: var(--ink); }
+
+      .header-tools { display: flex; align-items: center; gap: 9px; }
 
       .icon-btn {
         display: grid;
@@ -189,20 +233,36 @@
       :root:not([data-theme="dark"]) .icon-btn .sun,
       :root[data-theme="dark"] .icon-btn .moon { display: none; }
 
-      main { padding: 72px 0 96px; }
+      /* ================= giriş ================= */
+      main { padding: 52px 0 88px; }
 
       .hero {
+        position: relative;
         display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(310px, 0.9fr);
-        gap: clamp(36px, 7vw, 92px);
+        grid-template-columns: minmax(0, 1.25fr) minmax(290px, 0.75fr);
+        gap: clamp(28px, 5vw, 64px);
         align-items: center;
+        isolation: isolate;
+      }
+
+      .hero::before {
+        position: absolute;
+        z-index: -1;
+        inset: -70px 0 auto 0;
+        height: 460px;
+        background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1.2px);
+        background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(62% 72% at 40% 34%, #000 18%, transparent 78%);
+        mask-image: radial-gradient(62% 72% at 40% 34%, #000 18%, transparent 78%);
+        content: "";
+        pointer-events: none;
       }
 
       .eyebrow {
         display: inline-flex;
         align-items: center;
         gap: 9px;
-        margin: 0 0 20px;
+        margin: 0 0 16px;
         color: var(--lime);
         font-size: 0.76rem;
         font-weight: 750;
@@ -220,116 +280,148 @@
       }
 
       h1 {
-        max-width: 680px;
+        max-width: 620px;
         margin: 0;
-        font-size: clamp(2.8rem, 6.4vw, 5.6rem);
+        font-size: clamp(2.4rem, 5.4vw, 4.2rem);
         font-weight: 760;
-        letter-spacing: -0.07em;
-        line-height: 1;
+        letter-spacing: -0.06em;
+        line-height: 1.02;
+        text-wrap: balance;
       }
 
-      h1 span { color: var(--blue); }
+      h1 span {
+        background: linear-gradient(92deg, var(--blue), var(--violet));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
 
       .lead {
-        max-width: 560px;
-        margin: 26px 0 32px;
+        max-width: 520px;
+        margin: 20px 0 26px;
         color: var(--muted);
-        font-size: clamp(1.02rem, 1.8vw, 1.18rem);
-        line-height: 1.66;
+        font-size: clamp(1rem, 1.6vw, 1.1rem);
+        line-height: 1.62;
       }
 
-      .button {
-        display: inline-flex;
+      /* ================= arama ================= */
+      .search {
+        position: relative;
+        display: flex;
         align-items: center;
-        gap: 10px;
-        min-height: 48px;
-        padding: 0 22px;
-        border: 1px solid transparent;
-        border-radius: 12px;
-        background: var(--accent);
-        color: var(--accent-ink);
-        font-weight: 700;
-        text-decoration: none;
-        box-shadow: var(--shadow-sm);
-        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+        max-width: 520px;
       }
 
-      .button:hover { background: var(--accent-hover); box-shadow: var(--shadow); transform: translateY(-1px); }
+      .search svg {
+        position: absolute;
+        left: 16px;
+        width: 19px;
+        height: 19px;
+        color: var(--dim);
+        pointer-events: none;
+      }
 
-      .button svg { width: 18px; height: 18px; }
-
-      .button.ghost {
-        border-color: var(--line);
+      .search input {
+        width: 100%;
+        min-height: 54px;
+        padding: 0 74px 0 47px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
         background: var(--surface);
         color: var(--ink);
-        box-shadow: none;
+        font: inherit;
+        font-size: 1rem;
+        box-shadow: var(--shadow-sm);
+        transition: border-color 160ms ease, box-shadow 160ms ease;
       }
 
-      .button.ghost:hover { border-color: var(--blue); background: var(--surface-2); color: var(--blue); }
+      .search input::placeholder { color: var(--dim); }
 
-      .cta-row { display: flex; flex-wrap: wrap; gap: 11px; }
+      .search input:focus { border-color: var(--blue); box-shadow: var(--shadow); outline: none; }
 
-      .hero-card {
+      .search input::-webkit-search-cancel-button { cursor: pointer; }
+
+      .search kbd {
+        position: absolute;
+        right: 14px;
+        display: grid;
+        min-width: 26px;
+        height: 26px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface-2);
+        color: var(--dim);
+        font-family: inherit;
+        font-size: 0.78rem;
+        font-weight: 700;
+        pointer-events: none;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .filters button {
+        padding: 8px 16px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.87rem;
+        font-weight: 650;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+      }
+
+      .filters button:hover { border-color: var(--blue); color: var(--ink); }
+
+      .filters button[aria-pressed="true"] {
+        border-color: var(--lime);
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      /* ================= son eklenen kartı ================= */
+      .latest {
         position: relative;
-        min-height: 340px;
         padding: 26px;
         overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        background: var(--surface);
+        border: 1px solid color-mix(in srgb, var(--lime) 34%, var(--line));
+        border-radius: 22px;
+        background:
+          linear-gradient(160deg, color-mix(in srgb, var(--lime) 12%, transparent), transparent 58%),
+          var(--surface);
         box-shadow: var(--shadow);
       }
 
-      .hero-card::before {
-        position: absolute;
-        top: -86px;
-        right: -70px;
-        width: 230px;
-        height: 230px;
-        border: 1px solid color-mix(in srgb, var(--blue) 26%, transparent);
-        border-radius: 50%;
-        box-shadow:
-          0 0 0 28px color-mix(in srgb, var(--blue) 5%, transparent),
-          0 0 0 57px color-mix(in srgb, var(--blue) 3%, transparent);
-        content: "";
-      }
-
-      .card-label {
-        position: relative;
-        color: var(--dim);
-        font-size: 0.74rem;
+      .latest .card-label {
+        display: block;
+        margin-bottom: 14px;
+        color: var(--lime);
+        font-size: 0.72rem;
         font-weight: 750;
-        letter-spacing: 0.13em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
       }
 
-      .hero-card h2 {
-        position: relative;
-        margin: 58px 0 10px;
-        font-size: clamp(1.9rem, 4.4vw, 3rem);
-        letter-spacing: -0.05em;
-        line-height: 1;
-      }
+      .latest h2 { margin: 0 0 8px; font-size: 1.45rem; letter-spacing: -0.035em; line-height: 1.2; }
 
-      .hero-card p {
-        position: relative;
-        max-width: 290px;
-        margin: 0;
-        color: var(--muted);
-      }
+      .latest p { margin: 0 0 20px; color: var(--muted); font-size: 0.92rem; }
 
-      .card-footer {
-        position: absolute;
-        right: 26px;
-        bottom: 26px;
-        left: 26px;
+      .latest .card-footer {
         display: flex;
         justify-content: space-between;
-        gap: 20px;
-        padding-top: 16px;
+        gap: 16px;
+        margin-top: 20px;
+        padding-top: 15px;
         border-top: 1px solid var(--line);
-        color: var(--muted);
-        font-size: 0.88rem;
+        color: var(--dim);
+        font-size: 0.84rem;
       }
 
       .status { display: inline-flex; align-items: center; gap: 8px; color: var(--lime); }
@@ -343,7 +435,31 @@
         content: "";
       }
 
-      .section { margin-top: 104px; scroll-margin-top: 82px; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 46px;
+        padding: 0 20px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+      }
+
+      .button:hover { background: var(--accent-hover); box-shadow: var(--shadow); transform: translateY(-1px); }
+
+      .button:active { transform: translateY(0) scale(0.985); }
+
+      .button svg { width: 17px; height: 17px; }
+
+      /* ================= bölümler ================= */
+      .section { margin-top: 92px; scroll-margin-top: 82px; }
 
       .section-heading {
         display: flex;
@@ -356,54 +472,73 @@
 
       .section-heading h2 {
         margin: 0;
-        font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+        font-size: clamp(1.6rem, 3.2vw, 2.2rem);
         letter-spacing: -0.05em;
         line-height: 1.1;
+        text-wrap: balance;
       }
 
       .section-heading p {
-        max-width: 320px;
+        max-width: 380px;
         margin: 0;
         color: var(--dim);
         font-size: 0.92rem;
         text-align: right;
       }
 
-      .lesson {
+      .section-heading b { color: var(--ink); font-weight: 700; }
+
+      /* ================= ders kartları ================= */
+      .grid {
         display: grid;
-        grid-template-columns: auto minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 22px;
-        margin-top: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(322px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .lesson {
+        --tone: var(--blue);
+        position: relative;
+        display: flex;
+        flex-direction: column;
         padding: 24px;
-        border: 1px solid color-mix(in srgb, var(--blue) 34%, transparent);
+        border: 1px solid var(--line);
         border-radius: 20px;
         background:
-          linear-gradient(135deg, color-mix(in srgb, var(--blue) 10%, transparent), transparent 60%),
+          linear-gradient(150deg, color-mix(in srgb, var(--tone) 9%, transparent), transparent 52%),
           var(--surface);
-        text-decoration: none;
         box-shadow: var(--shadow-sm);
         transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease;
       }
 
-      .lesson:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-2px); }
+      .lesson:hover {
+        border-color: color-mix(in srgb, var(--tone) 55%, var(--line));
+        box-shadow: var(--shadow);
+        transform: translateY(-3px);
+      }
+
+      .lesson:focus-within {
+        border-color: var(--tone);
+        box-shadow: var(--shadow);
+      }
 
       .lesson .mark {
         display: grid;
-        width: 54px;
-        height: 54px;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 18px;
         place-items: center;
-        border: 1px solid color-mix(in srgb, var(--blue) 36%, transparent);
-        border-radius: 15px;
-        background: color-mix(in srgb, var(--blue) 10%, transparent);
-        color: var(--blue);
+        border: 1px solid color-mix(in srgb, var(--tone) 34%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--tone) 11%, transparent);
+        color: var(--tone);
       }
 
-      .lesson .mark svg { width: 25px; height: 25px; }
+      .lesson .mark svg { width: 24px; height: 24px; }
 
-      .lesson-tag {
+      .lesson .tag {
         display: block;
-        margin-bottom: 4px;
+        margin-bottom: 5px;
         color: var(--lime);
         font-size: 0.7rem;
         font-weight: 750;
@@ -411,101 +546,119 @@
         text-transform: uppercase;
       }
 
-      .lesson h3 { margin: 0 0 4px; font-size: 1.28rem; letter-spacing: -0.035em; }
+      .lesson h3 { margin: 0 0 8px; font-size: 1.24rem; letter-spacing: -0.035em; line-height: 1.25; }
 
-      .lesson p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+      .lesson h3 a { text-decoration: none; }
 
-      .lesson .go {
-        display: grid;
-        width: 42px;
-        height: 42px;
-        place-items: center;
+      .lesson h3 a::after {
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        content: "";
+      }
+
+      .lesson > p { margin: 0 0 16px; color: var(--muted); font-size: 0.92rem; line-height: 1.55; }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0 0 18px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .meta li {
+        padding: 5px 11px;
+        border: 1px solid var(--line-soft);
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--dim);
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+
+      .lesson .foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: auto;
+        padding-top: 16px;
+        border-top: 1px solid var(--line-soft);
+      }
+
+      .go {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        color: var(--tone);
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .go svg { width: 16px; height: 16px; }
+
+      .pill {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 13px;
         border: 1px solid var(--line);
-        border-radius: 50%;
-        color: var(--blue);
-      }
-
-      .lesson .go svg { width: 18px; height: 18px; }
-
-      .lesson.alt {
-        border-color: color-mix(in srgb, var(--violet) 34%, transparent);
-        background:
-          linear-gradient(135deg, color-mix(in srgb, var(--violet) 10%, transparent), transparent 60%),
-          var(--surface);
-      }
-
-      .lesson.alt:hover { border-color: var(--violet); }
-
-      .lesson.alt .mark {
-        border-color: color-mix(in srgb, var(--violet) 36%, transparent);
-        background: color-mix(in srgb, var(--violet) 10%, transparent);
-        color: var(--violet);
-      }
-
-      .lesson.alt .go { color: var(--violet); }
-
-      .lesson.alt2 {
-        border-color: color-mix(in srgb, var(--lime) 40%, transparent);
-        background:
-          linear-gradient(135deg, color-mix(in srgb, var(--lime) 12%, transparent), transparent 60%),
-          var(--surface);
-      }
-
-      .lesson.alt2:hover { border-color: var(--lime); }
-
-      .lesson.alt2 .mark {
-        border-color: color-mix(in srgb, var(--lime) 42%, transparent);
-        background: color-mix(in srgb, var(--lime) 12%, transparent);
-        color: var(--lime);
-      }
-
-      .lesson.alt2 .go { color: var(--lime); }
-
-      .areas {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-        margin-top: 16px;
-      }
-
-      .area {
-        min-height: 200px;
-        padding: 24px;
-        border: 1px solid var(--line);
-        border-radius: 18px;
+        border-radius: 999px;
         background: var(--surface);
-        box-shadow: var(--shadow-sm);
-      }
-
-      .area-number {
-        display: inline-grid;
-        min-width: 30px;
-        height: 30px;
-        margin-bottom: 38px;
-        place-items: center;
-        border-radius: 9px;
-        background: var(--surface-3);
-        color: var(--violet);
+        color: var(--muted);
         font-size: 0.8rem;
-        font-weight: 750;
+        font-weight: 650;
+        text-decoration: none;
+        transition: border-color 150ms ease, color 150ms ease;
       }
 
-      .area h3 { margin: 0 0 8px; font-size: 1.22rem; letter-spacing: -0.03em; }
+      .pill:hover { border-color: var(--lime); color: var(--lime); }
 
-      .area p { margin: 0; color: var(--muted); font-size: 0.93rem; line-height: 1.55; }
+      .pill svg { width: 14px; height: 14px; }
 
+      .lesson[hidden] { display: none; }
+
+      .empty {
+        margin: 26px 0 0;
+        padding: 30px;
+        border: 1px dashed var(--line);
+        border-radius: 18px;
+        color: var(--muted);
+        font-size: 0.95rem;
+        text-align: center;
+      }
+
+      .empty[hidden] { display: none; }
+
+      .empty button {
+        margin-left: 6px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: var(--blue);
+        font: inherit;
+        font-weight: 700;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      /* ================= sunumlar ================= */
       .dl-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
         gap: 14px;
-        margin-top: 16px;
+        margin-top: 20px;
       }
 
       .dl {
         display: flex;
         align-items: center;
-        gap: 16px;
-        padding: 20px 22px;
+        gap: 15px;
+        padding: 18px 20px;
         border: 1px solid var(--line);
         border-radius: 18px;
         background: var(--surface);
@@ -516,11 +669,13 @@
 
       .dl:hover { border-color: var(--lime); box-shadow: var(--shadow); transform: translateY(-2px); }
 
+      .dl[hidden] { display: none; }
+
       .dl .ic {
         flex: none;
         display: grid;
-        width: 44px;
-        height: 44px;
+        width: 42px;
+        height: 42px;
         place-items: center;
         border: 1px solid var(--accent-ring);
         border-radius: 13px;
@@ -528,14 +683,48 @@
         color: var(--lime);
       }
 
-      .dl .ic svg { width: 21px; height: 21px; }
+      .dl .ic svg { width: 20px; height: 20px; }
 
-      .dl h3 { margin: 0 0 3px; font-size: 1.05rem; letter-spacing: -0.025em; }
+      .dl h3 { margin: 0 0 2px; font-size: 1rem; letter-spacing: -0.02em; }
 
-      .dl p { margin: 0; color: var(--dim); font-size: 0.87rem; }
+      .dl p { margin: 0; color: var(--dim); font-size: 0.84rem; }
 
+      /* ================= nasıl çalışılır ================= */
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 20px;
+      }
+
+      .step {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .step span {
+        display: inline-grid;
+        min-width: 30px;
+        height: 30px;
+        margin-bottom: 16px;
+        place-items: center;
+        border-radius: 9px;
+        background: var(--surface-3);
+        color: var(--violet);
+        font-size: 0.8rem;
+        font-weight: 750;
+      }
+
+      .step h3 { margin: 0 0 6px; font-size: 1.1rem; letter-spacing: -0.03em; }
+
+      .step p { margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.55; }
+
+      /* ================= alt bilgi ================= */
       footer {
-        margin-top: 96px;
+        margin-top: 92px;
         padding: 22px 0 34px;
         border-top: 1px solid var(--line);
         color: var(--dim);
@@ -544,44 +733,7 @@
 
       .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
 
-      /* ================= premium katman ================= */
       ::selection { background: color-mix(in srgb, var(--blue) 22%, transparent); }
-
-      h1, h2, h3 { text-wrap: balance; }
-
-      h1 span {
-        background: linear-gradient(92deg, var(--blue), var(--violet));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-
-      .hero { position: relative; isolation: isolate; }
-
-      .hero::before {
-        position: absolute;
-        z-index: -1;
-        inset: -60px 0 auto 0;
-        height: 560px;
-        background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1.2px);
-        background-size: 22px 22px;
-        -webkit-mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
-        mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
-        content: "";
-        pointer-events: none;
-      }
-
-      .hero-card {
-        background:
-          linear-gradient(180deg, color-mix(in srgb, var(--blue) 7%, transparent), transparent 42%),
-          var(--surface);
-      }
-
-      .area { transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease; }
-
-      .area:hover { border-color: color-mix(in srgb, var(--violet) 40%, var(--line)); box-shadow: var(--shadow); transform: translateY(-2px); }
-
-      .button:active, .icon-btn:active { transform: translateY(0) scale(0.985); }
 
       .js .reveal {
         opacity: 0;
@@ -591,24 +743,27 @@
 
       .js .reveal.in { opacity: 1; transform: none; }
 
-      @media (max-width: 860px) {
-        .hero { grid-template-columns: 1fr; gap: 44px; }
-        .dl-grid { grid-template-columns: 1fr; }
-        .areas { grid-template-columns: 1fr; }
-        .area { min-height: auto; }
-        .area-number { margin-bottom: 24px; }
+      /* ================= duyarlılık ================= */
+      @media (max-width: 1000px) {
+        .header-nav { display: none; }
+      }
+
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; gap: 34px; }
+        .steps { grid-template-columns: 1fr; }
       }
 
       @media (max-width: 760px) {
+        /* dar ekranda ders listesi hemen aramanın altında başlasın */
+        .latest { display: none; }
         .shell { width: min(100% - 28px, 560px); }
-        main { padding: 48px 0 72px; }
-        h1 { font-size: clamp(2.8rem, 15vw, 4.6rem); }
-        .hero-card { min-height: 300px; }
-        .section { margin-top: 72px; }
+        main { padding: 36px 0 64px; }
+        .section { margin-top: 64px; }
         .section-heading { display: block; }
         .section-heading p { margin-top: 10px; text-align: left; }
-        .lesson { grid-template-columns: auto minmax(0, 1fr); gap: 16px; padding: 18px; }
-        .lesson .go { display: none; }
+        .search kbd { display: none; }
+        .search input { padding-right: 18px; }
+        .grid { grid-template-columns: 1fr; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -632,17 +787,23 @@
   <body>
     <header class="site-header">
       <div class="shell header-inner">
-        <a class="brand" href="/" aria-label="Dersler ana sayfa">
+        <a class="brand" href="index.html" aria-label="Dersler ana sayfa">
           <span class="brand-mark" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" />
               <path d="M4 5.5v16M8 7h8M8 11h7" />
             </svg>
           </span>
-          <span>Dersler<small>perinet</small></span>
+          <span>Dersler<small>fizik</small></span>
         </a>
+
+        <nav class="header-nav" aria-label="Bölümler">
+          <a class="nav-link" href="#dersler">Dersler</a>
+          <a class="nav-link" href="#sunumlar">Sunumlar</a>
+          <a class="nav-link" href="#nasil">Nasıl çalışır?</a>
+        </nav>
+
         <div class="header-tools">
-          <a class="header-link" href="#dersler">Dersler</a>
           <button class="icon-btn" type="button" id="theme-toggle" aria-label="Koyu temaya geç">
             <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
               <circle cx="12" cy="12" r="4" />
@@ -660,108 +821,166 @@
       <section class="hero" aria-labelledby="page-title">
         <div>
           <p class="eyebrow">Öğrenme alanı</p>
-          <h1 id="page-title">Daha iyi öğrenmek için <span>yer aç.</span></h1>
+          <h1 id="page-title">Fiziği <span>deneyerek</span> öğren.</h1>
           <p class="lead">
-            Dersler, kısa notlar ve güvenilir kaynaklar için sade bir başlangıç noktası.
-            İçerikler zamanla burada birikecek.
+            Her ders tek sayfa: konu anlatımı, dokunup oynadığın laboratuvarlar,
+            canlı grafikler ve hızlı test. Aradığın konuyu yaz ya da aşağıdan seç.
           </p>
-          <div class="cta-row">
-            <a class="button" href="newton-yasalari.html">
-              Newton'un hareket yasaları
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </a>
-            <a class="button ghost" href="#dersler">Tüm dersler</a>
+
+          <form class="search" role="search" id="search-form" onsubmit="return false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.6-3.6" />
+            </svg>
+            <input id="q" type="search" autocomplete="off"
+              placeholder="Ders ara: serbest düşme, eğik atış, kuvvet…"
+              aria-label="Derslerde ve sunumlarda ara" />
+            <kbd aria-hidden="true">/</kbd>
+          </form>
+
+          <div class="filters" id="filters" role="group" aria-label="Konu filtresi">
+            <button type="button" data-unit="all" aria-pressed="true">Tümü</button>
+            <button type="button" data-unit="kinematik" aria-pressed="false">Kinematik</button>
+            <button type="button" data-unit="dinamik" aria-pressed="false">Dinamik</button>
           </div>
         </div>
 
-        <aside class="hero-card" aria-label="Dersler durumu">
-          <span class="card-label">Alan 01 / hazırlık</span>
-          <h2>Dersler</h2>
-          <p>Konuları, ilerlemeyi ve öğrenme ritmini tek yerde toplamak için.</p>
+        <aside class="latest" aria-labelledby="latest-title">
+          <span class="card-label">Son eklenen</span>
+          <h2 id="latest-title">Newton'un hareket yasaları</h2>
+          <p>Kuvvet laboratuvarı, serbest cisim diyagramı, etki–tepki arabaları ve asansörde görünen ağırlık.</p>
+          <a class="button" href="newton-yasalari.html">
+            Derse git
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
           <div class="card-footer">
-            <span class="status">Açık</span>
-            <span>Üç ders yayında</span>
+            <span class="status">3 ders yayında</span>
+            <span>Fizik · 9–11. sınıf</span>
           </div>
         </aside>
       </section>
 
       <section class="section reveal" id="dersler" aria-labelledby="lessons-title">
         <div class="section-heading">
-          <h2 id="lessons-title">Yayındaki dersler</h2>
-          <p>Konu anlatımı ve etkileşimli deneyler bir arada.</p>
+          <h2 id="lessons-title">Dersler</h2>
+          <p id="result-count" aria-live="polite"><b>3 ders</b> · 12 etkileşimli bölüm · 3 sunum</p>
         </div>
 
-        <a class="lesson" href="serbest-dusme.html">
-          <span class="mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="5" r="2.6" />
-              <path d="M12 10v5M9.5 20.5 12 15l2.5 5.5" />
-              <path d="M4 3v3M20 3v3" opacity=".5" />
-            </svg>
-          </span>
-          <span>
-            <span class="lesson-tag">Fizik · Kinematik</span>
-            <h3>Serbest düşme</h3>
-            <p>Düşme laboratuvarı, tüy–bilye deneyi, 1 : 3 : 5 kuralı, cetvelle tepki süresi ve konu anlatımı.</p>
-          </span>
-          <span class="go" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </span>
-        </a>
+        <div class="grid" id="lesson-grid">
+          <article class="lesson" data-unit="kinematik"
+            data-tags="serbest düşme kinematik yerçekimi g ivme düşme süresi tüy bilye vakum 1:3:5 cetvel tepki süresi düşey atış limit hız galileo apollo">
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="2.6" />
+                <path d="M12 10v5M9.5 20.5 12 15l2.5 5.5" />
+                <path d="M4 3v3M20 3v3" opacity=".5" />
+              </svg>
+            </span>
+            <span class="tag">Fizik · Kinematik</span>
+            <h3><a href="serbest-dusme.html">Serbest düşme</a></h3>
+            <p>Hava direnci yokken her cisim aynı ivmeyle düşer. Düşme laboratuvarı, tüy–bilye deneyi ve cetvelle tepki süresi ölçümü.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>x–t · v–t · a–t</li>
+              <li>1 : 3 : 5 kuralı</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Derse git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/serbest-dusme.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
 
-        <a class="lesson alt" href="iki-boyutta-hareket.html">
-          <span class="mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 20c1.8-9.5 15.4-9.5 17.2 0" />
-              <path d="M2 20.5h20" opacity=".45" />
-              <circle cx="11.6" cy="12.9" r="1.8" fill="currentColor" stroke="none" />
-            </svg>
-          </span>
-          <span>
-            <span class="lesson-tag">Fizik · Kinematik</span>
-            <h3>İki boyutta sabit ivmeli hareket</h3>
-            <p>Atış laboratuvarı, bağımsızlık ilkesi deneyi, menzil–açı karşılaştırması, hedef vurma oyunu ve konu anlatımı.</p>
-          </span>
-          <span class="go" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </span>
-        </a>
+          <article class="lesson" data-unit="kinematik" style="--tone: var(--violet)"
+            data-tags="iki boyutta sabit ivmeli hareket atış hareketi yatay atış eğik atış menzil parabol bağımsızlık ilkesi tümler açı hedef vurma yörünge bileşen vektör">
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 20c1.8-9.5 15.4-9.5 17.2 0" />
+                <path d="M2 20.5h20" opacity=".45" />
+                <circle cx="11.6" cy="12.9" r="1.8" fill="currentColor" stroke="none" />
+              </svg>
+            </span>
+            <span class="tag">Fizik · Kinematik</span>
+            <h3><a href="iki-boyutta-hareket.html">İki boyutta sabit ivmeli hareket</a></h3>
+            <p>Yatayda sabit hız, düşeyde g ivmesi. Atış laboratuvarı, menzil–açı karşılaştırması ve hedef vurma oyunu.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>4 canlı grafik</li>
+              <li>Hedef vurma oyunu</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Derse git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/iki-boyutta-hareket.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
 
-        <a class="lesson alt2" href="newton-yasalari.html">
-          <span class="mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="10" width="9" height="8" rx="1.5" />
-              <path d="M12.5 14h7M17 11.5 19.5 14 17 16.5" />
-              <path d="M2 18.5h20" opacity=".5" />
-            </svg>
-          </span>
-          <span>
-            <span class="lesson-tag">Fizik · Dinamik</span>
-            <h3>Newton'un hareket yasaları</h3>
-            <p>Kuvvet laboratuvarı, serbest cisim diyagramı, eylemsizlik deneyi, etki–tepki arabaları, asansörde görünen ağırlık ve konu anlatımı.</p>
-          </span>
-          <span class="go" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </span>
-        </a>
+          <article class="lesson" data-unit="dinamik" style="--tone: var(--lime)"
+            data-tags="newton hareket yasaları dinamik kuvvet net kuvvet eylemsizlik atalet etki tepki sürtünme serbest cisim diyagramı asansör normal kuvvet ağırlık kütle">
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="10" width="9" height="8" rx="1.5" />
+                <path d="M12.5 14h7M17 11.5 19.5 14 17 16.5" />
+                <path d="M2 18.5h20" opacity=".5" />
+              </svg>
+            </span>
+            <span class="tag">Fizik · Dinamik</span>
+            <h3><a href="newton-yasalari.html">Newton'un hareket yasaları</a></h3>
+            <p>Hareketi değiştiren tek şey net kuvvettir. Kuvvet laboratuvarı, etki–tepki arabaları ve asansörde görünen ağırlık.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>Serbest cisim diyagramı</li>
+              <li>Asansör deneyi</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Derse git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/newton-yasalari.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <p class="empty" id="empty" hidden>
+          Aramana uyan ders bulunamadı.
+          <button type="button" id="clear-search">Aramayı temizle</button>
+        </p>
       </section>
 
       <section class="section reveal" id="sunumlar" aria-labelledby="decks-title">
         <div class="section-heading">
           <h2 id="decks-title">Sunumlar</h2>
-          <p>Sınıfta kullanmak için, her biri 14 slaytlık ve konuşmacı notlu PowerPoint dosyaları.</p>
+          <p>Sınıfta kullanmak için: her biri 14 slayt, konuşmacı notlu PowerPoint.</p>
         </div>
 
-        <div class="dl-grid">
-          <a class="dl" href="sunum/serbest-dusme.pptx" download>
+        <div class="dl-grid" id="deck-grid">
+          <a class="dl" href="sunum/serbest-dusme.pptx" download data-unit="kinematik"
+            data-tags="serbest düşme sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
@@ -773,7 +992,8 @@
             </span>
           </a>
 
-          <a class="dl" href="sunum/iki-boyutta-hareket.pptx" download>
+          <a class="dl" href="sunum/iki-boyutta-hareket.pptx" download data-unit="kinematik"
+            data-tags="iki boyutta sabit ivmeli hareket atış sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
@@ -785,7 +1005,8 @@
             </span>
           </a>
 
-          <a class="dl" href="sunum/newton-yasalari.pptx" download>
+          <a class="dl" href="sunum/newton-yasalari.pptx" download data-unit="dinamik"
+            data-tags="newton hareket yasaları kuvvet sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
@@ -793,33 +1014,33 @@
             </span>
             <span>
               <h3>Newton'un hareket yasaları</h3>
-              <p>14 slayt · PPTX</p>
+              <p>14 slayt · PPTX · 0,5 MB</p>
             </span>
           </a>
         </div>
       </section>
 
-      <section class="section reveal" id="baslangic" aria-labelledby="areas-title">
+      <section class="section reveal" id="nasil" aria-labelledby="how-title">
         <div class="section-heading">
-          <h2 id="areas-title">Başlangıç için alanlar</h2>
-          <p>Bu iskelet, yeni içerik ve özelliklerle büyümeye hazır.</p>
+          <h2 id="how-title">Her ders nasıl çalışır?</h2>
+          <p>Üç sayfa da aynı düzende: önce oku, sonra dene, sonunda ölç.</p>
         </div>
 
-        <div class="areas">
-          <article class="area">
-            <span class="area-number">01</span>
-            <h3>Dersler</h3>
-            <p>Çalışılacak konular ve ders akışları için ana alan.</p>
+        <div class="steps">
+          <article class="step">
+            <span>01</span>
+            <h3>Konu anlatımını aç</h3>
+            <p>Tanımlar, formül türetmeleri, grafik yorumu, çözümlü örnekler ve sık yapılan hatalar dokuz başlık hâlinde tek pencerede.</p>
           </article>
-          <article class="area">
-            <span class="area-number">02</span>
-            <h3>Notlar</h3>
-            <p>Kısa özetleri ve kişisel öğrenme notlarını düzenlemek için.</p>
+          <article class="step">
+            <span>02</span>
+            <h3>Laboratuvarda dene</h3>
+            <p>Değerleri kendin ayarla, animasyonu başlat; grafikler ve okumalar sen izlerken canlı çizilir. Klavye kısayolları da var.</p>
           </article>
-          <article class="area">
-            <span class="area-number">03</span>
-            <h3>Kaynaklar</h3>
-            <p>Tekrar dönülecek bağlantılar ve yardımcı materyaller için.</p>
+          <article class="step">
+            <span>03</span>
+            <h3>Testle kontrol et</h3>
+            <p>Beş soruluk hızlı kontrol, anında geri bildirim ve her soru için nedenini anlatan kısa açıklama.</p>
           </article>
         </div>
       </section>
@@ -828,36 +1049,144 @@
     <footer>
       <div class="shell footer-inner">
         <span>dersler.perinet.org</span>
-        <span>Yeni bir başlangıç.</span>
+        <span>Fizik · üç ders, üç sunum</span>
       </div>
     </footer>
+
     <script>
       (function () {
+        "use strict";
+
         var root = document.documentElement;
         root.classList.add("js");
-        var targets = document.querySelectorAll(".reveal");
+
+        /* ---- belirme ---- */
         var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var targets = document.querySelectorAll(".reveal");
+        var i;
         if (!("IntersectionObserver" in window) || reduced) {
-          for (var i = 0; i < targets.length; i++) targets[i].classList.add("in");
+          for (i = 0; i < targets.length; i++) targets[i].classList.add("in");
         } else {
           var io = new IntersectionObserver(function (entries) {
             for (var k = 0; k < entries.length; k++) {
-              if (entries[k].isIntersecting) { entries[k].target.classList.add("in"); io.unobserve(entries[k].target); }
+              if (entries[k].isIntersecting) {
+                entries[k].target.classList.add("in");
+                io.unobserve(entries[k].target);
+              }
             }
           }, { threshold: 0.06, rootMargin: "0px 0px -5% 0px" });
-          for (var j = 0; j < targets.length; j++) io.observe(targets[j]);
+          for (i = 0; i < targets.length; i++) io.observe(targets[i]);
         }
 
+        /* ---- arama ve filtre ---- */
+        var input = document.getElementById("q");
+        var filters = document.getElementById("filters");
+        var lessons = [].slice.call(document.querySelectorAll("#lesson-grid .lesson"));
+        var decks = [].slice.call(document.querySelectorAll("#deck-grid .dl"));
+        var countEl = document.getElementById("result-count");
+        var emptyEl = document.getElementById("empty");
+        var unit = "all";
+
+        /* türkçe karakterleri katlayarak arama: "dusme" → "düşme" */
+        var MAP = { "ı": "i", "İ": "i", "ş": "s", "ğ": "g", "ü": "u", "ö": "o", "ç": "c", "â": "a", "î": "i", "û": "u" };
+        function fold(s) {
+          s = (s || "").replace(/[ıİşğüöçâîû]/g, function (c) { return MAP[c] || c; });
+          return s.toLowerCase().replace(/\s+/g, " ").trim();
+        }
+
+        function haystack(el) {
+          if (!el.__hay) {
+            el.__hay = fold((el.dataset.tags || "") + " " + el.textContent);
+          }
+          return el.__hay;
+        }
+
+        function matches(el, q) {
+          if (unit !== "all" && el.dataset.unit !== unit) return false;
+          if (!q) return true;
+          var hay = haystack(el);
+          var words = q.split(" ");
+          for (var k = 0; k < words.length; k++) {
+            if (hay.indexOf(words[k]) === -1) return false;
+          }
+          return true;
+        }
+
+        function apply() {
+          var q = fold(input.value);
+          var shown = 0, deckShown = 0;
+          lessons.forEach(function (el) {
+            var ok = matches(el, q);
+            el.hidden = !ok;
+            if (ok) shown++;
+          });
+          decks.forEach(function (el) {
+            var ok = matches(el, q);
+            el.hidden = !ok;
+            if (ok) deckShown++;
+          });
+          emptyEl.hidden = shown > 0;
+          var deckSection = document.getElementById("sunumlar");
+          deckSection.hidden = deckShown === 0;
+          if (!q && unit === "all") {
+            countEl.innerHTML = "<b>3 ders</b> · 12 etkileşimli bölüm · 3 sunum";
+          } else {
+            countEl.innerHTML = "<b>" + shown + " ders</b> gösteriliyor" +
+              (deckShown ? " · " + deckShown + " sunum" : "");
+          }
+        }
+
+        input.addEventListener("input", apply);
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") { input.value = ""; apply(); }
+        });
+
+        filters.addEventListener("click", function (e) {
+          var b = e.target.closest("button");
+          if (!b || !filters.contains(b)) return;
+          var all = filters.querySelectorAll("button");
+          for (var k = 0; k < all.length; k++) {
+            all[k].setAttribute("aria-pressed", all[k] === b ? "true" : "false");
+          }
+          unit = b.dataset.unit;
+          apply();
+        });
+
+        document.getElementById("clear-search").addEventListener("click", function () {
+          input.value = "";
+          unit = "all";
+          var all = filters.querySelectorAll("button");
+          for (var k = 0; k < all.length; k++) {
+            all[k].setAttribute("aria-pressed", all[k].dataset.unit === "all" ? "true" : "false");
+          }
+          apply();
+          input.focus();
+        });
+
+        /* "/" tuşu aramaya odaklanır */
+        window.addEventListener("keydown", function (e) {
+          if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+          var t = e.target;
+          if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+          e.preventDefault();
+          input.focus();
+          input.select();
+        });
+
+        apply();
+
+        /* ---- tema ---- */
         var btn = document.getElementById("theme-toggle");
         var meta = document.querySelector('meta[name="theme-color"]');
-        if (!btn) return;
-        btn.addEventListener("click", function () {
-          var mode = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-          root.setAttribute("data-theme", mode);
-          if (meta) meta.setAttribute("content", mode === "dark" ? "#0b1020" : "#f3f5fc");
-          btn.setAttribute("aria-label", mode === "dark" ? "Açık temaya geç" : "Koyu temaya geç");
-          try { localStorage.setItem("dersler-tema", mode); } catch (e) {}
-        });
+        if (btn) {
+          btn.addEventListener("click", function () {
+            var mode = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            root.setAttribute("data-theme", mode);
+            if (meta) meta.setAttribute("content", mode === "dark" ? "#0b1020" : "#f3f5fc");
+            btn.setAttribute("aria-label", mode === "dark" ? "Açık temaya geç" : "Koyu temaya geç");
+            try { localStorage.setItem("dersler-tema", mode); } catch (e) {}
+          });
+        }
       })();
     </script>
   </body>

@@ -80,7 +80,7 @@ animasyonlar tema değişiminde yeniden çizilir. Sahneye tıklayarak ya da
 
 ```
 dist/                        yayınlanan kök (nginx bunu sunar)
-  index.html                 giriş sayfası
+  index.html                 giriş sayfası (arama + konu filtresi)
   serbest-dusme.html         serbest düşme dersi
   iki-boyutta-hareket.html   iki boyutta sabit ivmeli hareket dersi
   newton-yasalari.html       Newton'un hareket yasaları dersi
