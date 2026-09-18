@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#f3f5fc" />
     <meta
       name="description"
-      content="Fizik dersleri: serbest düşme, iki boyutta sabit ivmeli hareket ve Newton'un hareket yasaları. Her ders tek sayfada; konu anlatımı, etkileşimli laboratuvarlar, canlı grafikler, test ve indirilebilir sunum."
+      content="Fizik · Kuvvet ve Hareket ünitesi: Newton'un hareket yasaları, serbest düşme ve iki boyutta sabit ivmeli hareket. Her konu tek sayfada; konu anlatımı, etkileşimli laboratuvarlar, canlı grafikler, test ve indirilebilir sunum."
     />
-    <title>Dersler — Fizik öğrenme alanı</title>
+    <title>Dersler — Fizik · Kuvvet ve Hareket</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b9ee63'/%3E%3Cpath d='M18 20a6 6 0 0 1 6-6h22v32H24a6 6 0 0 0-6 6z' fill='none' stroke='%2316260a' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M18 20v32M26 22h16M26 30h13' fill='none' stroke='%2316260a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -496,6 +496,68 @@
         margin-top: 20px;
       }
 
+      .unit {
+        margin-top: 20px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--surface-2);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .unit-head {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 4px 4px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .unit-no {
+        flex: none;
+        display: grid;
+        width: 54px;
+        height: 54px;
+        place-items: center;
+        border: 1px solid var(--accent-ring);
+        border-radius: 16px;
+        background: var(--accent-ring);
+        color: var(--lime);
+        font-size: 1.02rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .unit-title { flex: 1 1 auto; min-width: 0; }
+
+      .unit-title .tag {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--lime);
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .unit-title h3 { margin: 0 0 5px; font-size: 1.5rem; letter-spacing: -0.04em; line-height: 1.15; }
+
+      .unit-title p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+
+      .unit-meta {
+        flex: none;
+        padding: 9px 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+
+      .unit-meta b { color: var(--ink); font-weight: 750; }
+
+      .unit .grid { margin-top: 18px; }
+
       .lesson {
         --tone: var(--blue);
         position: relative;
@@ -520,6 +582,16 @@
       .lesson:focus-within {
         border-color: var(--tone);
         box-shadow: var(--shadow);
+      }
+
+      .lesson .no {
+        position: absolute;
+        top: 22px;
+        right: 24px;
+        color: var(--dim);
+        font-size: 0.78rem;
+        font-weight: 750;
+        letter-spacing: 0.1em;
       }
 
       .lesson .mark {
@@ -754,8 +826,11 @@
       }
 
       @media (max-width: 760px) {
-        /* dar ekranda ders listesi hemen aramanın altında başlasın */
+        /* dar ekranda konu listesi hemen aramanın altında başlasın */
         .latest { display: none; }
+        .unit { padding: 16px; }
+        .unit-head { flex-wrap: wrap; gap: 14px; }
+        .unit-meta { order: 3; }
         .shell { width: min(100% - 28px, 560px); }
         main { padding: 36px 0 64px; }
         .section { margin-top: 64px; }
@@ -798,7 +873,7 @@
         </a>
 
         <nav class="header-nav" aria-label="Bölümler">
-          <a class="nav-link" href="#dersler">Dersler</a>
+          <a class="nav-link" href="#dersler">Üniteler</a>
           <a class="nav-link" href="#sunumlar">Sunumlar</a>
           <a class="nav-link" href="#nasil">Nasıl çalışır?</a>
         </nav>
@@ -823,8 +898,8 @@
           <p class="eyebrow">Öğrenme alanı</p>
           <h1 id="page-title">Fiziği <span>deneyerek</span> öğren.</h1>
           <p class="lead">
-            Her ders tek sayfa: konu anlatımı, dokunup oynadığın laboratuvarlar,
-            canlı grafikler ve hızlı test. Aradığın konuyu yaz ya da aşağıdan seç.
+            Kuvvet ve Hareket ünitesi, üç konu hâlinde. Her konu tek sayfa: konu anlatımı,
+            dokunup oynadığın laboratuvarlar, canlı grafikler ve hızlı test.
           </p>
 
           <form class="search" role="search" id="search-form" onsubmit="return false">
@@ -833,8 +908,8 @@
               <path d="m20 20-3.6-3.6" />
             </svg>
             <input id="q" type="search" autocomplete="off"
-              placeholder="Ders ara: serbest düşme, eğik atış, kuvvet…"
-              aria-label="Derslerde ve sunumlarda ara" />
+              placeholder="Konu ara: kuvvet, serbest düşme, eğik atış…"
+              aria-label="Konularda ve sunumlarda ara" />
             <kbd aria-hidden="true">/</kbd>
           </form>
 
@@ -846,31 +921,76 @@
         </div>
 
         <aside class="latest" aria-labelledby="latest-title">
-          <span class="card-label">Son eklenen</span>
-          <h2 id="latest-title">Newton'un hareket yasaları</h2>
-          <p>Kuvvet laboratuvarı, serbest cisim diyagramı, etki–tepki arabaları ve asansörde görünen ağırlık.</p>
-          <a class="button" href="newton-yasalari.html">
-            Derse git
+          <span class="card-label">Ünite 01</span>
+          <h2 id="latest-title">Kuvvet ve Hareket</h2>
+          <p>Newton'un hareket yasaları, serbest düşme ve iki boyutta sabit ivmeli hareket — üç konu, on iki etkileşimli deney.</p>
+          <a class="button" href="#kuvvet-ve-hareket">
+            Konulara git
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
           </a>
           <div class="card-footer">
-            <span class="status">3 ders yayında</span>
-            <span>Fizik · 9–11. sınıf</span>
+            <span class="status">3 konu yayında</span>
+            <span>Fizik</span>
           </div>
         </aside>
       </section>
 
-      <section class="section reveal" id="dersler" aria-labelledby="lessons-title">
+      <section class="section reveal" id="dersler" aria-labelledby="units-title">
         <div class="section-heading">
-          <h2 id="lessons-title">Dersler</h2>
-          <p id="result-count" aria-live="polite"><b>3 ders</b> · 12 etkileşimli bölüm · 3 sunum</p>
+          <h2 id="units-title">Üniteler</h2>
+          <p id="result-count" aria-live="polite"><b>1 ünite</b> · 3 konu · 12 etkileşimli bölüm</p>
         </div>
 
-        <div class="grid" id="lesson-grid">
+        <article class="unit" id="kuvvet-ve-hareket" aria-labelledby="unit-1-title">
+          <div class="unit-head">
+            <span class="unit-no" aria-hidden="true">01</span>
+            <div class="unit-title">
+              <span class="tag">Fizik · Ünite</span>
+              <h3 id="unit-1-title">Kuvvet ve Hareket</h3>
+              <p>Önce hareketi değiştiren kuvvet, sonra sabit ivmeli hareketin bir ve iki boyutlu hâli. Konular müfredattaki sırayla.</p>
+            </div>
+            <span class="unit-meta"><b>3</b> konu</span>
+          </div>
+
+          <div class="grid" id="lesson-grid">
+          <article class="lesson" data-unit="dinamik" style="--tone: var(--lime)"
+            data-tags="newton hareket yasaları dinamik kuvvet net kuvvet eylemsizlik atalet etki tepki sürtünme serbest cisim diyagramı asansör normal kuvvet ağırlık kütle">
+            <span class="no" aria-hidden="true">01</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="10" width="9" height="8" rx="1.5" />
+                <path d="M12.5 14h7M17 11.5 19.5 14 17 16.5" />
+                <path d="M2 18.5h20" opacity=".5" />
+              </svg>
+            </span>
+            <span class="tag">Dinamik</span>
+            <h3><a href="newton-yasalari.html">Newton'un hareket yasaları</a></h3>
+            <p>Hareketi değiştiren tek şey net kuvvettir. Kuvvet laboratuvarı, etki–tepki arabaları ve asansörde görünen ağırlık.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>Serbest cisim diyagramı</li>
+              <li>Asansör deneyi</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Konuya git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/newton-yasalari.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+
           <article class="lesson" data-unit="kinematik"
-            data-tags="serbest düşme kinematik yerçekimi g ivme düşme süresi tüy bilye vakum 1:3:5 cetvel tepki süresi düşey atış limit hız galileo apollo">
+            data-tags="serbest düşme kinematik bir boyutta sabit ivmeli hareket yerçekimi g ivme düşme süresi tüy bilye vakum 1:3:5 cetvel tepki süresi düşey atış limit hız galileo apollo">
+            <span class="no" aria-hidden="true">02</span>
             <span class="mark" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="5" r="2.6" />
@@ -878,7 +998,7 @@
                 <path d="M4 3v3M20 3v3" opacity=".5" />
               </svg>
             </span>
-            <span class="tag">Fizik · Kinematik</span>
+            <span class="tag">Kinematik · bir boyut</span>
             <h3><a href="serbest-dusme.html">Serbest düşme</a></h3>
             <p>Hava direnci yokken her cisim aynı ivmeyle düşer. Düşme laboratuvarı, tüy–bilye deneyi ve cetvelle tepki süresi ölçümü.</p>
             <ul class="meta">
@@ -887,7 +1007,7 @@
               <li>1 : 3 : 5 kuralı</li>
             </ul>
             <div class="foot">
-              <span class="go">Derse git
+              <span class="go">Konuya git
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg>
@@ -903,6 +1023,7 @@
 
           <article class="lesson" data-unit="kinematik" style="--tone: var(--violet)"
             data-tags="iki boyutta sabit ivmeli hareket atış hareketi yatay atış eğik atış menzil parabol bağımsızlık ilkesi tümler açı hedef vurma yörünge bileşen vektör">
+            <span class="no" aria-hidden="true">03</span>
             <span class="mark" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 20c1.8-9.5 15.4-9.5 17.2 0" />
@@ -910,7 +1031,7 @@
                 <circle cx="11.6" cy="12.9" r="1.8" fill="currentColor" stroke="none" />
               </svg>
             </span>
-            <span class="tag">Fizik · Kinematik</span>
+            <span class="tag">Kinematik · iki boyut</span>
             <h3><a href="iki-boyutta-hareket.html">İki boyutta sabit ivmeli hareket</a></h3>
             <p>Yatayda sabit hız, düşeyde g ivmesi. Atış laboratuvarı, menzil–açı karşılaştırması ve hedef vurma oyunu.</p>
             <ul class="meta">
@@ -919,7 +1040,7 @@
               <li>Hedef vurma oyunu</li>
             </ul>
             <div class="foot">
-              <span class="go">Derse git
+              <span class="go">Konuya git
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg>
@@ -932,53 +1053,35 @@
               </a>
             </div>
           </article>
+          </div>
 
-          <article class="lesson" data-unit="dinamik" style="--tone: var(--lime)"
-            data-tags="newton hareket yasaları dinamik kuvvet net kuvvet eylemsizlik atalet etki tepki sürtünme serbest cisim diyagramı asansör normal kuvvet ağırlık kütle">
-            <span class="mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="10" width="9" height="8" rx="1.5" />
-                <path d="M12.5 14h7M17 11.5 19.5 14 17 16.5" />
-                <path d="M2 18.5h20" opacity=".5" />
-              </svg>
-            </span>
-            <span class="tag">Fizik · Dinamik</span>
-            <h3><a href="newton-yasalari.html">Newton'un hareket yasaları</a></h3>
-            <p>Hareketi değiştiren tek şey net kuvvettir. Kuvvet laboratuvarı, etki–tepki arabaları ve asansörde görünen ağırlık.</p>
-            <ul class="meta">
-              <li>4 etkileşimli deney</li>
-              <li>Serbest cisim diyagramı</li>
-              <li>Asansör deneyi</li>
-            </ul>
-            <div class="foot">
-              <span class="go">Derse git
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </span>
-              <a class="pill" href="sunum/newton-yasalari.pptx" download>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
-                </svg>
-                Sunum
-              </a>
-            </div>
-          </article>
-        </div>
-
-        <p class="empty" id="empty" hidden>
-          Aramana uyan ders bulunamadı.
-          <button type="button" id="clear-search">Aramayı temizle</button>
-        </p>
+          <p class="empty" id="empty" hidden>
+            Aramana uyan konu bulunamadı.
+            <button type="button" id="clear-search">Aramayı temizle</button>
+          </p>
+        </article>
       </section>
 
       <section class="section reveal" id="sunumlar" aria-labelledby="decks-title">
         <div class="section-heading">
           <h2 id="decks-title">Sunumlar</h2>
-          <p>Sınıfta kullanmak için: her biri 14 slayt, konuşmacı notlu PowerPoint.</p>
+          <p>Ünitenin üç konusu için, her biri 14 slayt ve konuşmacı notlu PowerPoint.</p>
         </div>
 
         <div class="dl-grid" id="deck-grid">
+          <a class="dl" href="sunum/newton-yasalari.pptx" download data-unit="dinamik"
+            data-tags="newton hareket yasaları kuvvet sunum pptx">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Newton'un hareket yasaları</h3>
+              <p>Konu 01 · 14 slayt · PPTX</p>
+            </span>
+          </a>
+
           <a class="dl" href="sunum/serbest-dusme.pptx" download data-unit="kinematik"
             data-tags="serbest düşme sunum pptx">
             <span class="ic" aria-hidden="true">
@@ -988,7 +1091,7 @@
             </span>
             <span>
               <h3>Serbest düşme</h3>
-              <p>14 slayt · PPTX · 0,5 MB</p>
+              <p>Konu 02 · 14 slayt · PPTX</p>
             </span>
           </a>
 
@@ -1001,20 +1104,7 @@
             </span>
             <span>
               <h3>İki boyutta sabit ivmeli hareket</h3>
-              <p>14 slayt · PPTX · 0,6 MB</p>
-            </span>
-          </a>
-
-          <a class="dl" href="sunum/newton-yasalari.pptx" download data-unit="dinamik"
-            data-tags="newton hareket yasaları kuvvet sunum pptx">
-            <span class="ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
-              </svg>
-            </span>
-            <span>
-              <h3>Newton'un hareket yasaları</h3>
-              <p>14 slayt · PPTX · 0,5 MB</p>
+              <p>Konu 03 · 14 slayt · PPTX</p>
             </span>
           </a>
         </div>
@@ -1023,7 +1113,7 @@
       <section class="section reveal" id="nasil" aria-labelledby="how-title">
         <div class="section-heading">
           <h2 id="how-title">Her ders nasıl çalışır?</h2>
-          <p>Üç sayfa da aynı düzende: önce oku, sonra dene, sonunda ölç.</p>
+          <p>Ünitedeki üç konu da aynı düzende: önce oku, sonra dene, sonunda ölç.</p>
         </div>
 
         <div class="steps">
@@ -1049,7 +1139,7 @@
     <footer>
       <div class="shell footer-inner">
         <span>dersler.perinet.org</span>
-        <span>Fizik · üç ders, üç sunum</span>
+        <span>Fizik · Kuvvet ve Hareket ünitesi</span>
       </div>
     </footer>
 
@@ -1129,9 +1219,9 @@
           var deckSection = document.getElementById("sunumlar");
           deckSection.hidden = deckShown === 0;
           if (!q && unit === "all") {
-            countEl.innerHTML = "<b>3 ders</b> · 12 etkileşimli bölüm · 3 sunum";
+            countEl.innerHTML = "<b>1 ünite</b> · 3 konu · 12 etkileşimli bölüm";
           } else {
-            countEl.innerHTML = "<b>" + shown + " ders</b> gösteriliyor" +
+            countEl.innerHTML = "<b>" + shown + " konu</b> gösteriliyor" +
               (deckShown ? " · " + deckShown + " sunum" : "");
           }
         }

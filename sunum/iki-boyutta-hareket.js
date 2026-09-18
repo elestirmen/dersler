@@ -2,13 +2,13 @@ const pptxgen = require("pptxgenjs");
 const T = require("./tema.js");
 const { C, F, W, M } = T;
 
-const p = T.deck(new pptxgen(), "İki boyutta sabit ivmeli hareket", "Fizik · Kinematik");
-const FOOT = "İki boyutta sabit ivmeli hareket · dersler.perinet.org";
+const p = T.deck(new pptxgen(), "İki boyutta sabit ivmeli hareket", "Fizik · Kuvvet ve Hareket");
+const FOOT = "Kuvvet ve Hareket · Konu 03 · İki boyutta sabit ivmeli hareket";
 const CW = W - M * 2;
 
 /* ---------- 1 · kapak ---------- */
 let s = T.dark(p);
-s.addText("FİZİK · KİNEMATİK", {
+s.addText("KUVVET VE HAREKET · KONU 03", {
   x: 0.95, y: 1.7, w: 6, h: 0.35, fontFace: F.body, fontSize: 13, bold: true,
   color: C.limeBright, charSpacing: 3, isTextBox: true, margin: 0
 });

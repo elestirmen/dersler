@@ -2,13 +2,13 @@ const pptxgen = require("pptxgenjs");
 const T = require("./tema.js");
 const { C, F, W, M } = T;
 
-const p = T.deck(new pptxgen(), "Newton'un hareket yasaları", "Fizik · Dinamik");
-const FOOT = "Newton'un hareket yasaları · dersler.perinet.org";
+const p = T.deck(new pptxgen(), "Newton'un hareket yasaları", "Fizik · Kuvvet ve Hareket");
+const FOOT = "Kuvvet ve Hareket · Konu 01 · Newton'un hareket yasaları";
 const CW = W - M * 2;
 
 /* ---------- 1 · kapak ---------- */
 let s = T.dark(p);
-s.addText("FİZİK · DİNAMİK", {
+s.addText("KUVVET VE HAREKET · KONU 01", {
   x: 0.95, y: 1.7, w: 6, h: 0.35, fontFace: F.body, fontSize: 13, bold: true,
   color: C.limeBright, charSpacing: 3, isTextBox: true, margin: 0
 });

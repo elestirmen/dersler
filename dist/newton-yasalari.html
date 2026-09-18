@@ -1320,6 +1320,53 @@
 
       .to-top svg { width: 18px; height: 18px; }
 
+      /* ================= ünite gezinmesi ================= */
+      .topic-nav {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 76px;
+      }
+
+      .topic-nav a {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        text-decoration: none;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .topic-nav a:hover {
+        border-color: var(--blue);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .topic-nav span {
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .topic-nav b { color: var(--ink); font-size: 0.95rem; font-weight: 650; letter-spacing: -0.02em; }
+
+      .topic-nav .mid { align-items: center; text-align: center; background: var(--surface-2); }
+
+      .topic-nav .next { align-items: flex-end; text-align: right; }
+
+      .topic-nav .gap { border: 0; background: none; box-shadow: none; }
+
+      .eyebrow a { text-decoration: none; }
+
+      .eyebrow a:hover { text-decoration: underline; }
+
       /* ================= duyarlılık ================= */
       @media (max-width: 1000px) {
         .header-nav { display: none; }
@@ -1402,7 +1449,7 @@
     <main class="shell">
       <section class="hero" aria-labelledby="page-title">
         <div>
-          <p class="eyebrow">Fizik · Dinamik</p>
+          <p class="eyebrow"><a href="index.html#kuvvet-ve-hareket">Kuvvet ve Hareket</a> · Konu 01</p>
           <h1 id="page-title">Newton'un <span>hareket yasaları.</span></h1>
           <p class="lead">
             Cisimler kendiliğinden hızlanmaz, yavaşlamaz, dönmez. Hareketi değiştiren
@@ -1686,11 +1733,23 @@
       </svg>
     </button>
 
+    <nav class="topic-nav shell" aria-label="Ünite içinde gezinme">
+        <span class="gap" aria-hidden="true"></span>
+        <a class="mid" href="index.html#kuvvet-ve-hareket">
+          <span>Ünite</span>
+          <b>Kuvvet ve Hareket</b>
+        </a>
+        <a class="next" href="serbest-dusme.html">
+          <span>Sonraki konu →</span>
+          <b>02 · Serbest düşme</b>
+        </a>
+    </nav>
+
     <footer>
       <div class="shell footer-inner">
         <span>dersler.perinet.org</span>
         <span><a href="sunum/newton-yasalari.pptx" download>Sunumu indir (PPTX)</a></span>
-        <span>Fizik · Newton'un hareket yasaları</span>
+        <span>Fizik · Kuvvet ve Hareket · Konu 01</span>
       </div>
     </footer>
 

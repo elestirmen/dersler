@@ -1,6 +1,7 @@
 # Dersler
 
 Etkileşimli ders anlatımları için sade, statik bir öğrenme alanı.
+İçerik **ders → ünite → konu** hiyerarşisiyle düzenlenir.
 Derleme adımı, paket bağımlılığı ve JavaScript çatısı yok: her sayfa kendi
 stilini ve betiğini taşıyan tek bir HTML dosyası.
 
@@ -8,7 +9,36 @@ stilini ve betiğini taşıyan tek bir HTML dosyası.
 
 ## İçerik
 
-### Fizik · Serbest düşme — [`dist/serbest-dusme.html`](dist/serbest-dusme.html)
+### Fizik · Kuvvet ve Hareket ünitesi
+
+Konular müfredattaki sırayla; her konu tek bir HTML dosyası ve bir sunum:
+
+| # | Konu | Sayfa | Sunum |
+|---|---|---|---|
+| 01 | Newton'un hareket yasaları | [`dist/newton-yasalari.html`](dist/newton-yasalari.html) | [`dist/sunum/newton-yasalari.pptx`](dist/sunum/newton-yasalari.pptx) |
+| 02 | Serbest düşme | [`dist/serbest-dusme.html`](dist/serbest-dusme.html) | [`dist/sunum/serbest-dusme.pptx`](dist/sunum/serbest-dusme.pptx) |
+| 03 | İki boyutta sabit ivmeli hareket | [`dist/iki-boyutta-hareket.html`](dist/iki-boyutta-hareket.html) | [`dist/sunum/iki-boyutta-hareket.pptx`](dist/sunum/iki-boyutta-hareket.pptx) |
+
+Ana sayfa üniteyi bir blok olarak gösterir, konuları numaralandırır ve arama
+kutusuyla süzer. Her konu sayfası künyesinde üniteye döner, altında önceki ve
+sonraki konuya geçiş şeridi taşır.
+
+### Konu 01 · Newton'un hareket yasaları
+
+Kuvveti ve sonucunu ölçülebilir hâle getiren dört etkileşimli bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Kuvvet laboratuvarı | Uygulanan kuvvet, kütle ve zemin (μ) ayarlanır; kutunun üzerinde **serbest cisim diyagramı** (F, f, N, G) canlı çizilir. Statik sürtünme eşiği aşılmazsa kutu kıpırdamaz. Altında **ΣF–t, a–t, v–t, x–t** grafikleri. |
+| 02 | Sürtünmeyi azaltınca | Aynı hızla itilen dört disk halı, parke, buz ve sürtünmesiz ortamda; durma mesafeleri `d = v²/(2μg)`. Sürtünmesiz şerit hiç durmaz — 1. yasanın deneysel yüzü. |
+| 03 | Etki ve tepki | İki araba birbirini iter; kuvvetler eşit, ivmeler kütleyle ters orantılı. Ayrılma hızlarının oranı kütle oranının tersidir. |
+| 04 | Asansörde görünen ağırlık | Kütle ve asansör durumu seçilir; `N = m(g + a)` ile tartının yazdığı değer değişir, serbest düşmede sıfırlanır. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı modalı net kuvvetten serbest cisim diyagramına, sürtünmeden
+asansör problemlerine kadar dokuz başlık ve dört çözümlü örnek içerir.
+
+### Konu 02 · Serbest düşme
 
 Dört etkileşimli deney, canlı grafikler ve konunun tamamını anlatan bir modal:
 
@@ -23,7 +53,7 @@ Dört etkileşimli deney, canlı grafikler ve konunun tamamını anlatan bir mod
 Konu anlatımı modalı tanımdan formül türetmelerine, grafik yorumundan çözümlü
 örneklere ve sık yapılan hatalara kadar dokuz başlık içerir.
 
-### Fizik · İki boyutta sabit ivmeli hareket — [`dist/iki-boyutta-hareket.html`](dist/iki-boyutta-hareket.html)
+### Konu 03 · İki boyutta sabit ivmeli hareket
 
 Atış hareketlerini yatay ve düşey bileşenlerine ayırarak gösteren dört
 etkileşimli bölüm:
@@ -40,30 +70,15 @@ Konu anlatımı modalı bağımsızlık ilkesinden vektörel bağıntılara, yat
 eğik atıştan yörünge denklemine, çözümlü örneklerden sık yapılan hatalara
 kadar dokuz başlık içerir.
 
-### Fizik · Newton'un hareket yasaları — [`dist/newton-yasalari.html`](dist/newton-yasalari.html)
-
-Kuvveti ve sonucunu ölçülebilir hâle getiren dört etkileşimli bölüm:
-
-| # | Bölüm | Ne yapıyor |
-|---|---|---|
-| 01 | Kuvvet laboratuvarı | Uygulanan kuvvet, kütle ve zemin (μ) ayarlanır; kutunun üzerinde **serbest cisim diyagramı** (F, f, N, G) canlı çizilir. Statik sürtünme eşiği aşılmazsa kutu kıpırdamaz. Altında **ΣF–t, a–t, v–t, x–t** grafikleri. |
-| 02 | Sürtünmeyi azaltınca | Aynı hızla itilen dört disk halı, parke, buz ve sürtünmesiz ortamda; durma mesafeleri `d = v²/(2μg)`. Sürtünmesiz şerit hiç durmaz — 1. yasanın deneysel yüzü. |
-| 03 | Etki ve tepki | İki araba birbirini iter; kuvvetler eşit, ivmeler kütleyle ters orantılı. Ayrılma hızlarının oranı kütle oranının tersidir. |
-| 04 | Asansörde görünen ağırlık | Kütle ve asansör durumu seçilir; `N = m(g + a)` ile tartının yazdığı değer değişir, serbest düşmede sıfırlanır. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
-
-Konu anlatımı modalı net kuvvetten serbest cisim diyagramına, sürtünmeden
-asansör problemlerine kadar dokuz başlık ve dört çözümlü örnek içerir.
-
 ## Sunumlar
 
 Her iki ders için, sitede indirilebilir 14 slaytlık PowerPoint dosyaları:
 
-| Sunum | Bağlantı |
-|---|---|
-| Serbest düşme | [dersler.perinet.org/sunum/serbest-dusme.pptx](https://dersler.perinet.org/sunum/serbest-dusme.pptx) |
-| İki boyutta sabit ivmeli hareket | [dersler.perinet.org/sunum/iki-boyutta-hareket.pptx](https://dersler.perinet.org/sunum/iki-boyutta-hareket.pptx) |
-| Newton'un hareket yasaları | [dersler.perinet.org/sunum/newton-yasalari.pptx](https://dersler.perinet.org/sunum/newton-yasalari.pptx) |
+| # | Sunum | Bağlantı |
+|---|---|---|
+| 01 | Newton'un hareket yasaları | [dersler.perinet.org/sunum/newton-yasalari.pptx](https://dersler.perinet.org/sunum/newton-yasalari.pptx) |
+| 02 | Serbest düşme | [dersler.perinet.org/sunum/serbest-dusme.pptx](https://dersler.perinet.org/sunum/serbest-dusme.pptx) |
+| 03 | İki boyutta sabit ivmeli hareket | [dersler.perinet.org/sunum/iki-boyutta-hareket.pptx](https://dersler.perinet.org/sunum/iki-boyutta-hareket.pptx) |
 
 Grafikler PowerPoint'in kendi grafik nesneleridir, her slaytta konuşmacı notu
 vardır. Dosyalar `sunum/*.js` betikleriyle üretilir; ayrıntılar
@@ -81,9 +96,9 @@ animasyonlar tema değişiminde yeniden çizilir. Sahneye tıklayarak ya da
 ```
 dist/                        yayınlanan kök (nginx bunu sunar)
   index.html                 giriş sayfası (arama + konu filtresi)
-  serbest-dusme.html         serbest düşme dersi
-  iki-boyutta-hareket.html   iki boyutta sabit ivmeli hareket dersi
-  newton-yasalari.html       Newton'un hareket yasaları dersi
+  newton-yasalari.html       konu 01 · Newton'un hareket yasaları
+  serbest-dusme.html         konu 02 · serbest düşme
+  iki-boyutta-hareket.html   konu 03 · iki boyutta sabit ivmeli hareket
   sunum/*.pptx               indirilebilir ders sunumları
 sunum/                       sunumların kaynağı (pptxgenjs betikleri)
   tema.js                    ortak renk, yazı tipi ve yerleşim yardımcıları
@@ -121,10 +136,12 @@ Betik NPM şifresini sorar ya da `NPM_PASS_FILE` ile dosyadan okur; Cloudflare
 token'ını `~/.config/cloudflare/token.env` içinden alır. Hiçbir sır depoda
 tutulmaz.
 
-## Yeni ders eklemek
+## Yeni konu eklemek
 
-`dist/` altına yeni bir HTML dosyası koymak ve `dist/index.html` içindeki ders
-listesine bir kart eklemek yeterli — dizin konteynere bağlı olduğu için dosya
+`dist/` altına yeni bir HTML dosyası koymak ve `dist/index.html` içindeki ilgili
+ünitenin konu ızgarasına bir kart (numarası, etiketi ve `data-tags` arama
+anahtarlarıyla) eklemek yeterli. Yeni bir ünite, `.unit` bloğunun kopyasıdır;
+konu sayfalarındaki önceki/sonraki şeridi de güncellenmelidir — dizin konteynere bağlı olduğu için dosya
 kaydedildiği anda yayında olur. Ortak tema değişkenleri, tuval yardımcıları ve
 konu anlatımı modalı her sayfanın kendi `<style>` / `<script>` bloğunda
 tanımlıdır; var olan ders sayfalarından biri başlangıç noktası olarak
