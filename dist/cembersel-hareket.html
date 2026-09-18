@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#f3f5fc" />
     <meta
       name="description"
-      content="Newton'un hareket yasaları: kuvvet laboratuvarı, serbest cisim diyagramı, eylemsizlik deneyi, etki–tepki arabaları, asansörde görünen ağırlık, canlı grafikler ve konu anlatımı."
+      content="Düzgün çembersel hareket: çember laboratuvarı, merkezcil ivme ve kuvvet, ipi kes deneyi, aynı diskte farklı yarıçaplar, virajda savrulma sınırı ve konu anlatımı."
     />
-    <title>Newton'un hareket yasaları — Dersler</title>
+    <title>Düzgün çembersel hareket — Dersler</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b9ee63'/%3E%3Cpath d='M18 20a6 6 0 0 1 6-6h22v32H24a6 6 0 0 0-6 6z' fill='none' stroke='%2316260a' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M18 20v32M26 22h16M26 30h13' fill='none' stroke='%2316260a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1424,9 +1424,9 @@
 
         <nav class="header-nav" aria-label="Bölümler">
           <a class="nav-link" href="#lab">Laboratuvar</a>
-          <a class="nav-link" href="#eylemsizlik">Eylemsizlik</a>
-          <a class="nav-link" href="#etki-tepki">Etki–tepki</a>
-          <a class="nav-link" href="#asansor">Asansör</a>
+          <a class="nav-link" href="#ipi-kes">İpi kes</a>
+          <a class="nav-link" href="#disk">Disk</a>
+          <a class="nav-link" href="#viraj">Viraj</a>
           <a class="nav-link" href="#test">Test</a>
         </nav>
 
@@ -1449,13 +1449,12 @@
     <main class="shell">
       <section class="hero" aria-labelledby="page-title">
         <div>
-          <p class="eyebrow"><a href="index.html#kuvvet-ve-hareket">Kuvvet ve Hareket</a> · Konu 03</p>
-          <h1 id="page-title">Newton'un <span>hareket yasaları.</span></h1>
+          <p class="eyebrow"><a href="index.html#kuvvet-ve-hareket">Kuvvet ve Hareket</a> · Konu 06</p>
+          <h1 id="page-title">Düzgün <span>çembersel hareket.</span></h1>
           <p class="lead">
-            Cisimler kendiliğinden hızlanmaz, yavaşlamaz, dönmez. Hareketi değiştiren
-            tek şey <b>net kuvvettir</b>. Üç yasa bu cümlenin ne anlama geldiğini,
-            ne kadarını ve kime etki ettiğini söyler. Aşağıda kuvvetleri kendin ver
-            ve sonucu ölç.
+            Sürat sabit olabilir, ama <b>hız</b> her an yön değiştiriyorsa hareket ivmelidir.
+            Bu ivme daima <b>merkeze doğrudur</b> ve onu üreten kuvvet olmadan cisim çemberde
+            kalamaz. Aşağıda ipi kes, diski döndür, virajı hızlı al.
           </p>
           <div class="cta-row">
             <button class="button" type="button" data-open-modal>
@@ -1465,7 +1464,7 @@
               </svg>
             </button>
             <a class="button ghost" href="#lab">Laboratuvara in</a>
-            <a class="button ghost" href="sunum/newton-yasalari.pptx" download>
+            <a class="button ghost" href="sunum/cembersel-hareket.pptx" download>
               Sunum (PPTX)
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
@@ -1474,22 +1473,22 @@
           </div>
 
           <ul class="facts">
-            <li>1. yasa <b>eylemsizlik</b></li>
-            <li>2. yasa <b>F = m·a</b></li>
-            <li>3. yasa <b>etki–tepki</b></li>
-            <li>Net kuvvet sıfırsa <b>ivme sıfır</b></li>
+            <li>Sürat <b>sabit</b>, hız değil</li>
+            <li>İvme <b>merkeze</b> doğru</li>
+            <li><b>a = v² / r</b></li>
+            <li>Viraj sınırı <b>√(μgr)</b></li>
           </ul>
         </div>
 
         <aside class="hero-card" aria-label="Temel bağıntılar">
           <span class="card-label">Temel bağıntılar</span>
           <ul class="formula-list">
-            <li><code>ΣF = m · a</code> <span>net kuvvet, ivmeyi belirler</span></li>
-            <li><code>G = m · g</code> <span>ağırlık: kütleye etki eden çekim</span></li>
-            <li><code>f = μ · N</code> <span>sürtünme kuvveti</span></li>
-            <li><code>F₁₂ = −F₂₁</code> <span>etki ve tepki</span></li>
+            <li><code>v = 2πr / T = ω·r</code> <span>çizgisel hız</span></li>
+            <li><code>ω = 2π / T = 2π·f</code> <span>açısal hız</span></li>
+            <li><code>a = v² / r = ω²·r</code> <span>merkezcil ivme</span></li>
+            <li><code>F = m·v² / r</code> <span>merkezcil kuvvet</span></li>
           </ul>
-          <div class="card-foot"><span class="dot" aria-hidden="true"></span> Kuvvet birimi: 1 N = 1 kg·m/s²</div>
+          <div class="card-foot"><span class="dot" aria-hidden="true"></span> Merkezcil kuvvet yeni bir kuvvet değil, bir roldür</div>
         </aside>
       </section>
 
@@ -1501,8 +1500,8 @@
           </svg>
         </span>
         <span>
-          <h3>Konu anlatımı: Newton'un hareket yasaları</h3>
-          <p>Net kuvvetten serbest cisim diyagramına, sürtünmeden asansör problemlerine kadar konunun tamamı. Tıkla, açılsın.</p>
+          <h3>Konu anlatımı: Düzgün çembersel hareket</h3>
+          <p>Periyot ve frekanstan merkezcil kuvvete, merkezkaç yanılgısından viraj problemlerine kadar konunun tamamı. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1511,201 +1510,185 @@
         </span>
       </button>
 
-      <!-- 01 — kuvvet laboratuvarı -->
+      <!-- 01 — çember laboratuvarı -->
       <section class="section reveal" id="lab" aria-labelledby="lab-title">
         <div class="section-heading">
-          <h2 id="lab-title"><em>01</em> Kuvvet laboratuvarı</h2>
-          <p>Kuvveti, kütleyi ve zemini seç; kutuyu it. Serbest cisim diyagramı ve dört grafik sen izlerken çizilir.</p>
+          <h2 id="lab-title"><em>01</em> Çember laboratuvarı</h2>
+          <p>Yarıçapı, periyodu ve kütleyi değiştir; hız teğet, ivme merkeze doğru kalırken büyüklükleri izle.</p>
         </div>
 
         <div class="presets" role="group" aria-label="Hazır deneyler">
           <span>Hazır deneyler</span>
-          <button type="button" data-f="20" data-m="5" data-mu="0" style="--tone: var(--blue)"><i aria-hidden="true"></i>Sürtünmesiz · 20 N, 5 kg</button>
-          <button type="button" data-f="20" data-m="10" data-mu="0" style="--tone: var(--violet)"><i aria-hidden="true"></i>Kütle 2 katı</button>
-          <button type="button" data-f="80" data-m="20" data-mu="0.25" style="--tone: var(--amber)"><i aria-hidden="true"></i>Ağır kutu · sürtünmeli</button>
-          <button type="button" data-f="12" data-m="10" data-mu="0.5" style="--tone: var(--rose)"><i aria-hidden="true"></i>Kuvvet yetersiz</button>
+          <button type="button" data-r="20" data-t="20" data-m="20" style="--tone: var(--blue)"><i aria-hidden="true"></i>Başlangıç</button>
+          <button type="button" data-r="40" data-t="20" data-m="20" style="--tone: var(--violet)"><i aria-hidden="true"></i>Yarıçap 2 katı</button>
+          <button type="button" data-r="20" data-t="10" data-m="20" style="--tone: var(--amber)"><i aria-hidden="true"></i>Periyot yarı</button>
+          <button type="button" data-r="20" data-t="20" data-m="60" style="--tone: var(--rose)"><i aria-hidden="true"></i>Kütle 3 katı</button>
         </div>
 
         <div class="lab">
           <div>
-            <canvas id="lab-scene" tabindex="0" aria-label="Kuvvet laboratuvarı: kutuya uygulanan kuvvet, sürtünme, normal kuvvet ve ağırlık okları. Başlatmak için tıkla ya da boşluk tuşuna bas."></canvas>
+            <canvas id="lab-scene" tabindex="0" aria-label="Çembersel hareket animasyonu: hız vektörü teğet, ivme vektörü merkeze doğru. Başlatmak için tıkla ya da boşluk tuşuna bas."></canvas>
             <div class="readouts">
-              <div class="readout"><span>Süre</span><strong id="ro-t">0,00</strong> <i>s</i></div>
-              <div class="readout"><span>Net kuvvet</span><strong id="ro-fnet">20,0</strong> <i>N</i></div>
-              <div class="readout"><span>İvme</span><strong id="ro-a">4,00</strong> <i>m/s²</i></div>
-              <div class="readout"><span>Hız</span><strong id="ro-v">0,0</strong> <i>m/s</i><em id="ro-state">itilmeyi bekliyor</em></div>
+              <div class="readout"><span>Çizgisel hız</span><strong id="ro-v">1,57</strong> <i>m/s</i></div>
+              <div class="readout"><span>Açısal hız</span><strong id="ro-w">1,57</strong> <i>rad/s</i></div>
+              <div class="readout"><span>Merkezcil ivme</span><strong id="ro-a">2,47</strong> <i>m/s²</i></div>
+              <div class="readout"><span>Merkezcil kuvvet</span><strong id="ro-f">4,9</strong> <i>N</i></div>
             </div>
           </div>
 
           <div class="panel">
             <div class="field">
-              <label for="c-f">Uygulanan kuvvet <output id="o-f" for="c-f">20 N</output></label>
-              <input id="c-f" type="range" min="0" max="120" step="1" value="20" />
+              <label for="c-r">Yarıçap <output id="o-r" for="c-r">1,0 m</output></label>
+              <input id="c-r" type="range" min="5" max="60" step="1" value="20" />
             </div>
 
             <div class="field">
-              <label for="c-m">Kütle <output id="o-m" for="c-m">5 kg</output></label>
-              <input id="c-m" type="range" min="1" max="30" step="1" value="5" />
+              <label for="c-t">Periyot <output id="o-t" for="c-t">4,0 s</output></label>
+              <input id="c-t" type="range" min="5" max="60" step="1" value="20" />
+              <small>Periyot küçüldükçe hem hız hem ivme büyür.</small>
             </div>
 
             <div class="field">
-              <span class="flabel">Zemin <output id="o-mu">μ = 0,00</output></span>
-              <div class="seg" id="c-surface" role="group" aria-label="Zemin seçimi">
-                <button type="button" data-mu="0" data-name="Sürtünmesiz" aria-pressed="true">Sürtünmesiz<b>0,00</b></button>
-                <button type="button" data-mu="0.05" data-name="Buz">Buz<b>0,05</b></button>
-                <button type="button" data-mu="0.25" data-name="Ahşap">Ahşap<b>0,25</b></button>
-                <button type="button" data-mu="0.5" data-name="Halı">Halı<b>0,50</b></button>
-              </div>
-            </div>
-
-            <div class="field">
-              <span class="flabel">Zaman ölçeği</span>
-              <div class="seg" id="c-speed" role="group" aria-label="Animasyon hızı">
-                <button type="button" data-s="0.25">0,25×</button>
-                <button type="button" data-s="0.5">0,5×</button>
-                <button type="button" data-s="1" aria-pressed="true">1× gerçek</button>
-              </div>
+              <label for="c-m">Kütle <output id="o-m" for="c-m">2,0 kg</output></label>
+              <input id="c-m" type="range" min="5" max="100" step="1" value="20" />
             </div>
 
             <div class="switches">
-              <label><input type="checkbox" id="c-fbd" checked /> Serbest cisim diyagramı</label>
-              <label><input type="checkbox" id="c-values" checked /> Ok üzerinde değerler</label>
-              <label><input type="checkbox" id="c-strobe" checked /> Strobo izleri (eşit zaman aralıkları)</label>
+              <label><input type="checkbox" id="c-vec" checked /> Hız ve ivme vektörleri</label>
+              <label><input type="checkbox" id="c-trail" checked /> Hız yönünün izi</label>
             </div>
 
             <div class="actions">
-              <button class="button" type="button" id="c-play">İt</button>
+              <button class="button" type="button" id="c-play">Döndür</button>
               <button class="button ghost" type="button" id="c-reset">Sıfırla</button>
             </div>
 
             <ul class="mini">
-              <li>Ağırlık <b id="s-g">49,1 N</b></li>
-              <li>Normal kuvvet <b id="s-n">49,1 N</b></li>
-              <li>Sürtünme kuvveti <b id="s-f">0,0 N</b></li>
-              <li>Durum <b id="s-state">hareketsiz</b></li>
+              <li>Periyot T <b id="s-t">4,00 s</b></li>
+              <li>Frekans f <b id="s-f">0,25 Hz</b></li>
+              <li>Bir turda alınan yol <b id="s-c">6,28 m</b></li>
+              <li>Yer değiştirme (bir tur) <b id="s-d">0 m</b></li>
             </ul>
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Net kuvvet, ivme, hız ve konumun zamana bağlı grafikleri"></canvas>
+        <canvas id="lab-graphs" aria-label="Merkezcil ivmenin hıza ve yarıçapa bağlılığı"></canvas>
         <p class="note">
-          Sabit bir net kuvvet <b>sabit ivme</b> üretir: ivme grafiği yatay bir doğrudur,
-          hız doğrusal artar, konum parabol çizer. Kuvveti iki katına çıkarınca ivme de iki
-          katına çıkar; kütleyi iki katına çıkarınca ivme yarıya iner — <b>ΣF = m·a</b>.
-          Sahneye tıklayarak ya da <b>boşluk</b> tuşuyla başlatıp durdurabilirsin; <b>R</b> sıfırlar.
+          Soldaki grafik <b>a = v²/r</b> ilişkisini gösterir: yarıçap sabitken hız iki katına
+          çıkarsa ivme <b>dört katına</b> çıkar. Sağdaki grafikte ise hız sabittir; yarıçap
+          büyüdükçe ivme <b>azalır</b> — geniş viraj, küçük ivme demektir.
+          Sahneye tıklayarak ya da <b>boşluk</b> tuşuyla döndürüp durdurabilirsin; <b>R</b> sıfırlar.
         </p>
       </section>
 
-      <!-- 02 — eylemsizlik -->
-      <section class="section reveal" id="eylemsizlik" aria-labelledby="eylemsizlik-title">
+      <!-- 02 — ipi kes -->
+      <section class="section reveal" id="ipi-kes" aria-labelledby="ipi-title">
         <div class="section-heading">
-          <h2 id="eylemsizlik-title"><em>02</em> Sürtünmeyi azaltınca</h2>
-          <p>Aynı hızla itilen dört disk, dört farklı zeminde. Sürtünme sıfır olsaydı ne olurdu?</p>
+          <h2 id="ipi-title"><em>02</em> İpi kes</h2>
+          <p>Çembersel hareketi sürdüren kuvvet ortadan kalkarsa cisim nereye gider?</p>
         </div>
 
         <div class="demo split">
-          <canvas id="slide-scene" aria-label="Aynı hızla itilen disklerin farklı zeminlerde aldığı yollar"></canvas>
+          <canvas id="cut-scene" tabindex="0" aria-label="Dönen cismin ip kesildikten sonra teğet doğrultuda uzaklaşması"></canvas>
           <div class="panel">
-            <h3>1. yasa: eylemsizlik</h3>
+            <h3>Teğet doğrultu</h3>
             <p>
-              Diskleri durduran şey hareketin doğası değil, <b>sürtünme kuvvetidir</b>.
-              Zemin kayganlaştıkça disk daha uzağa gidiyor. Sürtünme tamamen kalkarsa
-              durmasını gerektiren bir sebep kalmaz: cisim <b>sabit hızla sonsuza kadar</b> gider.
+              Çok yaygın bir yanılgı, cismin <b>merkezden dışarı doğru</b> fırlayacağıdır.
+              Oysa ip kesildiği anda merkezcil kuvvet ortadan kalkar ve Newton'un 1. yasası
+              devreye girer: cisim <b>o anki hızıyla</b>, yani <b>teğet doğrultuda</b>
+              düzgün doğrusal hareketle uzaklaşır.
             </p>
-            <div class="field">
-              <label for="slide-v">İtme hızı <output id="slide-v-out" for="slide-v">8 m/s</output></label>
-              <input id="slide-v" type="range" min="4" max="14" step="1" value="8" />
-            </div>
-            <div class="verdict" id="slide-verdict">Başlamak için <b>Hepsini it</b> düğmesine bas.</div>
+            <div class="verdict" id="cut-verdict">Döndürmek için <b>Döndür</b>, sonra <b>İpi kes</b>.</div>
             <div class="actions">
-              <button class="button" type="button" id="slide-play">Hepsini it</button>
-              <button class="button ghost" type="button" id="slide-reset">Sıfırla</button>
+              <button class="button" type="button" id="cut-play">Döndür</button>
+              <button class="button ghost" type="button" id="cut-cut">İpi kes</button>
+              <button class="button ghost" type="button" id="cut-reset">Sıfırla</button>
             </div>
             <p class="note">
-              Durma mesafesi <b>d = v² / (2·μ·g)</b>. Hızı iki katına çıkarırsan mesafe
-              dört katına çıkar; μ yarıya inerse mesafe iki katına çıkar.
+              Çekiç atma, sapan ve çamaşır makinesinin sıkma programı aynı ilkeyle çalışır:
+              serbest kalan cisim teğet boyunca gider, su damlaları da delikten teğetsel çıkar.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- 03 — etki tepki -->
-      <section class="section reveal" id="etki-tepki" aria-labelledby="etki-tepki-title">
+      <!-- 03 — aynı disk -->
+      <section class="section reveal" id="disk" aria-labelledby="disk-title">
         <div class="section-heading">
-          <h2 id="etki-tepki-title"><em>03</em> Etki ve tepki</h2>
-          <p>İki araba birbirini itiyor. Kuvvetler eşit; peki ivmeler ve hızlar da eşit mi?</p>
+          <h2 id="disk-title"><em>03</em> Aynı disk, farklı yarıçap</h2>
+          <p>Dönen bir diskin üzerindeki üç nokta: periyotları aynı, hızları değil.</p>
         </div>
 
         <div class="demo split">
-          <canvas id="push-scene" aria-label="Birbirini iten iki arabanın kuvvet okları ve ayrılışı"></canvas>
+          <canvas id="disk-scene" aria-label="Dönen disk üzerinde farklı yarıçaplardaki üç noktanın hızları"></canvas>
           <div class="panel">
-            <h3>3. yasa: eşit ve zıt</h3>
+            <h3>Aynı T, farklı v</h3>
             <p>
-              İtme süresince iki arabaya da <b>aynı büyüklükte</b>, zıt yönlü kuvvet etki eder.
-              Kuvvetler eşit olduğu hâlde ivmeler kütleyle ters orantılıdır:
-              hafif olan daha çok hızlanır.
+              Katı bir cisim döndüğünde üzerindeki bütün noktalar <b>aynı sürede</b> bir tur atar:
+              periyot, frekans ve açısal hız <b>ortaktır</b>. Ama çizgisel hız v = ω·r olduğu için
+              merkezden uzaklaştıkça hız <b>doğru orantılı</b> olarak büyür; merkezcil ivme de
+              a = ω²·r ile artar.
             </p>
             <div class="field">
-              <label for="push-m1">Mavi arabanın kütlesi <output id="push-m1-out" for="push-m1">2 kg</output></label>
-              <input id="push-m1" type="range" min="1" max="10" step="1" value="2" />
+              <label for="disk-t">Periyot <output id="disk-t-out" for="disk-t">2,0 s</output></label>
+              <input id="disk-t" type="range" min="5" max="40" step="1" value="20" />
             </div>
-            <div class="field">
-              <label for="push-m2">Mor arabanın kütlesi <output id="push-m2-out" for="push-m2">6 kg</output></label>
-              <input id="push-m2" type="range" min="1" max="10" step="1" value="6" />
-            </div>
-            <div class="verdict" id="push-verdict">Yayı bırakmak için <b>İt</b> düğmesine bas.</div>
+            <div class="verdict" id="disk-verdict">Diski döndürmek için düğmeye bas.</div>
             <div class="actions">
-              <button class="button" type="button" id="push-play">İt</button>
-              <button class="button ghost" type="button" id="push-reset">Sıfırla</button>
+              <button class="button" type="button" id="disk-play">Döndür</button>
+              <button class="button ghost" type="button" id="disk-reset">Sıfırla</button>
             </div>
             <p class="note">
-              Etki ve tepki <b>farklı cisimlere</b> etki ettiği için birbirini dengelemez.
-              Dengeleme aynı cisme etki eden kuvvetler arasında olur.
+              Bu yüzden bir atlıkarıncanın dış kenarındaki at, içteki attan daha hızlıdır;
+              ikisi de aynı anda turu tamamlasa bile.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- 04 — asansör -->
-      <section class="section reveal" id="asansor" aria-labelledby="asansor-title">
+      <!-- 04 — viraj -->
+      <section class="section reveal" id="viraj" aria-labelledby="viraj-title">
         <div class="section-heading">
-          <h2 id="asansor-title"><em>04</em> Asansörde görünen ağırlık</h2>
-          <p>Kütlen değişmiyor, ama tartı başka bir şey yazıyor. Neden?</p>
+          <h2 id="viraj-title"><em>04</em> Virajda savrulma sınırı</h2>
+          <p>Virajda arabayı çemberde tutan kuvvet sürtünmedir. Peki sürtünme ne zaman yetmez?</p>
         </div>
 
         <div class="demo split">
-          <canvas id="lift-scene" aria-label="Asansörde tartı üzerinde duran kişiye etki eden normal kuvvet ve ağırlık"></canvas>
+          <canvas id="turn-scene" aria-label="Virajı alan aracın merkezcil kuvvet ihtiyacı ve sürtünme sınırı"></canvas>
           <div class="panel">
-            <h3>Tartı neyi ölçer?</h3>
+            <h3>İhtiyaç ve sınır</h3>
             <p>
-              Tartı kütleni değil, sana uyguladığı <b>normal kuvveti</b> ölçer ve onu
-              g'ye bölüp kilogram olarak gösterir. Asansör ivmelenirken normal kuvvet
-              değişir: <b>N = m·(g + a)</b>.
+              Virajı almak için gereken kuvvet <b>m·v²/r</b>'dir. Yolun sağlayabileceği en büyük
+              sürtünme ise <b>μ·m·g</b>. İhtiyaç sınırı aşarsa araç çemberde kalamaz ve
+              <b>teğet doğrultuda</b> savrulur. Kütle iki tarafta da olduğu için sadeleşir:
+              sınır hız <b>v<sub>maks</sub> = √(μ·g·r)</b>.
             </p>
             <div class="field">
-              <label for="lift-m">Kütlen <output id="lift-m-out" for="lift-m">60 kg</output></label>
-              <input id="lift-m" type="range" min="30" max="120" step="1" value="60" />
+              <label for="turn-v">Hız <output id="turn-v-out" for="turn-v">50 km/h</output></label>
+              <input id="turn-v" type="range" min="20" max="140" step="5" value="50" />
             </div>
             <div class="field">
-              <span class="flabel">Asansörün durumu</span>
-              <div class="seg" id="lift-mode" role="group" aria-label="Asansör durumu">
-                <button type="button" data-a="0" aria-pressed="true">Sabit hız<b>a = 0</b></button>
-                <button type="button" data-a="3">Yukarı hızlanıyor<b>a = +3</b></button>
-                <button type="button" data-a="-3">Aşağı hızlanıyor<b>a = −3</b></button>
-                <button type="button" data-a="-9.81">Halat koptu<b>a = −g</b></button>
+              <label for="turn-r">Viraj yarıçapı <output id="turn-r-out" for="turn-r">40 m</output></label>
+              <input id="turn-r" type="range" min="15" max="120" step="5" value="40" />
+            </div>
+            <div class="field">
+              <span class="flabel">Yol durumu <output id="turn-mu">μ = 0,80</output></span>
+              <div class="seg" id="turn-road" role="group" aria-label="Yol durumu">
+                <button type="button" data-mu="0.8" data-name="Kuru" aria-pressed="true">Kuru<b>0,80</b></button>
+                <button type="button" data-mu="0.5" data-name="Islak">Islak<b>0,50</b></button>
+                <button type="button" data-mu="0.2" data-name="Karlı">Kar<b>0,20</b></button>
               </div>
             </div>
-            <div class="verdict" id="lift-verdict">Asansör sabit hızla gidiyor: tartı gerçek kütleni gösterir.</div>
+            <div class="verdict" id="turn-verdict">Virajı denemek için <b>Viraja gir</b> düğmesine bas.</div>
+            <div class="actions">
+              <button class="button" type="button" id="turn-play">Viraja gir</button>
+              <button class="button ghost" type="button" id="turn-reset">Sıfırla</button>
+            </div>
             <ul class="mini">
-              <li>Ağırlık (m·g) <b id="lift-g">588,6 N</b></li>
-              <li>Normal kuvvet <b id="lift-n">588,6 N</b></li>
-              <li>Tartının yazdığı <b id="lift-read">60,0 kg</b></li>
+              <li>Gereken kuvvet (1000 kg) <b id="turn-need">4822 N</b></li>
+              <li>En büyük sürtünme <b id="turn-max">7848 N</b></li>
+              <li>Sınır hız <b id="turn-vmax">63,4 km/h</b></li>
             </ul>
-            <p class="note">
-              Serbest düşmede tartı <b>sıfır</b> gösterir: sen de tartı da aynı ivmeyle
-              düştüğü için aralarında kuvvet kalmaz. "Ağırlıksızlık" budur — yerçekiminin
-              yok olması değil.
-            </p>
           </div>
         </div>
       </section>
@@ -1734,25 +1717,22 @@
     </button>
 
     <nav class="topic-nav shell" aria-label="Ünite içinde gezinme">
-        <a class="prev" href="iki-boyutta-hareket.html">
-          <span>← Önceki konu</span>
-          <b>02 · İki boyutta sabit ivmeli hareket</b>
-        </a>
-        <a class="mid" href="index.html#kuvvet-ve-hareket">
-          <span>Ünite</span>
-          <b>Kuvvet ve Hareket</b>
-        </a>
-        <a class="next" href="surtunme-kuvveti.html">
-          <span>Sonraki konu →</span>
-          <b>04 · Sürtünme kuvveti</b>
-        </a>
+      <a class="prev" href="limit-hiz.html">
+        <span>← Önceki konu</span>
+        <b>05 · Limit hız</b>
+      </a>
+      <a class="mid" href="index.html#kuvvet-ve-hareket">
+        <span>Ünite</span>
+        <b>Kuvvet ve Hareket</b>
+      </a>
+      <span class="gap" aria-hidden="true"></span>
     </nav>
 
     <footer>
       <div class="shell footer-inner">
         <span>dersler.perinet.org</span>
-        <span><a href="sunum/newton-yasalari.pptx" download>Sunumu indir (PPTX)</a></span>
-        <span>Fizik · Kuvvet ve Hareket · Konu 03</span>
+        <span><a href="sunum/cembersel-hareket.pptx" download>Sunumu indir (PPTX)</a></span>
+        <span>Fizik · Kuvvet ve Hareket · Konu 06</span>
       </div>
     </footer>
 
@@ -1760,7 +1740,7 @@
       <div class="modal-head">
         <div>
           <p class="eyebrow">Konu anlatımı</p>
-          <h2 id="konu-title">Newton'un hareket yasaları</h2>
+          <h2 id="konu-title">Düzgün çembersel hareket</h2>
         </div>
         <button class="close" type="button" id="konu-close" aria-label="Konu anlatımını kapat">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
@@ -1770,298 +1750,220 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Kuvvet ve net kuvvet</button>
-        <button type="button" data-goto="k2">1. yasa</button>
-        <button type="button" data-goto="k3">2. yasa</button>
-        <button type="button" data-goto="k4">3. yasa</button>
-        <button type="button" data-goto="k5">Serbest cisim diyagramı</button>
-        <button type="button" data-goto="k6">Sürtünme</button>
-        <button type="button" data-goto="k7">Ağırlık ve asansör</button>
+        <button type="button" data-goto="k1">Tanım</button>
+        <button type="button" data-goto="k2">Periyot ve frekans</button>
+        <button type="button" data-goto="k3">Çizgisel ve açısal hız</button>
+        <button type="button" data-goto="k4">Merkezcil ivme</button>
+        <button type="button" data-goto="k5">Merkezcil kuvvet</button>
+        <button type="button" data-goto="k6">Merkezkaç yanılgısı</button>
+        <button type="button" data-goto="k7">Uygulamalar</button>
         <button type="button" data-goto="k8">Çözümlü örnekler</button>
         <button type="button" data-goto="k9">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
-        <h3 id="k1">Kuvvet ve net kuvvet</h3>
+        <h3 id="k1">Düzgün çembersel hareket nedir?</h3>
         <p>
-          <strong>Kuvvet</strong>, bir cismin hareket durumunu ya da şeklini değiştiren
-          etkidir. Vektörel bir büyüklüktür: büyüklüğü, doğrultusu ve yönü vardır.
-          Birimi <strong>newton (N)</strong>'dur ve 1 N = 1 kg·m/s² demektir.
+          Bir cisim <strong>sabit süratle çembersel bir yörüngede</strong> dolanıyorsa bu harekete
+          düzgün çembersel hareket denir. "Düzgün" kelimesi süratin sabitliğini anlatır —
+          <strong>hızın</strong> sabitliğini değil.
         </p>
         <p>
-          Bir cisme aynı anda birçok kuvvet etki edebilir. Hareketi belirleyen tek tek
-          kuvvetler değil, hepsinin vektörel toplamı olan <strong>net kuvvettir</strong>
-          (bileşke kuvvet, ΣF).
-        </p>
-        <div class="formula">
-          <code>ΣF = F₁ + F₂ + F₃ + …</code>
-          <code>aynı yönde: ΣF = F₁ + F₂</code>
-          <code>zıt yönde: ΣF = F₁ − F₂</code>
-          <code>dik ise: ΣF = √(F₁² + F₂²)</code>
-        </div>
-        <p>
-          Net kuvvet sıfırsa kuvvetler <strong>dengelenmiştir</strong>; cisim ya durgundur
-          ya da sabit hızla doğrusal hareket eder. İkisi de <strong>denge hâlidir</strong>:
-          fizik açısından aralarında hiçbir fark yoktur.
+          Hız bir vektördür ve çembersel harekette yönü her an değişir: hız daima yörüngeye
+          <strong>teğettir</strong>. Yönü değişen bir vektör, büyüklüğü sabit olsa bile
+          <strong>değişiyor</strong> demektir. Değişen hız ise ivme demektir.
         </p>
         <div class="callout">
           <p>
-            <b>Üç yasa tek cümlede:</b> Net kuvvet yoksa hareket değişmez (1. yasa),
-            net kuvvet varsa ne kadar değişeceğini <b>ΣF = m·a</b> söyler (2. yasa),
-            ve kuvvetler daima <b>çiftler hâlinde</b> ortaya çıkar (3. yasa).
+            <b>Anahtar cümle:</b> Düzgün çembersel hareket, <b>sabit süratli ama ivmeli</b>
+            bir harekettir. İvmenin işi hızı büyütmek değil, <b>yönünü çevirmektir</b>.
           </p>
         </div>
 
-        <h3 id="k2">1. yasa: eylemsizlik</h3>
+        <h3 id="k2">Periyot ve frekans</h3>
         <p>
-          <strong>Bir cisme etki eden net kuvvet sıfırsa, duran cisim durmaya devam eder;
-          hareketli cisim sabit hızla doğrusal hareketine devam eder.</strong>
-        </p>
-        <p>
-          Cisimlerin hareket durumundaki değişime gösterdiği bu dirence
-          <strong>eylemsizlik (atalet)</strong> denir. Eylemsizliğin ölçüsü
-          <strong>kütledir</strong>: kütle büyüdükçe cismin hızını değiştirmek zorlaşır.
-        </p>
-        <ul>
-          <li><strong>Ani frende öne savrulmak:</strong> otobüs yavaşlar, sen eski hızınla gitmeye devam edersin.</li>
-          <li><strong>Kalkışta arkaya yaslanmak:</strong> araç hızlanır, sen durgunluğunu korumaya çalışırsın.</li>
-          <li><strong>Masa örtüsünü hızlı çekmek:</strong> tabaklara yeterince kuvvet aktarılmaz, yerlerinde kalırlar.</li>
-          <li><strong>Emniyet kemeri</strong> tam olarak bu yüzden vardır.</li>
-        </ul>
-        <p>
-          Sayfadaki <b>02</b> numaralı deney bu yasanın deneysel yüzüdür: diski durduran
-          şey hareketin doğası değil, sürtünmedir. Sürtünme sıfıra giderse durma mesafesi
-          sonsuza gider.
-        </p>
-        <div class="callout warn">
-          <p>
-            <b>Kütle ile ağırlığı karıştırma.</b> Kütle skalerdir, kilogramla ölçülür ve
-            gittiğin yere göre değişmez. Ağırlık bir kuvvettir (G = m·g), newtonla ölçülür
-            ve g'ye bağlıdır: Ay'da kütlen aynı, ağırlığın altıda birdir.
-          </p>
-        </div>
-
-        <h3 id="k3">2. yasa: ΣF = m·a</h3>
-        <p>
-          Net kuvvet sıfır değilse cisim <strong>ivmelenir</strong>. İvme, net kuvvetle
-          doğru, kütleyle ters orantılıdır ve <strong>yönü daima net kuvvetin
-          yönündedir</strong>.
+          <strong>Periyot (T)</strong>, cismin bir tam turu tamamlama süresidir; birimi saniyedir.
+          <strong>Frekans (f)</strong> ise birim zamandaki tur sayısıdır; birimi hertz (1/s).
         </p>
         <div class="formula">
-          <code>ΣF = m · a</code>
-          <code>a = ΣF / m</code>
-          <code>1 N = 1 kg · m/s²</code>
+          <code>T = 1 / f</code>
+          <code>f = 1 / T</code>
         </div>
-        <table class="tbl">
-          <thead>
-            <tr><th>Değişen</th><th>Sonuç</th><th>Örnek</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Kuvvet 2 katına çıkar</td><td>İvme 2 katına çıkar</td><td>20 N → 40 N, a: 4 → 8 m/s²</td></tr>
-            <tr><td>Kütle 2 katına çıkar</td><td>İvme yarıya iner</td><td>5 kg → 10 kg, a: 4 → 2 m/s²</td></tr>
-            <tr><td>Net kuvvet sıfır olur</td><td>İvme sıfır olur</td><td>hız sabit kalır (1. yasa)</td></tr>
-          </tbody>
-        </table>
         <p>
-          Dikkat: <strong>ivme hızın değil, net kuvvetin yönündedir</strong>. Yavaşlayan bir
-          cisimde net kuvvet hıza zıt yöndedir. Hız ile ivme aynı yönlüyse cisim hızlanır,
-          zıt yönlüyse yavaşlar.
-        </p>
-        <p>
-          İki boyutta yasa bileşenlere ayrılarak yazılır: ΣFₓ = m·aₓ ve ΣFᵧ = m·aᵧ.
-          1. yasa da aslında 2. yasanın özel hâlidir: ΣF = 0 ise a = 0.
+          Katı bir cisim (disk, tekerlek, atlıkarınca) döndüğünde üzerindeki <strong>bütün
+          noktaların periyodu aynıdır</strong> — merkeze yakın da olsalar, uzak da.
         </p>
 
-        <h3 id="k4">3. yasa: etki–tepki</h3>
+        <h3 id="k3">Çizgisel hız ve açısal hız</h3>
         <p>
-          <strong>Bir cisim ikinci bir cisme kuvvet uyguladığında, ikinci cisim de
-          birinciye eşit büyüklükte ve zıt yönde bir kuvvet uygular.</strong>
-          Kuvvetler yalnız başına var olmaz; daima <strong>çiftler hâlinde</strong> ortaya çıkar.
+          Cisim bir turda 2πr uzunluğunda yol alır ve bunu T sürede yapar. Buradan
+          <strong>çizgisel hız</strong>:
         </p>
         <div class="formula">
-          <code>F₁₂ = −F₂₁</code>
-        </div>
-        <ul>
-          <li><strong>Yürümek:</strong> ayağın yeri geriye iter, yer seni ileriye iter.</li>
-          <li><strong>Roket:</strong> gazı aşağı iter, gaz roketi yukarı iter.</li>
-          <li><strong>Tüfeğin geri tepmesi:</strong> mermiye uygulanan kuvvetin tepkisi.</li>
-          <li><strong>Yüzmek:</strong> suyu geriye itersin, su seni ileriye iter.</li>
-        </ul>
-        <div class="callout warn">
-          <p>
-            <b>Etki ve tepki birbirini dengelemez!</b> Çünkü <b>farklı cisimlere</b> etki
-            ederler. Dengeleme ancak <b>aynı cisme</b> etki eden kuvvetler arasında olur.
-            Masadaki kitapta ağırlığı dengeleyen şey, kitabın masaya uyguladığı kuvvet
-            değil, masanın kitaba uyguladığı normal kuvvettir.
-          </p>
+          <code>v = 2πr / T</code>
+          <code>ω = 2π / T = 2π·f</code>
+          <code>v = ω · r</code>
         </div>
         <p>
-          Kuvvetler eşit olsa da <strong>sonuçları eşit olmak zorunda değildir</strong>:
-          a = F/m olduğu için küçük kütleli cisim daha büyük ivme kazanır. Sayfadaki
-          <b>03</b> numaralı deneyde 2 kg'lık araba, 6 kg'lık arabanın 3 katı hızla ayrılır.
+          <strong>Açısal hız (ω)</strong>, birim zamanda taranan açıdır; birimi rad/s'dir.
+          Aynı disk üzerindeki noktaların ω'sı ortaktır, ama v = ω·r olduğu için
+          <strong>yarıçapı büyük olanın çizgisel hızı büyüktür</strong>. Sayfadaki <b>03</b>
+          numaralı bölüm tam olarak bunu gösteriyor.
         </p>
 
-        <h3 id="k5">Serbest cisim diyagramı</h3>
+        <h3 id="k4">Merkezcil ivme</h3>
         <p>
-          Dinamik problemlerinin tamamı aynı yöntemle çözülür: cismi yalnız bırak,
-          üzerine etki eden kuvvetleri çiz, sonra ΣF = m·a yaz.
+          Hızın yönünü çeviren ivmenin yönü, hız vektörüne <strong>diktir</strong> ve daima
+          <strong>çemberin merkezine</strong> doğrudur. Bu yüzden adına merkezcil (merkeze doğru)
+          ivme denir.
         </p>
-        <ol class="steps">
-          <li>Hangi cismi inceleyeceğine karar ver; onu bir nokta ya da kutu olarak çiz.</li>
-          <li>Yalnızca <strong>o cisme etki eden</strong> kuvvetleri çiz: ağırlık (daima aşağı),
-            normal kuvvet (yüzeye dik), sürtünme (yüzeye paralel, kaymaya zıt), ip gerilmesi,
-            uygulanan kuvvet.</li>
-          <li>Cismin <em>başkalarına</em> uyguladığı kuvvetleri <strong>çizme</strong>.</li>
-          <li>Hareket doğrultusunu pozitif seçip eksenleri kur; eğik kuvvetleri bileşenlerine ayır.</li>
-          <li>Her eksen için ΣF = m·a yaz ve bilinmeyenleri çöz.</li>
-        </ol>
+        <div class="formula">
+          <code>a = v² / r</code>
+          <code>a = ω² · r</code>
+          <code>a = 4π²r / T²</code>
+        </div>
+        <p>
+          Bağıntıya iki yönden bakmak gerekir: <strong>yarıçap sabitken</strong> hız iki katına
+          çıkarsa ivme dört katına çıkar (v²). <strong>Hız sabitken</strong> yarıçap büyüdükçe
+          ivme azalır (1/r): geniş viraj, yumuşak dönüş demektir.
+        </p>
+
+        <h3 id="k5">Merkezcil kuvvet</h3>
+        <p>
+          Newton'un 2. yasası gereği ivme varsa net kuvvet de vardır. Çembersel harekette net
+          kuvvet merkeze doğrudur ve büyüklüğü:
+        </p>
+        <div class="formula">
+          <code>F = m·a = m·v² / r</code>
+          <code>F = m·ω²·r</code>
+        </div>
+        <div class="callout warn">
+          <p>
+            <b>Merkezcil kuvvet yeni bir kuvvet türü değildir.</b> O, mevcut kuvvetlerden birinin
+            (ya da bileşkesinin) üstlendiği bir <b>roldür</b>: ipteki gerilme, virajda sürtünme,
+            Ay için yerçekimi, elektronu tutan elektriksel çekim. "Serbest cisim diyagramına
+            merkezcil kuvvet eklenmez"; hangi kuvvetin bu rolü üstlendiği bulunur.
+          </p>
+        </div>
+
+        <h3 id="k6">Merkezkaç kuvveti yanılgısı</h3>
+        <p>
+          Virajı hızlı alan bir araçta kendini kapıya doğru itiliyor hissedersin. Aslında seni
+          dışarı iten bir kuvvet yoktur: sen <strong>eylemsizliğin</strong> gereği doğrusal gitmek
+          istersin, araç ise altından dönerek yön değiştirir. Kapı sana çarpar ve seni çembere
+          sokan <strong>merkeze doğru</strong> kuvveti uygular.
+        </p>
+        <p>
+          "Merkezkaç kuvveti" yalnızca <strong>dönen bir referans sisteminde</strong> tanımlanan
+          bir hayalî (eylemsizlik) kuvvettir. Yerdeki bir gözlemci için böyle bir kuvvet yoktur.
+        </p>
         <div class="callout">
           <p>
-            <b>Hareketin olmadığı eksende ivme sıfırdır.</b> Yatay zeminde giden bir kutu
-            için düşeyde N − G = 0 → N = m·g. Ama asansörde ya da eğik düzlemde bu eşitlik
-            bozulur; her seferinde yeniden yazmak gerekir.
+            <b>Test:</b> İpi kesersen cisim dışarı doğru mu fırlar? Hayır —
+            <b>teğet doğrultuda</b> gider. Dışarı iten bir kuvvet olsaydı yörünge merkezden
+            uzaklaşan bir doğru olurdu. Sayfadaki <b>02</b> numaralı deney bunu gösteriyor.
           </p>
         </div>
 
-        <h3 id="k6">Sürtünme kuvveti</h3>
-        <p>
-          Sürtünme, temas hâlindeki yüzeyler arasında, <strong>bağıl kaymaya zıt yönde</strong>
-          ortaya çıkan kuvvettir. İki türü vardır:
-        </p>
-        <div class="formula">
-          <code>statik: f ≤ μs · N</code>
-          <code>kinetik: f = μk · N</code>
-        </div>
-        <p>
-          <strong>Statik sürtünme</strong> cisim henüz hareket etmiyorken uygulanan kuvvete
-          <em>eşit büyüklükte</em> ortaya çıkar ve onu dengeler; ancak μs·N değerini aşamaz.
-          Uygulanan kuvvet bu eşiği geçtiği anda cisim harekete başlar ve
-          <strong>kinetik sürtünme</strong> devreye girer. Genellikle μk &lt; μs olduğu için
-          bir cismi hareket ettirmek, hareketini sürdürmekten zordur.
-        </p>
-        <ul>
-          <li>Sürtünme kuvveti <strong>normal kuvvete</strong> ve yüzey çiftine bağlıdır.</li>
-          <li>Temas <strong>alanına</strong> ve (yaklaşık olarak) hıza bağlı değildir.</li>
-          <li>Sürtünme her zaman kötü değildir: yürümeyi, frenlemeyi, vidanın durmasını sağlayan da odur.</li>
-        </ul>
+        <h3 id="k7">Uygulamalar</h3>
         <table class="tbl">
-          <thead><tr><th>Yüzey çifti</th><th>Yaklaşık μ</th></tr></thead>
+          <thead><tr><th>Durum</th><th>Merkezcil kuvveti sağlayan</th><th>Bağıntı</th></tr></thead>
           <tbody>
-            <tr><td>Buz – çelik</td><td>0,03 – 0,05</td></tr>
-            <tr><td>Ahşap – ahşap</td><td>0,25 – 0,5</td></tr>
-            <tr><td>Lastik – kuru asfalt</td><td>0,7 – 0,9</td></tr>
-          </tbody>
-        </table>
-
-        <h3 id="k7">Ağırlık, normal kuvvet ve asansör</h3>
-        <p>
-          <strong>Ağırlık</strong>, kütleye etki eden çekim kuvvetidir: G = m·g, daima aşağı
-          yöndedir. <strong>Normal kuvvet</strong> ise yüzeyin cisme uyguladığı, yüzeye dik
-          tepki kuvvetidir. Normal kuvvet <em>her zaman</em> ağırlığa eşit değildir.
-        </p>
-        <div class="formula">
-          <code>yatay zemin: N = m·g</code>
-          <code>asansör: N = m·(g + a)</code>
-          <code>eğik düzlem: N = m·g·cosθ</code>
-        </div>
-        <p>
-          Asansörde tartının gösterdiği değer, tartının sana uyguladığı <strong>normal
-          kuvvettir</strong>. Yukarı doğru ivmelenirken net kuvvet yukarı olmalıdır,
-          bu yüzden N &gt; G olur ve tartı daha fazlasını yazar. Aşağı doğru ivmelenirken
-          N &lt; G olur.
-        </p>
-        <table class="tbl">
-          <thead><tr><th>Durum</th><th>İvme</th><th>Normal kuvvet</th><th>Tartı</th></tr></thead>
-          <tbody>
-            <tr><td>Durgun ya da sabit hız</td><td>a = 0</td><td>N = m·g</td><td>gerçek değer</td></tr>
-            <tr><td>Yukarı hızlanıyor</td><td>a &gt; 0</td><td>N = m(g + a)</td><td>fazla gösterir</td></tr>
-            <tr><td>Aşağı hızlanıyor</td><td>a &lt; 0</td><td>N = m(g − |a|)</td><td>az gösterir</td></tr>
-            <tr><td>Serbest düşme</td><td>a = −g</td><td>N = 0</td><td>sıfır</td></tr>
+            <tr><td>İpin ucunda dönen taş</td><td>İpteki gerilme kuvveti</td><td>T = mv²/r</td></tr>
+            <tr><td>Virajı alan araç</td><td>Yol–lastik sürtünmesi</td><td>μmg ≥ mv²/r</td></tr>
+            <tr><td>Dünya çevresindeki uydu</td><td>Yerçekimi</td><td>GMm/r² = mv²/r</td></tr>
+            <tr><td>Çamaşır makinesi sıkma</td><td>Tambur duvarı (normal kuvvet)</td><td>N = mv²/r</td></tr>
           </tbody>
         </table>
         <p>
-          Serbest düşmedeki "ağırlıksızlık" yerçekiminin yok olması değildir; sen de
-          tartı da aynı ivmeyle düştüğü için aranızda kuvvet kalmamasıdır. Uzay
-          istasyonundaki astronotlar da aslında sürekli serbest düşmektedir.
+          <strong>Virajda savrulma:</strong> Gereken kuvvet mv²/r, yolun sağlayabildiği en büyük
+          sürtünme ise μmg'dir. Kütle sadeleşir ve sınır hız ortaya çıkar:
+        </p>
+        <div class="formula">
+          <code>v<sub>maks</sub> = √(μ·g·r)</code>
+        </div>
+        <p>
+          Yol ıslanınca μ yarıya inerse sınır hız √2 kat (yaklaşık %30) düşer. Virajın yarıçapı
+          dört katına çıkarsa sınır hız iki katına çıkar. Bu yüzden otoyol virajları geniş
+          yarıçaplı yapılır ve yol yüzeyi dışa doğru eğimlendirilir.
         </p>
 
         <h3 id="k8">Çözümlü örnekler</h3>
         <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>
 
         <details>
-          <summary>Örnek 1 — Sürtünmeli zeminde itilen kutu</summary>
+          <summary>Örnek 1 — Temel büyüklükler</summary>
           <p>
-            Sürtünme katsayısı 0,2 olan yatay bir zeminde duran 4 kg'lık kutuya yatay
-            doğrultuda 12 N'luk kuvvet uygulanıyor. Kutunun ivmesini bulunuz.
+            2 m yarıçaplı çember üzerinde dolanan 0,5 kg'lık bir cisim, 4 saniyede bir tur atıyor.
+            Frekansını, çizgisel hızını, merkezcil ivmesini ve merkezcil kuvveti bulunuz. (π ≈ 3)
           </p>
           <ol class="steps">
-            <li>Düşeyde denge: N = m·g = 4 · 10 = <strong>40 N</strong></li>
-            <li>Sürtünme kuvveti: f = μ·N = 0,2 · 40 = <strong>8 N</strong></li>
-            <li>Net kuvvet: ΣF = 12 − 8 = <strong>4 N</strong></li>
-            <li>İvme: a = ΣF / m = 4 / 4 = <strong>1 m/s²</strong></li>
-            <li>Sürtünme olmasaydı a = 12/4 = 3 m/s² olurdu.</li>
+            <li>f = 1/T = 1/4 = <strong>0,25 Hz</strong></li>
+            <li>v = 2πr/T = (2·3·2)/4 = <strong>3 m/s</strong></li>
+            <li>a = v²/r = 9/2 = <strong>4,5 m/s²</strong></li>
+            <li>F = m·a = 0,5 · 4,5 = <strong>2,25 N</strong> (merkeze doğru)</li>
           </ol>
         </details>
 
         <details>
-          <summary>Örnek 2 — Bağlı iki cisim ve ip gerilmesi</summary>
+          <summary>Örnek 2 — Aynı diskte iki nokta</summary>
           <p>
-            Sürtünmesiz yatay zeminde, ipte bağlı 2 kg ve 3 kg'lık cisimler F = 20 N'luk
-            kuvvetle çekiliyor (kuvvet 2 kg'lık cisme uygulanıyor). Sistemin ivmesini ve
-            ipteki gerilme kuvvetini bulunuz.
+            Dönen bir diskin merkezinden 20 cm ve 60 cm uzaklıktaki iki noktası için periyot,
+            çizgisel hız ve merkezcil ivme oranlarını karşılaştırınız.
           </p>
           <ol class="steps">
-            <li>Sistemi tek cisim gibi düşün: a = F / (m₁ + m₂) = 20 / 5 = <strong>4 m/s²</strong></li>
-            <li>Şimdi yalnızca 3 kg'lık cismi incele: ona etki eden tek yatay kuvvet ip gerilmesidir.</li>
-            <li>T = m₂ · a = 3 · 4 = <strong>12 N</strong></li>
-            <li>Kontrol (2 kg): 20 − 12 = 8 N = 2 · 4 ✓</li>
+            <li>Periyotlar <strong>eşittir</strong>: katı cismin her noktası aynı sürede bir tur atar (T₁ = T₂).</li>
+            <li>Açısal hızlar da eşittir: ω = 2π/T.</li>
+            <li>v = ω·r olduğundan v₂/v₁ = r₂/r₁ = 60/20 = <strong>3</strong></li>
+            <li>a = ω²·r olduğundan a₂/a₁ = r₂/r₁ = <strong>3</strong></li>
           </ol>
         </details>
 
         <details>
-          <summary>Örnek 3 — Asansördeki tartı</summary>
+          <summary>Örnek 3 — Virajda sınır hız</summary>
           <p>
-            60 kg kütleli bir kişi, 2 m/s² ile yukarı doğru hızlanan bir asansörde tartının
-            üzerinde duruyor. Tartı kaç kilogram gösterir?
+            Yarıçapı 50 m olan bir virajda lastik–yol sürtünme katsayısı 0,5'tir. Aracın
+            savrulmadan alabileceği en büyük hız nedir? Yol ıslanıp μ 0,2'ye düşerse bu hız ne olur?
           </p>
           <ol class="steps">
-            <li>Kişiye etki eden kuvvetler: ağırlık G = 600 N (aşağı), normal kuvvet N (yukarı).</li>
-            <li>Net kuvvet yukarı olmalı: N − G = m·a</li>
-            <li>N = m(g + a) = 60 · (10 + 2) = <strong>720 N</strong></li>
-            <li>Tartı N/g = 720/10 = <strong>72 kg</strong> gösterir; kişinin kütlesi ise hâlâ 60 kg'dır.</li>
+            <li>Gereken kuvvet mv²/r, sağlanabilen en büyük kuvvet μmg → v<sub>maks</sub> = √(μgr)</li>
+            <li>Kuru: v = √(0,5 · 10 · 50) = √250 ≈ <strong>15,8 m/s ≈ 57 km/h</strong></li>
+            <li>Islak: v = √(0,2 · 10 · 50) = √100 = <strong>10 m/s = 36 km/h</strong></li>
+            <li>Kütle hiçbir adımda kullanılmadı: kamyon da otomobil de aynı sınır hıza sahiptir.</li>
           </ol>
         </details>
 
         <details>
-          <summary>Örnek 4 — Eğik düzlemde kayan cisim</summary>
+          <summary>Örnek 4 — Periyot değişirse</summary>
           <p>
-            Yatayla 37° açı yapan eğik düzlemde 10 kg'lık bir cisim aşağı doğru kayıyor.
-            Sürtünme katsayısı 0,2 ise ivmesi nedir? (sin37° = 0,6 · cos37° = 0,8)
+            Sabit yarıçaplı bir çemberde dolanan cismin periyodu yarıya indirilirse çizgisel hızı
+            ve merkezcil ivmesi nasıl değişir?
           </p>
           <ol class="steps">
-            <li>Eğime paralel bileşen: m·g·sinθ = 10 · 10 · 0,6 = <strong>60 N</strong></li>
-            <li>Eğime dik denge: N = m·g·cosθ = 10 · 10 · 0,8 = <strong>80 N</strong></li>
-            <li>Sürtünme: f = μ·N = 0,2 · 80 = <strong>16 N</strong> (harekete zıt, yukarı doğru)</li>
-            <li>a = (60 − 16) / 10 = <strong>4,4 m/s²</strong></li>
+            <li>v = 2πr/T → T yarıya inerse v <strong>iki katına</strong> çıkar.</li>
+            <li>a = v²/r → v iki katına çıkınca a <strong>dört katına</strong> çıkar.</li>
+            <li>Aynı sonuç a = 4π²r/T² bağıntısından da okunur: T yarıya inince a dört katına çıkar.</li>
+            <li>Merkezcil kuvvet de dört katına çıkar; bu yüzden hızlı dönen sistemlerde bağlantı
+              elemanları çok daha güçlü seçilir.</li>
           </ol>
         </details>
 
         <h3 id="k9">Sık yapılan hatalar</h3>
         <ul>
-          <li><strong>“Hareket eden cisme mutlaka kuvvet etki eder.”</strong> Sabit hızla giden
-            cisimde net kuvvet sıfırdır. Kuvvet hareketi değil, <em>hareketteki değişimi</em> doğurur.</li>
-          <li><strong>“Etki ve tepki birbirini dengeler.”</strong> Farklı cisimlere etki ettikleri
-            için dengeleyemezler; dengeleme aynı cisimdeki kuvvetler arasında olur.</li>
-          <li><strong>“Kütle ile ağırlık aynı şeydir.”</strong> Kütle kg, ağırlık N ile ölçülür;
-            biri skaler, diğeri vektördür.</li>
-          <li><strong>“Normal kuvvet her zaman m·g'dir.”</strong> Asansörde, eğik düzlemde ya da
-            eğik bir kuvvet uygulandığında değişir.</li>
-          <li><strong>“Sürtünme daima hareketi engeller.”</strong> Yürümeni, frenlemeni ve dönüşte
-            savrulmamanı sağlayan da sürtünmedir; sürtünme <em>bağıl kaymaya</em> zıttır.</li>
-          <li><strong>“İvme hız yönündedir.”</strong> İvme net kuvvetin yönündedir; yavaşlayan
-            cisimde hıza zıt yöndedir.</li>
-          <li><strong>“Cisim kuvvete sahiptir.”</strong> Kuvvet bir <em>etkileşimdir</em>, cismin
-            taşıdığı bir özellik değil. "Cismin üzerindeki kuvvet" demek doğrudur.</li>
+          <li><strong>“Sürat sabitse ivme yoktur.”</strong> Hızın <em>yönü</em> değişiyorsa ivme vardır;
+            çembersel harekette ivme merkeze doğrudur.</li>
+          <li><strong>“İvme hız yönündedir.”</strong> Düzgün çembersel harekette ivme hıza
+            <em>diktir</em>: hızı büyütmez, çevirir.</li>
+          <li><strong>“Cisme dışarı doğru merkezkaç kuvveti etki eder.”</strong> Yerdeki gözlemci için
+            böyle bir kuvvet yoktur; hissedilen şey eylemsizliktir.</li>
+          <li><strong>“Merkezcil kuvvet ayrı bir kuvvettir.”</strong> Serbest cisim diyagramına
+            ayrıca eklenmez; gerilme, sürtünme ya da çekim bu rolü üstlenir.</li>
+          <li><strong>“İp kesilince cisim merkezden uzaklaşan doğrultuda gider.”</strong>
+            <em>Teğet</em> doğrultuda gider.</li>
+          <li><strong>“Diskin her noktasının hızı aynıdır.”</strong> Aynı olan periyot ve açısal
+            hızdır; çizgisel hız yarıçapla artar.</li>
+          <li><strong>“Ağır araç virajda daha kolay savrulur.”</strong> Sınır hız √(μgr)'dir;
+            kütleden bağımsızdır.</li>
         </ul>
 
         <div class="callout">
@@ -2320,917 +2222,740 @@
           ctx.restore();
         }
 
-        /* ============ 01 · kuvvet laboratuvarı ============ */
+        /* ============ eğri paneli (x eksenli) ============ */
+
+        function panelX(ctx, X, Y, W, H, o) {
+          if (W < 90 || H < 80) return;
+          roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
+          ctx.fillStyle = COL.panel;
+          ctx.fill();
+          ctx.strokeStyle = COL.border;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          var pl = 50, pr = 16, pt = 38, pb = 30;
+          var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
+          var xM = o.xMax, yM = o.yMax;
+          function px(v) { return x0 + (v / xM) * (x1 - x0); }
+          function py(v) { return y1 - (v / yM) * (y1 - y0); }
+          ctx.font = "10px " + FONT;
+          var ys = niceStep(yM, 4);
+          for (var v = 0; v <= yM + 1e-9; v += ys) {
+            ctx.strokeStyle = A(COL.dim, 0.14);
+            ctx.beginPath();
+            ctx.moveTo(x0, py(v));
+            ctx.lineTo(x1, py(v));
+            ctx.stroke();
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(fmt(v, ys < 1 ? 1 : 0), x0 - 7, py(v));
+          }
+          ctx.strokeStyle = A(COL.dim, 0.42);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0 - 6);
+          ctx.lineTo(x0, y1);
+          ctx.lineTo(x1, y1);
+          ctx.stroke();
+          var xs = niceStep(xM, 4);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "top";
+          for (var t = 0; t <= xM + 1e-9; t += xs) {
+            ctx.fillStyle = COL.dim;
+            ctx.fillText(fmt(t, xs < 1 ? 1 : 0), px(t), y1 + 6);
+          }
+          ctx.strokeStyle = o.color;
+          ctx.lineWidth = 2.5;
+          ctx.lineJoin = "round";
+          ctx.beginPath();
+          var pen = false;
+          for (var i = 0; i <= 90; i++) {
+            var xv = (xM * i) / 90;
+            if (xv < (o.xMin || 0)) continue;
+            var yv = o.f(xv);
+            if (yv > yM || !isFinite(yv)) { pen = false; continue; }
+            if (pen) ctx.lineTo(px(xv), py(yv)); else ctx.moveTo(px(xv), py(yv));
+            pen = true;
+          }
+          ctx.stroke();
+          var mx = px(clamp(o.xNow, 0, xM)), my = py(clamp(o.f(o.xNow), 0, yM));
+          dashLine(ctx, mx, my, mx, y1, A(COL.dim, 0.45));
+          dashLine(ctx, x0, my, mx, my, A(COL.dim, 0.45));
+          ctx.fillStyle = o.color;
+          ctx.beginPath();
+          ctx.arc(mx, my, 5, 0, TAU);
+          ctx.fill();
+          ctx.strokeStyle = COL.ring;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.font = "700 12.5px " + FONT;
+          ctx.fillStyle = o.color;
+          ctx.fillText(o.title, X + 17, Y + 24);
+          ctx.textAlign = "right";
+          ctx.font = "10.5px " + FONT;
+          ctx.fillStyle = COL.dim;
+          ctx.fillText(o.xLabel, X + W - 17, Y + H - 8);
+        }
+
+        /* ============ 01 · çember laboratuvarı ============ */
 
         (function lab() {
-          var S = kit("lab-scene", function (w) { return clamp(w * 0.38, 250, 330); });
-          var G = kit("lab-graphs", function (w) { return w < 640 ? 830 : 440; });
+          var S = kit("lab-scene", function (w) { return clamp(w * 0.62, 320, 420); });
+          var G = kit("lab-graphs", function (w) { return w < 640 ? 560 : 280; });
           if (!S || !G) return;
 
-          var GR = 9.81, XMAX = 12;
-          var st = { F: 20, m: 5, mu: 0, name: "Sürtünmesiz", speed: 1, t: 0,
-                     run: false, fbd: true, values: true, strobe: true };
+          var st = { r: 1.0, T: 4.0, m: 2.0, th: 0, run: false, vec: true, trail: true };
 
-          function weight() { return st.m * GR; }
-          function normal() { return weight(); }
-          function fMax() { return st.mu * normal(); }
-          function moves() { return st.F > fMax() + 1e-9; }
-          function friction() { return moves() ? fMax() : Math.min(st.F, fMax()); }
-          function fNet() { return moves() ? st.F - fMax() : 0; }
-          function acc() { return fNet() / st.m; }
-          function tEnd() {
-            var a = acc();
-            return a > 1e-6 ? Math.min(6, Math.sqrt((2 * XMAX) / a)) : 6;
-          }
-          function xAt(t) { return 0.5 * acc() * t * t; }
-          function vAt(t) { return acc() * t; }
+          function omega() { return (2 * Math.PI) / st.T; }
+          function vel() { return omega() * st.r; }
+          function acc() { return omega() * omega() * st.r; }
+          function force() { return st.m * acc(); }
 
-          function strobeStep() {
-            var te = tEnd(), opts = [0.1, 0.2, 0.25, 0.5, 1, 2];
-            for (var i = 0; i < opts.length; i++) if (te / opts[i] <= 12) return opts[i];
-            return 2;
-          }
-
-          /* ---- sahne ---- */
           function drawScene() {
             var ctx = S.ctx, W = S.w, H = S.h;
             ctx.clearRect(0, 0, W, H);
+            var cx = W * 0.5, cy = H * 0.5;
+            var R = Math.min(W * 0.32, H * 0.38);
+            var sc = R / st.r;
+            var th = st.th;
+            var ox = cx + R * Math.cos(th), oy = cy + R * Math.sin(th);
 
-            var padL = 30, padR = 30, padB = 54;
-            var gy = H - padB;
-            var t = st.t, x = xAt(t), v = vAt(t);
-            var side = clamp(28 + st.m * 1.1, 28, 58);
-            var xM = Math.max(xAt(tEnd()), 4) * 1.06;
-            var sc = (W - padL - padR - side) / xM;
-            var i, m;
-
-            function px(mm) { return padL + mm * sc; }
-
-            var sky = ctx.createLinearGradient(0, 0, 0, gy);
-            sky.addColorStop(0, A(COL.blue, 0.1));
-            sky.addColorStop(1, A(COL.blue, 0));
-            ctx.fillStyle = sky;
-            ctx.fillRect(0, 0, W, gy);
-
-            /* uzaklık cetveli */
-            var sx = niceStep(xM, 6);
-            ctx.font = "10px " + FONT;
-            for (i = 0; (m = i * sx) <= xM + 1e-6; i++) {
-              var xx = px(m);
-              if (xx > W - 6) break;
-              ctx.strokeStyle = A(COL.dim, i ? 0.12 : 0.3);
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(xx, gy);
-              ctx.lineTo(xx, gy - (i ? 10 : 18));
-              ctx.stroke();
-              ctx.fillStyle = COL.dim;
-              ctx.textAlign = "center";
-              ctx.textBaseline = "top";
-              ctx.fillText(fmt(m, sx < 1 ? 1 : 0), xx, gy + 6);
-            }
-            ctx.textAlign = "right";
-            ctx.fillText("x (m)", W - 6, gy + 6);
-
-            /* zemin */
-            var grd = ctx.createLinearGradient(0, gy, 0, H);
-            grd.addColorStop(0, A(st.mu > 0 ? COL.amber : COL.lime, 0.22));
-            grd.addColorStop(1, A(st.mu > 0 ? COL.amber : COL.lime, 0));
-            ctx.fillStyle = grd;
-            ctx.fillRect(0, gy, W, H - gy);
-            ctx.strokeStyle = A(st.mu > 0 ? COL.amber : COL.lime, 0.65);
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(0, gy + 1);
-            ctx.lineTo(W, gy + 1);
-            ctx.stroke();
-            if (st.mu > 0) {
-              ctx.strokeStyle = A(COL.amber, 0.35);
-              ctx.lineWidth = 1;
-              for (var hx = 10; hx < W; hx += 13) {
-                ctx.beginPath();
-                ctx.moveTo(hx, gy + 4);
-                ctx.lineTo(hx - 7, gy + 11);
-                ctx.stroke();
-              }
-            }
-
-            /* strobo izleri */
-            if (st.strobe && t > 0) {
-              var ds = strobeStep();
-              for (var k = 0; k * ds <= t + 1e-9; k++) {
-                var gx = px(xAt(k * ds));
-                ctx.fillStyle = A(COL.blue, 0.18);
-                roundRect(ctx, gx, gy - side, side, side, 7);
-                ctx.fill();
-              }
-            }
-
-            var bx = px(x), by = gy - side;
-
-            /* kutu */
-            roundRect(ctx, bx, by, side, side, 8);
-            var bg = ctx.createLinearGradient(bx, by, bx, by + side);
-            bg.addColorStop(0, "#dbe6ff");
-            bg.addColorStop(1, "#9fb8ee");
-            ctx.fillStyle = bg;
-            ctx.fill();
-            ctx.strokeStyle = A(COL.outline, 0.45);
+            /* yörünge */
+            ctx.strokeStyle = A(COL.dim, 0.35);
             ctx.lineWidth = 1.5;
-            ctx.stroke();
-            tag(ctx, fmt(st.m, 0) + " kg", bx + side / 2, by + side / 2, "#2c3d66", "center",
-                Math.min(13, side * 0.3));
-
-            /* serbest cisim diyagramı: oklar kutunun kenarlarından çıkar */
-            if (st.fbd) {
-              var cx = bx + side / 2, cy = by + side / 2;
-              var big = Math.max(st.F, weight(), 1);
-              function len(F) { return F < 0.01 ? 0 : clamp((F / big) * 64, 20, 68); }
-              function lbl(sym, F) {
-                return st.values ? sym + " = " + fmt(F, 0) + " N" : sym;
-              }
-              arrow(ctx, bx + side, cy, len(st.F), 0, COL.blue, lbl("F", st.F), 3);
-              if (friction() > 0.01) {
-                arrow(ctx, bx, cy, -len(friction()), 0, COL.rose, lbl("f", friction()), 2.6);
-              }
-              arrow(ctx, cx, by, 0, -len(normal()), COL.lime, lbl("N", normal()), 2.6);
-              arrow(ctx, cx, by + side, 0, Math.min(len(weight()), padB - 20), COL.violet,
-                    lbl("G", weight()), 2.6);
-            }
-
-            /* rozetler */
-            chip(ctx, "t = " + fmt(t, 2) + " s", 8, 8, COL.blue, "left");
-            chip(ctx, st.name + " · μ = " + fmt(st.mu, 2), W - 8, 8, COL.amber, "right");
-            if (!moves()) {
-              chip(ctx, "statik sürtünme dengeliyor · kutu kıpırdamıyor", W / 2, gy - 26,
-                   COL.rose, "center");
-            } else if (t <= 0 && !st.run) {
-              chip(ctx, "itmek için tıkla ya da boşluk tuşuna bas", W / 2, gy - 26,
-                   COL.muted, "center");
-            } else if (t >= tEnd() - 1e-9) {
-              chip(ctx, fmt(x, 1) + " m · " + fmt(v, 1) + " m/s", W / 2, gy - 26,
-                   COL.lime, "center");
-            }
-          }
-
-          /* ---- grafik paneli ---- */
-          function panel(ctx, X, Y, W, H, o) {
-            if (W < 90 || H < 80) return;
-            roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
-            ctx.fillStyle = COL.panel;
-            ctx.fill();
-            ctx.strokeStyle = COL.border;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-
-            var pl = 46, pr = 16, pt = 36, pb = 26;
-            var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
-            var tM = Math.max(o.tEnd, 0.001);
-            var lo = o.yMin, hi = o.yMax;
-            if (hi - lo < 1e-6) hi = lo + 1;
-            var pad = (hi - lo) * 0.14;
-            lo -= pad;
-            hi += pad;
-
-            function px(t) { return x0 + (t / tM) * (x1 - x0); }
-            function py(v) { return y1 - ((v - lo) / (hi - lo)) * (y1 - y0); }
-
-            ctx.font = "10px " + FONT;
-            ctx.textBaseline = "middle";
-            ctx.textAlign = "right";
-            var ys = niceStep(hi - lo, 4);
-            var v0 = Math.ceil(lo / ys) * ys;
-            for (var v = v0; v <= hi + 1e-9; v += ys) {
-              var yy = py(v);
-              ctx.strokeStyle = Math.abs(v) < 1e-9 ? A(COL.dim, 0.4) : A(COL.dim, 0.15);
-              ctx.beginPath();
-              ctx.moveTo(x0, yy);
-              ctx.lineTo(x1, yy);
-              ctx.stroke();
-              ctx.fillStyle = COL.dim;
-              ctx.fillText(fmt(v, ys < 1 ? 1 : 0), x0 - 8, yy);
-            }
-
-            ctx.strokeStyle = A(COL.dim, 0.42);
-            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 5]);
             ctx.beginPath();
-            ctx.moveTo(x0, y0 - 8);
-            ctx.lineTo(x0, y1);
-            ctx.lineTo(x1, y1);
+            ctx.arc(cx, cy, R, 0, TAU);
             ctx.stroke();
+            ctx.setLineDash([]);
 
-            ctx.textAlign = "center";
-            ctx.textBaseline = "top";
-            var ts = niceStep(tM, 4);
-            for (var tt = 0; tt <= tM + 1e-9; tt += ts) {
-              ctx.fillStyle = COL.dim;
-              ctx.fillText(fmt(tt, ts < 1 ? 1 : 0), px(tt), y1 + 7);
-            }
-
-            function trace(from, to, width, alpha) {
-              ctx.globalAlpha = alpha;
-              ctx.strokeStyle = o.color;
-              ctx.lineWidth = width;
-              ctx.lineJoin = "round";
-              ctx.beginPath();
-              for (var i = 0; i <= 90; i++) {
-                var t = from + ((to - from) * i) / 90;
-                var xx = px(t), yy2 = py(o.f(t));
-                if (i) ctx.lineTo(xx, yy2); else ctx.moveTo(xx, yy2);
+            /* hız yönü izi */
+            if (st.trail) {
+              for (var k = 0; k < 8; k++) {
+                var a2 = th - (k * Math.PI) / 8;
+                var tx = cx + R * Math.cos(a2), ty = cy + R * Math.sin(a2);
+                ctx.save();
+                ctx.globalAlpha = 0.25 - k * 0.028;
+                arrow(ctx, tx, ty, -Math.sin(a2) * 26, Math.cos(a2) * 26, COL.blue, null, 2);
+                ctx.restore();
               }
-              ctx.stroke();
-              ctx.globalAlpha = 1;
             }
 
-            trace(0, tM, 1.5, 0.16);
-
-            if (o.tNow > 1e-6) {
-              var base = py(clamp(0, lo, hi));
-              ctx.globalAlpha = 0.12;
-              ctx.fillStyle = o.color;
-              ctx.beginPath();
-              ctx.moveTo(px(0), base);
-              for (var j = 0; j <= 90; j++) {
-                var tj = (o.tNow * j) / 90;
-                ctx.lineTo(px(tj), py(o.f(tj)));
-              }
-              ctx.lineTo(px(o.tNow), base);
-              ctx.closePath();
-              ctx.fill();
-              ctx.globalAlpha = 1;
-              trace(0, o.tNow, 2.4, 1);
-            }
-
-            var mx = px(o.tNow), my = py(o.f(o.tNow));
-            dashLine(ctx, mx, my, mx, y1, A(COL.dim, 0.42));
-            ctx.fillStyle = o.color;
+            /* ip / yarıçap */
+            ctx.strokeStyle = A(COL.dim, 0.7);
+            ctx.lineWidth = 1.5;
             ctx.beginPath();
-            ctx.arc(mx, my, 4.5, 0, TAU);
-            ctx.fill();
-            ctx.strokeStyle = COL.ring;
-            ctx.lineWidth = 2;
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(ox, oy);
             ctx.stroke();
+            tag(ctx, "r = " + fmt(st.r, 1) + " m",
+                (cx + ox) / 2 - Math.sin(th) * 18, (cy + oy) / 2 + Math.cos(th) * 18,
+                COL.dim, "center", 11);
 
-            ctx.textBaseline = "alphabetic";
-            ctx.textAlign = "left";
-            ctx.font = "700 12.5px " + FONT;
-            ctx.fillStyle = o.color;
-            ctx.fillText(o.title, X + 17, Y + 23);
-            ctx.textAlign = "right";
-            ctx.font = "11px " + FONT;
-            ctx.fillStyle = COL.muted;
-            ctx.fillText(fmt(o.f(o.tNow), 1) + " " + o.unit, X + W - 17, Y + 23);
+            /* merkez */
+            ctx.fillStyle = A(COL.ink, 0.6);
+            ctx.beginPath();
+            ctx.arc(cx, cy, 4, 0, TAU);
+            ctx.fill();
+
+            /* cisim */
+            var rr = clamp(8 + st.m * 1.6, 9, 20);
+            orb(ctx, ox, oy, rr, "#d6e4ff", "#5b87e8");
+
+            /* vektörler */
+            if (st.vec) {
+              var kv = 70 / Math.max(vel(), 0.3);
+              var ka = 70 / Math.max(acc(), 0.3);
+              arrow(ctx, ox, oy, -Math.sin(th) * Math.min(vel() * kv, 74),
+                    Math.cos(th) * Math.min(vel() * kv, 74), COL.blue,
+                    "v = " + fmt(vel(), 2) + " m/s", 3);
+              arrow(ctx, ox, oy, -Math.cos(th) * Math.min(acc() * ka, 64),
+                    -Math.sin(th) * Math.min(acc() * ka, 64), COL.rose,
+                    "a = " + fmt(acc(), 2), 3);
+            }
+
+            chip(ctx, "T = " + fmt(st.T, 1) + " s · ω = " + fmt(omega(), 2) + " rad/s",
+                 8, 8, COL.violet, "left");
+            chip(ctx, "F = " + fmt(force(), 1) + " N · merkeze", W - 8, 8, COL.rose, "right");
+            tag(ctx, "hız teğet · ivme merkeze", cx, H - 16, COL.dim, "center", 11);
           }
 
           function drawGraphs() {
             var ctx = G.ctx, W = G.w, H = G.h;
             ctx.clearRect(0, 0, W, H);
             var stacked = W < 640, gap = 10;
-            var cols = stacked ? 1 : 2, rows = stacked ? 4 : 2;
-            var pw = (W - gap * (cols - 1)) / cols;
-            var ph = (H - gap * (rows - 1)) / rows;
-            var te = tEnd(), t = st.t;
-            var specs = [
-              { title: "ΣF – t · net kuvvet", unit: "N", color: COL.blue,
-                f: function () { return fNet(); }, yMin: 0, yMax: Math.max(fNet(), 1) },
-              { title: "a – t · ivme", unit: "m/s²", color: COL.violet,
-                f: function () { return acc(); }, yMin: 0, yMax: Math.max(acc(), 0.5) },
-              { title: "v – t · hız", unit: "m/s", color: COL.lime, f: vAt,
-                yMin: 0, yMax: Math.max(vAt(te), 0.5) },
-              { title: "x – t · konum", unit: "m", color: COL.amber, f: xAt,
-                yMin: 0, yMax: Math.max(xAt(te), 1) }
-            ];
-            for (var i = 0; i < 4; i++) {
-              var cx = (i % cols) * (pw + gap);
-              var cy = Math.floor(i / cols) * (ph + gap);
-              specs[i].tEnd = te;
-              specs[i].tNow = t;
-              panel(ctx, cx, cy, pw, ph, specs[i]);
-            }
+            var pw = stacked ? W : (W - gap) / 2;
+            var ph = stacked ? (H - gap) / 2 : H;
+            var vMax = 12, aMax = Math.max(acc() * 1.4, 20);
+            panelX(ctx, 0, 0, pw, ph, {
+              title: "a – v · yarıçap sabit (" + fmt(st.r, 1) + " m)",
+              xLabel: "çizgisel hız v (m/s)", color: COL.blue,
+              f: function (v) { return (v * v) / st.r; },
+              xMax: vMax, yMax: aMax, xNow: vel()
+            });
+            panelX(ctx, stacked ? 0 : pw + gap, stacked ? ph + gap : 0, pw, ph, {
+              title: "a – r · hız sabit (" + fmt(vel(), 2) + " m/s)",
+              xLabel: "yarıçap r (m)", color: COL.violet,
+              f: function (r) { return (vel() * vel()) / r; },
+              xMax: 6, yMax: aMax, xNow: st.r, xMin: 0.05
+            });
           }
 
-          /* ---- DOM ---- */
           var ro = {
-            t: document.getElementById("ro-t"),
-            fnet: document.getElementById("ro-fnet"),
-            a: document.getElementById("ro-a"),
             v: document.getElementById("ro-v"),
-            state: document.getElementById("ro-state")
+            w: document.getElementById("ro-w"),
+            a: document.getElementById("ro-a"),
+            f: document.getElementById("ro-f")
           };
           var sm = {
-            g: document.getElementById("s-g"),
-            n: document.getElementById("s-n"),
+            t: document.getElementById("s-t"),
             f: document.getElementById("s-f"),
-            state: document.getElementById("s-state")
+            c: document.getElementById("s-c"),
+            d: document.getElementById("s-d")
           };
           var playBtn = document.getElementById("c-play");
 
-          function label() {
-            var done = st.t >= tEnd() - 1e-9;
-            playBtn.textContent = st.run ? "Duraklat" : (done ? "Tekrar it" : (st.t > 0 ? "Devam et" : "İt"));
-          }
-
-          function stateText() {
-            if (!moves()) return st.F > 0 ? "statik denge · a = 0" : "kuvvet yok";
-            if (st.t <= 0) return "itilmeyi bekliyor";
-            return "sabit ivmeyle hızlanıyor";
-          }
-
           function sync() {
-            var t = st.t;
-            ro.t.textContent = fmt(t, 2);
-            ro.fnet.textContent = fmt(fNet(), 1);
+            ro.v.textContent = fmt(vel(), 2);
+            ro.w.textContent = fmt(omega(), 2);
             ro.a.textContent = fmt(acc(), 2);
-            ro.v.textContent = fmt(vAt(t), 1);
-            ro.state.textContent = stateText();
-            sm.g.textContent = fmt(weight(), 1) + " N";
-            sm.n.textContent = fmt(normal(), 1) + " N";
-            sm.f.textContent = fmt(friction(), 1) + " N";
-            sm.state.textContent = moves() ? "hareket ediyor" : "hareketsiz";
+            ro.f.textContent = fmt(force(), 1);
+            sm.t.textContent = fmt(st.T, 2) + " s";
+            sm.f.textContent = fmt(1 / st.T, 2) + " Hz";
+            sm.c.textContent = fmt(2 * Math.PI * st.r, 2) + " m";
+            sm.d.textContent = "0 m";
             drawScene();
             drawGraphs();
           }
 
           function tick(dt) {
             if (!st.run) { halt(tick); return; }
-            st.t += dt * st.speed;
-            if (st.t >= tEnd()) {
-              st.t = tEnd();
-              st.run = false;
-              halt(tick);
-              label();
-            }
-            sync();
-          }
-
-          function reset() {
-            st.t = 0;
-            st.run = false;
-            halt(tick);
-            label();
-            sync();
-          }
-
-          function reparam() {
-            st.t = 0;
-            label();
-            sync();
-            if (st.run) play(tick);
+            st.th += omega() * dt;
+            if (st.th > TAU) st.th -= TAU;
+            drawScene();
           }
 
           playBtn.addEventListener("click", function () {
-            if (st.run) {
-              st.run = false;
-            } else {
-              if (st.t >= tEnd() - 1e-9) st.t = 0;
-              st.run = true;
-              play(tick);
-            }
-            label();
+            st.run = !st.run;
+            playBtn.textContent = st.run ? "Durdur" : "Döndür";
+            if (st.run) play(tick);
+          });
+          document.getElementById("c-reset").addEventListener("click", function () {
+            st.run = false;
+            st.th = 0;
+            halt(tick);
+            playBtn.textContent = "Döndür";
             sync();
           });
-          document.getElementById("c-reset").addEventListener("click", reset);
 
-          function paintRange(el) {
-            var lo = +el.min || 0, hi = +el.max || 100;
+          function paint(el) {
+            var lo = +el.min, hi = +el.max;
             el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
           }
-
-          function slider(id, outId, key, unit) {
+          function bind(id, outId, key, div, unit, dec) {
             var el = document.getElementById(id), out = document.getElementById(outId);
             el.addEventListener("input", function () {
-              st[key] = +el.value;
-              out.textContent = el.value + unit;
-              paintRange(el);
-              reparam();
+              st[key] = +el.value / div;
+              out.textContent = fmt(st[key], dec) + unit;
+              paint(el);
+              sync();
             });
-            paintRange(el);
+            paint(el);
+            out.textContent = fmt(st[key], dec) + unit;
           }
-          slider("c-f", "o-f", "F", " N");
-          slider("c-m", "o-m", "m", " kg");
+          bind("c-r", "o-r", "r", 20, " m", 1);
+          bind("c-t", "o-t", "T", 5, " s", 1);
+          bind("c-m", "o-m", "m", 10, " kg", 1);
 
-          function seg(id, fn) {
-            var box = document.getElementById(id);
-            box.addEventListener("click", function (e) {
-              var b = e.target.closest("button");
-              if (!b || !box.contains(b)) return;
-              var all = box.querySelectorAll("button");
-              for (var i = 0; i < all.length; i++) {
-                all[i].setAttribute("aria-pressed", all[i] === b ? "true" : "false");
-              }
-              fn(b);
-            });
-          }
-
-          var muOut = document.getElementById("o-mu");
-          seg("c-surface", function (b) {
-            st.mu = +b.dataset.mu;
-            st.name = b.dataset.name;
-            muOut.textContent = "μ = " + fmt(st.mu, 2);
-            reparam();
+          document.getElementById("c-vec").addEventListener("change", function () {
+            st.vec = this.checked; drawScene();
           });
-          seg("c-speed", function (b) { st.speed = +b.dataset.s; });
-
-          document.getElementById("c-fbd").addEventListener("change", function () {
-            st.fbd = this.checked; sync();
-          });
-          document.getElementById("c-values").addEventListener("change", function () {
-            st.values = this.checked; sync();
-          });
-          document.getElementById("c-strobe").addEventListener("change", function () {
-            st.strobe = this.checked; sync();
+          document.getElementById("c-trail").addEventListener("change", function () {
+            st.trail = this.checked; drawScene();
           });
 
           S.el.addEventListener("click", function () { playBtn.click(); });
           S.el.addEventListener("keydown", function (e) {
             if (e.code === "Space" || e.key === " " || e.key === "Enter") { e.preventDefault(); playBtn.click(); }
-            else if (e.key === "r" || e.key === "R") { e.preventDefault(); reset(); }
+            else if (e.key === "r" || e.key === "R") { e.preventDefault(); document.getElementById("c-reset").click(); }
           });
+
+          var presets = document.querySelectorAll(".presets button[data-r]");
+          for (var pi = 0; pi < presets.length; pi++) {
+            presets[pi].addEventListener("click", function () {
+              var rEl = document.getElementById("c-r"), tEl = document.getElementById("c-t"),
+                  mEl = document.getElementById("c-m");
+              rEl.value = this.dataset.r;
+              tEl.value = this.dataset.t;
+              mEl.value = this.dataset.m;
+              rEl.dispatchEvent(new Event("input", { bubbles: true }));
+              tEl.dispatchEvent(new Event("input", { bubbles: true }));
+              mEl.dispatchEvent(new Event("input", { bubbles: true }));
+              if (!st.run) playBtn.click();
+            });
+          }
 
           S.bind(drawScene);
           G.bind(drawGraphs);
-          label();
           sync();
         })();
 
-        /* ============ 02 · sürtünmeyi azaltınca ============ */
+        /* ============ 02 · ipi kes ============ */
 
-        (function slide() {
-          var D = kit("slide-scene", function (w) { return clamp(w * 0.54, 300, 380); });
+        (function cut() {
+          var C = kit("cut-scene", function (w) { return clamp(w * 0.6, 310, 400); });
+          if (!C) return;
+
+          var R = 1.4, T0 = 2.4;
+          var st = { th: 0, run: false, cut: false, t: 0, x0: 0, y0: 0, vx: 0, vy: 0, trail: [] };
+          var verdict = document.getElementById("cut-verdict");
+          var playBtn = document.getElementById("cut-play");
+
+          function om() { return (2 * Math.PI) / T0; }
+
+          function draw() {
+            var ctx = C.ctx, W = C.w, H = C.h;
+            ctx.clearRect(0, 0, W, H);
+            var cx = W * 0.5, cy = H * 0.5;
+            var rad = Math.min(W * 0.2, H * 0.26);
+            var sc = rad / R;
+
+            ctx.strokeStyle = A(COL.dim, 0.32);
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([4, 5]);
+            ctx.beginPath();
+            ctx.arc(cx, cy, rad, 0, TAU);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = A(COL.ink, 0.6);
+            ctx.beginPath();
+            ctx.arc(cx, cy, 4, 0, TAU);
+            ctx.fill();
+
+            var ox, oy;
+            if (!st.cut) {
+              ox = cx + rad * Math.cos(st.th);
+              oy = cy + rad * Math.sin(st.th);
+              ctx.strokeStyle = A(COL.amber, 0.85);
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.moveTo(cx, cy);
+              ctx.lineTo(ox, oy);
+              ctx.stroke();
+            } else {
+              ox = st.x0 + st.vx * st.t * sc;
+              oy = st.y0 + st.vy * st.t * sc;
+              /* teğet doğrultu */
+              dashLine(ctx, st.x0, st.y0, st.x0 + st.vx * 8 * sc, st.y0 + st.vy * 8 * sc,
+                       A(COL.lime, 0.7));
+              /* yanlış sanı: merkezden dışarı */
+              var dx = st.x0 - cx, dy = st.y0 - cy, dl = Math.sqrt(dx * dx + dy * dy);
+              dashLine(ctx, st.x0, st.y0, st.x0 + (dx / dl) * 86, st.y0 + (dy / dl) * 86,
+                       A(COL.rose, 0.5));
+              tag(ctx, "yanlış sanı", st.x0 + (dx / dl) * 108, st.y0 + (dy / dl) * 108,
+                  COL.rose, "center", 10.5);
+              /* kesik ip */
+              ctx.strokeStyle = A(COL.amber, 0.4);
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.moveTo(cx, cy);
+              ctx.lineTo(cx + (st.x0 - cx) * 0.45, cy + (st.y0 - cy) * 0.45);
+              ctx.stroke();
+            }
+
+            st.trail.push({ x: ox, y: oy });
+            if (st.trail.length > 90) st.trail.shift();
+            ctx.strokeStyle = A(COL.blue, 0.35);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (var i = 0; i < st.trail.length; i++) {
+              if (i) ctx.lineTo(st.trail[i].x, st.trail[i].y);
+              else ctx.moveTo(st.trail[i].x, st.trail[i].y);
+            }
+            ctx.stroke();
+
+            orb(ctx, ox, oy, 11, "#d6e4ff", "#5b87e8");
+            if (!st.cut) {
+              arrow(ctx, ox, oy, -Math.sin(st.th) * 62, Math.cos(st.th) * 62, COL.blue, "v", 3);
+              arrow(ctx, ox, oy, -Math.cos(st.th) * 48, -Math.sin(st.th) * 48, COL.rose, "F", 2.6);
+            } else {
+              var vl = Math.sqrt(st.vx * st.vx + st.vy * st.vy);
+              arrow(ctx, ox, oy, (st.vx / vl) * 62, (st.vy / vl) * 62, COL.blue, "v", 3);
+            }
+
+            chip(ctx, st.cut ? "ip kesildi · net kuvvet yok" : "ip gerilmesi merkezcil kuvveti sağlıyor",
+                 8, 8, st.cut ? COL.lime : COL.violet, "left");
+          }
+
+          function tick(dt) {
+            if (!st.run) { halt(tick); return; }
+            if (!st.cut) {
+              st.th += om() * dt;
+              if (st.th > TAU) st.th -= TAU;
+            } else {
+              var W = C.w, H = C.h;
+              var sc = Math.min(W * 0.2, H * 0.26) / R;
+              var nt = st.t + dt * 0.45;
+              var nx = st.x0 + st.vx * nt * sc, ny = st.y0 + st.vy * nt * sc;
+              if (nx > W - 22 || nx < 22 || ny > H - 22 || ny < 22) {
+                st.run = false;
+                halt(tick);
+              } else {
+                st.t = nt;
+              }
+            }
+            draw();
+          }
+
+          function reset() {
+            st.th = 0; st.run = false; st.cut = false; st.t = 0; st.trail = [];
+            halt(tick);
+            playBtn.textContent = "Döndür";
+            verdict.className = "verdict";
+            verdict.innerHTML = "Döndürmek için <b>Döndür</b>, sonra <b>İpi kes</b>.";
+            draw();
+          }
+
+          playBtn.addEventListener("click", function () {
+            if (st.cut) reset();
+            st.run = !st.run;
+            playBtn.textContent = st.run ? "Durdur" : "Döndür";
+            if (st.run) play(tick);
+          });
+
+          document.getElementById("cut-cut").addEventListener("click", function () {
+            if (st.cut) return;
+            var W = C.w, H = C.h;
+            var cx = W * 0.5, cy = H * 0.5, rad = Math.min(W * 0.2, H * 0.26);
+            st.x0 = cx + rad * Math.cos(st.th);
+            st.y0 = cy + rad * Math.sin(st.th);
+            var v = om() * R;
+            st.vx = -Math.sin(st.th) * v;
+            st.vy = Math.cos(st.th) * v;
+            st.cut = true;
+            st.t = 0;
+            st.trail = [];
+            st.run = true;
+            playBtn.textContent = "Durdur";
+            play(tick);
+            verdict.className = "verdict good";
+            verdict.innerHTML =
+              "İp kesildi. Cisim <b>teğet doğrultuda</b>, " + fmt(v, 2) + " m/s sabit hızla " +
+              "uzaklaşıyor — merkezden dışarı değil. Net kuvvet sıfır olduğu için hareket " +
+              "düzgün doğrusaldır (1. yasa).";
+          });
+          document.getElementById("cut-reset").addEventListener("click", reset);
+
+          C.el.addEventListener("click", function () {
+            if (st.run && !st.cut) document.getElementById("cut-cut").click();
+            else playBtn.click();
+          });
+
+          C.bind(draw);
+          draw();
+        })();
+
+        /* ============ 03 · aynı disk, farklı yarıçap ============ */
+
+        (function disk() {
+          var D = kit("disk-scene", function (w) { return clamp(w * 0.58, 300, 400); });
           if (!D) return;
 
-          var GR = 9.81, SPEED = 3;
-          var LANES = [
-            { name: "Halı", mu: 0.35, tone: "amber" },
-            { name: "Parke", mu: 0.15, tone: "lime" },
-            { name: "Buz", mu: 0.05, tone: "blue" },
-            { name: "Uzay · sürtünmesiz", mu: 0, tone: "violet" }
-          ];
-          var st = { v: 8, t: 0, run: false, done: false };
-          var verdict = document.getElementById("slide-verdict");
-          var playBtn = document.getElementById("slide-play");
+          var st = { T: 2.0, th: 0, run: false };
+          var PTS = [{ f: 0.3, tone: "blue" }, { f: 0.65, tone: "violet" }, { f: 1.0, tone: "rose" }];
+          var RMAX = 0.6;
+          var verdict = document.getElementById("disk-verdict");
+          var playBtn = document.getElementById("disk-play");
 
-          function tStop(mu) { return mu > 0 ? st.v / (mu * GR) : Infinity; }
-          function dist(mu) { return mu > 0 ? (st.v * st.v) / (2 * mu * GR) : Infinity; }
-          function xAt(mu, t) {
-            if (mu <= 0) return st.v * t;
-            var tc = Math.min(t, tStop(mu));
-            return st.v * tc - 0.5 * mu * GR * tc * tc;
-          }
-          function tEnd() {
-            var m = 0;
-            for (var i = 0; i < LANES.length; i++) {
-              if (LANES[i].mu > 0) m = Math.max(m, tStop(LANES[i].mu));
-            }
-            return m;
-          }
-          function xMax() {
-            var m = 1;
-            for (var i = 0; i < LANES.length; i++) {
-              if (LANES[i].mu > 0) m = Math.max(m, dist(LANES[i].mu));
-            }
-            return m * 1.1;
-          }
+          function om() { return (2 * Math.PI) / st.T; }
 
           function draw() {
             var ctx = D.ctx, W = D.w, H = D.h;
             ctx.clearRect(0, 0, W, H);
-            var padL = 20, padR = 26, padT = 34, padB = 30;
-            var laneH = (H - padT - padB) / LANES.length;
-            var sc = (W - padL - padR - 18) / xMax();
+            var cx = W * 0.38, cy = H * 0.52;
+            var R = Math.min(W * 0.28, H * 0.38);
 
-            function px(m) { return padL + m * sc; }
+            /* disk */
+            ctx.beginPath();
+            ctx.arc(cx, cy, R, 0, TAU);
+            ctx.fillStyle = A(COL.dim, 0.14);
+            ctx.fill();
+            ctx.strokeStyle = A(COL.dim, 0.4);
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            /* dönüşü görünür kılan işaret */
+            ctx.strokeStyle = A(COL.dim, 0.35);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx + R * Math.cos(st.th), cy + R * Math.sin(st.th));
+            ctx.stroke();
 
-            for (var i = 0; i < LANES.length; i++) {
-              var ln = LANES[i], col = COL[ln.tone];
-              var y = padT + i * laneH + laneH * 0.62;
-              ctx.strokeStyle = A(col, 0.45);
-              ctx.lineWidth = 2;
-              ctx.beginPath();
-              ctx.moveTo(padL - 8, y);
-              ctx.lineTo(W - 8, y);
-              ctx.stroke();
-              if (ln.mu > 0) {
-                ctx.strokeStyle = A(col, 0.3);
-                ctx.lineWidth = 1;
-                for (var hx = padL; hx < W - 8; hx += 11) {
-                  ctx.beginPath();
-                  ctx.moveTo(hx, y + 3);
-                  ctx.lineTo(hx - 6, y + 9);
-                  ctx.stroke();
-                }
-              }
-              ctx.font = "700 11px " + FONT;
-              ctx.fillStyle = col;
-              ctx.textAlign = "left";
-              ctx.textBaseline = "bottom";
-              ctx.fillText(ln.name + " · μ = " + fmt(ln.mu, 2), padL - 6, y - 12);
-
-              var d = dist(ln.mu);
-              if (isFinite(d)) {
-                var dx = px(d);
-                dashLine(ctx, dx, y - 11, dx, y + 8, A(col, 0.55));
-                if (st.t >= tStop(ln.mu) - 1e-9 && st.t > 0) {
-                  tag(ctx, fmt(d, 1) + " m", dx, y + 19, col, "center", 11);
-                }
-              }
-
-              var x = xAt(ln.mu, st.t);
-              var pxp = px(x), off = false;
-              if (pxp > W - 14) { pxp = W - 14; off = true; }
-              ctx.fillStyle = A(col, 0.9);
-              ctx.beginPath();
-              ctx.arc(pxp, y - 8, 8, 0, TAU);
-              ctx.fill();
-              ctx.strokeStyle = A(COL.outline, 0.4);
+            for (var i = 0; i < PTS.length; i++) {
+              var p = PTS[i], col = COL[p.tone];
+              var rr = R * p.f, rm = RMAX * p.f;
+              var x = cx + rr * Math.cos(st.th), y = cy + rr * Math.sin(st.th);
+              var v = om() * rm, a = om() * om() * rm;
+              ctx.strokeStyle = A(col, 0.25);
               ctx.lineWidth = 1;
+              ctx.setLineDash([3, 4]);
+              ctx.beginPath();
+              ctx.arc(cx, cy, rr, 0, TAU);
               ctx.stroke();
-              if (off) tag(ctx, "durmuyor →", W - 26, y - 24, col, "right", 11);
+              ctx.setLineDash([]);
+              arrow(ctx, x, y, -Math.sin(st.th) * v * 26, Math.cos(st.th) * v * 26, col, null, 2.4);
+              ctx.fillStyle = col;
+              ctx.beginPath();
+              ctx.arc(x, y, 6, 0, TAU);
+              ctx.fill();
+              ctx.strokeStyle = COL.ring;
+              ctx.lineWidth = 1.5;
+              ctx.stroke();
+
+              var ly = 40 + i * 52;
+              tag(ctx, "r = " + fmt(rm, 2) + " m", W - 16, ly, col, "right", 12);
+              tag(ctx, "v = " + fmt(v, 2) + " m/s   a = " + fmt(a, 2) + " m/s²",
+                  W - 16, ly + 17, COL.muted, "right", 11);
             }
 
-            chip(ctx, "ilk hız " + fmt(st.v, 0) + " m/s · t = " + fmt(st.t, 1) + " s",
-                 8, 6, COL.muted, "left");
+            chip(ctx, "T = " + fmt(st.T, 1) + " s · ω = " + fmt(om(), 2) + " rad/s (üçünde de aynı)",
+                 8, 8, COL.violet, "left");
           }
 
           function say() {
-            if (!st.done) {
-              verdict.className = "verdict";
-              verdict.innerHTML = "Diskler aynı hızla itildi; sürtünme her birini farklı " +
-                "mesafede durduruyor. t = " + fmt(st.t, 1) + " s";
-              return;
-            }
+            var v1 = om() * RMAX * PTS[0].f, v3 = om() * RMAX * PTS[2].f;
             verdict.className = "verdict good";
             verdict.innerHTML =
-              "<b>Halı</b> " + fmt(dist(0.35), 1) + " m &nbsp;·&nbsp; <b>Parke</b> " +
-              fmt(dist(0.15), 1) + " m &nbsp;·&nbsp; <b>Buz</b> " + fmt(dist(0.05), 1) +
-              " m &nbsp;·&nbsp; <b>Uzay</b> hiç durmadı.<br>" +
-              "Sürtünme katsayısı yediye bölününce mesafe yedi katına çıktı. Sıfır olduğunda " +
-              "cismi durduracak bir kuvvet kalmaz: <b>sabit hızla sonsuza kadar gider</b>.";
+              "Üç noktanın da periyodu <b>" + fmt(st.T, 1) + " s</b>, açısal hızı <b>" +
+              fmt(om(), 2) + " rad/s</b>. Ama çizgisel hızlar farklı: en dıştaki nokta en içtekinin " +
+              "<b>" + fmt(v3 / v1, 1) + " katı</b> hızla gidiyor (v = ω·r).";
           }
 
           function tick(dt) {
             if (!st.run) { halt(tick); return; }
-            st.t += dt * SPEED;
-            if (st.t >= tEnd()) {
-              st.t = tEnd();
-              st.run = false;
-              st.done = true;
-              halt(tick);
-              playBtn.textContent = "Yeniden it";
-            }
-            draw();
-            say();
-          }
-
-          function reset() {
-            st.t = 0;
-            st.run = false;
-            st.done = false;
-            halt(tick);
-            playBtn.textContent = "Hepsini it";
-            verdict.className = "verdict";
-            verdict.innerHTML = "Başlamak için <b>Hepsini it</b> düğmesine bas.";
+            st.th += om() * dt;
+            if (st.th > TAU) st.th -= TAU;
             draw();
           }
 
           playBtn.addEventListener("click", function () {
-            if (st.run) return;
-            if (st.done) { st.t = 0; st.done = false; }
-            st.run = true;
-            playBtn.textContent = "Kayıyor…";
-            play(tick);
+            st.run = !st.run;
+            playBtn.textContent = st.run ? "Durdur" : "Döndür";
+            if (st.run) play(tick);
+            say();
           });
-          document.getElementById("slide-reset").addEventListener("click", reset);
-
-          var vIn = document.getElementById("slide-v"), vOut = document.getElementById("slide-v-out");
-          vIn.addEventListener("input", function () {
-            st.v = +vIn.value;
-            vOut.textContent = st.v + " m/s";
-            vIn.style.setProperty("--p", (((st.v - 4) / 10) * 100).toFixed(1) + "%");
-            if (!st.run) { st.t = 0; st.done = false; playBtn.textContent = "Hepsini it"; }
+          document.getElementById("disk-reset").addEventListener("click", function () {
+            st.run = false;
+            st.th = 0;
+            halt(tick);
+            playBtn.textContent = "Döndür";
             draw();
             say();
           });
-          vIn.style.setProperty("--p", (((st.v - 4) / 10) * 100).toFixed(1) + "%");
+
+          var tIn = document.getElementById("disk-t"), tOut = document.getElementById("disk-t-out");
+          tIn.addEventListener("input", function () {
+            st.T = +tIn.value / 10;
+            tOut.textContent = fmt(st.T, 1) + " s";
+            tIn.style.setProperty("--p", (((+tIn.value - 5) / 35) * 100).toFixed(1) + "%");
+            draw();
+            say();
+          });
+          tIn.style.setProperty("--p", (((20 - 5) / 35) * 100).toFixed(1) + "%");
 
           D.bind(draw);
           draw();
+          say();
         })();
 
-        /* ============ 03 · etki ve tepki ============ */
+        /* ============ 04 · virajda savrulma ============ */
 
-        (function push() {
-          var P = kit("push-scene", function (w) { return clamp(w * 0.33, 215, 275); });
-          if (!P) return;
+        (function turn() {
+          var K = kit("turn-scene", function (w) { return clamp(w * 0.56, 300, 390); });
+          if (!K) return;
 
-          var FORCE = 60, DT = 0.25, TEND = 2.2, SPEED = 0.45;
-          var st = { m1: 2, m2: 6, t: 0, run: false, done: false };
-          var verdict = document.getElementById("push-verdict");
-          var playBtn = document.getElementById("push-play");
+          var GR = 9.81, MASS = 1000;
+          var st = { kmh: 50, r: 40, mu: 0.8, name: "Kuru", th: 0, run: false,
+                     slip: false, t: 0, x0: 0, y0: 0, vx: 0, vy: 0 };
+          var verdict = document.getElementById("turn-verdict");
+          var playBtn = document.getElementById("turn-play");
 
-          function a1() { return FORCE / st.m1; }
-          function a2() { return FORCE / st.m2; }
-          function v1() { return a1() * DT; }
-          function v2() { return a2() * DT; }
-          function d1(t) {
-            if (t <= DT) return 0.5 * a1() * t * t;
-            return 0.5 * a1() * DT * DT + v1() * (t - DT);
-          }
-          function d2(t) {
-            if (t <= DT) return 0.5 * a2() * t * t;
-            return 0.5 * a2() * DT * DT + v2() * (t - DT);
-          }
-
-          function cart(ctx, cx, cy, m, c1, c2, label) {
-            var w = clamp(36 + m * 4.2, 38, 88), h = clamp(24 + m * 1.6, 26, 46);
-            roundRect(ctx, cx - w / 2, cy - h, w, h, 6);
-            var g = ctx.createLinearGradient(0, cy - h, 0, cy);
-            g.addColorStop(0, c1);
-            g.addColorStop(1, c2);
-            ctx.fillStyle = g;
-            ctx.fill();
-            ctx.strokeStyle = A(COL.outline, 0.45);
-            ctx.lineWidth = 1.4;
-            ctx.stroke();
-            ctx.fillStyle = A(COL.outline, 0.7);
-            ctx.beginPath();
-            ctx.arc(cx - w / 4, cy + 4, 4.5, 0, TAU);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(cx + w / 4, cy + 4, 4.5, 0, TAU);
-            ctx.fill();
-            tag(ctx, label, cx, cy + 26, COL.muted, "center", 12);
-            return { w: w, h: h };
-          }
+          function v() { return st.kmh / 3.6; }
+          function need() { return (MASS * v() * v()) / st.r; }
+          function maxF() { return st.mu * MASS * GR; }
+          function vmax() { return Math.sqrt(st.mu * GR * st.r); }
+          function safe() { return need() <= maxF(); }
 
           function draw() {
-            var ctx = P.ctx, W = P.w, H = P.h;
+            var ctx = K.ctx, W = K.w, H = K.h;
             ctx.clearRect(0, 0, W, H);
-            var gy = H * 0.64, cx = W / 2;
-            var span = Math.max(d1(TEND), d2(TEND)) * 1.12;
-            var sc = (W / 2 - 60) / Math.max(span, 0.5);
+            var cx = W * 0.5, cy = H * 0.86;
+            var R = Math.min(W * 0.34, H * 0.62);
+            var sc = R / st.r;
 
-            ctx.strokeStyle = A(COL.dim, 0.45);
-            ctx.lineWidth = 2;
+            /* yol */
+            ctx.strokeStyle = A(COL.dim, 0.3);
+            ctx.lineWidth = 34;
             ctx.beginPath();
-            ctx.moveTo(10, gy + 9);
-            ctx.lineTo(W - 10, gy + 9);
+            ctx.arc(cx, cy, R, Math.PI, TAU);
             ctx.stroke();
+            ctx.strokeStyle = A(COL.dim, 0.5);
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([10, 10]);
+            ctx.beginPath();
+            ctx.arc(cx, cy, R, Math.PI, TAU);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = A(COL.ink, 0.5);
+            ctx.beginPath();
+            ctx.arc(cx, cy, 4, 0, TAU);
+            ctx.fill();
+            tag(ctx, "r = " + fmt(st.r, 0) + " m", cx, cy - R / 2, COL.dim, "center", 11);
+            dashLine(ctx, cx, cy, cx + R * Math.cos(Math.PI + st.th), cy + R * Math.sin(Math.PI + st.th),
+                     A(COL.dim, 0.4));
 
-            var x1 = cx - 26 - d1(st.t) * sc;
-            var x2 = cx + 26 + d2(st.t) * sc;
-
-            /* yay */
-            if (st.t <= DT + 1e-9) {
-              ctx.strokeStyle = A(COL.dim, 0.75);
-              ctx.lineWidth = 2;
-              ctx.beginPath();
-              var y0 = gy - 22, x0 = x1 + 20, x3 = x2 - 20, n = 8;
-              ctx.moveTo(x0, y0);
-              for (var i = 1; i <= n; i++) {
-                ctx.lineTo(x0 + ((x3 - x0) * i) / n, y0 + (i % 2 ? -7 : 7));
-              }
-              ctx.lineTo(x3, y0);
-              ctx.stroke();
-            }
-
-            var c1 = cart(ctx, x1, gy, st.m1, "#dbe6ff", "#8fabe8", fmt(st.m1, 0) + " kg");
-            var c2 = cart(ctx, x2, gy, st.m2, "#e6dcff", "#9c86e0", fmt(st.m2, 0) + " kg");
-
-            if (st.t <= DT + 1e-9) {
-              arrow(ctx, x1 - c1.w / 2 - 4, gy - c1.h / 2, -58, 0, COL.blue,
-                    "F = " + FORCE + " N", 3);
-              arrow(ctx, x2 + c2.w / 2 + 4, gy - c2.h / 2, 58, 0, COL.violet,
-                    "F = " + FORCE + " N", 3);
-              chip(ctx, "itme sürüyor · " + fmt(DT, 2) + " s", W / 2, 8, COL.amber, "center");
+            var ang = Math.PI + st.th;
+            var ox, oy, dirx, diry;
+            if (!st.slip) {
+              ox = cx + R * Math.cos(ang);
+              oy = cy + R * Math.sin(ang);
+              dirx = -Math.sin(ang);
+              diry = Math.cos(ang);
             } else {
-              tag(ctx, fmt(v1(), 1) + " m/s", x1, gy - c1.h - 16, COL.blue, "center", 12);
-              tag(ctx, fmt(v2(), 1) + " m/s", x2, gy - c2.h - 16, COL.violet, "center", 12);
-              chip(ctx, "t = " + fmt(st.t, 2) + " s", W / 2, 8, COL.muted, "center");
+              ox = st.x0 + st.vx * st.t * sc;
+              oy = st.y0 + st.vy * st.t * sc;
+              var vl = Math.sqrt(st.vx * st.vx + st.vy * st.vy);
+              dirx = st.vx / vl;
+              diry = st.vy / vl;
+              dashLine(ctx, st.x0, st.y0, st.x0 + st.vx * 6 * sc, st.y0 + st.vy * 6 * sc,
+                       A(COL.rose, 0.6));
             }
+
+            /* araç */
+            ctx.save();
+            ctx.translate(ox, oy);
+            ctx.rotate(Math.atan2(diry, dirx));
+            roundRect(ctx, -17, -9, 34, 18, 5);
+            var g2 = ctx.createLinearGradient(0, -9, 0, 9);
+            g2.addColorStop(0, st.slip ? "#ffd6dd" : "#dbe6ff");
+            g2.addColorStop(1, st.slip ? "#e4879b" : "#7f9ee4");
+            ctx.fillStyle = g2;
+            ctx.fill();
+            ctx.strokeStyle = A(COL.outline, 0.45);
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+            ctx.restore();
+
+            /* kuvvet oku: merkeze doğru gereken kuvvet */
+            if (!st.slip) {
+              var k = 60 / Math.max(maxF(), need());
+              arrow(ctx, ox, oy, (cx - ox) / R * Math.min(need() * k, 70),
+                    (cy - oy) / R * Math.min(need() * k, 70), COL.rose,
+                    "F = " + fmt(need() / 1000, 1) + " kN", 2.8);
+            }
+
+            chip(ctx, fmt(st.kmh, 0) + " km/h · " + st.name + " · μ = " + fmt(st.mu, 2),
+                 8, 8, COL.blue, "left");
+            chip(ctx, "sınır " + fmt(vmax() * 3.6, 0) + " km/h", W - 8, 8,
+                 safe() ? COL.lime : COL.rose, "right");
           }
 
           function say() {
-            var r = v1() / v2();
-            if (!st.done) {
-              verdict.className = "verdict";
-              verdict.innerHTML = "İki arabaya da aynı büyüklükte, zıt yönlü <b>" + FORCE +
-                " N</b> etki ediyor.";
-              return;
+            document.getElementById("turn-need").textContent = fmt(need(), 0) + " N";
+            document.getElementById("turn-max").textContent = fmt(maxF(), 0) + " N";
+            document.getElementById("turn-vmax").textContent = fmt(vmax() * 3.6, 1) + " km/h";
+            if (st.slip) {
+              verdict.className = "verdict bad";
+              verdict.innerHTML =
+                "<b>Savruldu.</b> Gereken merkezcil kuvvet " + fmt(need() / 1000, 1) +
+                " kN, ama yol en çok " + fmt(maxF() / 1000, 1) + " kN sürtünme sağlayabiliyordu. " +
+                "Araç <b>teğet doğrultuda</b> yoldan çıktı. Sınır hız: <b>" +
+                fmt(vmax() * 3.6, 1) + " km/h</b>.";
+            } else if (safe()) {
+              verdict.className = "verdict good";
+              verdict.innerHTML =
+                "Güvenli: gereken kuvvet <b>" + fmt(need() / 1000, 1) + " kN</b> ≤ sürtünme sınırı <b>" +
+                fmt(maxF() / 1000, 1) + " kN</b>. Sınır hız <b>" + fmt(vmax() * 3.6, 1) +
+                " km/h</b> (kütleden bağımsız).";
+            } else {
+              verdict.className = "verdict warn";
+              verdict.innerHTML =
+                "Bu hızda gereken kuvvet <b>" + fmt(need() / 1000, 1) + " kN</b>, sürtünmenin " +
+                "sağlayabileceği en fazla kuvvet ise <b>" + fmt(maxF() / 1000, 1) +
+                " kN</b>. <b>Viraja gir</b> dersen savrulacak.";
             }
-            verdict.className = "verdict good";
-            verdict.innerHTML =
-              "Kuvvetler eşit: <b>" + FORCE + " N</b>. İvmeler farklı: " +
-              fmt(a1(), 1) + " ve " + fmt(a2(), 1) + " m/s².<br>" +
-              "Ayrılma hızları <b>" + fmt(v1(), 1) + "</b> ve <b>" + fmt(v2(), 1) +
-              "</b> m/s — hafif araba " + fmt(r, 1) + " kat hızlı, tam olarak kütle oranının tersi.";
+            draw();
           }
 
           function tick(dt) {
             if (!st.run) { halt(tick); return; }
-            st.t += dt * SPEED;
-            if (st.t >= TEND) {
-              st.t = TEND;
-              st.run = false;
-              st.done = true;
-              halt(tick);
-              playBtn.textContent = "Yeniden it";
+            if (!st.slip) {
+              st.th += (v() / st.r) * dt;
+              if (!safe() && st.th > 0.9) {
+                var W = K.w, H = K.h;
+                var cx = W * 0.5, cy = H * 0.86, R = Math.min(W * 0.34, H * 0.62);
+                var ang = Math.PI + st.th;
+                st.x0 = cx + R * Math.cos(ang);
+                st.y0 = cy + R * Math.sin(ang);
+                st.vx = -Math.sin(ang) * v();
+                st.vy = Math.cos(ang) * v();
+                st.slip = true;
+                st.t = 0;
+              }
+              if (st.th > Math.PI) { st.th = Math.PI; st.run = false; halt(tick); playBtn.textContent = "Tekrar"; }
+            } else {
+              var W2 = K.w, H2 = K.h;
+              var sc2 = Math.min(W2 * 0.34, H2 * 0.62) / st.r;
+              var nt = st.t + dt * 0.4;
+              var nx = st.x0 + st.vx * nt * sc2, ny = st.y0 + st.vy * nt * sc2;
+              if (nx < 24 || nx > W2 - 24 || ny < 24 || ny > H2 - 24 || nt > 6) {
+                st.run = false;
+                halt(tick);
+                playBtn.textContent = "Tekrar";
+              } else {
+                st.t = nt;
+              }
             }
             draw();
             say();
           }
 
           function reset() {
-            st.t = 0;
-            st.run = false;
-            st.done = false;
+            st.th = 0; st.run = false; st.slip = false; st.t = 0;
             halt(tick);
-            playBtn.textContent = "İt";
-            verdict.className = "verdict";
-            verdict.innerHTML = "Yayı bırakmak için <b>İt</b> düğmesine bas.";
-            draw();
+            playBtn.textContent = "Viraja gir";
+            say();
           }
 
           playBtn.addEventListener("click", function () {
             if (st.run) return;
-            if (st.done) { st.t = 0; st.done = false; }
+            reset();
             st.run = true;
-            playBtn.textContent = "Ayrılıyor…";
+            playBtn.textContent = "Virajda…";
             play(tick);
           });
-          document.getElementById("push-reset").addEventListener("click", reset);
+          document.getElementById("turn-reset").addEventListener("click", reset);
 
-          function massSlider(id, outId, key) {
+          function bind(id, outId, fn) {
             var el = document.getElementById(id), out = document.getElementById(outId);
             function paint() {
-              el.style.setProperty("--p", (((+el.value - 1) / 9) * 100).toFixed(1) + "%");
+              var lo = +el.min, hi = +el.max;
+              el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
             }
             el.addEventListener("input", function () {
-              st[key] = +el.value;
-              out.textContent = el.value + " kg";
+              fn(+el.value, out);
               paint();
-              if (!st.run) { st.t = 0; st.done = false; playBtn.textContent = "İt"; }
-              draw();
-              say();
+              reset();
             });
             paint();
           }
-          massSlider("push-m1", "push-m1-out", "m1");
-          massSlider("push-m2", "push-m2-out", "m2");
+          bind("turn-v", "turn-v-out", function (v2, out) { st.kmh = v2; out.textContent = v2 + " km/h"; });
+          bind("turn-r", "turn-r-out", function (v2, out) { st.r = v2; out.textContent = v2 + " m"; });
 
-          P.bind(draw);
-          draw();
-        })();
-
-        /* ============ 04 · asansörde görünen ağırlık ============ */
-
-        (function lift() {
-          var L = kit("lift-scene", function (w) { return clamp(w * 0.56, 300, 380); });
-          if (!L) return;
-
-          var GR = 9.81;
-          var st = { m: 60, a: 0 };
-          var verdict = document.getElementById("lift-verdict");
-
-          function normal() { return Math.max(0, st.m * (GR + st.a)); }
-          function reading() { return normal() / GR; }
-
-          function draw() {
-            var ctx = L.ctx, W = L.w, H = L.h;
-            ctx.clearRect(0, 0, W, H);
-            var cw = Math.min(186, W * 0.42), ch = H - 96;
-            var cx = W * 0.4, cy = 62;
-
-            /* halat */
-            var broken = st.a <= -GR + 0.01;
-            ctx.strokeStyle = A(COL.dim, broken ? 0.3 : 0.8);
-            ctx.lineWidth = 2.5;
-            ctx.beginPath();
-            ctx.moveTo(cx, 10);
-            ctx.lineTo(cx, broken ? 30 : cy);
-            ctx.stroke();
-            if (broken) {
-              ctx.strokeStyle = COL.rose;
-              ctx.lineWidth = 2;
-              ctx.beginPath();
-              ctx.moveTo(cx - 7, 34);
-              ctx.lineTo(cx + 7, 42);
-              ctx.moveTo(cx + 6, 34);
-              ctx.lineTo(cx - 6, 42);
-              ctx.stroke();
-              tag(ctx, "halat koptu", cx + 16, 38, COL.rose, "left", 11);
-            }
-
-            /* kabin */
-            roundRect(ctx, cx - cw / 2, cy, cw, ch, 10);
-            ctx.fillStyle = A(COL.blue, 0.07);
-            ctx.fill();
-            ctx.strokeStyle = A(COL.dim, 0.5);
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
-            var floor = cy + ch - 16;
-
-            /* tartı */
-            var sw = 92, sh = 26;
-            roundRect(ctx, cx - sw / 2, floor - sh, sw, sh, 6);
-            ctx.fillStyle = A(COL.dim, 0.25);
-            ctx.fill();
-            ctx.strokeStyle = A(COL.dim, 0.5);
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            roundRect(ctx, cx - 40, floor - sh + 5, 80, 16, 4);
-            ctx.fillStyle = COL.scene;
-            ctx.fill();
-            tag(ctx, fmt(reading(), 1) + " kg", cx, floor - sh + 13,
-                st.a > 0.01 ? COL.rose : (st.a < -0.01 ? COL.blue : COL.ink), "center", 13);
-
-            /* kişi */
-            var py = floor - sh;
-            ctx.strokeStyle = A(COL.ink, 0.75);
-            ctx.lineWidth = 3;
-            ctx.lineCap = "round";
-            ctx.beginPath();
-            ctx.moveTo(cx, py - 14);
-            ctx.lineTo(cx, py - 52);
-            ctx.moveTo(cx, py - 44);
-            ctx.lineTo(cx - 15, py - 28);
-            ctx.moveTo(cx, py - 44);
-            ctx.lineTo(cx + 15, py - 28);
-            ctx.moveTo(cx, py - 14);
-            ctx.lineTo(cx - 12, py);
-            ctx.moveTo(cx, py - 14);
-            ctx.lineTo(cx + 12, py);
-            ctx.stroke();
-            ctx.fillStyle = A(COL.ink, 0.75);
-            ctx.beginPath();
-            ctx.arc(cx, py - 62, 10, 0, TAU);
-            ctx.fill();
-
-            /* kuvvet okları */
-            var big = Math.max(normal(), st.m * GR, 1);
-            function flen(F) { return F < 0.5 ? 0 : clamp((F / big) * 74, 20, 78); }
-            arrow(ctx, cx - 44, py - 8, 0, -flen(normal()), COL.lime,
-                  "N = " + fmt(normal(), 0) + " N", 3);
-            arrow(ctx, cx + 44, py - 74, 0, flen(st.m * GR), COL.violet,
-                  "G = " + fmt(st.m * GR, 0) + " N", 3);
-
-            /* ivme oku */
-            var ax = cx + cw / 2 + 46;
-            if (Math.abs(st.a) > 0.01) {
-              var len = clamp(Math.abs(st.a) * 9, 22, 74);
-              arrow(ctx, ax, cy + ch / 2, 0, st.a > 0 ? -len : len, COL.amber,
-                    "a = " + fmt(st.a, 1) + " m/s²", 3);
-            } else {
-              tag(ctx, "a = 0", ax, cy + ch / 2, COL.amber, "center", 12);
-            }
-
-            chip(ctx, fmt(st.m, 0) + " kg · gerçek kütle", 8, 8, COL.muted, "left");
-            chip(ctx, "tartı: " + fmt(reading(), 1) + " kg", W - 8, 8,
-                 Math.abs(reading() - st.m) < 0.05 ? COL.lime : COL.rose, "right");
-          }
-
-          function say() {
-            var r = reading();
-            var g = document.getElementById("lift-g");
-            var n = document.getElementById("lift-n");
-            var rd = document.getElementById("lift-read");
-            g.textContent = fmt(st.m * GR, 1) + " N";
-            n.textContent = fmt(normal(), 1) + " N";
-            rd.textContent = fmt(r, 1) + " kg";
-            if (st.a <= -GR + 0.01) {
-              verdict.className = "verdict bad";
-              verdict.innerHTML = "Serbest düşme: N = 0. Sen de tartı da aynı ivmeyle " +
-                "düştüğü için aranızda kuvvet kalmaz — tartı <b>0 kg</b> gösterir. " +
-                "Ağırlıksızlık hissi budur; yerçekimi hâlâ vardır.";
-            } else if (st.a > 0.01) {
-              verdict.className = "verdict warn";
-              verdict.innerHTML = "Yukarı hızlanıyor: net kuvvet yukarı olmalı, bu yüzden " +
-                "<b>N &gt; G</b>. N = m(g + a) = " + fmt(normal(), 0) + " N → tartı <b>" +
-                fmt(r, 1) + " kg</b> yazıyor, ama kütlen hâlâ " + fmt(st.m, 0) + " kg.";
-            } else if (st.a < -0.01) {
-              verdict.className = "verdict warn";
-              verdict.innerHTML = "Aşağı hızlanıyor: net kuvvet aşağı olmalı, bu yüzden " +
-                "<b>N &lt; G</b>. N = m(g − |a|) = " + fmt(normal(), 0) + " N → tartı <b>" +
-                fmt(r, 1) + " kg</b> yazıyor.";
-            } else {
-              verdict.className = "verdict good";
-              verdict.innerHTML = "Denge: a = 0 olduğu için <b>N = G</b>. Asansör ister dursun " +
-                "ister sabit hızla gitsin, tartı gerçek kütleni gösterir.";
-            }
-            draw();
-          }
-
-          var mIn = document.getElementById("lift-m"), mOut = document.getElementById("lift-m-out");
-          mIn.addEventListener("input", function () {
-            st.m = +mIn.value;
-            mOut.textContent = st.m + " kg";
-            mIn.style.setProperty("--p", (((st.m - 30) / 90) * 100).toFixed(1) + "%");
-            say();
-          });
-          mIn.style.setProperty("--p", (((st.m - 30) / 90) * 100).toFixed(1) + "%");
-
-          var box = document.getElementById("lift-mode");
+          var muOut = document.getElementById("turn-mu");
+          var box = document.getElementById("turn-road");
           box.addEventListener("click", function (e) {
             var b = e.target.closest("button");
             if (!b || !box.contains(b)) return;
@@ -3238,11 +2963,13 @@
             for (var i = 0; i < all.length; i++) {
               all[i].setAttribute("aria-pressed", all[i] === b ? "true" : "false");
             }
-            st.a = +b.dataset.a;
-            say();
+            st.mu = +b.dataset.mu;
+            st.name = b.dataset.name;
+            muOut.textContent = "μ = " + fmt(st.mu, 2);
+            reset();
           });
 
-          L.bind(draw);
+          K.bind(draw);
           say();
         })();
 
@@ -3254,34 +2981,34 @@
 
           var DATA = [
             {
-              q: "Düz bir yolda sabit hızla giden otomobile etki eden net kuvvet nedir?",
-              o: ["Hareket yönünde sabit bir kuvvet", "Sıfır", "Hıza ters yönde bir kuvvet", "Hızla birlikte artan bir kuvvet"],
+              q: "Düzgün çembersel hareket yapan bir cisim için hangisi doğrudur?",
+              o: ["Sürati de hızı da sabittir", "Sürati sabit, hızı değişkendir", "İvmesi sıfırdır", "Net kuvvet hız yönündedir"],
               a: 1,
-              why: "Sabit hız demek ivme sıfır demektir; a = 0 ise ΣF = m·a = 0'dır. Motorun sağladığı kuvvet, sürtünme ve hava direncini tam olarak dengeler."
+              why: "Sürat (hızın büyüklüğü) sabittir, ama hız bir vektördür ve yönü her an değişir. Yönü değişen hız, ivme demektir; bu ivme merkeze doğrudur."
             },
             {
-              q: "Masanın üzerinde duran bir kitabın ağırlığının tepki kuvveti hangisidir?",
-              o: ["Masanın kitaba uyguladığı normal kuvvet", "Kitabın masaya uyguladığı kuvvet", "Kitabın Dünya'ya uyguladığı çekim kuvveti", "Kitabın eylemsizliği"],
+              q: "Çembersel hareket yapan bir cismin ipi tam bu anda kesilirse cisim hangi doğrultuda hareket eder?",
+              o: ["Merkezden dışarı doğru", "Merkeze doğru", "O andaki hız doğrultusunda (teğet)", "Aşağı doğru düşer"],
               a: 2,
-              why: "Etki–tepki çifti aynı türden kuvvetlerdir ve farklı cisimlere etki eder. Dünya kitabı çekiyorsa, kitap da Dünya'yı aynı büyüklükte çeker. Normal kuvvet ağırlığı dengeler ama onun tepkisi değildir."
+              why: "İp kesilince merkezcil kuvvet ortadan kalkar ve net kuvvet sıfır olur. Newton'un 1. yasası gereği cisim o andaki hızıyla, yani teğet doğrultuda düzgün doğrusal hareket yapar."
             },
             {
-              q: "Sabit bir net kuvvet etkisindeki cismin kütlesi iki katına çıkarılırsa ivmesi ne olur?",
-              o: ["İki katına çıkar", "Değişmez", "Yarıya iner", "Dört katına çıkar"],
-              a: 2,
-              why: "a = ΣF / m bağıntısında kütle paydadadır: ivme kütleyle ters orantılıdır. Aynı kuvvetle iki kat ağır cismi yarı ivmeyle hızlandırabilirsin."
-            },
-            {
-              q: "Halatı kopmuş, serbest düşen bir asansörde tartının üzerinde duran kişi için tartı ne gösterir?",
-              o: ["Gerçek kütlesini", "Gerçek kütlesinin iki katını", "Sıfır", "Yarısını"],
-              a: 2,
-              why: "Kişi de tartı da aynı g ivmesiyle düşer; aralarında itme kuvveti kalmaz, yani N = 0 olur. Tartı normal kuvveti ölçtüğü için sıfır gösterir. Yerçekimi ortadan kalkmış değildir."
-            },
-            {
-              q: "Ani fren yapan bir otobüste yolcunun öne doğru savrulmasının sebebi nedir?",
-              o: ["Yolcuya öne doğru bir kuvvet etki eder", "Yolcu eski hızını korumaya çalışır (eylemsizlik)", "Sürtünme kuvveti yön değiştirir", "Yerçekimi öne doğru etki eder"],
+              q: "Yarıçapı sabit tutup çizgisel hızı iki katına çıkarırsan merkezcil ivme nasıl değişir?",
+              o: ["İki katına çıkar", "Dört katına çıkar", "Yarıya iner", "Değişmez"],
               a: 1,
-              why: "Yolcuyu öne iten bir kuvvet yoktur; otobüs yavaşlarken yolcu 1. yasa gereği eski hızıyla hareketini sürdürmek ister. Emniyet kemeri tam da bu yüzden gereklidir."
+              why: "a = v²/r bağıntısında ivme hızın karesiyle orantılıdır: v → 2v olursa a → 4a olur. Gereken merkezcil kuvvet de dört katına çıkar."
+            },
+            {
+              q: "Dönen bir diskin merkezine 10 cm ve 30 cm uzaklıktaki iki noktası için hangisi yanlıştır?",
+              o: ["Periyotları eşittir", "Açısal hızları eşittir", "Çizgisel hızları eşittir", "Dıştaki noktanın ivmesi daha büyüktür"],
+              a: 2,
+              why: "Katı cisimde bütün noktaların T ve ω değeri ortaktır. Ama v = ω·r olduğu için çizgisel hız yarıçapla artar: dıştaki nokta üç kat hızlıdır ve ivmesi de üç kat büyüktür."
+            },
+            {
+              q: "Yarıçapı 40 m olan bir virajda μ = 0,5 ise savrulmadan alınabilecek en büyük hız nedir? (g = 10 m/s²)",
+              o: ["10 m/s", "14,1 m/s", "20 m/s", "Aracın kütlesine bağlıdır"],
+              a: 1,
+              why: "v = √(μ·g·r) = √(0,5 · 10 · 40) = √200 ≈ 14,1 m/s. Kütle hem gereken kuvvette hem de sürtünmede bulunduğu için sadeleşir; sınır hız kütleden bağımsızdır."
             }
           ];
 
@@ -3304,23 +3031,18 @@
             score = 0;
             scoreEl.textContent = "0 / " + DATA.length;
             if (finalEl) finalEl.textContent = "";
-
             DATA.forEach(function (item, qi) {
               var card = document.createElement("div");
               card.className = "q";
-
               var p = document.createElement("p");
               p.innerHTML = "<span>SORU " + (qi + 1) + "</span><br>" + item.q;
               card.appendChild(p);
-
               var opts = document.createElement("div");
               opts.className = "opts";
-
               var why = document.createElement("p");
               why.className = "why";
               why.hidden = true;
               why.textContent = item.why;
-
               item.o.forEach(function (text, oi) {
                 var b = document.createElement("button");
                 b.type = "button";
@@ -3341,7 +3063,6 @@
                 });
                 opts.appendChild(b);
               });
-
               card.appendChild(opts);
               card.appendChild(why);
               box.appendChild(card);
@@ -3491,34 +3212,6 @@
             }, { passive: true });
           }
 
-          /* hazır deneyler: parametreleri kur, cismi fırlat */
-          function setRange(id, v) {
-            var el = document.getElementById(id);
-            if (!el) return;
-            el.value = v;
-            el.dispatchEvent(new Event("input", { bubbles: true }));
-          }
-
-          var presets = document.querySelectorAll(".presets button[data-f]");
-          for (i = 0; i < presets.length; i++) {
-            presets[i].addEventListener("click", function () {
-              var reset = document.getElementById("c-reset");
-              var surface = document.querySelector('#c-surface button[data-mu="' + this.dataset.mu + '"]');
-              var playBtn = document.getElementById("c-play");
-              var scene = document.getElementById("lab-scene");
-              if (reset) reset.click();
-              if (surface) surface.click();
-              setRange("c-f", this.dataset.f);
-              setRange("c-m", this.dataset.m);
-              if (scene) {
-                var r = scene.getBoundingClientRect();
-                if (r.top < 80 || r.bottom > window.innerHeight) {
-                  scene.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
-                }
-              }
-              if (playBtn) playBtn.click();
-            });
-          }
         })();
 
         /* ============ tema ============ */

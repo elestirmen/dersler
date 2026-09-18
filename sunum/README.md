@@ -12,6 +12,9 @@ anda `dersler.perinet.org/sunum/...` adresinden indirilebilir. Ders sayfalarınd
 | `serbest-dusme.pptx` | Serbest düşme — tanım, kütlenin sadeleşmesi, bağıntılar, grafikler, 1:3:5, düşey atış, limit hız, iki çözümlü örnek |
 | `iki-boyutta-hareket.pptx` | İki boyutta sabit ivmeli hareket — bağımsızlık ilkesi, bileşenler, yatay/eğik atış, menzil–açı, dört grafik, yörünge denklemi, iki çözümlü örnek |
 | `newton-yasalari.pptx` | Newton'un hareket yasaları — net kuvvet, üç yasa, serbest cisim diyagramı, sürtünme grafiği, asansör tablosu, üç çözümlü örnek |
+| `surtunme-kuvveti.pptx` | Sürtünme kuvveti — statik/kinetik, f–F grafiği, μ tablosu, eğik düzlem, fren mesafesi eğrileri, üç çözümlü örnek |
+| `limit-hiz.pptx` | Limit hız — hava direnci, denge tablosu, v–t doyma eğrisi, m ve A bağımlılığı, paraşüt eğrisi, üç çözümlü örnek |
+| `cembersel-hareket.pptx` | Düzgün çembersel hareket — periyot/frekans, v ve a bağıntıları, merkezcil kuvvet tablosu, merkezkaç yanılgısı, viraj eğrileri, üç çözümlü örnek |
 
 Grafikler PowerPoint'in kendi grafik nesneleridir (resim değil), yani sunum
 içinde düzenlenebilir.
@@ -27,6 +30,9 @@ cd /opt/dersler/sunum
 NODE_PATH=$(npm root -g) node serbest-dusme.js
 NODE_PATH=$(npm root -g) node iki-boyutta-hareket.js
 NODE_PATH=$(npm root -g) node newton-yasalari.js
+NODE_PATH=$(npm root -g) node surtunme-kuvveti.js
+NODE_PATH=$(npm root -g) node limit-hiz.js
+NODE_PATH=$(npm root -g) node cembersel-hareket.js
 ```
 
 `tema.js` ortak renkleri, yazı tiplerini ve kart/formül/başlık yardımcılarını

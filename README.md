@@ -19,6 +19,9 @@ bir sunum:
 | 01 | Serbest düşme | [`dist/serbest-dusme.html`](dist/serbest-dusme.html) | [`dist/sunum/serbest-dusme.pptx`](dist/sunum/serbest-dusme.pptx) |
 | 02 | İki boyutta sabit ivmeli hareket | [`dist/iki-boyutta-hareket.html`](dist/iki-boyutta-hareket.html) | [`dist/sunum/iki-boyutta-hareket.pptx`](dist/sunum/iki-boyutta-hareket.pptx) |
 | 03 | Newton'un hareket yasaları | [`dist/newton-yasalari.html`](dist/newton-yasalari.html) | [`dist/sunum/newton-yasalari.pptx`](dist/sunum/newton-yasalari.pptx) |
+| 04 | Sürtünme kuvveti | [`dist/surtunme-kuvveti.html`](dist/surtunme-kuvveti.html) | [`dist/sunum/surtunme-kuvveti.pptx`](dist/sunum/surtunme-kuvveti.pptx) |
+| 05 | Limit hız | [`dist/limit-hiz.html`](dist/limit-hiz.html) | [`dist/sunum/limit-hiz.pptx`](dist/sunum/limit-hiz.pptx) |
+| 06 | Düzgün çembersel hareket | [`dist/cembersel-hareket.html`](dist/cembersel-hareket.html) | [`dist/sunum/cembersel-hareket.pptx`](dist/sunum/cembersel-hareket.pptx) |
 
 Ana sayfa üniteyi bir blok olarak gösterir, konuları numaralandırır ve arama
 kutusuyla süzer. Her konu sayfası künyesinde üniteye döner, altında önceki ve
@@ -71,6 +74,42 @@ Kuvveti ve sonucunu ölçülebilir hâle getiren dört etkileşimli bölüm:
 Konu anlatımı modalı net kuvvetten serbest cisim diyagramına, sürtünmeden
 asansör problemlerine kadar dokuz başlık ve dört çözümlü örnek içerir.
 
+### Konu 04 · Sürtünme kuvveti
+
+Statik ve kinetik sürtünmeyi ölçülebilir hâle getiren dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Sürtünme laboratuvarı | Kuvvet yavaşça artırılır; sürtünme uygulanan kuvvete eşit büyür, eşiği aşınca kinetik değerine düşer. Yanında **f–F** ve **a–F** grafikleri canlı çizilir. |
+| 02 | Eğik düzlemde kritik açı | Eğim yavaşça artırılır; kayma açısının tanjantı doğrudan μs'yi verir. |
+| 03 | Temas alanı | Aynı kütleli üç farklı yüzey aynı noktada durur: f = μ·N bağıntısında alan yoktur. |
+| 04 | Fren mesafesi | Hız, tepki süresi ve yol durumu seçilir; tepki + fren mesafesi ayrı ayrı gösterilir. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Konu 05 · Limit hız
+
+Hava direncinin hıza bağlılığını ve denge hızını gösteren dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Hava direnci laboratuvarı | Kütle ve yüzey alanı seçilir; hız `v = v(limit)·tanh(gt/v(limit))` ile doyar. **v–t** ve **a–t** grafikleri, hava direncisiz ikizle birlikte. |
+| 02 | Paraşüt açılıyor | Sayısal çözüm; v–t eğrisinde iki plato (55 m/s ve 5,1 m/s). |
+| 03 | Kâğıt deneyi | Aynı kütleli açık ve buruşturulmuş kâğıt ile bilye; belirleyici olan m/A oranı. |
+| 04 | Neye bağlı? | Limit hızın kütle ve alana bağlılığı iki eğri üzerinde canlı gösterilir. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Konu 06 · Düzgün çembersel hareket
+
+Sabit süratli ama ivmeli hareketi gösteren dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Çember laboratuvarı | Yarıçap, periyot ve kütle ayarlanır; hız teğet, ivme merkeze doğru çizilir. **a–v** ve **a–r** grafikleri. |
+| 02 | İpi kes | İp kesildiğinde cisim teğet doğrultuda gider; "merkezden dışarı" sanısı da çizilir. |
+| 03 | Aynı disk | Üç farklı yarıçaptaki nokta: T ve ω ortak, v ve a farklı. |
+| 04 | Virajda savrulma | Gereken merkezcil kuvvet ile sürtünme sınırı karşılaştırılır; sınır hız √(μgr). |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
 ## Sunumlar
 
 Her iki ders için, sitede indirilebilir 14 slaytlık PowerPoint dosyaları:
@@ -80,6 +119,9 @@ Her iki ders için, sitede indirilebilir 14 slaytlık PowerPoint dosyaları:
 | 01 | Serbest düşme | [dersler.perinet.org/sunum/serbest-dusme.pptx](https://dersler.perinet.org/sunum/serbest-dusme.pptx) |
 | 02 | İki boyutta sabit ivmeli hareket | [dersler.perinet.org/sunum/iki-boyutta-hareket.pptx](https://dersler.perinet.org/sunum/iki-boyutta-hareket.pptx) |
 | 03 | Newton'un hareket yasaları | [dersler.perinet.org/sunum/newton-yasalari.pptx](https://dersler.perinet.org/sunum/newton-yasalari.pptx) |
+| 04 | Sürtünme kuvveti | [dersler.perinet.org/sunum/surtunme-kuvveti.pptx](https://dersler.perinet.org/sunum/surtunme-kuvveti.pptx) |
+| 05 | Limit hız | [dersler.perinet.org/sunum/limit-hiz.pptx](https://dersler.perinet.org/sunum/limit-hiz.pptx) |
+| 06 | Düzgün çembersel hareket | [dersler.perinet.org/sunum/cembersel-hareket.pptx](https://dersler.perinet.org/sunum/cembersel-hareket.pptx) |
 
 Grafikler PowerPoint'in kendi grafik nesneleridir, her slaytta konuşmacı notu
 vardır. Dosyalar `sunum/*.js` betikleriyle üretilir; ayrıntılar
@@ -100,6 +142,9 @@ dist/                        yayınlanan kök (nginx bunu sunar)
   serbest-dusme.html         konu 01 · serbest düşme
   iki-boyutta-hareket.html   konu 02 · iki boyutta sabit ivmeli hareket
   newton-yasalari.html       konu 03 · Newton'un hareket yasaları
+  surtunme-kuvveti.html      konu 04 · sürtünme kuvveti
+  limit-hiz.html             konu 05 · limit hız
+  cembersel-hareket.html     konu 06 · düzgün çembersel hareket
   sunum/*.pptx               indirilebilir ders sunumları
 sunum/                       sunumların kaynağı (pptxgenjs betikleri)
   tema.js                    ortak renk, yazı tipi ve yerleşim yardımcıları
