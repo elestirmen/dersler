@@ -11,6 +11,7 @@ anda `dersler.perinet.org/sunum/...` adresinden indirilebilir. Ders sayfalarınd
 |---|---|
 | `serbest-dusme.pptx` | Serbest düşme — tanım, kütlenin sadeleşmesi, bağıntılar, grafikler, 1:3:5, düşey atış, limit hız, iki çözümlü örnek |
 | `iki-boyutta-hareket.pptx` | İki boyutta sabit ivmeli hareket — bağımsızlık ilkesi, bileşenler, yatay/eğik atış, menzil–açı, dört grafik, yörünge denklemi, iki çözümlü örnek |
+| `newton-yasalari.pptx` | Newton'un hareket yasaları — net kuvvet, üç yasa, serbest cisim diyagramı, sürtünme grafiği, asansör tablosu, üç çözümlü örnek |
 
 Grafikler PowerPoint'in kendi grafik nesneleridir (resim değil), yani sunum
 içinde düzenlenebilir.
@@ -25,6 +26,7 @@ npm install -g pptxgenjs
 cd /opt/dersler/sunum
 NODE_PATH=$(npm root -g) node serbest-dusme.js
 NODE_PATH=$(npm root -g) node iki-boyutta-hareket.js
+NODE_PATH=$(npm root -g) node newton-yasalari.js
 ```
 
 `tema.js` ortak renkleri, yazı tiplerini ve kart/formül/başlık yardımcılarını

@@ -40,6 +40,21 @@ Konu anlatımı modalı bağımsızlık ilkesinden vektörel bağıntılara, yat
 eğik atıştan yörünge denklemine, çözümlü örneklerden sık yapılan hatalara
 kadar dokuz başlık içerir.
 
+### Fizik · Newton'un hareket yasaları — [`dist/newton-yasalari.html`](dist/newton-yasalari.html)
+
+Kuvveti ve sonucunu ölçülebilir hâle getiren dört etkileşimli bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Kuvvet laboratuvarı | Uygulanan kuvvet, kütle ve zemin (μ) ayarlanır; kutunun üzerinde **serbest cisim diyagramı** (F, f, N, G) canlı çizilir. Statik sürtünme eşiği aşılmazsa kutu kıpırdamaz. Altında **ΣF–t, a–t, v–t, x–t** grafikleri. |
+| 02 | Sürtünmeyi azaltınca | Aynı hızla itilen dört disk halı, parke, buz ve sürtünmesiz ortamda; durma mesafeleri `d = v²/(2μg)`. Sürtünmesiz şerit hiç durmaz — 1. yasanın deneysel yüzü. |
+| 03 | Etki ve tepki | İki araba birbirini iter; kuvvetler eşit, ivmeler kütleyle ters orantılı. Ayrılma hızlarının oranı kütle oranının tersidir. |
+| 04 | Asansörde görünen ağırlık | Kütle ve asansör durumu seçilir; `N = m(g + a)` ile tartının yazdığı değer değişir, serbest düşmede sıfırlanır. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı modalı net kuvvetten serbest cisim diyagramına, sürtünmeden
+asansör problemlerine kadar dokuz başlık ve dört çözümlü örnek içerir.
+
 ## Sunumlar
 
 Her iki ders için, sitede indirilebilir 14 slaytlık PowerPoint dosyaları:
@@ -48,6 +63,7 @@ Her iki ders için, sitede indirilebilir 14 slaytlık PowerPoint dosyaları:
 |---|---|
 | Serbest düşme | [dersler.perinet.org/sunum/serbest-dusme.pptx](https://dersler.perinet.org/sunum/serbest-dusme.pptx) |
 | İki boyutta sabit ivmeli hareket | [dersler.perinet.org/sunum/iki-boyutta-hareket.pptx](https://dersler.perinet.org/sunum/iki-boyutta-hareket.pptx) |
+| Newton'un hareket yasaları | [dersler.perinet.org/sunum/newton-yasalari.pptx](https://dersler.perinet.org/sunum/newton-yasalari.pptx) |
 
 Grafikler PowerPoint'in kendi grafik nesneleridir, her slaytta konuşmacı notu
 vardır. Dosyalar `sunum/*.js` betikleriyle üretilir; ayrıntılar
@@ -67,6 +83,7 @@ dist/                        yayınlanan kök (nginx bunu sunar)
   index.html                 giriş sayfası
   serbest-dusme.html         serbest düşme dersi
   iki-boyutta-hareket.html   iki boyutta sabit ivmeli hareket dersi
+  newton-yasalari.html       Newton'un hareket yasaları dersi
   sunum/*.pptx               indirilebilir ders sunumları
 sunum/                       sunumların kaynağı (pptxgenjs betikleri)
   tema.js                    ortak renk, yazı tipi ve yerleşim yardımcıları

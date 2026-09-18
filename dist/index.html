@@ -444,6 +444,23 @@
 
       .lesson.alt .go { color: var(--violet); }
 
+      .lesson.alt2 {
+        border-color: color-mix(in srgb, var(--lime) 40%, transparent);
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--lime) 12%, transparent), transparent 60%),
+          var(--surface);
+      }
+
+      .lesson.alt2:hover { border-color: var(--lime); }
+
+      .lesson.alt2 .mark {
+        border-color: color-mix(in srgb, var(--lime) 42%, transparent);
+        background: color-mix(in srgb, var(--lime) 12%, transparent);
+        color: var(--lime);
+      }
+
+      .lesson.alt2 .go { color: var(--lime); }
+
       .areas {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -479,7 +496,7 @@
 
       .dl-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
         gap: 14px;
         margin-top: 16px;
       }
@@ -649,13 +666,13 @@
             İçerikler zamanla burada birikecek.
           </p>
           <div class="cta-row">
-            <a class="button" href="iki-boyutta-hareket.html">
-              İki boyutta hareket dersi
+            <a class="button" href="newton-yasalari.html">
+              Newton'un hareket yasaları
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </a>
-            <a class="button ghost" href="serbest-dusme.html">Serbest düşme</a>
+            <a class="button ghost" href="#dersler">Tüm dersler</a>
           </div>
         </div>
 
@@ -665,7 +682,7 @@
           <p>Konuları, ilerlemeyi ve öğrenme ritmini tek yerde toplamak için.</p>
           <div class="card-footer">
             <span class="status">Açık</span>
-            <span>İki ders yayında</span>
+            <span>Üç ders yayında</span>
           </div>
         </aside>
       </section>
@@ -715,6 +732,26 @@
             </svg>
           </span>
         </a>
+
+        <a class="lesson alt2" href="newton-yasalari.html">
+          <span class="mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="10" width="9" height="8" rx="1.5" />
+              <path d="M12.5 14h7M17 11.5 19.5 14 17 16.5" />
+              <path d="M2 18.5h20" opacity=".5" />
+            </svg>
+          </span>
+          <span>
+            <span class="lesson-tag">Fizik · Dinamik</span>
+            <h3>Newton'un hareket yasaları</h3>
+            <p>Kuvvet laboratuvarı, serbest cisim diyagramı, eylemsizlik deneyi, etki–tepki arabaları, asansörde görünen ağırlık ve konu anlatımı.</p>
+          </span>
+          <span class="go" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </span>
+        </a>
       </section>
 
       <section class="section reveal" id="sunumlar" aria-labelledby="decks-title">
@@ -745,6 +782,18 @@
             <span>
               <h3>İki boyutta sabit ivmeli hareket</h3>
               <p>14 slayt · PPTX · 0,6 MB</p>
+            </span>
+          </a>
+
+          <a class="dl" href="sunum/newton-yasalari.pptx" download>
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Newton'un hareket yasaları</h3>
+              <p>14 slayt · PPTX</p>
             </span>
           </a>
         </div>
