@@ -1,0 +1,76 @@
+# Dersler
+
+Etkileşimli ders anlatımları için sade, statik bir öğrenme alanı.
+Derleme adımı, paket bağımlılığı ve JavaScript çatısı yok: her sayfa kendi
+stilini ve betiğini taşıyan tek bir HTML dosyası.
+
+**Canlı:** [dersler.perinet.org](https://dersler.perinet.org)
+
+## İçerik
+
+### Fizik · Serbest düşme — [`dist/serbest-dusme.html`](dist/serbest-dusme.html)
+
+Dört etkileşimli deney, canlı grafikler ve konunun tamamını anlatan bir modal:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Düşme laboratuvarı | Yükseklik, yukarı fırlatma hızı, gökcismi (Dünya/Ay/Mars/Jüpiter) ve zaman ölçeği ayarlanır. Strobo izleri, hız–ivme okları, 8 kat ağır ikinci cisim. Altında **x–t, v–t, a–t** grafikleri canlı çizilir. |
+| 02 | Tüy ve bilye | Havalı tüpte tüy limit hıza takılır, vakumlu tüpte ikisi aynı anda iner. Karesel sürtünme modeli sayısal olarak çözülür. |
+| 03 | 1 : 3 : 5 kuralı | Eşit zaman aralıkları adım adım açılır; çubuklar tek sayı oranını, toplamlar 1:4:9:16:25'i gösterir. |
+| 04 | Cetvelle tepki süresi | Cetvel habersizce bırakılır, boşluk tuşuyla yakalanır; düşme mesafesinden `t = √(2d/g)` hesaplanır. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı modalı tanımdan formül türetmelerine, grafik yorumundan çözümlü
+örneklere ve sık yapılan hatalara kadar dokuz başlık içerir.
+
+Sayfa açık temayla açılır, üst bardaki düğmeyle koyu temaya geçer ve seçim
+tarayıcıda saklanır. Tuval renkleri CSS değişkenlerinden okunduğu için
+animasyonlar tema değişiminde yeniden çizilir. Sahneye tıklayarak ya da
+**boşluk** ile başlat/durdur, **R** ile sıfırla.
+
+## Yapı
+
+```
+dist/                 yayınlanan kök (nginx bunu sunar)
+  index.html          giriş sayfası
+  serbest-dusme.html  serbest düşme dersi
+deploy/
+  docker-compose.yml  nginx:alpine konteyneri, dist/ salt-okunur bağlı
+  nginx.conf          statik sunum, kökte no-cache, varlıklarda uzun önbellek
+  yayina-al.sh        Cloudflare CNAME + NPM proxy host + Let's Encrypt
+```
+
+## Yerel çalıştırma
+
+```bash
+python3 -m http.server 8000 --directory dist
+```
+
+Ardından <http://127.0.0.1:8000> adresini aç. Başka bir şey gerekmiyor.
+
+## Yayına alma
+
+Konteyneri başlat:
+
+```bash
+docker compose -f deploy/docker-compose.yml up -d
+```
+
+Site `npm-net` ağında durur ve dışarıya port açmaz; 80/443'ü Nginx Proxy
+Manager karşılar. DNS kaydını ve proxy host'u kurmak için (yeniden
+çalıştırılabilir, var olan kayda dokunmaz):
+
+```bash
+NPM_EMAIL=yonetici@ornek.com bash deploy/yayina-al.sh
+```
+
+Betik NPM şifresini sorar ya da `NPM_PASS_FILE` ile dosyadan okur; Cloudflare
+token'ını `~/.config/cloudflare/token.env` içinden alır. Hiçbir sır depoda
+tutulmaz.
+
+## Yeni ders eklemek
+
+`dist/` altına yeni bir HTML dosyası koymak yeterli — dizin konteynere bağlı
+olduğu için dosya kaydedildiği anda yayında olur. Ortak tema değişkenleri her
+sayfanın kendi `<style>` bloğunda tanımlıdır; `dist/serbest-dusme.html`
+başlangıç noktası olarak kopyalanabilir.
