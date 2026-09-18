@@ -1,0 +1,3451 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f5fc" />
+    <meta
+      name="description"
+      content="Küresel aynalar: çukur ve tümsek aynada asal ışınlar, ayna denklemi, beş cisim konumu, güvenlik aynası ve hedef büyütme alıştırması."
+    />
+    <title>Küresel aynalar — Dersler</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b9ee63'/%3E%3Cpath d='M18 20a6 6 0 0 1 6-6h22v32H24a6 6 0 0 0-6 6z' fill='none' stroke='%2316260a' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M18 20v32M26 22h16M26 30h13' fill='none' stroke='%2316260a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet" />
+    <style>
+      /* ================= tema belirteçleri ================= */
+      :root {
+        color-scheme: light;
+
+        --bg: #f3f5fc;
+        --bg-art:
+          radial-gradient(1100px 560px at 82% -8%, rgba(42, 95, 214, 0.10), transparent 62%),
+          radial-gradient(900px 520px at -8% 38%, rgba(99, 72, 212, 0.08), transparent 60%);
+        --surface: #ffffff;
+        --surface-2: #f7f9fe;
+        --surface-3: #eef2fb;
+        --line: #dde3f1;
+        --line-soft: #e9edf7;
+
+        --ink: #0f1730;
+        --muted: #4c5775;
+        --dim: #78829f;
+
+        --blue: #2a5fd6;
+        --lime: #3c8c21;
+        --violet: #6348d4;
+        --amber: #a56209;
+        --rose: #c53455;
+
+        --accent: #b9ee63;
+        --accent-hover: #a9e648;
+        --accent-ink: #16260a;
+        --accent-ring: rgba(93, 154, 32, 0.28);
+
+        --shadow-sm: 0 2px 6px rgba(18, 30, 70, 0.06);
+        --shadow: 0 14px 34px rgba(18, 30, 70, 0.09);
+        --shadow-lg: 0 34px 90px rgba(18, 30, 70, 0.18);
+        --header-bg: rgba(243, 245, 252, 0.82);
+        --track: #dfe5f3;
+
+        /* tuvale aktarılanlar */
+        --c-ink: #0f1730;
+        --c-muted: #4c5775;
+        --c-dim: #7c86a2;
+        --c-blue: #2a5fd6;
+        --c-lime: #3c8c21;
+        --c-violet: #6348d4;
+        --c-amber: #a56209;
+        --c-rose: #c53455;
+        --c-panel: rgba(255, 255, 255, 0.97);
+        --c-border: #e3e8f4;
+        --c-chip: rgba(255, 255, 255, 0.95);
+        --c-ring: #ffffff;
+        --c-outline: #26324f;
+        --c-scene: #ffffff;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+
+        --bg: #0b1020;
+        --bg-art:
+          radial-gradient(circle at 78% 5%, rgba(130, 170, 255, 0.18), transparent 30rem),
+          radial-gradient(circle at 0% 65%, rgba(156, 140, 255, 0.12), transparent 28rem);
+        --surface: rgba(24, 32, 57, 0.82);
+        --surface-2: rgba(13, 19, 38, 0.55);
+        --surface-3: rgba(13, 19, 38, 0.75);
+        --line: rgba(163, 179, 221, 0.16);
+        --line-soft: rgba(163, 179, 221, 0.1);
+
+        --ink: #f4f7ff;
+        --muted: #a6b0c8;
+        --dim: #707b97;
+
+        --blue: #82aaff;
+        --lime: #c6f36b;
+        --violet: #9c8cff;
+        --amber: #ffcb6b;
+        --rose: #ff8fa3;
+
+        --accent: #c6f36b;
+        --accent-hover: #d3f78c;
+        --accent-ink: #152000;
+        --accent-ring: rgba(198, 243, 107, 0.22);
+
+        --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
+        --shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 40px 120px rgba(0, 0, 0, 0.55);
+        --header-bg: rgba(11, 16, 32, 0.78);
+        --track: rgba(163, 179, 221, 0.2);
+
+        --c-ink: #f4f7ff;
+        --c-muted: #a6b0c8;
+        --c-dim: #7d88a6;
+        --c-blue: #82aaff;
+        --c-lime: #c6f36b;
+        --c-violet: #9c8cff;
+        --c-amber: #ffcb6b;
+        --c-rose: #ff8fa3;
+        --c-panel: rgba(13, 19, 38, 0.6);
+        --c-border: rgba(163, 179, 221, 0.18);
+        --c-chip: rgba(11, 16, 32, 0.86);
+        --c-ring: #0b1020;
+        --c-outline: #060a16;
+        --c-scene: #0d1224;
+      }
+
+      /* ================= temel ================= */
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background-color: var(--bg);
+        background-image: var(--bg-art);
+        background-attachment: fixed;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        transition: background-color 220ms ease, color 220ms ease;
+      }
+
+      body.locked { overflow: hidden; }
+
+      a { color: inherit; }
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      canvas:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+        border-radius: 10px;
+      }
+
+      .shell { width: min(1140px, calc(100% - 44px)); margin: 0 auto; }
+
+      /* ================= üst bar ================= */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        border-bottom: 1px solid var(--line);
+        background: var(--header-bg);
+        backdrop-filter: saturate(160%) blur(14px);
+        -webkit-backdrop-filter: saturate(160%) blur(14px);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 68px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        text-decoration: none;
+        font-weight: 750;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border: 1px solid var(--accent-ring);
+        border-radius: 11px;
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      .brand-mark svg { width: 20px; height: 20px; }
+
+      .brand small {
+        display: block;
+        margin-top: -4px;
+        color: var(--dim);
+        font-size: 0.68rem;
+        font-weight: 650;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .header-nav { display: flex; align-items: center; gap: 4px; }
+
+      .nav-link {
+        padding: 7px 12px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.87rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 160ms ease, color 160ms ease;
+      }
+
+      .nav-link:hover { background: var(--surface-3); color: var(--ink); }
+
+      .header-tools { display: flex; align-items: center; gap: 9px; }
+
+      .icon-btn {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface);
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+      }
+
+      .icon-btn:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+
+      .icon-btn svg { width: 18px; height: 18px; }
+
+      :root:not([data-theme="dark"]) .icon-btn .sun,
+      :root[data-theme="dark"] .icon-btn .moon { display: none; }
+
+      /* ================= ortak ================= */
+      main { padding: 56px 0 96px; }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 18px;
+        color: var(--lime);
+        font-size: 0.76rem;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 5px var(--accent-ring);
+        content: "";
+      }
+
+      h1 {
+        max-width: 740px;
+        margin: 0;
+        font-size: clamp(2.6rem, 6vw, 4.6rem);
+        font-weight: 760;
+        letter-spacing: -0.06em;
+        line-height: 1;
+      }
+
+      h1 span { color: var(--blue); }
+
+      .lead {
+        max-width: 560px;
+        margin: 22px 0 30px;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.6vw, 1.14rem);
+        line-height: 1.68;
+      }
+
+      .cta-row { display: flex; flex-wrap: wrap; gap: 11px; }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 46px;
+        padding: 0 20px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        font: inherit;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+      }
+
+      .button:hover { background: var(--accent-hover); box-shadow: var(--shadow); transform: translateY(-1px); }
+
+      .button:active { transform: translateY(0); }
+
+      .button svg { width: 17px; height: 17px; }
+
+      .button.ghost {
+        border-color: var(--line);
+        background: var(--surface);
+        color: var(--ink);
+        box-shadow: none;
+      }
+
+      .button.ghost:hover { border-color: var(--blue); background: var(--surface-2); color: var(--blue); }
+
+      .button.small { min-height: 38px; padding: 0 15px; font-size: 0.87rem; }
+
+      .button[disabled] { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+      .facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 30px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .facts li {
+        padding: 8px 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.87rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .facts b { color: var(--ink); font-weight: 700; }
+
+      /* ================= giriş ================= */
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+        gap: clamp(30px, 5vw, 64px);
+        align-items: center;
+      }
+
+      .hero-card {
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .card-label {
+        display: block;
+        margin-bottom: 18px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .formula-list { margin: 0; padding: 0; list-style: none; }
+
+      .formula-list li {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 12px;
+        padding: 13px 0;
+        border-top: 1px solid var(--line-soft);
+      }
+
+      .formula-list li:first-child { border-top: 0; padding-top: 0; }
+
+      .formula-list code {
+        color: var(--blue);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 1.02rem;
+        font-weight: 600;
+      }
+
+      .formula-list span { color: var(--dim); font-size: 0.83rem; }
+
+      .card-foot {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .card-foot .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 4px var(--accent-ring);
+      }
+
+      /* ================= bölümler ================= */
+      .section { margin-top: 92px; scroll-margin-top: 82px; }
+
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-heading h2 {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        margin: 0;
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        letter-spacing: -0.045em;
+        line-height: 1.15;
+      }
+
+      .section-heading h2 em {
+        display: grid;
+        min-width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 9px;
+        background: var(--surface-3);
+        color: var(--violet);
+        font-size: 0.8rem;
+        font-style: normal;
+        font-weight: 750;
+        letter-spacing: 0;
+      }
+
+      .section-heading p {
+        max-width: 390px;
+        margin: 0;
+        color: var(--dim);
+        font-size: 0.92rem;
+        text-align: right;
+      }
+
+      .note { margin: 14px 0 0; color: var(--dim); font-size: 0.87rem; }
+
+      .note b { color: var(--muted); font-weight: 650; }
+
+      canvas {
+        display: block;
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--c-scene);
+        box-shadow: var(--shadow-sm);
+        touch-action: manipulation;
+      }
+
+      /* ================= laboratuvar ================= */
+      .lab {
+        display: grid;
+        grid-template-columns: minmax(0, 1.62fr) minmax(262px, 0.8fr);
+        gap: 16px;
+        margin-top: 22px;
+      }
+
+      .readouts {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .readout {
+        position: relative;
+        padding: 12px 14px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .readout::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--blue);
+        opacity: 0.75;
+        content: "";
+      }
+
+      .readout:nth-child(2)::before { background: var(--violet); }
+      .readout:nth-child(3)::before { background: var(--lime); }
+      .readout:nth-child(4)::before { background: var(--amber); }
+
+      .readout span {
+        display: block;
+        color: var(--dim);
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .readout strong {
+        font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.03em;
+      }
+
+      .readout i { color: var(--dim); font-size: 0.8rem; font-style: normal; }
+
+      .readout em {
+        display: block;
+        margin-top: -2px;
+        color: var(--blue);
+        font-size: 0.74rem;
+        font-style: normal;
+      }
+
+      .panel {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .field { display: flex; flex-direction: column; gap: 9px; }
+
+      .field label,
+      .field .flabel {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.84rem;
+        font-weight: 650;
+      }
+
+      .field output {
+        color: var(--ink);
+        font-size: 0.9rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 750;
+      }
+
+      .field small { color: var(--dim); font-size: 0.77rem; line-height: 1.45; }
+
+      input[type="range"] {
+        width: 100%;
+        height: 22px;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        height: 6px;
+        border-radius: 999px;
+        background: linear-gradient(to right, var(--lime) var(--p, 30%), var(--track) var(--p, 30%));
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        width: 19px;
+        height: 19px;
+        margin-top: -6.5px;
+        border: 2px solid var(--surface);
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: var(--shadow-sm);
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input[type="range"]::-moz-range-track {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--track);
+      }
+
+      input[type="range"]::-moz-range-progress {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--lime);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        border: 2px solid var(--surface);
+        border-radius: 50%;
+        background: var(--lime);
+      }
+
+      .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+
+      .seg button {
+        flex: 1 1 62px;
+        min-height: 44px;
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.83rem;
+        font-weight: 700;
+        line-height: 1.15;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+      }
+
+      .seg button b { display: block; color: var(--dim); font-size: 0.69rem; font-weight: 600; }
+
+      .seg button:hover { border-color: var(--blue); color: var(--ink); }
+
+      .seg button[aria-pressed="true"] {
+        border-color: var(--lime);
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      .seg button[aria-pressed="true"] b { color: var(--lime); opacity: 0.75; }
+
+      .switches { display: flex; flex-direction: column; gap: 10px; }
+
+      .switches label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+
+      .switches input {
+        width: 17px;
+        height: 17px;
+        accent-color: var(--lime);
+        cursor: pointer;
+      }
+
+      .actions { display: flex; gap: 9px; }
+
+      .actions .button { flex: 1 1 auto; padding: 0 12px; }
+
+      .mini {
+        display: grid;
+        gap: 9px;
+        margin: 0;
+        padding: 16px 0 0;
+        border-top: 1px solid var(--line);
+        list-style: none;
+      }
+
+      .mini li {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+
+      .mini b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+      #lab-graphs {
+        margin-top: 14px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+      }
+
+      /* ================= deney blokları ================= */
+      .demo { display: grid; gap: 16px; margin-top: 22px; }
+
+      .demo.split { grid-template-columns: minmax(0, 1.5fr) minmax(255px, 0.88fr); }
+
+      .panel h3 { margin: 0; font-size: 1.02rem; letter-spacing: -0.02em; }
+
+      .panel p { margin: 0; color: var(--muted); font-size: 0.89rem; }
+
+      .verdict {
+        min-height: 74px;
+        padding: 13px 15px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--blue);
+        border-radius: 12px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .verdict b { color: var(--ink); }
+      .verdict.good { border-left-color: var(--lime); }
+      .verdict.warn { border-left-color: var(--amber); }
+      .verdict.bad { border-left-color: var(--rose); }
+
+      .tries { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+
+      .tries li {
+        padding: 5px 11px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.77rem;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .tries li.best { border-color: var(--lime); background: var(--accent-ring); color: var(--lime); font-weight: 700; }
+
+      /* ================= mini test ================= */
+      .quiz { display: grid; gap: 12px; margin-top: 22px; }
+
+      .q {
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .q > p { margin: 0 0 15px; font-size: 1rem; font-weight: 600; line-height: 1.5; }
+
+      .q > p span {
+        display: inline-block;
+        margin-bottom: 6px;
+        color: var(--violet);
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+      }
+
+      .opts { display: grid; gap: 8px; }
+
+      .opts button {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 15px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.92rem;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+      }
+
+      .opts button::before {
+        flex: none;
+        display: grid;
+        width: 23px;
+        height: 23px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--surface);
+        color: var(--dim);
+        font-size: 0.71rem;
+        font-weight: 750;
+        content: attr(data-key);
+      }
+
+      .opts button:hover:not([disabled]) { border-color: var(--blue); background: var(--surface); color: var(--ink); }
+
+      .opts button.right {
+        border-color: var(--lime);
+        background: var(--accent-ring);
+        color: var(--lime);
+        font-weight: 650;
+      }
+
+      .opts button.right::before { border-color: var(--lime); color: var(--lime); }
+
+      .opts button.wrong {
+        border-color: var(--rose);
+        background: color-mix(in srgb, var(--rose) 10%, transparent);
+        color: var(--rose);
+      }
+
+      .opts button.wrong::before { border-color: var(--rose); color: var(--rose); }
+
+      .opts button[disabled] { cursor: default; }
+
+      .why {
+        margin: 13px 0 0;
+        padding: 2px 0 2px 14px;
+        border-left: 2px solid var(--violet);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .why[hidden] { display: none; }
+
+      .score {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 12px;
+        padding: 16px 22px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.93rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .score b { color: var(--ink); font-size: 1.08rem; }
+
+      /* ================= konu anlatımı kartı ================= */
+      .lesson-card {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        margin-top: 26px;
+        padding: 22px 24px;
+        border: 1px solid color-mix(in srgb, var(--violet) 38%, transparent);
+        border-radius: 20px;
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--violet) 12%, transparent), transparent 62%),
+          var(--surface);
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease;
+      }
+
+      .lesson-card:hover {
+        border-color: var(--violet);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .lesson-card .badge {
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border: 1px solid color-mix(in srgb, var(--violet) 40%, transparent);
+        border-radius: 15px;
+        background: color-mix(in srgb, var(--violet) 12%, transparent);
+        color: var(--violet);
+      }
+
+      .lesson-card .badge svg { width: 24px; height: 24px; }
+
+      .lesson-card h3 { margin: 0 0 3px; font-size: 1.15rem; letter-spacing: -0.03em; }
+
+      .lesson-card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+      .lesson-card .go {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--violet);
+      }
+
+      .lesson-card .go svg { width: 18px; height: 18px; }
+
+      /* ================= modal ================= */
+      dialog {
+        width: min(920px, calc(100% - 26px));
+        max-height: min(88vh, 940px);
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--bg);
+        color: var(--ink);
+        box-shadow: var(--shadow-lg);
+      }
+
+      dialog[open] { display: flex; flex-direction: column; }
+
+      dialog::backdrop {
+        background: rgba(18, 26, 52, 0.42);
+        backdrop-filter: blur(5px);
+      }
+
+      :root[data-theme="dark"] dialog::backdrop { background: rgba(5, 8, 20, 0.72); }
+
+      .modal-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 22px 26px 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .modal-head h2 {
+        margin: 2px 0 0;
+        font-size: clamp(1.35rem, 3vw, 1.8rem);
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+
+      .modal-head .eyebrow { margin: 0 0 6px; }
+
+      .close {
+        flex: none;
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface-2);
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease;
+      }
+
+      .close:hover { border-color: var(--rose); color: var(--rose); }
+
+      .close svg { width: 17px; height: 17px; }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        padding: 13px 26px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface-2);
+      }
+
+      .chips button {
+        padding: 7px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.79rem;
+        font-weight: 650;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease;
+      }
+
+      .chips button:hover { border-color: var(--blue); color: var(--blue); }
+
+      .modal-body {
+        padding: 10px 26px 34px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        counter-reset: chapter;
+      }
+
+      .modal-body h3 {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin: 32px 0 12px;
+        font-size: 1.18rem;
+        letter-spacing: -0.03em;
+        scroll-margin-top: 12px;
+      }
+
+      .modal-body h3::before {
+        display: grid;
+        min-width: 27px;
+        height: 27px;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--surface-3);
+        color: var(--violet);
+        font-size: 0.74rem;
+        font-weight: 750;
+        content: counter(chapter, decimal-leading-zero);
+        counter-increment: chapter;
+      }
+
+      .modal-body h4 { margin: 20px 0 6px; font-size: 0.98rem; color: var(--blue); }
+
+      .modal-body p { margin: 0 0 12px; color: var(--muted); }
+
+      .modal-body ul, .modal-body ol { margin: 0 0 12px; padding-left: 20px; color: var(--muted); }
+
+      .modal-body li { margin-bottom: 6px; }
+
+      .modal-body strong { color: var(--ink); font-weight: 700; }
+
+      .formula { display: flex; flex-wrap: wrap; gap: 9px; margin: 14px 0 16px; }
+
+      .formula code {
+        padding: 10px 15px;
+        border: 1px solid color-mix(in srgb, var(--blue) 26%, transparent);
+        border-radius: 11px;
+        background: color-mix(in srgb, var(--blue) 9%, transparent);
+        color: var(--blue);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.96rem;
+      }
+
+      .callout {
+        margin: 16px 0;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--lime);
+        border-radius: 13px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .callout.warn { border-left-color: var(--amber); }
+      .callout b { color: var(--ink); }
+      .callout :last-child { margin-bottom: 0; }
+
+      .tbl {
+        width: 100%;
+        margin: 14px 0 18px;
+        border-collapse: collapse;
+        font-size: 0.89rem;
+      }
+
+      .tbl th, .tbl td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        text-align: left;
+      }
+
+      .tbl th {
+        color: var(--dim);
+        font-size: 0.71rem;
+        font-weight: 750;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .tbl td:first-child { color: var(--ink); font-weight: 650; }
+
+      details {
+        margin: 10px 0;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: var(--surface);
+      }
+
+      details summary {
+        color: var(--ink);
+        font-weight: 650;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      details summary::-webkit-details-marker { display: none; }
+
+      details summary::before {
+        display: inline-block;
+        width: 18px;
+        color: var(--lime);
+        font-weight: 750;
+        content: "+";
+      }
+
+      details[open] summary::before { content: "–"; }
+
+      details p:first-of-type { margin-top: 12px; }
+
+      .steps { margin: 12px 0 0; padding-left: 20px; color: var(--muted); }
+
+      .steps li { margin-bottom: 8px; }
+
+      /* ================= alt bilgi ================= */
+      footer {
+        margin-top: 88px;
+        padding: 22px 0 34px;
+        border-top: 1px solid var(--line);
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+
+      .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+      /* ================= premium katman ================= */
+      ::selection { background: color-mix(in srgb, var(--blue) 22%, transparent); }
+
+      h1, h2, h3 { text-wrap: balance; }
+
+      h1 span {
+        background: linear-gradient(92deg, var(--blue), var(--violet));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero { position: relative; isolation: isolate; }
+
+      .hero::before {
+        position: absolute;
+        z-index: -1;
+        inset: -60px 0 auto 0;
+        height: 560px;
+        background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1.2px);
+        background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        content: "";
+        pointer-events: none;
+      }
+
+      .hero-card {
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--blue) 7%, transparent), transparent 42%),
+          var(--surface);
+      }
+
+      .progress {
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        transform-origin: 0 50%;
+        transform: scaleX(var(--sp, 0));
+        background: linear-gradient(90deg, var(--lime), var(--blue));
+        pointer-events: none;
+      }
+
+      .nav-link.active { background: var(--surface-3); color: var(--ink); }
+
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 640ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 640ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .js .reveal.in { opacity: 1; transform: none; }
+
+      .button:active,
+      .seg button:active,
+      .presets button:active,
+      .icon-btn:active { transform: translateY(0) scale(0.985); }
+
+      .readout strong { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 750; }
+
+      .readout { transition: border-color 160ms ease, box-shadow 160ms ease; }
+
+      .readout:hover { border-color: color-mix(in srgb, var(--blue) 40%, var(--line)); box-shadow: var(--shadow); }
+
+      canvas { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+
+      :root[data-theme="dark"] canvas { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+
+      #lab-scene { cursor: pointer; }
+
+      .presets {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .presets > span {
+        margin-right: 4px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .presets button {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: border-color 150ms ease, color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+      }
+
+      .presets button i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--tone, var(--blue));
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone, var(--blue)) 18%, transparent);
+      }
+
+      .presets button:hover {
+        border-color: var(--tone, var(--blue));
+        color: var(--ink);
+        box-shadow: var(--shadow);
+        transform: translateY(-1px);
+      }
+
+      .stats { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--dim); font-size: 0.82rem; }
+
+      .stats b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+      .stats[hidden] { display: none; }
+
+      .final { flex: 1 1 100%; color: var(--dim); font-size: 0.88rem; }
+
+      .final:empty { display: none; }
+
+      @keyframes shake {
+        10%, 90% { transform: translateX(-1px); }
+        20%, 80% { transform: translateX(2px); }
+        30%, 50%, 70% { transform: translateX(-3px); }
+        40%, 60% { transform: translateX(3px); }
+      }
+
+      @keyframes pop {
+        0% { transform: scale(0.98); }
+        60% { transform: scale(1.015); }
+        100% { transform: none; }
+      }
+
+      .opts button.wrong { animation: shake 420ms ease; }
+
+      .opts button.right { animation: pop 320ms ease; }
+
+      .opts button.right::after,
+      .opts button.wrong::after {
+        margin-left: auto;
+        font-size: 0.85rem;
+        font-weight: 800;
+      }
+
+      .opts button.right::after { content: "✓"; }
+
+      .opts button.wrong::after { content: "✕"; }
+
+      @keyframes modalIn {
+        from { opacity: 0; transform: translateY(14px) scale(0.985); }
+        to { opacity: 1; transform: none; }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      dialog[open] { animation: modalIn 280ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+      dialog[open]::backdrop { animation: fadeIn 240ms ease; }
+
+      .chips button.active {
+        border-color: var(--violet);
+        background: color-mix(in srgb, var(--violet) 10%, transparent);
+        color: var(--violet);
+      }
+
+      .modal-body { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+
+      .to-top {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        z-index: 25;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        color: var(--muted);
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 220ms ease, transform 220ms ease, border-color 160ms ease, color 160ms ease;
+      }
+
+      .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+
+      .to-top:hover { border-color: var(--blue); color: var(--blue); }
+
+      .to-top svg { width: 18px; height: 18px; }
+
+      /* ================= ünite gezinmesi ================= */
+      .topic-nav {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 76px;
+      }
+
+      .topic-nav a {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        text-decoration: none;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .topic-nav a:hover {
+        border-color: var(--blue);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .topic-nav span {
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .topic-nav b { color: var(--ink); font-size: 0.95rem; font-weight: 650; letter-spacing: -0.02em; }
+
+      .topic-nav .mid { align-items: center; text-align: center; background: var(--surface-2); }
+
+      .topic-nav .next { align-items: flex-end; text-align: right; }
+
+      .topic-nav .gap { border: 0; background: none; box-shadow: none; }
+
+      .eyebrow a { text-decoration: none; }
+
+      .eyebrow a:hover { text-decoration: underline; }
+
+      /* ================= duyarlılık ================= */
+      @media (max-width: 1000px) {
+        .header-nav { display: none; }
+      }
+
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; }
+        .lab { grid-template-columns: 1fr; }
+        .demo.split { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 760px) {
+        .shell { width: min(100% - 28px, 560px); }
+        main { padding: 40px 0 72px; }
+        .section { margin-top: 68px; }
+        .section-heading { display: block; }
+        .section-heading p { margin-top: 10px; text-align: left; }
+        .readouts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cta-row .button { flex: 1 1 100%; }
+        .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
+        .lesson-card .go { display: none; }
+        .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .footer-inner { display: block; }
+        .footer-inner span { display: block; margin-top: 6px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { transition: none !important; animation: none !important; }
+        .js .reveal { opacity: 1; transform: none; }
+      }
+    </style>
+
+    <script>
+      /* tema, boya öncesinde uygulansın: varsayılan açık */
+      (function () {
+        var mode = "light";
+        try { if (localStorage.getItem("dersler-tema") === "dark") mode = "dark"; } catch (e) {}
+        document.documentElement.setAttribute("data-theme", mode);
+      })();
+    </script>
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="index.html" aria-label="Dersler ana sayfa">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" />
+              <path d="M4 5.5v16M8 7h8M8 11h7" />
+            </svg>
+          </span>
+          <span>Dersler<small>fizik</small></span>
+        </a>
+
+        <nav class="header-nav" aria-label="Bölümler">
+          <a class="nav-link" href="#lab">Işın çizimi</a>
+          <a class="nav-link" href="#durumlar">Beş durum</a>
+          <a class="nav-link" href="#tumsek">Tümsek ayna</a>
+          <a class="nav-link" href="#oyun">Hedef büyütme</a>
+          <a class="nav-link" href="#test">Test</a>
+        </nav>
+
+        <div class="header-tools">
+          <button class="icon-btn" type="button" id="theme-toggle" aria-label="Koyu temaya geç">
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4" />
+            </svg>
+            <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z" />
+            </svg>
+          </button>
+          <button class="button small" type="button" data-open-modal>Konu anlatımı</button>
+        </div>
+      </div>
+      <span class="progress" aria-hidden="true"></span>
+    </header>
+
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow"><a href="index.html#optik">Optik</a> · Konu 03</p>
+          <h1 id="page-title">Küresel <span>aynalar.</span></h1>
+          <p class="lead">
+            Çukur ayna ışığı bir noktada toplar, tümsek ayna dağıtır. Görüntünün nerede
+            oluşacağını, ne kadar büyük ve hangi yönde olacağını üç asal ışın ya da tek bir
+            denklem söyler: <b>1/f = 1/a + 1/b</b>.
+          </p>
+          <div class="cta-row">
+            <button class="button" type="button" data-open-modal>
+              Konu anlatımını aç
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+            <a class="button ghost" href="#lab">Laboratuvara in</a>
+            <a class="button ghost" href="sunum/kuresel-aynalar.pptx" download>
+              Sunum (PPTX)
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </a>
+          </div>
+
+          <ul class="facts">
+            <li>Odak <b>f = r / 2</b></li>
+            <li>Denklem <b>1/f = 1/a + 1/b</b></li>
+            <li>Büyütme <b>|b / a|</b></li>
+            <li>Tümsekte <b>hep sanal</b></li>
+          </ul>
+        </div>
+
+        <aside class="hero-card" aria-label="Temel bağıntılar">
+          <span class="card-label">Temel bağıntılar</span>
+          <ul class="formula-list">
+            <li><code>f = r / 2</code> <span>odak uzaklığı</span></li>
+            <li><code>1/f = 1/a + 1/b</code> <span>ayna denklemi</span></li>
+            <li><code>m = |b / a|</code> <span>büyütme</span></li>
+            <li><code>b &lt; 0 → sanal</code> <span>aynanın arkasında</span></li>
+          </ul>
+          <div class="card-foot"><span class="dot" aria-hidden="true"></span> Çukur aynada f &gt; 0, tümsek aynada f &lt; 0</div>
+        </aside>
+      </section>
+
+      <button class="lesson-card reveal" type="button" data-open-modal>
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 6.5C10.5 5 8.5 4.5 6 4.5H3.5v13H6c2.5 0 4.5.5 6 2 1.5-1.5 3.5-2 6-2h2.5v-13H18c-2.5 0-4.5.5-6 2z" />
+            <path d="M12 6.5v13" />
+          </svg>
+        </span>
+        <span>
+          <h3>Konu anlatımı: Küresel aynalar</h3>
+          <p>Asal ışınlardan ayna denklemine, beş cisim konumundan günlük hayattaki kullanımlara.</p>
+        </span>
+        <span class="go" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </span>
+      </button>
+
+      <!-- 01 — ışın çizimi -->
+      <section class="section reveal" id="lab" aria-labelledby="lab-title">
+        <div class="section-heading">
+          <h2 id="lab-title"><em>01</em> Işın çizimi laboratuvarı</h2>
+          <p>Ayna türünü, yarıçapı ve cismin yerini değiştir; asal ışınların görüntüyü nasıl bulduğunu izle.</p>
+        </div>
+
+        <div class="lab">
+          <div>
+            <canvas id="lab-scene" aria-label="Küresel ayna, asal ışınlar, cisim ve görüntü"></canvas>
+            <div class="readouts">
+              <div class="readout"><span>Görüntü uzaklığı</span><strong id="ro-b">45,0</strong> <i>cm</i></div>
+              <div class="readout"><span>Büyütme</span><strong id="ro-m">0,50</strong> <i>kat</i></div>
+              <div class="readout"><span>Görüntünün türü</span><strong id="ro-type">Gerçek</strong><em id="ro-dir">ters ve küçük</em></div>
+              <div class="readout"><span>Odak uzaklığı</span><strong id="ro-f">30,0</strong> <i>cm</i></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="seg" id="km-type" role="group" aria-label="Ayna türü">
+              <button type="button" data-type="cukur" aria-pressed="true">Çukur<b>ince kenarlı gibi toplar</b></button>
+              <button type="button" data-type="tumsek" aria-pressed="false">Tümsek<b>dağıtır</b></button>
+            </div>
+
+            <div class="field">
+              <label for="c-r">Eğrilik yarıçapı <output id="o-r" for="c-r">60 cm</output></label>
+              <input id="c-r" type="range" min="20" max="120" step="2" value="60" />
+            </div>
+
+            <div class="field">
+              <label for="c-a">Cismin uzaklığı <output id="o-a" for="c-a">90 cm</output></label>
+              <input id="c-a" type="range" min="5" max="200" step="1" value="90" />
+            </div>
+
+            <div class="field">
+              <label for="c-ho">Cismin boyu <output id="o-ho" for="c-ho">24 cm</output></label>
+              <input id="c-ho" type="range" min="10" max="40" step="2" value="24" />
+            </div>
+
+            <ul class="mini">
+              <li>Odak f = r/2 <b id="s-f">30 cm</b></li>
+              <li>Denklem <b id="s-eq">1/30 = 1/90 + 1/45</b></li>
+              <li>Görüntü boyu <b id="s-size">12 cm</b></li>
+              <li>Konum <b id="s-where">merkezin ötesinde</b></li>
+            </ul>
+          </div>
+        </div>
+
+        <canvas id="km-graphs" aria-label="Görüntü uzaklığının ve büyütmenin cisim uzaklığına bağlılığı"></canvas>
+        <p class="note">
+          Çukur aynada cisim odağın dışındayken görüntü <b>gerçek ve ters</b>, odağın içindeyken
+          <b>sanal, düz ve büyüktür</b>. Tümsek aynada cisim nerede olursa olsun görüntü her zaman
+          <b>sanal, düz ve küçüktür</b>.
+        </p>
+      </section>
+
+      <!-- 02 — beş durum -->
+      <section class="section reveal" id="durumlar" aria-labelledby="du-title">
+        <div class="section-heading">
+          <h2 id="du-title"><em>02</em> Çukur aynada beş cisim konumu</h2>
+          <p>Cisim merkezden odağa doğru yürürken görüntü nereye gider, nasıl değişir?</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="du-scene" aria-label="Cismin beş farklı konumu için görüntünün yeri ve özellikleri"></canvas>
+          <div class="panel">
+            <h3>Konumdan sonuca</h3>
+            <div class="seg" id="du-case" role="group" aria-label="Cisim konumu">
+              <button type="button" data-case="0" aria-pressed="true">Merkezin ötesi<b>a &gt; 2f</b></button>
+              <button type="button" data-case="1" aria-pressed="false">Merkezde<b>a = 2f</b></button>
+              <button type="button" data-case="2" aria-pressed="false">Merkez–odak arası<b>f &lt; a &lt; 2f</b></button>
+              <button type="button" data-case="3" aria-pressed="false">Odakta<b>a = f</b></button>
+              <button type="button" data-case="4" aria-pressed="false">Odağın içi<b>a &lt; f</b></button>
+            </div>
+            <div class="verdict" id="du-verdict">Bir konum seç.</div>
+            <div class="actions">
+              <button class="button" type="button" id="du-play">Sırayla göster</button>
+            </div>
+            <ul class="mini">
+              <li>Görüntünün yeri <b id="du-where">odak – merkez arası</b></li>
+              <li>Türü <b id="du-type">gerçek, ters</b></li>
+              <li>Boyu <b id="du-size">küçük</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — tümsek ayna -->
+      <section class="section reveal" id="tumsek" aria-labelledby="tm-title">
+        <div class="section-heading">
+          <h2 id="tm-title"><em>03</em> Tümsek ayna: neden güvenlik aynası?</h2>
+          <p>Görüntü küçülür ama görüş alanı genişler. İkisi aynı sebebin sonucu.</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="tm-scene" aria-label="Tümsek ayna ile düzlem aynanın görüş alanı karşılaştırması"></canvas>
+          <div class="panel">
+            <h3>Küçült ki çok şey sığsın</h3>
+            <p>
+              Tümsek aynada ışınlar dağılarak yansır; aynı büyüklükteki aynaya çok daha geniş bir
+              bölgeden gelen ışınlar düşebilir. Bu yüzden market köşelerinde, otopark çıkışlarında
+              ve araç yan aynalarında tümsek ayna kullanılır.
+            </p>
+            <div class="field">
+              <label for="c-td">Cismin uzaklığı <output id="o-td" for="c-td">120 cm</output></label>
+              <input id="c-td" type="range" min="20" max="300" step="5" value="120" />
+            </div>
+            <div class="field">
+              <label for="c-tr">Eğrilik yarıçapı <output id="o-tr" for="c-tr">80 cm</output></label>
+              <input id="c-tr" type="range" min="40" max="200" step="5" value="80" />
+            </div>
+            <div class="verdict" id="tm-verdict">Uzaklığı değiştir.</div>
+            <ul class="mini">
+              <li>Görüntü uzaklığı <b id="s-tb">24 cm (arkada)</b></li>
+              <li>Büyütme <b id="s-tm">0,20</b></li>
+              <li>Görüş açısı <b id="s-fov">düzlem aynanın 2,8 katı</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — hedef büyütme -->
+      <section class="section reveal" id="oyun" aria-labelledby="oy-title">
+        <div class="section-heading">
+          <h2 id="oy-title"><em>04</em> Hedef büyütme</h2>
+          <p>İstenen görüntüyü elde etmek için cismi nereye koymalısın?</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="gm-scene" aria-label="Hedeflenen görüntü ile elde edilen görüntünün karşılaştırması"></canvas>
+          <div class="panel">
+            <h3>Nasıl oynanır?</h3>
+            <p>
+              Odak uzaklığı verilen çukur aynada, istenen <b>büyütmeyi</b> ve <b>görüntü türünü</b>
+              sağlayacak cisim uzaklığını bul, sonra <b>Yerleştir</b> düğmesine bas. %5'ten yakınsa
+              sayılır. İpucu: gerçek görüntü için <b>a = f·(m+1)/m</b>.
+            </p>
+            <div class="field">
+              <label for="c-ga">Cismin uzaklığı <output id="o-ga" for="c-ga">60 cm</output></label>
+              <input id="c-ga" type="range" min="5" max="200" step="1" value="60" />
+            </div>
+            <div class="verdict" id="gm-verdict">Hedefi oku ve cismi yerleştir.</div>
+            <div class="actions">
+              <button class="button" type="button" id="gm-check">Yerleştir</button>
+              <button class="button ghost" type="button" id="gm-new">Yeni hedef</button>
+            </div>
+            <ul class="tries" id="gm-tries"></ul>
+            <div class="stats" id="gm-stats" hidden>
+              <span>Deneme <b data-n>0</b></span>
+              <span>Tutturma <b data-ok>0</b></span>
+              <span>Başarı <b data-pct>–</b></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — mini test -->
+      <section class="section reveal" id="test" aria-labelledby="test-title">
+        <div class="section-heading">
+          <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
+          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+        </div>
+
+        <div class="quiz" id="quiz"></div>
+
+        <div class="score">
+          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
+          <span class="final" id="quiz-final"></span>
+        </div>
+      </section>
+    </main>
+
+    <button class="to-top" type="button" id="to-top" aria-label="Sayfanın başına dön">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
+    </button>
+
+    <nav class="topic-nav shell" aria-label="Ünite içinde gezinme">
+      <a class="prev" href="duzlem-aynalar.html">
+        <span>← Önceki konu</span>
+        <b>02 · Düzlem aynalar</b>
+      </a>
+      <a class="mid" href="index.html#optik">
+        <span>Ünite</span>
+        <b>Optik</b>
+      </a>
+      <a class="next" href="kirilma.html">
+        <span>Sonraki konu →</span>
+        <b>04 · Kırılma</b>
+      </a>
+    </nav>
+
+    <footer>
+      <div class="shell footer-inner">
+        <span>dersler.perinet.org</span>
+        <span><a href="sunum/kuresel-aynalar.pptx" download>Sunumu indir (PPTX)</a></span>
+        <span>Fizik · Optik · Konu 03</span>
+      </div>
+    </footer>
+
+    <dialog id="konu" aria-labelledby="konu-title">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Konu anlatımı</p>
+          <h2 id="konu-title">Küresel aynalar</h2>
+        </div>
+        <button class="close" type="button" id="konu-close" aria-label="Konu anlatımını kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="chips">
+        <button type="button" data-goto="k1">Temel kavramlar</button>
+        <button type="button" data-goto="k2">Asal ışınlar</button>
+        <button type="button" data-goto="k3">Çukur aynada beş durum</button>
+        <button type="button" data-goto="k4">Tümsek ayna</button>
+        <button type="button" data-goto="k5">Ayna denklemi</button>
+        <button type="button" data-goto="k6">Büyütme</button>
+        <button type="button" data-goto="k7">Nerede kullanılır</button>
+        <button type="button" data-goto="k8">Çözümlü örnekler</button>
+        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+      </div>
+
+      <div class="modal-body" id="konu-body">
+        <h3 id="k1">Temel kavramlar</h3>
+        <p>
+          Küresel ayna, bir kürenin parçası biçimindeki aynadır. İç yüzeyi yansıtıcıysa
+          <strong>çukur (konkav)</strong>, dış yüzeyi yansıtıcıysa <strong>tümsek (konveks)</strong>
+          ayna denir.
+        </p>
+        <ul>
+          <li><strong>Tepe noktası (T):</strong> aynanın orta noktası.</li>
+          <li><strong>Merkez (M):</strong> aynanın ait olduğu kürenin merkezi.</li>
+          <li><strong>Odak (F):</strong> tepe ile merkezin tam ortası.</li>
+          <li><strong>Asal eksen:</strong> tepe ile merkezden geçen doğru.</li>
+          <li><strong>Eğrilik yarıçapı (r):</strong> tepe ile merkez arası uzaklık.</li>
+        </ul>
+        <div class="formula">
+          <code>f = r / 2</code>
+        </div>
+        <p>
+          Çukur aynada asal eksene paralel gelen ışınlar yansıdıktan sonra <strong>odakta
+          toplanır</strong>. Tümsek aynada ise ışınlar dağılır; uzantıları aynanın arkasındaki
+          odakta kesişir. Bu yüzden çukur ayna <strong>toplayıcı</strong>, tümsek ayna
+          <strong>dağıtıcı</strong>dır.
+        </p>
+
+        <h3 id="k2">Asal ışınlar</h3>
+        <p>Görüntüyü çizmek için üç ışından ikisi yeter:</p>
+        <ol class="steps">
+          <li><strong>Asal eksene paralel</strong> gelen ışın, yansıdıktan sonra
+            <strong>odaktan</strong> geçer (tümsekte odaktan geliyormuş gibi görünür).</li>
+          <li><strong>Odaktan geçerek</strong> gelen ışın, yansıdıktan sonra asal eksene
+            <strong>paralel</strong> gider.</li>
+          <li><strong>Merkezden geçen</strong> ışın, aynaya dik geldiği için
+            <strong>kendi üzerinden</strong> geri döner.</li>
+        </ol>
+        <div class="callout">
+          <p>
+            <b>Görüntü nerede?</b> İki ışının <b>kendisi</b> kesişiyorsa görüntü gerçektir ve
+            perdeye düşürülebilir. Yalnızca <b>uzantıları</b> kesişiyorsa görüntü sanaldır.
+          </p>
+        </div>
+
+        <h3 id="k3">Çukur aynada beş durum</h3>
+        <table class="tbl">
+          <tr><th>Cismin yeri</th><th>Görüntünün yeri</th><th>Özellikleri</th></tr>
+          <tr><td>Merkezin ötesinde</td><td>odak – merkez arası</td><td>gerçek, ters, küçük</td></tr>
+          <tr><td>Merkezde</td><td>merkezde</td><td>gerçek, ters, eşit</td></tr>
+          <tr><td>Merkez – odak arası</td><td>merkezin ötesinde</td><td>gerçek, ters, büyük</td></tr>
+          <tr><td>Odakta</td><td>sonsuzda</td><td>görüntü oluşmaz</td></tr>
+          <tr><td>Odak ile tepe arası</td><td>aynanın arkasında</td><td>sanal, düz, büyük</td></tr>
+        </table>
+        <p>
+          Sıradaki düzen kolay hatırlanır: cisim aynaya <strong>yaklaştıkça görüntü uzaklaşır ve
+          büyür</strong>. Cisim odağa geldiğinde yansıyan ışınlar paralel olur, görüntü oluşmaz.
+        </p>
+
+        <h3 id="k4">Tümsek ayna</h3>
+        <p>
+          Tümsek aynada odak ve merkez <strong>aynanın arkasındadır</strong>. Cisim nerede olursa
+          olsun görüntü her zaman:
+        </p>
+        <ul>
+          <li><strong>sanaldır</strong> (aynanın arkasında),</li>
+          <li><strong>düzdür</strong>,</li>
+          <li><strong>cisimden küçüktür</strong>,</li>
+          <li>tepe ile odak arasında oluşur.</li>
+        </ul>
+        <p>
+          Görüntü küçüldüğü için aynı aynaya çok daha geniş bir alan sığar. Market ve otopark
+          aynaları, araç yan aynaları bu yüzden tümsektir. Yan aynalardaki
+          <strong>“cisimler göründüğünden daha yakındır”</strong> uyarısı da bu küçültmenin
+          sonucudur.
+        </p>
+
+        <h3 id="k5">Ayna denklemi</h3>
+        <div class="formula">
+          <code>1/f = 1/a + 1/b</code>
+          <code>f = r/2</code>
+        </div>
+        <p>İşaret kuralı (bu sayfada kullanılan):</p>
+        <ul>
+          <li><strong>Çukur ayna:</strong> f pozitif. <strong>Tümsek ayna:</strong> f negatif.</li>
+          <li><strong>b pozitif:</strong> görüntü aynanın önünde, <strong>gerçek</strong>.</li>
+          <li><strong>b negatif:</strong> görüntü aynanın arkasında, <strong>sanal</strong>.</li>
+        </ul>
+
+        <h3 id="k6">Büyütme</h3>
+        <div class="formula">
+          <code>m = |b / a|</code>
+          <code>m = boy(görüntü) / boy(cisim)</code>
+        </div>
+        <ul>
+          <li><strong>m &gt; 1:</strong> görüntü cisimden büyük.</li>
+          <li><strong>m = 1:</strong> eşit (cisim merkezdeyken).</li>
+          <li><strong>m &lt; 1:</strong> görüntü küçük.</li>
+        </ul>
+        <p>
+          Gerçek görüntüler daima <strong>ters</strong>, sanal görüntüler daima
+          <strong>düzdür</strong>. Bu iki cümle, çizim yapmadan da yönü söyler.
+        </p>
+
+        <h3 id="k7">Nerede kullanılır?</h3>
+        <ul>
+          <li><strong>Çukur ayna:</strong> diş hekimi aynası, makyaj aynası, el feneri ve far
+            yansıtıcısı, teleskop, güneş fırını.</li>
+          <li><strong>Tümsek ayna:</strong> araç yan aynası, market ve otopark güvenlik aynası,
+            ATM aynaları.</li>
+        </ul>
+        <p>
+          El fenerinde ampul odağa yerleştirilir: odaktan çıkan ışınlar yansıdıktan sonra
+          asal eksene paralel gider ve ışık uzağa taşınır. Güneş fırını bunun tersidir:
+          paralel gelen güneş ışınları odakta toplanır.
+        </p>
+
+        <h3 id="k8">Çözümlü örnekler</h3>
+
+        <details>
+          <summary>Örnek 1 — Çukur aynada gerçek görüntü</summary>
+          <p>
+            Eğrilik yarıçapı 60 cm olan çukur aynanın önüne, 45 cm uzaklığa bir cisim
+            konuyor. Görüntünün yerini ve büyütmesini bulunuz.
+          </p>
+          <ol class="steps">
+            <li>f = r/2 = 60/2 = 30 cm</li>
+            <li>1/30 = 1/45 + 1/b → 1/b = 1/30 − 1/45 = (3 − 2)/90 = 1/90</li>
+            <li>b = <strong>90 cm</strong> (pozitif → gerçek görüntü, aynanın önünde)</li>
+            <li>m = |b/a| = 90/45 = <strong>2 kat</strong>; görüntü ters ve iki kat büyüktür.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 2 — Odağın içinde: büyüteç etkisi</summary>
+          <p>
+            Odak uzaklığı 20 cm olan çukur aynanın önüne 10 cm uzaklığa bir cisim konuyor.
+            Görüntü nerede oluşur?
+          </p>
+          <ol class="steps">
+            <li>1/20 = 1/10 + 1/b → 1/b = 1/20 − 1/10 = −1/20</li>
+            <li>b = <strong>−20 cm</strong>: eksi işaret görüntünün aynanın arkasında olduğunu
+              gösterir, yani <strong>sanal</strong>.</li>
+            <li>m = |−20/10| = <strong>2 kat</strong>, görüntü düz ve büyüktür.</li>
+            <li>Makyaj ve tıraş aynaları tam olarak böyle çalışır.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 3 — Tümsek ayna</summary>
+          <p>
+            Eğrilik yarıçapı 40 cm olan tümsek aynanın 60 cm önünde bir cisim vardır.
+            Görüntünün yeri ve büyütmesi nedir?
+          </p>
+          <ol class="steps">
+            <li>Tümsek aynada f = −r/2 = <strong>−20 cm</strong></li>
+            <li>1/(−20) = 1/60 + 1/b → 1/b = −1/20 − 1/60 = (−3 − 1)/60 = −4/60</li>
+            <li>b = <strong>−15 cm</strong> → sanal, aynanın arkasında</li>
+            <li>m = |−15/60| = <strong>0,25</strong>; görüntü düz ve dörtte bir boyunda.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 4 — İstenen büyütmeyi sağlamak</summary>
+          <p>
+            Odak uzaklığı 15 cm olan çukur aynada, cismin 3 katı büyüklükte <strong>gerçek</strong>
+            bir görüntü isteniyor. Cisim aynadan kaç cm uzağa konmalıdır?
+          </p>
+          <ol class="steps">
+            <li>Gerçek görüntüde b = m·a = 3a</li>
+            <li>1/15 = 1/a + 1/(3a) = (3 + 1)/(3a) = 4/(3a)</li>
+            <li>3a = 60 → a = <strong>20 cm</strong></li>
+            <li>Kontrol: b = 60 cm, m = 60/20 = 3 ✓ (a, f ile 2f arasında olduğu için görüntü
+              gerçek, ters ve büyük.)</li>
+          </ol>
+        </details>
+
+        <h3 id="k9">Sık yapılan hatalar</h3>
+        <ul>
+          <li><strong>f = r sanmak.</strong> Odak uzaklığı yarıçapın <em>yarısıdır</em>.</li>
+          <li><strong>Tümsek aynada gerçek görüntü aramak.</strong> Tümsek aynada görüntü
+            her zaman sanal, düz ve küçüktür.</li>
+          <li><strong>Sanal görüntüyü perdeye düşürmeye çalışmak.</strong> Sanal görüntü
+            perdede oluşmaz; yalnızca aynaya bakarak görülür.</li>
+          <li><strong>İşaretleri karıştırmak.</strong> b'nin negatif çıkması hata değildir;
+            görüntünün aynanın arkasında olduğunu söyler.</li>
+          <li><strong>Cisim odaktayken görüntü “odakta oluşur” demek.</strong> Yansıyan ışınlar
+            paralel olur; görüntü <em>sonsuzda</em>dır, yani oluşmaz.</li>
+          <li><strong>Büyütmeyi boy farkı sanmak.</strong> Büyütme bir <em>orandır</em>:
+            görüntü boyunun cisim boyuna bölümü.</li>
+        </ul>
+
+        <div class="callout">
+          <p>
+            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
+            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+          </p>
+        </div>
+      </div>
+    </dialog>
+    <script>
+      (function () {
+        "use strict";
+
+        /* ============ ortak yardımcılar ============ */
+
+        var COL = {};
+        var PALETTE = ["ink", "muted", "dim", "blue", "lime", "violet",
+                       "amber", "rose", "panel", "border", "chip", "ring", "outline", "scene"];
+
+        /* tuval renkleri CSS belirteçlerinden gelir; tema değişince yeniden okunur */
+        function readPalette() {
+          var cs = getComputedStyle(document.documentElement);
+          for (var i = 0; i < PALETTE.length; i++) {
+            var v = cs.getPropertyValue("--c-" + PALETTE[i]).trim();
+            if (v) COL[PALETTE[i]] = v;
+          }
+        }
+
+        /* bir renge saydamlık ekler */
+        function A(c, a) {
+          c = (c || "").trim();
+          if (c.charAt(0) === "#") {
+            var h = c.slice(1);
+            if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+            var n = parseInt(h.slice(0, 6), 16);
+            return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
+          }
+          if (c.indexOf("rgb") === 0) {
+            var q = c.replace(/rgba?\(|\)/g, "").split(/[,\s\/]+/);
+            return "rgba(" + q[0] + "," + q[1] + "," + q[2] + "," + a + ")";
+          }
+          return c;
+        }
+
+        readPalette();
+        var FONT = "ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif";
+        var TAU = Math.PI * 2;
+
+        function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+        function fmt(n, d) {
+          if (!isFinite(n)) return "–";
+          d = d == null ? 2 : d;
+          var s = n.toFixed(d);
+          if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+          return s.replace(".", ",");
+        }
+
+        function niceStep(range, target) {
+          var raw = range / (target || 5);
+          if (!(raw > 0)) return 1;
+          var pow = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+          var cand = [1, 2, 2.5, 5, 10];
+          for (var i = 0; i < cand.length; i++) {
+            if (cand[i] * pow >= raw - 1e-12) return cand[i] * pow;
+          }
+          return 10 * pow;
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+          if (!(w > 0) || !(h > 0)) { ctx.beginPath(); return false; }
+          r = Math.max(0, Math.min(r, w / 2, h / 2));
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.arcTo(x + w, y, x + w, y + h, r);
+          ctx.arcTo(x + w, y + h, x, y + h, r);
+          ctx.arcTo(x, y + h, x, y, r);
+          ctx.arcTo(x, y, x + w, y, r);
+          ctx.closePath();
+          return true;
+        }
+
+        function dashLine(ctx, x1, y1, x2, y2, color) {
+          ctx.save();
+          ctx.setLineDash([5, 6]);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        /* düşey ok: dir = +1 aşağı, -1 yukarı; side = +1 etiket sağda */
+        function vArrow(ctx, x, y, len, dir, color, label, side) {
+          if (len < 5) return;
+          var ey = y + dir * len;
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.lineWidth = 3;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x, ey - dir * 8);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(x, ey);
+          ctx.lineTo(x - 6, ey - dir * 12);
+          ctx.lineTo(x + 6, ey - dir * 12);
+          ctx.closePath();
+          ctx.fill();
+          if (label) {
+            ctx.font = "700 12px " + FONT;
+            ctx.textAlign = side < 0 ? "right" : "left";
+            ctx.textBaseline = "middle";
+            ctx.fillText(label, x + (side < 0 ? -10 : 10), y + dir * len * 0.5);
+          }
+          ctx.restore();
+        }
+
+        function chip(ctx, text, x, y, color, align) {
+          ctx.save();
+          ctx.font = "700 12px " + FONT;
+          var w = ctx.measureText(text).width + 22, h = 26;
+          var xx = align === "right" ? x - w : (align === "center" ? x - w / 2 : x);
+          roundRect(ctx, xx, y, w, h, 13);
+          ctx.fillStyle = COL.chip;
+          ctx.fill();
+          ctx.globalAlpha = 0.55;
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = color;
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          ctx.fillText(text, xx + 11, y + h / 2 + 0.5);
+          ctx.restore();
+        }
+
+        function orb(ctx, cx, cy, r, c1, c2) {
+          var g = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.4, r * 0.12, cx, cy, r);
+          g.addColorStop(0, c1);
+          g.addColorStop(1, c2);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, TAU);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.outline, 0.5);
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        /* ============ canvas kurulumu ============ */
+
+        var fits = [];
+
+        function kit(id, heightOf) {
+          var el = document.getElementById(id);
+          if (!el) return null;
+          var ctx = el.getContext("2d");
+          var W = 0, H = 0, draw = null;
+
+          function fit() {
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
+            var w = el.clientWidth || 600;
+            var h = Math.round(heightOf(w));
+            el.style.height = h + "px";
+            el.width = Math.round(w * dpr);
+            el.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            W = w;
+            H = h;
+            if (draw) draw();
+          }
+
+          var api = {
+            el: el, ctx: ctx,
+            get w() { return W; },
+            get h() { return H; },
+            fit: fit,
+            bind: function (fn) { draw = fn; }
+          };
+          window.addEventListener("resize", fit);
+          fits.push(fit);
+          fit();
+          return api;
+        }
+
+        /* ============ tek animasyon döngüsü ============ */
+
+        var tickers = new Set();
+        var rafId = 0, prev = 0;
+
+        function loop(ts) {
+          var dt = prev ? Math.min((ts - prev) / 1000, 0.05) : 0;
+          prev = ts;
+          tickers.forEach(function (fn) { fn(dt); });
+          if (tickers.size) {
+            rafId = requestAnimationFrame(loop);
+          } else {
+            rafId = 0;
+            prev = 0;
+          }
+        }
+
+        function play(fn) {
+          tickers.add(fn);
+          if (!rafId) { prev = 0; rafId = requestAnimationFrame(loop); }
+        }
+
+        function halt(fn) { tickers.delete(fn); }
+
+
+        /* serbest yönlü ok */
+        function arrow(ctx, x, y, dx, dy, color, label, width) {
+          var len = Math.sqrt(dx * dx + dy * dy);
+          if (len < 8) return;
+          var ux = dx / len, uy = dy / len;
+          var ex = x + dx, ey = y + dy;
+          var head = Math.min(11, len * 0.45);
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.lineWidth = width || 2.6;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(ex - ux * head * 0.75, ey - uy * head * 0.75);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(ex, ey);
+          ctx.lineTo(ex - ux * head - uy * head * 0.44, ey - uy * head + ux * head * 0.44);
+          ctx.lineTo(ex - ux * head + uy * head * 0.44, ey - uy * head - ux * head * 0.44);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+          if (label) tag(ctx, label, ex + ux * 12, ey + uy * 12, color, "center", 11);
+        }
+
+        /* arkasına sahne rengiyle hâle çizilen küçük etiket */
+        function tag(ctx, text, x, y, color, align, size) {
+          ctx.save();
+          ctx.font = "700 " + (size || 12) + "px " + FONT;
+          ctx.textAlign = align || "center";
+          ctx.textBaseline = "middle";
+          ctx.lineWidth = 3.5;
+          ctx.lineJoin = "round";
+          ctx.strokeStyle = A(COL.scene, 0.9);
+          ctx.strokeText(text, x, y);
+          ctx.fillStyle = color;
+          ctx.fillText(text, x, y);
+          ctx.restore();
+        }
+
+        /* ============ x eksenli grafik paneli ============ */
+
+        function panelX(ctx, X, Y, W, H, o) {
+          if (W < 90 || H < 80) return;
+          roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
+          ctx.fillStyle = COL.panel;
+          ctx.fill();
+          ctx.strokeStyle = COL.border;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          var pl = 52, pr = 16, pt = 38, pb = 30;
+          var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
+          var xM = o.xMax, yM = o.yMax, xm = o.xMin || 0;
+          function px(v) { return x0 + ((v - xm) / (xM - xm)) * (x1 - x0); }
+          function py(v) { return y1 - (v / yM) * (y1 - y0); }
+          ctx.font = "10px " + FONT;
+          var ys = niceStep(yM, 4);
+          for (var v = 0; v <= yM + 1e-9; v += ys) {
+            ctx.strokeStyle = A(COL.dim, 0.14);
+            ctx.beginPath();
+            ctx.moveTo(x0, py(v));
+            ctx.lineTo(x1, py(v));
+            ctx.stroke();
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(fmt(v, ys < 1 ? (ys < 0.1 ? 2 : 1) : 0), x0 - 7, py(v));
+          }
+          ctx.strokeStyle = A(COL.dim, 0.42);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0 - 6);
+          ctx.lineTo(x0, y1);
+          ctx.lineTo(x1, y1);
+          ctx.stroke();
+          var xs = niceStep(xM - xm, 4);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "top";
+          for (var t = Math.ceil(xm / xs) * xs; t <= xM + 1e-9; t += xs) {
+            ctx.fillStyle = COL.dim;
+            ctx.fillText(fmt(t, xs < 1 ? 1 : 0), px(t), y1 + 6);
+          }
+          ctx.strokeStyle = o.color;
+          ctx.lineWidth = 2.5;
+          ctx.lineJoin = "round";
+          ctx.beginPath();
+          var pen = false;
+          for (var i = 0; i <= 110; i++) {
+            var xv = xm + ((xM - xm) * i) / 110;
+            var yv = o.f(xv);
+            if (!isFinite(yv) || yv > yM || yv < 0) { pen = false; continue; }
+            if (pen) ctx.lineTo(px(xv), py(yv)); else ctx.moveTo(px(xv), py(yv));
+            pen = true;
+          }
+          ctx.stroke();
+          var mx = px(clamp(o.xNow, xm, xM)), my = py(clamp(o.f(o.xNow), 0, yM));
+          dashLine(ctx, mx, my, mx, y1, A(COL.dim, 0.45));
+          dashLine(ctx, x0, my, mx, my, A(COL.dim, 0.45));
+          ctx.fillStyle = o.color;
+          ctx.beginPath();
+          ctx.arc(mx, my, 5, 0, TAU);
+          ctx.fill();
+          ctx.strokeStyle = COL.ring;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.font = "700 12.5px " + FONT;
+          ctx.fillStyle = o.color;
+          ctx.fillText(o.title, X + 17, Y + 24);
+          ctx.textAlign = "right";
+          ctx.font = "10.5px " + FONT;
+          ctx.fillStyle = COL.dim;
+          ctx.fillText(o.xLabel, X + W - 17, Y + H - 8);
+        }
+        /* ============ zaman eksenli iki eğri paneli ============ */
+
+        function panelT(ctx, X, Y, W, H, o) {
+          if (W < 90 || H < 80) return;
+          roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
+          ctx.fillStyle = COL.panel;
+          ctx.fill();
+          ctx.strokeStyle = COL.border;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          var pl = 52, pr = 16, pt = 38, pb = 28;
+          var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
+          var tM = Math.max(o.tEnd, 1e-6), yM = o.yMax;
+          var ys = niceStep(yM, 2);
+          yM = Math.ceil(yM / ys) * ys;              /* eksen sayıları yuvarlak dursun */
+          function px(t) { return x0 + (t / tM) * (x1 - x0); }
+          function py(v) { return (y0 + y1) / 2 - (v / yM) * ((y1 - y0) / 2); }
+          ctx.font = "10px " + FONT;
+          for (var v = -yM; v <= yM + 1e-9; v += ys) {
+            ctx.strokeStyle = Math.abs(v) < 1e-12 ? A(COL.dim, 0.45) : A(COL.dim, 0.14);
+            ctx.beginPath();
+            ctx.moveTo(x0, py(v));
+            ctx.lineTo(x1, py(v));
+            ctx.stroke();
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(fmt(v, ys < 1 ? 1 : 0), x0 - 7, py(v));
+          }
+          ctx.strokeStyle = A(COL.dim, 0.42);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0 - 4);
+          ctx.lineTo(x0, y1);
+          ctx.stroke();
+          ctx.strokeStyle = o.color;
+          ctx.lineWidth = 2.4;
+          ctx.lineJoin = "round";
+          ctx.beginPath();
+          for (var i = 0; i <= 140; i++) {
+            var t = (tM * i) / 140;
+            var yy = py(clamp(o.f(t), -yM, yM));
+            if (i) ctx.lineTo(px(t), yy); else ctx.moveTo(px(t), yy);
+          }
+          ctx.stroke();
+          if (o.tNow != null) {
+            var mx = px(clamp(o.tNow, 0, tM)), my = py(clamp(o.f(clamp(o.tNow, 0, tM)), -yM, yM));
+            dashLine(ctx, mx, y0 - 4, mx, y1, A(COL.dim, 0.4));
+            ctx.fillStyle = o.color;
+            ctx.beginPath();
+            ctx.arc(mx, my, 4.5, 0, TAU);
+            ctx.fill();
+            ctx.strokeStyle = COL.ring;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.font = "700 12.5px " + FONT;
+          ctx.fillStyle = o.color;
+          ctx.fillText(o.title, X + 17, Y + 24);
+          ctx.textAlign = "right";
+          ctx.font = "10.5px " + FONT;
+          ctx.fillStyle = COL.dim;
+          ctx.fillText(o.unit, X + W - 17, Y + 24);
+        }
+
+        /* ============ çok eğrili x eksenli panel ============ */
+
+        function panelXY(ctx, X, Y, W, H, o) {
+          if (W < 90 || H < 80) return;
+          roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
+          ctx.fillStyle = COL.panel;
+          ctx.fill();
+          ctx.strokeStyle = COL.border;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          var pl = 54, pr = 16, pt = 38, pb = 32;
+          var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
+          var xm = o.xMin || 0, xM = o.xMax, yM = o.yMax;
+          function px(v) { return x0 + ((v - xm) / (xM - xm)) * (x1 - x0); }
+          function py(v) { return y1 - (v / yM) * (y1 - y0); }
+          ctx.font = "10px " + FONT;
+          var ys = niceStep(yM, 4);
+          yM = Math.ceil(yM / ys) * ys;
+          for (var v = 0; v <= yM + 1e-9; v += ys) {
+            ctx.strokeStyle = A(COL.dim, 0.14);
+            ctx.beginPath();
+            ctx.moveTo(x0, py(v));
+            ctx.lineTo(x1, py(v));
+            ctx.stroke();
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(fmt(v, ys < 1 ? (ys < 0.1 ? 2 : 1) : 0), x0 - 7, py(v));
+          }
+          ctx.strokeStyle = A(COL.dim, 0.42);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0 - 6);
+          ctx.lineTo(x0, y1);
+          ctx.lineTo(x1, y1);
+          ctx.stroke();
+          var xs = niceStep(xM - xm, 4);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "top";
+          for (var t = Math.ceil(xm / xs) * xs; t <= xM + 1e-9; t += xs) {
+            ctx.fillStyle = COL.dim;
+            ctx.fillText(fmt(t, xs < 1 ? 1 : 0), px(t), y1 + 6);
+          }
+          (o.curves || []).forEach(function (c) {
+            ctx.strokeStyle = c.color;
+            ctx.lineWidth = c.dash ? 2 : 2.5;
+            ctx.lineJoin = "round";
+            ctx.save();
+            if (c.dash) ctx.setLineDash([6, 5]);
+            ctx.beginPath();
+            var pen = false;
+            for (var i = 0; i <= 140; i++) {
+              var xv = xm + ((xM - xm) * i) / 140;
+              var yv = c.f(xv);
+              if (!isFinite(yv) || yv > yM || yv < 0) { pen = false; continue; }
+              if (pen) ctx.lineTo(px(xv), py(yv)); else ctx.moveTo(px(xv), py(yv));
+              pen = true;
+            }
+            ctx.stroke();
+            ctx.restore();
+            if (c.now != null) {
+              var mv = clamp(c.f(c.now), 0, yM);
+              ctx.fillStyle = c.color;
+              ctx.beginPath();
+              ctx.arc(px(clamp(c.now, xm, xM)), py(mv), 5, 0, TAU);
+              ctx.fill();
+              ctx.strokeStyle = COL.ring;
+              ctx.lineWidth = 2;
+              ctx.stroke();
+            }
+          });
+          if (o.markX != null) {
+            dashLine(ctx, px(clamp(o.markX, xm, xM)), y0 - 4,
+              px(clamp(o.markX, xm, xM)), y1, A(COL.dim, 0.5));
+          }
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.font = "700 12.5px " + FONT;
+          ctx.fillStyle = o.color || COL.ink;
+          ctx.fillText(o.title, X + 17, Y + 24);
+          ctx.textAlign = "right";
+          ctx.font = "10.5px " + FONT;
+          ctx.fillStyle = COL.dim;
+          ctx.fillText(o.xLabel, X + W - 17, Y + H - 8);
+          /* eğri adları */
+          var lx = X + 17, ly = Y + H - 10;
+          (o.curves || []).forEach(function (c) {
+            if (!c.label) return;
+            ctx.font = "700 10.5px " + FONT;
+            ctx.textAlign = "left";
+            ctx.fillStyle = c.color;
+            ctx.fillText("— " + c.label, lx, ly);
+            lx += ctx.measureText("— " + c.label).width + 14;
+          });
+        }
+
+        /* renkli dolgu üzerindeki yazı için okunur mürekkep */
+        function ink(c) {
+          var q = A(c, 1).replace(/rgba?\(|\)/g, "").split(/[,\s\/]+/);
+          var l = (0.299 * +q[0] + 0.587 * +q[1] + 0.114 * +q[2]) / 255;
+          return l > 0.58 ? "#101528" : "#ffffff";
+        }
+
+        /* ============ küresel ayna ortak hesapları ============ */
+
+        function aynaGoruntu(f, a) {
+          if (Math.abs(a - f) < 0.35) return { b: Infinity, m: Infinity };
+          var b = (a * f) / (a - f);
+          return { b: b, m: -b / a };            /* m < 0 → ters görüntü */
+        }
+
+        /* ============ 01 · ışın çizimi laboratuvarı ============ */
+
+        (function lab() {
+          var S = kit("lab-scene", function (w) { return clamp(w * 0.50, 320, 400); });
+          var G = kit("km-graphs", function (w) { return w < 640 ? 560 : 280; });
+          if (!S || !G) return;
+
+          var st = { tur: "cukur", r: 60, a: 90, ho: 24 };
+
+          function f() { return (st.tur === "cukur" ? 1 : -1) * (st.r / 2); }
+          function res() { return aynaGoruntu(f(), st.a); }
+
+          function drawScene() {
+            var ctx = S.ctx, W = S.w, H = S.h;
+            ctx.clearRect(0, 0, W, H);
+            var cy = H * 0.52, vx = W * 0.80;
+            var sc = (vx - 36) / 210;
+            var rp = st.r * sc, fp = Math.abs(f()) * sc;
+            var cukur = st.tur === "cukur";
+            var cxm = cukur ? vx - rp : vx + rp;
+            var ha = Math.min(H * 0.34, rp * 0.92);
+            var R = res();
+            var ixp = isFinite(R.b) ? vx - R.b * sc : null;
+            var iyp = isFinite(R.b) ? cy - R.m * st.ho * sc * 1.25 : null;
+            function boy(hx, hy) {                /* yansıyan ışın ne kadar uzasın */
+              if (ixp == null) return 460;
+              var d = Math.sqrt((ixp - hx) * (ixp - hx) + (iyp - hy) * (iyp - hy));
+              return clamp(d * 1.3 + 26, 60, 460);
+            }
+
+            function arcX(y) {
+              var dy = y - cy;
+              var q = rp * rp - dy * dy;
+              if (q < 0) return vx;
+              return cukur ? cxm + Math.sqrt(q) : cxm - Math.sqrt(q);
+            }
+
+            /* asal eksen */
+            ctx.strokeStyle = A(COL.dim, 0.35);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(14, cy + 0.5);
+            ctx.lineTo(W - 14, cy + 0.5);
+            ctx.stroke();
+
+            /* ayna yayı */
+            var th = Math.asin(clamp(ha / rp, 0, 1));
+            ctx.strokeStyle = COL.blue;
+            ctx.lineWidth = 3.6;
+            ctx.beginPath();
+            if (cukur) ctx.arc(cxm, cy, rp, -th, th);
+            else ctx.arc(cxm, cy, rp, Math.PI - th, Math.PI + th);
+            ctx.stroke();
+            /* sırt tarama */
+            ctx.strokeStyle = A(COL.blue, 0.4);
+            ctx.lineWidth = 1.4;
+            for (var t = -th * 0.92; t <= th * 0.92; t += th / 7) {
+              var hx = cxm + (cukur ? 1 : -1) * Math.cos(t) * rp;
+              var hy = cy + Math.sin(t) * rp;
+              var nx = (cukur ? 1 : -1) * Math.cos(t), ny = Math.sin(t);
+              ctx.beginPath();
+              ctx.moveTo(hx, hy);
+              ctx.lineTo(hx + nx * 9, hy + ny * 9);
+              ctx.stroke();
+            }
+
+            /* odak ve merkez */
+            var fx = cukur ? vx - fp : vx + fp;
+            var mx = cukur ? vx - rp : vx + rp;
+            [[fx, "F", COL.rose], [mx, "M", COL.violet], [vx, "T", COL.dim]].forEach(function (p) {
+              if (p[0] < 6 || p[0] > W - 6) return;
+              ctx.fillStyle = p[2];
+              ctx.beginPath();
+              ctx.arc(p[0], cy, 3.6, 0, TAU);
+              ctx.fill();
+              tag(ctx, p[1], p[0], cy + 17, p[2], "center", 11);
+            });
+
+            /* cisim */
+            var ox = vx - st.a * sc, oy = cy - st.ho * sc * 1.25;
+            function okCiz(x, ytip, color, kesik) {
+              ctx.save();
+              if (kesik) ctx.setLineDash([5, 5]);
+              ctx.strokeStyle = color;
+              ctx.fillStyle = color;
+              ctx.lineWidth = 2.6;
+              ctx.beginPath();
+              ctx.moveTo(x, cy);
+              ctx.lineTo(x, ytip);
+              ctx.stroke();
+              ctx.setLineDash([]);
+              var s = ytip < cy ? 1 : -1;
+              ctx.beginPath();
+              ctx.moveTo(x, ytip);
+              ctx.lineTo(x - 6, ytip + 11 * s);
+              ctx.lineTo(x + 6, ytip + 11 * s);
+              ctx.closePath();
+              ctx.fill();
+              ctx.restore();
+            }
+            okCiz(ox, oy, COL.amber, false);
+            tag(ctx, "cisim", ox, cy + 18, COL.amber, "center", 11);
+
+            /* ışınlar */
+            var h1x = arcX(oy), h1y = oy;
+            var d1x, d1y;
+            if (cukur) { d1x = fx - h1x; d1y = cy - h1y; }
+            else { d1x = h1x - fx; d1y = h1y - cy; }
+            var n1 = Math.sqrt(d1x * d1x + d1y * d1y) || 1;
+            ctx.strokeStyle = A(COL.amber, 0.9);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(ox, oy);
+            ctx.lineTo(h1x, h1y);
+            ctx.stroke();
+            ctx.strokeStyle = A(COL.lime, 0.9);
+            ctx.beginPath();
+            ctx.moveTo(h1x, h1y);
+            ctx.lineTo(h1x + (d1x / n1) * boy(h1x, h1y), h1y + (d1y / n1) * boy(h1x, h1y));
+            ctx.stroke();
+            if (!cukur) dashLine(ctx, h1x, h1y, fx, cy, A(COL.violet, 0.6));
+
+            /* merkezden geçen ışın */
+            var vx2 = mx - ox, vy2 = cy - oy;
+            var nm = Math.sqrt(vx2 * vx2 + vy2 * vy2) || 1;
+            var h2x, h2y;
+            if (cukur) { h2x = mx + (vx2 / nm) * rp; h2y = cy + (vy2 / nm) * rp; }
+            else { h2x = mx - (vx2 / nm) * rp; h2y = cy - (vy2 / nm) * rp; }
+            ctx.strokeStyle = A(COL.amber, 0.75);
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(ox, oy);
+            ctx.lineTo(h2x, h2y);
+            ctx.stroke();
+            if (!cukur) dashLine(ctx, h2x, h2y, mx, cy, A(COL.violet, 0.5));
+
+            /* tepeye giden ışın: eksene göre simetrik yansır */
+            var d3x = vx - ox, d3y = cy - oy;
+            var n3 = Math.sqrt(d3x * d3x + d3y * d3y) || 1;
+            ctx.strokeStyle = A(COL.amber, 0.75);
+            ctx.beginPath();
+            ctx.moveTo(ox, oy);
+            ctx.lineTo(vx, cy);
+            ctx.stroke();
+            ctx.strokeStyle = A(COL.lime, 0.75);
+            ctx.beginPath();
+            ctx.moveTo(vx, cy);
+            ctx.lineTo(vx - (d3x / n3) * boy(vx, cy), cy + (d3y / n3) * boy(vx, cy));
+            ctx.stroke();
+
+            /* görüntü */
+            if (isFinite(R.b)) {
+              var ix = vx - R.b * sc;
+              var iy = cy - R.m * st.ho * sc * 1.25;
+              if (ix > 8 && ix < W - 8 && Math.abs(iy - cy) < H) {
+                okCiz(ix, iy, COL.violet, R.b < 0);
+                tag(ctx, "görüntü", ix, iy + (R.m < 0 ? 22 : -14), COL.violet, "center", 11);
+                if (R.b < 0) {
+                  dashLine(ctx, h1x, h1y, ix, iy, A(COL.violet, 0.55));
+                  dashLine(ctx, vx, cy, ix, iy, A(COL.violet, 0.55));
+                }
+              }
+            } else {
+              tag(ctx, "yansıyan ışınlar paralel: görüntü oluşmaz", W * 0.42, cy - H * 0.36,
+                COL.rose, "center", 12);
+            }
+
+            chip(ctx, cukur ? "çukur ayna" : "tümsek ayna", 10, 10,
+              cukur ? COL.lime : COL.rose, "left");
+            chip(ctx, "f = " + fmt(f(), 0) + " cm", 10, 40, COL.rose, "left");
+          }
+
+          function drawGraphs() {
+            var ctx = G.ctx, W = G.w, H = G.h;
+            ctx.clearRect(0, 0, W, H);
+            var stacked = W < 640, gap = 10;
+            var pw = stacked ? W : (W - gap) / 2;
+            var ph = stacked ? (H - gap) / 2 : H;
+            var ff = f(), R = res();
+            panelXY(ctx, 0, 0, pw, ph, {
+              title: "|b| – a · görüntü uzaklığı", xLabel: "cisim uzaklığı a (cm)",
+              color: COL.blue, xMin: 5, xMax: 200,
+              yMax: clamp(isFinite(R.b) ? Math.abs(R.b) * 2.4 : 200, 60, 320),
+              markX: ff > 0 ? ff : null,
+              curves: [{ f: function (x) { return Math.abs(aynaGoruntu(ff, x).b); },
+                color: COL.blue, label: "|b|", now: st.a }]
+            });
+            panelXY(ctx, stacked ? 0 : pw + gap, stacked ? ph + gap : 0, pw, ph, {
+              title: "m – a · büyütme", xLabel: "cisim uzaklığı a (cm)",
+              color: COL.violet, xMin: 5, xMax: 200, yMax: 4,
+              markX: ff > 0 ? ff : null,
+              curves: [{ f: function (x) { return Math.abs(aynaGoruntu(ff, x).m); },
+                color: COL.violet, label: "m", now: st.a }]
+            });
+          }
+
+          var ro = {
+            b: document.getElementById("ro-b"),
+            m: document.getElementById("ro-m"),
+            type: document.getElementById("ro-type"),
+            dir: document.getElementById("ro-dir"),
+            f: document.getElementById("ro-f")
+          };
+          var sm = {
+            f: document.getElementById("s-f"),
+            eq: document.getElementById("s-eq"),
+            size: document.getElementById("s-size"),
+            where: document.getElementById("s-where")
+          };
+
+          function sync() {
+            var R = res(), ff = f(), mm = Math.abs(R.m);
+            ro.f.textContent = fmt(ff, 1);
+            if (!isFinite(R.b)) {
+              ro.b.textContent = "∞";
+              ro.m.textContent = "∞";
+              ro.type.textContent = "Oluşmaz";
+              ro.dir.textContent = "yansıyan ışınlar paralel";
+              sm.eq.textContent = "a = f";
+              sm.size.textContent = "–";
+            } else {
+              ro.b.textContent = fmt(Math.abs(R.b), 1);
+              ro.m.textContent = fmt(mm, 2);
+              ro.type.textContent = R.b > 0 ? "Gerçek" : "Sanal";
+              ro.dir.textContent = (R.b > 0 ? "ters" : "düz") + " ve " +
+                (mm > 1.02 ? "büyük" : (mm < 0.98 ? "küçük" : "eşit"));
+              sm.eq.textContent = "1/" + fmt(ff, 0) + " = 1/" + fmt(st.a, 0) + " + 1/" +
+                fmt(R.b, 0);
+              sm.size.textContent = fmt(mm * st.ho, 1) + " cm";
+            }
+            sm.f.textContent = fmt(ff, 0) + " cm";
+            sm.where.textContent = st.tur === "tumsek" ? "tümsek: her zaman sanal"
+              : (st.a > st.r * 1.02 ? "merkezin ötesinde"
+                : (Math.abs(st.a - st.r) <= st.r * 0.02 ? "merkezde"
+                  : (st.a > ff * 1.02 ? "merkez – odak arası"
+                    : (Math.abs(st.a - ff) <= 0.5 ? "odakta" : "odağın içinde"))));
+            drawScene();
+            drawGraphs();
+          }
+
+          function paint(el) {
+            var lo = +el.min, hi = +el.max;
+            el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+          }
+          function slider(id, outId, key, unit) {
+            var el = document.getElementById(id), out = document.getElementById(outId);
+            el.addEventListener("input", function () {
+              st[key] = +el.value;
+              out.textContent = el.value + unit;
+              paint(el);
+              sync();
+            });
+            paint(el);
+          }
+          slider("c-r", "o-r", "r", " cm");
+          slider("c-a", "o-a", "a", " cm");
+          slider("c-ho", "o-ho", "ho", " cm");
+
+          var seg = document.getElementById("km-type");
+          seg.addEventListener("click", function (e) {
+            var b = e.target.closest("button");
+            if (!b || !seg.contains(b)) return;
+            var all = seg.querySelectorAll("button");
+            for (var i = 0; i < all.length; i++) {
+              all[i].setAttribute("aria-pressed", all[i] === b ? "true" : "false");
+            }
+            st.tur = b.dataset.type;
+            sync();
+          });
+
+          S.bind(drawScene);
+          G.bind(drawGraphs);
+          sync();
+        })();
+
+        /* ============ 02 · beş durum ============ */
+
+        (function durumlar() {
+          var D = kit("du-scene", function (w) { return clamp(w * 0.44, 260, 330); });
+          if (!D) return;
+
+          var F = 20, RR = 40;
+          var CASES = [
+            { a: 70, ad: "Merkezin ötesinde", kural: "a > 2f",
+              yer: "odak – merkez arası", tur: "gerçek, ters", boy: "küçük" },
+            { a: 40, ad: "Merkezde", kural: "a = 2f",
+              yer: "merkezde", tur: "gerçek, ters", boy: "eşit" },
+            { a: 28, ad: "Merkez – odak arası", kural: "f < a < 2f",
+              yer: "merkezin ötesinde", tur: "gerçek, ters", boy: "büyük" },
+            { a: 20, ad: "Odakta", kural: "a = f",
+              yer: "sonsuzda", tur: "görüntü oluşmaz", boy: "–" },
+            { a: 12, ad: "Odağın içinde", kural: "a < f",
+              yer: "aynanın arkasında", tur: "sanal, düz", boy: "büyük" }
+          ];
+          var st = { i: 0, run: false, t: 0 };
+          var verdict = document.getElementById("du-verdict");
+
+          function drawScene() {
+            var ctx = D.ctx, W = D.w, H = D.h;
+            ctx.clearRect(0, 0, W, H);
+            var cy = H * 0.54, vx = W * 0.80;
+            var sc = (vx - 40) / 110;
+            var c = CASES[st.i];
+            var R = aynaGoruntu(F, c.a);
+
+            ctx.strokeStyle = A(COL.dim, 0.35);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(14, cy + 0.5);
+            ctx.lineTo(W - 14, cy + 0.5);
+            ctx.stroke();
+
+            /* ayna */
+            var rp = RR * sc, ha = Math.min(H * 0.3, rp * 0.9);
+            var th = Math.asin(clamp(ha / rp, 0, 1));
+            ctx.strokeStyle = COL.blue;
+            ctx.lineWidth = 3.4;
+            ctx.beginPath();
+            ctx.arc(vx - rp, cy, rp, -th, th);
+            ctx.stroke();
+
+            /* F, M ve beş konum */
+            [[vx - F * sc, "F", COL.rose], [vx - RR * sc, "M", COL.violet]].forEach(function (p) {
+              ctx.fillStyle = p[2];
+              ctx.beginPath();
+              ctx.arc(p[0], cy, 3.6, 0, TAU);
+              ctx.fill();
+              tag(ctx, p[1], p[0], cy + 16, p[2], "center", 11);
+            });
+            CASES.forEach(function (q, i) {
+              var qx = vx - q.a * sc;
+              ctx.fillStyle = i === st.i ? COL.amber : A(COL.dim, 0.4);
+              ctx.beginPath();
+              ctx.arc(qx, cy - 46, i === st.i ? 5 : 3, 0, TAU);
+              ctx.fill();
+            });
+            tag(ctx, "cismin konumları", vx - 70 * sc, cy - 62, COL.dim, "center", 10);
+
+            function okCiz(x, ytip, color, kesik) {
+              ctx.save();
+              if (kesik) ctx.setLineDash([5, 5]);
+              ctx.strokeStyle = color;
+              ctx.fillStyle = color;
+              ctx.lineWidth = 2.6;
+              ctx.beginPath();
+              ctx.moveTo(x, cy);
+              ctx.lineTo(x, ytip);
+              ctx.stroke();
+              ctx.setLineDash([]);
+              var s = ytip < cy ? 1 : -1;
+              ctx.beginPath();
+              ctx.moveTo(x, ytip);
+              ctx.lineTo(x - 6, ytip + 10 * s);
+              ctx.lineTo(x + 6, ytip + 10 * s);
+              ctx.closePath();
+              ctx.fill();
+              ctx.restore();
+            }
+
+            var ox = vx - c.a * sc;
+            okCiz(ox, cy - 34, COL.amber, false);
+            tag(ctx, "cisim", ox, cy + 18, COL.amber, "center", 10.5);
+
+            if (isFinite(R.b)) {
+              var ix = vx - R.b * sc;
+              var iy = cy - R.m * 34;
+              if (ix > 10 && ix < W - 10) {
+                okCiz(ix, iy, COL.violet, R.b < 0);
+                tag(ctx, "görüntü", ix, R.m < 0 ? cy + 18 : cy - 52, COL.violet, "center", 10.5);
+              } else {
+                tag(ctx, "görüntü çerçeve dışında", W * 0.45, cy - H * 0.32, COL.violet, "center", 11);
+              }
+            } else {
+              tag(ctx, "görüntü sonsuzda — oluşmaz", W * 0.45, cy - H * 0.32, COL.rose, "center", 12);
+            }
+
+            chip(ctx, c.ad + " · " + c.kural, 10, 10, COL.amber, "left");
+          }
+
+          var sm = {
+            where: document.getElementById("du-where"),
+            type: document.getElementById("du-type"),
+            size: document.getElementById("du-size")
+          };
+
+          function sync() {
+            var c = CASES[st.i], R = aynaGoruntu(F, c.a);
+            sm.where.textContent = c.yer;
+            sm.type.textContent = c.tur;
+            sm.size.textContent = c.boy;
+            verdict.textContent = c.ad + " (" + c.kural + "): görüntü " + c.yer +
+              (isFinite(R.b) ? ", " + c.tur + " ve " + c.boy + " (a = " + c.a + " cm, b = " +
+                fmt(R.b, 0) + " cm, m = " + fmt(Math.abs(R.m), 2) + ")." : ".");
+            var all = document.querySelectorAll("#du-case button");
+            for (var i = 0; i < all.length; i++) {
+              all[i].setAttribute("aria-pressed", i === st.i ? "true" : "false");
+            }
+            drawScene();
+          }
+
+          var seg = document.getElementById("du-case");
+          seg.addEventListener("click", function (e) {
+            var b = e.target.closest("button");
+            if (!b || !seg.contains(b)) return;
+            st.run = false;
+            st.i = +b.dataset.case;
+            sync();
+          });
+
+          var ticker = function (dt) {
+            if (!st.run) return;
+            st.t += dt;
+            if (st.t > 1.6) {
+              st.t = 0;
+              st.i = (st.i + 1) % CASES.length;
+              sync();
+              if (st.i === 0) { st.run = false; halt(ticker); }
+            }
+          };
+          document.getElementById("du-play").addEventListener("click", function () {
+            st.run = true;
+            st.t = 0;
+            st.i = 0;
+            sync();
+            play(ticker);
+          });
+
+          D.bind(drawScene);
+          sync();
+        })();
+
+        /* ============ 03 · tümsek ayna ============ */
+
+        (function tumsek() {
+          var T = kit("tm-scene", function (w) { return clamp(w * 0.44, 270, 340); });
+          if (!T) return;
+
+          var st = { d: 120, r: 80 };
+          var verdict = document.getElementById("tm-verdict");
+          var GENIS = 30;                        /* aynanın genişliği (cm) */
+
+          function f() { return -st.r / 2; }
+          function res() { return aynaGoruntu(f(), st.d); }
+          function fovDuzlem() { return 2 * Math.atan(GENIS / 2 / st.d); }
+          function fovTumsek() { return fovDuzlem() + (2 * GENIS) / st.r; }
+
+          function drawScene() {
+            var ctx = T.ctx, W = T.w, H = T.h;
+            ctx.clearRect(0, 0, W, H);
+            var cy = H * 0.46, vx = W * 0.72;
+            var sc = (vx - 64) / 300;                  /* 300 cm tuvale sığar */
+            var ex = 52, ey = cy + H * 0.30;           /* gözlemci */
+            var half = Math.min(H * 0.26, 64);
+            var rp = Math.max(st.r * sc, half * 1.15);
+
+            /* göz */
+            ctx.save();
+            ctx.strokeStyle = COL.ink;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(ex - 13, ey);
+            ctx.quadraticCurveTo(ex, ey - 11, ex + 13, ey);
+            ctx.quadraticCurveTo(ex, ey + 11, ex - 13, ey);
+            ctx.stroke();
+            ctx.fillStyle = COL.ink;
+            ctx.beginPath();
+            ctx.arc(ex, ey, 3.6, 0, TAU);
+            ctx.fill();
+            ctx.restore();
+            tag(ctx, "gözlemci", ex, ey + 24, COL.dim, "center", 10.5);
+
+            /* tümsek ayna yayı */
+            var cxm = vx + rp;
+            var th = Math.asin(clamp(half / rp, 0, 1));
+            ctx.strokeStyle = COL.blue;
+            ctx.lineWidth = 3.6;
+            ctx.beginPath();
+            ctx.arc(cxm, cy, rp, Math.PI - th, Math.PI + th);
+            ctx.stroke();
+            tag(ctx, "tümsek ayna", vx + 16, cy - half - 10, COL.blue, "left", 10.5);
+
+            /* görüş konileri */
+            function koni(angle, color, kesik, etiket, ofs) {
+              var L = Math.min(W - vx - 14, 150);
+              ctx.save();
+              if (kesik) ctx.setLineDash([6, 5]);
+              ctx.strokeStyle = A(color, 0.85);
+              ctx.fillStyle = A(color, 0.10);
+              ctx.lineWidth = 1.8;
+              ctx.beginPath();
+              ctx.moveTo(vx, cy);
+              ctx.lineTo(vx - Math.cos(angle / 2) * L, cy - Math.sin(angle / 2) * L);
+              ctx.moveTo(vx, cy);
+              ctx.lineTo(vx - Math.cos(angle / 2) * L, cy + Math.sin(angle / 2) * L);
+              ctx.stroke();
+              ctx.restore();
+              tag(ctx, etiket + " " + fmt((angle * 180) / Math.PI, 0) + "°",
+                vx - Math.cos(angle / 2) * L - 6, cy - Math.sin(angle / 2) * L + ofs,
+                color, "right", 10.5);
+            }
+            koni(fovTumsek(), COL.lime, false, "tümsek", -6);
+            koni(fovDuzlem(), COL.dim, true, "düzlem", 14);
+
+            /* cisim ve görüntü */
+            var R = res();
+            var ox = clamp(vx - st.d * sc, 30, vx - 40);
+            var ho = 26;
+            /* cisimden aynaya, oradan göze giden ışın */
+            ctx.strokeStyle = A(COL.amber, 0.55);
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(ox, cy - ho);
+            ctx.lineTo(vx, cy);
+            ctx.lineTo(ex + 12, ey - 4);
+            ctx.stroke();
+            ctx.strokeStyle = COL.amber;
+            ctx.fillStyle = COL.amber;
+            ctx.lineWidth = 2.6;
+            ctx.beginPath();
+            ctx.moveTo(ox, cy);
+            ctx.lineTo(ox, cy - ho);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(ox, cy - ho);
+            ctx.lineTo(ox - 5, cy - ho + 10);
+            ctx.lineTo(ox + 5, cy - ho + 10);
+            ctx.closePath();
+            ctx.fill();
+            tag(ctx, "cisim", ox, cy + 18, COL.amber, "center", 10.5);
+
+            var ix = vx - R.b * sc, ih = ho * Math.abs(R.m);
+            if (ix < W - 10) {
+              ctx.save();
+              ctx.setLineDash([5, 5]);
+              ctx.strokeStyle = COL.violet;
+              ctx.fillStyle = COL.violet;
+              ctx.lineWidth = 2.2;
+              ctx.beginPath();
+              ctx.moveTo(ix, cy);
+              ctx.lineTo(ix, cy - ih);
+              ctx.stroke();
+              ctx.setLineDash([]);
+              ctx.beginPath();
+              ctx.moveTo(ix, cy - ih);
+              ctx.lineTo(ix - 4, cy - ih + 8);
+              ctx.lineTo(ix + 4, cy - ih + 8);
+              ctx.closePath();
+              ctx.fill();
+              ctx.restore();
+              tag(ctx, "görüntü", ix + 10, cy - ih - 6, COL.violet, "left", 10.5);
+            }
+
+            chip(ctx, "görüntü küçük · düz · sanal", 10, 10, COL.violet, "left");
+          }
+
+          function sync() {
+            var R = res();
+            document.getElementById("o-td").textContent = st.d + " cm";
+            document.getElementById("o-tr").textContent = st.r + " cm";
+            document.getElementById("s-tb").textContent =
+              fmt(Math.abs(R.b), 1) + " cm (arkada)";
+            document.getElementById("s-tm").textContent = fmt(Math.abs(R.m), 2);
+            document.getElementById("s-fov").textContent =
+              "düzlem aynanın " + fmt(fovTumsek() / fovDuzlem(), 1) + " katı";
+            verdict.textContent =
+              "Cisim " + st.d + " cm uzakta: görüntü aynanın " + fmt(Math.abs(R.b), 1) +
+              " cm arkasında, " + fmt(Math.abs(R.m), 2) +
+              " kat boyunda, düz ve sanaldır. Görüş açısı düzlem aynaya göre " +
+              fmt(fovTumsek() / fovDuzlem(), 1) + " kat geniştir.";
+            drawScene();
+          }
+
+          function paint(el) {
+            var lo = +el.min, hi = +el.max;
+            el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+          }
+          var dIn = document.getElementById("c-td"), rIn = document.getElementById("c-tr");
+          dIn.addEventListener("input", function () { st.d = +dIn.value; paint(dIn); sync(); });
+          rIn.addEventListener("input", function () { st.r = +rIn.value; paint(rIn); sync(); });
+          paint(dIn);
+          paint(rIn);
+
+          T.bind(drawScene);
+          sync();
+        })();
+
+        /* ============ 04 · hedef büyütme ============ */
+
+        (function oyun() {
+          var M = kit("gm-scene", function (w) { return clamp(w * 0.40, 250, 310); });
+          if (!M) return;
+
+          var F = 20;
+          var HEDEFLER = [
+            { m: 2, ger: true, a: 30 }, { m: 1, ger: true, a: 40 },
+            { m: 0.5, ger: true, a: 60 }, { m: 4, ger: true, a: 25 },
+            { m: 2, ger: false, a: 10 }, { m: 4, ger: false, a: 15 },
+            { m: 5, ger: false, a: 16 }
+          ];
+          var st = { hedef: HEDEFLER[0], a: 60, son: null, n: 0, ok: 0 };
+          var verdict = document.getElementById("gm-verdict");
+          var list = document.getElementById("gm-tries");
+          var stats = document.getElementById("gm-stats");
+
+          function drawScene() {
+            var ctx = M.ctx, W = M.w, H = M.h;
+            ctx.clearRect(0, 0, W, H);
+            var cy = H * 0.56, vx = W * 0.82;
+            var sc = (vx - 30) / 210;
+
+            ctx.strokeStyle = A(COL.dim, 0.35);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(12, cy + 0.5);
+            ctx.lineTo(W - 12, cy + 0.5);
+            ctx.stroke();
+
+            var rp = 2 * F * sc, ha = Math.min(H * 0.26, rp * 0.9);
+            var th = Math.asin(clamp(ha / rp, 0, 1));
+            ctx.strokeStyle = COL.blue;
+            ctx.lineWidth = 3.4;
+            ctx.beginPath();
+            ctx.arc(vx - rp, cy, rp, -th, th);
+            ctx.stroke();
+            [[vx - F * sc, "F", COL.rose], [vx - 2 * F * sc, "M", COL.violet]].forEach(function (p) {
+              ctx.fillStyle = p[2];
+              ctx.beginPath();
+              ctx.arc(p[0], cy, 3.4, 0, TAU);
+              ctx.fill();
+              tag(ctx, p[1], p[0], cy + 15, p[2], "center", 10.5);
+            });
+
+            function okCiz(x, ytip, color, kesik, kalin) {
+              ctx.save();
+              if (kesik) ctx.setLineDash([5, 5]);
+              ctx.strokeStyle = color;
+              ctx.fillStyle = color;
+              ctx.lineWidth = kalin || 2.4;
+              ctx.beginPath();
+              ctx.moveTo(x, cy);
+              ctx.lineTo(x, ytip);
+              ctx.stroke();
+              ctx.setLineDash([]);
+              var s = ytip < cy ? 1 : -1;
+              ctx.beginPath();
+              ctx.moveTo(x, ytip);
+              ctx.lineTo(x - 5, ytip + 9 * s);
+              ctx.lineTo(x + 5, ytip + 9 * s);
+              ctx.closePath();
+              ctx.fill();
+              ctx.restore();
+            }
+
+            var HO = 26;
+            var ox = vx - st.a * sc;
+            okCiz(ox, cy - HO, COL.amber, false);
+            tag(ctx, "cisim", ox, cy + 17, COL.amber, "center", 10.5);
+
+            /* hedef görüntü (hayalet) */
+            var hy = st.hedef.ger ? cy + HO * st.hedef.m : cy - HO * st.hedef.m;
+            okCiz(W * 0.16, hy, A(COL.lime, 0.85), true, 2);
+            tag(ctx, "hedef: " + fmt(st.hedef.m, st.hedef.m < 1 ? 1 : 0) + " kat, " +
+              (st.hedef.ger ? "gerçek" : "sanal"), W * 0.16, cy + (st.hedef.ger ? -14 : 17),
+              COL.lime, "center", 10.5);
+
+            if (st.son) {
+              var R = st.son;
+              if (isFinite(R.b)) {
+                var ix = vx - R.b * sc, iy = cy - R.m * HO;
+                if (ix > 8 && ix < W - 8) {
+                  okCiz(ix, iy, COL.violet, R.b < 0);
+                  tag(ctx, "görüntü", ix, R.m < 0 ? cy + 17 : cy - HO * Math.abs(R.m) - 12,
+                    COL.violet, "center", 10.5);
+                }
+              }
+            }
+
+            chip(ctx, "f = " + F + " cm", 10, 8, COL.rose, "left");
+            chip(ctx, "a = " + fmt(st.a, 0) + " cm", W - 10, 8, COL.amber, "right");
+          }
+
+          function newRound() {
+            var h = HEDEFLER[Math.floor(Math.random() * HEDEFLER.length)];
+            if (h === st.hedef) h = HEDEFLER[(HEDEFLER.indexOf(h) + 3) % HEDEFLER.length];
+            st.hedef = h;
+            st.son = null;
+            verdict.className = "verdict";
+            verdict.textContent = "Hedef: " + fmt(h.m, h.m < 1 ? 1 : 0) + " kat büyüklükte, " +
+              (h.ger ? "gerçek (ters)" : "sanal (düz)") + " görüntü. Cismi yerleştir.";
+            drawScene();
+          }
+
+          function check() {
+            var R = aynaGoruntu(F, st.a);
+            st.son = R;
+            st.n++;
+            var mm = Math.abs(R.m);
+            var turOk = isFinite(R.b) && (R.b > 0) === st.hedef.ger;
+            var err = isFinite(mm) ? Math.abs(mm - st.hedef.m) / st.hedef.m : 1;
+            var good = turOk && err <= 0.05;
+            if (good) st.ok++;
+            verdict.className = "verdict " + (good ? "ok" : "no");
+            verdict.textContent = good
+              ? "Doğru: a = " + fmt(st.a, 0) + " cm → b = " + fmt(R.b, 0) + " cm, m = " +
+                fmt(mm, 2) + " (" + (R.b > 0 ? "gerçek, ters" : "sanal, düz") + ")."
+              : "a = " + fmt(st.a, 0) + " cm → " +
+                (isFinite(R.b) ? "m = " + fmt(mm, 2) + " (" +
+                  (R.b > 0 ? "gerçek" : "sanal") + ")" : "görüntü oluşmadı") +
+                ". Gereken uzaklık: " + st.hedef.a + " cm.";
+            var li = document.createElement("li");
+            li.className = good ? "ok" : "no";
+            li.innerHTML = "<b>a = " + fmt(st.a, 0) + " cm</b><span>m = " +
+              (isFinite(mm) ? fmt(mm, 2) : "∞") + " · hedef " + fmt(st.hedef.m, 1) + "</span>";
+            list.insertBefore(li, list.firstChild);
+            while (list.children.length > 5) list.removeChild(list.lastChild);
+            stats.hidden = false;
+            stats.querySelector("[data-n]").textContent = st.n;
+            stats.querySelector("[data-ok]").textContent = st.ok;
+            stats.querySelector("[data-pct]").textContent =
+              "%" + Math.round((st.ok / st.n) * 100);
+            drawScene();
+          }
+
+          var el = document.getElementById("c-ga");
+          function paint() {
+            el.style.setProperty("--p", (((+el.value - 5) / 195) * 100).toFixed(1) + "%");
+          }
+          el.addEventListener("input", function () {
+            st.a = +el.value;
+            document.getElementById("o-ga").textContent = el.value + " cm";
+            paint();
+            drawScene();
+          });
+          paint();
+
+          document.getElementById("gm-check").addEventListener("click", check);
+          document.getElementById("gm-new").addEventListener("click", newRound);
+
+          M.bind(drawScene);
+          newRound();
+        })();
+
+        /* ============ 05 · hızlı kontrol ============ */
+
+        (function quiz() {
+          var box = document.getElementById("quiz");
+          if (!box) return;
+
+          var DATA = [
+            {
+              q: "Eğrilik yarıçapı 40 cm olan çukur aynanın odak uzaklığı kaç cm'dir?",
+              o: ["10 cm", "20 cm", "40 cm", "80 cm"],
+              a: 1,
+              why: "Odak, tepe ile merkezin tam ortasındadır: f = r/2 = 40/2 = 20 cm. En sık yapılan hata f = r almaktır."
+            },
+            {
+              q: "Odak uzaklığı 15 cm olan çukur aynanın 30 cm önüne konan cismin görüntüsü nasıldır?",
+              o: ["Sanal, düz, büyük", "Gerçek, ters, eşit", "Gerçek, ters, küçük", "Görüntü oluşmaz"],
+              a: 1,
+              why: "Cisim merkezdedir (a = 2f = 30 cm). 1/15 = 1/30 + 1/b → b = 30 cm; m = 30/30 = 1. Görüntü merkezde, gerçek, ters ve cisimle eşit boydadır."
+            },
+            {
+              q: "Tümsek aynada oluşan görüntü için hangisi her zaman doğrudur?",
+              o: ["Gerçek ve terstir", "Sanal, düz ve küçüktür", "Cisimle eşit boydadır", "Cismin yerine göre değişir"],
+              a: 1,
+              why: "Tümsek aynada cisim nerede olursa olsun görüntü sanal, düz ve küçüktür; tepe ile odak arasında oluşur. Bu yüzden geniş alan gösteren güvenlik aynası olarak kullanılır."
+            },
+            {
+              q: "Çukur aynada cisim odak noktasına konursa ne olur?",
+              o: ["Görüntü odakta oluşur", "Görüntü merkezde oluşur", "Yansıyan ışınlar paralel olur, görüntü oluşmaz", "Görüntü aynanın arkasında oluşur"],
+              a: 2,
+              why: "a = f olduğunda 1/b = 1/f − 1/f = 0 çıkar; b sonsuza gider. Yansıyan ışınlar birbirine paralel olduğu için kesişmez ve görüntü oluşmaz. El feneri tam bu ilkeyle çalışır."
+            },
+            {
+              q: "Odak uzaklığı 10 cm olan çukur aynanın 5 cm önündeki cismin büyütmesi kaçtır?",
+              o: ["0,5", "1", "2", "4"],
+              a: 2,
+              why: "1/10 = 1/5 + 1/b → 1/b = 1/10 − 1/5 = −1/10 → b = −10 cm (sanal). m = |b/a| = 10/5 = 2. Görüntü düz ve iki kat büyüktür; makyaj aynası böyle çalışır."
+            }
+          ];
+
+          var KEYS = ["A", "B", "C", "D"];
+          var scoreEl = document.getElementById("quiz-score");
+          var finalEl = document.getElementById("quiz-final");
+          var score = 0;
+
+          function finish() {
+            if (!finalEl) return;
+            finalEl.textContent = score === DATA.length
+              ? "Kusursuz — beşi de doğru."
+              : score >= 3
+                ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
+                : "Konu anlatımına dönüp tekrar denemek iyi olur.";
+          }
+
+          function build() {
+            box.innerHTML = "";
+            score = 0;
+            scoreEl.textContent = "0 / " + DATA.length;
+            if (finalEl) finalEl.textContent = "";
+            DATA.forEach(function (item, qi) {
+              var card = document.createElement("div");
+              card.className = "q";
+              var p = document.createElement("p");
+              p.innerHTML = "<span>SORU " + (qi + 1) + "</span><br>" + item.q;
+              card.appendChild(p);
+              var opts = document.createElement("div");
+              opts.className = "opts";
+              var why = document.createElement("p");
+              why.className = "why";
+              why.hidden = true;
+              why.textContent = item.why;
+              item.o.forEach(function (text, oi) {
+                var b = document.createElement("button");
+                b.type = "button";
+                b.textContent = text;
+                b.dataset.key = KEYS[oi];
+                b.addEventListener("click", function () {
+                  var all = opts.querySelectorAll("button");
+                  for (var i = 0; i < all.length; i++) all[i].disabled = true;
+                  all[item.a].classList.add("right");
+                  if (oi !== item.a) {
+                    b.classList.add("wrong");
+                  } else {
+                    score++;
+                    scoreEl.textContent = score + " / " + DATA.length;
+                  }
+                  why.hidden = false;
+                  if (box.querySelectorAll(".opts button.right").length === DATA.length) finish();
+                });
+                opts.appendChild(b);
+              });
+              card.appendChild(opts);
+              card.appendChild(why);
+              box.appendChild(card);
+            });
+          }
+
+          document.getElementById("quiz-reset").addEventListener("click", build);
+          build();
+        })();
+
+        /* ============ konu anlatımı modalı ============ */
+
+        (function modal() {
+          var dlg = document.getElementById("konu");
+          if (!dlg) return;
+          var body = document.getElementById("konu-body");
+
+          function open() {
+            if (typeof dlg.showModal === "function") {
+              if (!dlg.open) dlg.showModal();
+            } else {
+              dlg.setAttribute("open", "");
+            }
+            document.body.classList.add("locked");
+            body.scrollTop = 0;
+          }
+
+          function close() {
+            if (typeof dlg.close === "function") dlg.close();
+            else dlg.removeAttribute("open");
+          }
+
+          var triggers = document.querySelectorAll("[data-open-modal]");
+          for (var i = 0; i < triggers.length; i++) {
+            triggers[i].addEventListener("click", open);
+          }
+
+          document.getElementById("konu-close").addEventListener("click", close);
+
+          dlg.addEventListener("click", function (e) {
+            if (e.target === dlg) close();
+          });
+
+          dlg.addEventListener("close", function () {
+            document.body.classList.remove("locked");
+          });
+
+          dlg.addEventListener("cancel", function () {
+            document.body.classList.remove("locked");
+          });
+
+          var chips = dlg.querySelectorAll("[data-goto]");
+          for (var j = 0; j < chips.length; j++) {
+            chips[j].addEventListener("click", function () {
+              var target = document.getElementById(this.dataset.goto);
+              if (!target) return;
+              var dy = target.getBoundingClientRect().top - body.getBoundingClientRect().top;
+              body.scrollTo({
+                top: body.scrollTop + dy - 10,
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+              });
+            });
+          }
+        })();
+
+        /* ============ cila: belirme, izleme, kısayollar ============ */
+
+        (function polish() {
+          var root = document.documentElement;
+          root.classList.add("js");
+          var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          var i;
+
+          /* bölümler görünüme girince belirsin */
+          var targets = document.querySelectorAll(".reveal");
+          if (!("IntersectionObserver" in window) || reduced) {
+            for (i = 0; i < targets.length; i++) targets[i].classList.add("in");
+          } else {
+            var io = new IntersectionObserver(function (entries) {
+              for (var k = 0; k < entries.length; k++) {
+                if (entries[k].isIntersecting) {
+                  entries[k].target.classList.add("in");
+                  io.unobserve(entries[k].target);
+                }
+              }
+            }, { threshold: 0.06, rootMargin: "0px 0px -5% 0px" });
+            for (i = 0; i < targets.length; i++) io.observe(targets[i]);
+          }
+
+          /* okuma ilerlemesi, etkin bölüm, başa dön */
+          var header = document.querySelector(".site-header");
+          var toTop = document.getElementById("to-top");
+          var links = document.querySelectorAll(".nav-link[href^='#']");
+          var spots = [];
+          for (i = 0; i < links.length; i++) {
+            var sec = document.getElementById(links[i].getAttribute("href").slice(1));
+            if (sec) spots.push({ el: sec, link: links[i] });
+          }
+          var queued = false;
+
+          function update() {
+            queued = false;
+            var doc = document.documentElement;
+            var max = doc.scrollHeight - doc.clientHeight;
+            var y = window.scrollY || doc.scrollTop || 0;
+            if (header) header.style.setProperty("--sp", (max > 0 ? y / max : 0).toFixed(4));
+            if (toTop) toTop.classList.toggle("show", y > 600);
+            var current = null;
+            for (var k = 0; k < spots.length; k++) {
+              if (spots[k].el.getBoundingClientRect().top <= 140) current = spots[k];
+            }
+            for (var m = 0; m < spots.length; m++) spots[m].link.classList.toggle("active", spots[m] === current);
+          }
+
+          function onScroll() {
+            if (queued) return;
+            queued = true;
+            requestAnimationFrame(update);
+          }
+
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll);
+          update();
+
+          if (toTop) {
+            toTop.addEventListener("click", function () {
+              window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+            });
+          }
+
+          /* modal içinde okunan bölümü işaretle */
+          var mbody = document.getElementById("konu-body");
+          var chips = document.querySelectorAll(".chips button[data-goto]");
+          var heads = [];
+          for (i = 0; i < chips.length; i++) {
+            var h = document.getElementById(chips[i].dataset.goto);
+            if (h) heads.push({ h: h, chip: chips[i] });
+          }
+          if (mbody && heads.length) {
+            mbody.addEventListener("scroll", function () {
+              var top = mbody.getBoundingClientRect().top + 90;
+              var cur = heads[0];
+              for (var k = 0; k < heads.length; k++) {
+                if (heads[k].h.getBoundingClientRect().top <= top) cur = heads[k];
+              }
+              for (var m = 0; m < heads.length; m++) heads[m].chip.classList.toggle("active", heads[m] === cur);
+            }, { passive: true });
+          }
+
+        })();
+
+        /* ============ tema ============ */
+
+        (function theme() {
+          var btn = document.getElementById("theme-toggle");
+          var meta = document.querySelector('meta[name="theme-color"]');
+          var root = document.documentElement;
+
+          function apply(mode, store) {
+            root.setAttribute("data-theme", mode);
+            if (meta) meta.setAttribute("content", mode === "dark" ? "#0b1020" : "#f3f5fc");
+            if (btn) btn.setAttribute("aria-label", mode === "dark" ? "Açık temaya geç" : "Koyu temaya geç");
+            if (store) { try { localStorage.setItem("dersler-tema", mode); } catch (e) {} }
+            readPalette();
+            for (var i = 0; i < fits.length; i++) fits[i]();
+          }
+
+          apply(root.getAttribute("data-theme") === "dark" ? "dark" : "light", false);
+
+          if (btn) {
+            btn.addEventListener("click", function () {
+              apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
+            });
+          }
+        })();
+
+        /* ilk yerleşim */
+        for (var f = 0; f < fits.length; f++) fits[f]();
+      })();
+    </script>
+  </body>
+</html>

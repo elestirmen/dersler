@@ -32,6 +32,19 @@ bir sunum:
 | 03 | İndüksiyon akımı | [`dist/induksiyon-akimi.html`](dist/induksiyon-akimi.html) | [`dist/sunum/induksiyon-akimi.pptx`](dist/sunum/induksiyon-akimi.pptx) |
 | 04 | Transformatörler | [`dist/transformatorler.html`](dist/transformatorler.html) | [`dist/sunum/transformatorler.pptx`](dist/sunum/transformatorler.pptx) |
 
+### Fizik · Optik ünitesi
+
+| # | Konu | Sayfa | Sunum |
+|---|---|---|---|
+| 01 | Işık şiddeti, ışık akısı ve aydınlanma | [`dist/isik-siddeti.html`](dist/isik-siddeti.html) | [`dist/sunum/isik-siddeti.pptx`](dist/sunum/isik-siddeti.pptx) |
+| 02 | Düzlem aynalar | [`dist/duzlem-aynalar.html`](dist/duzlem-aynalar.html) | [`dist/sunum/duzlem-aynalar.pptx`](dist/sunum/duzlem-aynalar.pptx) |
+| 03 | Küresel aynalar | [`dist/kuresel-aynalar.html`](dist/kuresel-aynalar.html) | [`dist/sunum/kuresel-aynalar.pptx`](dist/sunum/kuresel-aynalar.pptx) |
+| 04 | Kırılma | [`dist/kirilma.html`](dist/kirilma.html) | [`dist/sunum/kirilma.pptx`](dist/sunum/kirilma.pptx) |
+| 05 | Görünür derinlik | [`dist/gorunur-derinlik.html`](dist/gorunur-derinlik.html) | [`dist/sunum/gorunur-derinlik.pptx`](dist/sunum/gorunur-derinlik.pptx) |
+| 06 | Fiber optik | [`dist/fiber-optik.html`](dist/fiber-optik.html) | [`dist/sunum/fiber-optik.pptx`](dist/sunum/fiber-optik.pptx) |
+| 07 | Prizmalar | [`dist/prizmalar.html`](dist/prizmalar.html) | [`dist/sunum/prizmalar.pptx`](dist/sunum/prizmalar.pptx) |
+| 08 | Mercekler | [`dist/mercekler.html`](dist/mercekler.html) | [`dist/sunum/mercekler.pptx`](dist/sunum/mercekler.pptx) |
+
 Ana sayfa her üniteyi bir blok olarak gösterir, konuları numaralandırır; arama
 kutusu ve ünite süzgeçleriyle daraltılır. Her konu sayfası künyesinde üniteye
 döner, altında önceki ve sonraki konuya geçiş şeridi taşır.
@@ -167,9 +180,105 @@ Gerilim–akım dönüşümünü ve enerji iletimini gösteren dört bölüm:
 | 04 | Hedef gerilim | Verilen `V₁` ve `N₁` için istenen çıkışı üretecek sekonder sarımı bulunur; %2 tolerans, deneme listesi ve başarı oranı. |
 | 05 | Hızlı kontrol | Beş soruluk test. |
 
+### Optik · Konu 01 · Işık şiddeti, ışık akısı ve aydınlanma
+
+Kandela, lümen ve lüksü birbirinden ayıran dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Aydınlanma laboratuvarı | Kaynağın şiddeti, yüksekliği ve ölçüm yüzeyinin eğimi ayarlanır; `E = I·cosθ/d²` canlı hesaplanır. **E–d** (ters kare) ve **E–I** (doğru orantı) grafikleri. |
+| 02 | Ters kare yasası | Perde uzaklaştıkça aynı akının 1, 4, 9 birim kareye yayılması; karşıdan görünüm ızgarasıyla. |
+| 03 | Fotometre | İki lambanın arasındaki ekran kaydırılır; eşit aydınlanma noktası `x/(L−x) = √(I₁/I₂)` ile bulunur, iki eğri tek panelde çizilir. |
+| 04 | Oda aydınlatma tasarımı | Kullanım amacı, oda alanı ve ampul lümeni seçilir; gereken toplam akı ve ampul sayısı hesaplanır, oda üstten çizilir. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Optik · Konu 02 · Düzlem aynalar
+
+Tek bir yasadan (i = r) türeyen dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Yansıma laboratuvarı | Gelme açısı ve aynanın dönme açısı ayarlanır; normal, açı yayları ve aynanın ilk yeri çizilir. Yansıyan ışının dönmesinin `2α` olduğu grafikle gösterilir. |
+| 02 | Görüntü oluşumu | Cisim konumlandırılır; iki ışın göze gider, uzantıları aynanın arkasındaki sanal görüntüde kesişir. Yaklaşma animasyonunda bağıl hızın `2v` olduğu okunur. |
+| 03 | İki ayna | Aynalar arası açı seçilir; görüntüler çember üzerinde ardışık yansımalarla hesaplanıp çizilir, `n = 360/α − 1` doğrulanır. |
+| 04 | Boy aynası | Boy ve aynaya uzaklık değiştirilir; baş ve ayaktan gelen ışınlarla gereken `h/2`'lik ayna ve alt kenar yüksekliği bulunur. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Optik · Konu 03 · Küresel aynalar
+
+Çukur ve tümsek aynayı tek düzenekte toplayan dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Işın çizimi laboratuvarı | Ayna türü, yarıçap, cisim uzaklığı ve boyu ayarlanır; üç asal ışın yayın üzerinde gerçek kesişim noktalarıyla çizilir, sanal görüntüde uzantılar kesikli gösterilir. **\|b\|–a** ve **m–a** grafikleri. |
+| 02 | Beş cisim konumu | Merkezin ötesinden odak içine beş konum; görüntünün yeri, türü ve boyu eşzamanlı güncellenir, "sırayla göster" ile tur atar. |
+| 03 | Tümsek ayna | Güvenlik aynasının görüş açısı, aynı boyuttaki düzlem aynayla karşılaştırılır; görüntünün hep sanal, düz ve küçük olduğu görülür. |
+| 04 | Hedef büyütme | İstenen büyütme ve görüntü türü için cisim uzaklığı bulunur; %5 tolerans, deneme listesi ve başarı oranı. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Optik · Konu 04 · Kırılma
+
+Snell yasasını dört ayrı yüzüyle gösteren bölümler:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Snell laboratuvarı | İki ortam (hava/su/cam/elmas) ve gelme açısı seçilir; gelen, yansıyan ve kırılan ışın açı yaylarıyla çizilir. Kırılma açısı–gelme açısı eğrisi, sınır açı işaretiyle. |
+| 02 | Tam yansıma | Yoğun ortamın indisi ve gelme açısı değiştirilir; sınır açıya yaklaşırken kırılan ışın sönükleşir, aşıldığında tamamen yansır. |
+| 03 | Hız ve dalga boyu | Dalga cepheleri sınırda sıklaşarak yön değiştirir; `v = c/n`, `λ = λ₀/n` ve frekansın değişmediği vurgulanır. |
+| 04 | Yandan kayma | Paralel kenarlı levhada `d = t·sin(i−r)/cos r` ölçülür; çıkan ışının gelene paralel olduğu çizimle gösterilir. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Optik · Konu 05 · Görünür derinlik
+
+Kırılmanın günlük sonuçlarını işleyen dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Havuz laboratuvarı | Derinlik ve sıvı seçilir; dik ve eğik ışının kırılması, uzantıların kesiştiği görünen derinlik çizilir. **h′–h** ve **h′–n** grafikleri. |
+| 02 | Balığa nişan almak | Rastgele derinlikteki balığın görünen yeri hesaplanır; nişan açısıyla mızrak atılır, sapma santimetre cinsinden bildirilir. |
+| 03 | Sudan havaya bakış | Su altındaki gözlemci için `h′ = n·h`; cismin uzaklaşmış görünmesi ışın çizimiyle gösterilir. |
+| 04 | Cam levha | Levhanın kalınlığı ve indisi değiştirilir; altındaki yazının `t(1 − 1/n)` kadar yükselmesi ölçülür. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Optik · Konu 06 · Fiber optik
+
+Tam yansımanın mühendislik uygulaması, dört bölümde:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Fiber laboratuvarı | Çekirdek ve kılıf indisleri ile giriş açısı ayarlanır; ışık ya zikzak çizerek taşınır ya da kılıfa kaçar. Sınır açı ve duvara geliş açısı karşılaştırılır. |
+| 02 | Kabul açısı | `NA = √(n₁²−n₂²)` ve kabul konisi çizilir; koninin içinden ve dışından gelen iki ışının akıbeti gösterilir. |
+| 03 | Sinyal gecikmesi | Kablo uzunluğuna göre `v = c/n₁`, varış süresi ve mod dağılımından doğan gecikme farkı hesaplanır. |
+| 04 | Bükülme sınırı | Bükülme yarıçapı küçültülür; `R(min) = a(n₁+n₂)/(n₁−n₂)` altına inince ışığın sızdığı canlandırılır. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Optik · Konu 07 · Prizmalar
+
+İki kırılmanın sonuçlarını işleyen dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Prizmada sapma | Tepe açısı, gelme açısı ve indis ayarlanır; ışın yolu vektörel olarak çizilir, `δ = i₁ + i₂ − A` ölçülür. δ–i₁ eğrisi ve en küçük sapma işareti. |
+| 02 | Renklere ayrılma | Altı renk kendi indisiyle ayrı ayrı izlenir; perdeye düşen tayf büyütülmüş bir şerit olarak gösterilir. |
+| 03 | Tam yansımalı prizma | 45° prizmada ışığın 90° ya da 180° döndürülmesi; indis düşürülünce tam yansımanın bozulması. |
+| 04 | Gökkuşağı | Su damlasında kırılma + iç yansıma + kırılma; sapma–çarpma parametresi eğrisinin en küçüğü 42°'lik gökkuşağı açısını verir. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Optik · Konu 08 · Mercekler
+
+Ünitenin kapanışı, dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Işın çizimi laboratuvarı | İnce/kalın kenarlı seçimi, odak uzaklığı, cisim uzaklığı ve boyu; asal ışınlar ve görüntü çizilir, mercek gücü diyoptri olarak okunur. **\|b\|–a** ve **m–a** grafikleri. |
+| 02 | Beş cisim konumu | Her konum bir optik aletle eşleştirilir: fotoğraf makinesi, fotokopi, projeksiyon, projektör, büyüteç. |
+| 03 | Göz kusurları | Miyop ve hipermetrop göz modeli; odağın retinanın önüne/arkasına düşmesi ve gözlük takılınca düzelmesi, gereken diyoptriyle birlikte. |
+| 04 | Perdeye net görüntü | Cisim–perde uzaklığı sabitken mercek kaydırılır; `D > 4f` olduğunda iki net konumun bulunduğu bulanıklık göstergesiyle gösterilir. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
 ## Sunumlar
 
-On konunun her biri için, sitede indirilebilir 13–14 slaytlık PowerPoint dosyaları:
+On sekiz konunun her biri için, sitede indirilebilir 11–14 slaytlık PowerPoint dosyaları:
 
 | # | Sunum | Bağlantı |
 |---|---|---|
@@ -188,6 +297,19 @@ Elektrik ve Manyetizma ünitesi:
 | 02 | Manyetik alan ve manyetik kuvvet | [dersler.perinet.org/sunum/manyetik-alan.pptx](https://dersler.perinet.org/sunum/manyetik-alan.pptx) |
 | 03 | İndüksiyon akımı | [dersler.perinet.org/sunum/induksiyon-akimi.pptx](https://dersler.perinet.org/sunum/induksiyon-akimi.pptx) |
 | 04 | Transformatörler | [dersler.perinet.org/sunum/transformatorler.pptx](https://dersler.perinet.org/sunum/transformatorler.pptx) |
+
+Optik ünitesi:
+
+| # | Sunum | Bağlantı |
+|---|---|---|
+| 01 | Işık şiddeti, akı ve aydınlanma | [dersler.perinet.org/sunum/isik-siddeti.pptx](https://dersler.perinet.org/sunum/isik-siddeti.pptx) |
+| 02 | Düzlem aynalar | [dersler.perinet.org/sunum/duzlem-aynalar.pptx](https://dersler.perinet.org/sunum/duzlem-aynalar.pptx) |
+| 03 | Küresel aynalar | [dersler.perinet.org/sunum/kuresel-aynalar.pptx](https://dersler.perinet.org/sunum/kuresel-aynalar.pptx) |
+| 04 | Kırılma | [dersler.perinet.org/sunum/kirilma.pptx](https://dersler.perinet.org/sunum/kirilma.pptx) |
+| 05 | Görünür derinlik | [dersler.perinet.org/sunum/gorunur-derinlik.pptx](https://dersler.perinet.org/sunum/gorunur-derinlik.pptx) |
+| 06 | Fiber optik | [dersler.perinet.org/sunum/fiber-optik.pptx](https://dersler.perinet.org/sunum/fiber-optik.pptx) |
+| 07 | Prizmalar | [dersler.perinet.org/sunum/prizmalar.pptx](https://dersler.perinet.org/sunum/prizmalar.pptx) |
+| 08 | Mercekler | [dersler.perinet.org/sunum/mercekler.pptx](https://dersler.perinet.org/sunum/mercekler.pptx) |
 
 Grafikler PowerPoint'in kendi grafik nesneleridir, her slaytta konuşmacı notu
 vardır. Dosyalar `sunum/*.js` betikleriyle üretilir; ayrıntılar
@@ -215,9 +337,18 @@ dist/                        yayınlanan kök (nginx bunu sunar)
   manyetik-alan.html         2. ünite · konu 02 · manyetik alan ve kuvvet
   induksiyon-akimi.html      2. ünite · konu 03 · indüksiyon akımı
   transformatorler.html      2. ünite · konu 04 · transformatörler
+  isik-siddeti.html          3. ünite · konu 01 · ışık şiddeti ve aydınlanma
+  duzlem-aynalar.html        3. ünite · konu 02 · düzlem aynalar
+  kuresel-aynalar.html       3. ünite · konu 03 · küresel aynalar
+  kirilma.html               3. ünite · konu 04 · kırılma
+  gorunur-derinlik.html      3. ünite · konu 05 · görünür derinlik
+  fiber-optik.html           3. ünite · konu 06 · fiber optik
+  prizmalar.html             3. ünite · konu 07 · prizmalar
+  mercekler.html             3. ünite · konu 08 · mercekler
   sunum/*.pptx               indirilebilir ders sunumları
 sunum/                       sunumların kaynağı (pptxgenjs betikleri)
   tema.js                    ortak renk, yazı tipi ve yerleşim yardımcıları
+  blok.js                    tekrar eden slayt düzenleri (kapak, örnek, hatalar, özet)
 deploy/
   docker-compose.yml         nginx:alpine konteyneri, dist/ salt-okunur bağlı
   nginx.conf                 statik sunum, kökte no-cache, varlıklarda uzun önbellek

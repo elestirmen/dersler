@@ -1,0 +1,3260 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f5fc" />
+    <meta
+      name="description"
+      content="Görünür derinlik: havuzun neden sığ göründüğü, balığa nişan alma, sudan havaya bakış ve cam levha altındaki yazının yükselmesi."
+    />
+    <title>Görünür derinlik — Dersler</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b9ee63'/%3E%3Cpath d='M18 20a6 6 0 0 1 6-6h22v32H24a6 6 0 0 0-6 6z' fill='none' stroke='%2316260a' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M18 20v32M26 22h16M26 30h13' fill='none' stroke='%2316260a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet" />
+    <style>
+      /* ================= tema belirteçleri ================= */
+      :root {
+        color-scheme: light;
+
+        --bg: #f3f5fc;
+        --bg-art:
+          radial-gradient(1100px 560px at 82% -8%, rgba(42, 95, 214, 0.10), transparent 62%),
+          radial-gradient(900px 520px at -8% 38%, rgba(99, 72, 212, 0.08), transparent 60%);
+        --surface: #ffffff;
+        --surface-2: #f7f9fe;
+        --surface-3: #eef2fb;
+        --line: #dde3f1;
+        --line-soft: #e9edf7;
+
+        --ink: #0f1730;
+        --muted: #4c5775;
+        --dim: #78829f;
+
+        --blue: #2a5fd6;
+        --lime: #3c8c21;
+        --violet: #6348d4;
+        --amber: #a56209;
+        --rose: #c53455;
+
+        --accent: #b9ee63;
+        --accent-hover: #a9e648;
+        --accent-ink: #16260a;
+        --accent-ring: rgba(93, 154, 32, 0.28);
+
+        --shadow-sm: 0 2px 6px rgba(18, 30, 70, 0.06);
+        --shadow: 0 14px 34px rgba(18, 30, 70, 0.09);
+        --shadow-lg: 0 34px 90px rgba(18, 30, 70, 0.18);
+        --header-bg: rgba(243, 245, 252, 0.82);
+        --track: #dfe5f3;
+
+        /* tuvale aktarılanlar */
+        --c-ink: #0f1730;
+        --c-muted: #4c5775;
+        --c-dim: #7c86a2;
+        --c-blue: #2a5fd6;
+        --c-lime: #3c8c21;
+        --c-violet: #6348d4;
+        --c-amber: #a56209;
+        --c-rose: #c53455;
+        --c-panel: rgba(255, 255, 255, 0.97);
+        --c-border: #e3e8f4;
+        --c-chip: rgba(255, 255, 255, 0.95);
+        --c-ring: #ffffff;
+        --c-outline: #26324f;
+        --c-scene: #ffffff;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+
+        --bg: #0b1020;
+        --bg-art:
+          radial-gradient(circle at 78% 5%, rgba(130, 170, 255, 0.18), transparent 30rem),
+          radial-gradient(circle at 0% 65%, rgba(156, 140, 255, 0.12), transparent 28rem);
+        --surface: rgba(24, 32, 57, 0.82);
+        --surface-2: rgba(13, 19, 38, 0.55);
+        --surface-3: rgba(13, 19, 38, 0.75);
+        --line: rgba(163, 179, 221, 0.16);
+        --line-soft: rgba(163, 179, 221, 0.1);
+
+        --ink: #f4f7ff;
+        --muted: #a6b0c8;
+        --dim: #707b97;
+
+        --blue: #82aaff;
+        --lime: #c6f36b;
+        --violet: #9c8cff;
+        --amber: #ffcb6b;
+        --rose: #ff8fa3;
+
+        --accent: #c6f36b;
+        --accent-hover: #d3f78c;
+        --accent-ink: #152000;
+        --accent-ring: rgba(198, 243, 107, 0.22);
+
+        --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
+        --shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 40px 120px rgba(0, 0, 0, 0.55);
+        --header-bg: rgba(11, 16, 32, 0.78);
+        --track: rgba(163, 179, 221, 0.2);
+
+        --c-ink: #f4f7ff;
+        --c-muted: #a6b0c8;
+        --c-dim: #7d88a6;
+        --c-blue: #82aaff;
+        --c-lime: #c6f36b;
+        --c-violet: #9c8cff;
+        --c-amber: #ffcb6b;
+        --c-rose: #ff8fa3;
+        --c-panel: rgba(13, 19, 38, 0.6);
+        --c-border: rgba(163, 179, 221, 0.18);
+        --c-chip: rgba(11, 16, 32, 0.86);
+        --c-ring: #0b1020;
+        --c-outline: #060a16;
+        --c-scene: #0d1224;
+      }
+
+      /* ================= temel ================= */
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background-color: var(--bg);
+        background-image: var(--bg-art);
+        background-attachment: fixed;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        transition: background-color 220ms ease, color 220ms ease;
+      }
+
+      body.locked { overflow: hidden; }
+
+      a { color: inherit; }
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      canvas:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+        border-radius: 10px;
+      }
+
+      .shell { width: min(1140px, calc(100% - 44px)); margin: 0 auto; }
+
+      /* ================= üst bar ================= */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        border-bottom: 1px solid var(--line);
+        background: var(--header-bg);
+        backdrop-filter: saturate(160%) blur(14px);
+        -webkit-backdrop-filter: saturate(160%) blur(14px);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 68px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        text-decoration: none;
+        font-weight: 750;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border: 1px solid var(--accent-ring);
+        border-radius: 11px;
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      .brand-mark svg { width: 20px; height: 20px; }
+
+      .brand small {
+        display: block;
+        margin-top: -4px;
+        color: var(--dim);
+        font-size: 0.68rem;
+        font-weight: 650;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .header-nav { display: flex; align-items: center; gap: 4px; }
+
+      .nav-link {
+        padding: 7px 12px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.87rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 160ms ease, color 160ms ease;
+      }
+
+      .nav-link:hover { background: var(--surface-3); color: var(--ink); }
+
+      .header-tools { display: flex; align-items: center; gap: 9px; }
+
+      .icon-btn {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface);
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+      }
+
+      .icon-btn:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+
+      .icon-btn svg { width: 18px; height: 18px; }
+
+      :root:not([data-theme="dark"]) .icon-btn .sun,
+      :root[data-theme="dark"] .icon-btn .moon { display: none; }
+
+      /* ================= ortak ================= */
+      main { padding: 56px 0 96px; }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 18px;
+        color: var(--lime);
+        font-size: 0.76rem;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 5px var(--accent-ring);
+        content: "";
+      }
+
+      h1 {
+        max-width: 740px;
+        margin: 0;
+        font-size: clamp(2.6rem, 6vw, 4.6rem);
+        font-weight: 760;
+        letter-spacing: -0.06em;
+        line-height: 1;
+      }
+
+      h1 span { color: var(--blue); }
+
+      .lead {
+        max-width: 560px;
+        margin: 22px 0 30px;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.6vw, 1.14rem);
+        line-height: 1.68;
+      }
+
+      .cta-row { display: flex; flex-wrap: wrap; gap: 11px; }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 46px;
+        padding: 0 20px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        font: inherit;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+      }
+
+      .button:hover { background: var(--accent-hover); box-shadow: var(--shadow); transform: translateY(-1px); }
+
+      .button:active { transform: translateY(0); }
+
+      .button svg { width: 17px; height: 17px; }
+
+      .button.ghost {
+        border-color: var(--line);
+        background: var(--surface);
+        color: var(--ink);
+        box-shadow: none;
+      }
+
+      .button.ghost:hover { border-color: var(--blue); background: var(--surface-2); color: var(--blue); }
+
+      .button.small { min-height: 38px; padding: 0 15px; font-size: 0.87rem; }
+
+      .button[disabled] { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+      .facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 30px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .facts li {
+        padding: 8px 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.87rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .facts b { color: var(--ink); font-weight: 700; }
+
+      /* ================= giriş ================= */
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+        gap: clamp(30px, 5vw, 64px);
+        align-items: center;
+      }
+
+      .hero-card {
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .card-label {
+        display: block;
+        margin-bottom: 18px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .formula-list { margin: 0; padding: 0; list-style: none; }
+
+      .formula-list li {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 12px;
+        padding: 13px 0;
+        border-top: 1px solid var(--line-soft);
+      }
+
+      .formula-list li:first-child { border-top: 0; padding-top: 0; }
+
+      .formula-list code {
+        color: var(--blue);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 1.02rem;
+        font-weight: 600;
+      }
+
+      .formula-list span { color: var(--dim); font-size: 0.83rem; }
+
+      .card-foot {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .card-foot .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 4px var(--accent-ring);
+      }
+
+      /* ================= bölümler ================= */
+      .section { margin-top: 92px; scroll-margin-top: 82px; }
+
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-heading h2 {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        margin: 0;
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        letter-spacing: -0.045em;
+        line-height: 1.15;
+      }
+
+      .section-heading h2 em {
+        display: grid;
+        min-width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 9px;
+        background: var(--surface-3);
+        color: var(--violet);
+        font-size: 0.8rem;
+        font-style: normal;
+        font-weight: 750;
+        letter-spacing: 0;
+      }
+
+      .section-heading p {
+        max-width: 390px;
+        margin: 0;
+        color: var(--dim);
+        font-size: 0.92rem;
+        text-align: right;
+      }
+
+      .note { margin: 14px 0 0; color: var(--dim); font-size: 0.87rem; }
+
+      .note b { color: var(--muted); font-weight: 650; }
+
+      canvas {
+        display: block;
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--c-scene);
+        box-shadow: var(--shadow-sm);
+        touch-action: manipulation;
+      }
+
+      /* ================= laboratuvar ================= */
+      .lab {
+        display: grid;
+        grid-template-columns: minmax(0, 1.62fr) minmax(262px, 0.8fr);
+        gap: 16px;
+        margin-top: 22px;
+      }
+
+      .readouts {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .readout {
+        position: relative;
+        padding: 12px 14px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .readout::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--blue);
+        opacity: 0.75;
+        content: "";
+      }
+
+      .readout:nth-child(2)::before { background: var(--violet); }
+      .readout:nth-child(3)::before { background: var(--lime); }
+      .readout:nth-child(4)::before { background: var(--amber); }
+
+      .readout span {
+        display: block;
+        color: var(--dim);
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .readout strong {
+        font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.03em;
+      }
+
+      .readout i { color: var(--dim); font-size: 0.8rem; font-style: normal; }
+
+      .readout em {
+        display: block;
+        margin-top: -2px;
+        color: var(--blue);
+        font-size: 0.74rem;
+        font-style: normal;
+      }
+
+      .panel {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .field { display: flex; flex-direction: column; gap: 9px; }
+
+      .field label,
+      .field .flabel {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.84rem;
+        font-weight: 650;
+      }
+
+      .field output {
+        color: var(--ink);
+        font-size: 0.9rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 750;
+      }
+
+      .field small { color: var(--dim); font-size: 0.77rem; line-height: 1.45; }
+
+      input[type="range"] {
+        width: 100%;
+        height: 22px;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        height: 6px;
+        border-radius: 999px;
+        background: linear-gradient(to right, var(--lime) var(--p, 30%), var(--track) var(--p, 30%));
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        width: 19px;
+        height: 19px;
+        margin-top: -6.5px;
+        border: 2px solid var(--surface);
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: var(--shadow-sm);
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input[type="range"]::-moz-range-track {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--track);
+      }
+
+      input[type="range"]::-moz-range-progress {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--lime);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        border: 2px solid var(--surface);
+        border-radius: 50%;
+        background: var(--lime);
+      }
+
+      .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+
+      .seg button {
+        flex: 1 1 62px;
+        min-height: 44px;
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.83rem;
+        font-weight: 700;
+        line-height: 1.15;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+      }
+
+      .seg button b { display: block; color: var(--dim); font-size: 0.69rem; font-weight: 600; }
+
+      .seg button:hover { border-color: var(--blue); color: var(--ink); }
+
+      .seg button[aria-pressed="true"] {
+        border-color: var(--lime);
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      .seg button[aria-pressed="true"] b { color: var(--lime); opacity: 0.75; }
+
+      .switches { display: flex; flex-direction: column; gap: 10px; }
+
+      .switches label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+
+      .switches input {
+        width: 17px;
+        height: 17px;
+        accent-color: var(--lime);
+        cursor: pointer;
+      }
+
+      .actions { display: flex; gap: 9px; }
+
+      .actions .button { flex: 1 1 auto; padding: 0 12px; }
+
+      .mini {
+        display: grid;
+        gap: 9px;
+        margin: 0;
+        padding: 16px 0 0;
+        border-top: 1px solid var(--line);
+        list-style: none;
+      }
+
+      .mini li {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+
+      .mini b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+      #lab-graphs {
+        margin-top: 14px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+      }
+
+      /* ================= deney blokları ================= */
+      .demo { display: grid; gap: 16px; margin-top: 22px; }
+
+      .demo.split { grid-template-columns: minmax(0, 1.5fr) minmax(255px, 0.88fr); }
+
+      .panel h3 { margin: 0; font-size: 1.02rem; letter-spacing: -0.02em; }
+
+      .panel p { margin: 0; color: var(--muted); font-size: 0.89rem; }
+
+      .verdict {
+        min-height: 74px;
+        padding: 13px 15px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--blue);
+        border-radius: 12px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .verdict b { color: var(--ink); }
+      .verdict.good { border-left-color: var(--lime); }
+      .verdict.warn { border-left-color: var(--amber); }
+      .verdict.bad { border-left-color: var(--rose); }
+
+      .tries { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+
+      .tries li {
+        padding: 5px 11px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.77rem;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .tries li.best { border-color: var(--lime); background: var(--accent-ring); color: var(--lime); font-weight: 700; }
+
+      /* ================= mini test ================= */
+      .quiz { display: grid; gap: 12px; margin-top: 22px; }
+
+      .q {
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .q > p { margin: 0 0 15px; font-size: 1rem; font-weight: 600; line-height: 1.5; }
+
+      .q > p span {
+        display: inline-block;
+        margin-bottom: 6px;
+        color: var(--violet);
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+      }
+
+      .opts { display: grid; gap: 8px; }
+
+      .opts button {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 15px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.92rem;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+      }
+
+      .opts button::before {
+        flex: none;
+        display: grid;
+        width: 23px;
+        height: 23px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--surface);
+        color: var(--dim);
+        font-size: 0.71rem;
+        font-weight: 750;
+        content: attr(data-key);
+      }
+
+      .opts button:hover:not([disabled]) { border-color: var(--blue); background: var(--surface); color: var(--ink); }
+
+      .opts button.right {
+        border-color: var(--lime);
+        background: var(--accent-ring);
+        color: var(--lime);
+        font-weight: 650;
+      }
+
+      .opts button.right::before { border-color: var(--lime); color: var(--lime); }
+
+      .opts button.wrong {
+        border-color: var(--rose);
+        background: color-mix(in srgb, var(--rose) 10%, transparent);
+        color: var(--rose);
+      }
+
+      .opts button.wrong::before { border-color: var(--rose); color: var(--rose); }
+
+      .opts button[disabled] { cursor: default; }
+
+      .why {
+        margin: 13px 0 0;
+        padding: 2px 0 2px 14px;
+        border-left: 2px solid var(--violet);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .why[hidden] { display: none; }
+
+      .score {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 12px;
+        padding: 16px 22px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.93rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .score b { color: var(--ink); font-size: 1.08rem; }
+
+      /* ================= konu anlatımı kartı ================= */
+      .lesson-card {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        margin-top: 26px;
+        padding: 22px 24px;
+        border: 1px solid color-mix(in srgb, var(--violet) 38%, transparent);
+        border-radius: 20px;
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--violet) 12%, transparent), transparent 62%),
+          var(--surface);
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease;
+      }
+
+      .lesson-card:hover {
+        border-color: var(--violet);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .lesson-card .badge {
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border: 1px solid color-mix(in srgb, var(--violet) 40%, transparent);
+        border-radius: 15px;
+        background: color-mix(in srgb, var(--violet) 12%, transparent);
+        color: var(--violet);
+      }
+
+      .lesson-card .badge svg { width: 24px; height: 24px; }
+
+      .lesson-card h3 { margin: 0 0 3px; font-size: 1.15rem; letter-spacing: -0.03em; }
+
+      .lesson-card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+      .lesson-card .go {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--violet);
+      }
+
+      .lesson-card .go svg { width: 18px; height: 18px; }
+
+      /* ================= modal ================= */
+      dialog {
+        width: min(920px, calc(100% - 26px));
+        max-height: min(88vh, 940px);
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--bg);
+        color: var(--ink);
+        box-shadow: var(--shadow-lg);
+      }
+
+      dialog[open] { display: flex; flex-direction: column; }
+
+      dialog::backdrop {
+        background: rgba(18, 26, 52, 0.42);
+        backdrop-filter: blur(5px);
+      }
+
+      :root[data-theme="dark"] dialog::backdrop { background: rgba(5, 8, 20, 0.72); }
+
+      .modal-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 22px 26px 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .modal-head h2 {
+        margin: 2px 0 0;
+        font-size: clamp(1.35rem, 3vw, 1.8rem);
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+
+      .modal-head .eyebrow { margin: 0 0 6px; }
+
+      .close {
+        flex: none;
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface-2);
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease;
+      }
+
+      .close:hover { border-color: var(--rose); color: var(--rose); }
+
+      .close svg { width: 17px; height: 17px; }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        padding: 13px 26px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface-2);
+      }
+
+      .chips button {
+        padding: 7px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.79rem;
+        font-weight: 650;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease;
+      }
+
+      .chips button:hover { border-color: var(--blue); color: var(--blue); }
+
+      .modal-body {
+        padding: 10px 26px 34px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        counter-reset: chapter;
+      }
+
+      .modal-body h3 {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin: 32px 0 12px;
+        font-size: 1.18rem;
+        letter-spacing: -0.03em;
+        scroll-margin-top: 12px;
+      }
+
+      .modal-body h3::before {
+        display: grid;
+        min-width: 27px;
+        height: 27px;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--surface-3);
+        color: var(--violet);
+        font-size: 0.74rem;
+        font-weight: 750;
+        content: counter(chapter, decimal-leading-zero);
+        counter-increment: chapter;
+      }
+
+      .modal-body h4 { margin: 20px 0 6px; font-size: 0.98rem; color: var(--blue); }
+
+      .modal-body p { margin: 0 0 12px; color: var(--muted); }
+
+      .modal-body ul, .modal-body ol { margin: 0 0 12px; padding-left: 20px; color: var(--muted); }
+
+      .modal-body li { margin-bottom: 6px; }
+
+      .modal-body strong { color: var(--ink); font-weight: 700; }
+
+      .formula { display: flex; flex-wrap: wrap; gap: 9px; margin: 14px 0 16px; }
+
+      .formula code {
+        padding: 10px 15px;
+        border: 1px solid color-mix(in srgb, var(--blue) 26%, transparent);
+        border-radius: 11px;
+        background: color-mix(in srgb, var(--blue) 9%, transparent);
+        color: var(--blue);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.96rem;
+      }
+
+      .callout {
+        margin: 16px 0;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--lime);
+        border-radius: 13px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .callout.warn { border-left-color: var(--amber); }
+      .callout b { color: var(--ink); }
+      .callout :last-child { margin-bottom: 0; }
+
+      .tbl {
+        width: 100%;
+        margin: 14px 0 18px;
+        border-collapse: collapse;
+        font-size: 0.89rem;
+      }
+
+      .tbl th, .tbl td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        text-align: left;
+      }
+
+      .tbl th {
+        color: var(--dim);
+        font-size: 0.71rem;
+        font-weight: 750;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .tbl td:first-child { color: var(--ink); font-weight: 650; }
+
+      details {
+        margin: 10px 0;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: var(--surface);
+      }
+
+      details summary {
+        color: var(--ink);
+        font-weight: 650;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      details summary::-webkit-details-marker { display: none; }
+
+      details summary::before {
+        display: inline-block;
+        width: 18px;
+        color: var(--lime);
+        font-weight: 750;
+        content: "+";
+      }
+
+      details[open] summary::before { content: "–"; }
+
+      details p:first-of-type { margin-top: 12px; }
+
+      .steps { margin: 12px 0 0; padding-left: 20px; color: var(--muted); }
+
+      .steps li { margin-bottom: 8px; }
+
+      /* ================= alt bilgi ================= */
+      footer {
+        margin-top: 88px;
+        padding: 22px 0 34px;
+        border-top: 1px solid var(--line);
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+
+      .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+      /* ================= premium katman ================= */
+      ::selection { background: color-mix(in srgb, var(--blue) 22%, transparent); }
+
+      h1, h2, h3 { text-wrap: balance; }
+
+      h1 span {
+        background: linear-gradient(92deg, var(--blue), var(--violet));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero { position: relative; isolation: isolate; }
+
+      .hero::before {
+        position: absolute;
+        z-index: -1;
+        inset: -60px 0 auto 0;
+        height: 560px;
+        background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1.2px);
+        background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        content: "";
+        pointer-events: none;
+      }
+
+      .hero-card {
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--blue) 7%, transparent), transparent 42%),
+          var(--surface);
+      }
+
+      .progress {
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        transform-origin: 0 50%;
+        transform: scaleX(var(--sp, 0));
+        background: linear-gradient(90deg, var(--lime), var(--blue));
+        pointer-events: none;
+      }
+
+      .nav-link.active { background: var(--surface-3); color: var(--ink); }
+
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 640ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 640ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .js .reveal.in { opacity: 1; transform: none; }
+
+      .button:active,
+      .seg button:active,
+      .presets button:active,
+      .icon-btn:active { transform: translateY(0) scale(0.985); }
+
+      .readout strong { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 750; }
+
+      .readout { transition: border-color 160ms ease, box-shadow 160ms ease; }
+
+      .readout:hover { border-color: color-mix(in srgb, var(--blue) 40%, var(--line)); box-shadow: var(--shadow); }
+
+      canvas { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+
+      :root[data-theme="dark"] canvas { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+
+      #lab-scene { cursor: pointer; }
+
+      .presets {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .presets > span {
+        margin-right: 4px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .presets button {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: border-color 150ms ease, color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+      }
+
+      .presets button i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--tone, var(--blue));
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone, var(--blue)) 18%, transparent);
+      }
+
+      .presets button:hover {
+        border-color: var(--tone, var(--blue));
+        color: var(--ink);
+        box-shadow: var(--shadow);
+        transform: translateY(-1px);
+      }
+
+      .stats { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--dim); font-size: 0.82rem; }
+
+      .stats b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+      .stats[hidden] { display: none; }
+
+      .final { flex: 1 1 100%; color: var(--dim); font-size: 0.88rem; }
+
+      .final:empty { display: none; }
+
+      @keyframes shake {
+        10%, 90% { transform: translateX(-1px); }
+        20%, 80% { transform: translateX(2px); }
+        30%, 50%, 70% { transform: translateX(-3px); }
+        40%, 60% { transform: translateX(3px); }
+      }
+
+      @keyframes pop {
+        0% { transform: scale(0.98); }
+        60% { transform: scale(1.015); }
+        100% { transform: none; }
+      }
+
+      .opts button.wrong { animation: shake 420ms ease; }
+
+      .opts button.right { animation: pop 320ms ease; }
+
+      .opts button.right::after,
+      .opts button.wrong::after {
+        margin-left: auto;
+        font-size: 0.85rem;
+        font-weight: 800;
+      }
+
+      .opts button.right::after { content: "✓"; }
+
+      .opts button.wrong::after { content: "✕"; }
+
+      @keyframes modalIn {
+        from { opacity: 0; transform: translateY(14px) scale(0.985); }
+        to { opacity: 1; transform: none; }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      dialog[open] { animation: modalIn 280ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+      dialog[open]::backdrop { animation: fadeIn 240ms ease; }
+
+      .chips button.active {
+        border-color: var(--violet);
+        background: color-mix(in srgb, var(--violet) 10%, transparent);
+        color: var(--violet);
+      }
+
+      .modal-body { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+
+      .to-top {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        z-index: 25;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        color: var(--muted);
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 220ms ease, transform 220ms ease, border-color 160ms ease, color 160ms ease;
+      }
+
+      .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+
+      .to-top:hover { border-color: var(--blue); color: var(--blue); }
+
+      .to-top svg { width: 18px; height: 18px; }
+
+      /* ================= ünite gezinmesi ================= */
+      .topic-nav {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 76px;
+      }
+
+      .topic-nav a {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        text-decoration: none;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .topic-nav a:hover {
+        border-color: var(--blue);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .topic-nav span {
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .topic-nav b { color: var(--ink); font-size: 0.95rem; font-weight: 650; letter-spacing: -0.02em; }
+
+      .topic-nav .mid { align-items: center; text-align: center; background: var(--surface-2); }
+
+      .topic-nav .next { align-items: flex-end; text-align: right; }
+
+      .topic-nav .gap { border: 0; background: none; box-shadow: none; }
+
+      .eyebrow a { text-decoration: none; }
+
+      .eyebrow a:hover { text-decoration: underline; }
+
+      /* ================= duyarlılık ================= */
+      @media (max-width: 1000px) {
+        .header-nav { display: none; }
+      }
+
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; }
+        .lab { grid-template-columns: 1fr; }
+        .demo.split { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 760px) {
+        .shell { width: min(100% - 28px, 560px); }
+        main { padding: 40px 0 72px; }
+        .section { margin-top: 68px; }
+        .section-heading { display: block; }
+        .section-heading p { margin-top: 10px; text-align: left; }
+        .readouts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cta-row .button { flex: 1 1 100%; }
+        .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
+        .lesson-card .go { display: none; }
+        .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .footer-inner { display: block; }
+        .footer-inner span { display: block; margin-top: 6px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { transition: none !important; animation: none !important; }
+        .js .reveal { opacity: 1; transform: none; }
+      }
+    </style>
+
+    <script>
+      /* tema, boya öncesinde uygulansın: varsayılan açık */
+      (function () {
+        var mode = "light";
+        try { if (localStorage.getItem("dersler-tema") === "dark") mode = "dark"; } catch (e) {}
+        document.documentElement.setAttribute("data-theme", mode);
+      })();
+    </script>
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="index.html" aria-label="Dersler ana sayfa">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" />
+              <path d="M4 5.5v16M8 7h8M8 11h7" />
+            </svg>
+          </span>
+          <span>Dersler<small>fizik</small></span>
+        </a>
+
+        <nav class="header-nav" aria-label="Bölümler">
+          <a class="nav-link" href="#lab">Havuz</a>
+          <a class="nav-link" href="#balik">Balık avı</a>
+          <a class="nav-link" href="#yukari">Sudan havaya</a>
+          <a class="nav-link" href="#levha">Cam levha</a>
+          <a class="nav-link" href="#test">Test</a>
+        </nav>
+
+        <div class="header-tools">
+          <button class="icon-btn" type="button" id="theme-toggle" aria-label="Koyu temaya geç">
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4" />
+            </svg>
+            <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z" />
+            </svg>
+          </button>
+          <button class="button small" type="button" data-open-modal>Konu anlatımı</button>
+        </div>
+      </div>
+      <span class="progress" aria-hidden="true"></span>
+    </header>
+
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow"><a href="index.html#optik">Optik</a> · Konu 05</p>
+          <h1 id="page-title">Görünür <span>derinlik.</span></h1>
+          <p class="lead">
+            Havuzun dibi olduğundan yakın, sudaki balık olduğundan sığ görünür. Sebebi basit:
+            sudan çıkan ışınlar yüzeyde kırılır ve göz onları <b>düz gelmiş</b> sanar. Sonuç
+            tek bir oranda toplanır: <b>h′ = h / n</b>.
+          </p>
+          <div class="cta-row">
+            <button class="button" type="button" data-open-modal>
+              Konu anlatımını aç
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+            <a class="button ghost" href="#lab">Laboratuvara in</a>
+            <a class="button ghost" href="sunum/gorunur-derinlik.pptx" download>
+              Sunum (PPTX)
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </a>
+          </div>
+
+          <ul class="facts">
+            <li>Havadan <b>h′ = h / n</b></li>
+            <li>Sudan <b>h′ = n · h</b></li>
+            <li>Suda <b>%25 sığ</b></li>
+            <li>Cam levha <b>t(1 − 1/n)</b></li>
+          </ul>
+        </div>
+
+        <aside class="hero-card" aria-label="Temel bağıntılar">
+          <span class="card-label">Temel bağıntılar</span>
+          <ul class="formula-list">
+            <li><code>h′ = h / n</code> <span>havadan suya bakış</span></li>
+            <li><code>h′ = n · h</code> <span>sudan havaya bakış</span></li>
+            <li><code>Δh = h (1 − 1/n)</code> <span>yükselme miktarı</span></li>
+            <li><code>Δ = t (1 − 1/n)</code> <span>cam levhada kayma</span></li>
+          </ul>
+          <div class="card-foot"><span class="dot" aria-hidden="true"></span> Bağıntılar <b>dik bakış</b> içindir</div>
+        </aside>
+      </section>
+
+      <button class="lesson-card reveal" type="button" data-open-modal>
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 6.5C10.5 5 8.5 4.5 6 4.5H3.5v13H6c2.5 0 4.5.5 6 2 1.5-1.5 3.5-2 6-2h2.5v-13H18c-2.5 0-4.5.5-6 2z" />
+            <path d="M12 6.5v13" />
+          </svg>
+        </span>
+        <span>
+          <h3>Konu anlatımı: Görünür derinlik</h3>
+          <p>Bağıntının nereden geldiğinden günlük hayattaki sonuçlarına, çözümlü örneklerle.</p>
+        </span>
+        <span class="go" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </span>
+      </button>
+
+      <!-- 01 — havuz -->
+      <section class="section reveal" id="lab" aria-labelledby="lab-title">
+        <div class="section-heading">
+          <h2 id="lab-title"><em>01</em> Havuz laboratuvarı</h2>
+          <p>Derinliği ve sıvının indisini değiştir; cismin nerede göründüğünü izle.</p>
+        </div>
+
+        <div class="lab">
+          <div>
+            <canvas id="lab-scene" aria-label="Havuzun dibindeki cisim, kırılan ışınlar ve görünen konum"></canvas>
+            <div class="readouts">
+              <div class="readout"><span>Gerçek derinlik</span><strong id="ro-h">200</strong> <i>cm</i></div>
+              <div class="readout"><span>Görünen derinlik</span><strong id="ro-hp">150</strong> <i>cm</i></div>
+              <div class="readout"><span>Yükselme</span><strong id="ro-dh">50</strong> <i>cm</i></div>
+              <div class="readout"><span>Oran</span><strong id="ro-ratio">0,75</strong><em id="ro-note">%25 daha sığ görünür</em></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="seg" id="sivi" role="group" aria-label="Sıvı">
+              <button type="button" data-n="1.33" aria-pressed="true">Su<b>n = 1,33</b></button>
+              <button type="button" data-n="1.36" aria-pressed="false">Alkol<b>n = 1,36</b></button>
+              <button type="button" data-n="1.47" aria-pressed="false">Gliserin<b>n = 1,47</b></button>
+              <button type="button" data-n="1.63" aria-pressed="false">Karbon sülfür<b>n = 1,63</b></button>
+            </div>
+
+            <div class="field">
+              <label for="c-h">Gerçek derinlik <output id="o-h" for="c-h">200 cm</output></label>
+              <input id="c-h" type="range" min="20" max="300" step="5" value="200" />
+            </div>
+
+            <ul class="mini">
+              <li>Bağıntı <b id="s-eq">200 / 1,33 = 150</b></li>
+              <li>Yükselme oranı <b id="s-rise">%25</b></li>
+              <li>Işığın sudaki hızı <b id="s-v">2,26×10⁸ m/s</b></li>
+              <li>Geçerlilik <b>dik bakış</b></li>
+            </ul>
+          </div>
+        </div>
+
+        <canvas id="lab-graphs" aria-label="Görünen derinliğin gerçek derinliğe ve indise bağlılığı"></canvas>
+        <p class="note">
+          Görünen derinlik, gerçek derinlikle <b>doğru</b>, kırılma indisiyle <b>ters</b>
+          orantılıdır. Suda her cisim gerçek derinliğinin yaklaşık <b>dörtte üçünde</b> görünür;
+          bu yüzden havuzlar sanılandan derindir.
+        </p>
+      </section>
+
+      <!-- 02 — balık avı -->
+      <section class="section reveal" id="balik" aria-labelledby="bl-title">
+        <div class="section-heading">
+          <h2 id="bl-title"><em>02</em> Balığa nişan almak</h2>
+          <p>Gördüğün yere atarsan ıskalarsın. Peki nereye nişan almalısın?</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="bl-scene" aria-label="Suyun içindeki balık, görünen konumu ve atılan mızrak"></canvas>
+          <div class="panel">
+            <h3>Gördüğün yer gerçek yer değil</h3>
+            <p>
+              Balıktan gelen ışınlar yüzeyde kırıldığı için balık <b>olduğundan yukarıda</b>
+              görünür. Mızrağı gördüğün noktaya atarsan balığın üstünden geçer; <b>biraz
+              aşağıya</b> nişan almalısın.
+            </p>
+            <div class="field">
+              <label for="bl-a">Nişan açısı <output id="bl-a-out" for="bl-a">35°</output></label>
+              <input id="bl-a" type="range" min="10" max="70" step="1" value="35" />
+            </div>
+            <div class="verdict" id="bl-verdict">Nişan al ve at.</div>
+            <div class="actions">
+              <button class="button" type="button" id="bl-throw">At</button>
+              <button class="button ghost" type="button" id="bl-new">Yeni balık</button>
+            </div>
+            <ul class="mini">
+              <li>Balığın gerçek derinliği <b id="bl-h">90 cm</b></li>
+              <li>Görünen derinliği <b id="bl-hp">68 cm</b></li>
+              <li>Sonuç <b id="bl-res">–</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — sudan havaya -->
+      <section class="section reveal" id="yukari" aria-labelledby="yk-title">
+        <div class="section-heading">
+          <h2 id="yk-title"><em>03</em> Sudan havaya bakmak</h2>
+          <p>Dalgıç yukarıdaki kuşu nerede görür? Bu kez bağıntı ters çalışır.</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="yk-scene" aria-label="Su altındaki gözlemcinin havadaki cismi daha yüksekte görmesi"></canvas>
+          <div class="panel">
+            <h3>h′ = n · h</h3>
+            <p>
+              Işık bu kez az yoğun ortamdan (hava) çok yoğuna (su) geliyor; yüzeyde normale
+              yaklaşarak kırılıyor. Geriye uzatılan ışınlar cismi <b>daha yüksekte</b> gösterir.
+              Sudaki gözlemci için cisim gerçek yüksekliğinin <b>n katında</b> görünür.
+            </p>
+            <div class="field">
+              <label for="yk-h">Cismin gerçek yüksekliği <output id="yk-h-out" for="yk-h">150 cm</output></label>
+              <input id="yk-h" type="range" min="30" max="300" step="5" value="150" />
+            </div>
+            <div class="field">
+              <label for="yk-n">Sıvının indisi <output id="yk-n-out" for="yk-n">1,33</output></label>
+              <input id="yk-n" type="range" min="110" max="170" step="1" value="133" />
+            </div>
+            <div class="verdict" id="yk-verdict">Yüksekliği değiştir.</div>
+            <ul class="mini">
+              <li>Görünen yükseklik <b id="yk-hp">200 cm</b></li>
+              <li>Yükselme <b id="yk-dh">50 cm</b></li>
+              <li>Oran <b id="yk-ratio">1,33 kat</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — cam levha -->
+      <section class="section reveal" id="levha" aria-labelledby="lv-title">
+        <div class="section-heading">
+          <h2 id="lv-title"><em>04</em> Cam levhanın altındaki yazı</h2>
+          <p>Kitabın üstüne kalın bir cam koyunca yazı neden yükseliyor?</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="lv-scene" aria-label="Cam levha altındaki yazının görünen konumu"></canvas>
+          <div class="panel">
+            <h3>Δ = t (1 − 1/n)</h3>
+            <p>
+              Cam levha, altındaki yazıyı kalınlığının bir kısmı kadar <b>yukarı taşımış</b> gibi
+              gösterir. Yükselme miktarı yalnızca levhanın kalınlığına ve indisine bağlıdır;
+              yazının levhadan uzaklığı sonucu değiştirmez.
+            </p>
+            <div class="field">
+              <label for="lv-t">Levha kalınlığı <output id="lv-t-out" for="lv-t">6 cm</output></label>
+              <input id="lv-t" type="range" min="1" max="12" step="1" value="6" />
+            </div>
+            <div class="field">
+              <label for="lv-n">Levhanın indisi <output id="lv-n-out" for="lv-n">1,50</output></label>
+              <input id="lv-n" type="range" min="110" max="200" step="1" value="150" />
+            </div>
+            <div class="verdict" id="lv-verdict">Kalınlığı değiştir.</div>
+            <ul class="mini">
+              <li>Yükselme <b id="lv-d">2,0 cm</b></li>
+              <li>Camın içinde görünen kalınlık <b id="lv-app">4,0 cm</b></li>
+              <li>Işığın camdaki hızı <b id="lv-v">2,00×10⁸ m/s</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — mini test -->
+      <section class="section reveal" id="test" aria-labelledby="test-title">
+        <div class="section-heading">
+          <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
+          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+        </div>
+
+        <div class="quiz" id="quiz"></div>
+
+        <div class="score">
+          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
+          <span class="final" id="quiz-final"></span>
+        </div>
+      </section>
+    </main>
+
+    <button class="to-top" type="button" id="to-top" aria-label="Sayfanın başına dön">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
+    </button>
+
+    <nav class="topic-nav shell" aria-label="Ünite içinde gezinme">
+      <a class="prev" href="kirilma.html">
+        <span>← Önceki konu</span>
+        <b>04 · Kırılma</b>
+      </a>
+      <a class="mid" href="index.html#optik">
+        <span>Ünite</span>
+        <b>Optik</b>
+      </a>
+      <a class="next" href="fiber-optik.html">
+        <span>Sonraki konu →</span>
+        <b>06 · Fiber optik</b>
+      </a>
+    </nav>
+
+    <footer>
+      <div class="shell footer-inner">
+        <span>dersler.perinet.org</span>
+        <span><a href="sunum/gorunur-derinlik.pptx" download>Sunumu indir (PPTX)</a></span>
+        <span>Fizik · Optik · Konu 05</span>
+      </div>
+    </footer>
+
+    <dialog id="konu" aria-labelledby="konu-title">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Konu anlatımı</p>
+          <h2 id="konu-title">Görünür derinlik</h2>
+        </div>
+        <button class="close" type="button" id="konu-close" aria-label="Konu anlatımını kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="chips">
+        <button type="button" data-goto="k1">Neden sığ görünür</button>
+        <button type="button" data-goto="k2">Bağıntı</button>
+        <button type="button" data-goto="k3">Yükselme miktarı</button>
+        <button type="button" data-goto="k4">Sudan havaya bakış</button>
+        <button type="button" data-goto="k5">Cam levha</button>
+        <button type="button" data-goto="k6">Geçerlilik sınırı</button>
+        <button type="button" data-goto="k7">Günlük hayatta</button>
+        <button type="button" data-goto="k8">Çözümlü örnekler</button>
+        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+      </div>
+
+      <div class="modal-body" id="konu-body">
+        <h3 id="k1">Neden daha sığ görünür?</h3>
+        <p>
+          Suyun dibindeki bir cisimden çıkan ışınlar su–hava sınırında kırılır ve
+          <strong>normalden uzaklaşır</strong>. Göz, kendisine ulaşan ışınların
+          <strong>geldiği doğrultuyu</strong> uzattığı için cismi, bu uzantıların kesiştiği
+          noktada — yani <strong>gerçek yerinden daha yukarıda</strong> — görür.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Görüntü sanaldır.</b> Suyun içinde gerçekten bir görüntü oluşmaz; ışınların
+            uzantıları orada kesişir. Bu yüzden görünen derinliğe perde koyamazsınız.
+          </p>
+        </div>
+
+        <h3 id="k2">Bağıntı</h3>
+        <p>Havadan, suya <strong>dik doğrultuda</strong> bakan bir gözlemci için:</p>
+        <div class="formula">
+          <code>h′ = h / n</code>
+          <code>n = h / h′</code>
+        </div>
+        <ul>
+          <li><strong>h:</strong> cismin gerçek derinliği.</li>
+          <li><strong>h′:</strong> görünen derinlik (her zaman daha küçük).</li>
+          <li><strong>n:</strong> sıvının kırılma indisi.</li>
+        </ul>
+        <p>
+          Su için n = 4/3 olduğundan h′ = 3h/4: <strong>her cisim gerçek derinliğinin dörtte
+          üçünde görünür.</strong> 2 metrelik havuzun dibi 1,5 metredeymiş gibi görünür.
+        </p>
+
+        <h3 id="k3">Yükselme miktarı</h3>
+        <div class="formula">
+          <code>Δh = h − h′ = h (1 − 1/n)</code>
+        </div>
+        <p>
+          Su için Δh = h·(1 − 3/4) = h/4: cisim derinliğinin <strong>dörtte biri</strong> kadar
+          yükselmiş görünür. İndis büyüdükçe yükselme artar.
+        </p>
+        <table class="tbl">
+          <tr><th>Sıvı</th><th>n</th><th>h′ / h</th><th>Yükselme</th></tr>
+          <tr><td>Su</td><td>1,33</td><td>0,75</td><td>%25</td></tr>
+          <tr><td>Alkol</td><td>1,36</td><td>0,74</td><td>%26</td></tr>
+          <tr><td>Gliserin</td><td>1,47</td><td>0,68</td><td>%32</td></tr>
+          <tr><td>Karbon sülfür</td><td>1,63</td><td>0,61</td><td>%39</td></tr>
+        </table>
+
+        <h3 id="k4">Sudan havaya bakış</h3>
+        <p>
+          Gözlemci suyun içindeyse durum tersine döner: havadaki cisimden gelen ışınlar suya
+          girerken normale yaklaşır ve uzantıları cismi <strong>daha yüksekte</strong> gösterir.
+        </p>
+        <div class="formula">
+          <code>h′ = n · h</code>
+        </div>
+        <p>
+          Su altındaki bir dalgıç için, yüzeyden 1,5 m yukarıdaki bir kuş yaklaşık 2 m yükseklikte
+          görünür. Genel kural: <strong>gözlemcinin bulunduğu ortamın indisi büyükse cisim
+          uzaklaşmış görünür.</strong>
+        </p>
+
+        <h3 id="k5">Cam levhanın altındaki yazı</h3>
+        <p>
+          Kalınlığı t, indisi n olan bir cam levha, altındaki yazıyı yukarı taşımış gibi gösterir:
+        </p>
+        <div class="formula">
+          <code>Δ = t (1 − 1/n)</code>
+        </div>
+        <p>
+          Cam için (n = 1,5) Δ = t/3'tür: 6 cm'lik cam levha yazıyı <strong>2 cm</strong>
+          yükseltir. Yazının levhaya olan uzaklığı sonucu değiştirmez; önemli olan ışığın cam
+          içinde katettiği kalınlıktır.
+        </p>
+
+        <h3 id="k6">Bağıntının geçerlilik sınırı</h3>
+        <div class="callout warn">
+          <p>
+            <b>h′ = h/n yalnızca dik (dike yakın) bakış içindir.</b> Yüzeye çok eğik bakıldığında
+            görünen derinlik daha da azalır; kırılma açısı büyüdükçe uzantıların kesiştiği nokta
+            yükselir. Bu yüzden havuza yandan bakıldığında dip daha da yakın görünür.
+          </p>
+        </div>
+
+        <h3 id="k7">Günlük hayatta</h3>
+        <ul>
+          <li><strong>Havuz sığ görünür:</strong> derinliği olduğundan az sanıp atlamak tehlikelidir.</li>
+          <li><strong>Suya batan cisim kırık görünür:</strong> kaşığın su altındaki kısmı yükselmiş
+            görünür, bu da kırılmış izlenimi verir.</li>
+          <li><strong>Zıpkınla balık avı:</strong> avcılar hep gördüklerinin biraz altına nişan alır.</li>
+          <li><strong>Bardaktaki bozuk para:</strong> su eklenince görünmeyen para görünür hâle gelir.</li>
+        </ul>
+
+        <h3 id="k8">Çözümlü örnekler</h3>
+
+        <details>
+          <summary>Örnek 1 — Havuzun derinliği</summary>
+          <p>
+            Derinliği 2 m olan bir havuzun dibi, yukarıdan bakan biri için kaç metre derinlikte
+            görünür? (n(su) = 4/3)
+          </p>
+          <ol class="steps">
+            <li>h′ = h/n = 2 / (4/3) = 2 · 3/4</li>
+            <li>h′ = <strong>1,5 m</strong></li>
+            <li>Yükselme: Δh = 2 − 1,5 = 0,5 m, yani derinliğin dörtte biri.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 2 — İndisi bulmak</summary>
+          <p>
+            Bir kaptaki sıvının 60 cm derinliğindeki cisim, 40 cm derinlikte görünüyor.
+            Sıvının kırılma indisi nedir?
+          </p>
+          <ol class="steps">
+            <li>n = h / h′ = 60 / 40</li>
+            <li>n = <strong>1,5</strong></li>
+            <li>Işığın bu sıvıdaki hızı: v = c/n = 3·10⁸/1,5 = 2·10⁸ m/s.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 3 — Sudan havaya bakış</summary>
+          <p>
+            Su altındaki bir dalgıç, yüzeyden 120 cm yukarıdaki bir lambaya bakıyor.
+            Lamba kaç cm yükseklikte görünür? (n = 4/3)
+          </p>
+          <ol class="steps">
+            <li>Gözlemci yoğun ortamda: h′ = n·h</li>
+            <li>h′ = (4/3) · 120 = <strong>160 cm</strong></li>
+            <li>Lamba 40 cm daha yüksekteymiş gibi görünür.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 4 — Cam levha</summary>
+          <p>
+            Kalınlığı 9 cm, indisi 1,5 olan cam levha bir yazının üzerine konuyor.
+            Yazı ne kadar yükselmiş görünür?
+          </p>
+          <ol class="steps">
+            <li>Δ = t (1 − 1/n) = 9 · (1 − 1/1,5)</li>
+            <li>Δ = 9 · (1 − 0,667) = 9 · 0,333</li>
+            <li>Δ = <strong>3 cm</strong></li>
+            <li>Yazı ile levha arasındaki hava boşluğu bu sonucu değiştirmez.</li>
+          </ol>
+        </details>
+
+        <h3 id="k9">Sık yapılan hatalar</h3>
+        <ul>
+          <li><strong>h′ = h·n yazmak.</strong> Havadan bakışta bölme yapılır: h′ = h/n.</li>
+          <li><strong>Görünen derinliği gerçek sanmak.</strong> Görüntü sanaldır; su içinde
+            gerçek bir görüntü oluşmaz.</li>
+          <li><strong>Cismin gerçekten yükseldiğini düşünmek.</strong> Cisim yerinde durur,
+            değişen yalnızca göze ulaşan ışınların doğrultusudur.</li>
+          <li><strong>Sudan havaya bakışta aynı bağıntıyı kullanmak.</strong> O durumda
+            h′ = n·h olur, cisim uzaklaşmış görünür.</li>
+          <li><strong>Cam levhada yükselmeyi t kadar sanmak.</strong> Yükselme t değil,
+            t(1 − 1/n)'dir.</li>
+          <li><strong>Eğik bakışta aynı formülü kullanmak.</strong> Bağıntı dik bakış içindir.</li>
+        </ul>
+
+        <div class="callout">
+          <p>
+            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
+            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+          </p>
+        </div>
+      </div>
+    </dialog>
+    <script>
+      (function () {
+        "use strict";
+
+        /* ============ ortak yardımcılar ============ */
+
+        var COL = {};
+        var PALETTE = ["ink", "muted", "dim", "blue", "lime", "violet",
+                       "amber", "rose", "panel", "border", "chip", "ring", "outline", "scene"];
+
+        /* tuval renkleri CSS belirteçlerinden gelir; tema değişince yeniden okunur */
+        function readPalette() {
+          var cs = getComputedStyle(document.documentElement);
+          for (var i = 0; i < PALETTE.length; i++) {
+            var v = cs.getPropertyValue("--c-" + PALETTE[i]).trim();
+            if (v) COL[PALETTE[i]] = v;
+          }
+        }
+
+        /* bir renge saydamlık ekler */
+        function A(c, a) {
+          c = (c || "").trim();
+          if (c.charAt(0) === "#") {
+            var h = c.slice(1);
+            if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+            var n = parseInt(h.slice(0, 6), 16);
+            return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
+          }
+          if (c.indexOf("rgb") === 0) {
+            var q = c.replace(/rgba?\(|\)/g, "").split(/[,\s\/]+/);
+            return "rgba(" + q[0] + "," + q[1] + "," + q[2] + "," + a + ")";
+          }
+          return c;
+        }
+
+        readPalette();
+        var FONT = "ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif";
+        var TAU = Math.PI * 2;
+
+        function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+        function fmt(n, d) {
+          if (!isFinite(n)) return "–";
+          d = d == null ? 2 : d;
+          var s = n.toFixed(d);
+          if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+          return s.replace(".", ",");
+        }
+
+        function niceStep(range, target) {
+          var raw = range / (target || 5);
+          if (!(raw > 0)) return 1;
+          var pow = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+          var cand = [1, 2, 2.5, 5, 10];
+          for (var i = 0; i < cand.length; i++) {
+            if (cand[i] * pow >= raw - 1e-12) return cand[i] * pow;
+          }
+          return 10 * pow;
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+          if (!(w > 0) || !(h > 0)) { ctx.beginPath(); return false; }
+          r = Math.max(0, Math.min(r, w / 2, h / 2));
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.arcTo(x + w, y, x + w, y + h, r);
+          ctx.arcTo(x + w, y + h, x, y + h, r);
+          ctx.arcTo(x, y + h, x, y, r);
+          ctx.arcTo(x, y, x + w, y, r);
+          ctx.closePath();
+          return true;
+        }
+
+        function dashLine(ctx, x1, y1, x2, y2, color) {
+          ctx.save();
+          ctx.setLineDash([5, 6]);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        /* düşey ok: dir = +1 aşağı, -1 yukarı; side = +1 etiket sağda */
+        function vArrow(ctx, x, y, len, dir, color, label, side) {
+          if (len < 5) return;
+          var ey = y + dir * len;
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.lineWidth = 3;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x, ey - dir * 8);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(x, ey);
+          ctx.lineTo(x - 6, ey - dir * 12);
+          ctx.lineTo(x + 6, ey - dir * 12);
+          ctx.closePath();
+          ctx.fill();
+          if (label) {
+            ctx.font = "700 12px " + FONT;
+            ctx.textAlign = side < 0 ? "right" : "left";
+            ctx.textBaseline = "middle";
+            ctx.fillText(label, x + (side < 0 ? -10 : 10), y + dir * len * 0.5);
+          }
+          ctx.restore();
+        }
+
+        function chip(ctx, text, x, y, color, align) {
+          ctx.save();
+          ctx.font = "700 12px " + FONT;
+          var w = ctx.measureText(text).width + 22, h = 26;
+          var xx = align === "right" ? x - w : (align === "center" ? x - w / 2 : x);
+          roundRect(ctx, xx, y, w, h, 13);
+          ctx.fillStyle = COL.chip;
+          ctx.fill();
+          ctx.globalAlpha = 0.55;
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = color;
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          ctx.fillText(text, xx + 11, y + h / 2 + 0.5);
+          ctx.restore();
+        }
+
+        function orb(ctx, cx, cy, r, c1, c2) {
+          var g = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.4, r * 0.12, cx, cy, r);
+          g.addColorStop(0, c1);
+          g.addColorStop(1, c2);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, TAU);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.outline, 0.5);
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        /* ============ canvas kurulumu ============ */
+
+        var fits = [];
+
+        function kit(id, heightOf) {
+          var el = document.getElementById(id);
+          if (!el) return null;
+          var ctx = el.getContext("2d");
+          var W = 0, H = 0, draw = null;
+
+          function fit() {
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
+            var w = el.clientWidth || 600;
+            var h = Math.round(heightOf(w));
+            el.style.height = h + "px";
+            el.width = Math.round(w * dpr);
+            el.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            W = w;
+            H = h;
+            if (draw) draw();
+          }
+
+          var api = {
+            el: el, ctx: ctx,
+            get w() { return W; },
+            get h() { return H; },
+            fit: fit,
+            bind: function (fn) { draw = fn; }
+          };
+          window.addEventListener("resize", fit);
+          fits.push(fit);
+          fit();
+          return api;
+        }
+
+        /* ============ tek animasyon döngüsü ============ */
+
+        var tickers = new Set();
+        var rafId = 0, prev = 0;
+
+        function loop(ts) {
+          var dt = prev ? Math.min((ts - prev) / 1000, 0.05) : 0;
+          prev = ts;
+          tickers.forEach(function (fn) { fn(dt); });
+          if (tickers.size) {
+            rafId = requestAnimationFrame(loop);
+          } else {
+            rafId = 0;
+            prev = 0;
+          }
+        }
+
+        function play(fn) {
+          tickers.add(fn);
+          if (!rafId) { prev = 0; rafId = requestAnimationFrame(loop); }
+        }
+
+        function halt(fn) { tickers.delete(fn); }
+
+
+        /* serbest yönlü ok */
+        function arrow(ctx, x, y, dx, dy, color, label, width) {
+          var len = Math.sqrt(dx * dx + dy * dy);
+          if (len < 8) return;
+          var ux = dx / len, uy = dy / len;
+          var ex = x + dx, ey = y + dy;
+          var head = Math.min(11, len * 0.45);
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.lineWidth = width || 2.6;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(ex - ux * head * 0.75, ey - uy * head * 0.75);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(ex, ey);
+          ctx.lineTo(ex - ux * head - uy * head * 0.44, ey - uy * head + ux * head * 0.44);
+          ctx.lineTo(ex - ux * head + uy * head * 0.44, ey - uy * head - ux * head * 0.44);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+          if (label) tag(ctx, label, ex + ux * 12, ey + uy * 12, color, "center", 11);
+        }
+
+        /* arkasına sahne rengiyle hâle çizilen küçük etiket */
+        function tag(ctx, text, x, y, color, align, size) {
+          ctx.save();
+          ctx.font = "700 " + (size || 12) + "px " + FONT;
+          ctx.textAlign = align || "center";
+          ctx.textBaseline = "middle";
+          ctx.lineWidth = 3.5;
+          ctx.lineJoin = "round";
+          ctx.strokeStyle = A(COL.scene, 0.9);
+          ctx.strokeText(text, x, y);
+          ctx.fillStyle = color;
+          ctx.fillText(text, x, y);
+          ctx.restore();
+        }
+
+        /* ============ x eksenli grafik paneli ============ */
+
+        function panelX(ctx, X, Y, W, H, o) {
+          if (W < 90 || H < 80) return;
+          roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
+          ctx.fillStyle = COL.panel;
+          ctx.fill();
+          ctx.strokeStyle = COL.border;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          var pl = 52, pr = 16, pt = 38, pb = 30;
+          var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
+          var xM = o.xMax, yM = o.yMax, xm = o.xMin || 0;
+          function px(v) { return x0 + ((v - xm) / (xM - xm)) * (x1 - x0); }
+          function py(v) { return y1 - (v / yM) * (y1 - y0); }
+          ctx.font = "10px " + FONT;
+          var ys = niceStep(yM, 4);
+          for (var v = 0; v <= yM + 1e-9; v += ys) {
+            ctx.strokeStyle = A(COL.dim, 0.14);
+            ctx.beginPath();
+            ctx.moveTo(x0, py(v));
+            ctx.lineTo(x1, py(v));
+            ctx.stroke();
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(fmt(v, ys < 1 ? (ys < 0.1 ? 2 : 1) : 0), x0 - 7, py(v));
+          }
+          ctx.strokeStyle = A(COL.dim, 0.42);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0 - 6);
+          ctx.lineTo(x0, y1);
+          ctx.lineTo(x1, y1);
+          ctx.stroke();
+          var xs = niceStep(xM - xm, 4);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "top";
+          for (var t = Math.ceil(xm / xs) * xs; t <= xM + 1e-9; t += xs) {
+            ctx.fillStyle = COL.dim;
+            ctx.fillText(fmt(t, xs < 1 ? 1 : 0), px(t), y1 + 6);
+          }
+          ctx.strokeStyle = o.color;
+          ctx.lineWidth = 2.5;
+          ctx.lineJoin = "round";
+          ctx.beginPath();
+          var pen = false;
+          for (var i = 0; i <= 110; i++) {
+            var xv = xm + ((xM - xm) * i) / 110;
+            var yv = o.f(xv);
+            if (!isFinite(yv) || yv > yM || yv < 0) { pen = false; continue; }
+            if (pen) ctx.lineTo(px(xv), py(yv)); else ctx.moveTo(px(xv), py(yv));
+            pen = true;
+          }
+          ctx.stroke();
+          var mx = px(clamp(o.xNow, xm, xM)), my = py(clamp(o.f(o.xNow), 0, yM));
+          dashLine(ctx, mx, my, mx, y1, A(COL.dim, 0.45));
+          dashLine(ctx, x0, my, mx, my, A(COL.dim, 0.45));
+          ctx.fillStyle = o.color;
+          ctx.beginPath();
+          ctx.arc(mx, my, 5, 0, TAU);
+          ctx.fill();
+          ctx.strokeStyle = COL.ring;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.font = "700 12.5px " + FONT;
+          ctx.fillStyle = o.color;
+          ctx.fillText(o.title, X + 17, Y + 24);
+          ctx.textAlign = "right";
+          ctx.font = "10.5px " + FONT;
+          ctx.fillStyle = COL.dim;
+          ctx.fillText(o.xLabel, X + W - 17, Y + H - 8);
+        }
+        /* ============ zaman eksenli iki eğri paneli ============ */
+
+        function panelT(ctx, X, Y, W, H, o) {
+          if (W < 90 || H < 80) return;
+          roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
+          ctx.fillStyle = COL.panel;
+          ctx.fill();
+          ctx.strokeStyle = COL.border;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          var pl = 52, pr = 16, pt = 38, pb = 28;
+          var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
+          var tM = Math.max(o.tEnd, 1e-6), yM = o.yMax;
+          var ys = niceStep(yM, 2);
+          yM = Math.ceil(yM / ys) * ys;              /* eksen sayıları yuvarlak dursun */
+          function px(t) { return x0 + (t / tM) * (x1 - x0); }
+          function py(v) { return (y0 + y1) / 2 - (v / yM) * ((y1 - y0) / 2); }
+          ctx.font = "10px " + FONT;
+          for (var v = -yM; v <= yM + 1e-9; v += ys) {
+            ctx.strokeStyle = Math.abs(v) < 1e-12 ? A(COL.dim, 0.45) : A(COL.dim, 0.14);
+            ctx.beginPath();
+            ctx.moveTo(x0, py(v));
+            ctx.lineTo(x1, py(v));
+            ctx.stroke();
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(fmt(v, ys < 1 ? 1 : 0), x0 - 7, py(v));
+          }
+          ctx.strokeStyle = A(COL.dim, 0.42);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0 - 4);
+          ctx.lineTo(x0, y1);
+          ctx.stroke();
+          ctx.strokeStyle = o.color;
+          ctx.lineWidth = 2.4;
+          ctx.lineJoin = "round";
+          ctx.beginPath();
+          for (var i = 0; i <= 140; i++) {
+            var t = (tM * i) / 140;
+            var yy = py(clamp(o.f(t), -yM, yM));
+            if (i) ctx.lineTo(px(t), yy); else ctx.moveTo(px(t), yy);
+          }
+          ctx.stroke();
+          if (o.tNow != null) {
+            var mx = px(clamp(o.tNow, 0, tM)), my = py(clamp(o.f(clamp(o.tNow, 0, tM)), -yM, yM));
+            dashLine(ctx, mx, y0 - 4, mx, y1, A(COL.dim, 0.4));
+            ctx.fillStyle = o.color;
+            ctx.beginPath();
+            ctx.arc(mx, my, 4.5, 0, TAU);
+            ctx.fill();
+            ctx.strokeStyle = COL.ring;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.font = "700 12.5px " + FONT;
+          ctx.fillStyle = o.color;
+          ctx.fillText(o.title, X + 17, Y + 24);
+          ctx.textAlign = "right";
+          ctx.font = "10.5px " + FONT;
+          ctx.fillStyle = COL.dim;
+          ctx.fillText(o.unit, X + W - 17, Y + 24);
+        }
+
+        /* ============ çok eğrili x eksenli panel ============ */
+
+        function panelXY(ctx, X, Y, W, H, o) {
+          if (W < 90 || H < 80) return;
+          roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
+          ctx.fillStyle = COL.panel;
+          ctx.fill();
+          ctx.strokeStyle = COL.border;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          var pl = 54, pr = 16, pt = 38, pb = 32;
+          var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
+          var xm = o.xMin || 0, xM = o.xMax, yM = o.yMax;
+          function px(v) { return x0 + ((v - xm) / (xM - xm)) * (x1 - x0); }
+          function py(v) { return y1 - (v / yM) * (y1 - y0); }
+          ctx.font = "10px " + FONT;
+          var ys = niceStep(yM, 4);
+          yM = Math.ceil(yM / ys) * ys;
+          for (var v = 0; v <= yM + 1e-9; v += ys) {
+            ctx.strokeStyle = A(COL.dim, 0.14);
+            ctx.beginPath();
+            ctx.moveTo(x0, py(v));
+            ctx.lineTo(x1, py(v));
+            ctx.stroke();
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(fmt(v, ys < 1 ? (ys < 0.1 ? 2 : 1) : 0), x0 - 7, py(v));
+          }
+          ctx.strokeStyle = A(COL.dim, 0.42);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0 - 6);
+          ctx.lineTo(x0, y1);
+          ctx.lineTo(x1, y1);
+          ctx.stroke();
+          var xs = niceStep(xM - xm, 4);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "top";
+          for (var t = Math.ceil(xm / xs) * xs; t <= xM + 1e-9; t += xs) {
+            ctx.fillStyle = COL.dim;
+            ctx.fillText(fmt(t, xs < 1 ? 1 : 0), px(t), y1 + 6);
+          }
+          (o.curves || []).forEach(function (c) {
+            ctx.strokeStyle = c.color;
+            ctx.lineWidth = c.dash ? 2 : 2.5;
+            ctx.lineJoin = "round";
+            ctx.save();
+            if (c.dash) ctx.setLineDash([6, 5]);
+            ctx.beginPath();
+            var pen = false;
+            for (var i = 0; i <= 140; i++) {
+              var xv = xm + ((xM - xm) * i) / 140;
+              var yv = c.f(xv);
+              if (!isFinite(yv) || yv > yM || yv < 0) { pen = false; continue; }
+              if (pen) ctx.lineTo(px(xv), py(yv)); else ctx.moveTo(px(xv), py(yv));
+              pen = true;
+            }
+            ctx.stroke();
+            ctx.restore();
+            if (c.now != null) {
+              var mv = clamp(c.f(c.now), 0, yM);
+              ctx.fillStyle = c.color;
+              ctx.beginPath();
+              ctx.arc(px(clamp(c.now, xm, xM)), py(mv), 5, 0, TAU);
+              ctx.fill();
+              ctx.strokeStyle = COL.ring;
+              ctx.lineWidth = 2;
+              ctx.stroke();
+            }
+          });
+          if (o.markX != null) {
+            dashLine(ctx, px(clamp(o.markX, xm, xM)), y0 - 4,
+              px(clamp(o.markX, xm, xM)), y1, A(COL.dim, 0.5));
+          }
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.font = "700 12.5px " + FONT;
+          ctx.fillStyle = o.color || COL.ink;
+          ctx.fillText(o.title, X + 17, Y + 24);
+          ctx.textAlign = "right";
+          ctx.font = "10.5px " + FONT;
+          ctx.fillStyle = COL.dim;
+          ctx.fillText(o.xLabel, X + W - 17, Y + H - 8);
+          /* eğri adları */
+          var lx = X + 17, ly = Y + H - 10;
+          (o.curves || []).forEach(function (c) {
+            if (!c.label) return;
+            ctx.font = "700 10.5px " + FONT;
+            ctx.textAlign = "left";
+            ctx.fillStyle = c.color;
+            ctx.fillText("— " + c.label, lx, ly);
+            lx += ctx.measureText("— " + c.label).width + 14;
+          });
+        }
+
+        /* renkli dolgu üzerindeki yazı için okunur mürekkep */
+        function ink(c) {
+          var q = A(c, 1).replace(/rgba?\(|\)/g, "").split(/[,\s\/]+/);
+          var l = (0.299 * +q[0] + 0.587 * +q[1] + 0.114 * +q[2]) / 255;
+          return l > 0.58 ? "#101528" : "#ffffff";
+        }
+
+        /* ============ 01 · havuz laboratuvarı ============ */
+
+        (function havuz() {
+          var S = kit("lab-scene", function (w) { return clamp(w * 0.48, 300, 360); });
+          var G = kit("lab-graphs", function (w) { return w < 640 ? 560 : 280; });
+          if (!S || !G) return;
+
+          var st = { h: 200, n: 1.33 };
+
+          function hp() { return st.h / st.n; }
+
+          function drawScene() {
+            var ctx = S.ctx, W = S.w, H = S.h;
+            ctx.clearRect(0, 0, W, H);
+            var ySurf = H * 0.26, yBot = H - 26;
+            var sc = (yBot - ySurf) / 300;
+            var ox = W * 0.44;
+            var oy = ySurf + st.h * sc;
+            var ay = ySurf + hp() * sc;
+
+            /* su */
+            ctx.fillStyle = A(COL.blue, 0.16);
+            ctx.fillRect(0, ySurf, W, yBot - ySurf);
+            ctx.fillStyle = A(COL.dim, 0.3);
+            ctx.fillRect(0, yBot, W, H - yBot);
+            ctx.strokeStyle = A(COL.blue, 0.7);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, ySurf + 0.5);
+            ctx.lineTo(W, ySurf + 0.5);
+            ctx.stroke();
+            tag(ctx, "su · n = " + fmt(st.n, 2), 14, ySurf + 20, COL.blue, "left", 11);
+            tag(ctx, "hava", 14, ySurf - 14, COL.dim, "left", 11);
+
+            /* göz */
+            var ex = ox + 52, ey = ySurf - H * 0.17;
+            ctx.save();
+            ctx.strokeStyle = COL.ink;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(ex - 13, ey);
+            ctx.quadraticCurveTo(ex, ey - 11, ex + 13, ey);
+            ctx.quadraticCurveTo(ex, ey + 11, ex - 13, ey);
+            ctx.stroke();
+            ctx.fillStyle = COL.ink;
+            ctx.beginPath();
+            ctx.arc(ex, ey, 3.6, 0, TAU);
+            ctx.fill();
+            ctx.restore();
+
+            /* dik ışın */
+            ctx.strokeStyle = A(COL.amber, 0.9);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(ox, oy);
+            ctx.lineTo(ox, ySurf);
+            ctx.stroke();
+            ctx.strokeStyle = A(COL.lime, 0.9);
+            ctx.beginPath();
+            ctx.moveTo(ox, ySurf);
+            ctx.lineTo(ox, ey + 8);
+            ctx.stroke();
+
+            /* eğik ışın: 12° */
+            var t1 = (12 * Math.PI) / 180;
+            var hx = ox + Math.tan(t1) * (oy - ySurf);
+            var s2 = Math.min(1, st.n * Math.sin(t1));
+            var t2 = Math.asin(s2);
+            ctx.strokeStyle = A(COL.amber, 0.9);
+            ctx.beginPath();
+            ctx.moveTo(ox, oy);
+            ctx.lineTo(hx, ySurf);
+            ctx.stroke();
+            ctx.strokeStyle = A(COL.lime, 0.9);
+            ctx.beginPath();
+            ctx.moveTo(hx, ySurf);
+            ctx.lineTo(hx + Math.tan(t2) * (ySurf - ey + 8), ey - 8);
+            ctx.stroke();
+            /* geriye uzantı */
+            dashLine(ctx, hx, ySurf, ox, ay, A(COL.violet, 0.8));
+
+            /* cisim ve görünen konum */
+            ctx.fillStyle = COL.amber;
+            ctx.beginPath();
+            ctx.arc(ox, oy, 9, 0, TAU);
+            ctx.fill();
+            ctx.strokeStyle = COL.ring;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            tag(ctx, "gerçek yeri", ox - 14, oy + 4, COL.amber, "right", 10.5);
+
+            ctx.save();
+            ctx.setLineDash([4, 4]);
+            ctx.strokeStyle = COL.violet;
+            ctx.fillStyle = A(COL.violet, 0.3);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(ox, ay, 9, 0, TAU);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+            tag(ctx, "göründüğü yer", ox - 14, ay + 4, COL.violet, "right", 10.5);
+
+            /* ölçüler */
+            var mx = W - 46;
+            arrow(ctx, mx, ySurf, 0, oy - ySurf, A(COL.amber, 0.8), null, 1.6);
+            arrow(ctx, mx, oy, 0, ySurf - oy, A(COL.amber, 0.8), null, 1.6);
+            tag(ctx, "h = " + fmt(st.h, 0) + " cm", mx - 8, (ySurf + oy) / 2 + 14,
+              COL.amber, "right", 10.5);
+            arrow(ctx, mx - 104, ySurf, 0, ay - ySurf, A(COL.violet, 0.8), null, 1.6);
+            arrow(ctx, mx - 104, ay, 0, ySurf - ay, A(COL.violet, 0.8), null, 1.6);
+            tag(ctx, "h′ = " + fmt(hp(), 0) + " cm", mx - 112, (ySurf + ay) / 2,
+              COL.violet, "right", 10.5);
+
+            chip(ctx, "h′ = h / n", 10, 10, COL.violet, "left");
+          }
+
+          function drawGraphs() {
+            var ctx = G.ctx, W = G.w, H = G.h;
+            ctx.clearRect(0, 0, W, H);
+            var stacked = W < 640, gap = 10;
+            var pw = stacked ? W : (W - gap) / 2;
+            var ph = stacked ? (H - gap) / 2 : H;
+            panelXY(ctx, 0, 0, pw, ph, {
+              title: "h′ – h · doğru orantı", xLabel: "gerçek derinlik h (cm)",
+              color: COL.violet, xMin: 0, xMax: 300, yMax: 300,
+              curves: [
+                { f: function (x) { return x / st.n; }, color: COL.violet, label: "görünen", now: st.h },
+                { f: function (x) { return x; }, color: A(COL.dim, 0.55), label: "gerçek", dash: true }
+              ]
+            });
+            panelXY(ctx, stacked ? 0 : pw + gap, stacked ? ph + gap : 0, pw, ph, {
+              title: "h′ – n · ters orantı", xLabel: "kırılma indisi n",
+              color: COL.blue, xMin: 1, xMax: 2, yMax: Math.max(st.h, 40),
+              curves: [{ f: function (x) { return st.h / x; }, color: COL.blue,
+                label: "görünen derinlik", now: st.n }]
+            });
+          }
+
+          function sync() {
+            document.getElementById("o-h").textContent = st.h + " cm";
+            document.getElementById("ro-h").textContent = fmt(st.h, 0);
+            document.getElementById("ro-hp").textContent = fmt(hp(), 0);
+            document.getElementById("ro-dh").textContent = fmt(st.h - hp(), 0);
+            document.getElementById("ro-ratio").textContent = fmt(1 / st.n, 2);
+            document.getElementById("ro-note").textContent =
+              "%" + fmt((1 - 1 / st.n) * 100, 0) + " daha sığ görünür";
+            document.getElementById("s-eq").textContent =
+              fmt(st.h, 0) + " / " + fmt(st.n, 2) + " = " + fmt(hp(), 0);
+            document.getElementById("s-rise").textContent = "%" + fmt((1 - 1 / st.n) * 100, 0);
+            document.getElementById("s-v").textContent = fmt(3 / st.n, 2) + "×10⁸ m/s";
+            drawScene();
+            drawGraphs();
+          }
+
+          var el = document.getElementById("c-h");
+          function paint() {
+            el.style.setProperty("--p", (((+el.value - 20) / 280) * 100).toFixed(1) + "%");
+          }
+          el.addEventListener("input", function () { st.h = +el.value; paint(); sync(); });
+          paint();
+
+          var seg = document.getElementById("sivi");
+          seg.addEventListener("click", function (e) {
+            var b = e.target.closest("button");
+            if (!b || !seg.contains(b)) return;
+            var all = seg.querySelectorAll("button");
+            for (var i = 0; i < all.length; i++) {
+              all[i].setAttribute("aria-pressed", all[i] === b ? "true" : "false");
+            }
+            st.n = +b.dataset.n;
+            sync();
+          });
+
+          S.bind(drawScene);
+          G.bind(drawGraphs);
+          sync();
+        })();
+
+        /* ============ 02 · balığa nişan almak ============ */
+
+        (function balik() {
+          var B = kit("bl-scene", function (w) { return clamp(w * 0.46, 290, 350); });
+          if (!B) return;
+
+          var N = 1.33;
+          var st = { h: 90, x: 160, a: 35, atis: null, vurdu: null };
+          var verdict = document.getElementById("bl-verdict");
+
+          function hp() { return st.h / N; }
+
+          function drawScene() {
+            var ctx = B.ctx, W = B.w, H = B.h;
+            ctx.clearRect(0, 0, W, H);
+            var ySurf = H * 0.34, yBot = H - 18;
+            var sc = (yBot - ySurf) / 160;
+            var px = W * 0.16;                       /* avcının yeri */
+            var py = ySurf - H * 0.22;
+
+            ctx.fillStyle = A(COL.blue, 0.16);
+            ctx.fillRect(0, ySurf, W, yBot - ySurf);
+            ctx.strokeStyle = A(COL.blue, 0.7);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, ySurf + 0.5);
+            ctx.lineTo(W, ySurf + 0.5);
+            ctx.stroke();
+
+            var fx = px + st.x * sc, fy = ySurf + st.h * sc;
+            var ay = ySurf + hp() * sc;
+
+            /* balık ve görünen balık */
+            function fish(x, y, color, hayalet) {
+              ctx.save();
+              if (hayalet) ctx.setLineDash([4, 4]);
+              ctx.strokeStyle = color;
+              ctx.fillStyle = hayalet ? A(color, 0.25) : A(color, 0.85);
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.ellipse(x, y, 16, 8, 0, 0, TAU);
+              ctx.fill();
+              ctx.stroke();
+              ctx.beginPath();
+              ctx.moveTo(x + 15, y);
+              ctx.lineTo(x + 26, y - 7);
+              ctx.lineTo(x + 26, y + 7);
+              ctx.closePath();
+              ctx.fill();
+              ctx.stroke();
+              ctx.restore();
+            }
+            fish(fx, ay, COL.violet, true);
+            fish(fx, fy, COL.amber, false);
+            tag(ctx, "göründüğü yer", fx + 32, ay, COL.violet, "left", 10.5);
+            tag(ctx, "gerçek yeri", fx + 32, fy, COL.amber, "left", 10.5);
+
+            /* görüş ışını: gerçek balıktan yüzeye, oradan göze */
+            var sx = px + (fx - px) * 0.62;
+            ctx.strokeStyle = A(COL.amber, 0.7);
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(fx, fy);
+            ctx.lineTo(sx, ySurf);
+            ctx.lineTo(px + 10, py + 8);
+            ctx.stroke();
+            dashLine(ctx, sx, ySurf, fx, ay, A(COL.violet, 0.7));
+
+            /* avcı */
+            ctx.strokeStyle = COL.ink;
+            ctx.lineWidth = 2.4;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.arc(px, py - 14, 9, 0, TAU);
+            ctx.moveTo(px, py - 5);
+            ctx.lineTo(px, py + 22);
+            ctx.moveTo(px, py + 22);
+            ctx.lineTo(px - 10, ySurf - 2);
+            ctx.moveTo(px, py + 22);
+            ctx.lineTo(px + 10, ySurf - 2);
+            ctx.stroke();
+
+            /* nişan doğrultusu */
+            var ar = (st.a * Math.PI) / 180;
+            var L = Math.min(W - px - 20, 320);
+            ctx.save();
+            ctx.setLineDash([6, 5]);
+            ctx.strokeStyle = A(COL.rose, 0.7);
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(px + 8, py + 6);
+            ctx.lineTo(px + 8 + Math.cos(ar) * L, py + 6 + Math.sin(ar) * L);
+            ctx.stroke();
+            ctx.restore();
+
+            /* atılan mızrak */
+            if (st.atis != null) {
+              ctx.strokeStyle = st.vurdu ? COL.lime : COL.rose;
+              ctx.lineWidth = 3;
+              ctx.beginPath();
+              ctx.moveTo(px + 8, py + 6);
+              ctx.lineTo(st.atis.x, st.atis.y);
+              ctx.stroke();
+              ctx.fillStyle = st.vurdu ? COL.lime : COL.rose;
+              ctx.beginPath();
+              ctx.arc(st.atis.x, st.atis.y, 5, 0, TAU);
+              ctx.fill();
+            }
+
+            chip(ctx, "n = 1,33", 10, 10, COL.blue, "left");
+            chip(ctx, "nişan " + fmt(st.a, 0) + "°", W - 10, 10, COL.rose, "right");
+          }
+
+          function atis() {
+            var W = B.w, H = B.h;
+            var ySurf = H * 0.34, yBot = H - 18;
+            var sc = (yBot - ySurf) / 160;
+            var px = W * 0.16, py = ySurf - H * 0.22;
+            var ar = (st.a * Math.PI) / 180;
+            var fx = px + st.x * sc, fy = ySurf + st.h * sc;
+            /* mızrak doğru boyunca gider; balığın derinliğine geldiğinde nerede? */
+            var t = (fy - (py + 6)) / Math.sin(ar);
+            var hitx = px + 8 + Math.cos(ar) * t;
+            st.atis = { x: hitx, y: fy };
+            var fark = (hitx - fx) / sc;
+            st.vurdu = Math.abs(fark) < 14;
+            document.getElementById("bl-res").textContent = st.vurdu
+              ? "vurdun" : (fark > 0 ? fmt(Math.abs(fark), 0) + " cm arkasına" :
+                fmt(Math.abs(fark), 0) + " cm önüne");
+            verdict.className = "verdict " + (st.vurdu ? "ok" : "no");
+            verdict.textContent = st.vurdu
+              ? "Vurdun! Gerçek balığın bulunduğu doğrultuya nişan aldın."
+              : "Iskaladın: mızrak balığın " + (fark > 0 ? "arkasına" : "önüne") + " " +
+                fmt(Math.abs(fark), 0) + " cm uzağa düştü. Unutma, gördüğün balık gerçek balığın " +
+                fmt(st.h - hp(), 0) + " cm yukarısında.";
+            drawScene();
+          }
+
+          function yeni() {
+            st.h = 60 + Math.round(Math.random() * 12) * 5;
+            st.x = 120 + Math.round(Math.random() * 12) * 10;
+            st.atis = null;
+            st.vurdu = null;
+            verdict.className = "verdict";
+            verdict.textContent = "Yeni balık: derinliği " + st.h + " cm. Nişan al ve at.";
+            document.getElementById("bl-h").textContent = st.h + " cm";
+            document.getElementById("bl-hp").textContent = fmt(hp(), 0) + " cm";
+            document.getElementById("bl-res").textContent = "–";
+            drawScene();
+          }
+
+          var el = document.getElementById("bl-a");
+          function paint() {
+            el.style.setProperty("--p", (((+el.value - 10) / 60) * 100).toFixed(1) + "%");
+          }
+          el.addEventListener("input", function () {
+            st.a = +el.value;
+            document.getElementById("bl-a-out").textContent = el.value + "°";
+            st.atis = null;
+            paint();
+            drawScene();
+          });
+          paint();
+
+          document.getElementById("bl-throw").addEventListener("click", atis);
+          document.getElementById("bl-new").addEventListener("click", yeni);
+
+          B.bind(drawScene);
+          document.getElementById("bl-h").textContent = st.h + " cm";
+          document.getElementById("bl-hp").textContent = fmt(hp(), 0) + " cm";
+          drawScene();
+        })();
+
+        /* ============ 03 · sudan havaya bakış ============ */
+
+        (function yukari() {
+          var Y = kit("yk-scene", function (w) { return clamp(w * 0.46, 290, 350); });
+          if (!Y) return;
+
+          var st = { h: 150, n: 1.33 };
+          var verdict = document.getElementById("yk-verdict");
+
+          function hp() { return st.n * st.h; }
+
+          function drawScene() {
+            var ctx = Y.ctx, W = Y.w, H = Y.h;
+            ctx.clearRect(0, 0, W, H);
+            var ySurf = H * 0.62;
+            var sc = (ySurf - 22) / 420;               /* 420 cm tuvale sığar */
+            var ox = W * 0.46;
+            var oy = ySurf - st.h * sc;
+            var ay = ySurf - hp() * sc;
+
+            ctx.fillStyle = A(COL.blue, 0.16);
+            ctx.fillRect(0, ySurf, W, H - ySurf);
+            ctx.strokeStyle = A(COL.blue, 0.7);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, ySurf + 0.5);
+            ctx.lineTo(W, ySurf + 0.5);
+            ctx.stroke();
+            tag(ctx, "su · n = " + fmt(st.n, 2), 14, ySurf + 20, COL.blue, "left", 11);
+
+            /* su altındaki göz */
+            var ex = ox + 60, ey = ySurf + (H - ySurf) * 0.55;
+            ctx.save();
+            ctx.strokeStyle = COL.ink;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(ex - 13, ey);
+            ctx.quadraticCurveTo(ex, ey - 11, ex + 13, ey);
+            ctx.quadraticCurveTo(ex, ey + 11, ex - 13, ey);
+            ctx.stroke();
+            ctx.fillStyle = COL.ink;
+            ctx.beginPath();
+            ctx.arc(ex, ey, 3.6, 0, TAU);
+            ctx.fill();
+            ctx.restore();
+            tag(ctx, "dalgıç", ex, ey + 24, COL.dim, "center", 10.5);
+
+            /* ışınlar: dik ve eğik */
+            ctx.strokeStyle = A(COL.amber, 0.9);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(ox, oy);
+            ctx.lineTo(ox, ySurf);
+            ctx.stroke();
+
+            var t1 = (16 * Math.PI) / 180;
+            var hx = ox + Math.tan(t1) * (ySurf - oy);
+            var t2 = Math.asin(Math.sin(t1) / st.n);
+            ctx.beginPath();
+            ctx.moveTo(ox, oy);
+            ctx.lineTo(hx, ySurf);
+            ctx.stroke();
+            ctx.strokeStyle = A(COL.lime, 0.9);
+            ctx.beginPath();
+            ctx.moveTo(hx, ySurf);
+            ctx.lineTo(hx + Math.tan(t2) * (ey - ySurf), ey);
+            ctx.stroke();
+            dashLine(ctx, hx, ySurf, ox, ay, A(COL.violet, 0.8));
+
+            /* cisim ve görünen konum */
+            orb(ctx, ox, oy, 11, "rgba(255,255,255,0.95)", A(COL.amber, 0.9));
+            tag(ctx, "gerçek yeri", ox - 18, oy, COL.amber, "right", 10.5);
+            ctx.save();
+            ctx.setLineDash([4, 4]);
+            ctx.strokeStyle = COL.violet;
+            ctx.fillStyle = A(COL.violet, 0.28);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(ox, ay, 11, 0, TAU);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+            tag(ctx, "göründüğü yer", ox - 18, ay, COL.violet, "right", 10.5);
+
+            /* ölçüler */
+            var mx = W - 34;
+            arrow(ctx, mx, ySurf, 0, oy - ySurf, A(COL.amber, 0.8), null, 1.6);
+            arrow(ctx, mx, oy, 0, ySurf - oy, A(COL.amber, 0.8), null, 1.6);
+            tag(ctx, "h", mx + 10, (ySurf + oy) / 2, COL.amber, "left", 11);
+            arrow(ctx, mx - 40, ySurf, 0, ay - ySurf, A(COL.violet, 0.8), null, 1.6);
+            arrow(ctx, mx - 40, ay, 0, ySurf - ay, A(COL.violet, 0.8), null, 1.6);
+            tag(ctx, "h′", mx - 48, (ySurf + ay) / 2, COL.violet, "right", 11);
+
+            chip(ctx, "h′ = n · h", 10, 10, COL.violet, "left");
+          }
+
+          function sync() {
+            document.getElementById("yk-h-out").textContent = st.h + " cm";
+            document.getElementById("yk-n-out").textContent = fmt(st.n, 2);
+            document.getElementById("yk-hp").textContent = fmt(hp(), 0) + " cm";
+            document.getElementById("yk-dh").textContent = fmt(hp() - st.h, 0) + " cm";
+            document.getElementById("yk-ratio").textContent = fmt(st.n, 2) + " kat";
+            verdict.textContent = "Yüzeyden " + st.h + " cm yukarıdaki cisim, sudaki gözlemciye " +
+              fmt(hp(), 0) + " cm yükseklikte görünür: " + fmt(hp() - st.h, 0) +
+              " cm daha uzakta.";
+            drawScene();
+          }
+
+          function paint(el) {
+            var lo = +el.min, hi = +el.max;
+            el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+          }
+          var hIn = document.getElementById("yk-h"), nIn = document.getElementById("yk-n");
+          hIn.addEventListener("input", function () { st.h = +hIn.value; paint(hIn); sync(); });
+          nIn.addEventListener("input", function () { st.n = +nIn.value / 100; paint(nIn); sync(); });
+          paint(hIn);
+          paint(nIn);
+
+          Y.bind(drawScene);
+          sync();
+        })();
+
+        /* ============ 04 · cam levha ============ */
+
+        (function camLevha() {
+          var L = kit("lv-scene", function (w) { return clamp(w * 0.44, 280, 340); });
+          if (!L) return;
+
+          var st = { t: 6, n: 1.5 };
+          var verdict = document.getElementById("lv-verdict");
+
+          function delta() { return st.t * (1 - 1 / st.n); }
+
+          function drawScene() {
+            var ctx = L.ctx, W = L.w, H = L.h;
+            ctx.clearRect(0, 0, W, H);
+            var sc = (H - 120) / 14;
+            var yYazi = H - 40;
+            var y1 = yYazi - 6, y0 = y1 - st.t * sc;
+            var cx = W * 0.42;
+
+            /* masa/yazı */
+            ctx.fillStyle = A(COL.dim, 0.22);
+            ctx.fillRect(20, yYazi, W - 40, 8);
+            tag(ctx, "FİZİK", cx, yYazi - 10, COL.amber, "center", 15);
+
+            /* cam levha */
+            ctx.fillStyle = A(COL.blue, 0.18);
+            ctx.fillRect(28, y0, W - 56, y1 - y0);
+            ctx.strokeStyle = A(COL.blue, 0.6);
+            ctx.lineWidth = 1.6;
+            ctx.strokeRect(28, y0, W - 56, y1 - y0);
+            tag(ctx, "cam · n = " + fmt(st.n, 2), W - 40, (y0 + y1) / 2, COL.blue, "right", 11);
+
+            /* görünen yazı */
+            var ay = yYazi - 10 - delta() * sc;
+            ctx.save();
+            ctx.globalAlpha = 0.65;
+            tag(ctx, "FİZİK", cx, ay, COL.violet, "center", 15);
+            ctx.restore();
+            tag(ctx, "göründüğü yer", cx + 58, ay, COL.violet, "left", 10);
+
+            /* ışınlar */
+            var ex = cx + 74, ey = 30;
+            ctx.save();
+            ctx.strokeStyle = COL.ink;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(ex - 12, ey);
+            ctx.quadraticCurveTo(ex, ey - 10, ex + 12, ey);
+            ctx.quadraticCurveTo(ex, ey + 10, ex - 12, ey);
+            ctx.stroke();
+            ctx.fillStyle = COL.ink;
+            ctx.beginPath();
+            ctx.arc(ex, ey, 3.4, 0, TAU);
+            ctx.fill();
+            ctx.restore();
+
+            var i1 = (22 * Math.PI) / 180;
+            var r1 = Math.asin(Math.sin(i1) / st.n);
+            var xIn = cx + Math.tan(r1) * (y1 - y0);
+            ctx.strokeStyle = A(COL.amber, 0.9);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(cx, yYazi - 8);
+            ctx.lineTo(cx, y1);
+            ctx.lineTo(cx, y1);
+            ctx.stroke();
+            /* eğik ışın */
+            ctx.beginPath();
+            ctx.moveTo(cx, yYazi - 8);
+            ctx.lineTo(xIn, y1);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(xIn, y1);
+            ctx.lineTo(xIn + Math.tan(r1) * 0, y0);
+            ctx.stroke();
+            ctx.strokeStyle = A(COL.lime, 0.9);
+            ctx.beginPath();
+            ctx.moveTo(xIn, y0);
+            ctx.lineTo(xIn + Math.tan(i1) * (y0 - ey), ey);
+            ctx.stroke();
+            dashLine(ctx, xIn, y0, cx, ay + 4, A(COL.violet, 0.8));
+
+            /* yükselme ölçüsü */
+            var mx = 44;
+            arrow(ctx, mx, yYazi - 10, 0, -delta() * sc, COL.rose, null, 1.8);
+            tag(ctx, "Δ = " + fmt(delta(), 1) + " cm", mx + 8, yYazi - 10 - delta() * sc / 2,
+              COL.rose, "left", 11);
+
+            chip(ctx, "t = " + fmt(st.t, 0) + " cm", 10, 10, COL.blue, "left");
+          }
+
+          function sync() {
+            document.getElementById("lv-t-out").textContent = st.t + " cm";
+            document.getElementById("lv-n-out").textContent = fmt(st.n, 2);
+            document.getElementById("lv-d").textContent = fmt(delta(), 2) + " cm";
+            document.getElementById("lv-app").textContent = fmt(st.t / st.n, 2) + " cm";
+            document.getElementById("lv-v").textContent = fmt(3 / st.n, 2) + "×10⁸ m/s";
+            verdict.textContent = fmt(st.t, 0) + " cm kalınlığındaki levha (n = " +
+              fmt(st.n, 2) + "), altındaki yazıyı " + fmt(delta(), 2) +
+              " cm yukarı taşımış gibi gösterir: levhanın " + fmt(st.t, 0) +
+              " cm'lik kalınlığı " + fmt(st.t / st.n, 2) + " cm gibi görünür.";
+            drawScene();
+          }
+
+          function paint(el) {
+            var lo = +el.min, hi = +el.max;
+            el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+          }
+          var tIn = document.getElementById("lv-t"), nIn = document.getElementById("lv-n");
+          tIn.addEventListener("input", function () { st.t = +tIn.value; paint(tIn); sync(); });
+          nIn.addEventListener("input", function () { st.n = +nIn.value / 100; paint(nIn); sync(); });
+          paint(tIn);
+          paint(nIn);
+
+          L.bind(drawScene);
+          sync();
+        })();
+
+        /* ============ 05 · hızlı kontrol ============ */
+
+        (function quiz() {
+          var box = document.getElementById("quiz");
+          if (!box) return;
+
+          var DATA = [
+            {
+              q: "Derinliği 120 cm olan bir havuzun dibi, yukarıdan bakan biri için kaç cm derinlikte görünür? (n = 4/3)",
+              o: ["90 cm", "120 cm", "160 cm", "180 cm"],
+              a: 0,
+              why: "h′ = h/n = 120/(4/3) = 120 · 3/4 = 90 cm. Su içindeki cisimler gerçek derinliğinin dörtte üçünde görünür."
+            },
+            {
+              q: "Bir sıvının 80 cm derinliğindeki cisim 50 cm'de görünüyorsa sıvının kırılma indisi kaçtır?",
+              o: ["0,62", "1,30", "1,60", "2,00"],
+              a: 2,
+              why: "n = h/h′ = 80/50 = 1,6. Görünen derinlik ne kadar küçükse indis o kadar büyüktür."
+            },
+            {
+              q: "Su altındaki bir dalgıç, yüzeyden 90 cm yukarıdaki bir cismi kaç cm yükseklikte görür? (n = 4/3)",
+              o: ["67,5 cm", "90 cm", "120 cm", "150 cm"],
+              a: 2,
+              why: "Gözlemci yoğun ortamdaysa h′ = n·h = (4/3)·90 = 120 cm. Bu durumda cisim uzaklaşmış görünür; havadan bakışın tam tersi."
+            },
+            {
+              q: "Kalınlığı 6 cm, indisi 1,5 olan cam levha altındaki yazı ne kadar yükselmiş görünür?",
+              o: ["1 cm", "2 cm", "3 cm", "6 cm"],
+              a: 1,
+              why: "Δ = t(1 − 1/n) = 6 · (1 − 1/1,5) = 6 · (1/3) = 2 cm. Yükselme levhanın kalınlığı kadar değil, onun üçte biri kadardır."
+            },
+            {
+              q: "Suyun içindeki bir taş için hangisi doğrudur?",
+              o: ["Gerçekten yukarı çıkar", "Görüntüsü gerçektir, perdeye düşer", "Görüntüsü sanaldır, olduğundan yukarıda görünür", "Görüntüsü olduğundan derinde görünür"],
+              a: 2,
+              why: "Taş yerinde durur; değişen, göze ulaşan ışınların doğrultusudur. Kırılan ışınların uzantıları gerçek yerin yukarısında kesişir ve sanal bir görüntü oluşturur."
+            }
+          ];
+
+          var KEYS = ["A", "B", "C", "D"];
+          var scoreEl = document.getElementById("quiz-score");
+          var finalEl = document.getElementById("quiz-final");
+          var score = 0;
+
+          function finish() {
+            if (!finalEl) return;
+            finalEl.textContent = score === DATA.length
+              ? "Kusursuz — beşi de doğru."
+              : score >= 3
+                ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
+                : "Konu anlatımına dönüp tekrar denemek iyi olur.";
+          }
+
+          function build() {
+            box.innerHTML = "";
+            score = 0;
+            scoreEl.textContent = "0 / " + DATA.length;
+            if (finalEl) finalEl.textContent = "";
+            DATA.forEach(function (item, qi) {
+              var card = document.createElement("div");
+              card.className = "q";
+              var p = document.createElement("p");
+              p.innerHTML = "<span>SORU " + (qi + 1) + "</span><br>" + item.q;
+              card.appendChild(p);
+              var opts = document.createElement("div");
+              opts.className = "opts";
+              var why = document.createElement("p");
+              why.className = "why";
+              why.hidden = true;
+              why.textContent = item.why;
+              item.o.forEach(function (text, oi) {
+                var b = document.createElement("button");
+                b.type = "button";
+                b.textContent = text;
+                b.dataset.key = KEYS[oi];
+                b.addEventListener("click", function () {
+                  var all = opts.querySelectorAll("button");
+                  for (var i = 0; i < all.length; i++) all[i].disabled = true;
+                  all[item.a].classList.add("right");
+                  if (oi !== item.a) {
+                    b.classList.add("wrong");
+                  } else {
+                    score++;
+                    scoreEl.textContent = score + " / " + DATA.length;
+                  }
+                  why.hidden = false;
+                  if (box.querySelectorAll(".opts button.right").length === DATA.length) finish();
+                });
+                opts.appendChild(b);
+              });
+              card.appendChild(opts);
+              card.appendChild(why);
+              box.appendChild(card);
+            });
+          }
+
+          document.getElementById("quiz-reset").addEventListener("click", build);
+          build();
+        })();
+
+        /* ============ konu anlatımı modalı ============ */
+
+        (function modal() {
+          var dlg = document.getElementById("konu");
+          if (!dlg) return;
+          var body = document.getElementById("konu-body");
+
+          function open() {
+            if (typeof dlg.showModal === "function") {
+              if (!dlg.open) dlg.showModal();
+            } else {
+              dlg.setAttribute("open", "");
+            }
+            document.body.classList.add("locked");
+            body.scrollTop = 0;
+          }
+
+          function close() {
+            if (typeof dlg.close === "function") dlg.close();
+            else dlg.removeAttribute("open");
+          }
+
+          var triggers = document.querySelectorAll("[data-open-modal]");
+          for (var i = 0; i < triggers.length; i++) {
+            triggers[i].addEventListener("click", open);
+          }
+
+          document.getElementById("konu-close").addEventListener("click", close);
+
+          dlg.addEventListener("click", function (e) {
+            if (e.target === dlg) close();
+          });
+
+          dlg.addEventListener("close", function () {
+            document.body.classList.remove("locked");
+          });
+
+          dlg.addEventListener("cancel", function () {
+            document.body.classList.remove("locked");
+          });
+
+          var chips = dlg.querySelectorAll("[data-goto]");
+          for (var j = 0; j < chips.length; j++) {
+            chips[j].addEventListener("click", function () {
+              var target = document.getElementById(this.dataset.goto);
+              if (!target) return;
+              var dy = target.getBoundingClientRect().top - body.getBoundingClientRect().top;
+              body.scrollTo({
+                top: body.scrollTop + dy - 10,
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+              });
+            });
+          }
+        })();
+
+        /* ============ cila: belirme, izleme, kısayollar ============ */
+
+        (function polish() {
+          var root = document.documentElement;
+          root.classList.add("js");
+          var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          var i;
+
+          /* bölümler görünüme girince belirsin */
+          var targets = document.querySelectorAll(".reveal");
+          if (!("IntersectionObserver" in window) || reduced) {
+            for (i = 0; i < targets.length; i++) targets[i].classList.add("in");
+          } else {
+            var io = new IntersectionObserver(function (entries) {
+              for (var k = 0; k < entries.length; k++) {
+                if (entries[k].isIntersecting) {
+                  entries[k].target.classList.add("in");
+                  io.unobserve(entries[k].target);
+                }
+              }
+            }, { threshold: 0.06, rootMargin: "0px 0px -5% 0px" });
+            for (i = 0; i < targets.length; i++) io.observe(targets[i]);
+          }
+
+          /* okuma ilerlemesi, etkin bölüm, başa dön */
+          var header = document.querySelector(".site-header");
+          var toTop = document.getElementById("to-top");
+          var links = document.querySelectorAll(".nav-link[href^='#']");
+          var spots = [];
+          for (i = 0; i < links.length; i++) {
+            var sec = document.getElementById(links[i].getAttribute("href").slice(1));
+            if (sec) spots.push({ el: sec, link: links[i] });
+          }
+          var queued = false;
+
+          function update() {
+            queued = false;
+            var doc = document.documentElement;
+            var max = doc.scrollHeight - doc.clientHeight;
+            var y = window.scrollY || doc.scrollTop || 0;
+            if (header) header.style.setProperty("--sp", (max > 0 ? y / max : 0).toFixed(4));
+            if (toTop) toTop.classList.toggle("show", y > 600);
+            var current = null;
+            for (var k = 0; k < spots.length; k++) {
+              if (spots[k].el.getBoundingClientRect().top <= 140) current = spots[k];
+            }
+            for (var m = 0; m < spots.length; m++) spots[m].link.classList.toggle("active", spots[m] === current);
+          }
+
+          function onScroll() {
+            if (queued) return;
+            queued = true;
+            requestAnimationFrame(update);
+          }
+
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll);
+          update();
+
+          if (toTop) {
+            toTop.addEventListener("click", function () {
+              window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+            });
+          }
+
+          /* modal içinde okunan bölümü işaretle */
+          var mbody = document.getElementById("konu-body");
+          var chips = document.querySelectorAll(".chips button[data-goto]");
+          var heads = [];
+          for (i = 0; i < chips.length; i++) {
+            var h = document.getElementById(chips[i].dataset.goto);
+            if (h) heads.push({ h: h, chip: chips[i] });
+          }
+          if (mbody && heads.length) {
+            mbody.addEventListener("scroll", function () {
+              var top = mbody.getBoundingClientRect().top + 90;
+              var cur = heads[0];
+              for (var k = 0; k < heads.length; k++) {
+                if (heads[k].h.getBoundingClientRect().top <= top) cur = heads[k];
+              }
+              for (var m = 0; m < heads.length; m++) heads[m].chip.classList.toggle("active", heads[m] === cur);
+            }, { passive: true });
+          }
+
+        })();
+
+        /* ============ tema ============ */
+
+        (function theme() {
+          var btn = document.getElementById("theme-toggle");
+          var meta = document.querySelector('meta[name="theme-color"]');
+          var root = document.documentElement;
+
+          function apply(mode, store) {
+            root.setAttribute("data-theme", mode);
+            if (meta) meta.setAttribute("content", mode === "dark" ? "#0b1020" : "#f3f5fc");
+            if (btn) btn.setAttribute("aria-label", mode === "dark" ? "Açık temaya geç" : "Koyu temaya geç");
+            if (store) { try { localStorage.setItem("dersler-tema", mode); } catch (e) {} }
+            readPalette();
+            for (var i = 0; i < fits.length; i++) fits[i]();
+          }
+
+          apply(root.getAttribute("data-theme") === "dark" ? "dark" : "light", false);
+
+          if (btn) {
+            btn.addEventListener("click", function () {
+              apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
+            });
+          }
+        })();
+
+        /* ilk yerleşim */
+        for (var f = 0; f < fits.length; f++) fits[f]();
+      })();
+    </script>
+  </body>
+</html>
