@@ -3,24 +3,77 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b1020" />
+    <meta name="theme-color" content="#f3f5fc" />
     <meta
       name="description"
       content="Dersler, notlar ve kaynaklar için sade bir öğrenme alanı."
     />
     <title>Dersler — Öğrenme alanı</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b9ee63'/%3E%3Cpath d='M18 20a6 6 0 0 1 6-6h22v32H24a6 6 0 0 0-6 6z' fill='none' stroke='%2316260a' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M18 20v32M26 22h16M26 30h13' fill='none' stroke='%2316260a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet" />
     <style>
       :root {
+        color-scheme: light;
+
+        --bg: #f3f5fc;
+        --bg-art:
+          radial-gradient(1100px 560px at 82% -8%, rgba(42, 95, 214, 0.10), transparent 62%),
+          radial-gradient(900px 520px at -8% 38%, rgba(99, 72, 212, 0.08), transparent 60%);
+        --surface: #ffffff;
+        --surface-2: #f7f9fe;
+        --surface-3: #eef2fb;
+        --line: #dde3f1;
+        --line-soft: #e9edf7;
+
+        --ink: #0f1730;
+        --muted: #4c5775;
+        --dim: #78829f;
+
+        --blue: #2a5fd6;
+        --lime: #3c8c21;
+        --violet: #6348d4;
+
+        --accent: #b9ee63;
+        --accent-hover: #a9e648;
+        --accent-ink: #16260a;
+        --accent-ring: rgba(93, 154, 32, 0.28);
+
+        --shadow-sm: 0 2px 6px rgba(18, 30, 70, 0.06);
+        --shadow: 0 14px 34px rgba(18, 30, 70, 0.09);
+        --header-bg: rgba(243, 245, 252, 0.82);
+      }
+
+      :root[data-theme="dark"] {
         color-scheme: dark;
+
+        --bg: #0b1020;
+        --bg-art:
+          radial-gradient(circle at 78% 5%, rgba(130, 170, 255, 0.18), transparent 30rem),
+          radial-gradient(circle at 0% 65%, rgba(156, 140, 255, 0.12), transparent 28rem);
+        --surface: rgba(24, 32, 57, 0.82);
+        --surface-2: rgba(13, 19, 38, 0.55);
+        --surface-3: rgba(13, 19, 38, 0.75);
+        --line: rgba(163, 179, 221, 0.16);
+        --line-soft: rgba(163, 179, 221, 0.1);
+
         --ink: #f4f7ff;
         --muted: #a6b0c8;
         --dim: #707b97;
-        --night: #0b1020;
-        --panel: rgba(24, 32, 57, 0.82);
-        --line: rgba(163, 179, 221, 0.16);
+
         --blue: #82aaff;
         --lime: #c6f36b;
         --violet: #9c8cff;
+
+        --accent: #c6f36b;
+        --accent-hover: #d3f78c;
+        --accent-ink: #152000;
+        --accent-ring: rgba(198, 243, 107, 0.22);
+
+        --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
+        --shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+        --header-bg: rgba(11, 16, 32, 0.78);
       }
 
       * { box-sizing: border-box; }
@@ -30,41 +83,50 @@
       body {
         margin: 0;
         min-width: 320px;
-        background:
-          radial-gradient(circle at 78% 5%, rgba(130, 170, 255, 0.18), transparent 30rem),
-          radial-gradient(circle at 0% 65%, rgba(156, 140, 255, 0.12), transparent 28rem),
-          var(--night);
+        background-color: var(--bg);
+        background-image: var(--bg-art);
+        background-attachment: fixed;
         color: var(--ink);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         font-size: 16px;
         line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        transition: background-color 220ms ease, color 220ms ease;
       }
 
       a { color: inherit; }
 
-      a:focus-visible {
-        outline: 3px solid var(--lime);
-        outline-offset: 5px;
-        border-radius: 8px;
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 4px;
+        border-radius: 10px;
       }
 
-      .shell {
-        width: min(1120px, calc(100% - 40px));
-        margin: 0 auto;
-      }
+      .shell { width: min(1140px, calc(100% - 44px)); margin: 0 auto; }
 
       .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+        background: var(--header-bg);
+        backdrop-filter: saturate(160%) blur(14px);
+        -webkit-backdrop-filter: saturate(160%) blur(14px);
+      }
+
+      .header-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        min-height: 88px;
-        border-bottom: 1px solid var(--line);
+        gap: 18px;
+        min-height: 68px;
       }
 
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 12px;
+        gap: 11px;
         text-decoration: none;
         font-weight: 750;
         letter-spacing: -0.02em;
@@ -72,41 +134,67 @@
 
       .brand-mark {
         display: grid;
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
         place-items: center;
-        border: 1px solid rgba(198, 243, 107, 0.55);
-        border-radius: 12px;
-        background: rgba(198, 243, 107, 0.1);
+        border: 1px solid var(--accent-ring);
+        border-radius: 11px;
+        background: var(--accent-ring);
         color: var(--lime);
       }
 
-      .brand-mark svg { width: 21px; height: 21px; }
+      .brand-mark svg { width: 20px; height: 20px; }
 
       .brand small {
         display: block;
-        margin-top: -3px;
+        margin-top: -4px;
         color: var(--dim);
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.13em;
+        font-size: 0.68rem;
+        font-weight: 650;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
       }
 
+      .header-tools { display: flex; align-items: center; gap: 10px; }
+
       .header-link {
+        padding: 7px 12px;
+        border-radius: 999px;
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: 0.87rem;
+        font-weight: 600;
         text-decoration: none;
+        transition: background 160ms ease, color 160ms ease;
       }
 
-      .header-link:hover { color: var(--ink); }
+      .header-link:hover { background: var(--surface-3); color: var(--ink); }
 
-      main { padding: 78px 0 96px; }
+      .icon-btn {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface);
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+      }
+
+      .icon-btn:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+
+      .icon-btn svg { width: 18px; height: 18px; }
+
+      :root:not([data-theme="dark"]) .icon-btn .sun,
+      :root[data-theme="dark"] .icon-btn .moon { display: none; }
+
+      main { padding: 72px 0 96px; }
 
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-        gap: clamp(40px, 8vw, 104px);
+        grid-template-columns: minmax(0, 1.1fr) minmax(310px, 0.9fr);
+        gap: clamp(36px, 7vw, 92px);
         align-items: center;
       }
 
@@ -114,9 +202,9 @@
         display: inline-flex;
         align-items: center;
         gap: 9px;
-        margin: 0 0 22px;
+        margin: 0 0 20px;
         color: var(--lime);
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         font-weight: 750;
         letter-spacing: 0.16em;
         text-transform: uppercase;
@@ -127,27 +215,27 @@
         height: 7px;
         border-radius: 50%;
         background: var(--lime);
-        box-shadow: 0 0 0 5px rgba(198, 243, 107, 0.1);
+        box-shadow: 0 0 0 5px var(--accent-ring);
         content: "";
       }
 
       h1 {
         max-width: 680px;
         margin: 0;
-        font-size: clamp(3rem, 7vw, 6.4rem);
+        font-size: clamp(2.8rem, 6.4vw, 5.6rem);
         font-weight: 760;
-        letter-spacing: -0.075em;
-        line-height: 0.98;
+        letter-spacing: -0.07em;
+        line-height: 1;
       }
 
       h1 span { color: var(--blue); }
 
       .lead {
-        max-width: 570px;
-        margin: 28px 0 34px;
+        max-width: 560px;
+        margin: 26px 0 32px;
         color: var(--muted);
-        font-size: clamp(1.05rem, 2vw, 1.24rem);
-        line-height: 1.65;
+        font-size: clamp(1.02rem, 1.8vw, 1.18rem);
+        line-height: 1.66;
       }
 
       .button {
@@ -155,32 +243,30 @@
         align-items: center;
         gap: 10px;
         min-height: 48px;
-        padding: 0 20px;
-        border: 1px solid var(--lime);
-        border-radius: 999px;
-        background: var(--lime);
-        color: #152000;
-        font-weight: 750;
+        padding: 0 22px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        font-weight: 700;
         text-decoration: none;
-        transition: transform 180ms ease, box-shadow 180ms ease;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
       }
 
-      .button:hover {
-        box-shadow: 0 12px 32px rgba(198, 243, 107, 0.18);
-        transform: translateY(-2px);
-      }
+      .button:hover { background: var(--accent-hover); box-shadow: var(--shadow); transform: translateY(-1px); }
 
       .button svg { width: 18px; height: 18px; }
 
       .hero-card {
         position: relative;
-        min-height: 370px;
-        padding: 28px;
+        min-height: 340px;
+        padding: 26px;
         overflow: hidden;
         border: 1px solid var(--line);
-        border-radius: 28px;
-        background: linear-gradient(145deg, rgba(35, 47, 82, 0.94), rgba(17, 23, 44, 0.92));
-        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.24);
+        border-radius: 24px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
       }
 
       .hero-card::before {
@@ -189,26 +275,28 @@
         right: -70px;
         width: 230px;
         height: 230px;
-        border: 1px solid rgba(130, 170, 255, 0.28);
+        border: 1px solid color-mix(in srgb, var(--blue) 26%, transparent);
         border-radius: 50%;
-        box-shadow: 0 0 0 28px rgba(130, 170, 255, 0.04), 0 0 0 57px rgba(130, 170, 255, 0.025);
+        box-shadow:
+          0 0 0 28px color-mix(in srgb, var(--blue) 5%, transparent),
+          0 0 0 57px color-mix(in srgb, var(--blue) 3%, transparent);
         content: "";
       }
 
       .card-label {
         position: relative;
         color: var(--dim);
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
+        font-size: 0.74rem;
+        font-weight: 750;
+        letter-spacing: 0.13em;
         text-transform: uppercase;
       }
 
       .hero-card h2 {
         position: relative;
-        margin: 68px 0 10px;
-        font-size: clamp(2rem, 5vw, 3.5rem);
-        letter-spacing: -0.055em;
+        margin: 58px 0 10px;
+        font-size: clamp(1.9rem, 4.4vw, 3rem);
+        letter-spacing: -0.05em;
         line-height: 1;
       }
 
@@ -221,47 +309,43 @@
 
       .card-footer {
         position: absolute;
-        right: 28px;
-        bottom: 28px;
-        left: 28px;
+        right: 26px;
+        bottom: 26px;
+        left: 26px;
         display: flex;
         justify-content: space-between;
         gap: 20px;
-        padding-top: 18px;
+        padding-top: 16px;
         border-top: 1px solid var(--line);
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: 0.88rem;
       }
 
-      .status {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--lime);
-      }
+      .status { display: inline-flex; align-items: center; gap: 8px; color: var(--lime); }
 
       .status::before {
         width: 8px;
         height: 8px;
         border-radius: 50%;
         background: var(--lime);
+        box-shadow: 0 0 0 4px var(--accent-ring);
         content: "";
       }
 
-      .section { margin-top: 126px; }
+      .section { margin-top: 104px; scroll-margin-top: 82px; }
 
       .section-heading {
         display: flex;
         align-items: end;
         justify-content: space-between;
         gap: 24px;
-        padding-bottom: 20px;
+        padding-bottom: 18px;
         border-bottom: 1px solid var(--line);
       }
 
       .section-heading h2 {
         margin: 0;
-        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-size: clamp(1.6rem, 3.4vw, 2.4rem);
         letter-spacing: -0.05em;
         line-height: 1.1;
       }
@@ -270,94 +354,220 @@
         max-width: 320px;
         margin: 0;
         color: var(--dim);
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         text-align: right;
       }
+
+      .lesson {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 22px;
+        margin-top: 16px;
+        padding: 24px;
+        border: 1px solid color-mix(in srgb, var(--blue) 34%, transparent);
+        border-radius: 20px;
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--blue) 10%, transparent), transparent 60%),
+          var(--surface);
+        text-decoration: none;
+        box-shadow: var(--shadow-sm);
+        transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease;
+      }
+
+      .lesson:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-2px); }
+
+      .lesson .mark {
+        display: grid;
+        width: 54px;
+        height: 54px;
+        place-items: center;
+        border: 1px solid color-mix(in srgb, var(--blue) 36%, transparent);
+        border-radius: 15px;
+        background: color-mix(in srgb, var(--blue) 10%, transparent);
+        color: var(--blue);
+      }
+
+      .lesson .mark svg { width: 25px; height: 25px; }
+
+      .lesson-tag {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--lime);
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .lesson h3 { margin: 0 0 4px; font-size: 1.28rem; letter-spacing: -0.035em; }
+
+      .lesson p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+
+      .lesson .go {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--blue);
+      }
+
+      .lesson .go svg { width: 18px; height: 18px; }
 
       .areas {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 14px;
-        margin-top: 14px;
+        margin-top: 16px;
       }
 
       .area {
-        min-height: 220px;
+        min-height: 200px;
         padding: 24px;
         border: 1px solid var(--line);
-        border-radius: 20px;
-        background: var(--panel);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
       }
 
       .area-number {
-        display: inline-block;
-        margin-bottom: 44px;
+        display: inline-grid;
+        min-width: 30px;
+        height: 30px;
+        margin-bottom: 38px;
+        place-items: center;
+        border-radius: 9px;
+        background: var(--surface-3);
         color: var(--violet);
-        font-size: 0.86rem;
+        font-size: 0.8rem;
         font-weight: 750;
       }
 
-      .area h3 {
-        margin: 0 0 8px;
-        font-size: 1.3rem;
-        letter-spacing: -0.03em;
-      }
+      .area h3 { margin: 0 0 8px; font-size: 1.22rem; letter-spacing: -0.03em; }
 
-      .area p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.96rem;
-        line-height: 1.55;
-      }
+      .area p { margin: 0; color: var(--muted); font-size: 0.93rem; line-height: 1.55; }
 
       footer {
-        padding: 24px 0 34px;
+        margin-top: 96px;
+        padding: 22px 0 34px;
         border-top: 1px solid var(--line);
         color: var(--dim);
-        font-size: 0.86rem;
+        font-size: 0.85rem;
       }
 
-      .footer-inner {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
+      .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+      /* ================= premium katman ================= */
+      ::selection { background: color-mix(in srgb, var(--blue) 22%, transparent); }
+
+      h1, h2, h3 { text-wrap: balance; }
+
+      h1 span {
+        background: linear-gradient(92deg, var(--blue), var(--violet));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero { position: relative; isolation: isolate; }
+
+      .hero::before {
+        position: absolute;
+        z-index: -1;
+        inset: -60px 0 auto 0;
+        height: 560px;
+        background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1.2px);
+        background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        content: "";
+        pointer-events: none;
+      }
+
+      .hero-card {
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--blue) 7%, transparent), transparent 42%),
+          var(--surface);
+      }
+
+      .area { transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease; }
+
+      .area:hover { border-color: color-mix(in srgb, var(--violet) 40%, var(--line)); box-shadow: var(--shadow); transform: translateY(-2px); }
+
+      .button:active, .icon-btn:active { transform: translateY(0) scale(0.985); }
+
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 640ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 640ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .js .reveal.in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .hero { grid-template-columns: 1fr; gap: 44px; }
+        .areas { grid-template-columns: 1fr; }
+        .area { min-height: auto; }
+        .area-number { margin-bottom: 24px; }
       }
 
       @media (max-width: 760px) {
-        .shell { width: min(100% - 32px, 560px); }
-        .site-header { min-height: 76px; }
-        main { padding: 56px 0 72px; }
-        .hero { grid-template-columns: 1fr; gap: 52px; }
-        h1 { font-size: clamp(3.1rem, 17vw, 5.5rem); }
-        .hero-card { min-height: 330px; }
-        .section { margin-top: 88px; }
+        .shell { width: min(100% - 28px, 560px); }
+        main { padding: 48px 0 72px; }
+        h1 { font-size: clamp(2.8rem, 15vw, 4.6rem); }
+        .hero-card { min-height: 300px; }
+        .section { margin-top: 72px; }
         .section-heading { display: block; }
-        .section-heading p { margin-top: 12px; text-align: left; }
-        .areas { grid-template-columns: 1fr; }
-        .area { min-height: auto; }
-        .area-number { margin-bottom: 28px; }
+        .section-heading p { margin-top: 10px; text-align: left; }
+        .lesson { grid-template-columns: auto minmax(0, 1fr); gap: 16px; padding: 18px; }
+        .lesson .go { display: none; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
-        .button { transition: none; }
+        * { transition: none !important; animation: none !important; }
+        .js .reveal { opacity: 1; transform: none; }
       }
     </style>
+
+    <script>
+      /* tema, boya öncesinde uygulansın: varsayılan açık */
+      (function () {
+        var mode = "light";
+        try { if (localStorage.getItem("dersler-tema") === "dark") mode = "dark"; } catch (e) {}
+        document.documentElement.setAttribute("data-theme", mode);
+      })();
+    </script>
   </head>
   <body>
-    <header class="site-header shell">
-      <a class="brand" href="/" aria-label="Dersler ana sayfa">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" />
-            <path d="M4 5.5v16M8 7h8M8 11h7" />
-          </svg>
-        </span>
-        <span>Dersler<small>perinet</small></span>
-      </a>
-      <a class="header-link" href="#baslangic">Başlangıç</a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="/" aria-label="Dersler ana sayfa">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" />
+              <path d="M4 5.5v16M8 7h8M8 11h7" />
+            </svg>
+          </span>
+          <span>Dersler<small>perinet</small></span>
+        </a>
+        <div class="header-tools">
+          <a class="header-link" href="serbest-dusme.html">Fizik: Serbest düşme</a>
+          <button class="icon-btn" type="button" id="theme-toggle" aria-label="Koyu temaya geç">
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4" />
+            </svg>
+            <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </header>
 
     <main class="shell">
@@ -369,8 +579,8 @@
             Dersler, kısa notlar ve güvenilir kaynaklar için sade bir başlangıç noktası.
             İçerikler zamanla burada birikecek.
           </p>
-          <a class="button" href="#baslangic">
-            Başlangıca git
+          <a class="button" href="serbest-dusme.html">
+            Serbest düşme dersine git
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
@@ -388,7 +598,34 @@
         </aside>
       </section>
 
-      <section class="section" id="baslangic" aria-labelledby="areas-title">
+      <section class="section reveal" id="dersler" aria-labelledby="lessons-title">
+        <div class="section-heading">
+          <h2 id="lessons-title">Yayındaki ders</h2>
+          <p>Konu anlatımı ve etkileşimli deneyler bir arada.</p>
+        </div>
+
+        <a class="lesson" href="serbest-dusme.html">
+          <span class="mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="5" r="2.6" />
+              <path d="M12 10v5M9.5 20.5 12 15l2.5 5.5" />
+              <path d="M4 3v3M20 3v3" opacity=".5" />
+            </svg>
+          </span>
+          <span>
+            <span class="lesson-tag">Fizik · Kinematik</span>
+            <h3>Serbest düşme</h3>
+            <p>Düşme laboratuvarı, tüy–bilye deneyi, 1 : 3 : 5 kuralı, cetvelle tepki süresi ve konu anlatımı.</p>
+          </span>
+          <span class="go" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </span>
+        </a>
+      </section>
+
+      <section class="section reveal" id="baslangic" aria-labelledby="areas-title">
         <div class="section-heading">
           <h2 id="areas-title">Başlangıç için alanlar</h2>
           <p>Bu iskelet, yeni içerik ve özelliklerle büyümeye hazır.</p>
@@ -420,5 +657,34 @@
         <span>Yeni bir başlangıç.</span>
       </div>
     </footer>
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        var targets = document.querySelectorAll(".reveal");
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!("IntersectionObserver" in window) || reduced) {
+          for (var i = 0; i < targets.length; i++) targets[i].classList.add("in");
+        } else {
+          var io = new IntersectionObserver(function (entries) {
+            for (var k = 0; k < entries.length; k++) {
+              if (entries[k].isIntersecting) { entries[k].target.classList.add("in"); io.unobserve(entries[k].target); }
+            }
+          }, { threshold: 0.06, rootMargin: "0px 0px -5% 0px" });
+          for (var j = 0; j < targets.length; j++) io.observe(targets[j]);
+        }
+
+        var btn = document.getElementById("theme-toggle");
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (!btn) return;
+        btn.addEventListener("click", function () {
+          var mode = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          root.setAttribute("data-theme", mode);
+          if (meta) meta.setAttribute("content", mode === "dark" ? "#0b1020" : "#f3f5fc");
+          btn.setAttribute("aria-label", mode === "dark" ? "Açık temaya geç" : "Koyu temaya geç");
+          try { localStorage.setItem("dersler-tema", mode); } catch (e) {}
+        });
+      })();
+    </script>
   </body>
 </html>
