@@ -1,0 +1,3181 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f5fc" />
+    <meta
+      name="description"
+      content="İndüksiyon akımı: mıknatıs–bobin deneyi, dönen çerçeve ile jeneratör, hareketli iletken çubuk, bakır boruda Lenz yasası ve konu anlatımı."
+    />
+    <title>İndüksiyon akımı — Dersler</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b9ee63'/%3E%3Cpath d='M18 20a6 6 0 0 1 6-6h22v32H24a6 6 0 0 0-6 6z' fill='none' stroke='%2316260a' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M18 20v32M26 22h16M26 30h13' fill='none' stroke='%2316260a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet" />
+    <style>
+      /* ================= tema belirteçleri ================= */
+      :root {
+        color-scheme: light;
+
+        --bg: #f3f5fc;
+        --bg-art:
+          radial-gradient(1100px 560px at 82% -8%, rgba(42, 95, 214, 0.10), transparent 62%),
+          radial-gradient(900px 520px at -8% 38%, rgba(99, 72, 212, 0.08), transparent 60%);
+        --surface: #ffffff;
+        --surface-2: #f7f9fe;
+        --surface-3: #eef2fb;
+        --line: #dde3f1;
+        --line-soft: #e9edf7;
+
+        --ink: #0f1730;
+        --muted: #4c5775;
+        --dim: #78829f;
+
+        --blue: #2a5fd6;
+        --lime: #3c8c21;
+        --violet: #6348d4;
+        --amber: #a56209;
+        --rose: #c53455;
+
+        --accent: #b9ee63;
+        --accent-hover: #a9e648;
+        --accent-ink: #16260a;
+        --accent-ring: rgba(93, 154, 32, 0.28);
+
+        --shadow-sm: 0 2px 6px rgba(18, 30, 70, 0.06);
+        --shadow: 0 14px 34px rgba(18, 30, 70, 0.09);
+        --shadow-lg: 0 34px 90px rgba(18, 30, 70, 0.18);
+        --header-bg: rgba(243, 245, 252, 0.82);
+        --track: #dfe5f3;
+
+        /* tuvale aktarılanlar */
+        --c-ink: #0f1730;
+        --c-muted: #4c5775;
+        --c-dim: #7c86a2;
+        --c-blue: #2a5fd6;
+        --c-lime: #3c8c21;
+        --c-violet: #6348d4;
+        --c-amber: #a56209;
+        --c-rose: #c53455;
+        --c-panel: rgba(255, 255, 255, 0.97);
+        --c-border: #e3e8f4;
+        --c-chip: rgba(255, 255, 255, 0.95);
+        --c-ring: #ffffff;
+        --c-outline: #26324f;
+        --c-scene: #ffffff;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+
+        --bg: #0b1020;
+        --bg-art:
+          radial-gradient(circle at 78% 5%, rgba(130, 170, 255, 0.18), transparent 30rem),
+          radial-gradient(circle at 0% 65%, rgba(156, 140, 255, 0.12), transparent 28rem);
+        --surface: rgba(24, 32, 57, 0.82);
+        --surface-2: rgba(13, 19, 38, 0.55);
+        --surface-3: rgba(13, 19, 38, 0.75);
+        --line: rgba(163, 179, 221, 0.16);
+        --line-soft: rgba(163, 179, 221, 0.1);
+
+        --ink: #f4f7ff;
+        --muted: #a6b0c8;
+        --dim: #707b97;
+
+        --blue: #82aaff;
+        --lime: #c6f36b;
+        --violet: #9c8cff;
+        --amber: #ffcb6b;
+        --rose: #ff8fa3;
+
+        --accent: #c6f36b;
+        --accent-hover: #d3f78c;
+        --accent-ink: #152000;
+        --accent-ring: rgba(198, 243, 107, 0.22);
+
+        --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
+        --shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 40px 120px rgba(0, 0, 0, 0.55);
+        --header-bg: rgba(11, 16, 32, 0.78);
+        --track: rgba(163, 179, 221, 0.2);
+
+        --c-ink: #f4f7ff;
+        --c-muted: #a6b0c8;
+        --c-dim: #7d88a6;
+        --c-blue: #82aaff;
+        --c-lime: #c6f36b;
+        --c-violet: #9c8cff;
+        --c-amber: #ffcb6b;
+        --c-rose: #ff8fa3;
+        --c-panel: rgba(13, 19, 38, 0.6);
+        --c-border: rgba(163, 179, 221, 0.18);
+        --c-chip: rgba(11, 16, 32, 0.86);
+        --c-ring: #0b1020;
+        --c-outline: #060a16;
+        --c-scene: #0d1224;
+      }
+
+      /* ================= temel ================= */
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background-color: var(--bg);
+        background-image: var(--bg-art);
+        background-attachment: fixed;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        transition: background-color 220ms ease, color 220ms ease;
+      }
+
+      body.locked { overflow: hidden; }
+
+      a { color: inherit; }
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      canvas:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+        border-radius: 10px;
+      }
+
+      .shell { width: min(1140px, calc(100% - 44px)); margin: 0 auto; }
+
+      /* ================= üst bar ================= */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        border-bottom: 1px solid var(--line);
+        background: var(--header-bg);
+        backdrop-filter: saturate(160%) blur(14px);
+        -webkit-backdrop-filter: saturate(160%) blur(14px);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 68px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        text-decoration: none;
+        font-weight: 750;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border: 1px solid var(--accent-ring);
+        border-radius: 11px;
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      .brand-mark svg { width: 20px; height: 20px; }
+
+      .brand small {
+        display: block;
+        margin-top: -4px;
+        color: var(--dim);
+        font-size: 0.68rem;
+        font-weight: 650;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .header-nav { display: flex; align-items: center; gap: 4px; }
+
+      .nav-link {
+        padding: 7px 12px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.87rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 160ms ease, color 160ms ease;
+      }
+
+      .nav-link:hover { background: var(--surface-3); color: var(--ink); }
+
+      .header-tools { display: flex; align-items: center; gap: 9px; }
+
+      .icon-btn {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface);
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+      }
+
+      .icon-btn:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+
+      .icon-btn svg { width: 18px; height: 18px; }
+
+      :root:not([data-theme="dark"]) .icon-btn .sun,
+      :root[data-theme="dark"] .icon-btn .moon { display: none; }
+
+      /* ================= ortak ================= */
+      main { padding: 56px 0 96px; }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 18px;
+        color: var(--lime);
+        font-size: 0.76rem;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 5px var(--accent-ring);
+        content: "";
+      }
+
+      h1 {
+        max-width: 740px;
+        margin: 0;
+        font-size: clamp(2.6rem, 6vw, 4.6rem);
+        font-weight: 760;
+        letter-spacing: -0.06em;
+        line-height: 1;
+      }
+
+      h1 span { color: var(--blue); }
+
+      .lead {
+        max-width: 560px;
+        margin: 22px 0 30px;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.6vw, 1.14rem);
+        line-height: 1.68;
+      }
+
+      .cta-row { display: flex; flex-wrap: wrap; gap: 11px; }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 46px;
+        padding: 0 20px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        font: inherit;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+      }
+
+      .button:hover { background: var(--accent-hover); box-shadow: var(--shadow); transform: translateY(-1px); }
+
+      .button:active { transform: translateY(0); }
+
+      .button svg { width: 17px; height: 17px; }
+
+      .button.ghost {
+        border-color: var(--line);
+        background: var(--surface);
+        color: var(--ink);
+        box-shadow: none;
+      }
+
+      .button.ghost:hover { border-color: var(--blue); background: var(--surface-2); color: var(--blue); }
+
+      .button.small { min-height: 38px; padding: 0 15px; font-size: 0.87rem; }
+
+      .button[disabled] { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+      .facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 30px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .facts li {
+        padding: 8px 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.87rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .facts b { color: var(--ink); font-weight: 700; }
+
+      /* ================= giriş ================= */
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+        gap: clamp(30px, 5vw, 64px);
+        align-items: center;
+      }
+
+      .hero-card {
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .card-label {
+        display: block;
+        margin-bottom: 18px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .formula-list { margin: 0; padding: 0; list-style: none; }
+
+      .formula-list li {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 12px;
+        padding: 13px 0;
+        border-top: 1px solid var(--line-soft);
+      }
+
+      .formula-list li:first-child { border-top: 0; padding-top: 0; }
+
+      .formula-list code {
+        color: var(--blue);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 1.02rem;
+        font-weight: 600;
+      }
+
+      .formula-list span { color: var(--dim); font-size: 0.83rem; }
+
+      .card-foot {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .card-foot .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 4px var(--accent-ring);
+      }
+
+      /* ================= bölümler ================= */
+      .section { margin-top: 92px; scroll-margin-top: 82px; }
+
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-heading h2 {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        margin: 0;
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        letter-spacing: -0.045em;
+        line-height: 1.15;
+      }
+
+      .section-heading h2 em {
+        display: grid;
+        min-width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 9px;
+        background: var(--surface-3);
+        color: var(--violet);
+        font-size: 0.8rem;
+        font-style: normal;
+        font-weight: 750;
+        letter-spacing: 0;
+      }
+
+      .section-heading p {
+        max-width: 390px;
+        margin: 0;
+        color: var(--dim);
+        font-size: 0.92rem;
+        text-align: right;
+      }
+
+      .note { margin: 14px 0 0; color: var(--dim); font-size: 0.87rem; }
+
+      .note b { color: var(--muted); font-weight: 650; }
+
+      canvas {
+        display: block;
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--c-scene);
+        box-shadow: var(--shadow-sm);
+        touch-action: manipulation;
+      }
+
+      /* ================= laboratuvar ================= */
+      .lab {
+        display: grid;
+        grid-template-columns: minmax(0, 1.62fr) minmax(262px, 0.8fr);
+        gap: 16px;
+        margin-top: 22px;
+      }
+
+      .readouts {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .readout {
+        position: relative;
+        padding: 12px 14px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .readout::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--blue);
+        opacity: 0.75;
+        content: "";
+      }
+
+      .readout:nth-child(2)::before { background: var(--violet); }
+      .readout:nth-child(3)::before { background: var(--lime); }
+      .readout:nth-child(4)::before { background: var(--amber); }
+
+      .readout span {
+        display: block;
+        color: var(--dim);
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .readout strong {
+        font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.03em;
+      }
+
+      .readout i { color: var(--dim); font-size: 0.8rem; font-style: normal; }
+
+      .readout em {
+        display: block;
+        margin-top: -2px;
+        color: var(--blue);
+        font-size: 0.74rem;
+        font-style: normal;
+      }
+
+      .panel {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .field { display: flex; flex-direction: column; gap: 9px; }
+
+      .field label,
+      .field .flabel {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.84rem;
+        font-weight: 650;
+      }
+
+      .field output {
+        color: var(--ink);
+        font-size: 0.9rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 750;
+      }
+
+      .field small { color: var(--dim); font-size: 0.77rem; line-height: 1.45; }
+
+      input[type="range"] {
+        width: 100%;
+        height: 22px;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        height: 6px;
+        border-radius: 999px;
+        background: linear-gradient(to right, var(--lime) var(--p, 30%), var(--track) var(--p, 30%));
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        width: 19px;
+        height: 19px;
+        margin-top: -6.5px;
+        border: 2px solid var(--surface);
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: var(--shadow-sm);
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input[type="range"]::-moz-range-track {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--track);
+      }
+
+      input[type="range"]::-moz-range-progress {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--lime);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        border: 2px solid var(--surface);
+        border-radius: 50%;
+        background: var(--lime);
+      }
+
+      .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+
+      .seg button {
+        flex: 1 1 62px;
+        min-height: 44px;
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.83rem;
+        font-weight: 700;
+        line-height: 1.15;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+      }
+
+      .seg button b { display: block; color: var(--dim); font-size: 0.69rem; font-weight: 600; }
+
+      .seg button:hover { border-color: var(--blue); color: var(--ink); }
+
+      .seg button[aria-pressed="true"] {
+        border-color: var(--lime);
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      .seg button[aria-pressed="true"] b { color: var(--lime); opacity: 0.75; }
+
+      .switches { display: flex; flex-direction: column; gap: 10px; }
+
+      .switches label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+
+      .switches input {
+        width: 17px;
+        height: 17px;
+        accent-color: var(--lime);
+        cursor: pointer;
+      }
+
+      .actions { display: flex; gap: 9px; }
+
+      .actions .button { flex: 1 1 auto; padding: 0 12px; }
+
+      .mini {
+        display: grid;
+        gap: 9px;
+        margin: 0;
+        padding: 16px 0 0;
+        border-top: 1px solid var(--line);
+        list-style: none;
+      }
+
+      .mini li {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+
+      .mini b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+      #lab-graphs {
+        margin-top: 14px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+      }
+
+      /* ================= deney blokları ================= */
+      .demo { display: grid; gap: 16px; margin-top: 22px; }
+
+      .demo.split { grid-template-columns: minmax(0, 1.5fr) minmax(255px, 0.88fr); }
+
+      .panel h3 { margin: 0; font-size: 1.02rem; letter-spacing: -0.02em; }
+
+      .panel p { margin: 0; color: var(--muted); font-size: 0.89rem; }
+
+      .verdict {
+        min-height: 74px;
+        padding: 13px 15px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--blue);
+        border-radius: 12px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .verdict b { color: var(--ink); }
+      .verdict.good { border-left-color: var(--lime); }
+      .verdict.warn { border-left-color: var(--amber); }
+      .verdict.bad { border-left-color: var(--rose); }
+
+      .tries { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+
+      .tries li {
+        padding: 5px 11px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.77rem;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .tries li.best { border-color: var(--lime); background: var(--accent-ring); color: var(--lime); font-weight: 700; }
+
+      /* ================= mini test ================= */
+      .quiz { display: grid; gap: 12px; margin-top: 22px; }
+
+      .q {
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .q > p { margin: 0 0 15px; font-size: 1rem; font-weight: 600; line-height: 1.5; }
+
+      .q > p span {
+        display: inline-block;
+        margin-bottom: 6px;
+        color: var(--violet);
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+      }
+
+      .opts { display: grid; gap: 8px; }
+
+      .opts button {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 15px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.92rem;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+      }
+
+      .opts button::before {
+        flex: none;
+        display: grid;
+        width: 23px;
+        height: 23px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--surface);
+        color: var(--dim);
+        font-size: 0.71rem;
+        font-weight: 750;
+        content: attr(data-key);
+      }
+
+      .opts button:hover:not([disabled]) { border-color: var(--blue); background: var(--surface); color: var(--ink); }
+
+      .opts button.right {
+        border-color: var(--lime);
+        background: var(--accent-ring);
+        color: var(--lime);
+        font-weight: 650;
+      }
+
+      .opts button.right::before { border-color: var(--lime); color: var(--lime); }
+
+      .opts button.wrong {
+        border-color: var(--rose);
+        background: color-mix(in srgb, var(--rose) 10%, transparent);
+        color: var(--rose);
+      }
+
+      .opts button.wrong::before { border-color: var(--rose); color: var(--rose); }
+
+      .opts button[disabled] { cursor: default; }
+
+      .why {
+        margin: 13px 0 0;
+        padding: 2px 0 2px 14px;
+        border-left: 2px solid var(--violet);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .why[hidden] { display: none; }
+
+      .score {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 12px;
+        padding: 16px 22px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.93rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .score b { color: var(--ink); font-size: 1.08rem; }
+
+      /* ================= konu anlatımı kartı ================= */
+      .lesson-card {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        margin-top: 26px;
+        padding: 22px 24px;
+        border: 1px solid color-mix(in srgb, var(--violet) 38%, transparent);
+        border-radius: 20px;
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--violet) 12%, transparent), transparent 62%),
+          var(--surface);
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease;
+      }
+
+      .lesson-card:hover {
+        border-color: var(--violet);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .lesson-card .badge {
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border: 1px solid color-mix(in srgb, var(--violet) 40%, transparent);
+        border-radius: 15px;
+        background: color-mix(in srgb, var(--violet) 12%, transparent);
+        color: var(--violet);
+      }
+
+      .lesson-card .badge svg { width: 24px; height: 24px; }
+
+      .lesson-card h3 { margin: 0 0 3px; font-size: 1.15rem; letter-spacing: -0.03em; }
+
+      .lesson-card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+      .lesson-card .go {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--violet);
+      }
+
+      .lesson-card .go svg { width: 18px; height: 18px; }
+
+      /* ================= modal ================= */
+      dialog {
+        width: min(920px, calc(100% - 26px));
+        max-height: min(88vh, 940px);
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--bg);
+        color: var(--ink);
+        box-shadow: var(--shadow-lg);
+      }
+
+      dialog[open] { display: flex; flex-direction: column; }
+
+      dialog::backdrop {
+        background: rgba(18, 26, 52, 0.42);
+        backdrop-filter: blur(5px);
+      }
+
+      :root[data-theme="dark"] dialog::backdrop { background: rgba(5, 8, 20, 0.72); }
+
+      .modal-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 22px 26px 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .modal-head h2 {
+        margin: 2px 0 0;
+        font-size: clamp(1.35rem, 3vw, 1.8rem);
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+
+      .modal-head .eyebrow { margin: 0 0 6px; }
+
+      .close {
+        flex: none;
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface-2);
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease;
+      }
+
+      .close:hover { border-color: var(--rose); color: var(--rose); }
+
+      .close svg { width: 17px; height: 17px; }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        padding: 13px 26px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface-2);
+      }
+
+      .chips button {
+        padding: 7px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.79rem;
+        font-weight: 650;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease;
+      }
+
+      .chips button:hover { border-color: var(--blue); color: var(--blue); }
+
+      .modal-body {
+        padding: 10px 26px 34px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        counter-reset: chapter;
+      }
+
+      .modal-body h3 {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin: 32px 0 12px;
+        font-size: 1.18rem;
+        letter-spacing: -0.03em;
+        scroll-margin-top: 12px;
+      }
+
+      .modal-body h3::before {
+        display: grid;
+        min-width: 27px;
+        height: 27px;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--surface-3);
+        color: var(--violet);
+        font-size: 0.74rem;
+        font-weight: 750;
+        content: counter(chapter, decimal-leading-zero);
+        counter-increment: chapter;
+      }
+
+      .modal-body h4 { margin: 20px 0 6px; font-size: 0.98rem; color: var(--blue); }
+
+      .modal-body p { margin: 0 0 12px; color: var(--muted); }
+
+      .modal-body ul, .modal-body ol { margin: 0 0 12px; padding-left: 20px; color: var(--muted); }
+
+      .modal-body li { margin-bottom: 6px; }
+
+      .modal-body strong { color: var(--ink); font-weight: 700; }
+
+      .formula { display: flex; flex-wrap: wrap; gap: 9px; margin: 14px 0 16px; }
+
+      .formula code {
+        padding: 10px 15px;
+        border: 1px solid color-mix(in srgb, var(--blue) 26%, transparent);
+        border-radius: 11px;
+        background: color-mix(in srgb, var(--blue) 9%, transparent);
+        color: var(--blue);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.96rem;
+      }
+
+      .callout {
+        margin: 16px 0;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--lime);
+        border-radius: 13px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .callout.warn { border-left-color: var(--amber); }
+      .callout b { color: var(--ink); }
+      .callout :last-child { margin-bottom: 0; }
+
+      .tbl {
+        width: 100%;
+        margin: 14px 0 18px;
+        border-collapse: collapse;
+        font-size: 0.89rem;
+      }
+
+      .tbl th, .tbl td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        text-align: left;
+      }
+
+      .tbl th {
+        color: var(--dim);
+        font-size: 0.71rem;
+        font-weight: 750;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .tbl td:first-child { color: var(--ink); font-weight: 650; }
+
+      details {
+        margin: 10px 0;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: var(--surface);
+      }
+
+      details summary {
+        color: var(--ink);
+        font-weight: 650;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      details summary::-webkit-details-marker { display: none; }
+
+      details summary::before {
+        display: inline-block;
+        width: 18px;
+        color: var(--lime);
+        font-weight: 750;
+        content: "+";
+      }
+
+      details[open] summary::before { content: "–"; }
+
+      details p:first-of-type { margin-top: 12px; }
+
+      .steps { margin: 12px 0 0; padding-left: 20px; color: var(--muted); }
+
+      .steps li { margin-bottom: 8px; }
+
+      /* ================= alt bilgi ================= */
+      footer {
+        margin-top: 88px;
+        padding: 22px 0 34px;
+        border-top: 1px solid var(--line);
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+
+      .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+      /* ================= premium katman ================= */
+      ::selection { background: color-mix(in srgb, var(--blue) 22%, transparent); }
+
+      h1, h2, h3 { text-wrap: balance; }
+
+      h1 span {
+        background: linear-gradient(92deg, var(--blue), var(--violet));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero { position: relative; isolation: isolate; }
+
+      .hero::before {
+        position: absolute;
+        z-index: -1;
+        inset: -60px 0 auto 0;
+        height: 560px;
+        background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1.2px);
+        background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        content: "";
+        pointer-events: none;
+      }
+
+      .hero-card {
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--blue) 7%, transparent), transparent 42%),
+          var(--surface);
+      }
+
+      .progress {
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        transform-origin: 0 50%;
+        transform: scaleX(var(--sp, 0));
+        background: linear-gradient(90deg, var(--lime), var(--blue));
+        pointer-events: none;
+      }
+
+      .nav-link.active { background: var(--surface-3); color: var(--ink); }
+
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 640ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 640ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .js .reveal.in { opacity: 1; transform: none; }
+
+      .button:active,
+      .seg button:active,
+      .presets button:active,
+      .icon-btn:active { transform: translateY(0) scale(0.985); }
+
+      .readout strong { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 750; }
+
+      .readout { transition: border-color 160ms ease, box-shadow 160ms ease; }
+
+      .readout:hover { border-color: color-mix(in srgb, var(--blue) 40%, var(--line)); box-shadow: var(--shadow); }
+
+      canvas { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+
+      :root[data-theme="dark"] canvas { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+
+      #lab-scene { cursor: pointer; }
+
+      .presets {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .presets > span {
+        margin-right: 4px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .presets button {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: border-color 150ms ease, color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+      }
+
+      .presets button i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--tone, var(--blue));
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone, var(--blue)) 18%, transparent);
+      }
+
+      .presets button:hover {
+        border-color: var(--tone, var(--blue));
+        color: var(--ink);
+        box-shadow: var(--shadow);
+        transform: translateY(-1px);
+      }
+
+      .stats { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--dim); font-size: 0.82rem; }
+
+      .stats b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+      .stats[hidden] { display: none; }
+
+      .final { flex: 1 1 100%; color: var(--dim); font-size: 0.88rem; }
+
+      .final:empty { display: none; }
+
+      @keyframes shake {
+        10%, 90% { transform: translateX(-1px); }
+        20%, 80% { transform: translateX(2px); }
+        30%, 50%, 70% { transform: translateX(-3px); }
+        40%, 60% { transform: translateX(3px); }
+      }
+
+      @keyframes pop {
+        0% { transform: scale(0.98); }
+        60% { transform: scale(1.015); }
+        100% { transform: none; }
+      }
+
+      .opts button.wrong { animation: shake 420ms ease; }
+
+      .opts button.right { animation: pop 320ms ease; }
+
+      .opts button.right::after,
+      .opts button.wrong::after {
+        margin-left: auto;
+        font-size: 0.85rem;
+        font-weight: 800;
+      }
+
+      .opts button.right::after { content: "✓"; }
+
+      .opts button.wrong::after { content: "✕"; }
+
+      @keyframes modalIn {
+        from { opacity: 0; transform: translateY(14px) scale(0.985); }
+        to { opacity: 1; transform: none; }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      dialog[open] { animation: modalIn 280ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+      dialog[open]::backdrop { animation: fadeIn 240ms ease; }
+
+      .chips button.active {
+        border-color: var(--violet);
+        background: color-mix(in srgb, var(--violet) 10%, transparent);
+        color: var(--violet);
+      }
+
+      .modal-body { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+
+      .to-top {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        z-index: 25;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        color: var(--muted);
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 220ms ease, transform 220ms ease, border-color 160ms ease, color 160ms ease;
+      }
+
+      .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+
+      .to-top:hover { border-color: var(--blue); color: var(--blue); }
+
+      .to-top svg { width: 18px; height: 18px; }
+
+      /* ================= ünite gezinmesi ================= */
+      .topic-nav {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 76px;
+      }
+
+      .topic-nav a {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        text-decoration: none;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .topic-nav a:hover {
+        border-color: var(--blue);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .topic-nav span {
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .topic-nav b { color: var(--ink); font-size: 0.95rem; font-weight: 650; letter-spacing: -0.02em; }
+
+      .topic-nav .mid { align-items: center; text-align: center; background: var(--surface-2); }
+
+      .topic-nav .next { align-items: flex-end; text-align: right; }
+
+      .topic-nav .gap { border: 0; background: none; box-shadow: none; }
+
+      .eyebrow a { text-decoration: none; }
+
+      .eyebrow a:hover { text-decoration: underline; }
+
+      /* ================= duyarlılık ================= */
+      @media (max-width: 1000px) {
+        .header-nav { display: none; }
+      }
+
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; }
+        .lab { grid-template-columns: 1fr; }
+        .demo.split { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 760px) {
+        .shell { width: min(100% - 28px, 560px); }
+        main { padding: 40px 0 72px; }
+        .section { margin-top: 68px; }
+        .section-heading { display: block; }
+        .section-heading p { margin-top: 10px; text-align: left; }
+        .readouts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cta-row .button { flex: 1 1 100%; }
+        .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
+        .lesson-card .go { display: none; }
+        .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .footer-inner { display: block; }
+        .footer-inner span { display: block; margin-top: 6px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { transition: none !important; animation: none !important; }
+        .js .reveal { opacity: 1; transform: none; }
+      }
+    </style>
+
+    <script>
+      /* tema, boya öncesinde uygulansın: varsayılan açık */
+      (function () {
+        var mode = "light";
+        try { if (localStorage.getItem("dersler-tema") === "dark") mode = "dark"; } catch (e) {}
+        document.documentElement.setAttribute("data-theme", mode);
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="index.html" aria-label="Dersler ana sayfa">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" />
+              <path d="M4 5.5v16M8 7h8M8 11h7" />
+            </svg>
+          </span>
+          <span>Dersler<small>fizik</small></span>
+        </a>
+
+        <nav class="header-nav" aria-label="Bölümler">
+          <a class="nav-link" href="#lab">Mıknatıs–bobin</a>
+          <a class="nav-link" href="#jenerator">Jeneratör</a>
+          <a class="nav-link" href="#cubuk">Hareketli çubuk</a>
+          <a class="nav-link" href="#lenz">Lenz yasası</a>
+          <a class="nav-link" href="#test">Test</a>
+        </nav>
+
+        <div class="header-tools">
+          <button class="icon-btn" type="button" id="theme-toggle" aria-label="Koyu temaya geç">
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4" />
+            </svg>
+            <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z" />
+            </svg>
+          </button>
+          <button class="button small" type="button" data-open-modal>Konu anlatımı</button>
+        </div>
+      </div>
+      <span class="progress" aria-hidden="true"></span>
+    </header>
+
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow"><a href="index.html#elektrik-ve-manyetizma">Elektrik ve Manyetizma</a> · Konu 03</p>
+          <h1 id="page-title">İndüksiyon <span>akımı.</span></h1>
+          <p class="lead">
+            Manyetik alan tek başına akım üretmez; üreten şey <b>alanın değişmesidir</b>.
+            Bir devreden geçen manyetik akı değiştiği sürece devrede bir <b>indüksiyon emk'sı</b>
+            doğar — ve bu akım, kendisini doğuran değişime <b>karşı koyar</b>.
+          </p>
+          <div class="cta-row">
+            <button class="button" type="button" data-open-modal>
+              Konu anlatımını aç
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+            <a class="button ghost" href="#lab">Laboratuvara in</a>
+            <a class="button ghost" href="sunum/induksiyon-akimi.pptx" download>
+              Sunum (PPTX)
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </a>
+          </div>
+
+          <ul class="facts">
+            <li>Akı <b>Φ = B·A·cosα</b></li>
+            <li>Faraday <b>ε = −N·ΔΦ/Δt</b></li>
+            <li>Lenz <b>değişime karşı</b></li>
+            <li>Çubuk <b>ε = B·L·v</b></li>
+          </ul>
+        </div>
+
+        <aside class="hero-card" aria-label="Temel bağıntılar">
+          <span class="card-label">Temel bağıntılar</span>
+          <ul class="formula-list">
+            <li><code>Φ = B · A · cosα</code> <span>manyetik akı (weber)</span></li>
+            <li><code>ε = −N · ΔΦ / Δt</code> <span>Faraday indüksiyon yasası</span></li>
+            <li><code>ε = B · L · v</code> <span>hareketli iletken çubuk</span></li>
+            <li><code>I = ε / R</code> <span>indüksiyon akımı</span></li>
+          </ul>
+          <div class="card-foot"><span class="dot" aria-hidden="true"></span> Eksi işareti Lenz yasasını anlatır: karşı koyma</div>
+        </aside>
+      </section>
+
+      <button class="lesson-card reveal" type="button" data-open-modal>
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 6.5C10.5 5 8.5 4.5 6 4.5H3.5v13H6c2.5 0 4.5.5 6 2 1.5-1.5 3.5-2 6-2h2.5v-13H18c-2.5 0-4.5.5-6 2z" />
+            <path d="M12 6.5v13" />
+          </svg>
+        </span>
+        <span>
+          <h3>Konu anlatımı: İndüksiyon akımı</h3>
+          <p>Manyetik akıdan Faraday yasasına, Lenz yasasından jeneratöre kadar konunun tamamı. Tıkla, açılsın.</p>
+        </span>
+        <span class="go" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </span>
+      </button>
+
+      <!-- 01 — mıknatıs ve bobin -->
+      <section class="section reveal" id="lab" aria-labelledby="lab-title">
+        <div class="section-heading">
+          <h2 id="lab-title"><em>01</em> Mıknatıs ve bobin</h2>
+          <p>Mıknatısı bobine yaklaştır, içinden geçir, uzaklaştır. Galvanometre ne zaman sapıyor?</p>
+        </div>
+
+        <div class="presets" role="group" aria-label="Hazır deneyler">
+          <span>Hazır deneyler</span>
+          <button type="button" data-v="1" data-n="200" style="--tone: var(--blue)"><i aria-hidden="true"></i>Yavaş geçiş</button>
+          <button type="button" data-v="3" data-n="200" style="--tone: var(--rose)"><i aria-hidden="true"></i>Hızlı geçiş</button>
+          <button type="button" data-v="2" data-n="600" style="--tone: var(--violet)"><i aria-hidden="true"></i>Sarım 3 katı</button>
+          <button type="button" data-v="0" data-n="200" style="--tone: var(--amber)"><i aria-hidden="true"></i>Duran mıknatıs</button>
+        </div>
+
+        <div class="lab">
+          <div>
+            <canvas id="lab-scene" tabindex="0" aria-label="Bobine yaklaşan mıknatıs ve galvanometre sapması"></canvas>
+            <div class="readouts">
+              <div class="readout"><span>Akı Φ</span><strong id="ro-phi">0,00</strong> <i>mWb</i></div>
+              <div class="readout"><span>emk</span><strong id="ro-emf">0,00</strong> <i>V</i></div>
+              <div class="readout"><span>Akım yönü</span><strong id="ro-dir">—</strong><em id="ro-note">akı değişmiyor</em></div>
+              <div class="readout"><span>Konum</span><strong id="ro-x">−15</strong> <i>cm</i></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="field">
+              <label for="c-v">Mıknatısın hızı <output id="o-v" for="c-v">2,0 birim</output></label>
+              <input id="c-v" type="range" min="0" max="4" step="1" value="2" />
+              <small>0 seçersen mıknatıs durur; akı değişmez, akım da olmaz.</small>
+            </div>
+
+            <div class="field">
+              <label for="c-n">Sarım sayısı <output id="o-n" for="c-n">200</output></label>
+              <input id="c-n" type="range" min="50" max="800" step="50" value="200" />
+            </div>
+
+            <div class="switches">
+              <label><input type="checkbox" id="c-flip" /> Mıknatısı ters çevir (S kutbu önde)</label>
+            </div>
+
+            <div class="actions">
+              <button class="button" type="button" id="c-play">Geçir</button>
+              <button class="button ghost" type="button" id="c-reset">Sıfırla</button>
+            </div>
+
+            <ul class="mini">
+              <li>En büyük emk <b id="s-max">—</b></li>
+              <li>Yaklaşırken akı <b id="s-app">artıyor</b></li>
+              <li>Uzaklaşırken akı <b id="s-rec">azalıyor</b></li>
+              <li>Duran mıknatıs <b>emk üretmez</b></li>
+            </ul>
+          </div>
+        </div>
+
+        <canvas id="lab-graphs" aria-label="Manyetik akının ve indüksiyon emk'sının zamana bağlı değişimi"></canvas>
+        <p class="note">
+          <b>Φ – t</b> eğrisi mıknatıs bobinin merkezine gelirken tepe yapar; <b>ε – t</b> eğrisi ise
+          Φ'nin <b>eğimidir</b>: akı en hızlı değiştiği anda emk en büyüktür, akı tepedeyken
+          (eğim sıfır) emk <b>sıfırdır</b>. Mıknatıs geçtikten sonra akı azalır ve emk
+          <b>işaret değiştirir</b> — akım ters yöne döner.
+        </p>
+      </section>
+
+      <!-- 02 — jeneratör -->
+      <section class="section reveal" id="jenerator" aria-labelledby="jen-title">
+        <div class="section-heading">
+          <h2 id="jen-title"><em>02</em> Dönen çerçeve: jeneratör</h2>
+          <p>Alanı değiştirmenin bir yolu da çerçeveyi döndürmektir. Sonuç: alternatif akım.</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="gen-scene" aria-label="Manyetik alan içinde dönen çerçeve ve ürettiği alternatif emk"></canvas>
+          <div class="panel">
+            <h3>Φ kosinüs, ε sinüs</h3>
+            <p>
+              Çerçeve döndükçe alanla yaptığı açı sürekli değişir: Φ = B·A·cos(ωt). Faraday yasası
+              gereği emk, akının değişim hızıdır: <b>ε = B·A·ω·sin(ωt)</b>. Çerçeve alana
+              <b>paralel</b>ken (Φ = 0) emk en büyüktür; <b>dik</b>ken (Φ en büyük) emk sıfırdır.
+            </p>
+            <div class="field">
+              <label for="gen-w">Dönme hızı <output id="gen-w-out" for="gen-w">2,0 tur/s</output></label>
+              <input id="gen-w" type="range" min="5" max="40" step="1" value="20" />
+            </div>
+            <div class="field">
+              <label for="gen-b">Manyetik alan <output id="gen-b-out" for="gen-b">0,50 T</output></label>
+              <input id="gen-b" type="range" min="1" max="20" step="1" value="5" />
+            </div>
+            <div class="verdict" id="gen-verdict">Çerçeveyi döndürmek için <b>Döndür</b> düğmesine bas.</div>
+            <div class="actions">
+              <button class="button" type="button" id="gen-play">Döndür</button>
+              <button class="button ghost" type="button" id="gen-reset">Sıfırla</button>
+            </div>
+            <p class="note">
+              Elektrik santrallerinde su, buhar ya da rüzgâr bu çerçeveyi döndürür. Şebeke
+              frekansımız 50 Hz'dir: çerçeve saniyede 50 tur atar ve gerilim saniyede 50 kez
+              tam bir sinüs çevrimi yapar.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — hareketli çubuk -->
+      <section class="section reveal" id="cubuk" aria-labelledby="cubuk-title">
+        <div class="section-heading">
+          <h2 id="cubuk-title"><em>03</em> Hareketli iletken çubuk</h2>
+          <p>Raylar üzerinde kayan çubuk bir pil gibi davranır: ε = B·L·v.</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="rod-scene" aria-label="Manyetik alan içinde raylar üzerinde hareket eden iletken çubuk"></canvas>
+          <div class="panel">
+            <h3>Üreteç ve fren</h3>
+            <p>
+              Çubuk hareket ettikçe devreden geçen akı değişir ve bir akım doğar. Bu akım,
+              alanın içinde olduğu için çubuğa bir <b>kuvvet</b> uygulanır — ve bu kuvvet
+              daima <b>harekete zıt</b> yöndedir (Lenz). Yani çubuğu itmeye devam etmek için
+              enerji harcaman gerekir: <b>elektrik enerjisi bedava değildir</b>.
+            </p>
+            <div class="field">
+              <label for="rod-v">Çubuğun hızı <output id="rod-v-out" for="rod-v">4,0 m/s</output></label>
+              <input id="rod-v" type="range" min="0" max="10" step="1" value="4" />
+            </div>
+            <div class="field">
+              <label for="rod-b">Manyetik alan <output id="rod-b-out" for="rod-b">0,50 T</output></label>
+              <input id="rod-b" type="range" min="1" max="20" step="1" value="5" />
+            </div>
+            <div class="field">
+              <label for="rod-r">Devre direnci <output id="rod-r-out" for="rod-r">2,0 Ω</output></label>
+              <input id="rod-r" type="range" min="1" max="20" step="1" value="4" />
+            </div>
+            <div class="verdict" id="rod-verdict">Çubuğu itmek için <b>İt</b> düğmesine bas.</div>
+            <div class="actions">
+              <button class="button" type="button" id="rod-play">İt</button>
+              <button class="button ghost" type="button" id="rod-reset">Sıfırla</button>
+            </div>
+            <ul class="mini">
+              <li>emk <b id="rod-e">1,0 V</b></li>
+              <li>Akım <b id="rod-i">0,25 A</b></li>
+              <li>Karşı kuvvet <b id="rod-f">0,06 N</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — Lenz -->
+      <section class="section reveal" id="lenz" aria-labelledby="lenz-title">
+        <div class="section-heading">
+          <h2 id="lenz-title"><em>04</em> Lenz yasası: bakır boru</h2>
+          <p>Aynı mıknatıs, iki boru. Birinde serbest düşüyor, diğerinde adeta havada süzülüyor.</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="tube-scene" aria-label="Plastik ve bakır borularda düşen mıknatısların karşılaştırması"></canvas>
+          <div class="panel">
+            <h3>Neden yavaşlıyor?</h3>
+            <p>
+              Mıknatıs bakır borudan geçerken boru çeperinde <b>girdap (eddy) akımları</b> doğar.
+              Lenz yasası gereği bu akımlar, kendilerini doğuran değişime karşı koyar: mıknatısı
+              <b>yukarı doğru</b> iten bir manyetik kuvvet oluştururlar. Plastik boruda ise
+              iletken olmadığı için akım doğmaz ve mıknatıs serbest düşer.
+            </p>
+            <div class="verdict" id="tube-verdict">İkisini aynı anda bırakmak için düğmeye bas.</div>
+            <div class="actions">
+              <button class="button" type="button" id="tube-play">İkisini bırak</button>
+              <button class="button ghost" type="button" id="tube-reset">Sıfırla</button>
+            </div>
+            <p class="note">
+              Aynı ilke trenlerin <b>girdap akımı frenlerinde</b>, elektrikli süpürge motorlarının
+              yavaşlatılmasında ve metal dedektörlerinde kullanılır. Enerji korunur: mıknatısın
+              kaybettiği kinetik enerji, boruda <b>ısıya</b> dönüşür.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — mini test -->
+      <section class="section reveal" id="test" aria-labelledby="test-title">
+        <div class="section-heading">
+          <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
+          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+        </div>
+
+        <div class="quiz" id="quiz"></div>
+
+        <div class="score">
+          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
+          <span class="final" id="quiz-final"></span>
+        </div>
+      </section>
+    </main>
+
+    <button class="to-top" type="button" id="to-top" aria-label="Sayfanın başına dön">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
+    </button>
+
+    <nav class="topic-nav shell" aria-label="Ünite içinde gezinme">
+      <a class="prev" href="manyetik-alan.html">
+        <span>← Önceki konu</span>
+        <b>02 · Manyetik alan ve manyetik kuvvet</b>
+      </a>
+      <a class="mid" href="index.html#elektrik-ve-manyetizma">
+        <span>Ünite</span>
+        <b>Elektrik ve Manyetizma</b>
+      </a>
+      <a class="next" href="transformatorler.html">
+        <span>Sonraki konu →</span>
+        <b>04 · Transformatörler</b>
+      </a>
+    </nav>
+
+    <footer>
+      <div class="shell footer-inner">
+        <span>dersler.perinet.org</span>
+        <span><a href="sunum/induksiyon-akimi.pptx" download>Sunumu indir (PPTX)</a></span>
+        <span>Fizik · Elektrik ve Manyetizma · Konu 03</span>
+      </div>
+    </footer>
+
+    <dialog id="konu" aria-labelledby="konu-title">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Konu anlatımı</p>
+          <h2 id="konu-title">İndüksiyon akımı</h2>
+        </div>
+        <button class="close" type="button" id="konu-close" aria-label="Konu anlatımını kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="chips">
+        <button type="button" data-goto="k1">Manyetik akı</button>
+        <button type="button" data-goto="k2">Faraday yasası</button>
+        <button type="button" data-goto="k3">Lenz yasası</button>
+        <button type="button" data-goto="k4">Akımın yönü</button>
+        <button type="button" data-goto="k5">Hareketli çubuk</button>
+        <button type="button" data-goto="k6">Jeneratör</button>
+        <button type="button" data-goto="k7">Uygulamalar</button>
+        <button type="button" data-goto="k8">Çözümlü örnekler</button>
+        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+      </div>
+
+      <div class="modal-body" id="konu-body">
+        <h3 id="k1">Manyetik akı</h3>
+        <p>
+          Bir yüzeyden geçen manyetik alan çizgilerinin sayısına <strong>manyetik akı (Φ)</strong>
+          denir. Birimi <strong>weber (Wb)</strong>'dir.
+        </p>
+        <div class="formula">
+          <code>Φ = B · A · cosα</code>
+          <code>1 Wb = 1 T·m²</code>
+        </div>
+        <p>
+          Buradaki α, alan ile yüzeyin <strong>normali</strong> (yüzeye dik doğrultu) arasındaki
+          açıdır. Üç durum önemlidir:
+        </p>
+        <ul>
+          <li><strong>Alan yüzeye dik</strong> (α = 0): akı en büyüktür, Φ = B·A.</li>
+          <li><strong>Alan yüzeye paralel</strong> (α = 90°): akı <strong>sıfırdır</strong>.</li>
+          <li>Akı; B, A ya da α'dan <em>herhangi biri</em> değiştiğinde değişir.</li>
+        </ul>
+
+        <h3 id="k2">Faraday indüksiyon yasası</h3>
+        <p>
+          <strong>Bir devreden geçen manyetik akı değiştiğinde devrede bir elektromotor kuvvet
+          (emk) indüklenir.</strong> Bu emk'nin büyüklüğü, akının <em>değişim hızıyla</em>
+          orantılıdır:
+        </p>
+        <div class="formula">
+          <code>ε = −N · ΔΦ / Δt</code>
+          <code>I = ε / R</code>
+        </div>
+        <p>
+          N sarım sayısıdır: aynı akı değişimi N kez sayıldığı için emk sarımla doğru orantılı
+          büyür. Baştaki eksi işareti yönü anlatır (Lenz yasası).
+        </p>
+        <div class="callout">
+          <p>
+            <b>Belirleyici olan değişimdir.</b> Güçlü ama <b>sabit</b> bir alan hiçbir akım üretmez.
+            Mıknatıs bobinin içinde hareketsiz dururken galvanometre sıfırı gösterir; hareket
+            başladığı anda sapar.
+          </p>
+        </div>
+
+        <h3 id="k3">Lenz yasası</h3>
+        <p>
+          <strong>İndüksiyon akımı, kendisini doğuran akı değişimine karşı koyacak yönde akar.</strong>
+          Bu, enerjinin korunumunun doğrudan bir sonucudur.
+        </p>
+        <ul>
+          <li>Akı <strong>artıyorsa</strong>: indüksiyon akımı, artışı azaltacak yönde alan üretir.</li>
+          <li>Akı <strong>azalıyorsa</strong>: akım, azalmayı telafi edecek yönde alan üretir.</li>
+        </ul>
+        <p>
+          Bu yüzden mıknatısı bobine yaklaştırırken bir <strong>itme</strong>, uzaklaştırırken bir
+          <strong>çekme</strong> hissedersin. Mıknatısı hareket ettirmek için yaptığın iş, devrede
+          üretilen elektrik enerjisine dönüşür.
+        </p>
+        <div class="callout warn">
+          <p>
+            <b>Lenz olmasaydı ne olurdu?</b> Akım değişimi desteklerdi; sistem kendi kendini
+            hızlandırır, bedava enerji üretirdi. Eksi işareti, enerji korunumunun bekçisidir.
+          </p>
+        </div>
+
+        <h3 id="k4">İndüksiyon akımının yönü</h3>
+        <p>Yönü bulmanın pratik yolu üç adımdır:</p>
+        <ol class="steps">
+          <li>Devreden geçen akının yönünü ve <strong>artıyor mu azalıyor mu</strong> olduğunu belirle.</li>
+          <li>Lenz'e göre indüksiyon akımının <strong>hangi yönde alan üretmesi gerektiğini</strong> bul
+            (artışa karşı zıt, azalmaya karşı aynı yönde).</li>
+          <li>Sağ el kuralıyla, bu alanı üretecek <strong>akım yönünü</strong> belirle.</li>
+        </ol>
+        <p>
+          Sayfadaki <b>01</b> numaralı deneyde mıknatıs yaklaşırken akım bir yöne, uzaklaşırken
+          <strong>ters yöne</strong> akar; galvanometre iki kez, zıt yönlerde sapar.
+        </p>
+
+        <h3 id="k5">Hareketli iletken çubuk</h3>
+        <p>
+          Manyetik alan içinde, raylar üzerinde v hızıyla kayan L uzunluğundaki çubuk için
+          akı değişimi ΔΦ = B·L·v·Δt olur ve emk:
+        </p>
+        <div class="formula">
+          <code>ε = B · L · v</code>
+          <code>I = B·L·v / R</code>
+          <code>F = B·I·L = B²L²v / R</code>
+        </div>
+        <p>
+          Bu kuvvet <strong>harekete zıt</strong> yöndedir: çubuğu sabit hızla sürmek için dışarıdan
+          bir kuvvet uygulanmalıdır. Harcanan mekanik güç (F·v), devrede açığa çıkan elektriksel
+          güce (I²R) eşittir — <strong>enerji korunur</strong>.
+        </p>
+
+        <h3 id="k6">Jeneratör ve alternatif akım</h3>
+        <p>
+          Düzgün alan içinde sabit hızla dönen bir çerçevede akı sürekli değişir:
+        </p>
+        <div class="formula">
+          <code>Φ = B·A·cos(ω·t)</code>
+          <code>ε = B·A·ω·sin(ω·t)</code>
+          <code>ε(maks) = B·A·ω·N</code>
+        </div>
+        <p>
+          Üretilen emk <strong>sinüs biçiminde</strong> değişir ve yön değiştirir: buna
+          <strong>alternatif akım (AC)</strong> denir. Çerçeve alana dik olduğunda akı en büyüktür
+          ama <em>değişim hızı sıfırdır</em>, dolayısıyla emk sıfırdır; çerçeve alana paralel
+          olduğunda ise akı sıfır, emk en büyüktür.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Türkiye'de şebeke:</b> 230 V, 50 Hz. Yani jeneratör çerçevesi saniyede 50 tam tur
+            atar ve gerilim saniyede 50 kez tam çevrim yapar.
+          </p>
+        </div>
+
+        <h3 id="k7">Uygulamalar</h3>
+        <table class="tbl">
+          <thead><tr><th>Uygulama</th><th>Nasıl çalışır</th></tr></thead>
+          <tbody>
+            <tr><td>Jeneratör / dinamo</td><td>Dönen çerçevede akı değişimi</td></tr>
+            <tr><td>Transformatör</td><td>Değişen akımın ikinci bobinde akı değişimi yaratması</td></tr>
+            <tr><td>Kablosuz şarj</td><td>Bobinden bobine akı aktarımı</td></tr>
+            <tr><td>Metal dedektör</td><td>Metalde doğan girdap akımlarının alanı bozması</td></tr>
+            <tr><td>İndüksiyonlu ocak</td><td>Tencere tabanında doğan girdap akımlarının ısıtması</td></tr>
+            <tr><td>Girdap akımı freni</td><td>Lenz kuvvetiyle temassız frenleme</td></tr>
+          </tbody>
+        </table>
+
+        <h3 id="k8">Çözümlü örnekler</h3>
+
+        <details>
+          <summary>Örnek 1 — Akı değişiminden emk</summary>
+          <p>
+            200 sarımlı bir bobinden geçen manyetik akı 0,1 saniyede 4·10⁻³ Wb'den 1·10⁻³ Wb'ye
+            düşüyor. İndüklenen emk'nin büyüklüğü nedir?
+          </p>
+          <ol class="steps">
+            <li>ΔΦ = 1·10⁻³ − 4·10⁻³ = −3·10⁻³ Wb</li>
+            <li>|ε| = N·|ΔΦ|/Δt = 200 · 3·10⁻³ / 0,1</li>
+            <li>|ε| = 200 · 0,03 = <strong>6 V</strong></li>
+            <li>Akı azaldığı için indüksiyon akımı, akıyı sürdürecek yönde akar (Lenz).</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 2 — Hareketli çubuk</summary>
+          <p>
+            0,5 T'lık alanda, 40 cm uzunluğundaki çubuk raylar üzerinde 5 m/s hızla kayıyor.
+            Devrenin direnci 2 Ω'dur. emk, akım ve çubuğa etki eden karşı kuvveti bulunuz.
+          </p>
+          <ol class="steps">
+            <li>ε = B·L·v = 0,5 · 0,4 · 5 = <strong>1 V</strong></li>
+            <li>I = ε/R = 1/2 = <strong>0,5 A</strong></li>
+            <li>F = B·I·L = 0,5 · 0,5 · 0,4 = <strong>0,1 N</strong> (harekete zıt)</li>
+            <li>Kontrol: mekanik güç F·v = 0,5 W; elektriksel güç I²R = 0,25·2 = 0,5 W ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 3 — Akının açıya bağlılığı</summary>
+          <p>
+            Alanı 0,2 m² olan bir çerçeve, 0,4 T'lık düzgün alan içinde duruyor. Çerçevenin normali
+            alanla (a) 0°, (b) 60°, (c) 90° açı yaptığında akı kaç Wb olur?
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> Φ = B·A·cos0° = 0,4 · 0,2 · 1 = <strong>0,08 Wb</strong></li>
+            <li><strong>(b)</strong> Φ = 0,08 · cos60° = 0,08 · 0,5 = <strong>0,04 Wb</strong></li>
+            <li><strong>(c)</strong> Φ = 0,08 · cos90° = <strong>0</strong> (alan yüzeye paralel)</li>
+            <li>Çerçeve döndükçe akı bu değerler arasında salınır; jeneratörün temeli budur.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 4 — Lenz yasasıyla yön</summary>
+          <p>
+            Bir mıknatısın <strong>N kutbu</strong> bobine yaklaştırılıyor. Bobinin mıknatısa bakan
+            yüzü hangi kutup gibi davranır ve neden?
+          </p>
+          <ol class="steps">
+            <li>N kutbu yaklaştıkça bobinden geçen akı <strong>artar</strong>.</li>
+            <li>Lenz yasası: indüksiyon akımı bu artışa karşı koyar, yani mıknatısı
+              <strong>iter</strong>.</li>
+            <li>İtebilmesi için bobinin o yüzü <strong>N kutbu</strong> gibi davranmalıdır.</li>
+            <li>Mıknatıs uzaklaştırılsaydı akı azalırdı; bu kez bobin onu <strong>çekmek</strong> için
+              S kutbu gibi davranırdı.</li>
+          </ol>
+        </details>
+
+        <h3 id="k9">Sık yapılan hatalar</h3>
+        <ul>
+          <li><strong>“Manyetik alan varsa akım vardır.”</strong> Akım için alanın değil,
+            <em>akının değişmesi</em> gerekir.</li>
+          <li><strong>“Güçlü mıknatıs her zaman daha çok akım üretir.”</strong> Belirleyici olan
+            ΔΦ/Δt'dir; yavaş hareket ettirilen güçlü mıknatıs, hızlı hareket ettirilen zayıf
+            mıknatıstan daha az emk üretebilir.</li>
+          <li><strong>Lenz'in eksi işaretini büyüklük sanmak.</strong> Eksi işareti yalnızca
+            <em>yönü</em> anlatır.</li>
+          <li><strong>“İndüksiyon akımı hareketi destekler.”</strong> Daima <em>karşı koyar</em>;
+            aksi hâlde enerji korunumu bozulurdu.</li>
+          <li><strong>Akıyı alanla karıştırmak.</strong> Φ = B·A·cosα; alan aynı kalsa bile yüzey
+            ya da açı değişirse akı değişir.</li>
+          <li><strong>“ε = B·L·v her durumda geçerlidir.”</strong> Bu bağıntı, çubuğun alana ve
+            kendine dik hareket ettiği özel durum içindir.</li>
+          <li><strong>Jeneratörde emk ile akıyı aynı anda en büyük sanmak.</strong> Φ en büyükken
+            ε sıfır, Φ sıfırken ε en büyüktür.</li>
+        </ul>
+
+        <div class="callout">
+          <p>
+            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
+            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+          </p>
+        </div>
+      </div>
+    </dialog>
+    <script>
+      (function () {
+        "use strict";
+
+        /* ============ ortak yardımcılar ============ */
+
+        var COL = {};
+        var PALETTE = ["ink", "muted", "dim", "blue", "lime", "violet",
+                       "amber", "rose", "panel", "border", "chip", "ring", "outline", "scene"];
+
+        /* tuval renkleri CSS belirteçlerinden gelir; tema değişince yeniden okunur */
+        function readPalette() {
+          var cs = getComputedStyle(document.documentElement);
+          for (var i = 0; i < PALETTE.length; i++) {
+            var v = cs.getPropertyValue("--c-" + PALETTE[i]).trim();
+            if (v) COL[PALETTE[i]] = v;
+          }
+        }
+
+        /* bir renge saydamlık ekler */
+        function A(c, a) {
+          c = (c || "").trim();
+          if (c.charAt(0) === "#") {
+            var h = c.slice(1);
+            if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+            var n = parseInt(h.slice(0, 6), 16);
+            return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
+          }
+          if (c.indexOf("rgb") === 0) {
+            var q = c.replace(/rgba?\(|\)/g, "").split(/[,\s\/]+/);
+            return "rgba(" + q[0] + "," + q[1] + "," + q[2] + "," + a + ")";
+          }
+          return c;
+        }
+
+        readPalette();
+        var FONT = "ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif";
+        var TAU = Math.PI * 2;
+
+        function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+        function fmt(n, d) {
+          if (!isFinite(n)) return "–";
+          d = d == null ? 2 : d;
+          var s = n.toFixed(d);
+          if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+          return s.replace(".", ",");
+        }
+
+        function niceStep(range, target) {
+          var raw = range / (target || 5);
+          if (!(raw > 0)) return 1;
+          var pow = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+          var cand = [1, 2, 2.5, 5, 10];
+          for (var i = 0; i < cand.length; i++) {
+            if (cand[i] * pow >= raw - 1e-12) return cand[i] * pow;
+          }
+          return 10 * pow;
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+          if (!(w > 0) || !(h > 0)) { ctx.beginPath(); return false; }
+          r = Math.max(0, Math.min(r, w / 2, h / 2));
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.arcTo(x + w, y, x + w, y + h, r);
+          ctx.arcTo(x + w, y + h, x, y + h, r);
+          ctx.arcTo(x, y + h, x, y, r);
+          ctx.arcTo(x, y, x + w, y, r);
+          ctx.closePath();
+          return true;
+        }
+
+        function dashLine(ctx, x1, y1, x2, y2, color) {
+          ctx.save();
+          ctx.setLineDash([5, 6]);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        /* düşey ok: dir = +1 aşağı, -1 yukarı; side = +1 etiket sağda */
+        function vArrow(ctx, x, y, len, dir, color, label, side) {
+          if (len < 5) return;
+          var ey = y + dir * len;
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.lineWidth = 3;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x, ey - dir * 8);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(x, ey);
+          ctx.lineTo(x - 6, ey - dir * 12);
+          ctx.lineTo(x + 6, ey - dir * 12);
+          ctx.closePath();
+          ctx.fill();
+          if (label) {
+            ctx.font = "700 12px " + FONT;
+            ctx.textAlign = side < 0 ? "right" : "left";
+            ctx.textBaseline = "middle";
+            ctx.fillText(label, x + (side < 0 ? -10 : 10), y + dir * len * 0.5);
+          }
+          ctx.restore();
+        }
+
+        function chip(ctx, text, x, y, color, align) {
+          ctx.save();
+          ctx.font = "700 12px " + FONT;
+          var w = ctx.measureText(text).width + 22, h = 26;
+          var xx = align === "right" ? x - w : (align === "center" ? x - w / 2 : x);
+          roundRect(ctx, xx, y, w, h, 13);
+          ctx.fillStyle = COL.chip;
+          ctx.fill();
+          ctx.globalAlpha = 0.55;
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = color;
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          ctx.fillText(text, xx + 11, y + h / 2 + 0.5);
+          ctx.restore();
+        }
+
+        function orb(ctx, cx, cy, r, c1, c2) {
+          var g = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.4, r * 0.12, cx, cy, r);
+          g.addColorStop(0, c1);
+          g.addColorStop(1, c2);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, TAU);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.outline, 0.5);
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        /* ============ canvas kurulumu ============ */
+
+        var fits = [];
+
+        function kit(id, heightOf) {
+          var el = document.getElementById(id);
+          if (!el) return null;
+          var ctx = el.getContext("2d");
+          var W = 0, H = 0, draw = null;
+
+          function fit() {
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
+            var w = el.clientWidth || 600;
+            var h = Math.round(heightOf(w));
+            el.style.height = h + "px";
+            el.width = Math.round(w * dpr);
+            el.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            W = w;
+            H = h;
+            if (draw) draw();
+          }
+
+          var api = {
+            el: el, ctx: ctx,
+            get w() { return W; },
+            get h() { return H; },
+            fit: fit,
+            bind: function (fn) { draw = fn; }
+          };
+          window.addEventListener("resize", fit);
+          fits.push(fit);
+          fit();
+          return api;
+        }
+
+        /* ============ tek animasyon döngüsü ============ */
+
+        var tickers = new Set();
+        var rafId = 0, prev = 0;
+
+        function loop(ts) {
+          var dt = prev ? Math.min((ts - prev) / 1000, 0.05) : 0;
+          prev = ts;
+          tickers.forEach(function (fn) { fn(dt); });
+          if (tickers.size) {
+            rafId = requestAnimationFrame(loop);
+          } else {
+            rafId = 0;
+            prev = 0;
+          }
+        }
+
+        function play(fn) {
+          tickers.add(fn);
+          if (!rafId) { prev = 0; rafId = requestAnimationFrame(loop); }
+        }
+
+        function halt(fn) { tickers.delete(fn); }
+
+
+        /* serbest yönlü ok */
+        function arrow(ctx, x, y, dx, dy, color, label, width) {
+          var len = Math.sqrt(dx * dx + dy * dy);
+          if (len < 8) return;
+          var ux = dx / len, uy = dy / len;
+          var ex = x + dx, ey = y + dy;
+          var head = Math.min(11, len * 0.45);
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.lineWidth = width || 2.6;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(ex - ux * head * 0.75, ey - uy * head * 0.75);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(ex, ey);
+          ctx.lineTo(ex - ux * head - uy * head * 0.44, ey - uy * head + ux * head * 0.44);
+          ctx.lineTo(ex - ux * head + uy * head * 0.44, ey - uy * head - ux * head * 0.44);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+          if (label) tag(ctx, label, ex + ux * 12, ey + uy * 12, color, "center", 11);
+        }
+
+        /* arkasına sahne rengiyle hâle çizilen küçük etiket */
+        function tag(ctx, text, x, y, color, align, size) {
+          ctx.save();
+          ctx.font = "700 " + (size || 12) + "px " + FONT;
+          ctx.textAlign = align || "center";
+          ctx.textBaseline = "middle";
+          ctx.lineWidth = 3.5;
+          ctx.lineJoin = "round";
+          ctx.strokeStyle = A(COL.scene, 0.9);
+          ctx.strokeText(text, x, y);
+          ctx.fillStyle = color;
+          ctx.fillText(text, x, y);
+          ctx.restore();
+        }
+
+        /* ⊗ ve ⊙ simgeleri */
+        function intoPage(ctx, x, y, r, color) {
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, TAU);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(x - r * 0.62, y - r * 0.62);
+          ctx.lineTo(x + r * 0.62, y + r * 0.62);
+          ctx.moveTo(x + r * 0.62, y - r * 0.62);
+          ctx.lineTo(x - r * 0.62, y + r * 0.62);
+          ctx.stroke();
+          ctx.restore();
+        }
+        function outOfPage(ctx, x, y, r, color) {
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, TAU);
+          ctx.stroke();
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(x, y, r * 0.3, 0, TAU);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        /* ============ zaman eksenli iki eğri paneli ============ */
+
+        function panelT(ctx, X, Y, W, H, o) {
+          if (W < 90 || H < 80) return;
+          roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
+          ctx.fillStyle = COL.panel;
+          ctx.fill();
+          ctx.strokeStyle = COL.border;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          var pl = 52, pr = 16, pt = 38, pb = 28;
+          var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
+          var tM = Math.max(o.tEnd, 1e-6), yM = o.yMax;
+          var ys = niceStep(yM, 2);
+          yM = Math.ceil(yM / ys) * ys;              /* eksen sayıları yuvarlak dursun */
+          function px(t) { return x0 + (t / tM) * (x1 - x0); }
+          function py(v) { return (y0 + y1) / 2 - (v / yM) * ((y1 - y0) / 2); }
+          ctx.font = "10px " + FONT;
+          for (var v = -yM; v <= yM + 1e-9; v += ys) {
+            ctx.strokeStyle = Math.abs(v) < 1e-12 ? A(COL.dim, 0.45) : A(COL.dim, 0.14);
+            ctx.beginPath();
+            ctx.moveTo(x0, py(v));
+            ctx.lineTo(x1, py(v));
+            ctx.stroke();
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(fmt(v, ys < 1 ? 1 : 0), x0 - 7, py(v));
+          }
+          ctx.strokeStyle = A(COL.dim, 0.42);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0 - 4);
+          ctx.lineTo(x0, y1);
+          ctx.stroke();
+          ctx.strokeStyle = o.color;
+          ctx.lineWidth = 2.4;
+          ctx.lineJoin = "round";
+          ctx.beginPath();
+          for (var i = 0; i <= 140; i++) {
+            var t = (tM * i) / 140;
+            var yy = py(clamp(o.f(t), -yM, yM));
+            if (i) ctx.lineTo(px(t), yy); else ctx.moveTo(px(t), yy);
+          }
+          ctx.stroke();
+          if (o.tNow != null) {
+            var mx = px(clamp(o.tNow, 0, tM)), my = py(clamp(o.f(clamp(o.tNow, 0, tM)), -yM, yM));
+            dashLine(ctx, mx, y0 - 4, mx, y1, A(COL.dim, 0.4));
+            ctx.fillStyle = o.color;
+            ctx.beginPath();
+            ctx.arc(mx, my, 4.5, 0, TAU);
+            ctx.fill();
+            ctx.strokeStyle = COL.ring;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.font = "700 12.5px " + FONT;
+          ctx.fillStyle = o.color;
+          ctx.fillText(o.title, X + 17, Y + 24);
+          ctx.textAlign = "right";
+          ctx.font = "10.5px " + FONT;
+          ctx.fillStyle = COL.dim;
+          ctx.fillText(o.unit, X + W - 17, Y + 24);
+        }
+
+        /* ============ 01 · mıknatıs ve bobin ============ */
+
+        (function lab() {
+          var S = kit("lab-scene", function (w) { return clamp(w * 0.42, 260, 340); });
+          var G = kit("lab-graphs", function (w) { return w < 640 ? 500 : 250; });
+          if (!S || !G) return;
+
+          var X0 = -0.15, X1 = 0.15, AA = 0.04, PHI0 = 4e-3;
+          var st = { v: 0.5, N: 200, flip: false, t: 0, run: false, done: false };
+
+          function speed() { return st.v; }
+          function xAt(t) { return X0 + speed() * t; }
+          function phi(x) {
+            var s = st.flip ? -1 : 1;
+            return s * PHI0 * Math.pow(AA * AA / (AA * AA + x * x), 1.5);
+          }
+          function dphidx(x) {
+            var s = st.flip ? -1 : 1;
+            return s * PHI0 * Math.pow(AA, 3) * (-3 * x) * Math.pow(AA * AA + x * x, -2.5);
+          }
+          function emf(t) {
+            if (speed() < 1e-6) return 0;
+            return -st.N * dphidx(xAt(t)) * speed();
+          }
+          function tEnd() { return speed() < 1e-6 ? 2 : (X1 - X0) / speed(); }
+          function emfMax() {
+            var m = 0;
+            for (var t = 0; t <= tEnd(); t += tEnd() / 200) m = Math.max(m, Math.abs(emf(t)));
+            return m;
+          }
+
+          function drawScene() {
+            var ctx = S.ctx, W = S.w, H = S.h;
+            ctx.clearRect(0, 0, W, H);
+            var cy = H * 0.44;
+            var sc = (W - 150) / (X1 - X0);
+            function px(x) { return W * 0.46 + x * sc; }
+
+            /* bobin */
+            var coilW = 54, coilH = 74;
+            for (var i = 0; i < 5; i++) {
+              ctx.strokeStyle = A(COL.amber, 0.85);
+              ctx.lineWidth = 3;
+              ctx.beginPath();
+              ctx.ellipse(px(0) - coilW / 2 + (i * coilW) / 4, cy, 9, coilH / 2, 0, 0, TAU);
+              ctx.stroke();
+            }
+            tag(ctx, st.N + " sarım", px(0), cy - coilH / 2 - 16, COL.amber, "center", 12);
+
+            /* devre ve galvanometre */
+            var gx = W * 0.82, gy = H * 0.76;
+            ctx.strokeStyle = A(COL.dim, 0.6);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(px(0) + coilW / 2, cy + coilH / 2 - 6);
+            ctx.lineTo(px(0) + coilW / 2, gy);
+            ctx.lineTo(gx - 26, gy);
+            ctx.moveTo(px(0) - coilW / 2, cy + coilH / 2 - 6);
+            ctx.lineTo(px(0) - coilW / 2, gy + 22);
+            ctx.lineTo(gx + 26, gy + 22);
+            ctx.lineTo(gx + 26, gy);
+            ctx.stroke();
+            ctx.fillStyle = A(COL.scene, 0.95);
+            ctx.beginPath();
+            ctx.arc(gx, gy, 26, 0, TAU);
+            ctx.fill();
+            ctx.strokeStyle = A(COL.dim, 0.6);
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            var e = emf(st.t), em = Math.max(emfMax(), 1e-9);
+            var ang = -Math.PI / 2 + clamp(e / em, -1, 1) * 1.0;
+            ctx.strokeStyle = Math.abs(e) > 1e-9 ? COL.rose : COL.dim;
+            ctx.lineWidth = 2.6;
+            ctx.beginPath();
+            ctx.moveTo(gx, gy + 6);
+            ctx.lineTo(gx + Math.cos(ang) * 19, gy + 6 + Math.sin(ang) * 19);
+            ctx.stroke();
+            tag(ctx, "G", gx, gy + 16, COL.dim, "center", 11);
+
+            /* mıknatıs */
+            var mx = px(xAt(st.t)), mw = 56, mh = 22;
+            var north = st.flip ? "S" : "N", south = st.flip ? "N" : "S";
+            roundRect(ctx, mx - mw / 2, cy - mh / 2, mw / 2, mh, 3);
+            ctx.fillStyle = st.flip ? "#5b87e8" : "#c53455";
+            ctx.fill();
+            roundRect(ctx, mx, cy - mh / 2, mw / 2, mh, 3);
+            ctx.fillStyle = st.flip ? "#c53455" : "#5b87e8";
+            ctx.fill();
+            ctx.font = "700 12px " + FONT;
+            ctx.fillStyle = "#ffffff";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(north, mx - mw / 4, cy + 1);
+            ctx.fillText(south, mx + mw / 4, cy + 1);
+            if (speed() > 1e-6) arrow(ctx, mx + mw / 2 + 4, cy, 26, 0, COL.lime, null, 2.2);
+
+            chip(ctx, "Φ = " + fmt(phi(xAt(st.t)) * 1000, 2) + " mWb", 8, 8, COL.blue, "left");
+            chip(ctx, "ε = " + fmt(e, 2) + " V", W - 8, 8,
+                 Math.abs(e) > 1e-9 ? COL.rose : COL.dim, "right");
+            if (speed() < 1e-6) {
+              chip(ctx, "mıknatıs duruyor · akı değişmiyor · akım yok", W / 2, H - 28,
+                   COL.amber, "center");
+            }
+          }
+
+          function drawGraphs() {
+            var ctx = G.ctx, W = G.w, H = G.h;
+            ctx.clearRect(0, 0, W, H);
+            var stacked = W < 640, gap = 10;
+            var pw = stacked ? W : (W - gap) / 2;
+            var ph = stacked ? (H - gap) / 2 : H;
+            panelT(ctx, 0, 0, pw, ph, {
+              title: "Φ – t · manyetik akı", unit: "mWb", color: COL.blue,
+              f: function (t) { return phi(xAt(t)) * 1000; },
+              tEnd: tEnd(), tNow: st.t, yMax: PHI0 * 1000 * 1.2
+            });
+            panelT(ctx, stacked ? 0 : pw + gap, stacked ? ph + gap : 0, pw, ph, {
+              title: "ε – t · indüksiyon emk'sı", unit: "V", color: COL.rose,
+              f: function (t) { return emf(t); },
+              tEnd: tEnd(), tNow: st.t, yMax: Math.max(emfMax() * 1.25, 0.5)
+            });
+          }
+
+          var ro = {
+            phi: document.getElementById("ro-phi"),
+            emf: document.getElementById("ro-emf"),
+            dir: document.getElementById("ro-dir"),
+            note: document.getElementById("ro-note"),
+            x: document.getElementById("ro-x")
+          };
+          var playBtn = document.getElementById("c-play");
+
+          function sync() {
+            var x = xAt(st.t), e = emf(st.t);
+            ro.phi.textContent = fmt(phi(x) * 1000, 2);
+            ro.emf.textContent = fmt(e, 2);
+            ro.x.textContent = fmt(x * 100, 0);
+            if (Math.abs(e) < 1e-9) {
+              ro.dir.textContent = "—";
+              ro.note.textContent = speed() < 1e-6 ? "mıknatıs duruyor" : "akı tepede · eğim sıfır";
+            } else {
+              ro.dir.textContent = e > 0 ? "saat yönü" : "ters yön";
+              ro.note.textContent = x < 0 ? "akı artıyor" : "akı azalıyor";
+            }
+            document.getElementById("s-max").textContent = fmt(emfMax(), 2) + " V";
+            drawScene();
+            drawGraphs();
+          }
+
+          function tick(dt) {
+            if (!st.run) { halt(tick); return; }
+            st.t += dt;
+            if (st.t >= tEnd()) {
+              st.t = tEnd();
+              st.run = false;
+              st.done = true;
+              halt(tick);
+              playBtn.textContent = "Tekrar geçir";
+            }
+            sync();
+          }
+
+          playBtn.addEventListener("click", function () {
+            if (st.run) return;
+            st.t = 0; st.run = true; st.done = false;
+            playBtn.textContent = "Geçiyor…";
+            play(tick);
+          });
+          document.getElementById("c-reset").addEventListener("click", function () {
+            st.t = 0; st.run = false; st.done = false;
+            halt(tick);
+            playBtn.textContent = "Geçir";
+            sync();
+          });
+
+          function bind(id, outId, fn) {
+            var el = document.getElementById(id), out = document.getElementById(outId);
+            function paint() {
+              var lo = +el.min, hi = +el.max;
+              el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+            }
+            el.addEventListener("input", function () {
+              fn(+el.value, out);
+              paint();
+              st.t = 0; st.run = false;
+              playBtn.textContent = "Geçir";
+              sync();
+            });
+            paint();
+          }
+          bind("c-v", "o-v", function (v, out) {
+            st.v = v * 0.25;
+            out.textContent = v === 0 ? "durgun" : fmt(v, 1) + " birim";
+          });
+          bind("c-n", "o-n", function (v, out) { st.N = v; out.textContent = String(v); });
+
+          document.getElementById("c-flip").addEventListener("change", function () {
+            st.flip = this.checked;
+            sync();
+          });
+
+          var presets = document.querySelectorAll(".presets button[data-v]");
+          for (var i = 0; i < presets.length; i++) {
+            presets[i].addEventListener("click", function () {
+              var vEl = document.getElementById("c-v"), nEl = document.getElementById("c-n");
+              vEl.value = this.dataset.v;
+              nEl.value = this.dataset.n;
+              vEl.dispatchEvent(new Event("input", { bubbles: true }));
+              nEl.dispatchEvent(new Event("input", { bubbles: true }));
+              if (+this.dataset.v > 0) playBtn.click();
+            });
+          }
+
+          S.bind(drawScene);
+          G.bind(drawGraphs);
+          sync();
+        })();
+
+        /* ============ 02 · jeneratör ============ */
+
+        (function gen() {
+          var Gg = kit("gen-scene", function (w) { return clamp(w * 0.5, 280, 370); });
+          if (!Gg) return;
+
+          var AREA = 0.02, NT = 100;
+          var st = { f: 2, B: 0.5, t: 0, run: false };
+          var verdict = document.getElementById("gen-verdict");
+          var playBtn = document.getElementById("gen-play");
+
+          function om() { return TAU * st.f; }
+          function phi(t) { return st.B * AREA * Math.cos(om() * t); }
+          function emf(t) { return NT * st.B * AREA * om() * Math.sin(om() * t); }
+          function emax() { return NT * st.B * AREA * om(); }
+
+          function draw() {
+            var ctx = Gg.ctx, W = Gg.w, H = Gg.h;
+            ctx.clearRect(0, 0, W, H);
+            var cx = W * 0.22, cy = H * 0.5;
+
+            /* alan okları */
+            for (var gy = 30; gy < H - 20; gy += 38) {
+              ctx.save();
+              ctx.globalAlpha = 0.4;
+              arrow(ctx, 14, gy, W * 0.36, 0, COL.rose, null, 1.5);
+              ctx.restore();
+            }
+            tag(ctx, "B = " + fmt(st.B, 2) + " T", 20, 16, COL.rose, "left", 11.5);
+
+            /* dönen çerçeve (kenardan görünüş) */
+            var a = om() * st.t;
+            var wdt = 74 * Math.abs(Math.cos(a)) + 6, hgt = 84;
+            ctx.strokeStyle = COL.blue;
+            ctx.lineWidth = 3.4;
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, wdt / 2, hgt / 2, 0, 0, TAU);
+            ctx.stroke();
+            ctx.strokeStyle = A(COL.dim, 0.7);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - hgt / 2 - 16);
+            ctx.lineTo(cx, cy + hgt / 2 + 16);
+            ctx.stroke();
+            tag(ctx, "Φ = " + fmt(phi(st.t) * 1000, 1) + " mWb", cx, cy + hgt / 2 + 32,
+                COL.blue, "center", 11.5);
+
+            /* grafikler */
+            var gx0 = W * 0.44, gx1 = W - 16;
+            var tM = 2 / st.f;
+            function px(t) { return gx0 + ((t % tM) / tM) * (gx1 - gx0); }
+            [[H * 0.3, phi, COL.blue, "Φ – t", st.B * AREA * 1.25, 1000, "mWb"],
+             [H * 0.74, emf, COL.rose, "ε – t", emax() * 1.25, 1, "V"]].forEach(function (g) {
+              var cyy = g[0], fn = g[1], col = g[2], ttl = g[3], mx = g[4], k = g[5], un = g[6];
+              ctx.strokeStyle = A(COL.dim, 0.35);
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(gx0, cyy);
+              ctx.lineTo(gx1, cyy);
+              ctx.stroke();
+              ctx.strokeStyle = col;
+              ctx.lineWidth = 2.2;
+              ctx.beginPath();
+              for (var i = 0; i <= 120; i++) {
+                var t = (tM * i) / 120;
+                var yy = cyy - (fn(t) / mx) * 44;
+                if (i) ctx.lineTo(gx0 + (i / 120) * (gx1 - gx0), yy);
+                else ctx.moveTo(gx0, yy);
+              }
+              ctx.stroke();
+              var mxp = px(st.t), myp = cyy - (fn(st.t) / mx) * 44;
+              ctx.fillStyle = col;
+              ctx.beginPath();
+              ctx.arc(mxp, myp, 4.5, 0, TAU);
+              ctx.fill();
+              tag(ctx, ttl, gx0 + 2, cyy - 54, col, "left", 11.5);
+              tag(ctx, fmt(fn(st.t) * k, 1) + " " + un, gx1, cyy - 54, COL.muted, "right", 11);
+            });
+
+            chip(ctx, fmt(st.f, 1) + " tur/s · ε(maks) = " + fmt(emax(), 1) + " V", 8, 8,
+                 COL.violet, "left");
+          }
+
+          function say() {
+            verdict.className = "verdict good";
+            verdict.innerHTML = "ε(maks) = N·B·A·ω = " + NT + " · " + fmt(st.B, 2) + " · " +
+              fmt(AREA, 2) + " · " + fmt(om(), 1) + " = <b>" + fmt(emax(), 1) + " V</b>. " +
+              "Φ en büyükken ε sıfır, Φ sıfırken ε en büyüktür.";
+            draw();
+          }
+
+          function tick(dt) {
+            if (!st.run) { halt(tick); return; }
+            st.t += dt * 0.35;
+            draw();
+          }
+
+          playBtn.addEventListener("click", function () {
+            st.run = !st.run;
+            playBtn.textContent = st.run ? "Durdur" : "Döndür";
+            if (st.run) play(tick);
+          });
+          document.getElementById("gen-reset").addEventListener("click", function () {
+            st.run = false; st.t = 0;
+            halt(tick);
+            playBtn.textContent = "Döndür";
+            say();
+          });
+
+          function bind(id, outId, fn) {
+            var el = document.getElementById(id), out = document.getElementById(outId);
+            function paint() {
+              var lo = +el.min, hi = +el.max;
+              el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+            }
+            el.addEventListener("input", function () { fn(+el.value, out); paint(); say(); });
+            paint();
+          }
+          bind("gen-w", "gen-w-out", function (v, out) {
+            st.f = v / 10; out.textContent = fmt(v / 10, 1) + " tur/s";
+          });
+          bind("gen-b", "gen-b-out", function (v, out) {
+            st.B = v / 10; out.textContent = fmt(v / 10, 2) + " T";
+          });
+
+          Gg.bind(draw);
+          say();
+        })();
+
+        /* ============ 03 · hareketli çubuk ============ */
+
+        (function rod() {
+          var Rr = kit("rod-scene", function (w) { return clamp(w * 0.44, 260, 340); });
+          if (!Rr) return;
+
+          var LEN = 0.5;
+          var st = { v: 4, B: 0.5, R: 2, x: 0, run: false };
+          var verdict = document.getElementById("rod-verdict");
+          var playBtn = document.getElementById("rod-play");
+
+          function emf() { return st.B * LEN * st.v; }
+          function cur() { return emf() / st.R; }
+          function force() { return st.B * cur() * LEN; }
+
+          function draw() {
+            var ctx = Rr.ctx, W = Rr.w, H = Rr.h;
+            ctx.clearRect(0, 0, W, H);
+            var pad = 30;
+            var top = pad + 26, bot = H - pad - 30;
+            var x0 = pad + 20, x1 = W - pad - 10;
+
+            /* alan bölgesi */
+            ctx.fillStyle = A(COL.violet, 0.07);
+            ctx.fillRect(pad, pad, W - pad * 2, H - pad * 2 - 10);
+            for (var gx = pad + 28; gx < W - pad; gx += 50) {
+              for (var gy = pad + 22; gy < H - pad - 16; gy += 44) {
+                intoPage(ctx, gx, gy, 6, A(COL.violet, 0.38));
+              }
+            }
+            tag(ctx, "B sayfaya doğru · " + fmt(st.B, 2) + " T", W - pad - 6, pad + 12,
+                COL.violet, "right", 11);
+
+            /* raylar ve direnç */
+            ctx.strokeStyle = A(COL.dim, 0.75);
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(x0, top);
+            ctx.lineTo(x1, top);
+            ctx.moveTo(x0, bot);
+            ctx.lineTo(x1, bot);
+            ctx.moveTo(x0, top);
+            ctx.lineTo(x0, bot);
+            ctx.stroke();
+            roundRect(ctx, x0 - 9, (top + bot) / 2 - 16, 18, 32, 4);
+            ctx.fillStyle = A(COL.amber, 0.6);
+            ctx.fill();
+            tag(ctx, fmt(st.R, 1) + " Ω", x0 - 22, (top + bot) / 2, COL.amber, "right", 11);
+
+            /* çubuk */
+            var rx = x0 + 60 + st.x * 140;
+            ctx.strokeStyle = COL.blue;
+            ctx.lineWidth = 6;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.moveTo(rx, top);
+            ctx.lineTo(rx, bot);
+            ctx.stroke();
+            tag(ctx, "L = " + fmt(LEN, 1) + " m", rx + 16, (top + bot) / 2 - 26, COL.blue,
+                "left", 11);
+
+            /* hız ve karşı kuvvet */
+            if (st.v > 0) {
+              arrow(ctx, rx, top - 14, 46, 0, COL.lime, "v = " + fmt(st.v, 1) + " m/s", 2.6);
+              arrow(ctx, rx, bot + 16, -clamp(force() * 90, 16, 60), 0, COL.rose,
+                    "F = " + fmt(force(), 2) + " N", 2.6);
+              /* akım okları */
+              var dir = 1;
+              [[rx, top, x0, top], [x0, top, x0, bot], [x0, bot, rx, bot]].forEach(function (seg) {
+                var mx = (seg[0] + seg[2]) / 2, my = (seg[1] + seg[3]) / 2;
+                var dx = seg[2] - seg[0], dy = seg[3] - seg[1];
+                var l = Math.sqrt(dx * dx + dy * dy);
+                if (l < 10) return;
+                arrow(ctx, mx - (dx / l) * 9 * dir, my - (dy / l) * 9 * dir,
+                      (dx / l) * 18 * dir, (dy / l) * 18 * dir, COL.amber, null, 2);
+              });
+            }
+
+            chip(ctx, "ε = B·L·v = " + fmt(emf(), 2) + " V", 8, 8, COL.lime, "left");
+            chip(ctx, "I = " + fmt(cur(), 2) + " A", W - 8, H - 26, COL.amber, "right");
+          }
+
+          function say() {
+            document.getElementById("rod-e").textContent = fmt(emf(), 2) + " V";
+            document.getElementById("rod-i").textContent = fmt(cur(), 2) + " A";
+            document.getElementById("rod-f").textContent = fmt(force(), 3) + " N";
+            if (st.v < 0.01) {
+              verdict.className = "verdict warn";
+              verdict.innerHTML = "Çubuk duruyor: akı değişmiyor, <b>emk ve akım sıfır</b>.";
+            } else {
+              verdict.className = "verdict good";
+              verdict.innerHTML = "ε = B·L·v = <b>" + fmt(emf(), 2) + " V</b> · I = ε/R = <b>" +
+                fmt(cur(), 2) + " A</b>. Çubuğa etki eden karşı kuvvet <b>" + fmt(force(), 3) +
+                " N</b>; sabit hızda sürmek için aynı büyüklükte kuvvet uygulamalısın. " +
+                "Harcanan mekanik güç " + fmt(force() * st.v, 2) + " W, üretilen elektriksel güç " +
+                fmt(cur() * cur() * st.R, 2) + " W — <b>eşit</b>.";
+            }
+            draw();
+          }
+
+          function tick(dt) {
+            if (!st.run) { halt(tick); return; }
+            st.x += (st.v / 10) * dt;
+            if (st.x > 1) { st.x = 0; }
+            draw();
+          }
+
+          playBtn.addEventListener("click", function () {
+            st.run = !st.run;
+            playBtn.textContent = st.run ? "Durdur" : "İt";
+            if (st.run) play(tick);
+          });
+          document.getElementById("rod-reset").addEventListener("click", function () {
+            st.run = false; st.x = 0;
+            halt(tick);
+            playBtn.textContent = "İt";
+            say();
+          });
+
+          function bind(id, outId, fn) {
+            var el = document.getElementById(id), out = document.getElementById(outId);
+            function paint() {
+              var lo = +el.min, hi = +el.max;
+              el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+            }
+            el.addEventListener("input", function () { fn(+el.value, out); paint(); say(); });
+            paint();
+          }
+          bind("rod-v", "rod-v-out", function (v, out) { st.v = v; out.textContent = fmt(v, 1) + " m/s"; });
+          bind("rod-b", "rod-b-out", function (v, out) { st.B = v / 10; out.textContent = fmt(v / 10, 2) + " T"; });
+          bind("rod-r", "rod-r-out", function (v, out) { st.R = v / 2; out.textContent = fmt(v / 2, 1) + " Ω"; });
+
+          Rr.bind(draw);
+          say();
+        })();
+
+        /* ============ 04 · bakır boru ============ */
+
+        (function tube() {
+          var Tt = kit("tube-scene", function (w) { return clamp(w * 0.52, 300, 390); });
+          if (!Tt) return;
+
+          var GR = 9.81, HGT = 1.2, VT = 0.22;
+          var st = { t: 0, run: false, done: false };
+          var verdict = document.getElementById("tube-verdict");
+          var playBtn = document.getElementById("tube-play");
+
+          function yFree(t) { return Math.min(0.5 * GR * t * t, HGT); }
+          function yCu(t) { return Math.min(VT * t, HGT); }
+          function tFree() { return Math.sqrt((2 * HGT) / GR); }
+          function tCu() { return HGT / VT; }
+
+          function draw() {
+            var ctx = Tt.ctx, W = Tt.w, H = Tt.h;
+            ctx.clearRect(0, 0, W, H);
+            var padT = 40, padB = 40;
+            var sc = (H - padT - padB) / HGT;
+            var cx1 = W * 0.33, cx2 = W * 0.67, tw = 46;
+
+            [[cx1, "plastik boru", COL.dim, yFree(st.t), tFree()],
+             [cx2, "bakır boru", COL.amber, yCu(st.t), tCu()]].forEach(function (g) {
+              var cx = g[0], name = g[1], col = g[2], y = g[3], tl = g[4];
+              ctx.fillStyle = A(col, 0.12);
+              ctx.fillRect(cx - tw / 2, padT, tw, H - padT - padB);
+              ctx.strokeStyle = A(col, 0.55);
+              ctx.lineWidth = 2;
+              ctx.strokeRect(cx - tw / 2 + 0.5, padT + 0.5, tw - 1, H - padT - padB - 1);
+              tag(ctx, name, cx, padT - 14, col, "center", 12);
+
+              var my = padT + y * sc;
+              var mh = 20;
+              roundRect(ctx, cx - 13, my - mh / 2, 13, mh, 3);
+              ctx.fillStyle = "#c53455";
+              ctx.fill();
+              roundRect(ctx, cx, my - mh / 2, 13, mh, 3);
+              ctx.fillStyle = "#5b87e8";
+              ctx.fill();
+
+              if (name === "bakır boru" && st.t > 0.05 && y < HGT) {
+                ctx.strokeStyle = A(COL.lime, 0.7);
+                ctx.lineWidth = 2;
+                for (var k = -1; k <= 1; k += 2) {
+                  ctx.beginPath();
+                  ctx.ellipse(cx, my + k * 22, tw / 2 - 4, 6, 0, 0, TAU);
+                  ctx.stroke();
+                }
+                arrow(ctx, cx + tw / 2 + 8, my + 6, 0, -22, COL.lime, null, 2.2);
+                tag(ctx, "karşı kuvvet", cx + tw / 2 + 14, my - 18, COL.lime, "left", 10);
+              }
+              if (y >= HGT) tag(ctx, fmt(tl, 2) + " s", cx, H - padB + 16, col, "center", 12);
+            });
+
+            chip(ctx, "t = " + fmt(st.t, 2) + " s", 8, 8, COL.muted, "left");
+            chip(ctx, "aynı mıknatıs · aynı yükseklik", W - 8, 8, COL.dim, "right");
+          }
+
+          function say() {
+            if (!st.done) {
+              verdict.className = "verdict";
+              verdict.innerHTML = st.run ? "Plastik boruda serbest düşüş, bakırda frenleme…"
+                : "İkisini aynı anda bırakmak için düğmeye bas.";
+              return;
+            }
+            verdict.className = "verdict good";
+            verdict.innerHTML = "Plastik boruda <b>" + fmt(tFree(), 2) + " s</b>, bakır boruda <b>" +
+              fmt(tCu(), 1) + " s</b>: yaklaşık <b>" + fmt(tCu() / tFree(), 0) + " kat</b> yavaş. " +
+              "Bakırda doğan girdap akımları, Lenz yasası gereği mıknatısı <b>yukarı iten</b> bir " +
+              "kuvvet oluşturur. Kaybolan kinetik enerji boruda ısıya dönüşür.";
+          }
+
+          function tick(dt) {
+            if (!st.run) { halt(tick); return; }
+            st.t += dt * 1.2;
+            if (st.t >= tCu()) {
+              st.t = tCu();
+              st.run = false;
+              st.done = true;
+              halt(tick);
+              playBtn.textContent = "Yeniden bırak";
+            }
+            draw();
+            say();
+          }
+
+          playBtn.addEventListener("click", function () {
+            if (st.run) return;
+            st.t = 0; st.done = false; st.run = true;
+            playBtn.textContent = "Düşüyor…";
+            play(tick);
+          });
+          document.getElementById("tube-reset").addEventListener("click", function () {
+            st.t = 0; st.run = false; st.done = false;
+            halt(tick);
+            playBtn.textContent = "İkisini bırak";
+            verdict.className = "verdict";
+            verdict.innerHTML = "İkisini aynı anda bırakmak için düğmeye bas.";
+            draw();
+          });
+
+          Tt.bind(draw);
+          draw();
+        })();
+
+        /* ============ 05 · hızlı kontrol ============ */
+
+        (function quiz() {
+          var box = document.getElementById("quiz");
+          if (!box) return;
+
+          var DATA = [
+            {
+              q: "Bir bobinin içinde hareketsiz duran güçlü bir mıknatıs için hangisi doğrudur?",
+              o: ["Sürekli akım üretir", "Akım üretmez; akı değişmiyordur", "Akım yalnızca N kutbu yakınken oluşur", "Bobinin direncine bağlıdır"],
+              a: 1,
+              why: "İndüksiyon için manyetik akının değişmesi gerekir. Sabit bir akı, ne kadar büyük olursa olsun emk üretmez: ε = −N·ΔΦ/Δt bağıntısında ΔΦ = 0'dır."
+            },
+            {
+              q: "Bir mıknatısın N kutbu bobine yaklaştırılıyor. Bobinin mıknatısa bakan yüzü nasıl davranır?",
+              o: ["S kutbu gibi; mıknatısı çeker", "N kutbu gibi; mıknatısı iter", "Nötr kalır", "Önce S sonra N kutbu gibi"],
+              a: 1,
+              why: "Lenz yasası: indüksiyon akımı akı artışına karşı koyar, yani mıknatısı iter. İtebilmek için bobinin o yüzü N kutbu gibi davranmalıdır. Mıknatıs uzaklaştırılsaydı S kutbu gibi davranıp çekerdi."
+            },
+            {
+              q: "200 sarımlı bobinden geçen akı 0,1 s'de 4 mWb'den 1 mWb'ye düşerse indüklenen emk kaç volttur?",
+              o: ["0,6 V", "6 V", "60 V", "0,06 V"],
+              a: 1,
+              why: "|ε| = N·|ΔΦ|/Δt = 200 · (3·10⁻³ Wb) / 0,1 s = 6 V. Akının mWb cinsinden verildiğine dikkat: 3 mWb = 3·10⁻³ Wb."
+            },
+            {
+              q: "Manyetik alan içinde raylar üzerinde kayan çubuğa etki eden indüksiyon kuvveti hangi yöndedir?",
+              o: ["Hareket yönünde", "Harekete zıt yönde", "Alan yönünde", "Kuvvet oluşmaz"],
+              a: 1,
+              why: "Lenz yasası gereği indüksiyon akımının oluşturduğu kuvvet, kendisini doğuran değişime (yani harekete) karşı koyar. Aksi hâlde çubuk kendiliğinden hızlanır, enerji korunumu bozulurdu."
+            },
+            {
+              q: "Düzgün manyetik alanda dönen bir çerçevede, akının en büyük olduğu anda indüklenen emk nedir?",
+              o: ["En büyüktür", "Sıfırdır", "Yarı değerindedir", "Negatiftir"],
+              a: 1,
+              why: "emk, akının değişim hızıdır (ε = −N·ΔΦ/Δt). Φ tepe noktasındayken değişim hızı (eğim) sıfırdır, dolayısıyla emk sıfırdır. Φ sıfırdan geçerken ise en hızlı değiştiği için emk en büyüktür."
+            }
+          ];
+
+          var KEYS = ["A", "B", "C", "D"];
+          var scoreEl = document.getElementById("quiz-score");
+          var finalEl = document.getElementById("quiz-final");
+          var score = 0;
+
+          function finish() {
+            if (!finalEl) return;
+            finalEl.textContent = score === DATA.length
+              ? "Kusursuz — beşi de doğru."
+              : score >= 3
+                ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
+                : "Konu anlatımına dönüp tekrar denemek iyi olur.";
+          }
+
+          function build() {
+            box.innerHTML = "";
+            score = 0;
+            scoreEl.textContent = "0 / " + DATA.length;
+            if (finalEl) finalEl.textContent = "";
+            DATA.forEach(function (item, qi) {
+              var card = document.createElement("div");
+              card.className = "q";
+              var p = document.createElement("p");
+              p.innerHTML = "<span>SORU " + (qi + 1) + "</span><br>" + item.q;
+              card.appendChild(p);
+              var opts = document.createElement("div");
+              opts.className = "opts";
+              var why = document.createElement("p");
+              why.className = "why";
+              why.hidden = true;
+              why.textContent = item.why;
+              item.o.forEach(function (text, oi) {
+                var b = document.createElement("button");
+                b.type = "button";
+                b.textContent = text;
+                b.dataset.key = KEYS[oi];
+                b.addEventListener("click", function () {
+                  var all = opts.querySelectorAll("button");
+                  for (var i = 0; i < all.length; i++) all[i].disabled = true;
+                  all[item.a].classList.add("right");
+                  if (oi !== item.a) {
+                    b.classList.add("wrong");
+                  } else {
+                    score++;
+                    scoreEl.textContent = score + " / " + DATA.length;
+                  }
+                  why.hidden = false;
+                  if (box.querySelectorAll(".opts button.right").length === DATA.length) finish();
+                });
+                opts.appendChild(b);
+              });
+              card.appendChild(opts);
+              card.appendChild(why);
+              box.appendChild(card);
+            });
+          }
+
+          document.getElementById("quiz-reset").addEventListener("click", build);
+          build();
+        })();
+
+        /* ============ konu anlatımı modalı ============ */
+
+        (function modal() {
+          var dlg = document.getElementById("konu");
+          if (!dlg) return;
+          var body = document.getElementById("konu-body");
+
+          function open() {
+            if (typeof dlg.showModal === "function") {
+              if (!dlg.open) dlg.showModal();
+            } else {
+              dlg.setAttribute("open", "");
+            }
+            document.body.classList.add("locked");
+            body.scrollTop = 0;
+          }
+
+          function close() {
+            if (typeof dlg.close === "function") dlg.close();
+            else dlg.removeAttribute("open");
+          }
+
+          var triggers = document.querySelectorAll("[data-open-modal]");
+          for (var i = 0; i < triggers.length; i++) {
+            triggers[i].addEventListener("click", open);
+          }
+
+          document.getElementById("konu-close").addEventListener("click", close);
+
+          dlg.addEventListener("click", function (e) {
+            if (e.target === dlg) close();
+          });
+
+          dlg.addEventListener("close", function () {
+            document.body.classList.remove("locked");
+          });
+
+          dlg.addEventListener("cancel", function () {
+            document.body.classList.remove("locked");
+          });
+
+          var chips = dlg.querySelectorAll("[data-goto]");
+          for (var j = 0; j < chips.length; j++) {
+            chips[j].addEventListener("click", function () {
+              var target = document.getElementById(this.dataset.goto);
+              if (!target) return;
+              var dy = target.getBoundingClientRect().top - body.getBoundingClientRect().top;
+              body.scrollTo({
+                top: body.scrollTop + dy - 10,
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+              });
+            });
+          }
+        })();
+
+        /* ============ cila: belirme, izleme, kısayollar ============ */
+
+        (function polish() {
+          var root = document.documentElement;
+          root.classList.add("js");
+          var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          var i;
+
+          /* bölümler görünüme girince belirsin */
+          var targets = document.querySelectorAll(".reveal");
+          if (!("IntersectionObserver" in window) || reduced) {
+            for (i = 0; i < targets.length; i++) targets[i].classList.add("in");
+          } else {
+            var io = new IntersectionObserver(function (entries) {
+              for (var k = 0; k < entries.length; k++) {
+                if (entries[k].isIntersecting) {
+                  entries[k].target.classList.add("in");
+                  io.unobserve(entries[k].target);
+                }
+              }
+            }, { threshold: 0.06, rootMargin: "0px 0px -5% 0px" });
+            for (i = 0; i < targets.length; i++) io.observe(targets[i]);
+          }
+
+          /* okuma ilerlemesi, etkin bölüm, başa dön */
+          var header = document.querySelector(".site-header");
+          var toTop = document.getElementById("to-top");
+          var links = document.querySelectorAll(".nav-link[href^='#']");
+          var spots = [];
+          for (i = 0; i < links.length; i++) {
+            var sec = document.getElementById(links[i].getAttribute("href").slice(1));
+            if (sec) spots.push({ el: sec, link: links[i] });
+          }
+          var queued = false;
+
+          function update() {
+            queued = false;
+            var doc = document.documentElement;
+            var max = doc.scrollHeight - doc.clientHeight;
+            var y = window.scrollY || doc.scrollTop || 0;
+            if (header) header.style.setProperty("--sp", (max > 0 ? y / max : 0).toFixed(4));
+            if (toTop) toTop.classList.toggle("show", y > 600);
+            var current = null;
+            for (var k = 0; k < spots.length; k++) {
+              if (spots[k].el.getBoundingClientRect().top <= 140) current = spots[k];
+            }
+            for (var m = 0; m < spots.length; m++) spots[m].link.classList.toggle("active", spots[m] === current);
+          }
+
+          function onScroll() {
+            if (queued) return;
+            queued = true;
+            requestAnimationFrame(update);
+          }
+
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll);
+          update();
+
+          if (toTop) {
+            toTop.addEventListener("click", function () {
+              window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+            });
+          }
+
+          /* modal içinde okunan bölümü işaretle */
+          var mbody = document.getElementById("konu-body");
+          var chips = document.querySelectorAll(".chips button[data-goto]");
+          var heads = [];
+          for (i = 0; i < chips.length; i++) {
+            var h = document.getElementById(chips[i].dataset.goto);
+            if (h) heads.push({ h: h, chip: chips[i] });
+          }
+          if (mbody && heads.length) {
+            mbody.addEventListener("scroll", function () {
+              var top = mbody.getBoundingClientRect().top + 90;
+              var cur = heads[0];
+              for (var k = 0; k < heads.length; k++) {
+                if (heads[k].h.getBoundingClientRect().top <= top) cur = heads[k];
+              }
+              for (var m = 0; m < heads.length; m++) heads[m].chip.classList.toggle("active", heads[m] === cur);
+            }, { passive: true });
+          }
+
+        })();
+
+        /* ============ tema ============ */
+
+        (function theme() {
+          var btn = document.getElementById("theme-toggle");
+          var meta = document.querySelector('meta[name="theme-color"]');
+          var root = document.documentElement;
+
+          function apply(mode, store) {
+            root.setAttribute("data-theme", mode);
+            if (meta) meta.setAttribute("content", mode === "dark" ? "#0b1020" : "#f3f5fc");
+            if (btn) btn.setAttribute("aria-label", mode === "dark" ? "Açık temaya geç" : "Koyu temaya geç");
+            if (store) { try { localStorage.setItem("dersler-tema", mode); } catch (e) {} }
+            readPalette();
+            for (var i = 0; i < fits.length; i++) fits[i]();
+          }
+
+          apply(root.getAttribute("data-theme") === "dark" ? "dark" : "light", false);
+
+          if (btn) {
+            btn.addEventListener("click", function () {
+              apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
+            });
+          }
+        })();
+
+        /* ilk yerleşim */
+        for (var f = 0; f < fits.length; f++) fits[f]();
+      })();
+    </script>
+  </body>
+</html>

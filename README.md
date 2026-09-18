@@ -23,9 +23,18 @@ bir sunum:
 | 05 | Limit hız | [`dist/limit-hiz.html`](dist/limit-hiz.html) | [`dist/sunum/limit-hiz.pptx`](dist/sunum/limit-hiz.pptx) |
 | 06 | Düzgün çembersel hareket | [`dist/cembersel-hareket.html`](dist/cembersel-hareket.html) | [`dist/sunum/cembersel-hareket.pptx`](dist/sunum/cembersel-hareket.pptx) |
 
-Ana sayfa üniteyi bir blok olarak gösterir, konuları numaralandırır ve arama
-kutusuyla süzer. Her konu sayfası künyesinde üniteye döner, altında önceki ve
-sonraki konuya geçiş şeridi taşır.
+### Fizik · Elektrik ve Manyetizma ünitesi
+
+| # | Konu | Sayfa | Sunum |
+|---|---|---|---|
+| 01 | Elektriksel kuvvet ve elektriksel alan | [`dist/elektriksel-kuvvet.html`](dist/elektriksel-kuvvet.html) | [`dist/sunum/elektriksel-kuvvet.pptx`](dist/sunum/elektriksel-kuvvet.pptx) |
+| 02 | Manyetik alan ve manyetik kuvvet | [`dist/manyetik-alan.html`](dist/manyetik-alan.html) | [`dist/sunum/manyetik-alan.pptx`](dist/sunum/manyetik-alan.pptx) |
+| 03 | İndüksiyon akımı | [`dist/induksiyon-akimi.html`](dist/induksiyon-akimi.html) | [`dist/sunum/induksiyon-akimi.pptx`](dist/sunum/induksiyon-akimi.pptx) |
+| 04 | Transformatörler | [`dist/transformatorler.html`](dist/transformatorler.html) | [`dist/sunum/transformatorler.pptx`](dist/sunum/transformatorler.pptx) |
+
+Ana sayfa her üniteyi bir blok olarak gösterir, konuları numaralandırır; arama
+kutusu ve ünite süzgeçleriyle daraltılır. Her konu sayfası künyesinde üniteye
+döner, altında önceki ve sonraki konuya geçiş şeridi taşır.
 
 ### Konu 01 · Serbest düşme
 
@@ -110,9 +119,57 @@ Sabit süratli ama ivmeli hareketi gösteren dört bölüm:
 | 04 | Virajda savrulma | Gereken merkezcil kuvvet ile sürtünme sınırı karşılaştırılır; sınır hız √(μgr). |
 | 05 | Hızlı kontrol | Beş soruluk test. |
 
+### Elektrik ve Manyetizma · Konu 01 · Elektriksel kuvvet ve alan
+
+Yüklerin birbirine dokunmadan uyguladığı kuvveti ve alan kavramını kuran dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Coulomb laboratuvarı | İki yükün büyüklüğü, işareti ve arasındaki uzaklık ayarlanır; kuvvet okları ve çekme/itme canlı gösterilir. **F–r** (ters kare) ve **F–q** (doğru orantı) grafikleri. |
+| 02 | Alan haritası | Izgara üzerinde alan okları çizilir; tek yük, dipol ve aynı işaretli iki yük seçilebilir. Tıklanan noktaya test yükü konur, gördüğü kuvvet okla gösterilir. |
+| 03 | Alanın sıfırlandığı nokta | İkinci yükün değeri ve yeri değiştirilir; bileşke alanın sıfırlandığı nokta sayısal taramayla bulunur ve işaretlenir. |
+| 04 | Paralel levhalar | `E = V/d` ile düzgün alan kurulur; elektron ya da proton atılır, parabolik yörünge ve levhaya çarpma izlenir. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Elektrik ve Manyetizma · Konu 02 · Manyetik alan ve manyetik kuvvet
+
+Akımın ürettiği alanı ve alanın uyguladığı kuvveti gösteren dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Telin manyetik alanı | Akım ve uzaklık ayarlanır; `B = 2·10⁻⁷·I/r` halkaları ve pusula iğnesi çizilir. **B–r** ve **B–I** grafikleri. |
+| 02 | Tele etkiyen kuvvet | Alan, akım ve açı değiştirilir; `F = B·I·L·sinα` kuvvet oku ve sinüs eğrisi aynı sahnede gösterilir. |
+| 03 | Dairesel hareket | Alana dik giren elektron/protonun yarıçapı `r = mv/(qB)` ve periyodu `T = 2πm/(qB)`; ölçek çubuğuyla birlikte. |
+| 04 | Sağ el kuralı alıştırması | Rastgele akım–alan çiftleri için kuvvet yönü sorulur; puan ve doğruluk oranı tutulur. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Elektrik ve Manyetizma · Konu 03 · İndüksiyon akımı
+
+Değişen akının akım doğurmasını dört ayrı deneyle gösteren bölümler:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Mıknatıs ve bobin | Mıknatıs bobinden geçirilir; akı çan eğrisi, indüklenen emk ve galvanometre iğnesi eşzamanlı çizilir. **Φ–t** ve **ε–t** grafikleri. |
+| 02 | Jeneratör | Dönen çerçevede `Φ = B·A·cosωt` ve `ε = N·B·A·ω·sinωt`; çeyrek periyotluk faz farkı grafikte görünür. |
+| 03 | Hareketli çubuk | `ε = B·L·v`, `I = ε/R` ve karşı kuvvet `F = B·I·L` hesaplanır; mekanik güç ile elektriksel güç karşılaştırılır. |
+| 04 | Bakır boru | Aynı mıknatıs plastik ve bakır borudan bırakılır: 0,49 s'e karşı 5,5 s. Lenz yasasının en çarpıcı gösterimi. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
+### Elektrik ve Manyetizma · Konu 04 · Transformatörler
+
+Gerilim–akım dönüşümünü ve enerji iletimini gösteren dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Transformatör laboratuvarı | Giriş gerilimi, primer/sekonder sarım sayısı ve yük direnci ayarlanır; nüve, bobinler ve ölçüm değerleri canlı çizilir. **V₂–N₂** (doğru orantı) ve **V₂–N₁** (ters orantı) grafikleri. |
+| 02 | Güç ve verim | Giren güç ve verim değiştirilir; çıkan güç, kayıp ve ısıya dönüşen pay çubuklarda gösterilir. |
+| 03 | Enerji iletimi | 1 MW gücün iletiminde gerilim ve hat direnci değiştirilir; `I = P/V` ve `P(kayıp) = I²R` ile kayıp oranı hesaplanır, santral–şehir hattı canlandırılır. |
+| 04 | Hedef gerilim | Verilen `V₁` ve `N₁` için istenen çıkışı üretecek sekonder sarımı bulunur; %2 tolerans, deneme listesi ve başarı oranı. |
+| 05 | Hızlı kontrol | Beş soruluk test. |
+
 ## Sunumlar
 
-Her iki ders için, sitede indirilebilir 14 slaytlık PowerPoint dosyaları:
+On konunun her biri için, sitede indirilebilir 13–14 slaytlık PowerPoint dosyaları:
 
 | # | Sunum | Bağlantı |
 |---|---|---|
@@ -122,6 +179,15 @@ Her iki ders için, sitede indirilebilir 14 slaytlık PowerPoint dosyaları:
 | 04 | Sürtünme kuvveti | [dersler.perinet.org/sunum/surtunme-kuvveti.pptx](https://dersler.perinet.org/sunum/surtunme-kuvveti.pptx) |
 | 05 | Limit hız | [dersler.perinet.org/sunum/limit-hiz.pptx](https://dersler.perinet.org/sunum/limit-hiz.pptx) |
 | 06 | Düzgün çembersel hareket | [dersler.perinet.org/sunum/cembersel-hareket.pptx](https://dersler.perinet.org/sunum/cembersel-hareket.pptx) |
+
+Elektrik ve Manyetizma ünitesi:
+
+| # | Sunum | Bağlantı |
+|---|---|---|
+| 01 | Elektriksel kuvvet ve alan | [dersler.perinet.org/sunum/elektriksel-kuvvet.pptx](https://dersler.perinet.org/sunum/elektriksel-kuvvet.pptx) |
+| 02 | Manyetik alan ve manyetik kuvvet | [dersler.perinet.org/sunum/manyetik-alan.pptx](https://dersler.perinet.org/sunum/manyetik-alan.pptx) |
+| 03 | İndüksiyon akımı | [dersler.perinet.org/sunum/induksiyon-akimi.pptx](https://dersler.perinet.org/sunum/induksiyon-akimi.pptx) |
+| 04 | Transformatörler | [dersler.perinet.org/sunum/transformatorler.pptx](https://dersler.perinet.org/sunum/transformatorler.pptx) |
 
 Grafikler PowerPoint'in kendi grafik nesneleridir, her slaytta konuşmacı notu
 vardır. Dosyalar `sunum/*.js` betikleriyle üretilir; ayrıntılar
@@ -138,13 +204,17 @@ animasyonlar tema değişiminde yeniden çizilir. Sahneye tıklayarak ya da
 
 ```
 dist/                        yayınlanan kök (nginx bunu sunar)
-  index.html                 giriş sayfası (arama + konu filtresi)
-  serbest-dusme.html         konu 01 · serbest düşme
-  iki-boyutta-hareket.html   konu 02 · iki boyutta sabit ivmeli hareket
-  newton-yasalari.html       konu 03 · Newton'un hareket yasaları
-  surtunme-kuvveti.html      konu 04 · sürtünme kuvveti
-  limit-hiz.html             konu 05 · limit hız
-  cembersel-hareket.html     konu 06 · düzgün çembersel hareket
+  index.html                 giriş sayfası (arama + ünite filtresi)
+  serbest-dusme.html         1. ünite · konu 01 · serbest düşme
+  iki-boyutta-hareket.html   1. ünite · konu 02 · iki boyutta sabit ivmeli hareket
+  newton-yasalari.html       1. ünite · konu 03 · Newton'un hareket yasaları
+  surtunme-kuvveti.html      1. ünite · konu 04 · sürtünme kuvveti
+  limit-hiz.html             1. ünite · konu 05 · limit hız
+  cembersel-hareket.html     1. ünite · konu 06 · düzgün çembersel hareket
+  elektriksel-kuvvet.html    2. ünite · konu 01 · elektriksel kuvvet ve alan
+  manyetik-alan.html         2. ünite · konu 02 · manyetik alan ve kuvvet
+  induksiyon-akimi.html      2. ünite · konu 03 · indüksiyon akımı
+  transformatorler.html      2. ünite · konu 04 · transformatörler
   sunum/*.pptx               indirilebilir ders sunumları
 sunum/                       sunumların kaynağı (pptxgenjs betikleri)
   tema.js                    ortak renk, yazı tipi ve yerleşim yardımcıları

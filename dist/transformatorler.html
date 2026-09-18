@@ -1,0 +1,3373 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f5fc" />
+    <meta
+      name="description"
+      content="Transformatörler: sarım–gerilim ilişkisi, güç korunumu ve verim, yüksek gerilimle enerji iletimi, hedef gerilim oyunu ve konu anlatımı."
+    />
+    <title>Transformatörler — Dersler</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b9ee63'/%3E%3Cpath d='M18 20a6 6 0 0 1 6-6h22v32H24a6 6 0 0 0-6 6z' fill='none' stroke='%2316260a' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M18 20v32M26 22h16M26 30h13' fill='none' stroke='%2316260a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet" />
+    <style>
+      /* ================= tema belirteçleri ================= */
+      :root {
+        color-scheme: light;
+
+        --bg: #f3f5fc;
+        --bg-art:
+          radial-gradient(1100px 560px at 82% -8%, rgba(42, 95, 214, 0.10), transparent 62%),
+          radial-gradient(900px 520px at -8% 38%, rgba(99, 72, 212, 0.08), transparent 60%);
+        --surface: #ffffff;
+        --surface-2: #f7f9fe;
+        --surface-3: #eef2fb;
+        --line: #dde3f1;
+        --line-soft: #e9edf7;
+
+        --ink: #0f1730;
+        --muted: #4c5775;
+        --dim: #78829f;
+
+        --blue: #2a5fd6;
+        --lime: #3c8c21;
+        --violet: #6348d4;
+        --amber: #a56209;
+        --rose: #c53455;
+
+        --accent: #b9ee63;
+        --accent-hover: #a9e648;
+        --accent-ink: #16260a;
+        --accent-ring: rgba(93, 154, 32, 0.28);
+
+        --shadow-sm: 0 2px 6px rgba(18, 30, 70, 0.06);
+        --shadow: 0 14px 34px rgba(18, 30, 70, 0.09);
+        --shadow-lg: 0 34px 90px rgba(18, 30, 70, 0.18);
+        --header-bg: rgba(243, 245, 252, 0.82);
+        --track: #dfe5f3;
+
+        /* tuvale aktarılanlar */
+        --c-ink: #0f1730;
+        --c-muted: #4c5775;
+        --c-dim: #7c86a2;
+        --c-blue: #2a5fd6;
+        --c-lime: #3c8c21;
+        --c-violet: #6348d4;
+        --c-amber: #a56209;
+        --c-rose: #c53455;
+        --c-panel: rgba(255, 255, 255, 0.97);
+        --c-border: #e3e8f4;
+        --c-chip: rgba(255, 255, 255, 0.95);
+        --c-ring: #ffffff;
+        --c-outline: #26324f;
+        --c-scene: #ffffff;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+
+        --bg: #0b1020;
+        --bg-art:
+          radial-gradient(circle at 78% 5%, rgba(130, 170, 255, 0.18), transparent 30rem),
+          radial-gradient(circle at 0% 65%, rgba(156, 140, 255, 0.12), transparent 28rem);
+        --surface: rgba(24, 32, 57, 0.82);
+        --surface-2: rgba(13, 19, 38, 0.55);
+        --surface-3: rgba(13, 19, 38, 0.75);
+        --line: rgba(163, 179, 221, 0.16);
+        --line-soft: rgba(163, 179, 221, 0.1);
+
+        --ink: #f4f7ff;
+        --muted: #a6b0c8;
+        --dim: #707b97;
+
+        --blue: #82aaff;
+        --lime: #c6f36b;
+        --violet: #9c8cff;
+        --amber: #ffcb6b;
+        --rose: #ff8fa3;
+
+        --accent: #c6f36b;
+        --accent-hover: #d3f78c;
+        --accent-ink: #152000;
+        --accent-ring: rgba(198, 243, 107, 0.22);
+
+        --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
+        --shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 40px 120px rgba(0, 0, 0, 0.55);
+        --header-bg: rgba(11, 16, 32, 0.78);
+        --track: rgba(163, 179, 221, 0.2);
+
+        --c-ink: #f4f7ff;
+        --c-muted: #a6b0c8;
+        --c-dim: #7d88a6;
+        --c-blue: #82aaff;
+        --c-lime: #c6f36b;
+        --c-violet: #9c8cff;
+        --c-amber: #ffcb6b;
+        --c-rose: #ff8fa3;
+        --c-panel: rgba(13, 19, 38, 0.6);
+        --c-border: rgba(163, 179, 221, 0.18);
+        --c-chip: rgba(11, 16, 32, 0.86);
+        --c-ring: #0b1020;
+        --c-outline: #060a16;
+        --c-scene: #0d1224;
+      }
+
+      /* ================= temel ================= */
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background-color: var(--bg);
+        background-image: var(--bg-art);
+        background-attachment: fixed;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        transition: background-color 220ms ease, color 220ms ease;
+      }
+
+      body.locked { overflow: hidden; }
+
+      a { color: inherit; }
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      canvas:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+        border-radius: 10px;
+      }
+
+      .shell { width: min(1140px, calc(100% - 44px)); margin: 0 auto; }
+
+      /* ================= üst bar ================= */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        border-bottom: 1px solid var(--line);
+        background: var(--header-bg);
+        backdrop-filter: saturate(160%) blur(14px);
+        -webkit-backdrop-filter: saturate(160%) blur(14px);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 68px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        text-decoration: none;
+        font-weight: 750;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border: 1px solid var(--accent-ring);
+        border-radius: 11px;
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      .brand-mark svg { width: 20px; height: 20px; }
+
+      .brand small {
+        display: block;
+        margin-top: -4px;
+        color: var(--dim);
+        font-size: 0.68rem;
+        font-weight: 650;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .header-nav { display: flex; align-items: center; gap: 4px; }
+
+      .nav-link {
+        padding: 7px 12px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.87rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 160ms ease, color 160ms ease;
+      }
+
+      .nav-link:hover { background: var(--surface-3); color: var(--ink); }
+
+      .header-tools { display: flex; align-items: center; gap: 9px; }
+
+      .icon-btn {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface);
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+      }
+
+      .icon-btn:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+
+      .icon-btn svg { width: 18px; height: 18px; }
+
+      :root:not([data-theme="dark"]) .icon-btn .sun,
+      :root[data-theme="dark"] .icon-btn .moon { display: none; }
+
+      /* ================= ortak ================= */
+      main { padding: 56px 0 96px; }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 18px;
+        color: var(--lime);
+        font-size: 0.76rem;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 5px var(--accent-ring);
+        content: "";
+      }
+
+      h1 {
+        max-width: 740px;
+        margin: 0;
+        font-size: clamp(2.6rem, 6vw, 4.6rem);
+        font-weight: 760;
+        letter-spacing: -0.06em;
+        line-height: 1;
+      }
+
+      h1 span { color: var(--blue); }
+
+      .lead {
+        max-width: 560px;
+        margin: 22px 0 30px;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.6vw, 1.14rem);
+        line-height: 1.68;
+      }
+
+      .cta-row { display: flex; flex-wrap: wrap; gap: 11px; }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 46px;
+        padding: 0 20px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        font: inherit;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+      }
+
+      .button:hover { background: var(--accent-hover); box-shadow: var(--shadow); transform: translateY(-1px); }
+
+      .button:active { transform: translateY(0); }
+
+      .button svg { width: 17px; height: 17px; }
+
+      .button.ghost {
+        border-color: var(--line);
+        background: var(--surface);
+        color: var(--ink);
+        box-shadow: none;
+      }
+
+      .button.ghost:hover { border-color: var(--blue); background: var(--surface-2); color: var(--blue); }
+
+      .button.small { min-height: 38px; padding: 0 15px; font-size: 0.87rem; }
+
+      .button[disabled] { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+      .facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 30px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .facts li {
+        padding: 8px 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.87rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .facts b { color: var(--ink); font-weight: 700; }
+
+      /* ================= giriş ================= */
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+        gap: clamp(30px, 5vw, 64px);
+        align-items: center;
+      }
+
+      .hero-card {
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .card-label {
+        display: block;
+        margin-bottom: 18px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .formula-list { margin: 0; padding: 0; list-style: none; }
+
+      .formula-list li {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 12px;
+        padding: 13px 0;
+        border-top: 1px solid var(--line-soft);
+      }
+
+      .formula-list li:first-child { border-top: 0; padding-top: 0; }
+
+      .formula-list code {
+        color: var(--blue);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 1.02rem;
+        font-weight: 600;
+      }
+
+      .formula-list span { color: var(--dim); font-size: 0.83rem; }
+
+      .card-foot {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .card-foot .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 4px var(--accent-ring);
+      }
+
+      /* ================= bölümler ================= */
+      .section { margin-top: 92px; scroll-margin-top: 82px; }
+
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-heading h2 {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        margin: 0;
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        letter-spacing: -0.045em;
+        line-height: 1.15;
+      }
+
+      .section-heading h2 em {
+        display: grid;
+        min-width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 9px;
+        background: var(--surface-3);
+        color: var(--violet);
+        font-size: 0.8rem;
+        font-style: normal;
+        font-weight: 750;
+        letter-spacing: 0;
+      }
+
+      .section-heading p {
+        max-width: 390px;
+        margin: 0;
+        color: var(--dim);
+        font-size: 0.92rem;
+        text-align: right;
+      }
+
+      .note { margin: 14px 0 0; color: var(--dim); font-size: 0.87rem; }
+
+      .note b { color: var(--muted); font-weight: 650; }
+
+      canvas {
+        display: block;
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--c-scene);
+        box-shadow: var(--shadow-sm);
+        touch-action: manipulation;
+      }
+
+      /* ================= laboratuvar ================= */
+      .lab {
+        display: grid;
+        grid-template-columns: minmax(0, 1.62fr) minmax(262px, 0.8fr);
+        gap: 16px;
+        margin-top: 22px;
+      }
+
+      .readouts {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .readout {
+        position: relative;
+        padding: 12px 14px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .readout::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--blue);
+        opacity: 0.75;
+        content: "";
+      }
+
+      .readout:nth-child(2)::before { background: var(--violet); }
+      .readout:nth-child(3)::before { background: var(--lime); }
+      .readout:nth-child(4)::before { background: var(--amber); }
+
+      .readout span {
+        display: block;
+        color: var(--dim);
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .readout strong {
+        font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.03em;
+      }
+
+      .readout i { color: var(--dim); font-size: 0.8rem; font-style: normal; }
+
+      .readout em {
+        display: block;
+        margin-top: -2px;
+        color: var(--blue);
+        font-size: 0.74rem;
+        font-style: normal;
+      }
+
+      .panel {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .field { display: flex; flex-direction: column; gap: 9px; }
+
+      .field label,
+      .field .flabel {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.84rem;
+        font-weight: 650;
+      }
+
+      .field output {
+        color: var(--ink);
+        font-size: 0.9rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 750;
+      }
+
+      .field small { color: var(--dim); font-size: 0.77rem; line-height: 1.45; }
+
+      input[type="range"] {
+        width: 100%;
+        height: 22px;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        height: 6px;
+        border-radius: 999px;
+        background: linear-gradient(to right, var(--lime) var(--p, 30%), var(--track) var(--p, 30%));
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        width: 19px;
+        height: 19px;
+        margin-top: -6.5px;
+        border: 2px solid var(--surface);
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: var(--shadow-sm);
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input[type="range"]::-moz-range-track {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--track);
+      }
+
+      input[type="range"]::-moz-range-progress {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--lime);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        border: 2px solid var(--surface);
+        border-radius: 50%;
+        background: var(--lime);
+      }
+
+      .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+
+      .seg button {
+        flex: 1 1 62px;
+        min-height: 44px;
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.83rem;
+        font-weight: 700;
+        line-height: 1.15;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+      }
+
+      .seg button b { display: block; color: var(--dim); font-size: 0.69rem; font-weight: 600; }
+
+      .seg button:hover { border-color: var(--blue); color: var(--ink); }
+
+      .seg button[aria-pressed="true"] {
+        border-color: var(--lime);
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      .seg button[aria-pressed="true"] b { color: var(--lime); opacity: 0.75; }
+
+      .switches { display: flex; flex-direction: column; gap: 10px; }
+
+      .switches label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+
+      .switches input {
+        width: 17px;
+        height: 17px;
+        accent-color: var(--lime);
+        cursor: pointer;
+      }
+
+      .actions { display: flex; gap: 9px; }
+
+      .actions .button { flex: 1 1 auto; padding: 0 12px; }
+
+      .mini {
+        display: grid;
+        gap: 9px;
+        margin: 0;
+        padding: 16px 0 0;
+        border-top: 1px solid var(--line);
+        list-style: none;
+      }
+
+      .mini li {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+
+      .mini b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+      #lab-graphs {
+        margin-top: 14px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+      }
+
+      /* ================= deney blokları ================= */
+      .demo { display: grid; gap: 16px; margin-top: 22px; }
+
+      .demo.split { grid-template-columns: minmax(0, 1.5fr) minmax(255px, 0.88fr); }
+
+      .panel h3 { margin: 0; font-size: 1.02rem; letter-spacing: -0.02em; }
+
+      .panel p { margin: 0; color: var(--muted); font-size: 0.89rem; }
+
+      .verdict {
+        min-height: 74px;
+        padding: 13px 15px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--blue);
+        border-radius: 12px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .verdict b { color: var(--ink); }
+      .verdict.good { border-left-color: var(--lime); }
+      .verdict.warn { border-left-color: var(--amber); }
+      .verdict.bad { border-left-color: var(--rose); }
+
+      .tries { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+
+      .tries li {
+        padding: 5px 11px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.77rem;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .tries li.best { border-color: var(--lime); background: var(--accent-ring); color: var(--lime); font-weight: 700; }
+
+      /* ================= mini test ================= */
+      .quiz { display: grid; gap: 12px; margin-top: 22px; }
+
+      .q {
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .q > p { margin: 0 0 15px; font-size: 1rem; font-weight: 600; line-height: 1.5; }
+
+      .q > p span {
+        display: inline-block;
+        margin-bottom: 6px;
+        color: var(--violet);
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+      }
+
+      .opts { display: grid; gap: 8px; }
+
+      .opts button {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 15px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.92rem;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+      }
+
+      .opts button::before {
+        flex: none;
+        display: grid;
+        width: 23px;
+        height: 23px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--surface);
+        color: var(--dim);
+        font-size: 0.71rem;
+        font-weight: 750;
+        content: attr(data-key);
+      }
+
+      .opts button:hover:not([disabled]) { border-color: var(--blue); background: var(--surface); color: var(--ink); }
+
+      .opts button.right {
+        border-color: var(--lime);
+        background: var(--accent-ring);
+        color: var(--lime);
+        font-weight: 650;
+      }
+
+      .opts button.right::before { border-color: var(--lime); color: var(--lime); }
+
+      .opts button.wrong {
+        border-color: var(--rose);
+        background: color-mix(in srgb, var(--rose) 10%, transparent);
+        color: var(--rose);
+      }
+
+      .opts button.wrong::before { border-color: var(--rose); color: var(--rose); }
+
+      .opts button[disabled] { cursor: default; }
+
+      .why {
+        margin: 13px 0 0;
+        padding: 2px 0 2px 14px;
+        border-left: 2px solid var(--violet);
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .why[hidden] { display: none; }
+
+      .score {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 12px;
+        padding: 16px 22px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.93rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .score b { color: var(--ink); font-size: 1.08rem; }
+
+      /* ================= konu anlatımı kartı ================= */
+      .lesson-card {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        margin-top: 26px;
+        padding: 22px 24px;
+        border: 1px solid color-mix(in srgb, var(--violet) 38%, transparent);
+        border-radius: 20px;
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--violet) 12%, transparent), transparent 62%),
+          var(--surface);
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease;
+      }
+
+      .lesson-card:hover {
+        border-color: var(--violet);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .lesson-card .badge {
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border: 1px solid color-mix(in srgb, var(--violet) 40%, transparent);
+        border-radius: 15px;
+        background: color-mix(in srgb, var(--violet) 12%, transparent);
+        color: var(--violet);
+      }
+
+      .lesson-card .badge svg { width: 24px; height: 24px; }
+
+      .lesson-card h3 { margin: 0 0 3px; font-size: 1.15rem; letter-spacing: -0.03em; }
+
+      .lesson-card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+      .lesson-card .go {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--violet);
+      }
+
+      .lesson-card .go svg { width: 18px; height: 18px; }
+
+      /* ================= modal ================= */
+      dialog {
+        width: min(920px, calc(100% - 26px));
+        max-height: min(88vh, 940px);
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--bg);
+        color: var(--ink);
+        box-shadow: var(--shadow-lg);
+      }
+
+      dialog[open] { display: flex; flex-direction: column; }
+
+      dialog::backdrop {
+        background: rgba(18, 26, 52, 0.42);
+        backdrop-filter: blur(5px);
+      }
+
+      :root[data-theme="dark"] dialog::backdrop { background: rgba(5, 8, 20, 0.72); }
+
+      .modal-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 22px 26px 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .modal-head h2 {
+        margin: 2px 0 0;
+        font-size: clamp(1.35rem, 3vw, 1.8rem);
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+
+      .modal-head .eyebrow { margin: 0 0 6px; }
+
+      .close {
+        flex: none;
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface-2);
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease;
+      }
+
+      .close:hover { border-color: var(--rose); color: var(--rose); }
+
+      .close svg { width: 17px; height: 17px; }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        padding: 13px 26px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface-2);
+      }
+
+      .chips button {
+        padding: 7px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.79rem;
+        font-weight: 650;
+        cursor: pointer;
+        transition: border-color 150ms ease, color 150ms ease;
+      }
+
+      .chips button:hover { border-color: var(--blue); color: var(--blue); }
+
+      .modal-body {
+        padding: 10px 26px 34px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        counter-reset: chapter;
+      }
+
+      .modal-body h3 {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin: 32px 0 12px;
+        font-size: 1.18rem;
+        letter-spacing: -0.03em;
+        scroll-margin-top: 12px;
+      }
+
+      .modal-body h3::before {
+        display: grid;
+        min-width: 27px;
+        height: 27px;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--surface-3);
+        color: var(--violet);
+        font-size: 0.74rem;
+        font-weight: 750;
+        content: counter(chapter, decimal-leading-zero);
+        counter-increment: chapter;
+      }
+
+      .modal-body h4 { margin: 20px 0 6px; font-size: 0.98rem; color: var(--blue); }
+
+      .modal-body p { margin: 0 0 12px; color: var(--muted); }
+
+      .modal-body ul, .modal-body ol { margin: 0 0 12px; padding-left: 20px; color: var(--muted); }
+
+      .modal-body li { margin-bottom: 6px; }
+
+      .modal-body strong { color: var(--ink); font-weight: 700; }
+
+      .formula { display: flex; flex-wrap: wrap; gap: 9px; margin: 14px 0 16px; }
+
+      .formula code {
+        padding: 10px 15px;
+        border: 1px solid color-mix(in srgb, var(--blue) 26%, transparent);
+        border-radius: 11px;
+        background: color-mix(in srgb, var(--blue) 9%, transparent);
+        color: var(--blue);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.96rem;
+      }
+
+      .callout {
+        margin: 16px 0;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--lime);
+        border-radius: 13px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .callout.warn { border-left-color: var(--amber); }
+      .callout b { color: var(--ink); }
+      .callout :last-child { margin-bottom: 0; }
+
+      .tbl {
+        width: 100%;
+        margin: 14px 0 18px;
+        border-collapse: collapse;
+        font-size: 0.89rem;
+      }
+
+      .tbl th, .tbl td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        text-align: left;
+      }
+
+      .tbl th {
+        color: var(--dim);
+        font-size: 0.71rem;
+        font-weight: 750;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .tbl td:first-child { color: var(--ink); font-weight: 650; }
+
+      details {
+        margin: 10px 0;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: var(--surface);
+      }
+
+      details summary {
+        color: var(--ink);
+        font-weight: 650;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      details summary::-webkit-details-marker { display: none; }
+
+      details summary::before {
+        display: inline-block;
+        width: 18px;
+        color: var(--lime);
+        font-weight: 750;
+        content: "+";
+      }
+
+      details[open] summary::before { content: "–"; }
+
+      details p:first-of-type { margin-top: 12px; }
+
+      .steps { margin: 12px 0 0; padding-left: 20px; color: var(--muted); }
+
+      .steps li { margin-bottom: 8px; }
+
+      /* ================= alt bilgi ================= */
+      footer {
+        margin-top: 88px;
+        padding: 22px 0 34px;
+        border-top: 1px solid var(--line);
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+
+      .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+      /* ================= premium katman ================= */
+      ::selection { background: color-mix(in srgb, var(--blue) 22%, transparent); }
+
+      h1, h2, h3 { text-wrap: balance; }
+
+      h1 span {
+        background: linear-gradient(92deg, var(--blue), var(--violet));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero { position: relative; isolation: isolate; }
+
+      .hero::before {
+        position: absolute;
+        z-index: -1;
+        inset: -60px 0 auto 0;
+        height: 560px;
+        background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1.2px);
+        background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        mask-image: radial-gradient(62% 72% at 50% 34%, #000 18%, transparent 78%);
+        content: "";
+        pointer-events: none;
+      }
+
+      .hero-card {
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--blue) 7%, transparent), transparent 42%),
+          var(--surface);
+      }
+
+      .progress {
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        transform-origin: 0 50%;
+        transform: scaleX(var(--sp, 0));
+        background: linear-gradient(90deg, var(--lime), var(--blue));
+        pointer-events: none;
+      }
+
+      .nav-link.active { background: var(--surface-3); color: var(--ink); }
+
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 640ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 640ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .js .reveal.in { opacity: 1; transform: none; }
+
+      .button:active,
+      .seg button:active,
+      .presets button:active,
+      .icon-btn:active { transform: translateY(0) scale(0.985); }
+
+      .readout strong { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 750; }
+
+      .readout { transition: border-color 160ms ease, box-shadow 160ms ease; }
+
+      .readout:hover { border-color: color-mix(in srgb, var(--blue) 40%, var(--line)); box-shadow: var(--shadow); }
+
+      canvas { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+
+      :root[data-theme="dark"] canvas { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+
+      #lab-scene { cursor: pointer; }
+
+      .presets {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .presets > span {
+        margin-right: 4px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .presets button {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: border-color 150ms ease, color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+      }
+
+      .presets button i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--tone, var(--blue));
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone, var(--blue)) 18%, transparent);
+      }
+
+      .presets button:hover {
+        border-color: var(--tone, var(--blue));
+        color: var(--ink);
+        box-shadow: var(--shadow);
+        transform: translateY(-1px);
+      }
+
+      .stats { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--dim); font-size: 0.82rem; }
+
+      .stats b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+      .stats[hidden] { display: none; }
+
+      .final { flex: 1 1 100%; color: var(--dim); font-size: 0.88rem; }
+
+      .final:empty { display: none; }
+
+      @keyframes shake {
+        10%, 90% { transform: translateX(-1px); }
+        20%, 80% { transform: translateX(2px); }
+        30%, 50%, 70% { transform: translateX(-3px); }
+        40%, 60% { transform: translateX(3px); }
+      }
+
+      @keyframes pop {
+        0% { transform: scale(0.98); }
+        60% { transform: scale(1.015); }
+        100% { transform: none; }
+      }
+
+      .opts button.wrong { animation: shake 420ms ease; }
+
+      .opts button.right { animation: pop 320ms ease; }
+
+      .opts button.right::after,
+      .opts button.wrong::after {
+        margin-left: auto;
+        font-size: 0.85rem;
+        font-weight: 800;
+      }
+
+      .opts button.right::after { content: "✓"; }
+
+      .opts button.wrong::after { content: "✕"; }
+
+      @keyframes modalIn {
+        from { opacity: 0; transform: translateY(14px) scale(0.985); }
+        to { opacity: 1; transform: none; }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      dialog[open] { animation: modalIn 280ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+      dialog[open]::backdrop { animation: fadeIn 240ms ease; }
+
+      .chips button.active {
+        border-color: var(--violet);
+        background: color-mix(in srgb, var(--violet) 10%, transparent);
+        color: var(--violet);
+      }
+
+      .modal-body { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+
+      .to-top {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        z-index: 25;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        color: var(--muted);
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 220ms ease, transform 220ms ease, border-color 160ms ease, color 160ms ease;
+      }
+
+      .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+
+      .to-top:hover { border-color: var(--blue); color: var(--blue); }
+
+      .to-top svg { width: 18px; height: 18px; }
+
+      /* ================= ünite gezinmesi ================= */
+      .topic-nav {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 76px;
+      }
+
+      .topic-nav a {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 15px 18px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        text-decoration: none;
+        box-shadow: var(--shadow-sm);
+        transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .topic-nav a:hover {
+        border-color: var(--blue);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .topic-nav span {
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .topic-nav b { color: var(--ink); font-size: 0.95rem; font-weight: 650; letter-spacing: -0.02em; }
+
+      .topic-nav .mid { align-items: center; text-align: center; background: var(--surface-2); }
+
+      .topic-nav .next { align-items: flex-end; text-align: right; }
+
+      .topic-nav .gap { border: 0; background: none; box-shadow: none; }
+
+      .eyebrow a { text-decoration: none; }
+
+      .eyebrow a:hover { text-decoration: underline; }
+
+      /* ================= duyarlılık ================= */
+      @media (max-width: 1000px) {
+        .header-nav { display: none; }
+      }
+
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; }
+        .lab { grid-template-columns: 1fr; }
+        .demo.split { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 760px) {
+        .shell { width: min(100% - 28px, 560px); }
+        main { padding: 40px 0 72px; }
+        .section { margin-top: 68px; }
+        .section-heading { display: block; }
+        .section-heading p { margin-top: 10px; text-align: left; }
+        .readouts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cta-row .button { flex: 1 1 100%; }
+        .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
+        .lesson-card .go { display: none; }
+        .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .footer-inner { display: block; }
+        .footer-inner span { display: block; margin-top: 6px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { transition: none !important; animation: none !important; }
+        .js .reveal { opacity: 1; transform: none; }
+      }
+    </style>
+
+    <script>
+      /* tema, boya öncesinde uygulansın: varsayılan açık */
+      (function () {
+        var mode = "light";
+        try { if (localStorage.getItem("dersler-tema") === "dark") mode = "dark"; } catch (e) {}
+        document.documentElement.setAttribute("data-theme", mode);
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="index.html" aria-label="Dersler ana sayfa">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" />
+              <path d="M4 5.5v16M8 7h8M8 11h7" />
+            </svg>
+          </span>
+          <span>Dersler<small>fizik</small></span>
+        </a>
+
+        <nav class="header-nav" aria-label="Bölümler">
+          <a class="nav-link" href="#lab">Laboratuvar</a>
+          <a class="nav-link" href="#verim">Güç ve verim</a>
+          <a class="nav-link" href="#iletim">Enerji iletimi</a>
+          <a class="nav-link" href="#oyun">Hedef gerilim</a>
+          <a class="nav-link" href="#test">Test</a>
+        </nav>
+
+        <div class="header-tools">
+          <button class="icon-btn" type="button" id="theme-toggle" aria-label="Koyu temaya geç">
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4" />
+            </svg>
+            <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z" />
+            </svg>
+          </button>
+          <button class="button small" type="button" data-open-modal>Konu anlatımı</button>
+        </div>
+      </div>
+      <span class="progress" aria-hidden="true"></span>
+    </header>
+
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow"><a href="index.html#elektrik-ve-manyetizma">Elektrik ve Manyetizma</a> · Konu 04</p>
+          <h1 id="page-title">Transfor<span>matörler.</span></h1>
+          <p class="lead">
+            Transformatör, indüksiyonun en yaygın uygulamasıdır: gerilimi yükseltir ya da düşürür,
+            ama <b>gücü üretmez</b>. Gerilimi kaç kat büyütürse akımı o kadar küçültür — ve elektriği
+            yüzlerce kilometre öteye taşıyabilmemizin tek sebebi budur.
+          </p>
+          <div class="cta-row">
+            <button class="button" type="button" data-open-modal>
+              Konu anlatımını aç
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+            <a class="button ghost" href="#lab">Laboratuvara in</a>
+            <a class="button ghost" href="sunum/transformatorler.pptx" download>
+              Sunum (PPTX)
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </a>
+          </div>
+
+          <ul class="facts">
+            <li>Gerilim <b>N ile orantılı</b></li>
+            <li>Akım <b>N ile ters</b></li>
+            <li>İdealde <b>P₁ = P₂</b></li>
+            <li>Kayıp <b>I²·R</b></li>
+          </ul>
+        </div>
+
+        <aside class="hero-card" aria-label="Temel bağıntılar">
+          <span class="card-label">Temel bağıntılar</span>
+          <ul class="formula-list">
+            <li><code>V₁ / V₂ = N₁ / N₂</code> <span>sarım–gerilim oranı</span></li>
+            <li><code>I₁ / I₂ = N₂ / N₁</code> <span>akım ters orantılı</span></li>
+            <li><code>P₁ = P₂ (ideal)</code> <span>güç korunumu</span></li>
+            <li><code>verim = P₂ / P₁</code> <span>gerçek transformatör</span></li>
+          </ul>
+          <div class="card-foot"><span class="dot" aria-hidden="true"></span> Transformatör yalnızca alternatif akımla çalışır</div>
+        </aside>
+      </section>
+
+      <button class="lesson-card reveal" type="button" data-open-modal>
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 6.5C10.5 5 8.5 4.5 6 4.5H3.5v13H6c2.5 0 4.5.5 6 2 1.5-1.5 3.5-2 6-2h2.5v-13H18c-2.5 0-4.5.5-6 2z" />
+            <path d="M12 6.5v13" />
+          </svg>
+        </span>
+        <span>
+          <h3>Konu anlatımı: Transformatörler</h3>
+          <p>Yapısından sarım oranına, güç korunumundan enerji iletimine kadar konunun tamamı. Tıkla, açılsın.</p>
+        </span>
+        <span class="go" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </span>
+      </button>
+
+      <!-- 01 — transformatör laboratuvarı -->
+      <section class="section reveal" id="lab" aria-labelledby="lab-title">
+        <div class="section-heading">
+          <h2 id="lab-title"><em>01</em> Transformatör laboratuvarı</h2>
+          <p>Sarım sayılarını değiştir; gerilim ve akımın nasıl ters yönde değiştiğini izle.</p>
+        </div>
+
+        <div class="presets" role="group" aria-label="Hazır deneyler">
+          <span>Hazır deneyler</span>
+          <button type="button" data-n1="500" data-n2="1000" style="--tone: var(--rose)"><i aria-hidden="true"></i>Yükseltici 1:2</button>
+          <button type="button" data-n1="500" data-n2="125" style="--tone: var(--blue)"><i aria-hidden="true"></i>Düşürücü 4:1</button>
+          <button type="button" data-n1="500" data-n2="500" style="--tone: var(--dim)"><i aria-hidden="true"></i>1:1 · yalıtım</button>
+          <button type="button" data-n1="250" data-n2="2000" style="--tone: var(--amber)"><i aria-hidden="true"></i>Yükseltici 1:8</button>
+        </div>
+
+        <div class="lab">
+          <div>
+            <canvas id="lab-scene" aria-label="Transformatörün nüvesi, primer ve sekonder sarımları ile ölçüm değerleri"></canvas>
+            <div class="readouts">
+              <div class="readout"><span>Çıkış gerilimi</span><strong id="ro-v2">440</strong> <i>V</i></div>
+              <div class="readout"><span>Çıkış akımı</span><strong id="ro-i2">4,40</strong> <i>A</i></div>
+              <div class="readout"><span>Giriş akımı</span><strong id="ro-i1">8,80</strong> <i>A</i></div>
+              <div class="readout"><span>Tür</span><strong id="ro-kind">Yükseltici</strong><em id="ro-note">N₂ &gt; N₁</em></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="field">
+              <label for="c-v1">Giriş gerilimi <output id="o-v1" for="c-v1">220 V</output></label>
+              <input id="c-v1" type="range" min="12" max="400" step="4" value="220" />
+            </div>
+
+            <div class="field">
+              <label for="c-n1">Primer sarım N₁ <output id="o-n1" for="c-n1">500</output></label>
+              <input id="c-n1" type="range" min="100" max="2000" step="25" value="500" />
+            </div>
+
+            <div class="field">
+              <label for="c-n2">Sekonder sarım N₂ <output id="o-n2" for="c-n2">1000</output></label>
+              <input id="c-n2" type="range" min="100" max="2000" step="25" value="1000" />
+            </div>
+
+            <div class="field">
+              <label for="c-r">Yük direnci <output id="o-r" for="c-r">100 Ω</output></label>
+              <input id="c-r" type="range" min="10" max="400" step="10" value="100" />
+            </div>
+
+            <ul class="mini">
+              <li>Sarım oranı N₂/N₁ <b id="s-ratio">2,00</b></li>
+              <li>Çıkış gücü P₂ <b id="s-p2">1936 W</b></li>
+              <li>Giriş gücü P₁ (ideal) <b id="s-p1">1936 W</b></li>
+              <li>Gerilim oranı <b id="s-vr">2,00</b></li>
+            </ul>
+          </div>
+        </div>
+
+        <canvas id="lab-graphs" aria-label="Çıkış geriliminin ve akımının sekonder sarım sayısına bağlılığı"></canvas>
+        <p class="note">
+          Gerilim sarım sayısıyla <b>doğru</b>, akım ise <b>ters</b> orantılıdır. İdeal
+          transformatörde çarpımları — yani güç — sabit kalır: <b>V₁·I₁ = V₂·I₂</b>.
+          Transformatör bir enerji kaynağı değil, bir <b>dönüştürücüdür</b>.
+        </p>
+      </section>
+
+      <!-- 02 — güç ve verim -->
+      <section class="section reveal" id="verim" aria-labelledby="verim-title">
+        <div class="section-heading">
+          <h2 id="verim-title"><em>02</em> Güç ve verim</h2>
+          <p>Gerçek transformatörde çıkan güç, girenden biraz küçüktür. Fark nereye gider?</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="eff-scene" aria-label="Giriş gücü, çıkış gücü ve kayıpların karşılaştırması"></canvas>
+          <div class="panel">
+            <h3>Kayıplar nereden gelir?</h3>
+            <p>
+              İdeal transformatörde P₁ = P₂'dir. Gerçekte üç ana kayıp vardır: sarımların
+              direncinden doğan <b>bakır kaybı (I²R)</b>, nüvedeki <b>girdap akımları</b> ve
+              <b>histerezis</b>. Hepsi sonunda <b>ısıya</b> dönüşür.
+            </p>
+            <div class="field">
+              <label for="eff-p1">Giriş gücü <output id="eff-p1-out" for="eff-p1">1000 W</output></label>
+              <input id="eff-p1" type="range" min="100" max="3000" step="50" value="1000" />
+            </div>
+            <div class="field">
+              <label for="eff-e">Verim <output id="eff-e-out" for="eff-e">%95</output></label>
+              <input id="eff-e" type="range" min="60" max="100" step="1" value="95" />
+            </div>
+            <div class="verdict" id="eff-verdict">Verimi değiştir, kaybın nasıl büyüdüğünü izle.</div>
+            <p class="note">
+              Büyük güç transformatörlerinde verim %98–99'a ulaşır; buna rağmen kaybedilen güç
+              kilowatt mertebesinde olduğu için bu cihazlar <b>yağla soğutulur</b>.
+              Nüvenin ince yalıtılmış levhalardan yapılmasının sebebi girdap akımlarını kırmaktır.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — enerji iletimi -->
+      <section class="section reveal" id="iletim" aria-labelledby="iletim-title">
+        <div class="section-heading">
+          <h2 id="iletim-title"><em>03</em> Neden yüksek gerilimle iletiyoruz?</h2>
+          <p>Aynı gücü taşıyan hat, gerilimi yükseltince neden ısınmayı bırakıyor?</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="line-scene" aria-label="Santralden şehre iletim hattında gerilime bağlı kayıp"></canvas>
+          <div class="panel">
+            <h3>Kayıp akımın karesiyle</h3>
+            <p>
+              Hatta kaybedilen güç <b>I²·R</b>'dir. Taşınan güç P = V·I sabitken gerilimi
+              yükseltmek akımı aynı oranda küçültür; kayıp ise akımın <b>karesiyle</b> azalır.
+              Gerilimi 10 katına çıkarmak kaybı <b>100'de bire</b> indirir.
+            </p>
+            <div class="field">
+              <label for="ln-v">İletim gerilimi <output id="ln-v-out" for="ln-v">10 kV</output></label>
+              <input id="ln-v" type="range" min="1" max="400" step="1" value="10" />
+            </div>
+            <div class="field">
+              <label for="ln-r">Hat direnci <output id="ln-r-out" for="ln-r">5 Ω</output></label>
+              <input id="ln-r" type="range" min="1" max="20" step="1" value="5" />
+            </div>
+            <div class="verdict" id="line-verdict">Gerilimi değiştir.</div>
+            <ul class="mini">
+              <li>Taşınan güç <b>1,0 MW</b></li>
+              <li>Hat akımı <b id="ln-i">100 A</b></li>
+              <li>Kayıp güç <b id="ln-loss">50,0 kW</b></li>
+              <li>Kayıp oranı <b id="ln-pct">%5,0</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — hedef gerilim -->
+      <section class="section reveal" id="oyun" aria-labelledby="oyun-title">
+        <div class="section-heading">
+          <h2 id="oyun-title"><em>04</em> Hedef gerilim</h2>
+          <p>Verilen giriş gerilimi ve primer sarımıyla, istenen çıkışı üretecek sekonderi bul.</p>
+        </div>
+
+        <div class="demo split">
+          <canvas id="game-scene" aria-label="Hedef çıkış gerilimi için sekonder sarım sayısını ayarlama oyunu"></canvas>
+          <div class="panel">
+            <h3>Nasıl oynanır?</h3>
+            <p>
+              Ekranda giriş gerilimi, primer sarım sayısı ve <b>hedef çıkış gerilimi</b> yazıyor.
+              Sekonder sarımı ayarlayıp <b>Bağla</b> düğmesine bas. %2'den yakınsa sayılır.
+              İpucu: <b>N₂ = N₁ · V₂ / V₁</b>.
+            </p>
+            <div class="field">
+              <label for="gm-n2">Sekonder sarım N₂ <output id="gm-n2-out" for="gm-n2">500</output></label>
+              <input id="gm-n2" type="range" min="10" max="3500" step="5" value="500" />
+            </div>
+            <div class="verdict" id="game-verdict">Sekonder sarımı ayarla ve bağla.</div>
+            <div class="actions">
+              <button class="button" type="button" id="gm-check">Bağla</button>
+              <button class="button ghost" type="button" id="gm-new">Yeni hedef</button>
+            </div>
+            <ul class="tries" id="gm-tries"></ul>
+            <div class="stats" id="gm-stats" hidden>
+              <span>Deneme <b data-n>0</b></span>
+              <span>Tutturma <b data-ok>0</b></span>
+              <span>Başarı <b data-pct>–</b></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — mini test -->
+      <section class="section reveal" id="test" aria-labelledby="test-title">
+        <div class="section-heading">
+          <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
+          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+        </div>
+
+        <div class="quiz" id="quiz"></div>
+
+        <div class="score">
+          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
+          <span class="final" id="quiz-final"></span>
+        </div>
+      </section>
+    </main>
+
+    <button class="to-top" type="button" id="to-top" aria-label="Sayfanın başına dön">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
+    </button>
+
+    <nav class="topic-nav shell" aria-label="Ünite içinde gezinme">
+      <a class="prev" href="induksiyon-akimi.html">
+        <span>← Önceki konu</span>
+        <b>03 · İndüksiyon akımı</b>
+      </a>
+      <a class="mid" href="index.html#elektrik-ve-manyetizma">
+        <span>Ünite</span>
+        <b>Elektrik ve Manyetizma</b>
+      </a>
+      <span class="gap" aria-hidden="true"></span>
+    </nav>
+
+    <footer>
+      <div class="shell footer-inner">
+        <span>dersler.perinet.org</span>
+        <span><a href="sunum/transformatorler.pptx" download>Sunumu indir (PPTX)</a></span>
+        <span>Fizik · Elektrik ve Manyetizma · Konu 04</span>
+      </div>
+    </footer>
+
+    <dialog id="konu" aria-labelledby="konu-title">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Konu anlatımı</p>
+          <h2 id="konu-title">Transformatörler</h2>
+        </div>
+        <button class="close" type="button" id="konu-close" aria-label="Konu anlatımını kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="chips">
+        <button type="button" data-goto="k1">Yapısı</button>
+        <button type="button" data-goto="k2">Çalışma ilkesi</button>
+        <button type="button" data-goto="k3">Sarım ve gerilim</button>
+        <button type="button" data-goto="k4">Akım ve güç</button>
+        <button type="button" data-goto="k5">Yükseltici · düşürücü</button>
+        <button type="button" data-goto="k6">Verim ve kayıplar</button>
+        <button type="button" data-goto="k7">Enerji iletimi</button>
+        <button type="button" data-goto="k8">Çözümlü örnekler</button>
+        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+      </div>
+
+      <div class="modal-body" id="konu-body">
+        <h3 id="k1">Transformatörün yapısı</h3>
+        <p>
+          Transformatör, alternatif gerilimin değerini değiştirmeye yarayan bir araçtır. Üç
+          parçadan oluşur:
+        </p>
+        <ul>
+          <li><strong>Primer (birincil) sarım:</strong> kaynağa bağlanan, N₁ sarımlı bobin.</li>
+          <li><strong>Sekonder (ikincil) sarım:</strong> yükün bağlandığı, N₂ sarımlı bobin.</li>
+          <li><strong>Nüve (demir çekirdek):</strong> iki bobini birbirine bağlayan, manyetik alan
+            çizgilerini toplayıp sekonderden geçmeye zorlayan yumuşak demir halka.</li>
+        </ul>
+        <p>
+          İki bobin arasında <strong>elektriksel bağlantı yoktur</strong>; aralarındaki tek köprü
+          nüvedeki <strong>manyetik akıdır</strong>. Bu yüzden transformatör aynı zamanda bir
+          yalıtım aracıdır.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Nüve neden ince levhalardan yapılır?</b> Demir kütlesi tek parça olsaydı içinde
+            dolanan <b>girdap akımları</b> onu ısıtır, enerjiyi boşa harcardı. Yalıtılmış ince
+            levhalar (saclar) bu akımların yolunu keser.
+          </p>
+        </div>
+
+        <h3 id="k2">Çalışma ilkesi: karşılıklı indüksiyon</h3>
+        <p>
+          Primere <strong>alternatif</strong> gerilim uygulanınca bobinden sürekli yön ve şiddet
+          değiştiren bir akım geçer. Bu akım nüvede <strong>değişen bir manyetik akı</strong>
+          oluşturur. Akı nüve boyunca ilerleyip sekonder sarımdan geçer ve Faraday yasası gereği
+          sekonderde bir emk indükler.
+        </p>
+        <div class="formula">
+          <code>V₁ = N₁ · ΔΦ/Δt</code>
+          <code>V₂ = N₂ · ΔΦ/Δt</code>
+        </div>
+        <p>
+          Her iki sarımdan <strong>aynı akı</strong> geçtiği için ΔΦ/Δt ortaktır. İki bağıntıyı
+          taraf tarafa bölünce transformatörün temel eşitliği çıkar.
+        </p>
+        <div class="callout warn">
+          <p>
+            <b>Doğru akımda çalışmaz.</b> Pil bağlanırsa akım sabit olur, akı değişmez, sekonderde
+            emk indüklenmez. Transformatörün canı <b>değişimdir</b>: bu yüzden evlerimize doğru
+            akım değil alternatif akım gelir. <a href="induksiyon-akimi.html">İndüksiyon akımı</a>
+            konusunu hatırla.
+          </p>
+        </div>
+
+        <h3 id="k3">Sarım sayısı ve gerilim</h3>
+        <p>
+          Gerilim, sarım sayısıyla <strong>doğru orantılıdır</strong>. Sekonderde daha çok sarım
+          varsa daha yüksek gerilim elde edilir:
+        </p>
+        <div class="formula">
+          <code>V₁ / V₂ = N₁ / N₂</code>
+          <code>V₂ = V₁ · N₂ / N₁</code>
+        </div>
+        <p>
+          Her sarıma düşen gerilim iki bobinde de aynıdır: örneğin 220 V'luk gerilim 500 sarıma
+          uygulanıyorsa sarım başına 0,44 V düşer. 1000 sarımlı sekonderde 1000 · 0,44 = 440 V
+          elde edilir.
+        </p>
+
+        <h3 id="k4">Akım ve güç korunumu</h3>
+        <p>
+          Transformatör enerji üretmez, yalnızca <strong>dönüştürür</strong>. İdeal bir
+          transformatörde giren güç çıkan güce eşittir:
+        </p>
+        <div class="formula">
+          <code>P₁ = P₂</code>
+          <code>V₁·I₁ = V₂·I₂</code>
+          <code>I₁ / I₂ = N₂ / N₁</code>
+        </div>
+        <p>
+          Bu yüzden gerilim kaç kat büyütülürse <strong>akım o kadar küçülür</strong>. Gerilimi 10
+          katına çıkaran bir transformatörün sekonderinden, primerdekinin onda biri kadar akım
+          geçebilir.
+        </p>
+        <table class="tbl">
+          <tr><th>Büyüklük</th><th>Sarımla ilişkisi</th><th>N₂ &gt; N₁ ise</th></tr>
+          <tr><td>Gerilim</td><td>doğru orantılı</td><td>artar</td></tr>
+          <tr><td>Akım</td><td>ters orantılı</td><td>azalır</td></tr>
+          <tr><td>Güç</td><td>değişmez (ideal)</td><td>aynı kalır</td></tr>
+          <tr><td>Frekans</td><td>değişmez</td><td>aynı kalır</td></tr>
+        </table>
+        <div class="callout">
+          <p>
+            <b>Frekans asla değişmez.</b> Sekonderdeki gerilimin saniyedeki değişim sayısı,
+            primerdekiyle aynıdır — akı ortak olduğu için başka türlüsü mümkün değildir.
+          </p>
+        </div>
+
+        <h3 id="k5">Yükseltici ve düşürücü transformatör</h3>
+        <ul>
+          <li><strong>Yükseltici (N₂ &gt; N₁):</strong> gerilimi büyütür, akımı küçültür.
+            Santral çıkışında, iletim hattına girerken kullanılır.</li>
+          <li><strong>Düşürücü (N₂ &lt; N₁):</strong> gerilimi küçültür, akımı büyütür.
+            Şehir girişinde, mahalle trafosunda, telefon şarj adaptöründe kullanılır.</li>
+          <li><strong>1 : 1 (N₂ = N₁):</strong> gerilimi değiştirmez; yalnızca devreyi şebekeden
+            <strong>yalıtmak</strong> için kullanılır.</li>
+        </ul>
+        <p>
+          Kaynak hangi bobine bağlanırsa orası primerdir. Aynı transformatör ters bağlanarak
+          yükselticiden düşürücüye çevrilebilir.
+        </p>
+
+        <h3 id="k6">Verim ve kayıplar</h3>
+        <p>
+          Gerçek transformatörde çıkan güç, giren güçten biraz küçüktür. Oranlarına
+          <strong>verim</strong> denir:
+        </p>
+        <div class="formula">
+          <code>verim = P₂ / P₁</code>
+          <code>% verim = (P₂ / P₁) · 100</code>
+        </div>
+        <ul>
+          <li><strong>Bakır kaybı:</strong> sarım tellerinin direncinde harcanan I²R gücü.</li>
+          <li><strong>Girdap akımı kaybı:</strong> nüvede dolanan akımların ısıtması.</li>
+          <li><strong>Histerezis kaybı:</strong> demirin mıknatıslanma yönünü sürekli değiştirmesi
+            için harcanan enerji.</li>
+        </ul>
+        <p>
+          Kayıpların tamamı sonunda <strong>ısıya</strong> dönüşür. Büyük güç transformatörleri bu
+          yüzden yağla doldurulur ve radyatörlerle soğutulur. Verimleri %98–99 civarındadır.
+        </p>
+
+        <h3 id="k7">Enerji iletimi: neden yüksek gerilim?</h3>
+        <p>
+          Santralden şehre giden hat da bir dirençtir. Hatta kaybedilen güç:
+        </p>
+        <div class="formula">
+          <code>P_kayıp = I² · R_hat</code>
+          <code>I = P / V</code>
+        </div>
+        <p>
+          Taşınacak güç P belliyken, gerilimi yükseltmek akımı aynı oranda küçültür; kayıp ise
+          akımın <strong>karesiyle</strong> azalır. Gerilimi 10 katına çıkarmak kaybı
+          <strong>100'de bire</strong> indirir. Bu yüzden elektrik, santral çıkışında yükseltici
+          transformatörle 154 kV – 400 kV'a çıkarılır, şehirde düşürücülerle kademe kademe 220 V'a
+          indirilir.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Kaybı azaltmanın öteki yolu</b> hattın direncini küçültmektir; ama bu daha kalın
+            (daha pahalı ve ağır) iletken demektir. Gerilimi yükseltmek çok daha ucuzdur.
+          </p>
+        </div>
+
+        <h3 id="k8">Çözümlü örnekler</h3>
+
+        <details>
+          <summary>Örnek 1 — Çıkış gerilimi ve akımı</summary>
+          <p>
+            Primeri 500, sekonderi 100 sarımlı ideal bir transformatörün primerine 220 V
+            uygulanıyor. Sekonderden 3 A akım çekiliyor. V₂, I₁ ve güçleri bulunuz.
+          </p>
+          <ol class="steps">
+            <li>V₂ = V₁·N₂/N₁ = 220 · 100/500 = <strong>44 V</strong></li>
+            <li>P₂ = V₂·I₂ = 44 · 3 = <strong>132 W</strong></li>
+            <li>İdeal olduğu için P₁ = P₂ = 132 W</li>
+            <li>I₁ = P₁/V₁ = 132/220 = <strong>0,6 A</strong></li>
+            <li>Kontrol: I₁/I₂ = 0,6/3 = 1/5 = N₂/N₁ ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 2 — Sarım sayısını bulma</summary>
+          <p>
+            220 V'luk şebekeden 12 V elde etmek isteyen bir adaptörün primeri 1100 sarımlıdır.
+            Sekonder kaç sarım olmalıdır?
+          </p>
+          <ol class="steps">
+            <li>N₂ = N₁ · V₂/V₁</li>
+            <li>N₂ = 1100 · 12/220 = 1100 · 0,0545…</li>
+            <li>N₂ = <strong>60 sarım</strong></li>
+            <li>Sarım başına gerilim: 220/1100 = 0,2 V; 60 · 0,2 = 12 V ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 3 — Verim</summary>
+          <p>
+            Bir transformatörün primerinden 4 A akım geçerken uçlarındaki gerilim 220 V'tur.
+            Sekonderde 44 V altında 17 A akım ölçülmüştür. Verimi bulunuz.
+          </p>
+          <ol class="steps">
+            <li>P₁ = 220 · 4 = <strong>880 W</strong></li>
+            <li>P₂ = 44 · 17 = <strong>748 W</strong></li>
+            <li>verim = 748/880 = 0,85 → <strong>%85</strong></li>
+            <li>Kayıp = 880 − 748 = 132 W; bu güç ısıya dönüşür.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>Örnek 4 — İletim kaybı</summary>
+          <p>
+            Bir santral 1 MW gücü, toplam direnci 5 Ω olan bir hatla taşıyor. İletim gerilimi
+            (a) 10 kV (b) 100 kV ise hatta kaybedilen güçleri karşılaştırınız.
+          </p>
+          <ol class="steps">
+            <li>(a) I = P/V = 10⁶/10⁴ = 100 A → P_kayıp = 100² · 5 = <strong>50 kW</strong> (%5)</li>
+            <li>(b) I = 10⁶/10⁵ = 10 A → P_kayıp = 10² · 5 = <strong>500 W</strong> (%0,05)</li>
+            <li>Gerilim 10 katına çıkınca kayıp 100'de bire indi.</li>
+          </ol>
+        </details>
+
+        <h3 id="k9">Sık yapılan hatalar</h3>
+        <ul>
+          <li><strong>“Transformatör gücü artırır.”</strong> Artırmaz. Gerilimi artırırken akımı
+            azaltır; ideal durumda güç sabit, gerçekte biraz <em>azalmıştır</em>.</li>
+          <li><strong>Akımı da sarımla doğru orantılı sanmak.</strong> Gerilim doğru, akım
+            <em>ters</em> orantılıdır.</li>
+          <li><strong>Transformatörü doğru akımla çalıştırmaya çalışmak.</strong> Akı değişmezse
+            emk indüklenmez.</li>
+          <li><strong>Frekansın değiştiğini düşünmek.</strong> Frekans primer ve sekonderde aynıdır.</li>
+          <li><strong>Kaybı akımla doğru orantılı sanmak.</strong> Hat kaybı I²R'dir; akım 2 katına
+            çıkarsa kayıp 4 katına çıkar.</li>
+          <li><strong>Primer–sekonder karıştırmak.</strong> Kaynağın bağlı olduğu sarım her zaman
+            primerdir.</li>
+        </ul>
+
+        <div class="callout">
+          <p>
+            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
+            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+          </p>
+        </div>
+      </div>
+    </dialog>
+    <script>
+      (function () {
+        "use strict";
+
+        /* ============ ortak yardımcılar ============ */
+
+        var COL = {};
+        var PALETTE = ["ink", "muted", "dim", "blue", "lime", "violet",
+                       "amber", "rose", "panel", "border", "chip", "ring", "outline", "scene"];
+
+        /* tuval renkleri CSS belirteçlerinden gelir; tema değişince yeniden okunur */
+        function readPalette() {
+          var cs = getComputedStyle(document.documentElement);
+          for (var i = 0; i < PALETTE.length; i++) {
+            var v = cs.getPropertyValue("--c-" + PALETTE[i]).trim();
+            if (v) COL[PALETTE[i]] = v;
+          }
+        }
+
+        /* bir renge saydamlık ekler */
+        function A(c, a) {
+          c = (c || "").trim();
+          if (c.charAt(0) === "#") {
+            var h = c.slice(1);
+            if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+            var n = parseInt(h.slice(0, 6), 16);
+            return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
+          }
+          if (c.indexOf("rgb") === 0) {
+            var q = c.replace(/rgba?\(|\)/g, "").split(/[,\s\/]+/);
+            return "rgba(" + q[0] + "," + q[1] + "," + q[2] + "," + a + ")";
+          }
+          return c;
+        }
+
+        readPalette();
+        var FONT = "ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif";
+        var TAU = Math.PI * 2;
+
+        function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+        function fmt(n, d) {
+          if (!isFinite(n)) return "–";
+          d = d == null ? 2 : d;
+          var s = n.toFixed(d);
+          if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+          return s.replace(".", ",");
+        }
+
+        function niceStep(range, target) {
+          var raw = range / (target || 5);
+          if (!(raw > 0)) return 1;
+          var pow = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+          var cand = [1, 2, 2.5, 5, 10];
+          for (var i = 0; i < cand.length; i++) {
+            if (cand[i] * pow >= raw - 1e-12) return cand[i] * pow;
+          }
+          return 10 * pow;
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+          if (!(w > 0) || !(h > 0)) { ctx.beginPath(); return false; }
+          r = Math.max(0, Math.min(r, w / 2, h / 2));
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.arcTo(x + w, y, x + w, y + h, r);
+          ctx.arcTo(x + w, y + h, x, y + h, r);
+          ctx.arcTo(x, y + h, x, y, r);
+          ctx.arcTo(x, y, x + w, y, r);
+          ctx.closePath();
+          return true;
+        }
+
+        function dashLine(ctx, x1, y1, x2, y2, color) {
+          ctx.save();
+          ctx.setLineDash([5, 6]);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        /* düşey ok: dir = +1 aşağı, -1 yukarı; side = +1 etiket sağda */
+        function vArrow(ctx, x, y, len, dir, color, label, side) {
+          if (len < 5) return;
+          var ey = y + dir * len;
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.lineWidth = 3;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x, ey - dir * 8);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(x, ey);
+          ctx.lineTo(x - 6, ey - dir * 12);
+          ctx.lineTo(x + 6, ey - dir * 12);
+          ctx.closePath();
+          ctx.fill();
+          if (label) {
+            ctx.font = "700 12px " + FONT;
+            ctx.textAlign = side < 0 ? "right" : "left";
+            ctx.textBaseline = "middle";
+            ctx.fillText(label, x + (side < 0 ? -10 : 10), y + dir * len * 0.5);
+          }
+          ctx.restore();
+        }
+
+        function chip(ctx, text, x, y, color, align) {
+          ctx.save();
+          ctx.font = "700 12px " + FONT;
+          var w = ctx.measureText(text).width + 22, h = 26;
+          var xx = align === "right" ? x - w : (align === "center" ? x - w / 2 : x);
+          roundRect(ctx, xx, y, w, h, 13);
+          ctx.fillStyle = COL.chip;
+          ctx.fill();
+          ctx.globalAlpha = 0.55;
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = color;
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          ctx.fillText(text, xx + 11, y + h / 2 + 0.5);
+          ctx.restore();
+        }
+
+        function orb(ctx, cx, cy, r, c1, c2) {
+          var g = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.4, r * 0.12, cx, cy, r);
+          g.addColorStop(0, c1);
+          g.addColorStop(1, c2);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, TAU);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.outline, 0.5);
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        /* ============ canvas kurulumu ============ */
+
+        var fits = [];
+
+        function kit(id, heightOf) {
+          var el = document.getElementById(id);
+          if (!el) return null;
+          var ctx = el.getContext("2d");
+          var W = 0, H = 0, draw = null;
+
+          function fit() {
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
+            var w = el.clientWidth || 600;
+            var h = Math.round(heightOf(w));
+            el.style.height = h + "px";
+            el.width = Math.round(w * dpr);
+            el.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            W = w;
+            H = h;
+            if (draw) draw();
+          }
+
+          var api = {
+            el: el, ctx: ctx,
+            get w() { return W; },
+            get h() { return H; },
+            fit: fit,
+            bind: function (fn) { draw = fn; }
+          };
+          window.addEventListener("resize", fit);
+          fits.push(fit);
+          fit();
+          return api;
+        }
+
+        /* ============ tek animasyon döngüsü ============ */
+
+        var tickers = new Set();
+        var rafId = 0, prev = 0;
+
+        function loop(ts) {
+          var dt = prev ? Math.min((ts - prev) / 1000, 0.05) : 0;
+          prev = ts;
+          tickers.forEach(function (fn) { fn(dt); });
+          if (tickers.size) {
+            rafId = requestAnimationFrame(loop);
+          } else {
+            rafId = 0;
+            prev = 0;
+          }
+        }
+
+        function play(fn) {
+          tickers.add(fn);
+          if (!rafId) { prev = 0; rafId = requestAnimationFrame(loop); }
+        }
+
+        function halt(fn) { tickers.delete(fn); }
+
+
+        /* serbest yönlü ok */
+        function arrow(ctx, x, y, dx, dy, color, label, width) {
+          var len = Math.sqrt(dx * dx + dy * dy);
+          if (len < 8) return;
+          var ux = dx / len, uy = dy / len;
+          var ex = x + dx, ey = y + dy;
+          var head = Math.min(11, len * 0.45);
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.lineWidth = width || 2.6;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(ex - ux * head * 0.75, ey - uy * head * 0.75);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(ex, ey);
+          ctx.lineTo(ex - ux * head - uy * head * 0.44, ey - uy * head + ux * head * 0.44);
+          ctx.lineTo(ex - ux * head + uy * head * 0.44, ey - uy * head - ux * head * 0.44);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+          if (label) tag(ctx, label, ex + ux * 12, ey + uy * 12, color, "center", 11);
+        }
+
+        /* arkasına sahne rengiyle hâle çizilen küçük etiket */
+        function tag(ctx, text, x, y, color, align, size) {
+          ctx.save();
+          ctx.font = "700 " + (size || 12) + "px " + FONT;
+          ctx.textAlign = align || "center";
+          ctx.textBaseline = "middle";
+          ctx.lineWidth = 3.5;
+          ctx.lineJoin = "round";
+          ctx.strokeStyle = A(COL.scene, 0.9);
+          ctx.strokeText(text, x, y);
+          ctx.fillStyle = color;
+          ctx.fillText(text, x, y);
+          ctx.restore();
+        }
+
+        /* ============ x eksenli grafik paneli ============ */
+
+        function panelX(ctx, X, Y, W, H, o) {
+          if (W < 90 || H < 80) return;
+          roundRect(ctx, X + 0.5, Y + 0.5, W - 1, H - 1, 16);
+          ctx.fillStyle = COL.panel;
+          ctx.fill();
+          ctx.strokeStyle = COL.border;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          var pl = 52, pr = 16, pt = 38, pb = 30;
+          var x0 = X + pl, x1 = X + W - pr, y0 = Y + pt, y1 = Y + H - pb;
+          var xM = o.xMax, yM = o.yMax, xm = o.xMin || 0;
+          function px(v) { return x0 + ((v - xm) / (xM - xm)) * (x1 - x0); }
+          function py(v) { return y1 - (v / yM) * (y1 - y0); }
+          ctx.font = "10px " + FONT;
+          var ys = niceStep(yM, 4);
+          for (var v = 0; v <= yM + 1e-9; v += ys) {
+            ctx.strokeStyle = A(COL.dim, 0.14);
+            ctx.beginPath();
+            ctx.moveTo(x0, py(v));
+            ctx.lineTo(x1, py(v));
+            ctx.stroke();
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(fmt(v, ys < 1 ? (ys < 0.1 ? 2 : 1) : 0), x0 - 7, py(v));
+          }
+          ctx.strokeStyle = A(COL.dim, 0.42);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x0, y0 - 6);
+          ctx.lineTo(x0, y1);
+          ctx.lineTo(x1, y1);
+          ctx.stroke();
+          var xs = niceStep(xM - xm, 4);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "top";
+          for (var t = Math.ceil(xm / xs) * xs; t <= xM + 1e-9; t += xs) {
+            ctx.fillStyle = COL.dim;
+            ctx.fillText(fmt(t, xs < 1 ? 1 : 0), px(t), y1 + 6);
+          }
+          ctx.strokeStyle = o.color;
+          ctx.lineWidth = 2.5;
+          ctx.lineJoin = "round";
+          ctx.beginPath();
+          var pen = false;
+          for (var i = 0; i <= 110; i++) {
+            var xv = xm + ((xM - xm) * i) / 110;
+            var yv = o.f(xv);
+            if (!isFinite(yv) || yv > yM || yv < 0) { pen = false; continue; }
+            if (pen) ctx.lineTo(px(xv), py(yv)); else ctx.moveTo(px(xv), py(yv));
+            pen = true;
+          }
+          ctx.stroke();
+          var mx = px(clamp(o.xNow, xm, xM)), my = py(clamp(o.f(o.xNow), 0, yM));
+          dashLine(ctx, mx, my, mx, y1, A(COL.dim, 0.45));
+          dashLine(ctx, x0, my, mx, my, A(COL.dim, 0.45));
+          ctx.fillStyle = o.color;
+          ctx.beginPath();
+          ctx.arc(mx, my, 5, 0, TAU);
+          ctx.fill();
+          ctx.strokeStyle = COL.ring;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.font = "700 12.5px " + FONT;
+          ctx.fillStyle = o.color;
+          ctx.fillText(o.title, X + 17, Y + 24);
+          ctx.textAlign = "right";
+          ctx.font = "10.5px " + FONT;
+          ctx.fillStyle = COL.dim;
+          ctx.fillText(o.xLabel, X + W - 17, Y + H - 8);
+        }
+
+        /* renkli dolgu üzerindeki yazı için okunur mürekkep */
+        function ink(c) {
+          var q = A(c, 1).replace(/rgba?\(|\)/g, "").split(/[,\s\/]+/);
+          var l = (0.299 * +q[0] + 0.587 * +q[1] + 0.114 * +q[2]) / 255;
+          return l > 0.58 ? "#101528" : "#ffffff";
+        }
+
+        /* ============ 01 · transformatör laboratuvarı ============ */
+
+        (function lab() {
+          var S = kit("lab-scene", function (w) { return clamp(w * 0.5, 300, 380); });
+          var G = kit("lab-graphs", function (w) { return w < 640 ? 560 : 280; });
+          if (!S || !G) return;
+
+          var st = { v1: 220, n1: 500, n2: 1000, r: 100, ph: 0 };
+
+          function v2() { return (st.v1 * st.n2) / st.n1; }
+          function i2() { return v2() / st.r; }
+          function i1() { return (i2() * st.n2) / st.n1; }
+          function pwr() { return v2() * i2(); }
+
+          /* bir bacağa sarılmış bobin */
+          function coil(ctx, cx, rr, yTop, yBot, turns, color) {
+            /* hem sarım sayısı hem bobin boyu sarımla orantılı büyür */
+            var n = clamp(Math.round(turns / 125), 2, 16);
+            var span = yBot - yTop;
+            var pitch = Math.min(15, span / n);
+            var top = yTop + (span - pitch * n) / 2;
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3.2;
+            ctx.lineCap = "round";
+            for (var i = 0; i < n; i++) {
+              ctx.beginPath();
+              ctx.ellipse(cx, top + pitch * (i + 0.5), rr, Math.min(pitch * 0.38, 7), 0, 0, TAU);
+              ctx.stroke();
+            }
+            ctx.restore();
+            return { top: top + pitch * 0.5, bot: top + pitch * (n - 0.5) };
+          }
+
+          function wire(ctx, pts, color) {
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2.2;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.moveTo(pts[0], pts[1]);
+            for (var i = 2; i < pts.length; i += 2) ctx.lineTo(pts[i], pts[i + 1]);
+            ctx.stroke();
+            ctx.restore();
+          }
+
+          function drawScene() {
+            var ctx = S.ctx, W = S.w, H = S.h;
+            ctx.clearRect(0, 0, W, H);
+
+            var t = clamp(W * 0.032, 13, 20);
+            var x0 = W * 0.34, x1 = W * 0.66, y0 = H * 0.22, y1 = H * 0.86;
+            var lx = x0 + t / 2, rxc = x1 - t / 2;
+            var cr = t / 2 + 8;
+            var cy = (y0 + y1) / 2;
+            var sx = Math.max(38, W * 0.11), bx = Math.min(W - 38, W * 0.89);
+
+            /* nüve: dolu dış dikdörtgen, içi sahne rengiyle oyulur */
+            roundRect(ctx, x0, y0, x1 - x0, y1 - y0, 14);
+            ctx.fillStyle = A(COL.dim, 0.34);
+            ctx.fill();
+            ctx.strokeStyle = A(COL.dim, 0.55);
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+            roundRect(ctx, x0 + t, y0 + t, x1 - x0 - 2 * t, y1 - y0 - 2 * t, 7);
+            ctx.fillStyle = COL.scene;
+            ctx.fill();
+            ctx.strokeStyle = A(COL.dim, 0.45);
+            ctx.stroke();
+
+            /* nüvedeki akı: dönen kesikli yol */
+            ctx.save();
+            ctx.setLineDash([9, 13]);
+            ctx.lineDashOffset = -st.ph;
+            ctx.strokeStyle = A(COL.violet, 0.85);
+            ctx.lineWidth = 2.4;
+            roundRect(ctx, x0 + t / 2, y0 + t / 2, x1 - x0 - t, y1 - y0 - t, 10);
+            ctx.stroke();
+            ctx.restore();
+            tag(ctx, "Φ", (x0 + x1) / 2, cy, COL.violet, "center", 15);
+            tag(ctx, "ortak akı", (x0 + x1) / 2, cy + 21, COL.dim, "center", 10.5);
+
+            /* bobinler */
+            var yA = y0 + t + 10, yB = y1 - t - 10;
+            var c1 = coil(ctx, lx, cr, yA, yB, st.n1, COL.rose);
+            var c2 = coil(ctx, rxc, cr, yA, yB, st.n2, COL.blue);
+
+            /* sol devre: alternatif kaynak */
+            wire(ctx, [sx, cy - 19, sx, yA, lx - cr, yA, lx - cr, c1.top], A(COL.rose, 0.75));
+            wire(ctx, [sx, cy + 19, sx, yB, lx - cr, yB, lx - cr, c1.bot], A(COL.rose, 0.75));
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(sx, cy, 19, 0, TAU);
+            ctx.fillStyle = COL.panel;
+            ctx.fill();
+            ctx.strokeStyle = COL.rose;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.beginPath();
+            for (var k = -10; k <= 10; k++) {
+              var yy = cy - Math.sin((k / 10) * Math.PI) * 7;
+              if (k === -10) ctx.moveTo(sx + k, yy); else ctx.lineTo(sx + k, yy);
+            }
+            ctx.strokeStyle = COL.rose;
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+            ctx.restore();
+            tag(ctx, "AC", sx, cy + 33, COL.rose, "center", 10.5);
+
+            /* sağ devre: yük */
+            wire(ctx, [bx, cy - 24, bx, yA, rxc + cr, yA, rxc + cr, c2.top], A(COL.blue, 0.75));
+            wire(ctx, [bx, cy + 24, bx, yB, rxc + cr, yB, rxc + cr, c2.bot], A(COL.blue, 0.75));
+            var glow = clamp(pwr() / 2500, 0, 1);
+            if (glow > 0.02) {
+              var gg = ctx.createRadialGradient(bx, cy, 2, bx, cy, 46);
+              gg.addColorStop(0, A(COL.amber, 0.45 * glow));
+              gg.addColorStop(1, A(COL.amber, 0));
+              ctx.fillStyle = gg;
+              ctx.beginPath();
+              ctx.arc(bx, cy, 46, 0, TAU);
+              ctx.fill();
+            }
+            roundRect(ctx, bx - 13, cy - 24, 26, 48, 6);
+            ctx.fillStyle = COL.panel;
+            ctx.fill();
+            ctx.strokeStyle = COL.amber;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.save();
+            ctx.beginPath();
+            for (var z = 0; z <= 6; z++) {
+              var zy = cy - 17 + (34 / 6) * z;
+              var zx = bx + (z % 2 === 0 ? -6 : 6);
+              if (z === 0) ctx.moveTo(zx, zy); else ctx.lineTo(zx, zy);
+            }
+            ctx.strokeStyle = COL.amber;
+            ctx.lineWidth = 1.8;
+            ctx.lineJoin = "round";
+            ctx.stroke();
+            ctx.restore();
+            tag(ctx, "yük " + fmt(st.r, 0) + " Ω", bx, cy + 38, COL.amber, "center", 10.5);
+
+            /* etiketler */
+            tag(ctx, "primer", lx, y0 - 11, COL.rose, "center", 11);
+            tag(ctx, "sekonder", rxc, y0 - 11, COL.blue, "center", 11);
+            tag(ctx, "N₁ = " + st.n1, lx, y1 + 15, COL.rose, "center", 12);
+            tag(ctx, "N₂ = " + st.n2, rxc, y1 + 15, COL.blue, "center", 12);
+
+            if (W < 430) {
+              chip(ctx, fmt(st.v1, 0) + " V · " + fmt(i1(), 2) + " A", 10, 12, COL.rose, "left");
+              chip(ctx, fmt(v2(), 0) + " V · " + fmt(i2(), 2) + " A", W - 10, 12, COL.blue, "right");
+            } else {
+              chip(ctx, "V₁ = " + fmt(st.v1, 0) + " V", 10, 12, COL.rose, "left");
+              chip(ctx, "I₁ = " + fmt(i1(), 2) + " A", 10, 42, COL.rose, "left");
+              chip(ctx, "V₂ = " + fmt(v2(), 0) + " V", W - 10, 12, COL.blue, "right");
+              chip(ctx, "I₂ = " + fmt(i2(), 2) + " A", W - 10, 42, COL.blue, "right");
+            }
+          }
+
+          function drawGraphs() {
+            var ctx = G.ctx, W = G.w, H = G.h;
+            ctx.clearRect(0, 0, W, H);
+            var stacked = W < 640, gap = 10;
+            var pw = stacked ? W : (W - gap) / 2;
+            var ph = stacked ? (H - gap) / 2 : H;
+            panelX(ctx, 0, 0, pw, ph, {
+              title: "V₂ – N₂ · doğru orantı", xLabel: "sekonder sarım N₂", color: COL.blue,
+              f: function (n) { return (st.v1 * n) / st.n1; },
+              xMin: 0, xMax: 2000, xNow: st.n2,
+              yMax: Math.max((st.v1 * 2000) / st.n1, 10)
+            });
+            panelX(ctx, stacked ? 0 : pw + gap, stacked ? ph + gap : 0, pw, ph, {
+              title: "V₂ – N₁ · ters orantı", xLabel: "primer sarım N₁", color: COL.rose,
+              f: function (n) { return (st.v1 * st.n2) / n; },
+              xMin: 100, xMax: 2000, xNow: st.n1,
+              yMax: Math.max(v2() * 2.2, 10)
+            });
+          }
+
+          var ro = {
+            v2: document.getElementById("ro-v2"),
+            i2: document.getElementById("ro-i2"),
+            i1: document.getElementById("ro-i1"),
+            kind: document.getElementById("ro-kind"),
+            note: document.getElementById("ro-note")
+          };
+          var sm = {
+            ratio: document.getElementById("s-ratio"),
+            p2: document.getElementById("s-p2"),
+            p1: document.getElementById("s-p1"),
+            vr: document.getElementById("s-vr")
+          };
+
+          function sync() {
+            var k = st.n2 / st.n1;
+            ro.v2.textContent = fmt(v2(), v2() < 100 ? 1 : 0);
+            ro.i2.textContent = fmt(i2(), 2);
+            ro.i1.textContent = fmt(i1(), 2);
+            ro.kind.textContent = k > 1.001 ? "Yükseltici" : (k < 0.999 ? "Düşürücü" : "1 : 1");
+            ro.note.textContent = k > 1.001 ? "N₂ > N₁ · akım küçülür"
+              : (k < 0.999 ? "N₂ < N₁ · akım büyür" : "gerilim değişmez, yalıtır");
+            sm.ratio.textContent = fmt(k, 2);
+            sm.p2.textContent = fmt(pwr(), 0) + " W";
+            sm.p1.textContent = fmt(pwr(), 0) + " W";
+            sm.vr.textContent = fmt(v2() / st.v1, 2);
+            drawScene();
+            drawGraphs();
+          }
+
+          function paint(el) {
+            var lo = +el.min, hi = +el.max;
+            el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+          }
+          function slider(id, outId, key, unit) {
+            var el = document.getElementById(id), out = document.getElementById(outId);
+            el.addEventListener("input", function () {
+              st[key] = +el.value;
+              out.textContent = el.value + unit;
+              paint(el);
+              sync();
+            });
+            paint(el);
+          }
+          slider("c-v1", "o-v1", "v1", " V");
+          slider("c-n1", "o-n1", "n1", "");
+          slider("c-n2", "o-n2", "n2", "");
+          slider("c-r", "o-r", "r", " Ω");
+
+          var presets = document.querySelectorAll(".presets button[data-n1]");
+          for (var i = 0; i < presets.length; i++) {
+            presets[i].addEventListener("click", function () {
+              var a = document.getElementById("c-n1"), b = document.getElementById("c-n2");
+              a.value = this.dataset.n1;
+              b.value = this.dataset.n2;
+              a.dispatchEvent(new Event("input", { bubbles: true }));
+              b.dispatchEvent(new Event("input", { bubbles: true }));
+            });
+          }
+
+          S.bind(drawScene);
+          G.bind(drawGraphs);
+          sync();
+          play(function (dt) {
+            st.ph = (st.ph + dt * 46) % 22;
+            drawScene();
+          });
+        })();
+
+        /* ============ 02 · güç ve verim ============ */
+
+        (function verim() {
+          var E = kit("eff-scene", function (w) { return clamp(w * 0.52, 260, 320); });
+          if (!E) return;
+
+          var st = { p1: 1000, e: 0.95, ph: 0 };
+          var verdict = document.getElementById("eff-verdict");
+
+          function p2() { return st.p1 * st.e; }
+          function loss() { return st.p1 - p2(); }
+
+          function bar(ctx, x, y, w, h, frac, cFill, cRest) {
+            roundRect(ctx, x, y, w, h, h / 2);
+            ctx.fillStyle = A(cRest, 0.22);
+            ctx.fill();
+            ctx.strokeStyle = A(cRest, 0.5);
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            if (frac > 0.002) {
+              ctx.save();
+              roundRect(ctx, x, y, w, h, h / 2);
+              ctx.clip();
+              roundRect(ctx, x, y, Math.max(w * frac, h), h, h / 2);
+              ctx.fillStyle = A(cFill, 0.85);
+              ctx.fill();
+              ctx.restore();
+            }
+          }
+
+          function barText(ctx, text, x, y, color) {
+            ctx.save();
+            ctx.font = "700 12.5px " + FONT;
+            ctx.textAlign = "left";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = ink(color);
+            ctx.fillText(text, x, y + 0.5);
+            ctx.restore();
+          }
+
+          function drawScene() {
+            var ctx = E.ctx, W = E.w, H = E.h;
+            ctx.clearRect(0, 0, W, H);
+            var x = 64, w = W - x - 22, h = 30;
+            var yA = H * 0.26, yB = H * 0.58;
+
+            tag(ctx, "P₁", x - 16, yA + h / 2, COL.rose, "right", 13);
+            tag(ctx, "P₂", x - 16, yB + h / 2, COL.lime, "right", 13);
+
+            bar(ctx, x, yA, w, h, 1, COL.rose, COL.rose);
+            barText(ctx, fmt(st.p1, 0) + " W", x + 14, yA + h / 2, COL.rose);
+
+            bar(ctx, x, yB, w, h, st.e, COL.lime, COL.amber);
+            barText(ctx, fmt(p2(), 0) + " W", x + 14, yB + h / 2, COL.lime);
+
+            /* kayıp payı */
+            var lx = x + w * st.e;
+            if (st.e < 0.999) {
+              var lw = x + w - lx;
+              var lt = "kayıp " + fmt(loss(), 0) + " W";
+              ctx.font = "700 11.5px " + FONT;
+              if (ctx.measureText(lt).width + 18 < lw) {
+                tag(ctx, lt, (lx + x + w) / 2, yB + h / 2, COL.amber, "center", 11.5);
+              } else {
+                tag(ctx, lt, x + w, yB - 13, COL.amber, "right", 11.5);
+              }
+              /* ısı dalgaları */
+              ctx.save();
+              ctx.strokeStyle = A(COL.amber, 0.7);
+              ctx.lineWidth = 2;
+              ctx.lineCap = "round";
+              for (var i = 0; i < 3; i++) {
+                var bxx = lx + (w * (1 - st.e)) * (0.25 + i * 0.25);
+                ctx.beginPath();
+                for (var s = 0; s <= 16; s++) {
+                  var yy = yB + h + 10 + s * 2.2;
+                  var xx = bxx + Math.sin((s / 3) + st.ph + i) * 4.5;
+                  if (s === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+                }
+                ctx.stroke();
+              }
+              ctx.restore();
+              tag(ctx, "ısı", lx + (w * (1 - st.e)) / 2, yB + h + 62, COL.amber, "center", 11);
+            }
+
+            /* verim rozeti */
+            var pct = st.e * 100;
+            chip(ctx, "verim %" + fmt(pct, 0), W - 10, 10, pct >= 95 ? COL.lime : (pct >= 85 ? COL.amber : COL.rose), "right");
+            chip(ctx, "P₂ / P₁ = " + fmt(st.e, 2), 10, 10, COL.dim, "left");
+
+            /* alt açıklama */
+            tag(ctx, "bakır kaybı · girdap akımı · histerezis", W / 2, H - 14, COL.dim, "center", 11);
+          }
+
+          function sync() {
+            document.getElementById("eff-p1-out").textContent = fmt(st.p1, 0) + " W";
+            document.getElementById("eff-e-out").textContent = "%" + fmt(st.e * 100, 0);
+            verdict.textContent =
+              "P₁ = " + fmt(st.p1, 0) + " W girerken P₂ = " + fmt(p2(), 0) +
+              " W çıkıyor; aradaki " + fmt(loss(), 0) + " W ısıya dönüşüyor." +
+              (st.e >= 0.99 ? " Bu, büyük güç transformatörlerinin gerçek verimidir."
+                : st.e <= 0.75 ? " Bu kadar düşük verim, cihazın ciddi biçimde ısınması demektir." : "");
+            drawScene();
+          }
+
+          function paint(el) {
+            var lo = +el.min, hi = +el.max;
+            el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+          }
+          var pIn = document.getElementById("eff-p1"), eIn = document.getElementById("eff-e");
+          pIn.addEventListener("input", function () { st.p1 = +pIn.value; paint(pIn); sync(); });
+          eIn.addEventListener("input", function () { st.e = +eIn.value / 100; paint(eIn); sync(); });
+          paint(pIn);
+          paint(eIn);
+
+          E.bind(drawScene);
+          sync();
+          play(function (dt) {
+            if (st.e > 0.999) return;
+            st.ph = (st.ph + dt * 3.2) % (Math.PI * 2);
+            drawScene();
+          });
+        })();
+
+        /* ============ 03 · enerji iletimi ============ */
+
+        (function iletim() {
+          var L = kit("line-scene", function (w) { return clamp(w * 0.56, 280, 340); });
+          if (!L) return;
+
+          var P = 1e6;
+          var st = { v: 10, r: 5, ph: 0 };
+          var verdict = document.getElementById("line-verdict");
+
+          function cur() { return P / (st.v * 1000); }
+          function loss() { return cur() * cur() * st.r; }
+          function frac() { return loss() / P; }
+          function dec(f) { var p = f * 100; return p >= 1 ? 1 : (p >= 0.1 ? 2 : 3); }
+
+          function pylon(ctx, x, base, h, color) {
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.moveTo(x - 9, base); ctx.lineTo(x - 3, base - h);
+            ctx.moveTo(x + 9, base); ctx.lineTo(x + 3, base - h);
+            ctx.moveTo(x - 6.6, base - h * 0.42); ctx.lineTo(x + 6.6, base - h * 0.42);
+            ctx.moveTo(x - 14, base - h * 0.78); ctx.lineTo(x + 14, base - h * 0.78);
+            ctx.moveTo(x - 7, base); ctx.lineTo(x + 4, base - h * 0.55);
+            ctx.moveTo(x + 7, base); ctx.lineTo(x - 4, base - h * 0.55);
+            ctx.stroke();
+            ctx.restore();
+          }
+
+          /* küçük trafo kutusu */
+          function box(ctx, x, base, h, color, label) {
+            roundRect(ctx, x, base - h, 26, h, 4);
+            ctx.fillStyle = A(color, 0.16);
+            ctx.fill();
+            ctx.strokeStyle = A(color, 0.75);
+            ctx.lineWidth = 1.4;
+            ctx.stroke();
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1.8;
+            ctx.lineJoin = "round";
+            ctx.beginPath();
+            ctx.moveTo(x + 15, base - h + 7);
+            ctx.lineTo(x + 10, base - h / 2 + 1);
+            ctx.lineTo(x + 15, base - h / 2 + 1);
+            ctx.lineTo(x + 10, base - 7);
+            ctx.stroke();
+            ctx.restore();
+            tag(ctx, label, x + 13, base - h - 11, color, "center", 10.5);
+          }
+
+          function drawScene() {
+            var ctx = L.ctx, W = L.w, H = L.h;
+            ctx.clearRect(0, 0, W, H);
+            var base = H * 0.755;
+            var f = frac();
+            var hot = clamp(f / 0.2, 0, 1);
+            var wireCol = f < 0.02 ? COL.lime : (f < 0.1 ? COL.amber : COL.rose);
+
+            ctx.strokeStyle = A(COL.dim, 0.35);
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(0, base + 0.5);
+            ctx.lineTo(W, base + 0.5);
+            ctx.stroke();
+
+            var wide = W >= 470;
+
+            /* santral */
+            var px = 14, pw2 = wide ? 68 : 50, phh = wide ? 54 : 44;
+            roundRect(ctx, px, base - phh, pw2, phh, 5);
+            ctx.fillStyle = A(COL.dim, 0.3);
+            ctx.fill();
+            ctx.strokeStyle = A(COL.dim, 0.6);
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+            roundRect(ctx, px + 9, base - phh - 18, 12, 20, 3);
+            ctx.fillStyle = A(COL.dim, 0.45);
+            ctx.fill();
+            roundRect(ctx, px + pw2 - 23, base - phh - 26, 12, 28, 3);
+            ctx.fill();
+            tag(ctx, "santral", px + pw2 / 2, base + 16, COL.dim, "center", 11);
+
+            /* şehir */
+            var bw = wide ? 15 : 13, bg = wide ? 17 : 15;
+            var hs = wide ? [30, 46, 24, 54, 36] : [26, 40, 22, 46];
+            var cxs = W - 10 - (bw + bg * (hs.length - 1));
+            for (var b = 0; b < hs.length; b++) {
+              roundRect(ctx, cxs + b * bg, base - hs[b], bw, hs[b], 3);
+              ctx.fillStyle = A(COL.dim, 0.28);
+              ctx.fill();
+              ctx.strokeStyle = A(COL.dim, 0.55);
+              ctx.lineWidth = 1;
+              ctx.stroke();
+              ctx.fillStyle = A(COL.amber, 0.2 + 0.7 * (1 - clamp(f, 0, 1)));
+              for (var wy = base - hs[b] + 7; wy < base - 8; wy += 11) {
+                ctx.fillRect(cxs + b * bg + 3, wy, 3, 4);
+                ctx.fillRect(cxs + b * bg + bw - 6, wy, 3, 4);
+              }
+            }
+            tag(ctx, "şehir", cxs + (bw + bg * (hs.length - 1)) / 2, base + 16, COL.dim, "center", 11);
+
+            /* trafolar — yalnız geniş tuvalde sığar */
+            var bh = 34, yx = px + pw2 + 30, dx = cxs - 44;
+            if (wide) {
+              box(ctx, yx, base, bh, COL.rose, "yükseltici");
+              box(ctx, dx, base, bh, COL.blue, "düşürücü");
+            }
+
+            /* direkler */
+            var p1x = W * (wide ? 0.38 : 0.4), p2x = W * (wide ? 0.62 : 0.66), ph2 = wide ? 118 : 112;
+            pylon(ctx, p1x, base, ph2, A(COL.dim, 0.7));
+            pylon(ctx, p2x, base, ph2, A(COL.dim, 0.7));
+            var ty = base - ph2 * 0.78;
+
+            /* alçak gerilim uçları */
+            if (wide) {
+              ctx.save();
+              ctx.strokeStyle = A(COL.dim, 0.65);
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.moveTo(px + pw2, base - 18);
+              ctx.lineTo(yx, base - 18);
+              ctx.moveTo(dx + 26, base - 18);
+              ctx.lineTo(cxs, base - 18);
+              ctx.stroke();
+              ctx.restore();
+            }
+
+            /* yüksek gerilim hattı */
+            var aX = wide ? yx + 13 : px + pw2 - 6, aY = wide ? base - bh - 2 : base - phh + 6;
+            var zX = wide ? dx + 13 : cxs + 4, zY = wide ? base - bh - 2 : base - hs[0] - 6;
+            var segs = [
+              [aX, aY, p1x - 14, ty, 10],
+              [p1x + 14, ty, p2x - 14, ty, 18],
+              [p2x + 14, ty, zX, zY, 10]
+            ];
+            function pt(s, u) {
+              var cxq = (s[0] + s[2]) / 2, cyq = Math.max(s[1], s[3]) + s[4] * 2;
+              var m = 1 - u;
+              return [m * m * s[0] + 2 * u * m * cxq + u * u * s[2],
+                      m * m * s[1] + 2 * u * m * cyq + u * u * s[3]];
+            }
+            ctx.save();
+            ctx.strokeStyle = wireCol;
+            ctx.lineWidth = 2.4 + hot * 1.8;
+            ctx.lineCap = "round";
+            for (var si = 0; si < segs.length; si++) {
+              var s = segs[si];
+              ctx.beginPath();
+              ctx.moveTo(s[0], s[1]);
+              ctx.quadraticCurveTo((s[0] + s[2]) / 2, Math.max(s[1], s[3]) + s[4] * 2, s[2], s[3]);
+              ctx.stroke();
+            }
+            ctx.restore();
+
+            /* akım: hat boyunca ilerleyen yük taşıyıcıları */
+            var n = clamp(Math.round(cur() / 5), 3, 30);
+            for (var i2 = 0; i2 < n; i2++) {
+              var u = ((i2 / n) + st.ph) % 1;
+              var q = pt(segs[Math.floor(u * 3)], (u * 3) % 1);
+              ctx.beginPath();
+              ctx.arc(q[0], q[1], 3.6, 0, TAU);
+              ctx.fillStyle = A(COL.scene, 0.92);
+              ctx.fill();
+              ctx.beginPath();
+              ctx.arc(q[0], q[1], 2.4, 0, TAU);
+              ctx.fillStyle = COL.violet;
+              ctx.fill();
+            }
+
+            /* ısınma işareti */
+            if (f > 0.08) {
+              ctx.save();
+              ctx.strokeStyle = A(COL.rose, 0.75);
+              ctx.lineWidth = 1.8;
+              for (var q2 = 0; q2 < 3; q2++) {
+                var hx = p1x + 34 + q2 * ((p2x - p1x - 68) / 2);
+                ctx.beginPath();
+                for (var s2 = 0; s2 <= 12; s2++) {
+                  ctx.lineTo(hx + Math.sin(s2 / 2.4 + st.ph * 6 + q2) * 3.4, ty - 10 - s2 * 2.4);
+                }
+                ctx.stroke();
+              }
+              ctx.restore();
+            }
+
+            /* güç çubuğu */
+            var bxw = W - 40, bx0 = 20, by = H - 32, bhh = 20;
+            roundRect(ctx, bx0, by, bxw, bhh, bhh / 2);
+            ctx.fillStyle = A(COL.dim, 0.18);
+            ctx.fill();
+            ctx.strokeStyle = A(COL.dim, 0.4);
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            var lf = clamp(f, 0, 1);
+            ctx.save();
+            roundRect(ctx, bx0, by, bxw, bhh, bhh / 2);
+            ctx.clip();
+            ctx.fillStyle = A(COL.lime, 0.85);
+            ctx.fillRect(bx0, by, bxw * (1 - lf), bhh);
+            ctx.fillStyle = A(COL.rose, 0.9);
+            ctx.fillRect(bx0 + bxw * (1 - lf), by, bxw * lf, bhh);
+            ctx.restore();
+            ctx.save();
+            ctx.font = "700 11.5px " + FONT;
+            ctx.textBaseline = "middle";
+            if (lf < 0.94) {
+              ctx.fillStyle = ink(COL.lime);
+              ctx.textAlign = "left";
+              ctx.fillText("ulaşan güç %" + fmt(Math.max(0, 100 - f * 100), 1), bx0 + 13, by + bhh / 2 + 0.5);
+            }
+            if (lf > 0.14) {
+              ctx.fillStyle = ink(COL.rose);
+              ctx.textAlign = "right";
+              ctx.fillText(f >= 1 ? "tamamı kayıp" : "kayıp %" + fmt(f * 100, dec(f)),
+                bx0 + bxw - 13, by + bhh / 2 + 0.5);
+            }
+            ctx.restore();
+
+            chip(ctx, fmt(st.v, 0) + " kV · " + fmt(cur(), cur() < 10 ? 1 : 0) + " A", 10, 10, wireCol, "left");
+            chip(ctx, "kayıp %" + fmt(f * 100, dec(f)), W - 10, 10, wireCol, "right");
+          }
+
+          function sync() {
+            var f = frac();
+            document.getElementById("ln-v-out").textContent = st.v + " kV";
+            document.getElementById("ln-r-out").textContent = st.r + " Ω";
+            document.getElementById("ln-i").textContent = fmt(cur(), cur() < 10 ? 2 : 0) + " A";
+            document.getElementById("ln-loss").textContent =
+              loss() >= 1e6 ? fmt(loss() / 1e6, 1) + " MW"
+                : loss() >= 1000 ? fmt(loss() / 1000, 1) + " kW"
+                  : fmt(loss(), 0) + " W";
+            document.getElementById("ln-pct").textContent = "%" + fmt(f * 100, dec(f));
+            verdict.textContent = f >= 1
+              ? "Bu gerilimde hat, taşınan gücün tamamından fazlasını ısıya çevirirdi: böyle bir iletim imkânsızdır."
+              : f > 0.1
+                ? "Kaybın onda birden büyük: hat ısınıyor, enerjinin önemli kısmı yolda kalıyor."
+                : f > 0.01
+                  ? "Kabul edilebilir ama iyileştirilebilir; gerilimi biraz daha yükselt."
+                  : "İşte bu yüzden 154 kV ve 400 kV'luk hatlar kuruluyor: kayıp binde birin altında.";
+            drawScene();
+          }
+
+          function paint(el) {
+            var lo = +el.min, hi = +el.max;
+            el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+          }
+          var vIn = document.getElementById("ln-v"), rIn = document.getElementById("ln-r");
+          vIn.addEventListener("input", function () { st.v = +vIn.value; paint(vIn); sync(); });
+          rIn.addEventListener("input", function () { st.r = +rIn.value; paint(rIn); sync(); });
+          paint(vIn);
+          paint(rIn);
+
+          L.bind(drawScene);
+          sync();
+          play(function (dt) {
+            st.ph = (st.ph + dt * 0.35) % 1;
+            drawScene();
+          });
+        })();
+
+        /* ============ 04 · hedef gerilim ============ */
+
+        (function oyun() {
+          var Gm = kit("game-scene", function (w) { return clamp(w * 0.5, 250, 300); });
+          if (!Gm) return;
+
+          var V1 = 220, N1 = 1100;                 /* sarım başına 0,2 V */
+          var TARGETS = [5, 6, 9, 12, 24, 36, 48, 60, 110, 330, 440, 660];
+          var st = { hedef: 12, n2: 500, son: null, ok: 0, n: 0, glow: 0 };
+          var verdict = document.getElementById("game-verdict");
+          var list = document.getElementById("gm-tries");
+          var stats = document.getElementById("gm-stats");
+
+          function out(n) { return (V1 * n) / N1; }
+
+          function drawScene() {
+            var ctx = Gm.ctx, W = Gm.w, H = Gm.h;
+            ctx.clearRect(0, 0, W, H);
+
+            chip(ctx, "V₁ = " + V1 + " V", 10, 10, COL.rose, "left");
+            chip(ctx, "N₁ = " + N1, 10, 40, COL.rose, "left");
+            chip(ctx, "N₂ = " + st.n2, W - 10, 10, COL.blue, "right");
+
+            /* hedef göstergesi */
+            tag(ctx, "HEDEF", W / 2, H * 0.17, COL.dim, "center", 11);
+            tag(ctx, fmt(st.hedef, 0) + " V", W / 2, H * 0.31, COL.lime, "center", 30);
+
+            /* ölçek */
+            var x = 34, w = W - 68, y = H * 0.56, h = 14;
+            var hi = st.hedef * 2;
+            roundRect(ctx, x, y, w, h, h / 2);
+            ctx.fillStyle = A(COL.dim, 0.16);
+            ctx.fill();
+            ctx.strokeStyle = A(COL.dim, 0.4);
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            /* yeşil bant: hedef ±%2 */
+            var gx0 = x + (w * st.hedef * 0.98) / hi, gx1 = x + (w * st.hedef * 1.02) / hi;
+            ctx.fillStyle = A(COL.lime, 0.55);
+            ctx.fillRect(gx0, y, Math.max(gx1 - gx0, 3), h);
+            dashLine(ctx, x + w / 2, y - 10, x + w / 2, y + h + 10, A(COL.lime, 0.8));
+
+            ctx.font = "10px " + FONT;
+            ctx.fillStyle = COL.dim;
+            ctx.textAlign = "left";
+            ctx.textBaseline = "top";
+            ctx.fillText("0", x, y + h + 7);
+            ctx.textAlign = "center";
+            ctx.fillText(fmt(st.hedef, 0) + " V", x + w / 2, y + h + 7);
+            ctx.textAlign = "right";
+            ctx.fillText(fmt(hi, 0) + " V", x + w, y + h + 7);
+
+            /* sonuç imleci */
+            if (st.son !== null) {
+              var vx = x + clamp((w * st.son) / hi, 0, w);
+              ctx.save();
+              ctx.fillStyle = Math.abs(st.son - st.hedef) <= st.hedef * 0.02 ? COL.lime : COL.rose;
+              ctx.beginPath();
+              ctx.moveTo(vx, y - 3);
+              ctx.lineTo(vx - 7, y - 15);
+              ctx.lineTo(vx + 7, y - 15);
+              ctx.closePath();
+              ctx.fill();
+              ctx.restore();
+              tag(ctx, "V₂ = " + fmt(st.son, st.son < 100 ? 1 : 0) + " V",
+                clamp(vx, 52, W - 52), y - 26,
+                Math.abs(st.son - st.hedef) <= st.hedef * 0.02 ? COL.lime : COL.rose, "center", 13);
+            } else {
+              tag(ctx, "bağlanmadı", x + w / 2, y - 22, COL.dim, "center", 12);
+            }
+
+            /* ampul */
+            var by = H * 0.82, bxx = W / 2;
+            var lit = st.glow;
+            if (lit > 0.01) {
+              var g2 = ctx.createRadialGradient(bxx, by, 2, bxx, by, 40);
+              g2.addColorStop(0, A(COL.amber, 0.5 * lit));
+              g2.addColorStop(1, A(COL.amber, 0));
+              ctx.fillStyle = g2;
+              ctx.beginPath();
+              ctx.arc(bxx, by, 40, 0, TAU);
+              ctx.fill();
+            }
+            orb(ctx, bxx, by, 13,
+              lit > 0.5 ? "rgba(255,255,255,0.95)" : A(COL.dim, 0.22),
+              A(lit > 0.5 ? COL.amber : COL.dim, lit > 0.5 ? 0.85 : 0.16));
+            ctx.save();
+            ctx.strokeStyle = A(COL.dim, 0.7);
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(bxx - 5, by + 12); ctx.lineTo(bxx + 5, by + 12);
+            ctx.moveTo(bxx - 5, by + 16); ctx.lineTo(bxx + 5, by + 16);
+            ctx.stroke();
+            ctx.restore();
+            tag(ctx, lit > 0.5 ? "lamba yandı" : "doğru sarımda lamba yanar",
+              bxx, by + 30, lit > 0.5 ? COL.lime : COL.dim, "center", 10.5);
+          }
+
+          function newRound() {
+            var t = TARGETS[Math.floor(Math.random() * TARGETS.length)];
+            if (t === st.hedef) t = TARGETS[(TARGETS.indexOf(t) + 3) % TARGETS.length];
+            st.hedef = t;
+            st.son = null;
+            st.glow = 0;
+            verdict.textContent = "Hedef " + fmt(t, 0) + " V. Sekonder sarımı ayarla ve bağla.";
+            verdict.className = "verdict";
+            drawScene();
+          }
+
+          function check() {
+            var v = out(st.n2);
+            var err = Math.abs(v - st.hedef) / st.hedef;
+            st.son = v;
+            st.n++;
+            var good = err <= 0.02;
+            if (good) { st.ok++; st.glow = 1; } else { st.glow = 0; }
+            verdict.className = "verdict " + (good ? "ok" : "no");
+            verdict.textContent = good
+              ? "Doğru: N₂ = " + st.n2 + " sarım, V₂ = " + fmt(v, v < 100 ? 1 : 0) + " V."
+              : "V₂ = " + fmt(v, v < 100 ? 1 : 0) + " V çıktı; hedeften %" + fmt(err * 100, 1) +
+                " uzak. Gereken sarım: N₁·V₂/V₁ = " + Math.round((N1 * st.hedef) / V1) + ".";
+            var li = document.createElement("li");
+            li.className = good ? "ok" : "no";
+            li.innerHTML = "<b>" + st.n2 + " sarım</b><span>" + fmt(v, v < 100 ? 1 : 0) + " V · hedef " +
+              fmt(st.hedef, 0) + " V</span>";
+            list.insertBefore(li, list.firstChild);
+            while (list.children.length > 5) list.removeChild(list.lastChild);
+            stats.hidden = false;
+            stats.querySelector("[data-n]").textContent = st.n;
+            stats.querySelector("[data-ok]").textContent = st.ok;
+            stats.querySelector("[data-pct]").textContent = "%" + Math.round((st.ok / st.n) * 100);
+            drawScene();
+          }
+
+          var n2In = document.getElementById("gm-n2"), n2Out = document.getElementById("gm-n2-out");
+          function paint(el) {
+            var lo = +el.min, hi = +el.max;
+            el.style.setProperty("--p", (((+el.value - lo) / (hi - lo)) * 100).toFixed(1) + "%");
+          }
+          n2In.addEventListener("input", function () {
+            st.n2 = +n2In.value;
+            n2Out.textContent = n2In.value;
+            paint(n2In);
+            drawScene();
+          });
+          paint(n2In);
+
+          document.getElementById("gm-check").addEventListener("click", check);
+          document.getElementById("gm-new").addEventListener("click", newRound);
+
+          Gm.bind(drawScene);
+          newRound();
+        })();
+
+        /* ============ 05 · hızlı kontrol ============ */
+
+        (function quiz() {
+          var box = document.getElementById("quiz");
+          if (!box) return;
+
+          var DATA = [
+            {
+              q: "Primeri 200, sekonderi 800 sarımlı ideal bir transformatörün primerine 110 V uygulanıyor. Sekonderdeki gerilim kaç volttur?",
+              o: ["27,5 V", "110 V", "440 V", "880 V"],
+              a: 2,
+              why: "V₂ = V₁·N₂/N₁ = 110 · 800/200 = 110 · 4 = 440 V. Sarım sayısı 4 katına çıktığı için gerilim de 4 katına çıkar; buna yükseltici transformatör denir."
+            },
+            {
+              q: "Aynı transformatörde primerden 8 A akım geçiyorsa, ideal kabul edildiğinde sekonderden geçen akım kaç amperdir?",
+              o: ["2 A", "8 A", "16 A", "32 A"],
+              a: 0,
+              why: "İdeal transformatörde P₁ = P₂'dir: 110 · 8 = 880 W. Sekonderde I₂ = P/V₂ = 880/440 = 2 A. Gerilim 4 katına çıkarken akım 4'te bire iner."
+            },
+            {
+              q: "Bir transformatörün primerine pil (doğru akım kaynağı) bağlanırsa sekonderde ne gözlenir?",
+              o: ["Primerdekiyle aynı gerilim", "Sarım oranına göre bir gerilim", "Hiçbir gerilim indüklenmez", "Primerdekinin iki katı gerilim"],
+              a: 2,
+              why: "Doğru akımda akım sabittir, nüvedeki manyetik akı değişmez. Faraday yasasına göre emk ancak akı değişirse indüklenir; bu yüzden transformatör yalnızca alternatif akımla çalışır."
+            },
+            {
+              q: "Primerinden 500 W güç çeken bir transformatörün sekonderinde 450 W ölçülüyor. Verimi ve kaybı nedir?",
+              o: ["%90 · 50 W", "%111 · 50 W", "%90 · 450 W", "%50 · 90 W"],
+              a: 0,
+              why: "verim = P₂/P₁ = 450/500 = 0,90 → %90. Kayıp = 500 − 450 = 50 W'tır ve bakır, girdap akımı ile histerezis kayıpları olarak ısıya dönüşür."
+            },
+            {
+              q: "Sabit bir gücü taşıyan iletim hattında gerilim 5 katına çıkarılırsa hatta kaybedilen güç nasıl değişir?",
+              o: ["5 katına çıkar", "5'te birine iner", "25 katına çıkar", "25'te birine iner"],
+              a: 3,
+              why: "P = V·I sabitken gerilim 5 katına çıkınca akım 5'te bire iner. Kayıp P = I²·R olduğu için akımın karesiyle, yani 25'te bire düşer. Yüksek gerilimle iletimin tek sebebi budur."
+            }
+          ];
+
+          var KEYS = ["A", "B", "C", "D"];
+          var scoreEl = document.getElementById("quiz-score");
+          var finalEl = document.getElementById("quiz-final");
+          var score = 0;
+
+          function finish() {
+            if (!finalEl) return;
+            finalEl.textContent = score === DATA.length
+              ? "Kusursuz — beşi de doğru."
+              : score >= 3
+                ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
+                : "Konu anlatımına dönüp tekrar denemek iyi olur.";
+          }
+
+          function build() {
+            box.innerHTML = "";
+            score = 0;
+            scoreEl.textContent = "0 / " + DATA.length;
+            if (finalEl) finalEl.textContent = "";
+            DATA.forEach(function (item, qi) {
+              var card = document.createElement("div");
+              card.className = "q";
+              var p = document.createElement("p");
+              p.innerHTML = "<span>SORU " + (qi + 1) + "</span><br>" + item.q;
+              card.appendChild(p);
+              var opts = document.createElement("div");
+              opts.className = "opts";
+              var why = document.createElement("p");
+              why.className = "why";
+              why.hidden = true;
+              why.textContent = item.why;
+              item.o.forEach(function (text, oi) {
+                var b = document.createElement("button");
+                b.type = "button";
+                b.textContent = text;
+                b.dataset.key = KEYS[oi];
+                b.addEventListener("click", function () {
+                  var all = opts.querySelectorAll("button");
+                  for (var i = 0; i < all.length; i++) all[i].disabled = true;
+                  all[item.a].classList.add("right");
+                  if (oi !== item.a) {
+                    b.classList.add("wrong");
+                  } else {
+                    score++;
+                    scoreEl.textContent = score + " / " + DATA.length;
+                  }
+                  why.hidden = false;
+                  if (box.querySelectorAll(".opts button.right").length === DATA.length) finish();
+                });
+                opts.appendChild(b);
+              });
+              card.appendChild(opts);
+              card.appendChild(why);
+              box.appendChild(card);
+            });
+          }
+
+          document.getElementById("quiz-reset").addEventListener("click", build);
+          build();
+        })();
+
+        /* ============ konu anlatımı modalı ============ */
+
+        (function modal() {
+          var dlg = document.getElementById("konu");
+          if (!dlg) return;
+          var body = document.getElementById("konu-body");
+
+          function open() {
+            if (typeof dlg.showModal === "function") {
+              if (!dlg.open) dlg.showModal();
+            } else {
+              dlg.setAttribute("open", "");
+            }
+            document.body.classList.add("locked");
+            body.scrollTop = 0;
+          }
+
+          function close() {
+            if (typeof dlg.close === "function") dlg.close();
+            else dlg.removeAttribute("open");
+          }
+
+          var triggers = document.querySelectorAll("[data-open-modal]");
+          for (var i = 0; i < triggers.length; i++) {
+            triggers[i].addEventListener("click", open);
+          }
+
+          document.getElementById("konu-close").addEventListener("click", close);
+
+          dlg.addEventListener("click", function (e) {
+            if (e.target === dlg) close();
+          });
+
+          dlg.addEventListener("close", function () {
+            document.body.classList.remove("locked");
+          });
+
+          dlg.addEventListener("cancel", function () {
+            document.body.classList.remove("locked");
+          });
+
+          var chips = dlg.querySelectorAll("[data-goto]");
+          for (var j = 0; j < chips.length; j++) {
+            chips[j].addEventListener("click", function () {
+              var target = document.getElementById(this.dataset.goto);
+              if (!target) return;
+              var dy = target.getBoundingClientRect().top - body.getBoundingClientRect().top;
+              body.scrollTo({
+                top: body.scrollTop + dy - 10,
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+              });
+            });
+          }
+        })();
+
+        /* ============ cila: belirme, izleme, kısayollar ============ */
+
+        (function polish() {
+          var root = document.documentElement;
+          root.classList.add("js");
+          var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          var i;
+
+          /* bölümler görünüme girince belirsin */
+          var targets = document.querySelectorAll(".reveal");
+          if (!("IntersectionObserver" in window) || reduced) {
+            for (i = 0; i < targets.length; i++) targets[i].classList.add("in");
+          } else {
+            var io = new IntersectionObserver(function (entries) {
+              for (var k = 0; k < entries.length; k++) {
+                if (entries[k].isIntersecting) {
+                  entries[k].target.classList.add("in");
+                  io.unobserve(entries[k].target);
+                }
+              }
+            }, { threshold: 0.06, rootMargin: "0px 0px -5% 0px" });
+            for (i = 0; i < targets.length; i++) io.observe(targets[i]);
+          }
+
+          /* okuma ilerlemesi, etkin bölüm, başa dön */
+          var header = document.querySelector(".site-header");
+          var toTop = document.getElementById("to-top");
+          var links = document.querySelectorAll(".nav-link[href^='#']");
+          var spots = [];
+          for (i = 0; i < links.length; i++) {
+            var sec = document.getElementById(links[i].getAttribute("href").slice(1));
+            if (sec) spots.push({ el: sec, link: links[i] });
+          }
+          var queued = false;
+
+          function update() {
+            queued = false;
+            var doc = document.documentElement;
+            var max = doc.scrollHeight - doc.clientHeight;
+            var y = window.scrollY || doc.scrollTop || 0;
+            if (header) header.style.setProperty("--sp", (max > 0 ? y / max : 0).toFixed(4));
+            if (toTop) toTop.classList.toggle("show", y > 600);
+            var current = null;
+            for (var k = 0; k < spots.length; k++) {
+              if (spots[k].el.getBoundingClientRect().top <= 140) current = spots[k];
+            }
+            for (var m = 0; m < spots.length; m++) spots[m].link.classList.toggle("active", spots[m] === current);
+          }
+
+          function onScroll() {
+            if (queued) return;
+            queued = true;
+            requestAnimationFrame(update);
+          }
+
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll);
+          update();
+
+          if (toTop) {
+            toTop.addEventListener("click", function () {
+              window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+            });
+          }
+
+          /* modal içinde okunan bölümü işaretle */
+          var mbody = document.getElementById("konu-body");
+          var chips = document.querySelectorAll(".chips button[data-goto]");
+          var heads = [];
+          for (i = 0; i < chips.length; i++) {
+            var h = document.getElementById(chips[i].dataset.goto);
+            if (h) heads.push({ h: h, chip: chips[i] });
+          }
+          if (mbody && heads.length) {
+            mbody.addEventListener("scroll", function () {
+              var top = mbody.getBoundingClientRect().top + 90;
+              var cur = heads[0];
+              for (var k = 0; k < heads.length; k++) {
+                if (heads[k].h.getBoundingClientRect().top <= top) cur = heads[k];
+              }
+              for (var m = 0; m < heads.length; m++) heads[m].chip.classList.toggle("active", heads[m] === cur);
+            }, { passive: true });
+          }
+
+        })();
+
+        /* ============ tema ============ */
+
+        (function theme() {
+          var btn = document.getElementById("theme-toggle");
+          var meta = document.querySelector('meta[name="theme-color"]');
+          var root = document.documentElement;
+
+          function apply(mode, store) {
+            root.setAttribute("data-theme", mode);
+            if (meta) meta.setAttribute("content", mode === "dark" ? "#0b1020" : "#f3f5fc");
+            if (btn) btn.setAttribute("aria-label", mode === "dark" ? "Açık temaya geç" : "Koyu temaya geç");
+            if (store) { try { localStorage.setItem("dersler-tema", mode); } catch (e) {} }
+            readPalette();
+            for (var i = 0; i < fits.length; i++) fits[i]();
+          }
+
+          apply(root.getAttribute("data-theme") === "dark" ? "dark" : "light", false);
+
+          if (btn) {
+            btn.addEventListener("click", function () {
+              apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
+            });
+          }
+        })();
+
+        /* ilk yerleşim */
+        for (var f = 0; f < fits.length; f++) fits[f]();
+      })();
+    </script>
+  </body>
+</html>
