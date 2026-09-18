@@ -40,6 +40,19 @@ Konu anlatımı modalı bağımsızlık ilkesinden vektörel bağıntılara, yat
 eğik atıştan yörünge denklemine, çözümlü örneklerden sık yapılan hatalara
 kadar dokuz başlık içerir.
 
+## Sunumlar
+
+Her iki ders için, sitede indirilebilir 14 slaytlık PowerPoint dosyaları:
+
+| Sunum | Bağlantı |
+|---|---|
+| Serbest düşme | [dersler.perinet.org/sunum/serbest-dusme.pptx](https://dersler.perinet.org/sunum/serbest-dusme.pptx) |
+| İki boyutta sabit ivmeli hareket | [dersler.perinet.org/sunum/iki-boyutta-hareket.pptx](https://dersler.perinet.org/sunum/iki-boyutta-hareket.pptx) |
+
+Grafikler PowerPoint'in kendi grafik nesneleridir, her slaytta konuşmacı notu
+vardır. Dosyalar `sunum/*.js` betikleriyle üretilir; ayrıntılar
+[`sunum/README.md`](sunum/README.md) içinde.
+
 ## Ortak davranış
 
 Sayfalar açık temayla açılır, üst bardaki düğmeyle koyu temaya geçer ve seçim
@@ -54,6 +67,9 @@ dist/                        yayınlanan kök (nginx bunu sunar)
   index.html                 giriş sayfası
   serbest-dusme.html         serbest düşme dersi
   iki-boyutta-hareket.html   iki boyutta sabit ivmeli hareket dersi
+  sunum/*.pptx               indirilebilir ders sunumları
+sunum/                       sunumların kaynağı (pptxgenjs betikleri)
+  tema.js                    ortak renk, yazı tipi ve yerleşim yardımcıları
 deploy/
   docker-compose.yml         nginx:alpine konteyneri, dist/ salt-okunur bağlı
   nginx.conf                 statik sunum, kökte no-cache, varlıklarda uzun önbellek

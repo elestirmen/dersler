@@ -477,6 +477,46 @@
 
       .area p { margin: 0; color: var(--muted); font-size: 0.93rem; line-height: 1.55; }
 
+      .dl-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .dl {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        text-decoration: none;
+        box-shadow: var(--shadow-sm);
+        transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease;
+      }
+
+      .dl:hover { border-color: var(--lime); box-shadow: var(--shadow); transform: translateY(-2px); }
+
+      .dl .ic {
+        flex: none;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid var(--accent-ring);
+        border-radius: 13px;
+        background: var(--accent-ring);
+        color: var(--lime);
+      }
+
+      .dl .ic svg { width: 21px; height: 21px; }
+
+      .dl h3 { margin: 0 0 3px; font-size: 1.05rem; letter-spacing: -0.025em; }
+
+      .dl p { margin: 0; color: var(--dim); font-size: 0.87rem; }
+
       footer {
         margin-top: 96px;
         padding: 22px 0 34px;
@@ -536,6 +576,7 @@
 
       @media (max-width: 860px) {
         .hero { grid-template-columns: 1fr; gap: 44px; }
+        .dl-grid { grid-template-columns: 1fr; }
         .areas { grid-template-columns: 1fr; }
         .area { min-height: auto; }
         .area-number { margin-bottom: 24px; }
@@ -674,6 +715,39 @@
             </svg>
           </span>
         </a>
+      </section>
+
+      <section class="section reveal" id="sunumlar" aria-labelledby="decks-title">
+        <div class="section-heading">
+          <h2 id="decks-title">Sunumlar</h2>
+          <p>Sınıfta kullanmak için, her biri 14 slaytlık ve konuşmacı notlu PowerPoint dosyaları.</p>
+        </div>
+
+        <div class="dl-grid">
+          <a class="dl" href="sunum/serbest-dusme.pptx" download>
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Serbest düşme</h3>
+              <p>14 slayt · PPTX · 0,5 MB</p>
+            </span>
+          </a>
+
+          <a class="dl" href="sunum/iki-boyutta-hareket.pptx" download>
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>İki boyutta sabit ivmeli hareket</h3>
+              <p>14 slayt · PPTX · 0,6 MB</p>
+            </span>
+          </a>
+        </div>
       </section>
 
       <section class="section reveal" id="baslangic" aria-labelledby="areas-title">
