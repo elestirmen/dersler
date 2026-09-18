@@ -23,7 +23,26 @@ Dört etkileşimli deney, canlı grafikler ve konunun tamamını anlatan bir mod
 Konu anlatımı modalı tanımdan formül türetmelerine, grafik yorumundan çözümlü
 örneklere ve sık yapılan hatalara kadar dokuz başlık içerir.
 
-Sayfa açık temayla açılır, üst bardaki düğmeyle koyu temaya geçer ve seçim
+### Fizik · İki boyutta sabit ivmeli hareket — [`dist/iki-boyutta-hareket.html`](dist/iki-boyutta-hareket.html)
+
+Atış hareketlerini yatay ve düşey bileşenlerine ayırarak gösteren dört
+etkileşimli bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Atış laboratuvarı | Sürat, açı, atış yüksekliği, gökcismi ve zaman ölçeği ayarlanır. Strobo izleri, hız bileşeni okları (v, vₓ, v_y ve g) ve yörüngenin yatay/düşey izdüşümleri. Altında **x–t, y–t, vₓ–t, v_y–t** grafikleri canlı çizilir. |
+| 02 | Bırakılan ve atılan | Aynı yükseklikten biri bırakılır, biri yatay atılır; kesikli çizgiler her an iki cismi aynı yükseklikte birleştirir. Bağımsızlık ilkesinin doğrudan gösterimi. |
+| 03 | Menzil ve açı | Aynı süratle 15°–75° arası beş açı sırayla atılır; tümler açıların aynı noktaya düştüğü, 45°'nin en uzağa gittiği ekranda kalır. |
+| 04 | Hedefi vur | Rastgele uzaklık ve yükseklikteki hedefe açı + sürat ayarlanarak atış yapılır. İpucu düğmesi o açı için gereken sürati formülden hesaplar. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı modalı bağımsızlık ilkesinden vektörel bağıntılara, yatay ve
+eğik atıştan yörünge denklemine, çözümlü örneklerden sık yapılan hatalara
+kadar dokuz başlık içerir.
+
+## Ortak davranış
+
+Sayfalar açık temayla açılır, üst bardaki düğmeyle koyu temaya geçer ve seçim
 tarayıcıda saklanır. Tuval renkleri CSS değişkenlerinden okunduğu için
 animasyonlar tema değişiminde yeniden çizilir. Sahneye tıklayarak ya da
 **boşluk** ile başlat/durdur, **R** ile sıfırla.
@@ -31,13 +50,14 @@ animasyonlar tema değişiminde yeniden çizilir. Sahneye tıklayarak ya da
 ## Yapı
 
 ```
-dist/                 yayınlanan kök (nginx bunu sunar)
-  index.html          giriş sayfası
-  serbest-dusme.html  serbest düşme dersi
+dist/                        yayınlanan kök (nginx bunu sunar)
+  index.html                 giriş sayfası
+  serbest-dusme.html         serbest düşme dersi
+  iki-boyutta-hareket.html   iki boyutta sabit ivmeli hareket dersi
 deploy/
-  docker-compose.yml  nginx:alpine konteyneri, dist/ salt-okunur bağlı
-  nginx.conf          statik sunum, kökte no-cache, varlıklarda uzun önbellek
-  yayina-al.sh        Cloudflare CNAME + NPM proxy host + Let's Encrypt
+  docker-compose.yml         nginx:alpine konteyneri, dist/ salt-okunur bağlı
+  nginx.conf                 statik sunum, kökte no-cache, varlıklarda uzun önbellek
+  yayina-al.sh               Cloudflare CNAME + NPM proxy host + Let's Encrypt
 ```
 
 ## Yerel çalıştırma
@@ -70,7 +90,9 @@ tutulmaz.
 
 ## Yeni ders eklemek
 
-`dist/` altına yeni bir HTML dosyası koymak yeterli — dizin konteynere bağlı
-olduğu için dosya kaydedildiği anda yayında olur. Ortak tema değişkenleri her
-sayfanın kendi `<style>` bloğunda tanımlıdır; `dist/serbest-dusme.html`
-başlangıç noktası olarak kopyalanabilir.
+`dist/` altına yeni bir HTML dosyası koymak ve `dist/index.html` içindeki ders
+listesine bir kart eklemek yeterli — dizin konteynere bağlı olduğu için dosya
+kaydedildiği anda yayında olur. Ortak tema değişkenleri, tuval yardımcıları ve
+konu anlatımı modalı her sayfanın kendi `<style>` / `<script>` bloğunda
+tanımlıdır; var olan ders sayfalarından biri başlangıç noktası olarak
+kopyalanabilir.
