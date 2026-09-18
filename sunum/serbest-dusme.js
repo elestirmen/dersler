@@ -3,12 +3,12 @@ const T = require("./tema.js");
 const { C, F, W, M } = T;
 
 const p = T.deck(new pptxgen(), "Serbest düşme", "Fizik · Kuvvet ve Hareket");
-const FOOT = "Kuvvet ve Hareket · Konu 02 · Serbest düşme";
+const FOOT = "Kuvvet ve Hareket · Konu 01 · Serbest düşme";
 const CW = W - M * 2;
 
 /* ---------- 1 · kapak ---------- */
 let s = T.dark(p);
-s.addText("KUVVET VE HAREKET · KONU 02", {
+s.addText("KUVVET VE HAREKET · KONU 01", {
   x: 0.95, y: 1.75, w: 6, h: 0.35, fontFace: F.body, fontSize: 13, bold: true,
   color: C.limeBright, charSpacing: 3, isTextBox: true, margin: 0
 });
