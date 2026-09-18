@@ -1,0 +1,33 @@
+# Dersler — statik yayın konteyneri.
+#
+# Sunucudaki desen: her site nginx:alpine ile npm-net ağında durur, dışarıya
+# port açmaz; 80/443'ü Nginx Proxy Manager karşılar ve isme göre yönlendirir.
+#
+#   docker compose -f /opt/dersler/deploy/docker-compose.yml up -d
+#
+# NPM tarafında proxy host: dersler.perinet.org + dersler.urgup.keenetic.link -> dersler-web:80
+
+name: dersler
+
+services:
+  dersler:
+    image: nginx:alpine
+    container_name: dersler-web
+    restart: unless-stopped
+    expose:
+      - "80"
+    volumes:
+      - /opt/dersler/dist:/usr/share/nginx/html:ro
+      - /opt/dersler/deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - npm-net
+
+networks:
+  npm-net:
+    external: true
