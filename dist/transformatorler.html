@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1755,6 +1858,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Santralde üretilen elektrik evine gelene kadar gerilimi <b>üç dört kez değiştirilir</b>:
+          önce 400 000 volta çıkarılır, sonra kademe kademe 220 volta indirilir. Bu dönüşümü yapan
+          şeyin hareketli hiçbir parçası yoktur — iki bobin ve bir demir çekirdek. Neden bu kadar
+          zahmete girildiğini anlamak için tek bir bağıntıya bakmak yeter:
+          <b>P(kayıp) = I²·R</b>. Gerilimi yükseltmek, akımı düşürmenin tek yoludur.
+        </p>
+
         <h3 id="k1">Transformatörün yapısı</h3>
         <p>
           Transformatör, alternatif gerilimin değerini değiştirmeye yarayan bir araçtır. Üç
@@ -1778,6 +1905,45 @@
             levhalar (saclar) bu akımların yolunu keser.
           </p>
         </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Transformatörün yapısı: demir nüve, primer ve sekonder bobinler, kaynak ve yük.">
+            <text class="tt fd" x="240" y="22" text-anchor="middle">iki bobin, bir demir nüve</text>
+            <rect class="st sk wa" x="140" y="40" width="200" height="130" rx="6" />
+            <rect class="st sk fs" x="180" y="72" width="120" height="66" rx="4" />
+            <text class="tt fd" x="240" y="109" text-anchor="middle">nüve</text>
+            <g class="st sb hair fn">
+              <ellipse cx="160" cy="58" rx="28" ry="8" />
+              <ellipse cx="160" cy="80" rx="28" ry="8" />
+              <ellipse cx="160" cy="102" rx="28" ry="8" />
+              <ellipse cx="160" cy="124" rx="28" ry="8" />
+              <ellipse cx="160" cy="146" rx="28" ry="8" />
+            </g>
+            <g class="st sv hair fn">
+              <ellipse cx="320" cy="58" rx="28" ry="8" />
+              <ellipse cx="320" cy="80" rx="28" ry="8" />
+              <ellipse cx="320" cy="102" rx="28" ry="8" />
+              <ellipse cx="320" cy="124" rx="28" ry="8" />
+              <ellipse cx="320" cy="146" rx="28" ry="8" />
+            </g>
+            <path class="st sk hair" d="M132 58H70v26M132 146H70v-26" />
+            <circle class="st sk fs hair" cx="70" cy="102" r="18" />
+            <path class="st sk hair" d="M60 102c4-8 6-8 10 0 4 8 6 8 10 0" />
+            <path class="st sk hair" d="M348 58h62v24M348 146h62v-24" />
+            <rect class="st sk wk hair" x="398" y="82" width="24" height="40" rx="3" />
+            <text class="tl fb" x="160" y="192" text-anchor="middle">N₁ · primer</text>
+            <text class="tl fv" x="320" y="192" text-anchor="middle">N₂ · sekonder</text>
+            <text class="tt fb" x="70" y="172" text-anchor="middle">V₁ (AC)</text>
+            <text class="tt fv" x="430" y="106">yük</text>
+          </svg>
+          <figcaption>
+            Transformatörün üç parçası var: kaynağa bağlanan <b>primer</b>, yüke bağlanan
+            <b>sekonder</b> ve ikisi arasında hiç elektriksel bağlantı olmadan akıyı taşıyan
+            <b>demir nüve</b>. Bobinler birbirine değmez; aralarındaki tek köprü manyetik alandır.
+            Nüve ince levhalardan yapılır, çünkü tek parça demirde dolanacak girdap akımları onu
+            ısıtıp enerjiyi boşa harcardı.
+          </figcaption>
+        </figure>
 
         <h3 id="k2">Çalışma ilkesi: karşılıklı indüksiyon</h3>
         <p>
@@ -1803,6 +1969,36 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 182" role="img" aria-label="Alternatif akımla transformatörün çalışması, doğru akımda ise sekonderde gerilim oluşmaması.">
+            <path class="st sl hair dots" d="M244 20v146" />
+            <text class="tt fd" x="30" y="40">AC</text>
+            <path class="st sb bold" d="M30 70c10-18 20-18 30 0 10 18 20 18 30 0" />
+            <path class="st sd hair" d="M96 70h6" marker-end="url(#ah-d)" />
+            <rect class="st sk wa" x="106" y="46" width="40" height="46" rx="5" />
+            <path class="st sd hair" d="M152 70h6" marker-end="url(#ah-d)" />
+            <path class="st sv bold" d="M164 70c10-26 20-26 30 0 10 26 20 26 30 0" />
+            <text class="tl fg" x="120" y="128" text-anchor="middle">çalışır</text>
+            <text class="tt" x="120" y="152" text-anchor="middle">akı sürekli değişir</text>
+            <text class="tt fd" x="270" y="40">DC</text>
+            <path class="st sb bold" d="M270 70h60" />
+            <path class="st sd hair" d="M336 70h6" marker-end="url(#ah-d)" />
+            <rect class="st sk wa" x="346" y="46" width="40" height="46" rx="5" />
+            <path class="st sd hair" d="M392 70h6" marker-end="url(#ah-d)" />
+            <path class="st sd hair dash" d="M404 70h60" />
+            <text class="tt fr" x="434" y="58" text-anchor="middle">0</text>
+            <text class="tl fr" x="360" y="128" text-anchor="middle">çalışmaz</text>
+            <text class="tt" x="360" y="152" text-anchor="middle">akı sabit, emk yok</text>
+          </svg>
+          <figcaption>
+            Transformatörün canı <b>değişimdir</b>. Alternatif akım nüvedeki akıyı saniyede 100 kez
+            değiştirir; bu değişim sekonderde emk indükler. Pil bağlarsan akım sabit olur, akı
+            değişmez ve sekonderde <b>hiçbir gerilim doğmaz</b> — yalnızca anahtarı açıp kapattığın
+            anlarda kısa birer sıçrama görürsün. Evlerimize doğru akım değil, alternatif akım
+            gelmesinin başlıca sebeplerinden biri budur.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">Sarım sayısı ve gerilim</h3>
         <p>
           Gerilim, sarım sayısıyla <strong>doğru orantılıdır</strong>. Sekonderde daha çok sarım
@@ -1817,6 +2013,42 @@
           uygulanıyorsa sarım başına 0,44 V düşer. 1000 sarımlı sekonderde 1000 · 0,44 = 440 V
           elde edilir.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 202" role="img" aria-label="Yükseltici transformatörde sekonder sarım sayısının fazla olması gerilimi büyütür, düşürücüde az olması küçültür.">
+            <path class="st sl hair dots" d="M244 16v172" />
+            <text class="tt fd" x="120" y="22" text-anchor="middle">yükseltici</text>
+            <text class="tt fd" x="360" y="22" text-anchor="middle">düşürücü</text>
+            <rect class="st sk wa" x="112" y="52" width="16" height="124" rx="3" />
+            <rect class="st sk wa" x="352" y="52" width="16" height="124" rx="3" />
+            <g class="st sb hair fn">
+              <ellipse cx="70" cy="86" rx="22" ry="7" /><ellipse cx="70" cy="110" rx="22" ry="7" /><ellipse cx="70" cy="134" rx="22" ry="7" />
+            </g>
+            <g class="st sv hair fn">
+              <ellipse cx="170" cy="62" rx="22" ry="7" /><ellipse cx="170" cy="78" rx="22" ry="7" /><ellipse cx="170" cy="94" rx="22" ry="7" /><ellipse cx="170" cy="110" rx="22" ry="7" /><ellipse cx="170" cy="126" rx="22" ry="7" /><ellipse cx="170" cy="142" rx="22" ry="7" /><ellipse cx="170" cy="158" rx="22" ry="7" />
+            </g>
+            <g class="st sb hair fn">
+              <ellipse cx="310" cy="62" rx="22" ry="7" /><ellipse cx="310" cy="78" rx="22" ry="7" /><ellipse cx="310" cy="94" rx="22" ry="7" /><ellipse cx="310" cy="110" rx="22" ry="7" /><ellipse cx="310" cy="126" rx="22" ry="7" /><ellipse cx="310" cy="142" rx="22" ry="7" /><ellipse cx="310" cy="158" rx="22" ry="7" />
+            </g>
+            <g class="st sv hair fn">
+              <ellipse cx="410" cy="86" rx="22" ry="7" /><ellipse cx="410" cy="110" rx="22" ry="7" /><ellipse cx="410" cy="134" rx="22" ry="7" />
+            </g>
+            <text class="tl fb" x="70" y="46" text-anchor="middle">220 V</text>
+            <text class="tl fv" x="170" y="46" text-anchor="middle">880 V</text>
+            <text class="tl fb" x="310" y="46" text-anchor="middle">220 V</text>
+            <text class="tl fv" x="410" y="46" text-anchor="middle">55 V</text>
+            <text class="tt" x="70" y="190" text-anchor="middle">N₁ = 100</text>
+            <text class="tt" x="170" y="190" text-anchor="middle">N₂ = 400</text>
+            <text class="tt" x="310" y="190" text-anchor="middle">N₁ = 400</text>
+            <text class="tt" x="410" y="190" text-anchor="middle">N₂ = 100</text>
+          </svg>
+          <figcaption>
+            Her sarım aynı akı değişimini gördüğü için, her sarım <b>aynı miktarda gerilim</b>
+            üretir. Dolayısıyla toplam gerilim sarım sayısıyla doğru orantılıdır: V₁/V₂ = N₁/N₂.
+            Sekonderde daha çok sarım varsa gerilim büyür (<b>yükseltici</b>), daha az sarım varsa
+            küçülür (<b>düşürücü</b>). Aynı transformatör ters bağlanırsa görevi de tersine döner.
+          </figcaption>
+        </figure>
 
         <h3 id="k4">Akım ve güç korunumu</h3>
         <p>
@@ -1847,6 +2079,31 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Girişte küçük gerilim büyük akım, çıkışta büyük gerilim küçük akım; iki dikdörtgenin alanı yani güç eşit.">
+            <text class="tl fg" x="240" y="28" text-anchor="middle">iki dikdörtgenin alanı eşit = aynı güç</text>
+            <rect class="st sb wb" x="60" y="130" width="120" height="30" />
+            <rect class="st sv wv" x="320" y="40" width="30" height="120" />
+            <path class="st sd hair" d="M54 130v30M48 130h12M48 160h12" />
+            <text class="tt fb" x="42" y="150" text-anchor="end">V₁</text>
+            <path class="st sd hair" d="M60 170h120M60 164v12M180 164v12" />
+            <text class="tt fb" x="120" y="192" text-anchor="middle">I₁ (büyük)</text>
+            <path class="st sd hair" d="M314 40v120M308 40h12M308 160h12" />
+            <text class="tt fv" x="302" y="104" text-anchor="end">V₂</text>
+            <path class="st sd hair" d="M320 170h30M320 164v12M350 164v12" />
+            <text class="tt fv" x="335" y="192" text-anchor="middle">I₂ (küçük)</text>
+            <text class="tv fk" x="248" y="112" text-anchor="middle">=</text>
+            <text class="tt fd" x="120" y="118" text-anchor="middle">P₁ = V₁ · I₁</text>
+            <text class="tt fd" x="400" y="104" text-anchor="middle">P₂ = V₂ · I₂</text>
+          </svg>
+          <figcaption>
+            İdeal bir transformatör enerji üretmez, yalnızca <b>biçim değiştirir</b>. Gerilimi dört
+            katına çıkarırsan akım dörtte birine iner; iki dikdörtgenin alanı — yani güç — aynı
+            kalır. Bu yüzden "gerilimi yükselten transformatör gücü de yükseltir" demek yanlıştır.
+            Frekans da hiç değişmez: sekonderdeki gerilim, primerdekiyle <b>aynı ritimde</b> salınır.
+          </figcaption>
+        </figure>
+
         <h3 id="k5">Yükseltici ve düşürücü transformatör</h3>
         <ul>
           <li><strong>Yükseltici (N₂ &gt; N₁):</strong> gerilimi büyütür, akımı küçültür.
@@ -1860,6 +2117,30 @@
           Kaynak hangi bobine bağlanırsa orası primerdir. Aynı transformatör ters bağlanarak
           yükselticiden düşürücüye çevrilebilir.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 184" role="img" aria-label="Sekonder gerilimin sekonder sarım sayısıyla doğru, primer sarım sayısıyla ters orantılı değişimi iki grafikte.">
+            <path class="st sd hair" d="M60 30v120h160" />
+            <path class="st sb bold" d="M60 150 212 44" />
+            <text class="tt fb" x="100" y="58">V₂ ∝ N₂</text>
+            <text class="tt fd" x="54" y="26" text-anchor="end">V₂</text>
+            <text class="tt fd" x="216" y="168" text-anchor="end">N₂</text>
+            <text class="tt" x="140" y="168" text-anchor="middle">doğru orantı</text>
+            <path class="st sl hair dots" d="M250 18v150" />
+            <path class="st sd hair" d="M290 30v120h160" />
+            <path class="st sv bold" d="M296 44C340 110 380 134 445 142" />
+            <text class="tt fv" x="340" y="62">V₂ ∝ 1 / N₁</text>
+            <text class="tt fd" x="284" y="26" text-anchor="end">V₂</text>
+            <text class="tt fd" x="446" y="168" text-anchor="end">N₁</text>
+            <text class="tt" x="360" y="168" text-anchor="middle">ters orantı</text>
+          </svg>
+          <figcaption>
+            Aynı bağıntının iki yüzü. Primeri sabit tutup <b>sekonder sarımı artırırsan</b> çıkış
+            gerilimi doğru orantılı büyür — grafik orijinden geçen bir doğrudur. Sekonderi sabit
+            tutup <b>primer sarımı artırırsan</b> çıkış gerilimi ters orantılı küçülür. Sayfadaki
+            laboratuvarda iki grafiği de kaydırıcıları oynatarak canlı görebilirsin.
+          </figcaption>
+        </figure>
 
         <h3 id="k6">Verim ve kayıplar</h3>
         <p>
@@ -1880,6 +2161,31 @@
           Kayıpların tamamı sonunda <strong>ısıya</strong> dönüşür. Büyük güç transformatörleri bu
           yüzden yağla doldurulur ve radyatörlerle soğutulur. Verimleri %98–99 civarındadır.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Giren gücün büyük kısmının çıkışa geçmesi, küçük bir kısmının bakır, girdap ve histerezis kayıplarına gitmesi.">
+            <text class="tt fd" x="60" y="48">giren güç P₁</text>
+            <text class="tt fr" x="420" y="48" text-anchor="middle">kayıp</text>
+            <rect class="st sg wg hair" x="60" y="58" width="342" height="34" rx="4" />
+            <rect class="st sr wr hair" x="402" y="58" width="18" height="34" rx="2" />
+            <text class="tl fk" x="231" y="81" text-anchor="middle">çıkan güç P₂ · %95</text>
+            <path class="st sl hair dash" d="M402 92 200 118M420 92 420 118" />
+            <rect class="st sr wr hair" x="200" y="118" width="110" height="22" rx="3" />
+            <rect class="st sa wa hair" x="310" y="118" width="66" height="22" rx="3" />
+            <rect class="st sv wv hair" x="376" y="118" width="44" height="22" rx="3" />
+            <text class="tt fr" x="255" y="160" text-anchor="middle">bakır I²R</text>
+            <text class="tt fa" x="343" y="160" text-anchor="middle">girdap</text>
+            <text class="tt fv" x="410" y="178" text-anchor="middle">histerezis</text>
+            <text class="tl fb" x="120" y="164" text-anchor="middle">verim = P₂ / P₁</text>
+          </svg>
+          <figcaption>
+            Gerçek bir transformatörde giren gücün küçük bir kısmı ısıya gider. <b>Bakır kaybı</b>
+            sarım tellerinin direncinde harcanır (I²R), <b>girdap akımı kaybı</b> nüvede dolanan
+            akımlardan, <b>histerezis kaybı</b> ise demirin mıknatıslanma yönünü saniyede yüz kez
+            çevirmesinden doğar. Büyük güç transformatörlerinde verim %98'in üzerine çıkar — bu,
+            insanın yaptığı en verimli makinelerden biridir.
+          </figcaption>
+        </figure>
 
         <h3 id="k7">Enerji iletimi: neden yüksek gerilim?</h3>
         <p>
@@ -1902,6 +2208,33 @@
             (daha pahalı ve ağır) iletken demektir. Gerilimi yükseltmek çok daha ucuzdur.
           </p>
         </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 232" role="img" aria-label="Aynı gücün düşük gerilimle iletilmesinde büyük kayıp, yüksek gerilimle iletilmesinde neredeyse hiç kayıp olmaması.">
+            <rect class="st sk wk hair" x="26" y="48" width="52" height="42" rx="5" />
+            <text class="tt fd" x="52" y="106" text-anchor="middle">santral</text>
+            <rect class="st sk wk hair" x="402" y="48" width="52" height="42" rx="5" />
+            <text class="tt fd" x="428" y="106" text-anchor="middle">şehir</text>
+            <text class="tt fb" x="86" y="42">10 kV · I = 100 A</text>
+            <rect class="st sg wg hair" x="82" y="58" width="236" height="16" rx="3" />
+            <rect class="st sr wr hair" x="318" y="58" width="80" height="16" rx="3" />
+            <text class="tt fr" x="396" y="92" text-anchor="end">kayıp ≈ %25</text>
+            <rect class="st sk wk hair" x="26" y="150" width="52" height="42" rx="5" />
+            <rect class="st sk wk hair" x="402" y="150" width="52" height="42" rx="5" />
+            <text class="tt fb" x="86" y="144">400 kV · I = 2,5 A</text>
+            <rect class="st sg wg hair" x="82" y="160" width="314" height="16" rx="3" />
+            <rect class="st sr wr hair" x="396" y="160" width="2" height="16" rx="1" />
+            <text class="tt fg" x="330" y="192" text-anchor="middle">kayıp ≈ %0,02</text>
+            <text class="tl fb" x="240" y="222" text-anchor="middle">P(kayıp) = I² · R(hat)</text>
+          </svg>
+          <figcaption>
+            Aynı 1 MW gücü aynı hattan iletiyoruz; değişen tek şey gerilim. Gerilimi 40 kat
+            yükseltmek akımı 40 kat düşürür, kayıp ise <b>akımın karesiyle</b> gittiği için
+            1600 kat azalır. Yeşil çubuk şehre ulaşan gücü, kırmızı çubuk hatta ısıya dönüşeni
+            gösteriyor. Yüksek gerilim hatlarının sebebi budur — ve evlere girmeden önce gerilimi
+            tekrar düşürmek için <b>yine transformatör</b> kullanılır.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
 

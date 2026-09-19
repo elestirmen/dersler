@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1756,6 +1859,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Kaşığın iç yüzüne bakınca başın <b>ters</b>, dış yüzüne bakınca <b>düz ve küçük</b> görünür.
+          Aynı metal, aynı ışık — değişen tek şey yüzeyin hangi yöne büküldüğü. Küresel aynalar
+          düzlem aynadan tek bir noktada ayrılır: <b>paralel gelen ışınları bir noktada toplarlar</b>
+          (ya da tek bir noktadan geliyormuş gibi dağıtırlar). Odak dediğimiz o nokta, bu konunun
+          tamamının anahtarıdır.
+        </p>
+
         <h3 id="k1">Temel kavramlar</h3>
         <p>
           Küresel ayna, bir kürenin parçası biçimindeki aynadır. İç yüzeyi yansıtıcıysa
@@ -1779,6 +1906,32 @@
           <strong>dağıtıcı</strong>dır.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Çukur aynada tepe noktası, odak, merkez, asal eksen, eğrilik yarıçapı ve odak uzaklığının gösterimi.">
+            <path class="st sd hair dash" d="M100 110h350" />
+            <path class="st sk bold" d="M155 28A240 240 0 0 0 155 192" />
+            <path class="st sd hair" opacity="0.45" d="M152 40l-12-6M144 70l-12-4M140 100l-12-2M140 122l-12 2M144 152l-12 4M152 182l-12 6" />
+            <circle class="fk" cx="140" cy="110" r="4" />
+            <circle class="fb" cx="260" cy="110" r="5" />
+            <circle class="fk" cx="380" cy="110" r="4" />
+            <text class="tl fk" x="134" y="100" text-anchor="end">T</text>
+            <text class="tl fb" x="260" y="98" text-anchor="middle">F</text>
+            <text class="tl fk" x="380" y="98" text-anchor="middle">M</text>
+            <text class="tt fd" x="446" y="102" text-anchor="end">asal eksen</text>
+            <path class="st sb hair" d="M140 150h120M140 145v10M260 145v10" />
+            <text class="tt fb" x="200" y="168" text-anchor="middle">f</text>
+            <path class="st sd hair" d="M140 182h240M140 177v10M380 177v10" />
+            <text class="tt fd" x="260" y="200" text-anchor="middle">r</text>
+            <text class="tl fg" x="430" y="150" text-anchor="end">f = r / 2</text>
+          </svg>
+          <figcaption>
+            Küresel ayna, bir kürenin küçük bir parçasıdır. <b>Merkez (M)</b> o kürenin merkezi,
+            <b>tepe (T)</b> aynanın ortası, <b>odak (F)</b> ise ikisinin tam ortasıdır. Asal eksene
+            paralel gelen bütün ışınlar yansıdıktan sonra odaktan geçer — bu yüzden odak, aynanın
+            "toplama noktası"dır. Odak uzaklığı aynanın <b>yarıçapının yarısıdır</b>: f = r/2.
+          </figcaption>
+        </figure>
+
         <h3 id="k2">Asal ışınlar</h3>
         <p>Görüntüyü çizmek için üç ışından ikisi yeter:</p>
         <ol class="steps">
@@ -1796,6 +1949,40 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 212" role="img" aria-label="Çukur aynada üç asal ışının çizimi ve görüntünün oluşumu.">
+            <text class="tt fd" x="240" y="18" text-anchor="middle">üç asal ışın</text>
+            <path class="st sd hair dash" d="M100 110h360" />
+            <path class="st sk bold" d="M139 26A200 200 0 0 0 139 194" />
+            <circle class="fk" cx="120" cy="110" r="4" />
+            <circle class="fb" cx="220" cy="110" r="5" />
+            <circle class="fk" cx="320" cy="110" r="4" />
+            <text class="tt fk" x="116" y="128" text-anchor="end">T</text>
+            <text class="tt fb" x="220" y="128" text-anchor="middle">F</text>
+            <text class="tt fk" x="320" y="128" text-anchor="middle">M</text>
+            <path class="st sb hair" d="M400 74H123" />
+            <path class="st sb" d="M123 74 340 155" marker-end="url(#ah-b)" />
+            <path class="st sa hair" d="M400 74 121 130" />
+            <path class="st sa" d="M121 130h279" marker-end="url(#ah-a)" />
+            <path class="st sg hair" d="M400 74 120 110" />
+            <path class="st sg" d="M120 110 400 146" marker-end="url(#ah-g)" />
+            <path class="st sk bold" d="M400 110V74" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M274 110v20" marker-end="url(#ah-v)" />
+            <text class="tt fk" x="400" y="62" text-anchor="middle">cisim</text>
+            <text class="tt fv" x="240" y="170" text-anchor="middle">görüntü</text>
+            <text class="tt fb" x="348" y="160">1</text>
+            <text class="tt fa" x="408" y="134">2</text>
+            <text class="tt fg" x="408" y="150">3</text>
+          </svg>
+          <figcaption>
+            Görüntüyü bulmak için üç ışından <b>ikisi yeter</b>: <b>1</b> eksene paralel gelir,
+            yansıyınca odaktan geçer; <b>2</b> odaktan geçerek gelir, yansıyınca eksene paralel
+            olur; <b>3</b> tepe noktasına gelir, eksene göre simetrik yansır. Üçü de aynı noktada
+            kesişir ve orası görüntünün yeridir. Işınlar gerçekten kesişiyorsa görüntü
+            <b>gerçektir</b> ve perdeye düşer.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">Çukur aynada beş durum</h3>
         <table class="tbl">
           <tr><th>Cismin yeri</th><th>Görüntünün yeri</th><th>Özellikleri</th></tr>
@@ -1809,6 +1996,47 @@
           Sıradaki düzen kolay hatırlanır: cisim aynaya <strong>yaklaştıkça görüntü uzaklaşır ve
           büyür</strong>. Cisim odağa geldiğinde yansıyan ışınlar paralel olur, görüntü oluşmaz.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 262" role="img" aria-label="Çukur aynada cismin beş farklı konumu için görüntünün yeri, türü ve boyu.">
+            <path class="st sl hair dash" d="M110 40h180M110 88h180M110 136h180M110 184h180M60 232h230" />
+            <path class="st sk bold" d="M112 20A34 34 0 0 0 112 60M112 68A34 34 0 0 0 112 108M112 116A34 34 0 0 0 112 156M112 164A34 34 0 0 0 112 204M112 212A34 34 0 0 0 112 252" />
+            <g class="fb">
+              <circle cx="150" cy="40" r="3" /><circle cx="150" cy="88" r="3" /><circle cx="150" cy="136" r="3" /><circle cx="150" cy="184" r="3" /><circle cx="150" cy="232" r="3" />
+            </g>
+            <g class="fd">
+              <circle cx="190" cy="40" r="3" /><circle cx="190" cy="88" r="3" /><circle cx="190" cy="136" r="3" /><circle cx="190" cy="184" r="3" /><circle cx="190" cy="232" r="3" />
+            </g>
+            <text class="tt fb" x="150" y="16" text-anchor="middle">F</text>
+            <text class="tt fd" x="190" y="16" text-anchor="middle">M</text>
+            <path class="st sk bold" d="M236 40V22" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M170 40v9" marker-end="url(#ah-v)" />
+            <text class="tt" x="436" y="44" text-anchor="end">gerçek · ters · küçük</text>
+            <path class="st sk bold" d="M190 88V70" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M190 88v18" marker-end="url(#ah-v)" />
+            <text class="tt" x="436" y="92" text-anchor="end">gerçek · ters · eşit</text>
+            <path class="st sk bold" d="M170 136v-14" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M212 136v21" marker-end="url(#ah-v)" />
+            <text class="tt" x="436" y="140" text-anchor="end">gerçek · ters · büyük</text>
+            <path class="st sk bold" d="M150 184v-16" marker-end="url(#ah-k)" />
+            <text class="tt fr" x="436" y="188" text-anchor="end">görüntü oluşmaz</text>
+            <path class="st sk bold" d="M132 232v-13" marker-end="url(#ah-k)" />
+            <path class="st sv bold dash" d="M74 232v-26" marker-end="url(#ah-v)" />
+            <text class="tt" x="436" y="236" text-anchor="end">sanal · düz · büyük</text>
+            <text class="tt fd" x="250" y="24">merkezin ötesinde</text>
+            <text class="tt fd" x="250" y="72">merkezde</text>
+            <text class="tt fd" x="250" y="120">merkez – odak arası</text>
+            <text class="tt fd" x="250" y="168">odakta</text>
+            <text class="tt fd" x="250" y="216">odak içinde</text>
+          </svg>
+          <figcaption>
+            Cismi aynaya yaklaştırdıkça görüntü <b>uzaklaşır ve büyür</b>. Merkezde iken cisimle
+            görüntü aynı yerde ve aynı boydadır — bu, kuralın simetri noktasıdır. Cisim odağa
+            gelince yansıyan ışınlar paralelleşir ve görüntü <b>sonsuza gider</b>. Odağın içine
+            girdiğinde ışınlar artık kesişmez; yalnızca uzantıları kesişir ve görüntü
+            <b>sanal, düz ve büyük</b> olur — makyaj aynasının çalışma bölgesi burasıdır.
+          </figcaption>
+        </figure>
 
         <h3 id="k4">Tümsek ayna</h3>
         <p>
@@ -1828,6 +2056,36 @@
           sonucudur.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Tümsek aynada ışınların dağılması ve aynanın arkasında sanal, düz, küçük bir görüntü oluşması.">
+            <path class="st sd hair dash" d="M120 105h350" />
+            <path class="st sk bold" d="M321 25A160 160 0 0 0 321 185" />
+            <path class="st sd hair" opacity="0.45" d="M324 38l12-6M330 66l12-4M332 96l12-2M332 118l12 2M330 148l12 4M324 176l12 6" />
+            <circle class="fk" cx="300" cy="105" r="4" />
+            <circle class="fb" cx="380" cy="105" r="5" />
+            <circle class="fk" cx="460" cy="105" r="4" />
+            <text class="tt fk" x="296" y="124" text-anchor="end">T</text>
+            <text class="tt fb" x="380" y="124" text-anchor="middle">F</text>
+            <text class="tt fk" x="460" y="124" text-anchor="middle">M</text>
+            <path class="st sa hair" d="M170 65h135" />
+            <path class="st sa" d="M305 65 196 7" marker-end="url(#ah-a)" />
+            <path class="st sb hair" d="M170 65 301 90" />
+            <path class="st sb" d="M301 90H182" marker-end="url(#ah-b)" />
+            <path class="st sl hair dash" d="M305 65 352 90M301 90h51" />
+            <path class="st sk bold" d="M170 105V65" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M352 105V90" marker-end="url(#ah-v)" />
+            <text class="tt fk" x="170" y="52" text-anchor="middle">cisim</text>
+            <text class="tt fv" x="356" y="78">görüntü</text>
+            <text class="tl fg" x="300" y="196" text-anchor="end">her zaman: sanal · düz · küçük</text>
+          </svg>
+          <figcaption>
+            Tümsek aynada paralel ışınlar toplanmaz, <b>dağılır</b>; uzantıları aynanın arkasındaki
+            odakta buluşur. Bu yüzden cisim nerede olursa olsun görüntü hep aynı türdedir:
+            <b>sanal, düz ve küçük</b>. Görüntü küçük olduğu için aynaya çok daha geniş bir alan
+            sığar — market ve otopark güvenlik aynalarının tümsek olmasının sebebi budur.
+          </figcaption>
+        </figure>
+
         <h3 id="k5">Ayna denklemi</h3>
         <div class="formula">
           <code>1/f = 1/a + 1/b</code>
@@ -1839,6 +2097,29 @@
           <li><strong>b pozitif:</strong> görüntü aynanın önünde, <strong>gerçek</strong>.</li>
           <li><strong>b negatif:</strong> görüntü aynanın arkasında, <strong>sanal</strong>.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 192" role="img" aria-label="Ayna denkleminde işaret kuralı: aynanın önü gerçek, arkası sanal bölgedir.">
+            <text class="tt fd" x="240" y="26" text-anchor="middle">çukur ayna f &gt; 0 · tümsek ayna f &lt; 0</text>
+            <rect class="wg" x="40" y="42" width="200" height="96" rx="8" />
+            <rect class="wr" x="240" y="42" width="200" height="96" rx="8" />
+            <path class="st sk bold" d="M240 38v104" />
+            <path class="st sd hair" opacity="0.5" d="M240 46l10-8M240 66l10-8M240 86l10-8M240 106l10-8M240 126l10-8" />
+            <text class="tt" x="140" y="72" text-anchor="middle">aynanın önü</text>
+            <text class="tl fk" x="140" y="104" text-anchor="middle">a &gt; 0 · b &gt; 0</text>
+            <text class="tt fg" x="140" y="128" text-anchor="middle">gerçek görüntü</text>
+            <text class="tt" x="340" y="72" text-anchor="middle">aynanın arkası</text>
+            <text class="tl fk" x="340" y="104" text-anchor="middle">b &lt; 0</text>
+            <text class="tt fr" x="340" y="128" text-anchor="middle">sanal görüntü</text>
+            <text class="tl fb" x="240" y="176" text-anchor="middle">1/f = 1/a + 1/b</text>
+          </svg>
+          <figcaption>
+            Ayna denklemi bütün durumlar için aynıdır; işini gören şey <b>işaret kuralıdır</b>.
+            Aynanın önünde çıkan her şey pozitiftir ve gerçektir; arkasında çıkan her şey negatiftir
+            ve sanaldır. Hesabın sonunda <b>b negatif çıkıyorsa</b> bu bir hata değildir — görüntünün
+            aynanın arkasında olduğunu, yani sanal olduğunu söyler.
+          </figcaption>
+        </figure>
 
         <h3 id="k6">Büyütme</h3>
         <div class="formula">
@@ -1855,6 +2136,31 @@
           <strong>düzdür</strong>. Bu iki cümle, çizim yapmadan da yönü söyler.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 186" role="img" aria-label="Büyütmenin görüntü ile cisim boyunun oranı olarak iki örnekte gösterimi.">
+            <path class="st sl hair dots" d="M240 26v134" />
+            <path class="st sd hair dash" d="M30 110h180M270 110h180" />
+            <path class="st sk bold" d="M80 110V90" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M170 110v40" marker-end="url(#ah-v)" />
+            <text class="tt fk" x="80" y="80" text-anchor="middle">cisim</text>
+            <text class="tt fv" x="170" y="166" text-anchor="middle">görüntü</text>
+            <text class="tl fg" x="125" y="46" text-anchor="middle">m = 2</text>
+            <text class="tt" x="125" y="66" text-anchor="middle">büyük ve ters</text>
+            <path class="st sk bold" d="M320 110V70" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M410 110v20" marker-end="url(#ah-v)" />
+            <text class="tt fk" x="320" y="60" text-anchor="middle">cisim</text>
+            <text class="tt fv" x="410" y="148" text-anchor="middle">görüntü</text>
+            <text class="tl fg" x="365" y="46" text-anchor="middle">m = 0,5</text>
+            <text class="tt" x="365" y="66" text-anchor="middle">küçük ve ters</text>
+          </svg>
+          <figcaption>
+            Büyütme, görüntü boyunun cisim boyuna oranıdır ve aynı zamanda <b>uzaklıkların
+            oranına</b> eşittir: m = |b/a|. Görüntü aynadan cisimden daha uzaktaysa büyür, daha
+            yakınsa küçülür. m = 1 olan tek durum cismin merkezde olmasıdır. İşaretiyle
+            yazıldığında (m = −b/a) eksi değer <b>ters</b>, artı değer <b>düz</b> görüntü demektir.
+          </figcaption>
+        </figure>
+
         <h3 id="k7">Nerede kullanılır?</h3>
         <ul>
           <li><strong>Çukur ayna:</strong> diş hekimi aynası, makyaj aynası, el feneri ve far
@@ -1867,6 +2173,42 @@
           asal eksene paralel gider ve ışık uzağa taşınır. Güneş fırını bunun tersidir:
           paralel gelen güneş ışınları odakta toplanır.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Çukur aynanın büyüteç ve far olarak, tümsek aynanın geniş görüş aynası olarak kullanımı.">
+            <path class="st sl hair dots" d="M160 24v156M320 24v156" />
+            <path class="st sk bold" d="M52 56A80 80 0 0 0 52 136" />
+            <path class="st sd hair dash" d="M44 96h100" />
+            <path class="st sk bold" d="M96 96V80" marker-end="url(#ah-k)" />
+            <path class="st sv bold dash" d="M126 96V64" marker-end="url(#ah-v)" />
+            <text class="tt fd" x="80" y="164" text-anchor="middle">çukur ayna</text>
+            <text class="tl" x="80" y="188" text-anchor="middle">büyüteç</text>
+            <path class="st sk bold" d="M212 56A80 80 0 0 0 212 136" />
+            <circle class="fa" cx="242" cy="96" r="6" />
+            <path class="st sa hair" d="M236 96 206 70M236 96 204 96M236 96 206 122" />
+            <path class="st sa" d="M206 70h96" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M204 96h98" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M206 122h96" marker-end="url(#ah-a)" />
+            <text class="tt fd" x="240" y="164" text-anchor="middle">çukur ayna</text>
+            <text class="tl" x="240" y="188" text-anchor="middle">far · projektör</text>
+            <path class="st sk bold" d="M372 56A80 80 0 0 0 372 136" />
+            <path class="st sb hair" d="M456 40 366 84M456 96 352 96M456 152 366 108" />
+            <path class="st sb" d="M366 84 340 92" marker-end="url(#ah-b)" />
+            <path class="st sb" d="M352 96h-12" marker-end="url(#ah-b)" />
+            <path class="st sb" d="M366 108 340 100" marker-end="url(#ah-b)" />
+            <ellipse class="st sk fs hair" cx="330" cy="96" rx="12" ry="7" />
+            <circle class="fk" cx="330" cy="96" r="3.5" />
+            <text class="tt fd" x="400" y="164" text-anchor="middle">tümsek ayna</text>
+            <text class="tl" x="400" y="188" text-anchor="middle">geniş görüş</text>
+          </svg>
+          <figcaption>
+            Aynı iki ayna türü, üç farklı işi aynı geometriyle yapar. <b>Odak içine konan cisim</b>
+            çukur aynada büyütülmüş sanal görüntü verir — diş hekimi ve makyaj aynası. <b>Odağa
+            konan kaynak</b> ise ışığı paralel bir demet hâline getirir — el feneri ve araba farı.
+            <b>Tümsek ayna</b> geniş bir alanı küçülterek tek bakışa sığdırır — güvenlik ve yan
+            aynalar. Bu yüzden yan aynada "cisimler göründüğünden daha yakındır" yazar.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
 

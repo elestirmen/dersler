@@ -62,7 +62,7 @@ Dört etkileşimli deney, canlı grafikler ve konunun tamamını anlatan bir mod
 | 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı modalı tanımdan formül türetmelerine, grafik yorumundan çözümlü
-örneklere ve sık yapılan hatalara kadar dokuz başlık içerir.
+örneklere ve sık yapılan hatalara kadar dokuz başlık ve yedi çizim içerir.
 
 ### Konu 02 · İki boyutta sabit ivmeli hareket
 
@@ -79,7 +79,7 @@ etkileşimli bölüm:
 
 Konu anlatımı modalı bağımsızlık ilkesinden vektörel bağıntılara, yatay ve
 eğik atıştan yörünge denklemine, çözümlü örneklerden sık yapılan hatalara
-kadar dokuz başlık içerir.
+kadar dokuz başlık ve yedi çizim içerir.
 
 ### Konu 03 · Newton'un hareket yasaları
 
@@ -94,7 +94,7 @@ Kuvveti ve sonucunu ölçülebilir hâle getiren dört etkileşimli bölüm:
 | 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı modalı net kuvvetten serbest cisim diyagramına, sürtünmeden
-asansör problemlerine kadar dokuz başlık ve dört çözümlü örnek içerir.
+asansör problemlerine kadar dokuz başlık, dört çözümlü örnek ve yedi çizim içerir.
 
 ### Konu 04 · Sürtünme kuvveti
 
@@ -314,6 +314,30 @@ Optik ünitesi:
 Grafikler PowerPoint'in kendi grafik nesneleridir, her slaytta konuşmacı notu
 vardır. Dosyalar `sunum/*.js` betikleriyle üretilir; ayrıntılar
 [`sunum/README.md`](sunum/README.md) içinde.
+
+## Konu anlatımı çizimleri
+
+On sekiz konunun her birinde konu anlatımı modalı, altı–yedi **satır içi SVG
+çizimle** birlikte gelir; toplam 122 çizim. Her biri o başlığın mekanizmasını
+gösterir: strobo izleri, serbest cisim diyagramları, ışın çizimleri, alan
+haritaları, vektör üçgenleri, karşılaştırma çubukları ve grafikler. Altlarındaki
+açıklama, çizimin ne söylediğini bir paragrafta bağlar. Modalın başında ayrıca
+konuyu günlük bir soruyla açan kısa bir giriş bloğu vardır.
+
+Çizimlerin ortak bir dili var ve tamamı CSS değişkenlerinden renk aldığı için
+tema değişiminde kendiliğinden uyum sağlar:
+
+| Renk | Anlamı |
+|---|---|
+| Mavi | hız, akım, ana büyüklük |
+| Sarı | kuvvet, alan, ağırlık, ışık |
+| Yeşil | net kuvvet, sonuç, "doğru" |
+| Mor | ikinci durum, görüntü, indüklenen |
+| Kırmızı | karşı kuvvet, kayıp, "yanlış" |
+
+Teknik olarak: ortak `.fig` kartı, `480` birimlik `viewBox`, paylaşılan ok
+başlıkları (`<marker>`), `role="img"` ve açıklayıcı `aria-label`. Dar ekranda
+çizim 292 piksele iner, yatay kaydırma oluşmaz.
 
 ## Ortak davranış
 

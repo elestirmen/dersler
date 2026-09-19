@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1777,6 +1880,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Pusula iğnesini kuzeye çeviren şey, elektrik motorunu döndüren, hoparlörü titreten ve
+          kutup ışıklarını yakan şeyle aynı. Üstelik manyetizmanın kaynağı mıknatıslar değil,
+          <b>hareket hâlindeki yüklerdir</b>: bir telden akım geçirdiğin anda çevresinde bir
+          manyetik alan doğar. Bu konuda önce alanın nereden geldiğini, sonra o alanın içine giren
+          bir akıma ya da yüke <b>ne yaptığını</b> öğreneceğiz.
+        </p>
+
         <h3 id="k1">Manyetik alan nedir?</h3>
         <p>
           Mıknatısların ve akım taşıyan iletkenlerin çevresinde, başka mıknatıslara ve hareketli
@@ -1794,6 +1921,48 @@
             hoparlör mıknatısı ≈ 1 T, MR cihazı 1,5–3 T.
           </p>
         </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 214" role="img" aria-label="Çubuk mıknatısın kuzeyden güneye giden alan çizgileri ve mıknatıs ikiye bölününce iki yeni mıknatıs oluşması.">
+            <rect class="st sk wr" x="52" y="88" width="46" height="34" rx="4" />
+            <rect class="st sk wb" x="98" y="88" width="46" height="34" rx="4" />
+            <text class="tl fr" x="75" y="112" text-anchor="middle">N</text>
+            <text class="tl fb" x="121" y="112" text-anchor="middle">S</text>
+            <g class="st sa hair">
+              <path d="M50 105H10" marker-end="url(#ah-sa)" />
+              <path d="M190 105h-38" marker-end="url(#ah-sa)" />
+              <path d="M50 96Q98 30 144 96" marker-end="url(#ah-sa)" />
+              <path d="M48 88Q98-30 148 88" marker-end="url(#ah-sa)" />
+              <path d="M50 114Q98 180 144 114" marker-end="url(#ah-sa)" />
+              <path d="M48 122Q98 240 148 122" marker-end="url(#ah-sa)" />
+            </g>
+            <text class="tt fd" x="98" y="200" text-anchor="middle">N'den çıkar, S'ye girer</text>
+            <path class="st sl hair dots" d="M254 22v170" />
+            <text class="tt fd" x="368" y="40" text-anchor="middle">ikiye bölersen?</text>
+            <rect class="st sk wr" x="292" y="62" width="38" height="28" rx="4" />
+            <rect class="st sk wb" x="330" y="62" width="38" height="28" rx="4" />
+            <text class="tt fr" x="311" y="82" text-anchor="middle">N</text>
+            <text class="tt fb" x="349" y="82" text-anchor="middle">S</text>
+            <path class="st sr" d="M330 54v44" />
+            <path class="st sd hair" d="M346 100v10" marker-end="url(#ah-d)" />
+            <rect class="st sk wr" x="288" y="124" width="26" height="26" rx="4" />
+            <rect class="st sk wb" x="314" y="124" width="26" height="26" rx="4" />
+            <rect class="st sk wr" x="352" y="124" width="26" height="26" rx="4" />
+            <rect class="st sk wb" x="378" y="124" width="26" height="26" rx="4" />
+            <text class="tt fr" x="301" y="143" text-anchor="middle">N</text>
+            <text class="tt fb" x="327" y="143" text-anchor="middle">S</text>
+            <text class="tt fr" x="365" y="143" text-anchor="middle">N</text>
+            <text class="tt fb" x="391" y="143" text-anchor="middle">S</text>
+            <text class="tl fg" x="346" y="176" text-anchor="middle">yine iki kutup</text>
+            <text class="tt fd" x="346" y="196" text-anchor="middle">tek kutup bulunamaz</text>
+          </svg>
+          <figcaption>
+            Manyetik alan çizgileri mıknatısın dışında <b>N'den çıkıp S'ye girer</b> ve içeride
+            devreyi tamamlar — yani elektrik alanının aksine <b>kapalı halkalardır</b>. Bunun
+            doğrudan sonucu şudur: bir mıknatısı ikiye bölersen tek bir kutup elde edemezsin,
+            elinde iki tam mıknatıs kalır. Bugüne kadar hiç <b>tek manyetik kutup</b> gözlenmedi.
+          </figcaption>
+        </figure>
 
         <h3 id="k2">Akımın oluşturduğu alan</h3>
         <p>
@@ -1818,6 +1987,34 @@
           </tbody>
         </table>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 210" role="img" aria-label="Akım taşıyan düz telin çevresinde oluşan çembersel manyetik alan çizgileri ve alanın uzaklıkla azalması.">
+            <path class="st sb bold" d="M120 190V26" marker-end="url(#ah-b)" />
+            <text class="tl fb" x="128" y="36">I</text>
+            <circle class="st sa hair fn" cx="120" cy="110" r="34" />
+            <circle class="st sa hair fn" cx="120" cy="110" r="60" />
+            <circle class="st sa hair fn" cx="120" cy="110" r="86" />
+            <path class="st sa" d="M150 96 154 110" marker-end="url(#ah-sa)" />
+            <path class="st sa" d="M176 92 180 110" marker-end="url(#ah-sa)" />
+            <path class="st sa" d="M202 88 206 110" marker-end="url(#ah-sa)" />
+            <circle class="fd" cx="120" cy="110" r="5" />
+            <text class="tt fd" x="120" y="206" text-anchor="middle">tel (akım yukarı)</text>
+            <path class="st sl hair dots" d="M250 20v176" />
+            <path class="st sd hair" d="M290 34v120h160" />
+            <path class="st sa bold" d="M298 44C330 104 370 130 448 140" />
+            <text class="tt fa" x="330" y="60">B ∝ 1 / r</text>
+            <text class="tt fd" x="284" y="30" text-anchor="end">B</text>
+            <text class="tt fd" x="448" y="172" text-anchor="end">r</text>
+            <text class="tl fb" x="370" y="196" text-anchor="middle">B = 2·10⁻⁷ · I / r</text>
+          </svg>
+          <figcaption>
+            Düz bir telden akım geçtiğinde çevresinde <b>tel merkezli çemberler</b> hâlinde bir
+            manyetik alan doğar. Alanın yönünü sağ el kuralı verir: başparmak akım yönünü
+            gösterecek şekilde teli kavrarsan, <b>parmakların alan çizgilerini izler</b>. Büyüklüğü
+            akımla doğru, uzaklıkla ters orantılıdır — ters kare değil, <b>ters birinci kuvvet</b>.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">Sağ el kuralı</h3>
         <p>
           Manyetik olaylarda yön bulmanın anahtarı sağ el kurallarıdır:
@@ -1835,6 +2032,38 @@
             anlamına gelir. Okun ucu ve tüyü gibi düşünülebilir.
           </p>
         </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 212" role="img" aria-label="Akım, manyetik alan ve kuvvetin birbirine dik üç yönü ile sayfa düzleminde içeri ve dışarı yön gösterimleri.">
+            <text class="tt fd" x="130" y="26" text-anchor="middle">üçü de birbirine dik</text>
+            <path class="st sb bold" d="M130 150h96" marker-end="url(#ah-b)" />
+            <path class="st sg bold" d="M130 150V56" marker-end="url(#ah-g)" />
+            <path class="st sa bold" d="M130 150 58 194" marker-end="url(#ah-a)" />
+            <circle class="fk" cx="130" cy="150" r="5" />
+            <text class="tl fb" x="234" y="146">I</text>
+            <text class="tl fg" x="138" y="58">F</text>
+            <text class="tl fa" x="52" y="200" text-anchor="end">B</text>
+            <path class="st sd hair" d="M130 132h18v18" />
+            <path class="st sl hair dots" d="M266 20v182" />
+            <text class="tt fd" x="374" y="26" text-anchor="middle">sayfa düzleminde gösterim</text>
+            <circle class="st sk fs" cx="330" cy="76" r="18" />
+            <path class="st sk" d="M318 64 342 88M342 64 318 88" />
+            <text class="tl" x="364" y="72">sayfaya</text>
+            <text class="tl" x="364" y="92">doğru (içeri)</text>
+            <circle class="st sk fs" cx="330" cy="150" r="18" />
+            <circle class="fk" cx="330" cy="150" r="5" />
+            <text class="tl" x="364" y="146">sayfadan</text>
+            <text class="tl" x="364" y="166">dışarı</text>
+            <text class="tt fd" x="330" y="200" text-anchor="middle">okun ucu ve tüyü</text>
+          </svg>
+          <figcaption>
+            Manyetik kuvvet <b>hem akıma hem alana diktir</b> — yani üç yön bir odanın köşesi gibi
+            birbirine dik durur. Sağ elini aç, parmaklarını akım (ya da hız) yönüne çevir, sonra
+            alan yönüne doğru kıvır: başparmağın kuvveti gösterir. Negatif yükte bulduğun yönün
+            <b>tam tersini</b> alırsın. Sayfa düzleminde çarpı <b>içeri</b>, nokta <b>dışarı</b>
+            demektir: uzaklaşan okun tüyü ve yaklaşan okun ucu.
+          </figcaption>
+        </figure>
 
         <h3 id="k4">Akım taşıyan tele etki eden kuvvet</h3>
         <p>
@@ -1856,6 +2085,42 @@
           kuvvet çifti, çerçeveyi döndürür.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Manyetik alan içindeki akım taşıyan tele etkiyen kuvvet ve kuvvetin açıyla sinüs biçiminde değişimi.">
+            <g class="st sd hair" opacity="0.75">
+              <circle class="fn" cx="52" cy="50" r="6" /><circle class="fn" cx="92" cy="50" r="6" /><circle class="fn" cx="132" cy="50" r="6" /><circle class="fn" cx="172" cy="50" r="6" /><circle class="fn" cx="212" cy="50" r="6" />
+              <circle class="fn" cx="52" cy="100" r="6" /><circle class="fn" cx="92" cy="100" r="6" /><circle class="fn" cx="132" cy="100" r="6" /><circle class="fn" cx="172" cy="100" r="6" /><circle class="fn" cx="212" cy="100" r="6" />
+              <circle class="fn" cx="52" cy="150" r="6" /><circle class="fn" cx="92" cy="150" r="6" /><circle class="fn" cx="132" cy="150" r="6" /><circle class="fn" cx="172" cy="150" r="6" /><circle class="fn" cx="212" cy="150" r="6" />
+            </g>
+            <g class="fd">
+              <circle cx="52" cy="50" r="2" /><circle cx="92" cy="50" r="2" /><circle cx="132" cy="50" r="2" /><circle cx="172" cy="50" r="2" /><circle cx="212" cy="50" r="2" />
+              <circle cx="52" cy="100" r="2" /><circle cx="92" cy="100" r="2" /><circle cx="132" cy="100" r="2" /><circle cx="172" cy="100" r="2" /><circle cx="212" cy="100" r="2" />
+              <circle cx="52" cy="150" r="2" /><circle cx="92" cy="150" r="2" /><circle cx="132" cy="150" r="2" /><circle cx="172" cy="150" r="2" /><circle cx="212" cy="150" r="2" />
+            </g>
+            <text class="tt fd" x="30" y="26">B (dışarı)</text>
+            <path class="st sb bold" d="M32 100h180" marker-end="url(#ah-b)" />
+            <text class="tl fb" x="222" y="96">I</text>
+            <path class="st sg bold" d="M122 96V40" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="130" y="44">F</text>
+            <text class="tt fd" x="126" y="188" text-anchor="middle">F = B · I · L · sinα</text>
+            <path class="st sl hair dots" d="M252 18v180" />
+            <path class="st sd hair" d="M286 36v112h170" />
+            <path class="st sg bold" d="M286 148C330 148 350 60 372 60 394 60 414 148 456 148" />
+            <path class="st sl hair dash" d="M286 60h86M372 60v88" />
+            <text class="tt fg" x="280" y="64" text-anchor="end">B·I·L</text>
+            <text class="tt fd" x="286" y="168">0°</text>
+            <text class="tt fd" x="372" y="168" text-anchor="middle">90°</text>
+            <text class="tt fd" x="456" y="168" text-anchor="end">180°</text>
+            <text class="tt fd" x="372" y="192" text-anchor="middle">akım ile alan arasındaki açı</text>
+          </svg>
+          <figcaption>
+            Alan içindeki bir tele etkiyen kuvvet, akıma ve alana <b>dik</b> çıkar; büyüklüğü
+            aradaki açının sinüsüyle değişir. Tel alana <b>dikken kuvvet en büyüktür</b>
+            (α = 90°, sinα = 1); alana <b>paralelken kuvvet sıfırdır</b> (α = 0 ya da 180°).
+            Elektrik motorunun bütün sırrı bu tek bağıntıda saklıdır.
+          </figcaption>
+        </figure>
+
         <h3 id="k5">Hareketli yüke etki eden kuvvet</h3>
         <p>
           Akım aslında hareketli yüklerden ibarettir; dolayısıyla tek bir yük için de benzer bir
@@ -1873,6 +2138,43 @@
           <li><strong>Manyetik kuvvet iş yapmaz:</strong> kuvvet hıza dik olduğu için cismin
             <em>kinetik enerjisi değişmez</em>; yalnızca yönü değişir.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Manyetik alana paralel giren yükün sapmaması, dik giren yükün ise kuvvet görmesi karşılaştırılıyor.">
+            <text class="tt fd" x="120" y="26" text-anchor="middle">alana paralel giriş</text>
+            <text class="tt fd" x="360" y="26" text-anchor="middle">alana dik giriş</text>
+            <path class="st sl hair dots" d="M240 20v160" />
+            <g class="st sa hair" opacity="0.8">
+              <path d="M30 58h180" /><path d="M30 92h180" /><path d="M30 126h180" />
+            </g>
+            <text class="tt fa" x="30" y="48">B</text>
+            <circle class="fb" cx="80" cy="92" r="9" />
+            <path class="st sb bold" d="M92 92h76" marker-end="url(#ah-b)" />
+            <text class="tt fb" x="140" y="84" text-anchor="middle">v</text>
+            <text class="tl fr" x="120" y="164" text-anchor="middle">F = 0 · sapmaz</text>
+            <g class="st sd hair" opacity="0.75">
+              <circle class="fn" cx="290" cy="58" r="6" /><circle class="fn" cx="330" cy="58" r="6" /><circle class="fn" cx="370" cy="58" r="6" /><circle class="fn" cx="410" cy="58" r="6" /><circle class="fn" cx="450" cy="58" r="6" />
+              <circle class="fn" cx="290" cy="126" r="6" /><circle class="fn" cx="330" cy="126" r="6" /><circle class="fn" cx="370" cy="126" r="6" /><circle class="fn" cx="410" cy="126" r="6" /><circle class="fn" cx="450" cy="126" r="6" />
+            </g>
+            <g class="fd">
+              <circle cx="290" cy="58" r="2" /><circle cx="330" cy="58" r="2" /><circle cx="370" cy="58" r="2" /><circle cx="410" cy="58" r="2" /><circle cx="450" cy="58" r="2" />
+              <circle cx="290" cy="126" r="2" /><circle cx="330" cy="126" r="2" /><circle cx="370" cy="126" r="2" /><circle cx="410" cy="126" r="2" /><circle cx="450" cy="126" r="2" />
+            </g>
+            <text class="tt fd" x="290" y="46" text-anchor="middle">B dışarı</text>
+            <circle class="fb" cx="320" cy="92" r="9" />
+            <path class="st sb bold" d="M332 92h66" marker-end="url(#ah-b)" />
+            <text class="tt fb" x="372" y="84" text-anchor="middle">v</text>
+            <path class="st sg bold" d="M320 80V40" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="300" y="48" text-anchor="end">F</text>
+            <text class="tl fg" x="360" y="164" text-anchor="middle">F = q·v·B · en büyük</text>
+          </svg>
+          <figcaption>
+            Manyetik kuvvet <b>yalnızca hareket hâlindeki</b> yüke etki eder ve büyüklüğü hız ile
+            alan arasındaki açıya bağlıdır. Alana paralel giren yük hiç sapmaz; dik giren yük ise
+            en büyük kuvveti görür. Kuvvet hıza <b>daima dik</b> olduğu için yükün süratini asla
+            değiştiremez — manyetik kuvvet <b>iş yapmaz</b>, yalnızca yön değiştirir.
+          </figcaption>
+        </figure>
 
         <h3 id="k6">Manyetik alanda dairesel hareket</h3>
         <p>
@@ -1897,6 +2199,43 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 220" role="img" aria-label="Alana dik giren yüklü parçacığın çember çizmesi ve hızı artınca yarıçapın büyümesi.">
+            <g class="st sd hair" opacity="0.6">
+              <circle class="fn" cx="40" cy="36" r="6" /><circle class="fn" cx="110" cy="36" r="6" /><circle class="fn" cx="180" cy="36" r="6" /><circle class="fn" cx="250" cy="36" r="6" /><circle class="fn" cx="320" cy="36" r="6" /><circle class="fn" cx="390" cy="36" r="6" /><circle class="fn" cx="450" cy="36" r="6" />
+              <circle class="fn" cx="40" cy="186" r="6" /><circle class="fn" cx="110" cy="186" r="6" /><circle class="fn" cx="180" cy="186" r="6" /><circle class="fn" cx="250" cy="186" r="6" /><circle class="fn" cx="320" cy="186" r="6" /><circle class="fn" cx="390" cy="186" r="6" /><circle class="fn" cx="450" cy="186" r="6" />
+            </g>
+            <g class="fd">
+              <circle cx="40" cy="36" r="2" /><circle cx="110" cy="36" r="2" /><circle cx="180" cy="36" r="2" /><circle cx="250" cy="36" r="2" /><circle cx="320" cy="36" r="2" /><circle cx="390" cy="36" r="2" /><circle cx="450" cy="36" r="2" />
+              <circle cx="40" cy="186" r="2" /><circle cx="110" cy="186" r="2" /><circle cx="180" cy="186" r="2" /><circle cx="250" cy="186" r="2" /><circle cx="320" cy="186" r="2" /><circle cx="390" cy="186" r="2" /><circle cx="450" cy="186" r="2" />
+            </g>
+            <text class="tt fd" x="40" y="22">B sayfadan dışarı</text>
+            <circle class="st sb hair fn dash" cx="150" cy="112" r="46" />
+            <circle class="st sv hair fn dash" cx="320" cy="112" r="70" />
+            <circle class="fb" cx="196" cy="112" r="8" />
+            <circle class="fv" cx="390" cy="112" r="8" />
+            <path class="st sb" d="M196 100V66" marker-end="url(#ah-b)" />
+            <path class="st sv" d="M390 100V50" marker-end="url(#ah-v)" />
+            <path class="st sg" d="M186 112h-24" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M380 112h-48" marker-end="url(#ah-g)" />
+            <text class="tt fb" x="204" y="72">v</text>
+            <text class="tt fv" x="398" y="56">2v</text>
+            <text class="tt fg" x="168" y="130" text-anchor="middle">F</text>
+            <path class="st sl hair dash" d="M150 112 118 144M320 112 271 161" />
+            <circle class="fd" cx="150" cy="112" r="3" />
+            <circle class="fd" cx="320" cy="112" r="3" />
+            <text class="tt fd" x="126" y="158" text-anchor="middle">r</text>
+            <text class="tt fd" x="280" y="176" text-anchor="middle">2r</text>
+            <text class="tl fk" x="240" y="216" text-anchor="middle">r = m·v / (q·B)  ·  T = 2π·m / (q·B)</text>
+          </svg>
+          <figcaption>
+            Alana dik giren yükün gördüğü kuvvet hıza daima dik olduğu için yük <b>çember çizer</b>;
+            merkezcil kuvveti manyetik kuvvet sağlar. Hız iki katına çıkarsa yarıçap da iki katına
+            çıkar. Şaşırtıcı olan şu: <b>periyot hıza hiç bağlı değildir</b> — hızlı parçacık daha
+            büyük çember çizer ama turu aynı sürede tamamlar. Siklotron tam olarak bunu kullanır.
+          </figcaption>
+        </figure>
+
         <h3 id="k7">Uygulamalar</h3>
         <table class="tbl">
           <thead><tr><th>Uygulama</th><th>Kullanılan ilke</th></tr></thead>
@@ -1908,6 +2247,38 @@
             <tr><td>Kutup ışıkları</td><td>Yüklü parçacıkların alan çizgileri boyunca sarmal hareketi</td></tr>
           </tbody>
         </table>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Manyetik alandaki akım çerçevesinin iki kenarına zıt yönlü kuvvetler etki ederek çerçeveyi döndürmesi: elektrik motorunun çalışma ilkesi.">
+            <text class="tt fd" x="240" y="18" text-anchor="middle">elektrik motorunun çekirdeği</text>
+            <rect class="st sk wr" x="30" y="70" width="34" height="76" rx="4" />
+            <rect class="st sk wb" x="416" y="70" width="34" height="76" rx="4" />
+            <text class="tl fr" x="47" y="114" text-anchor="middle">N</text>
+            <text class="tl fb" x="433" y="114" text-anchor="middle">S</text>
+            <g class="st sa hair">
+              <path d="M70 86h340" marker-end="url(#ah-sa)" />
+              <path d="M70 108h340" marker-end="url(#ah-sa)" />
+              <path d="M70 130h340" marker-end="url(#ah-sa)" />
+            </g>
+            <text class="tt fa" x="240" y="78" text-anchor="middle">B</text>
+            <rect class="st sb fn bold" x="170" y="64" width="140" height="88" rx="4" />
+            <path class="st sb" d="M170 152v22h-30M310 152v22h30" />
+            <text class="tl fb" x="128" y="180" text-anchor="end">I</text>
+            <path class="st sg bold" d="M170 108V56" marker-end="url(#ah-g)" />
+            <path class="st sg bold" d="M310 108v52" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="160" y="60" text-anchor="end">F</text>
+            <text class="tl fg" x="320" y="162">F</text>
+            <path class="st sv hair" d="M240 46A40 40 0 0 1 274 64" marker-end="url(#ah-v)" />
+            <text class="tt fv" x="240" y="40" text-anchor="middle">döner</text>
+            <text class="tt fd" x="240" y="200" text-anchor="middle">iki kenardaki zıt kuvvetler bir dönme çifti oluşturur</text>
+          </svg>
+          <figcaption>
+            Çerçevenin iki kenarından akım <b>zıt yönlerde</b> geçtiği için bu kenarlara etkiyen
+            kuvvetler de zıt yönlü olur. Büyüklükleri eşit olduğundan çerçeve bir yere ötelenmez,
+            ama birlikte bir <b>dönme etkisi</b> yaratırlar. Her yarım turda akımın yönünü çeviren
+            bir komütatör eklenince dönme sürekli hâle gelir: <b>elektrik motoru</b> budur.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
 

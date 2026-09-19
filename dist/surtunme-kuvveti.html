@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1784,6 +1887,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Yürüyebilmemizin, frene basınca durabilmemizin, bir bardağı elimizde tutabilmemizin
+          sorumlusu hep aynı kuvvet. Aynı kuvvet motorları aşındırır, yakıt yakar ve buzda
+          arabayı savurur. Bu yüzden sürtünmeyi "iyi" ya da "kötü" diye değil,
+          <b>ne zaman ne kadar ortaya çıktığını hesaplayabildiğimiz bir kuvvet</b> olarak
+          öğreniyoruz — ve şaşırtıcı biçimde temas alanının bununla hiç ilgisi yok.
+        </p>
+
         <h3 id="k1">Sürtünme kuvveti nedir?</h3>
         <p>
           Birbirine değen iki yüzey arasında, <strong>bağıl kaymaya zıt yönde</strong> ortaya çıkan
@@ -1804,6 +1931,36 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 206" role="img" aria-label="Solda itilen kutuya etkiyen sürtünme kuvveti, sağda yüzeylerin mikroskobik pürüzlerinin birbirine takıldığı yakınlaştırılmış görünüm.">
+            <path class="st sd" d="M20 150h230" />
+            <path class="st sd hair" opacity="0.5" d="M24 150l-8 9M54 150l-8 9M84 150l-8 9M114 150l-8 9M144 150l-8 9M174 150l-8 9M204 150l-8 9M234 150l-8 9" />
+            <rect class="st sk wk" x="90" y="106" width="70" height="44" rx="8" />
+            <path class="st sd hair" d="M108 92h38" marker-end="url(#ah-d)" />
+            <text class="tt fd" x="152" y="88">hareket</text>
+            <path class="st sb bold" d="M164 128h40" marker-end="url(#ah-b)" />
+            <text class="tl fb" x="210" y="134">F</text>
+            <path class="st sr bold" d="M86 128H50" marker-end="url(#ah-r)" />
+            <text class="tl fr" x="44" y="134" text-anchor="end">f</text>
+            <circle class="st sd hair dash fn" cx="125" cy="150" r="17" />
+            <path class="st sd hair dash" d="M140 141 300 104" />
+            <text class="tt fd" x="376" y="44" text-anchor="middle">yakından bakınca</text>
+            <rect class="st sl f2 hair" x="300" y="50" width="152" height="116" rx="14" />
+            <path class="st sk wb hair" d="M306 60H446V92l-14 12-14-12-14 12-14-12-14 12-14-12-14 12-14-12-14 12-14-12H306Z" />
+            <path class="st sk wk hair" d="M306 160H446V120l-14-12-14 12-14-12-14 12-14-12-14 12-14-12-14 12-14-12-14 12H306Z" />
+            <text class="tt" x="376" y="78" text-anchor="middle">kutu</text>
+            <text class="tt" x="376" y="150" text-anchor="middle">zemin</text>
+            <text class="tt" x="135" y="190" text-anchor="middle">yüzeye paralel · harekete zıt</text>
+          </svg>
+          <figcaption>
+            Sürtünme kuvveti daima <b>yüzeye paraleldir</b> ve cismin kaymakta olduğu (ya da
+            kaymaya çalıştığı) yönün tersine bakar. Kaynağı, en pürüzsüz görünen yüzeylerde bile
+            bulunan mikroskobik girinti-çıkıntıların birbirine takılması ve temas noktalarındaki
+            moleküler yapışmadır. Bu yüzden sürtünmeyi azaltmak için yüzeyi <b>cilalamak</b>
+            ya da araya yağ koymak işe yarar.
+          </figcaption>
+        </figure>
+
         <h3 id="k2">Statik sürtünme: eşiğe kadar dengeler</h3>
         <p>
           Cisim henüz hareket etmiyorken ortaya çıkan sürtünmeye <strong>statik sürtünme</strong> denir.
@@ -1820,6 +1977,44 @@
           kaymaya başlar. Sayfadaki <b>01</b> numaralı laboratuvarda kuvveti yavaşça artırdığında
           bu kopuş anını göreceksin.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 186" role="img" aria-label="Üç aşama: küçük kuvvette sürtünme kuvveti ona eşit olup cismi durdurur, eşikte sürtünme en büyük değerindedir, eşik aşılınca cisim kayar ve sürtünme kinetik değerine düşer.">
+            <path class="st sl hair dots" d="M160 16v154M320 16v154" />
+            <text class="tt fd" x="80" y="30" text-anchor="middle">hafifçe it</text>
+            <text class="tt fd" x="240" y="30" text-anchor="middle">tam eşikte</text>
+            <text class="tt fd" x="400" y="30" text-anchor="middle">eşik aşıldı</text>
+            <path class="st sd" d="M14 110h132M174 110h132M334 110h132" />
+            <rect class="st sk wk" x="50" y="70" width="60" height="40" rx="8" />
+            <rect class="st sk wk" x="210" y="70" width="60" height="40" rx="8" />
+            <rect class="st sk wk" x="374" y="70" width="60" height="40" rx="8" />
+            <path class="st sd hair" d="M356 78h10M356 90h10M356 102h10" />
+            <path class="st sb bold" d="M110 90h20" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M270 90h38" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M434 90h40" marker-end="url(#ah-b)" />
+            <path class="st sr bold" d="M50 90h-20" marker-end="url(#ah-r)" />
+            <path class="st sr bold" d="M210 90h-38" marker-end="url(#ah-r)" />
+            <path class="st sr bold" d="M374 90h-32" marker-end="url(#ah-r)" />
+            <text class="tt fb" x="122" y="78" text-anchor="middle">F</text>
+            <text class="tt fb" x="289" y="78" text-anchor="middle">F</text>
+            <text class="tt fb" x="452" y="78" text-anchor="middle">F</text>
+            <text class="tt fr" x="38" y="78" text-anchor="middle">f</text>
+            <text class="tt fr" x="191" y="78" text-anchor="middle">f</text>
+            <text class="tt fr" x="356" y="78" text-anchor="middle">f</text>
+            <text class="tl" x="80" y="146" text-anchor="middle">durur</text>
+            <text class="tl" x="240" y="146" text-anchor="middle">tam sınırda</text>
+            <text class="tl fg" x="400" y="146" text-anchor="middle">kayar</text>
+            <text class="tt" x="80" y="170" text-anchor="middle">f = F</text>
+            <text class="tt" x="240" y="170" text-anchor="middle">f = μs·N</text>
+            <text class="tt" x="400" y="170" text-anchor="middle">f = μk·N</text>
+          </svg>
+          <figcaption>
+            Statik sürtünme <b>sabit bir sayı değildir</b>: uygulanan kuvvet ne kadarsa o kadar
+            ortaya çıkar ve cismi tam olarak dengede tutar. Ancak bir üst sınırı vardır (μs·N).
+            Üçüncü karede kuvvet bu sınırı aşmıştır; cisim kurtulur ve sürtünme, <b>daha küçük</b>
+            olan kinetik değerine düşer. Kırmızı ok bu yüzden üçüncü karede kısalır.
+          </figcaption>
+        </figure>
 
         <h3 id="k3">Kinetik sürtünme: sabit ve daha küçük</h3>
         <p>
@@ -1845,6 +2040,45 @@
             <tr><td>Üst sınır</td><td>μ<sub>s</sub>·N</td><td>—</td></tr>
           </tbody>
         </table>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Solda sürtünme kuvvetinin uygulanan kuvvete göre grafiği, sağda dört yüzey çifti için statik ve kinetik sürtünme katsayılarının karşılaştırma çubukları.">
+            <path class="st sd hair" d="M60 26v124h200" />
+            <path class="st sl hair dash" d="M60 66h90M60 86h90M150 86v64" />
+            <path class="st sb bold" d="M60 150 150 66" />
+            <path class="st sa bold" d="M150 86h100" />
+            <circle class="fb" cx="150" cy="66" r="5" />
+            <text class="tt fb" x="54" y="70" text-anchor="end">μs·N</text>
+            <text class="tt fa" x="54" y="90" text-anchor="end">μk·N</text>
+            <text class="tt fd" x="150" y="168" text-anchor="middle">eşik</text>
+            <text class="tt fb" x="100" y="168" text-anchor="middle">durgun</text>
+            <text class="tt fa" x="208" y="168" text-anchor="middle">kayıyor</text>
+            <text class="tt fd" x="60" y="20">f</text>
+            <text class="tt fd" x="258" y="146" text-anchor="end">F</text>
+            <path class="st sl hair dots" d="M276 16v172" />
+            <text class="tt fd" x="300" y="26">sürtünme katsayıları</text>
+            <text class="tt" x="300" y="48">buz – çelik</text>
+            <rect class="fb" x="300" y="54" width="13" height="7" rx="3" />
+            <rect class="fa" x="300" y="65" width="4" height="7" rx="2" />
+            <text class="tt fb" x="330" y="61">μs</text>
+            <text class="tt fa" x="330" y="72">μk</text>
+            <text class="tt" x="300" y="88">ahşap – ahşap</text>
+            <rect class="fb" x="300" y="94" width="65" height="7" rx="3" />
+            <rect class="fa" x="300" y="105" width="46" height="7" rx="3" />
+            <text class="tt" x="300" y="128">çelik – çelik</text>
+            <rect class="fb" x="300" y="134" width="91" height="7" rx="3" />
+            <rect class="fa" x="300" y="145" width="78" height="7" rx="3" />
+            <text class="tt" x="300" y="168">lastik – kuru asfalt</text>
+            <rect class="fb" x="300" y="174" width="117" height="7" rx="3" />
+            <rect class="fa" x="300" y="185" width="91" height="7" rx="3" />
+          </svg>
+          <figcaption>
+            Soldaki grafik hikâyenin tamamı: mavi kısımda cisim durgundur ve sürtünme uygulanan
+            kuvvetle birlikte büyür; eşikte kopar ve sarı kısımda <b>sabit</b> bir değere yerleşir.
+            Sağdaki çubuklar her yüzey çiftinde <b>μk'nin μs'den küçük</b> olduğunu gösteriyor —
+            bir dolabı yerinden oynatmak, sonra itmekten hep daha zordur.
+          </figcaption>
+        </figure>
 
         <h3 id="k4">Sürtünme neye bağlı, neye bağlı değil?</h3>
         <p><strong>Bağlıdır:</strong></p>
@@ -1873,6 +2107,37 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Solda aynı tuğla yatık ve dik konumda aynı sürtünmeyi görüyor, sağda iki tuğla üst üste konunca sürtünme iki katına çıkıyor.">
+            <path class="st sl hair dots" d="M250 20v168" />
+            <text class="tt fd" x="120" y="34" text-anchor="middle">temas alanı değişti</text>
+            <text class="tt fd" x="368" y="34" text-anchor="middle">ağırlık değişti</text>
+            <path class="st sd" d="M14 150h222M258 150h208" />
+            <path class="st sd hair" opacity="0.5" d="M18 150l-8 9M48 150l-8 9M78 150l-8 9M108 150l-8 9M138 150l-8 9M168 150l-8 9M198 150l-8 9M228 150l-8 9M262 150l-8 9M292 150l-8 9M322 150l-8 9M352 150l-8 9M382 150l-8 9M412 150l-8 9M442 150l-8 9" />
+            <rect class="st sk wb" x="48" y="122" width="76" height="28" rx="4" />
+            <rect class="st sk wb" x="168" y="102" width="28" height="48" rx="4" />
+            <path class="st sr" d="M48 136H18" marker-end="url(#ah-r)" />
+            <path class="st sr" d="M168 136h-30" marker-end="url(#ah-r)" />
+            <text class="tt fr" x="34" y="126" text-anchor="middle">f</text>
+            <text class="tt fr" x="154" y="126" text-anchor="middle">f</text>
+            <text class="tl fg" x="120" y="180" text-anchor="middle">f aynı kalır</text>
+            <rect class="st sk wv" x="290" y="122" width="54" height="28" rx="4" />
+            <rect class="st sk wv" x="402" y="122" width="54" height="28" rx="4" />
+            <rect class="st sk wv" x="402" y="92" width="54" height="28" rx="4" />
+            <path class="st sr" d="M290 136h-26" marker-end="url(#ah-r)" />
+            <path class="st sr bold" d="M402 136h-46" marker-end="url(#ah-r)" />
+            <text class="tt fr" x="276" y="126" text-anchor="middle">f</text>
+            <text class="tt fr" x="378" y="126" text-anchor="middle">2f</text>
+            <text class="tl fg" x="368" y="180" text-anchor="middle">f iki katına çıkar</text>
+          </svg>
+          <figcaption>
+            Aynı tuğlayı yan yatırmak temas alanını üçe katlar ama <b>sürtünmeyi değiştirmez</b>:
+            f = μ·N bağıntısında alan hiç geçmez. Alan büyüdükçe birim alana düşen basınç
+            küçülür, ikisi birbirini götürür. Sürtünmeyi gerçekten değiştiren şey
+            <b>normal kuvvettir</b>: ikinci tuğlayı üstüne koyunca N iki katına çıkar, sürtünme de.
+          </figcaption>
+        </figure>
+
         <h3 id="k5">Eğik düzlemde sürtünme</h3>
         <p>
           Eğik düzlemde ağırlığı iki bileşene ayırırız: eğime paralel olan bileşen cismi aşağı
@@ -1900,6 +2165,42 @@
           <code>a = g·(sinθ − μ<sub>k</sub>·cosθ)</code>
         </div>
         <p><strong>Kütle bu bağıntıların hiçbirinde yoktur:</strong> ağır da olsa hafif de olsa aynı açıda kayar, aynı ivmeyle iner.</p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 226" role="img" aria-label="Solda eğik düzlemde duran kutu, sağda aynı kutunun kuvvet diyagramı: ağırlık eğime paralel ve dik bileşenlerine ayrılmış, normal kuvvet ve sürtünme gösterilmiş.">
+            <path class="wk" d="M30 180H230V76z" />
+            <path class="st sk hair" d="M30 180H230V76z" />
+            <path class="st sd hair" d="M76 180A46 46 0 0 0 71 159" />
+            <text class="tl fk" x="86" y="174">θ</text>
+            <g transform="rotate(-27.5 130 128)">
+              <rect class="st sk wb" x="108" y="100" width="44" height="28" rx="6" />
+            </g>
+            <text class="tt fd" x="130" y="212" text-anchor="middle">gerçek sahne</text>
+            <path class="st sl hair dots" d="M266 18v192" />
+            <path class="st sd" d="M300 170 450 92" />
+            <path class="st sd hair" opacity="0.5" d="M312 172l-6 10M336 160l-6 10M360 147l-6 10M384 135l-6 10M408 122l-6 10M432 110l-6 10" />
+            <path class="st sa hair dash" d="M375 131v58" />
+            <text class="tt fa" x="382" y="188">G</text>
+            <path class="st sl hair dash" d="M399 177 375 189M351 143 375 189" />
+            <path class="st sb bold" d="M375 131 351 85" marker-end="url(#ah-b)" />
+            <path class="st sa" d="M375 131 399 177" marker-end="url(#ah-a)" />
+            <path class="st sa bold" d="M375 131 351 143" marker-end="url(#ah-a)" />
+            <path class="st sr bold" d="M375 131 399 119" marker-end="url(#ah-r)" />
+            <circle class="fk" cx="375" cy="131" r="5" />
+            <text class="tl fb" x="344" y="80" text-anchor="end">N</text>
+            <text class="tt fa" x="404" y="182">G·cosθ</text>
+            <text class="tt fa" x="344" y="158" text-anchor="end">G·sinθ</text>
+            <text class="tl fr" x="406" y="114">f</text>
+            <text class="tt fd" x="375" y="212" text-anchor="middle">kuvvet diyagramı</text>
+          </svg>
+          <figcaption>
+            Eğik düzlemde ağırlığı iki bileşene ayırırız: <b>eğime paralel</b> olan G·sinθ cismi
+            aşağı çeker, <b>eğime dik</b> olan G·cosθ ise normal kuvvetle dengelenir. Eğim
+            büyüdükçe birinci büyür, ikinci küçülür — yani kaydırıcı kuvvet artarken sürtünmenin
+            dayanağı azalır. İkisi eşitlendiği anda cisim kayar ve o açıda <b>tanθ = μs</b> olur:
+            eğik düzlem, katsayıyı doğrudan ölçen bir alettir.
+          </figcaption>
+        </figure>
 
         <h3 id="k6">Sürtünmenin faydaları ve zararları</h3>
         <table class="tbl">
@@ -1939,6 +2240,31 @@
             <b>statik</b> sürtünmeden yararlanır; ayrıca direksiyon hâkimiyetini korur.
           </p>
         </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="50 ve 100 kilometre hızda tepki mesafesi ve fren mesafesi çubukları; hız iki katına çıkınca toplam durma mesafesi üç katına çıkıyor.">
+            <path class="st sl hair dash" d="M70 40v134" />
+            <text class="tl" x="70" y="50">50 km/h</text>
+            <rect class="st sb wb hair" x="70" y="62" width="59" height="16" rx="4" />
+            <rect class="st sr wr hair" x="129" y="62" width="52" height="16" rx="4" />
+            <text class="tl" x="189" y="76">26 m</text>
+            <text class="tt fb" x="99" y="96" text-anchor="middle">tepki</text>
+            <text class="tt fr" x="155" y="96" text-anchor="middle">fren</text>
+            <text class="tl" x="70" y="122">100 km/h</text>
+            <rect class="st sb wb hair" x="70" y="134" width="118" height="16" rx="4" />
+            <rect class="st sr wr hair" x="188" y="134" width="209" height="16" rx="4" />
+            <text class="tl" x="405" y="148">77 m</text>
+            <text class="tt fb" x="129" y="168" text-anchor="middle">tepki süresi</text>
+            <text class="tt fr" x="292" y="168" text-anchor="middle">fren mesafesi</text>
+            <text class="tt" x="240" y="196" text-anchor="middle">hız 2 katı → durma mesafesi 3 katı</text>
+          </svg>
+          <figcaption>
+            Durma mesafesi iki parçadan oluşur. <b>Tepki mesafesi</b> hızla doğru orantılıdır
+            (d = v·t), ama <b>fren mesafesi hızın karesiyle</b> artar (d = v²/2μg). Bu yüzden hızı
+            iki katına çıkarmak toplam mesafeyi iki değil <b>üç katına</b> çıkarır. Islak yolda μ
+            yarıya inerse fren mesafesi ikiye katlanır — hız sınırlarının sebebi bu karesel terimdir.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
         <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>

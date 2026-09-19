@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1745,6 +1848,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Kıtalar arası internetin <b>%99'undan fazlası</b> okyanus tabanına döşenmiş, saç teli
+          inceliğindeki cam liflerin içinden geçiyor. Bu liflerde ışık kilometrelerce yol alır ve
+          neredeyse hiç zayıflamaz. Sırrı yeni bir fizik değil, kırılma konusunda öğrendiğin tek bir
+          olay: <b>tam yansıma</b>. Işık, bir kez içeri girdikten sonra dışarı çıkamaz —
+          duvara her çarptığında eksiksiz geri döner.
+        </p>
+
         <h3 id="k1">Fiber optik kablo nedir?</h3>
         <p>
           Işığı taşımak için üretilmiş, saç teli inceliğinde cam ya da plastik ipliktir.
@@ -1757,6 +1884,29 @@
             (<strong>n₂ &lt; n₁</strong>).</li>
           <li><strong>Koruyucu kaplama:</strong> mekanik dayanım sağlar, optik görevi yoktur.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Fiber optik kablonun kesiti: çekirdek, kılıf ve koruyucu kaplama katmanları.">
+            <circle class="st sd wk hair" cx="110" cy="100" r="72" />
+            <circle class="st sv wv hair" cx="110" cy="100" r="50" />
+            <circle class="st sa wa" cx="110" cy="100" r="24" />
+            <path class="st sd hair dash" d="M124 88 204 70M146 112 204 106M164 142 204 142" />
+            <text class="tl fa" x="210" y="66">çekirdek (core)</text>
+            <text class="tt" x="210" y="84">indisi büyük · n₁</text>
+            <text class="tl fv" x="210" y="110">kılıf (cladding)</text>
+            <text class="tt" x="210" y="128">indisi küçük · n₂</text>
+            <text class="tl" x="210" y="152">koruyucu kaplama</text>
+            <text class="tt" x="210" y="170">optik görevi yok</text>
+            <text class="tl fg" x="110" y="192" text-anchor="middle">n₁ &gt; n₂ olmalı</text>
+          </svg>
+          <figcaption>
+            Fiberin çalışması için tek şart, <b>çekirdeğin kılıftan daha yoğun</b> olmasıdır. İkisi
+            de camdır; aradaki fark, kılıfa katılan az miktarda katkı maddesiyle indisin binde
+            birkaç oranında düşürülmesidir. Bu küçücük fark, ışığın çekirdekten dışarı
+            çıkamamasına yeter. Dıştaki plastik kaplamanın optik hiçbir görevi yoktur —
+            yalnızca lifi kırılmaktan korur.
+          </figcaption>
+        </figure>
 
         <h3 id="k2">Çalışma ilkesi: tam yansıma</h3>
         <p>
@@ -1774,6 +1924,33 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Işığın fiber çekirdeği içinde duvarlara çarparak tam yansımayla zikzak biçiminde ilerlemesi.">
+            <text class="tt fd" x="240" y="26" text-anchor="middle">her çarpışmada tam yansıma — hiç ışık kaçmaz</text>
+            <rect class="wv" x="40" y="42" width="400" height="24" />
+            <rect class="wa" x="40" y="66" width="400" height="60" />
+            <rect class="wv" x="40" y="126" width="400" height="24" />
+            <path class="st sv hair" d="M40 66h400M40 126h400" />
+            <path class="st sb bold" d="M40 120 110 70 180 120 250 70 320 120 390 70 436 103" marker-end="url(#ah-b)" />
+            <circle class="fg" cx="110" cy="70" r="4" />
+            <circle class="fg" cx="180" cy="120" r="4" />
+            <circle class="fg" cx="250" cy="70" r="4" />
+            <circle class="fg" cx="320" cy="120" r="4" />
+            <circle class="fg" cx="390" cy="70" r="4" />
+            <rect class="wa" x="60" y="164" width="16" height="11" rx="3" />
+            <text class="tt" x="84" y="174">çekirdek (n₁)</text>
+            <rect class="wv" x="220" y="164" width="16" height="11" rx="3" />
+            <text class="tt" x="244" y="174">kılıf (n₂)</text>
+          </svg>
+          <figcaption>
+            Çekirdeğe yeterince yatık giren ışık, duvara <b>sınır açıdan büyük</b> bir açıyla çarpar
+            ve tamamen geri yansır. Yeşil noktaların her biri bir tam yansımadır; bir kilometrelik
+            lifte bunlardan <b>on binlercesi</b> olur. Sıradan bir aynada her yansımada biraz enerji
+            kaybedilir, ama tam yansımada <b>hiç kayıp yoktur</b> — ışığın kilometrelerce
+            taşınabilmesinin sebebi tam olarak budur.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">Kabul açısı ve sayısal açıklık</h3>
         <p>
           Fiberin ucuna her açıyla giren ışık taşınmaz. Taşınabilecek ışınların oluşturduğu
@@ -1789,6 +1966,29 @@
           <li>Tipik değerler: NA ≈ 0,2 – 0,3; kabul açısı ≈ 12° – 17°.</li>
         </ul>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 194" role="img" aria-label="Kabul konisinin içinden giren ışığın taşınması, koninin dışından girenin kılıfa kaçması.">
+            <path class="wg" d="M160 95 60 55 60 135z" opacity="0.5" />
+            <path class="st sg hair" d="M160 95 60 55M160 95 60 135" />
+            <rect class="wv" x="160" y="46" width="280" height="24" />
+            <rect class="wa" x="160" y="70" width="280" height="50" />
+            <rect class="wv" x="160" y="120" width="280" height="24" />
+            <path class="st sv hair" d="M160 70h280M160 120h280" />
+            <path class="st sb bold" d="M76 74 160 95 214 120 268 70 322 120 376 70 430 111" marker-end="url(#ah-b)" />
+            <path class="st sr bold" d="M84 22 160 95 236 60" marker-end="url(#ah-r)" />
+            <text class="tt fg" x="104" y="162" text-anchor="middle">kabul konisi</text>
+            <text class="tt fg" x="150" y="118" text-anchor="end">θ</text>
+            <text class="tt fr" x="244" y="48">koninin dışından → kaçar</text>
+            <text class="tl fb" x="330" y="176" text-anchor="middle">NA = √(n₁² − n₂²)</text>
+          </svg>
+          <figcaption>
+            Her açıyla giren ışık taşınamaz. Girişte <b>kabul konisi</b> denen bir açı sınırı vardır:
+            bu koninin içinden giren ışınlar duvara sınır açıdan büyük çarpar ve taşınır; dışından
+            girenler duvara fazla dik çarpıp <b>kılıfa kaçar</b>. Koninin genişliğini sayısal açıklık
+            (NA) verir; iki indis birbirine yaklaştıkça koni daralır.
+          </figcaption>
+        </figure>
+
         <h3 id="k4">Sinyalin hızı ve mod dağılımı</h3>
         <div class="formula">
           <code>v = c / n₁</code>
@@ -1800,6 +2000,29 @@
           darbesini genişletir ve veri hızını sınırlar. Tek modlu fiberlerde çekirdek çok ince
           olduğu için bu sorun ortadan kalkar.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 186" role="img" aria-label="Eksen boyunca düz giden ışın ile zikzak giden ışının farklı sürelerde varması.">
+            <rect class="wv" x="40" y="46" width="400" height="18" />
+            <rect class="wa" x="40" y="64" width="400" height="60" />
+            <rect class="wv" x="40" y="124" width="400" height="18" />
+            <path class="st sv hair" d="M40 64h400M40 124h400" />
+            <path class="st sb bold" d="M40 94h380" marker-end="url(#ah-b)" />
+            <path class="st sv bold" d="M40 118 106 68 172 120 238 68 304 120 370 68 420 99" marker-end="url(#ah-v)" />
+            <text class="tt fb" x="240" y="42" text-anchor="middle">düz giden mod — kısa yol</text>
+            <text class="tt fv" x="240" y="160" text-anchor="middle">zikzak giden mod — uzun yol</text>
+            <path class="st sd hair" d="M436 80v28M430 80h12M430 108h12" />
+            <text class="tt fd" x="448" y="98">Δt</text>
+            <text class="tt" x="240" y="180" text-anchor="middle">yol farkı → varış farkı → sinyal yayılır</text>
+          </svg>
+          <figcaption>
+            Aynı anda giren iki ışın aynı anda çıkmaz: zikzak çizen mod daha uzun yol aldığı için
+            <b>geç varır</b>. Bu yüzden keskin bir ışık darbesi, kablonun sonunda yayvanlaşır ve
+            çok hızlı gönderilen darbeler birbirine karışır — <b>mod dağılımı</b> denen bu olay
+            bant genişliğini sınırlar. Uzun mesafelerde çekirdeği çok ince olan
+            <b>tek modlu</b> fiber kullanılmasının sebebi budur.
+          </figcaption>
+        </figure>
 
         <h3 id="k5">Bükülme ve kayıplar</h3>
         <p>
@@ -1816,6 +2039,28 @@
           Bütün bunlara rağmen modern fiberlerde kayıp <strong>km başına 0,2 dB</strong>
           düzeyindedir: ışık kilometrelerce yol aldıktan sonra bile büyük ölçüde ayaktadır.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Geniş kıvrımda ışığın fiberin içinde kalması, keskin kıvrımda dışarı kaçması.">
+            <path class="wa" d="M20 160A100 100 0 0 1 220 160L190 160A70 70 0 0 0 50 160Z" />
+            <path class="st sv hair" d="M20 160A100 100 0 0 1 220 160M50 160A70 70 0 0 1 190 160" />
+            <path class="st sb bold" d="M35 160A85 85 0 0 1 205 160" marker-end="url(#ah-b)" />
+            <text class="tt fg" x="120" y="186" text-anchor="middle">geniş kıvrım · ışık kalır</text>
+            <path class="st sl hair dots" d="M248 24v150" />
+            <path class="wa" d="M305 150A55 55 0 0 1 415 150L390 150A30 30 0 0 0 330 150Z" />
+            <path class="st sv hair" d="M305 150A55 55 0 0 1 415 150M330 150A30 30 0 0 1 390 150" />
+            <path class="st sb bold" d="M317 150A42 42 0 0 1 344 112" />
+            <path class="st sr bold" d="M344 112 424 66" marker-end="url(#ah-r)" />
+            <text class="tt fr" x="360" y="186" text-anchor="middle">keskin kıvrım · ışık kaçar</text>
+          </svg>
+          <figcaption>
+            Fiberi büktüğünde dış duvara çarpma açısı değişir. Kıvrım genişse açı hâlâ sınır açının
+            üstündedir ve ışık içeride kalır. Kıvrım yarıçapı belli bir değerin altına inince açı
+            sınırın altına düşer, tam yansıma <b>bozulur</b> ve ışık dışarı sızar. Bu yüzden fiber
+            kablolar keskin köşelerden geçirilmez; her kablonun bir <b>en küçük bükülme yarıçapı</b>
+            vardır.
+          </figcaption>
+        </figure>
 
         <h3 id="k6">Neden bakır yerine fiber?</h3>
         <table class="tbl">
@@ -1835,6 +2080,33 @@
           <li><strong>Sensörler:</strong> sıcaklık, gerilme ve titreşim ölçümü.</li>
           <li><strong>Aydınlatma ve süs:</strong> ışığı noktadan noktaya taşıyan lifler.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Fiber optik ile bakır kablonun bant genişliği, sinyal kaybı, ağırlık ve elektriksel girişim bakımından karşılaştırması.">
+            <rect class="fb" x="156" y="22" width="16" height="10" rx="3" />
+            <text class="tt fb" x="180" y="32">fiber</text>
+            <rect class="fa" x="242" y="22" width="16" height="10" rx="3" />
+            <text class="tt fa" x="266" y="32">bakır</text>
+            <text class="tt" x="146" y="58" text-anchor="end">bant genişliği</text>
+            <rect class="fb" x="156" y="48" width="210" height="10" rx="3" />
+            <rect class="fa" x="156" y="61" width="42" height="10" rx="3" />
+            <text class="tt" x="146" y="100" text-anchor="end">sinyal kaybı</text>
+            <rect class="fb" x="156" y="90" width="22" height="10" rx="3" />
+            <rect class="fa" x="156" y="103" width="136" height="10" rx="3" />
+            <text class="tt" x="146" y="142" text-anchor="end">ağırlık</text>
+            <rect class="fb" x="156" y="132" width="32" height="10" rx="3" />
+            <rect class="fa" x="156" y="145" width="126" height="10" rx="3" />
+            <text class="tt" x="146" y="184" text-anchor="end">elektriksel girişim</text>
+            <rect class="fb" x="156" y="174" width="8" height="10" rx="3" />
+            <rect class="fa" x="156" y="187" width="118" height="10" rx="3" />
+          </svg>
+          <figcaption>
+            İlk satırda <b>uzun çubuk iyidir</b>, diğer üçünde kısa. Fiber aynı kalınlıkta bakırın
+            binlerce katı veri taşır, kilometrede çok daha az sinyal kaybeder, çok daha hafiftir ve
+            metal taşımadığı için <b>elektromanyetik girişimden hiç etkilenmez</b> — yıldırım ya da
+            yüksek gerilim hattı yanından geçmesi sorun olmaz. Dinlemesi de çok daha zordur.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
 

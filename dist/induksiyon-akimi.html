@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1767,6 +1870,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Evindeki prizden gelen elektriğin neredeyse tamamı tek bir fikirden doğuyor: bir bobinin
+          içinden geçen manyetik alan <b>değişirse</b>, o bobinde akım doğar. Faraday bunu 1831'de
+          bir mıknatısı bobinin içinde ileri geri oynatarak buldu. Bugün barajlar, rüzgâr türbinleri,
+          termik santraller ve arabaların alternatörleri hep aynı şeyi yapıyor —
+          <b>hareketi, akı değişimine çevirmek.</b>
+        </p>
+
         <h3 id="k1">Manyetik akı</h3>
         <p>
           Bir yüzeyden geçen manyetik alan çizgilerinin sayısına <strong>manyetik akı (Φ)</strong>
@@ -1785,6 +1912,46 @@
           <li><strong>Alan yüzeye paralel</strong> (α = 90°): akı <strong>sıfırdır</strong>.</li>
           <li>Akı; B, A ya da α'dan <em>herhangi biri</em> değiştiğinde değişir.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Aynı çerçevenin alana dik, eğik ve paralel üç konumunda içinden geçen alan çizgisi sayısının değişmesi.">
+            <text class="tt fd" x="240" y="20" text-anchor="middle">B sayfadan dışarı · aynı çerçeve, üç farklı açı</text>
+            <path class="st sl hair dots" d="M160 30v152M320 30v152" />
+            <circle class="st sb wb bold" cx="80" cy="88" r="46" />
+            <ellipse class="st sb wb bold" cx="240" cy="88" rx="23" ry="46" />
+            <path class="st sb bold" d="M400 42v92" />
+            <g class="st sd hair" opacity="0.85">
+              <circle class="fn" cx="28" cy="40" r="6" /><circle class="fn" cx="54" cy="40" r="6" /><circle class="fn" cx="80" cy="40" r="6" /><circle class="fn" cx="106" cy="40" r="6" /><circle class="fn" cx="132" cy="40" r="6" />
+              <circle class="fn" cx="28" cy="64" r="6" /><circle class="fn" cx="54" cy="64" r="6" /><circle class="fn" cx="80" cy="64" r="6" /><circle class="fn" cx="106" cy="64" r="6" /><circle class="fn" cx="132" cy="64" r="6" />
+              <circle class="fn" cx="28" cy="88" r="6" /><circle class="fn" cx="54" cy="88" r="6" /><circle class="fn" cx="80" cy="88" r="6" /><circle class="fn" cx="106" cy="88" r="6" /><circle class="fn" cx="132" cy="88" r="6" />
+              <circle class="fn" cx="28" cy="112" r="6" /><circle class="fn" cx="54" cy="112" r="6" /><circle class="fn" cx="80" cy="112" r="6" /><circle class="fn" cx="106" cy="112" r="6" /><circle class="fn" cx="132" cy="112" r="6" />
+              <circle class="fn" cx="28" cy="136" r="6" /><circle class="fn" cx="54" cy="136" r="6" /><circle class="fn" cx="80" cy="136" r="6" /><circle class="fn" cx="106" cy="136" r="6" /><circle class="fn" cx="132" cy="136" r="6" />
+              <circle class="fn" cx="188" cy="40" r="6" /><circle class="fn" cx="214" cy="40" r="6" /><circle class="fn" cx="240" cy="40" r="6" /><circle class="fn" cx="266" cy="40" r="6" /><circle class="fn" cx="292" cy="40" r="6" />
+              <circle class="fn" cx="188" cy="64" r="6" /><circle class="fn" cx="214" cy="64" r="6" /><circle class="fn" cx="240" cy="64" r="6" /><circle class="fn" cx="266" cy="64" r="6" /><circle class="fn" cx="292" cy="64" r="6" />
+              <circle class="fn" cx="188" cy="88" r="6" /><circle class="fn" cx="214" cy="88" r="6" /><circle class="fn" cx="240" cy="88" r="6" /><circle class="fn" cx="266" cy="88" r="6" /><circle class="fn" cx="292" cy="88" r="6" />
+              <circle class="fn" cx="188" cy="112" r="6" /><circle class="fn" cx="214" cy="112" r="6" /><circle class="fn" cx="240" cy="112" r="6" /><circle class="fn" cx="266" cy="112" r="6" /><circle class="fn" cx="292" cy="112" r="6" />
+              <circle class="fn" cx="188" cy="136" r="6" /><circle class="fn" cx="214" cy="136" r="6" /><circle class="fn" cx="240" cy="136" r="6" /><circle class="fn" cx="266" cy="136" r="6" /><circle class="fn" cx="292" cy="136" r="6" />
+              <circle class="fn" cx="348" cy="40" r="6" /><circle class="fn" cx="374" cy="40" r="6" /><circle class="fn" cx="400" cy="40" r="6" /><circle class="fn" cx="426" cy="40" r="6" /><circle class="fn" cx="452" cy="40" r="6" />
+              <circle class="fn" cx="348" cy="64" r="6" /><circle class="fn" cx="374" cy="64" r="6" /><circle class="fn" cx="400" cy="64" r="6" /><circle class="fn" cx="426" cy="64" r="6" /><circle class="fn" cx="452" cy="64" r="6" />
+              <circle class="fn" cx="348" cy="88" r="6" /><circle class="fn" cx="374" cy="88" r="6" /><circle class="fn" cx="400" cy="88" r="6" /><circle class="fn" cx="426" cy="88" r="6" /><circle class="fn" cx="452" cy="88" r="6" />
+              <circle class="fn" cx="348" cy="112" r="6" /><circle class="fn" cx="374" cy="112" r="6" /><circle class="fn" cx="400" cy="112" r="6" /><circle class="fn" cx="426" cy="112" r="6" /><circle class="fn" cx="452" cy="112" r="6" />
+              <circle class="fn" cx="348" cy="136" r="6" /><circle class="fn" cx="374" cy="136" r="6" /><circle class="fn" cx="400" cy="136" r="6" /><circle class="fn" cx="426" cy="136" r="6" /><circle class="fn" cx="452" cy="136" r="6" />
+            </g>
+            <g class="fd"><circle cx="28" cy="40" r="2" /><circle cx="28" cy="64" r="2" /><circle cx="28" cy="88" r="2" /><circle cx="28" cy="112" r="2" /><circle cx="28" cy="136" r="2" /><circle cx="54" cy="40" r="2" /><circle cx="54" cy="64" r="2" /><circle cx="54" cy="88" r="2" /><circle cx="54" cy="112" r="2" /><circle cx="54" cy="136" r="2" /><circle cx="80" cy="40" r="2" /><circle cx="80" cy="64" r="2" /><circle cx="80" cy="88" r="2" /><circle cx="80" cy="112" r="2" /><circle cx="80" cy="136" r="2" /><circle cx="106" cy="40" r="2" /><circle cx="106" cy="64" r="2" /><circle cx="106" cy="88" r="2" /><circle cx="106" cy="112" r="2" /><circle cx="106" cy="136" r="2" /><circle cx="132" cy="40" r="2" /><circle cx="132" cy="64" r="2" /><circle cx="132" cy="88" r="2" /><circle cx="132" cy="112" r="2" /><circle cx="132" cy="136" r="2" /><circle cx="188" cy="40" r="2" /><circle cx="188" cy="64" r="2" /><circle cx="188" cy="88" r="2" /><circle cx="188" cy="112" r="2" /><circle cx="188" cy="136" r="2" /><circle cx="214" cy="40" r="2" /><circle cx="214" cy="64" r="2" /><circle cx="214" cy="88" r="2" /><circle cx="214" cy="112" r="2" /><circle cx="214" cy="136" r="2" /><circle cx="240" cy="40" r="2" /><circle cx="240" cy="64" r="2" /><circle cx="240" cy="88" r="2" /><circle cx="240" cy="112" r="2" /><circle cx="240" cy="136" r="2" /><circle cx="266" cy="40" r="2" /><circle cx="266" cy="64" r="2" /><circle cx="266" cy="88" r="2" /><circle cx="266" cy="112" r="2" /><circle cx="266" cy="136" r="2" /><circle cx="292" cy="40" r="2" /><circle cx="292" cy="64" r="2" /><circle cx="292" cy="88" r="2" /><circle cx="292" cy="112" r="2" /><circle cx="292" cy="136" r="2" /><circle cx="348" cy="40" r="2" /><circle cx="348" cy="64" r="2" /><circle cx="348" cy="88" r="2" /><circle cx="348" cy="112" r="2" /><circle cx="348" cy="136" r="2" /><circle cx="374" cy="40" r="2" /><circle cx="374" cy="64" r="2" /><circle cx="374" cy="88" r="2" /><circle cx="374" cy="112" r="2" /><circle cx="374" cy="136" r="2" /><circle cx="400" cy="40" r="2" /><circle cx="400" cy="64" r="2" /><circle cx="400" cy="88" r="2" /><circle cx="400" cy="112" r="2" /><circle cx="400" cy="136" r="2" /><circle cx="426" cy="40" r="2" /><circle cx="426" cy="64" r="2" /><circle cx="426" cy="88" r="2" /><circle cx="426" cy="112" r="2" /><circle cx="426" cy="136" r="2" /><circle cx="452" cy="40" r="2" /><circle cx="452" cy="64" r="2" /><circle cx="452" cy="88" r="2" /><circle cx="452" cy="112" r="2" /><circle cx="452" cy="136" r="2" /></g>
+            <text class="tl" x="80" y="172" text-anchor="middle">α = 0°</text>
+            <text class="tl" x="240" y="172" text-anchor="middle">α = 60°</text>
+            <text class="tl" x="400" y="172" text-anchor="middle">α = 90°</text>
+            <text class="tt fb" x="80" y="196" text-anchor="middle">Φ = B·A</text>
+            <text class="tt fb" x="240" y="196" text-anchor="middle">Φ = B·A / 2</text>
+            <text class="tt fr" x="400" y="196" text-anchor="middle">Φ = 0</text>
+          </svg>
+          <figcaption>
+            Manyetik akı, çerçevenin içinden <b>kaç alan çizgisinin geçtiğidir</b>. Çerçeveyi
+            eğdikçe alan çizgilerine gösterdiği yüzey küçülür — sanki alanın gördüğü "gölgesi"
+            daralır. Tam yan çevirdiğinde hiçbir çizgi içeriden geçmez ve akı sıfırlanır. Bağıntıdaki
+            cosα çarpanı tam olarak bu gölgeyi hesaplar.
+          </figcaption>
+        </figure>
 
         <h3 id="k2">Faraday indüksiyon yasası</h3>
         <p>
@@ -1808,6 +1975,39 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Mıknatıs bobine yaklaşırken bobinde akım doğması ve galvanometre iğnesinin sapması.">
+            <text class="tt fd" x="240" y="22" text-anchor="middle">mıknatıs yaklaşıyor → akı değişiyor → akım doğuyor</text>
+            <rect class="st sk wr" x="42" y="76" width="36" height="30" rx="4" />
+            <rect class="st sk wb" x="78" y="76" width="36" height="30" rx="4" />
+            <text class="tl fr" x="60" y="98" text-anchor="middle">N</text>
+            <text class="tl fb" x="96" y="98" text-anchor="middle">S</text>
+            <path class="st sd hair" d="M50 60h56" marker-end="url(#ah-d)" />
+            <text class="tt fd" x="112" y="56">v</text>
+            <g class="st sb hair fn">
+              <ellipse cx="158" cy="91" rx="11" ry="40" />
+              <ellipse cx="176" cy="91" rx="11" ry="40" />
+              <ellipse cx="194" cy="91" rx="11" ry="40" />
+              <ellipse cx="212" cy="91" rx="11" ry="40" />
+              <ellipse cx="230" cy="91" rx="11" ry="40" />
+            </g>
+            <text class="tt fb" x="194" y="150" text-anchor="middle">bobin</text>
+            <path class="st sk hair" d="M236 58h150v14M236 124h150v-14" />
+            <circle class="st sk fs" cx="386" cy="91" r="30" />
+            <path class="st sr bold" d="M386 91 368 68" />
+            <circle class="fk" cx="386" cy="91" r="4" />
+            <path class="st sd hair" d="M366 80l4-8M386 70v-8M406 80l-4-8" />
+            <text class="tt fd" x="386" y="138" text-anchor="middle">galvanometre</text>
+            <text class="tl fb" x="240" y="192" text-anchor="middle">ε = −N · ΔΦ / Δt</text>
+          </svg>
+          <figcaption>
+            Akım üreten şey alanın büyüklüğü değil, <b>akının değişim hızıdır</b>. Mıknatısı ne kadar
+            hızlı hareket ettirirsen ΔΦ/Δt o kadar büyür ve galvanometre iğnesi o kadar çok sapar.
+            Mıknatısı bobinin içinde <b>durdurursan</b>, alan hâlâ güçlü olmasına rağmen akım
+            tamamen kesilir. Sarım sayısını artırmak da emk'yı aynı oranda büyütür.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">Lenz yasası</h3>
         <p>
           <strong>İndüksiyon akımı, kendisini doğuran akı değişimine karşı koyacak yönde akar.</strong>
@@ -1829,6 +2029,54 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Yaklaşan mıknatısı bobinin itmesi, uzaklaşan mıknatısı çekmesi: Lenz yasasının iki hâli.">
+            <text class="tt fd" x="120" y="24" text-anchor="middle">yaklaşıyor</text>
+            <text class="tt fd" x="360" y="24" text-anchor="middle">uzaklaşıyor</text>
+            <path class="st sl hair dots" d="M242 32v150" />
+            <rect class="st sk wr" x="30" y="76" width="32" height="28" rx="4" />
+            <rect class="st sk wb" x="62" y="76" width="32" height="28" rx="4" />
+            <text class="tt fr" x="46" y="96" text-anchor="middle">N</text>
+            <text class="tt fb" x="78" y="96" text-anchor="middle">S</text>
+            <path class="st sd hair" d="M36 60h48" marker-end="url(#ah-d)" />
+            <text class="tt fd" x="90" y="56">v</text>
+            <g class="st sb hair fn">
+              <ellipse cx="150" cy="90" rx="9" ry="32" />
+              <ellipse cx="164" cy="90" rx="9" ry="32" />
+              <ellipse cx="178" cy="90" rx="9" ry="32" />
+              <ellipse cx="192" cy="90" rx="9" ry="32" />
+            </g>
+            <text class="tl fr" x="140" y="96" text-anchor="end">N</text>
+            <path class="st sg" d="M104 128h-22" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M142 128h22" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="123" y="160" text-anchor="middle">iter</text>
+            <rect class="st sk wr" x="270" y="76" width="32" height="28" rx="4" />
+            <rect class="st sk wb" x="302" y="76" width="32" height="28" rx="4" />
+            <text class="tt fr" x="286" y="96" text-anchor="middle">N</text>
+            <text class="tt fb" x="318" y="96" text-anchor="middle">S</text>
+            <path class="st sd hair" d="M318 60h-48" marker-end="url(#ah-d)" />
+            <text class="tt fd" x="264" y="56" text-anchor="end">v</text>
+            <g class="st sb hair fn">
+              <ellipse cx="390" cy="90" rx="9" ry="32" />
+              <ellipse cx="404" cy="90" rx="9" ry="32" />
+              <ellipse cx="418" cy="90" rx="9" ry="32" />
+              <ellipse cx="432" cy="90" rx="9" ry="32" />
+            </g>
+            <text class="tl fb" x="380" y="96" text-anchor="end">S</text>
+            <path class="st sg" d="M332 128h18" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M384 128h-18" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="358" y="160" text-anchor="middle">çeker</text>
+            <text class="tt" x="240" y="192" text-anchor="middle">indüklenen akım daima değişime karşı çıkar</text>
+          </svg>
+          <figcaption>
+            Lenz yasası tek cümledir: <b>indüklenen akım, kendisini doğuran değişime karşı çıkacak
+            yönde akar.</b> Mıknatıs yaklaşırken bobin ona bakan yüzünü aynı kutup yapar ve iter;
+            uzaklaşırken zıt kutup yapar ve çeker. Yani mıknatısı hareket ettirmek için <b>iş
+            yapman gerekir</b> — üretilen elektrik enerjisi tam olarak buradan gelir. Aksi olsaydı
+            hareket kendini besler, enerjinin korunumu çökerdi.
+          </figcaption>
+        </figure>
+
         <h3 id="k4">İndüksiyon akımının yönü</h3>
         <p>Yönü bulmanın pratik yolu üç adımdır:</p>
         <ol class="steps">
@@ -1841,6 +2089,35 @@
           Sayfadaki <b>01</b> numaralı deneyde mıknatıs yaklaşırken akım bir yöne, uzaklaşırken
           <strong>ters yöne</strong> akar; galvanometre iki kez, zıt yönlerde sapar.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Akı artarken indüklenen alanın zıt, azalırken aynı yönde olacağını gösteren karar şeması.">
+            <rect class="st sl f2 hair" x="140" y="14" width="200" height="34" rx="11" />
+            <text class="tl fk" x="240" y="36" text-anchor="middle">Akı nasıl değişiyor?</text>
+            <path class="st sd hair" d="M200 48 146 72" marker-end="url(#ah-d)" />
+            <path class="st sd hair" d="M280 48 334 72" marker-end="url(#ah-d)" />
+            <rect class="st sb wb hair" x="30" y="78" width="180" height="32" rx="10" />
+            <text class="tl fk" x="120" y="99" text-anchor="middle">akı ARTIYOR</text>
+            <rect class="st sr wr hair" x="270" y="78" width="180" height="32" rx="10" />
+            <text class="tl fk" x="360" y="99" text-anchor="middle">akı AZALIYOR</text>
+            <text class="tl fv" x="120" y="134" text-anchor="middle">indüklenen alan ZIT</text>
+            <text class="tl fv" x="360" y="134" text-anchor="middle">indüklenen alan AYNI</text>
+            <path class="st sa" d="M56 158h36" marker-end="url(#ah-a)" />
+            <text class="tt fa" x="100" y="163">B</text>
+            <path class="st sv" d="M92 182H56" marker-end="url(#ah-v)" />
+            <text class="tt fv" x="100" y="187">B(ind)</text>
+            <path class="st sa" d="M296 158h36" marker-end="url(#ah-a)" />
+            <text class="tt fa" x="340" y="163">B</text>
+            <path class="st sv" d="M296 182h36" marker-end="url(#ah-v)" />
+            <text class="tt fv" x="340" y="187">B(ind)</text>
+          </svg>
+          <figcaption>
+            Yönü bulmak için tek bir soru yeter: <b>akı artıyor mu, azalıyor mu?</b> Artıyorsa
+            indüklenen akım, artışı frenlemek için <b>zıt yönde</b> bir alan üretir; azalıyorsa
+            azalmayı yavaşlatmak için <b>aynı yönde</b> bir alan üretir. İndüklenen alanın yönünü
+            bulduktan sonra akımın yönünü sağ el kuralıyla okursun.
+          </figcaption>
+        </figure>
 
         <h3 id="k5">Hareketli iletken çubuk</h3>
         <p>
@@ -1857,6 +2134,42 @@
           bir kuvvet uygulanmalıdır. Harcanan mekanik güç (F·v), devrede açığa çıkan elektriksel
           güce (I²R) eşittir — <strong>enerji korunur</strong>.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Manyetik alan içinde raylar üzerinde kayan iletken çubukta indüklenen emk ve çubuğa etkiyen karşı kuvvet.">
+            <g class="st sd hair" opacity="0.7">
+              <circle class="fn" cx="120" cy="82" r="6" /><circle class="fn" cx="170" cy="82" r="6" /><circle class="fn" cx="220" cy="82" r="6" /><circle class="fn" cx="330" cy="82" r="6" /><circle class="fn" cx="380" cy="82" r="6" />
+              <circle class="fn" cx="120" cy="128" r="6" /><circle class="fn" cx="170" cy="128" r="6" /><circle class="fn" cx="220" cy="128" r="6" /><circle class="fn" cx="330" cy="128" r="6" /><circle class="fn" cx="380" cy="128" r="6" />
+            </g>
+            <g class="fd">
+              <circle cx="120" cy="82" r="2" /><circle cx="170" cy="82" r="2" /><circle cx="220" cy="82" r="2" /><circle cx="330" cy="82" r="2" /><circle cx="380" cy="82" r="2" />
+              <circle cx="120" cy="128" r="2" /><circle cx="170" cy="128" r="2" /><circle cx="220" cy="128" r="2" /><circle cx="330" cy="128" r="2" /><circle cx="380" cy="128" r="2" />
+            </g>
+            <text class="tt fd" x="86" y="30">B sayfadan dışarı</text>
+            <path class="st sk" d="M86 50H420M86 160H420" />
+            <path class="st sk" d="M86 50v16" />
+            <path class="st sk hair" d="M86 66l8 6-16 12 16 12-16 12 8 6" />
+            <path class="st sk" d="M86 114v46" />
+            <text class="tl fk" x="72" y="110" text-anchor="end">R</text>
+            <path class="st sb bold" d="M280 50v110" />
+            <path class="st sb" d="M292 105h44" marker-end="url(#ah-b)" />
+            <text class="tl fb" x="344" y="110">v</text>
+            <path class="st sr bold" d="M268 105h-40" marker-end="url(#ah-r)" />
+            <text class="tl fr" x="222" y="110" text-anchor="end">F</text>
+            <path class="st sg" d="M180 50h30" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M210 160h-30" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M280 100v40" marker-end="url(#ah-g)" />
+            <text class="tt fg" x="196" y="42" text-anchor="middle">I</text>
+            <text class="tt fd" x="264" y="66" text-anchor="end">L</text>
+            <text class="tl fb" x="240" y="190" text-anchor="middle">ε = B·L·v  ·  F = B²L²v / R</text>
+          </svg>
+          <figcaption>
+            Çubuk sağa kaydıkça devrenin çevrelediği alan büyür, akı artar ve devrede akım doğar.
+            Ama bu akım da alanın içindedir: ona etkiyen manyetik kuvvet <b>harekete zıt</b> yöndedir
+            (kırmızı ok). Yani çubuğu sabit hızla sürüklemek için sürekli kuvvet uygulamak gerekir —
+            harcadığın <b>mekanik güç, direnç üzerinde ısıya dönüşen elektriksel güce eşittir</b>.
+          </figcaption>
+        </figure>
 
         <h3 id="k6">Jeneratör ve alternatif akım</h3>
         <p>
@@ -1880,6 +2193,42 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 212" role="img" aria-label="Manyetik alanda dönen çerçeve ve ürettiği akı ile emk eğrilerinin çeyrek periyotluk faz farkı.">
+            <rect class="st sk wr" x="26" y="60" width="26" height="82" rx="4" />
+            <rect class="st sk wb" x="198" y="60" width="26" height="82" rx="4" />
+            <text class="tl fr" x="39" y="107" text-anchor="middle">N</text>
+            <text class="tl fb" x="211" y="107" text-anchor="middle">S</text>
+            <g class="st sa hair">
+              <path d="M56 78h138" marker-end="url(#ah-sa)" />
+              <path d="M56 101h138" marker-end="url(#ah-sa)" />
+              <path d="M56 124h138" marker-end="url(#ah-sa)" />
+            </g>
+            <g transform="rotate(-25 125 101)">
+              <rect class="st sb fn bold" x="86" y="75" width="78" height="52" rx="3" />
+            </g>
+            <path class="st sv hair" d="M102 50A36 36 0 0 1 148 50" marker-end="url(#ah-v)" />
+            <text class="tt fv" x="125" y="40" text-anchor="middle">ω</text>
+            <text class="tt fd" x="125" y="180" text-anchor="middle">dönen çerçeve</text>
+            <path class="st sl hair dots" d="M248 24v168" />
+            <path class="st sd hair" d="M280 40v130h175" />
+            <path class="st sl hair dash" d="M280 105h175" />
+            <path class="st sa bold" d="M280 55C305 55 310 105 325 105 340 105 345 155 370 155 395 155 400 105 415 105 430 105 435 55 460 55" />
+            <path class="st sv bold" d="M280 105C305 105 310 65 325 65 340 65 345 105 370 105 395 105 400 145 415 145 430 145 435 105 460 105" />
+            <text class="tt fa" x="286" y="48">Φ</text>
+            <text class="tt fv" x="330" y="58">ε</text>
+            <text class="tt fd" x="464" y="110">t</text>
+            <text class="tt" x="366" y="196" text-anchor="middle">çeyrek periyotluk faz farkı</text>
+          </svg>
+          <figcaption>
+            Çerçeve döndükçe içinden geçen akı kosinüs gibi salınır. Emk ise akının <b>değişim
+            hızıyla</b> orantılı olduğu için sinüs olur — yani ikisi arasında <b>çeyrek periyot</b>
+            fark vardır. Akının en büyük olduğu anda emk sıfırdır (o an akı değişmiyordur); akının
+            sıfır olduğu anda ise emk en büyüktür. Şehir şebekesindeki alternatif akım tam olarak
+            bu eğridir.
+          </figcaption>
+        </figure>
+
         <h3 id="k7">Uygulamalar</h3>
         <table class="tbl">
           <thead><tr><th>Uygulama</th><th>Nasıl çalışır</th></tr></thead>
@@ -1892,6 +2241,42 @@
             <tr><td>Girdap akımı freni</td><td>Lenz kuvvetiyle temassız frenleme</td></tr>
           </tbody>
         </table>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 224" role="img" aria-label="Aynı mıknatısın plastik boruda hızla, bakır boruda çok yavaş düşmesi ve bakırda doğan girdap akımları.">
+            <text class="tt fd" x="125" y="22" text-anchor="middle">plastik boru</text>
+            <text class="tt fd" x="325" y="22" text-anchor="middle">bakır boru</text>
+            <rect class="wk" x="100" y="34" width="50" height="152" />
+            <rect class="wa" x="300" y="34" width="50" height="152" />
+            <ellipse class="st sl f2 hair" cx="125" cy="34" rx="25" ry="7" />
+            <ellipse class="st sl f2 hair" cx="325" cy="34" rx="25" ry="7" />
+            <path class="st sl hair" d="M100 34v152M150 34v152M300 34v152M350 34v152" />
+            <path class="st sl hair" d="M100 186A25 7 0 0 0 150 186M300 186A25 7 0 0 0 350 186" />
+            <rect class="st sk wr" x="112" y="140" width="26" height="12" rx="2" />
+            <rect class="st sk wb" x="112" y="152" width="26" height="12" rx="2" />
+            <path class="st sb bold" d="M125 168v16" marker-end="url(#ah-b)" />
+            <text class="tt fb" x="160" y="162">hızlı</text>
+            <rect class="st sk wr" x="312" y="58" width="26" height="12" rx="2" />
+            <rect class="st sk wb" x="312" y="70" width="26" height="12" rx="2" />
+            <path class="st sb" d="M325 86v10" marker-end="url(#ah-b)" />
+            <text class="tt fb" x="360" y="92">yavaş</text>
+            <path class="st sg bold" d="M298 78V56" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="292" y="64" text-anchor="end">F</text>
+            <path class="st sv hair" d="M304 48A22 8 0 1 0 346 48" marker-end="url(#ah-v)" />
+            <path class="st sv hair" d="M346 94A22 8 0 1 0 304 94" marker-end="url(#ah-v)" />
+            <text class="tt fv" x="360" y="44">girdap</text>
+            <text class="tt fv" x="360" y="60">akımları</text>
+            <text class="tv fk" x="125" y="210" text-anchor="middle">0,49 s</text>
+            <text class="tv fg" x="325" y="210" text-anchor="middle">5,5 s</text>
+          </svg>
+          <figcaption>
+            Bakır mıknatıslanmaz — ama <b>iletkendir</b>. Mıknatıs boruya girerken boru duvarında
+            halka halka <b>girdap akımları</b> doğar ve Lenz yasası gereği bu akımlar mıknatısı
+            frenler. Sonuç şaşırtıcı: aynı mıknatıs plastik boruda yarım saniyede düşerken bakır
+            boruda <b>on kat</b> uzun sürede iner. Hiçbir temas, hiçbir sürtünme olmadan frenleme —
+            aynı ilke ağır vasıtaların girdap akımı frenlerinde kullanılır.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
 

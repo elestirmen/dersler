@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1751,6 +1854,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Gözünün içindeki mercek, bu satırı okuyabilmen için şekil değiştiriyor. Telefonunun
+          kamerası, gözlüğün, mikroskop ve teleskop — hepsi aynı iki bağıntıyla çalışır. Mercek
+          aslında <b>arka arkaya dizilmiş sonsuz sayıda küçük prizmadan</b> başka bir şey değildir:
+          her biri ışığı biraz büker, hepsi birlikte ışığı tek bir noktada toplar. Bu konuda o
+          noktayı nerede aramak gerektiğini öğreneceğiz.
+        </p>
+
         <h3 id="k1">Mercek türleri</h3>
         <p>
           Mercek, en az bir yüzeyi küresel olan saydam cisimdir. İki temel türü vardır:
@@ -1766,6 +1893,44 @@
           Odak uzaklığı; yüzeylerin eğrilik yarıçaplarına ve merceğin indisine bağlıdır.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 206" role="img" aria-label="İnce kenarlı merceğin paralel ışınları odakta toplaması, kalın kenarlı merceğin ise dağıtması.">
+            <text class="tt fd" x="120" y="26" text-anchor="middle">ince kenarlı (yakınsak)</text>
+            <text class="tt fd" x="360" y="26" text-anchor="middle">kalın kenarlı (ıraksak)</text>
+            <path class="st sl hair dots" d="M240 20v168" />
+            <path class="st sd hair dash" d="M20 106h200" />
+            <path class="st sb wb" d="M120 44C146 70 146 142 120 168 94 142 94 70 120 44z" />
+            <path class="st sa" d="M30 74h84" />
+            <path class="st sa" d="M30 106h84" />
+            <path class="st sa" d="M30 138h84" />
+            <path class="st sa" d="M126 74 196 106" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M126 106h70" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M126 138 196 106" marker-end="url(#ah-a)" />
+            <circle class="fb" cx="196" cy="106" r="5" />
+            <text class="tl fb" x="196" y="128" text-anchor="middle">F</text>
+            <text class="tt fg" x="120" y="192" text-anchor="middle">ışığı toplar</text>
+            <path class="st sd hair dash" d="M262 106h200" />
+            <path class="st sb wb" d="M348 44h24v124h-24C362 142 362 70 348 44z" opacity="0" />
+            <path class="st sb wb" d="M350 44 372 44C358 70 358 142 372 168L350 168C364 142 364 70 350 44z" />
+            <path class="st sa" d="M272 74h82" />
+            <path class="st sa" d="M272 106h82" />
+            <path class="st sa" d="M272 138h82" />
+            <path class="st sa" d="M368 74 440 52" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M368 106h72" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M368 138 440 160" marker-end="url(#ah-a)" />
+            <path class="st sl hair dash" d="M368 74 300 95M368 138 300 117" />
+            <circle class="fb" cx="300" cy="106" r="5" />
+            <text class="tl fb" x="300" y="128" text-anchor="middle">F</text>
+            <text class="tt fr" x="360" y="192" text-anchor="middle">ışığı dağıtır</text>
+          </svg>
+          <figcaption>
+            Eksene paralel gelen ışınlar ince kenarlı mercekte <b>gerçek bir odakta toplanır</b>;
+            oraya kâğıt tutarsan güneşin görüntüsünü yakabilirsin. Kalın kenarlı mercekte ise
+            ışınlar dağılır ve yalnızca <b>uzantıları</b> odakta buluşur — bu yüzden bu merceğin
+            odak uzaklığı negatif kabul edilir ve hiçbir zaman perdeye görüntü düşürmez.
+          </figcaption>
+        </figure>
+
         <h3 id="k2">Asal ışınlar</h3>
         <p>İnce kenarlı mercekte görüntüyü çizmek için üç ışından ikisi yeter:</p>
         <ol class="steps">
@@ -1780,6 +1945,41 @@
           gibi dağılır; görüntü bu uzantıların kesişmesiyle oluşur ve her zaman sanaldır.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="İnce kenarlı mercekte üç asal ışının çizimi ve gerçek görüntünün oluşumu.">
+            <text class="tt fd" x="240" y="18" text-anchor="middle">üç asal ışın</text>
+            <path class="st sd hair dash" d="M30 110h420" />
+            <path class="st sb wb" d="M240 40C264 64 264 156 240 180 216 156 216 64 240 40z" />
+            <circle class="fb" cx="160" cy="110" r="4" />
+            <circle class="fb" cx="320" cy="110" r="4" />
+            <circle class="fd" cx="80" cy="110" r="4" />
+            <circle class="fd" cx="400" cy="110" r="4" />
+            <text class="tt fb" x="160" y="128" text-anchor="middle">F</text>
+            <text class="tt fb" x="320" y="128" text-anchor="middle">F</text>
+            <text class="tt fd" x="80" y="128" text-anchor="middle">2F</text>
+            <text class="tt fd" x="400" y="128" text-anchor="middle">2F</text>
+            <path class="st sb hair" d="M60 62h180" />
+            <path class="st sb" d="M240 62 420 182" marker-end="url(#ah-b)" />
+            <path class="st sa hair" d="M60 62 240 110" />
+            <path class="st sa" d="M240 110 420 158" marker-end="url(#ah-a)" />
+            <path class="st sg hair" d="M60 62 240 147" />
+            <path class="st sg" d="M240 147h180" marker-end="url(#ah-g)" />
+            <path class="st sk bold" d="M60 110V62" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M352 110v48" marker-end="url(#ah-v)" />
+            <text class="tt fk" x="60" y="50" text-anchor="middle">cisim</text>
+            <text class="tt fv" x="362" y="176">görüntü</text>
+            <text class="tt fb" x="130" y="54">1</text>
+            <text class="tt fa" x="130" y="90">2</text>
+            <text class="tt fg" x="130" y="122">3</text>
+          </svg>
+          <figcaption>
+            Mercekte de üç asal ışın vardır: <b>1</b> eksene paralel gelir, kırıldıktan sonra
+            odaktan geçer; <b>2</b> merkezden geçer ve <b>hiç kırılmaz</b>; <b>3</b> odaktan geçerek
+            gelir, kırıldıktan sonra eksene paralel olur. İkisi kesiştiği yerde görüntü oluşur.
+            Işınlar gerçekten kesişiyorsa görüntü gerçektir ve <b>perdeye düşer</b>.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">İnce kenarlı mercekte beş durum</h3>
         <table class="tbl">
           <tr><th>Cismin yeri</th><th>Görüntünün yeri</th><th>Özellikleri</th><th>Kullanım</th></tr>
@@ -1789,6 +1989,47 @@
           <tr><td>Odakta</td><td>sonsuzda</td><td>görüntü oluşmaz</td><td>projektör</td></tr>
           <tr><td>Odak içinde</td><td>cisim tarafında</td><td>sanal, düz, büyük</td><td>büyüteç</td></tr>
         </table>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 262" role="img" aria-label="İnce kenarlı mercekte cismin beş konumu, oluşan görüntü ve her duruma karşılık gelen optik alet.">
+            <path class="st sl hair dash" d="M60 40h180M60 88h180M60 136h180M60 184h180M60 232h180" />
+            <path class="st sb wb hair" d="M150 24C158 32 158 48 150 56 142 48 142 32 150 24zM150 72C158 80 158 96 150 104 142 96 142 80 150 72zM150 120C158 128 158 144 150 152 142 144 142 128 150 120zM150 168C158 176 158 192 150 200 142 192 142 176 150 168zM150 216C158 224 158 240 150 248 142 240 142 224 150 216z" />
+            <g class="fb">
+              <circle cx="120" cy="40" r="3" /><circle cx="120" cy="88" r="3" /><circle cx="120" cy="136" r="3" /><circle cx="120" cy="184" r="3" /><circle cx="120" cy="232" r="3" />
+            </g>
+            <g class="fd">
+              <circle cx="90" cy="40" r="3" /><circle cx="90" cy="88" r="3" /><circle cx="90" cy="136" r="3" /><circle cx="90" cy="184" r="3" /><circle cx="90" cy="232" r="3" />
+            </g>
+            <text class="tt fb" x="120" y="16" text-anchor="middle">F</text>
+            <text class="tt fd" x="90" y="16" text-anchor="middle">2F</text>
+            <path class="st sk bold" d="M70 40V24" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M182 40v9" marker-end="url(#ah-v)" />
+            <text class="tt" x="236" y="34">2f dışında</text>
+            <text class="tt fd" x="236" y="52">gerçek·ters·küçük → fotoğraf</text>
+            <path class="st sk bold" d="M90 88V72" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M210 88v16" marker-end="url(#ah-v)" />
+            <text class="tt" x="236" y="82">2f'de</text>
+            <text class="tt fd" x="236" y="100">gerçek·ters·eşit → fotokopi</text>
+            <path class="st sk bold" d="M104 136v-16" marker-end="url(#ah-k)" />
+            <path class="st sv bold" d="M226 136v26" marker-end="url(#ah-v)" />
+            <text class="tt" x="236" y="130">f – 2f arası</text>
+            <text class="tt fd" x="236" y="148">gerçek·ters·büyük → projeksiyon</text>
+            <path class="st sk bold" d="M120 184v-16" marker-end="url(#ah-k)" />
+            <text class="tt" x="236" y="178">odakta</text>
+            <text class="tt fr" x="236" y="196">görüntü oluşmaz → projektör</text>
+            <path class="st sk bold" d="M134 232v-16" marker-end="url(#ah-k)" />
+            <path class="st sv bold dash" d="M74 232v-28" marker-end="url(#ah-v)" />
+            <text class="tt" x="236" y="226">odak içinde</text>
+            <text class="tt fd" x="236" y="244">sanal·düz·büyük → büyüteç</text>
+          </svg>
+          <figcaption>
+            Cisim mercekten uzakken görüntü küçük ve gerçektir — <b>fotoğraf makinesi</b> böyle
+            çalışır. Cismi yaklaştırdıkça görüntü büyür ve uzaklaşır; f ile 2f arasında büyütülmüş
+            gerçek görüntü verir — <b>projeksiyon</b>. Odakta ışınlar paralelleşir, görüntü oluşmaz —
+            <b>projektör</b>. Odağın içine girildiğinde görüntü sanal, düz ve büyük olur —
+            <b>büyüteç</b>. Beş satır, beş optik alet.
+          </figcaption>
+        </figure>
 
         <h3 id="k4">Mercek denklemi</h3>
         <div class="formula">
@@ -1808,6 +2049,28 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 192" role="img" aria-label="Mercek denkleminde işaret kuralı: cisim tarafı ve görüntü tarafı.">
+            <text class="tt fd" x="240" y="26" text-anchor="middle">ince kenarlı f &gt; 0 · kalın kenarlı f &lt; 0</text>
+            <rect class="wv" x="40" y="42" width="200" height="96" rx="8" />
+            <rect class="wg" x="240" y="42" width="200" height="96" rx="8" />
+            <path class="st sb wb" d="M240 38C252 56 252 124 240 142 228 124 228 56 240 38z" />
+            <text class="tt" x="140" y="70" text-anchor="middle">cismin tarafı</text>
+            <text class="tl fk" x="140" y="102" text-anchor="middle">a &gt; 0</text>
+            <text class="tt fv" x="140" y="128" text-anchor="middle">b &lt; 0 → sanal görüntü</text>
+            <text class="tt" x="340" y="70" text-anchor="middle">öbür taraf</text>
+            <text class="tl fk" x="340" y="102" text-anchor="middle">b &gt; 0</text>
+            <text class="tt fg" x="340" y="128" text-anchor="middle">gerçek görüntü</text>
+            <text class="tl fb" x="240" y="176" text-anchor="middle">1/f = 1/a + 1/b</text>
+          </svg>
+          <figcaption>
+            Mercek denklemi aynanınkiyle aynı biçimdedir, yalnız "arka taraf" tanımı değişir:
+            görüntü <b>merceğin öbür tarafında</b> çıkıyorsa gerçektir (b &gt; 0), <b>cisimle aynı
+            tarafta</b> çıkıyorsa sanaldır (b &lt; 0). Hesapta b negatif çıkması hata değil,
+            görüntünün sanal olduğunun işaretidir — büyüteçte her zaman böyle olur.
+          </figcaption>
+        </figure>
+
         <h3 id="k5">Mercek gücü: diyoptri</h3>
         <div class="formula">
           <code>P = 1 / f</code>
@@ -1819,6 +2082,34 @@
           1/0,5 = <strong>+2 diyoptri</strong>dir. Kalın kenarlı merceklerde güç negatiftir.
           Gözlük camlarının “numarası” bu değerdir.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 192" role="img" aria-label="Odak uzaklığı küçüldükçe mercek gücünün diyoptri cinsinden büyümesi.">
+            <text class="tl fb" x="240" y="30" text-anchor="middle">P = 1 / f   (f metre cinsinden)</text>
+            <path class="st sb wb" d="M90 62C98 74 98 114 90 126 82 114 82 74 90 62z" />
+            <path class="st sa" d="M40 78h44M40 94h44M40 110h44" />
+            <path class="st sa" d="M96 78 170 94M96 94h74M96 110 170 94" marker-end="url(#ah-a)" />
+            <circle class="fb" cx="170" cy="94" r="4" />
+            <path class="st sd hair" d="M90 142h80M90 137v10M170 137v10" />
+            <text class="tt fd" x="130" y="162" text-anchor="middle">f = 0,50 m</text>
+            <text class="tl fg" x="130" y="182" text-anchor="middle">P = 2 diyoptri</text>
+            <path class="st sl hair dots" d="M248 44v130" />
+            <path class="st sb wb" d="M310 56C324 72 324 116 310 132 296 116 296 72 310 56z" />
+            <path class="st sa" d="M268 78h34M268 94h34M268 110h34" />
+            <path class="st sa" d="M318 78 350 94M318 94h32M318 110 350 94" marker-end="url(#ah-a)" />
+            <circle class="fb" cx="350" cy="94" r="4" />
+            <path class="st sd hair" d="M310 142h40M310 137v10M350 137v10" />
+            <text class="tt fd" x="330" y="162" text-anchor="middle">f = 0,20 m</text>
+            <text class="tl fg" x="330" y="182" text-anchor="middle">P = 5 diyoptri</text>
+          </svg>
+          <figcaption>
+            Mercek gücü, odak uzaklığının tersidir: mercek ışığı ne kadar <b>keskin</b> kırıyorsa
+            gücü o kadar büyüktür. Odak uzaklığı yarıya inince güç iki katına çıkar. Gözlük
+            numarası dediğimiz şey tam olarak budur: "−2,5 numara" demek, odak uzaklığı −40 cm
+            olan <b>kalın kenarlı</b> bir mercek demektir — eksi işareti merceğin ıraksak olduğunu
+            söyler.
+          </figcaption>
+        </figure>
 
         <h3 id="k6">Göz ve göz kusurları</h3>
         <p>
@@ -1851,6 +2142,40 @@
           <li><strong>Mikroskop ve teleskop:</strong> iki mercekli sistemlerdir; birinin
             görüntüsü diğerine cisim olur.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 232" role="img" aria-label="Miyop gözde görüntünün retinanın önüne, hipermetropta arkasına düşmesi ve uygun merceklerle düzeltilmesi.">
+            <text class="tt fd" x="120" y="24" text-anchor="middle">miyop</text>
+            <text class="tt fd" x="360" y="24" text-anchor="middle">hipermetrop</text>
+            <path class="st sl hair dots" d="M240 18v200" />
+            <circle class="st sk fs hair" cx="130" cy="86" r="42" />
+            <path class="st sb wb" d="M94 70C104 76 104 96 94 102z" />
+            <path class="st sa" d="M40 70h50M40 102h50" />
+            <path class="st sa" d="M98 72 126 86M98 100 126 86" />
+            <path class="st sa" d="M126 86 152 98M126 86 152 74" />
+            <circle class="fr" cx="126" cy="86" r="4" />
+            <text class="tt fr" x="126" y="140" text-anchor="middle">odak retinanın önünde</text>
+            <text class="tl fg" x="120" y="180" text-anchor="middle">kalın kenarlı mercek</text>
+            <path class="st sb wb" d="M108 196 122 196C114 204 114 218 122 226L108 226C116 218 116 204 108 196z" />
+            <text class="tt fg" x="140" y="216">ışığı dağıtır</text>
+            <circle class="st sk fs hair" cx="370" cy="86" r="42" />
+            <path class="st sb wb" d="M334 72C342 78 342 94 334 100z" />
+            <path class="st sa" d="M280 70h50M280 102h50" />
+            <path class="st sa" d="M338 74 432 86M338 98 432 86" />
+            <circle class="fr" cx="432" cy="86" r="4" />
+            <text class="tt fr" x="368" y="140" text-anchor="middle">odak retinanın arkasında</text>
+            <text class="tl fg" x="360" y="180" text-anchor="middle">ince kenarlı mercek</text>
+            <path class="st sb wb" d="M354 196C364 204 364 218 354 226 344 218 344 204 354 196z" />
+            <text class="tt fg" x="374" y="216">ışığı toplar</text>
+          </svg>
+          <figcaption>
+            Miyop gözde mercek fazla kırıcıdır (ya da göz küresi uzundur) ve görüntü retinaya
+            <b>varmadan</b> odaklanır; düzeltmek için ışığı biraz <b>dağıtan</b> kalın kenarlı
+            mercek takılır. Hipermetropta tam tersi olur: görüntü retinanın arkasına düşer ve ışığı
+            <b>toplayan</b> ince kenarlı mercek gerekir. Gözlük camı görüntüyü kendisi oluşturmaz;
+            yalnızca gözün işini kolaylaştıracak kadar <b>ön düzeltme</b> yapar.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
 

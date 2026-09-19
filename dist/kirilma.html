@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1763,6 +1866,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Bardaktaki kaşık neden kırık görünür? Havuzun dibi neden göründüğünden derindir? Işık
+          bir ortamdan diğerine geçerken <b>hız değiştirir</b> ve bu yüzden yol değiştirir — tıpkı
+          asfalttan kuma giren bir arabanın bir tekeri önce yavaşlayınca dönmesi gibi. Gözlükten
+          gökkuşağına, fiber optikten seraba kadar bu konudaki her şey <b>tek bir bağıntıdan</b>
+          çıkar: n₁·sin i = n₂·sin r.
+        </p>
+
         <h3 id="k1">Kırılma nedir?</h3>
         <p>
           Işık, saydam bir ortamdan başka bir saydam ortama geçerken <strong>hızı değişir</strong>.
@@ -1775,6 +1902,34 @@
           <li>Kırılan ışın, gelen ışın ve normal <strong>aynı düzlemdedir</strong>.</li>
           <li>Kırılma sırasında ışığın bir kısmı her zaman <strong>yansır</strong>.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Işığın havadan suya geçerken normale yaklaşarak kırılması; gelme ve kırılma açıları normalden ölçülüyor.">
+            <rect class="f2" x="60" y="30" width="380" height="80" />
+            <rect class="wb" x="60" y="110" width="380" height="80" />
+            <path class="st sk" d="M60 110h380" />
+            <path class="st sd hair dash" d="M240 36v148" />
+            <path class="st sb bold" d="M140 40 240 110" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M240 110 295 181" marker-end="url(#ah-b)" />
+            <path class="st sa hair" d="M240 110 330 47" marker-end="url(#ah-sa)" />
+            <path class="st sd hair" d="M240 60A50 50 0 0 0 199 81" />
+            <path class="st sd hair" d="M240 160A50 50 0 0 1 271 149" />
+            <text class="tl fb" x="214" y="70" text-anchor="middle">i</text>
+            <text class="tl fb" x="258" y="152" text-anchor="middle">r</text>
+            <text class="tt fd" x="248" y="44">normal</text>
+            <text class="tt" x="70" y="52">hava · n₁ = 1,00</text>
+            <text class="tt" x="70" y="178">su · n₂ = 1,33</text>
+            <text class="tt fa" x="336" y="42">kısmen yansır</text>
+            <text class="tt fg" x="310" y="170" text-anchor="middle">normale yaklaşır</text>
+          </svg>
+          <figcaption>
+            Açılar her zaman <b>normalden</b> ölçülür, yüzeyden değil. Işık daha yoğun bir ortama
+            geçerken yavaşlar ve <b>normale yaklaşır</b> (r &lt; i); daha az yoğun bir ortama geçerken
+            hızlanır ve normalden uzaklaşır. Yüzeye dik gelen ışın (i = 0) hiç kırılmaz, doğrultusunu
+            korur. Işığın bir kısmı her zaman <b>yansır</b> da — bu yüzden camda kendi yansımanı
+            görebilirsin.
+          </figcaption>
+        </figure>
 
         <h3 id="k2">Kırılma indisi</h3>
         <p>
@@ -1796,6 +1951,39 @@
           ortam denir. Bu “yoğunluk” kütle yoğunluğu değil, <strong>optik yoğunluktur</strong>.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Hava, su, cam ve elmas için kırılma indisi ve ışık hızı çubuklarının karşılaştırması.">
+            <text class="tt fd" x="100" y="40">n (kırılma indisi)</text>
+            <text class="tt fd" x="280" y="40">v (10⁸ m/s)</text>
+            <text class="tt" x="90" y="72" text-anchor="end">hava</text>
+            <rect class="fb" x="100" y="60" width="62" height="16" rx="3" />
+            <text class="tt fb" x="170" y="73">1,00</text>
+            <rect class="fa" x="280" y="60" width="150" height="16" rx="3" />
+            <text class="tt fa" x="438" y="73">3,00</text>
+            <text class="tt" x="90" y="108" text-anchor="end">su</text>
+            <rect class="fb" x="100" y="96" width="82" height="16" rx="3" />
+            <text class="tt fb" x="190" y="109">1,33</text>
+            <rect class="fa" x="280" y="96" width="113" height="16" rx="3" />
+            <text class="tt fa" x="401" y="109">2,26</text>
+            <text class="tt" x="90" y="144" text-anchor="end">cam</text>
+            <rect class="fb" x="100" y="132" width="93" height="16" rx="3" />
+            <text class="tt fb" x="201" y="145">1,50</text>
+            <rect class="fa" x="280" y="132" width="100" height="16" rx="3" />
+            <text class="tt fa" x="388" y="145">2,00</text>
+            <text class="tt" x="90" y="180" text-anchor="end">elmas</text>
+            <rect class="fb" x="100" y="168" width="150" height="16" rx="3" />
+            <text class="tt fb" x="258" y="181">2,42</text>
+            <rect class="fa" x="280" y="168" width="62" height="16" rx="3" />
+            <text class="tt fa" x="350" y="181">1,24</text>
+          </svg>
+          <figcaption>
+            Kırılma indisi, ışığın o ortamda <b>ne kadar yavaşladığını</b> söyler: n = c/v. İki çubuk
+            birbirinin aynadaki görüntüsü gibidir — indis büyüdükçe hız küçülür. Elmasta ışık
+            boşluktakinin yalnızca <b>%41'i</b> kadar hızlı ilerler; elmasın o çarpıcı parlaklığı ve
+            ışığı içinde hapsetmesi bu yüksek indisin sonucudur.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">Snell yasası</h3>
         <div class="formula">
           <code>n₁ · sin i = n₂ · sin r</code>
@@ -1814,6 +2002,33 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Az yoğundan çok yoğuna geçen ışının normale yaklaşması, çok yoğundan az yoğuna geçenin normalden uzaklaşması.">
+            <text class="tt fd" x="125" y="28" text-anchor="middle">n₁ &lt; n₂</text>
+            <text class="tt fd" x="355" y="28" text-anchor="middle">n₁ &gt; n₂</text>
+            <path class="st sl hair dots" d="M240 22v164" />
+            <rect class="f2" x="30" y="40" width="190" height="70" />
+            <rect class="wb" x="30" y="110" width="190" height="70" />
+            <path class="st sk" d="M30 110h190" />
+            <path class="st sd hair dash" d="M125 46v128" />
+            <path class="st sb bold" d="M65 45 125 110" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M125 110 155 174" marker-end="url(#ah-b)" />
+            <text class="tt fg" x="125" y="200" text-anchor="middle">normale yaklaşır</text>
+            <rect class="wb" x="260" y="40" width="190" height="70" />
+            <rect class="f2" x="260" y="110" width="190" height="70" />
+            <path class="st sk" d="M260 110h190" />
+            <path class="st sd hair dash" d="M355 46v128" />
+            <path class="st sb bold" d="M325 45 355 110" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M355 110 418 172" marker-end="url(#ah-b)" />
+            <text class="tt fg" x="355" y="200" text-anchor="middle">normalden uzaklaşır</text>
+          </svg>
+          <figcaption>
+            Snell yasası her iki yönde de aynıdır: n₁·sin i = n₂·sin r. Hangi tarafın indisi
+            büyükse, o taraftaki açı <b>küçüktür</b> — yani ışın yoğun ortamda normale daha yakın
+            gider. Bunu ezberlemek yerine şöyle düşün: <b>yavaşlayan taraf normale yanaşır</b>.
+          </figcaption>
+        </figure>
+
         <h3 id="k4">Hız, dalga boyu ve frekans</h3>
         <p>Kırılmada değişenler ve değişmeyenler:</p>
         <table class="tbl">
@@ -1831,6 +2046,39 @@
           Cephe modeli kırılmayı sezgisel yapar: dalga cephesinin bir ucu yavaşlarken öteki ucu
           hızlı gittiği için cephe döner ve ışın yön değiştirir.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Dalga cephelerinin yoğun ortama girerken sıklaşması ve yön değiştirmesi; frekans değişmez.">
+            <rect class="f2" x="40" y="14" width="400" height="96" />
+            <rect class="wb" x="40" y="110" width="400" height="80" />
+            <path class="st sk" d="M40 110h280" />
+            <g class="st sb hair">
+              <path d="M203 106 243 74" />
+              <path d="M176 96 237 45" />
+              <path d="M159 76 221 25" />
+              <path d="M143 56 204 5" />
+            </g>
+            <g class="st sv hair">
+              <path d="M222 138 273 114" />
+              <path d="M222 157 287 126" />
+              <path d="M230 172 295 141" />
+              <path d="M237 188 302 157" />
+            </g>
+            <path class="st sb bold" d="M166 22 240 110" marker-end="url(#ah-b)" />
+            <path class="st sv bold" d="M240 110 279 191" marker-end="url(#ah-v)" />
+            <text class="tt" x="50" y="34">hava</text>
+            <text class="tt" x="50" y="182">cam</text>
+            <text class="tt fb" x="366" y="66" text-anchor="middle">λ büyük</text>
+            <text class="tt fv" x="366" y="166" text-anchor="middle">λ küçük</text>
+            <text class="tl fg" x="366" y="116" text-anchor="middle">f değişmez</text>
+          </svg>
+          <figcaption>
+            Dalga cepheleri yoğun ortama girince <b>sıklaşır</b>: hız düştüğü için aynı sürede daha
+            kısa yol alınır, yani dalga boyu küçülür. Ama <b>frekans değişmez</b> — saniyede kaç
+            cephenin sınırdan geçtiği, kaynağın saniyede kaç dalga ürettiğine bağlıdır ve ortam bunu
+            değiştiremez. Rengin değişmemesinin sebebi de budur: renk frekansla belirlenir.
+          </figcaption>
+        </figure>
 
         <h3 id="k5">Tam yansıma ve sınır açı</h3>
         <p>
@@ -1856,6 +2104,34 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Yoğun ortamdan çıkan üç ışın: küçük açıda kırılır, sınır açıda yüzeye paralel gider, büyük açıda tamamen yansır.">
+            <rect class="f2" x="40" y="26" width="400" height="84" />
+            <rect class="wb" x="40" y="110" width="400" height="80" />
+            <path class="st sk" d="M40 110h400" />
+            <path class="st sl hair dash" d="M254 74v72" />
+            <path class="st sb hair" d="M200 170 240 110" />
+            <path class="st sa bold" d="M240 110 323 55" marker-end="url(#ah-a)" />
+            <path class="st sb hair" d="M200 170 254 110" />
+            <path class="st sa bold" d="M254 110h76" marker-end="url(#ah-a)" />
+            <path class="st sb hair" d="M200 170 286 110" />
+            <path class="st sr bold" d="M286 110 356 159" marker-end="url(#ah-r)" />
+            <circle class="fk" cx="200" cy="170" r="5" />
+            <text class="tt fa" x="330" y="50">kırılır</text>
+            <text class="tt fa" x="336" y="104">sınır açı</text>
+            <text class="tl fr" x="362" y="166">tam yansıma</text>
+            <text class="tt" x="50" y="46">hava</text>
+            <text class="tt" x="50" y="182">cam</text>
+            <text class="tl fb" x="130" y="48">sin θ(sınır) = n₂ / n₁</text>
+          </svg>
+          <figcaption>
+            Yoğun ortamdan çıkarken ışın normalden uzaklaşır; geliş açısını büyüttükçe kırılan ışın
+            yüzeye iyice yatar. <b>Sınır açıda</b> kırılma açısı 90° olur ve ışın tam yüzey boyunca
+            gider. Bu açıyı bir derece bile aşarsan ışık dışarı <b>hiç çıkamaz</b>, tamamen geri
+            yansır. Fiber optik kabloların, elmasın parıltısının ve serapların ortak sırrı budur.
+          </figcaption>
+        </figure>
+
         <h3 id="k6">Paralel kenarlı levhada yandan kayma</h3>
         <p>
           Işık paralel yüzlü bir cam levhaya girerken normale yaklaşır, çıkarken aynı açıyla
@@ -1869,6 +2145,30 @@
           Kalınlık ve gelme açısı arttıkça kayma büyür. Dik gelişte (i = 0) kayma sıfırdır.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Paralel kenarlı cam levhadan geçen ışının doğrultusunu koruyarak yana kayması.">
+            <rect class="st sb wb hair" x="140" y="60" width="200" height="60" />
+            <path class="st sd hair dash" d="M180 26v128M221 86v100" opacity="0.7" />
+            <path class="st sb bold" d="M100 20 180 60" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M180 60 221 120" />
+            <path class="st sb bold" d="M221 120 297 168" marker-end="url(#ah-b)" />
+            <path class="st sl hair dash" d="M180 60 352 168" />
+            <path class="st sr hair" d="M297 168 313 143M293 165l8 6M309 140l8 6" />
+            <text class="tl fr" x="318" y="160">d</text>
+            <path class="st sd hair" d="M128 60v60M122 60h12M122 120h12" />
+            <text class="tt fd" x="116" y="94" text-anchor="end">t</text>
+            <text class="tt fd" x="240" y="96" text-anchor="middle">cam levha</text>
+            <text class="tt" x="366" y="184" text-anchor="end">çıkan ışın gelene paralel</text>
+          </svg>
+          <figcaption>
+            Levhaya giren ışın normale yaklaşır, çıkarken tam o kadar normalden uzaklaşır: iki
+            kırılma birbirini <b>götürür</b> ve çıkan ışın gelenle paraleldir. Değişen tek şey
+            ışının <b>yana kaymasıdır</b>. Kayma miktarı levha kalınlaştıkça ve geliş açısı
+            büyüdükçe artar: d = t·sin(i − r)/cos r. Kalın bir cam arkasından bakınca cisimlerin
+            hafifçe kaymış görünmesinin sebebi budur.
+          </figcaption>
+        </figure>
+
         <h3 id="k7">Günlük hayatta kırılma</h3>
         <ul>
           <li><strong>Suya batan kaşık kırık görünür:</strong> sudan gelen ışınlar yüzeyde kırılır.</li>
@@ -1879,6 +2179,38 @@
           <li><strong>Gözlük ve mercekler:</strong> kırılmayı kontrollü kullanır.</li>
           <li><strong>Fiber optik:</strong> tam yansımayla ışığı kilometrelerce taşır.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Bardaktaki kaşığın kırık görünmesi ve havuzun sığ görünmesi.">
+            <path class="wb" d="M76 96 80 170h90l4-74z" />
+            <path class="st sk hair" d="M70 56 80 170h90l10-114" />
+            <path class="st sb" d="M76 96h98" />
+            <path class="st sk bold" d="M58 48 120 96" />
+            <path class="st sk bold" d="M120 96 152 166" />
+            <text class="tt fd" x="125" y="194" text-anchor="middle">kaşık kırık görünür</text>
+            <path class="st sl hair dots" d="M240 26v160" />
+            <rect class="wb" x="272" y="96" width="176" height="74" />
+            <path class="st sb" d="M272 96h176" />
+            <path class="st sk" d="M272 170h176" />
+            <path class="st sb hair" d="M320 158 355 96" />
+            <path class="st sb bold" d="M355 96 405 54" marker-end="url(#ah-b)" />
+            <path class="st sb hair" d="M320 158V96" />
+            <path class="st sb bold" d="M320 96V56" marker-end="url(#ah-b)" />
+            <path class="st sl hair dash" d="M355 96 320 125" />
+            <circle class="fk" cx="320" cy="158" r="6" />
+            <circle class="st sv fn" cx="320" cy="125" r="6" />
+            <text class="tt" x="312" y="162" text-anchor="end">gerçek</text>
+            <text class="tt fv" x="306" y="129" text-anchor="end">görünen</text>
+            <text class="tt fd" x="380" y="194" text-anchor="middle">havuz sığ görünür</text>
+          </svg>
+          <figcaption>
+            İkisi de aynı olayın sonucu. Sudan çıkan ışınlar yüzeyde kırılıp <b>normalden
+            uzaklaşınca</b>, göz onları düz bir çizgi boyunca geri izler ve cismi <b>olduğundan
+            yukarıda</b> görür. Kaşığın su altındaki kısmı yükseldiği için kırık, havuzun tabanı
+            yükseldiği için sığ görünür. Bu yüzden suya balıklama atlamadan önce derinliği gözle
+            değil ölçerek bilmek gerekir.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
 

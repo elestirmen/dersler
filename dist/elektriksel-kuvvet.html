@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1767,6 +1870,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Kapı koluna dokununca çarpılman, saçının tarağa yapışması ve gökyüzünü yaran şimşek —
+          üçü de aynı kuvvetin eseri. Elektriksel kuvvet öyle güçlüdür ki iki proton arasında
+          yerçekiminden <b>10³⁶ kat</b> büyüktür. Onu her an hissetmememizin tek sebebi, artı ve
+          eksi yüklerin çevremizde neredeyse <b>kusursuz biçimde dengelenmiş</b> olmasıdır.
+          Bu dengeyi azıcık bozduğunda ortaya çıkan şeyi bu konuda hesaplamayı öğreneceğiz.
+        </p>
+
         <h3 id="k1">Elektrik yükü</h3>
         <p>
           Maddenin temel özelliklerinden biri olan elektrik yükü iki çeşittir: <strong>pozitif</strong>
@@ -1790,6 +1917,43 @@
             nötrlerken, yalıtkanda yük bölgesel kalır.
           </p>
         </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 180" role="img" aria-label="Aynı işaretli yüklerin birbirini itmesi, zıt işaretli yüklerin birbirini çekmesi üç ayrı çizimde gösteriliyor.">
+            <text class="tt fd" x="240" y="24" text-anchor="middle">kuvvetler eşit büyüklükte ve zıt yönlüdür</text>
+            <path class="st sl hair dots" d="M160 34v128M320 34v128" />
+            <circle class="st sr wr" cx="45" cy="92" r="16" />
+            <circle class="st sr wr" cx="115" cy="92" r="16" />
+            <text class="tv fr" x="45" y="100" text-anchor="middle">+</text>
+            <text class="tv fr" x="115" y="100" text-anchor="middle">+</text>
+            <path class="st sg" d="M27 92H10" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M133 92h17" marker-end="url(#ah-g)" />
+            <circle class="st sb wb" cx="205" cy="92" r="16" />
+            <circle class="st sb wb" cx="275" cy="92" r="16" />
+            <text class="tv fb" x="205" y="100" text-anchor="middle">−</text>
+            <text class="tv fb" x="275" y="100" text-anchor="middle">−</text>
+            <path class="st sg" d="M187 92h-17" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M293 92h17" marker-end="url(#ah-g)" />
+            <circle class="st sr wr" cx="365" cy="92" r="16" />
+            <circle class="st sb wb" cx="435" cy="92" r="16" />
+            <text class="tv fr" x="365" y="100" text-anchor="middle">+</text>
+            <text class="tv fb" x="435" y="100" text-anchor="middle">−</text>
+            <path class="st sg" d="M383 92h16" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M417 92h-16" marker-end="url(#ah-g)" />
+            <text class="tl" x="80" y="148" text-anchor="middle">iterler</text>
+            <text class="tl" x="240" y="148" text-anchor="middle">iterler</text>
+            <text class="tl fg" x="400" y="148" text-anchor="middle">çekerler</text>
+            <text class="tt fd" x="80" y="170" text-anchor="middle">aynı işaret</text>
+            <text class="tt fd" x="240" y="170" text-anchor="middle">aynı işaret</text>
+            <text class="tt fd" x="400" y="170" text-anchor="middle">zıt işaret</text>
+          </svg>
+          <figcaption>
+            Yükler arasındaki kuvvet <b>her zaman çift hâlinde</b> ortaya çıkar: iki yüke etkiyen
+            kuvvetlerin büyüklüğü eşit, yönleri zıttır — yükleri çok farklı olsa bile. Bu, Newton'un
+            üçüncü yasasının elektrikteki yüzüdür. Aynı işaretliler birbirini iter, zıt işaretliler
+            çeker; kuvvet daima <b>iki yükü birleştiren doğru boyunca</b>dır.
+          </figcaption>
+        </figure>
 
         <h3 id="k2">Coulomb yasası</h3>
         <p>
@@ -1823,6 +1987,35 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 188" role="img" aria-label="Uzaklık iki ve üç katına çıktığında elektriksel kuvvetin dörtte bire ve dokuzda bire inmesi.">
+            <text class="tl fb" x="240" y="26" text-anchor="middle">F = k · q₁ · q₂ / r²</text>
+            <circle class="st sr wr" cx="50" cy="110" r="16" />
+            <text class="tv fr" x="50" y="118" text-anchor="middle">+</text>
+            <circle class="st sr wr" cx="140" cy="110" r="11" />
+            <circle class="st sr wr" cx="230" cy="110" r="11" />
+            <circle class="st sr wr" cx="320" cy="110" r="11" />
+            <path class="st sg bold" d="M140 80h54" marker-end="url(#ah-g)" />
+            <path class="st sg bold" d="M230 80h14" marker-end="url(#ah-g)" />
+            <path class="st sg bold" d="M320 80h6" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="202" y="76">F</text>
+            <text class="tt fg" x="252" y="76">F/4</text>
+            <text class="tt fg" x="334" y="76">F/9</text>
+            <path class="st sd hair" d="M50 150h290M50 145v10M140 145v10M230 145v10M320 145v10" />
+            <text class="tt fd" x="140" y="172" text-anchor="middle">r</text>
+            <text class="tt fd" x="230" y="172" text-anchor="middle">2r</text>
+            <text class="tt fd" x="320" y="172" text-anchor="middle">3r</text>
+            <text class="tt" x="410" y="116" text-anchor="middle">ters kare</text>
+            <text class="tt" x="410" y="136" text-anchor="middle">yasası</text>
+          </svg>
+          <figcaption>
+            Uzaklık iki katına çıkınca kuvvet yarıya değil, <b>dörtte bire</b> iner; üç katına
+            çıkınca dokuzda bire. Sebebi basit bir geometri: kaynaktan yayılan etki, yarıçapı r
+            olan bir kürenin yüzeyine dağılır ve o yüzey <b>r² ile</b> büyür. Aynı geometri
+            yerçekiminde ve ışık şiddetinde de karşımıza çıkar.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">Birden fazla yük: kuvvetlerin toplamı</h3>
         <p>
           Bir yüke birden çok yük etki ediyorsa, her biriyle olan kuvvet <strong>ayrı ayrı</strong>
@@ -1838,6 +2031,39 @@
           Bir yükün varlığı, diğer ikisi arasındaki kuvveti <strong>değiştirmez</strong>. Her çift
           birbirini "görmez"; toplam etki, tek tek etkilerin vektörel toplamıdır.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 218" role="img" aria-label="Üçüncü bir yüke etkiyen iki kuvvetin vektörel toplamı ve bileşke kuvvetin bulunuşu.">
+            <path class="st sl hair dots" d="M85 165 236 115M85 55 236 105" />
+            <circle class="st sr wr" cx="70" cy="170" r="15" />
+            <text class="tv fr" x="70" y="178" text-anchor="middle">+</text>
+            <circle class="st sb wb" cx="70" cy="50" r="15" />
+            <text class="tv fb" x="70" y="58" text-anchor="middle">−</text>
+            <circle class="st sr wr" cx="250" cy="110" r="15" />
+            <text class="tv fr" x="250" y="118" text-anchor="middle">+</text>
+            <path class="st sl hair dash" d="M322 86 250 62M178 86 250 62" />
+            <path class="st sb bold" d="M265 105 322 86" marker-end="url(#ah-b)" />
+            <path class="st sv bold" d="M235 105 178 86" marker-end="url(#ah-v)" />
+            <path class="st sg bold" d="M250 95V62" marker-end="url(#ah-g)" />
+            <text class="tt fb" x="330" y="82">F₁</text>
+            <text class="tt fv" x="170" y="82" text-anchor="end">F₂</text>
+            <text class="tl fg" x="258" y="52">F net</text>
+            <text class="tt fd" x="70" y="202" text-anchor="middle">q₁</text>
+            <text class="tt fd" x="70" y="26" text-anchor="middle">q₂</text>
+            <text class="tt fd" x="250" y="142" text-anchor="middle">q₃</text>
+            <path class="st sl hair dots" d="M360 24v170" />
+            <text class="tt fd" x="420" y="66" text-anchor="middle">aynı doğrultuda</text>
+            <text class="tl fk" x="420" y="90" text-anchor="middle">F₁ ± F₂</text>
+            <text class="tt fd" x="420" y="134" text-anchor="middle">birbirine dik</text>
+            <text class="tl fk" x="420" y="158" text-anchor="middle">√(F₁² + F₂²)</text>
+          </svg>
+          <figcaption>
+            Birden fazla yük varsa, her biri <b>sanki ötekiler yokmuş gibi</b> kendi kuvvetini
+            uygular; sonucu bulmak için bu kuvvetleri <b>vektörel olarak</b> toplarız. Burada q₁
+            iterek sağa, q₂ çekerek sola-yukarı bir kuvvet uygular; yatay bileşenler birbirini
+            götürdüğü için bileşke tam yukarı bakar. Sayılar değil, oklar toplanır.
+          </figcaption>
+        </figure>
 
         <h3 id="k4">Elektriksel alan</h3>
         <p>
@@ -1863,6 +2089,41 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Solda test yükünün gördüğü kuvvet, sağda test yükü kaldırıldığında bile uzayda var olmayı sürdüren elektriksel alan.">
+            <circle class="st sr wr" cx="60" cy="110" r="18" />
+            <text class="tv fr" x="60" y="118" text-anchor="middle">+</text>
+            <path class="st sl hair dots" d="M80 110h81" />
+            <circle class="st sv wv" cx="170" cy="110" r="9" />
+            <path class="st sg bold" d="M181 110h36" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="224" y="106">F</text>
+            <text class="tt fv" x="170" y="136" text-anchor="middle">q</text>
+            <text class="tt fd" x="125" y="166" text-anchor="middle">test yükü var</text>
+            <path class="st sl hair dots" d="M244 22v152" />
+            <circle class="st sr wr" cx="320" cy="110" r="18" />
+            <text class="tv fr" x="320" y="118" text-anchor="middle">+</text>
+            <g class="st sa hair" opacity="0.55">
+              <path d="M376 110h12" marker-end="url(#ah-sa)" />
+              <path d="M360 70l9-9" marker-end="url(#ah-sa)" />
+              <path d="M320 54v-12" marker-end="url(#ah-sa)" />
+              <path d="M280 70l-9-9" marker-end="url(#ah-sa)" />
+              <path d="M264 110h-12" marker-end="url(#ah-sa)" />
+              <path d="M280 150l-9 9" marker-end="url(#ah-sa)" />
+              <path d="M360 150l9 9" marker-end="url(#ah-sa)" />
+            </g>
+            <path class="st sa bold" d="M404 110h34" marker-end="url(#ah-a)" />
+            <text class="tl fa" x="446" y="106">E</text>
+            <text class="tt fd" x="360" y="166" text-anchor="middle">test yükü yok — alan yine var</text>
+            <text class="tl fb" x="240" y="190" text-anchor="middle">E = F / q  →  F = q · E</text>
+          </svg>
+          <figcaption>
+            Alanı ölçmek için oraya küçük bir test yükü koyarız ve gördüğü kuvveti yüke böleriz.
+            Ama <b>alan test yükünden bağımsızdır</b>: test yükünü iki katına çıkarırsan kuvvet de
+            iki katına çıkar, oran değişmez. Test yükünü tamamen kaldırsan bile o noktada bir alan
+            vardır — <b>uzayın kendisi</b>, kaynak yük tarafından değiştirilmiştir.
+          </figcaption>
+        </figure>
+
         <h3 id="k5">Alan çizgileri</h3>
         <p>Alanı görselleştirmenin en kullanışlı yolu alan çizgileridir. Kuralları:</p>
         <ul>
@@ -1878,6 +2139,63 @@
           <strong>sıfırdır</strong>.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Tek yükün ışınsal alan çizgileri, zıt yüklerin birinden ötekine giden çizgileri ve aynı işaretli yüklerin birbirinden kaçan çizgileri.">
+            <text class="tt fd" x="80" y="24" text-anchor="middle">tek yük</text>
+            <text class="tt fd" x="240" y="24" text-anchor="middle">zıt yükler</text>
+            <text class="tt fd" x="400" y="24" text-anchor="middle">aynı yükler</text>
+            <path class="st sl hair dots" d="M160 32v148M320 32v148" />
+            <g class="st sa hair">
+              <path d="M98 105h34" marker-end="url(#ah-sa)" />
+              <path d="M93 92 118 67" marker-end="url(#ah-sa)" />
+              <path d="M80 87V53" marker-end="url(#ah-sa)" />
+              <path d="M67 92 42 67" marker-end="url(#ah-sa)" />
+              <path d="M62 105H28" marker-end="url(#ah-sa)" />
+              <path d="M67 118 42 143" marker-end="url(#ah-sa)" />
+              <path d="M80 123v34" marker-end="url(#ah-sa)" />
+              <path d="M93 118 118 143" marker-end="url(#ah-sa)" />
+            </g>
+            <circle class="st sr wr" cx="80" cy="105" r="14" />
+            <text class="tl fr" x="80" y="112" text-anchor="middle">+</text>
+            <g class="st sa hair">
+              <path d="M219 105h44" marker-end="url(#ah-sa)" />
+              <path d="M212 95Q240 55 266 93" marker-end="url(#ah-sa)" />
+              <path d="M209 88Q240 25 269 86" marker-end="url(#ah-sa)" />
+              <path d="M212 115Q240 155 266 117" marker-end="url(#ah-sa)" />
+              <path d="M209 122Q240 185 269 124" marker-end="url(#ah-sa)" />
+            </g>
+            <circle class="st sr wr" cx="205" cy="105" r="13" />
+            <text class="tl fr" x="205" y="112" text-anchor="middle">+</text>
+            <circle class="st sb wb" cx="275" cy="105" r="13" />
+            <text class="tl fb" x="275" y="112" text-anchor="middle">−</text>
+            <g class="st sa hair">
+              <path d="M357 105h-31" marker-end="url(#ah-sa)" />
+              <path d="M361 96 339 74" marker-end="url(#ah-sa)" />
+              <path d="M361 114 339 136" marker-end="url(#ah-sa)" />
+              <path d="M443 105h31" marker-end="url(#ah-sa)" />
+              <path d="M439 96 461 74" marker-end="url(#ah-sa)" />
+              <path d="M439 114 461 136" marker-end="url(#ah-sa)" />
+              <path d="M366 93Q360 58 338 46" marker-end="url(#ah-sa)" />
+              <path d="M434 93Q440 58 462 46" marker-end="url(#ah-sa)" />
+              <path d="M366 117Q360 152 338 164" marker-end="url(#ah-sa)" />
+              <path d="M434 117Q440 152 462 164" marker-end="url(#ah-sa)" />
+            </g>
+            <circle class="st sr wr" cx="370" cy="105" r="13" />
+            <text class="tl fr" x="370" y="112" text-anchor="middle">+</text>
+            <circle class="st sr wr" cx="430" cy="105" r="13" />
+            <text class="tl fr" x="430" y="112" text-anchor="middle">+</text>
+            <path class="st sd hair" d="M395 100l10 10M405 100l-10 10" />
+            <text class="tt fd" x="400" y="132" text-anchor="middle">E = 0</text>
+            <text class="tt" x="240" y="196" text-anchor="middle">çizgiler + ' dan çıkar, − ' de biter · asla kesişmezler</text>
+          </svg>
+          <figcaption>
+            Alan çizgileri alanın <b>haritasıdır</b>: teğetleri o noktadaki alanın yönünü, sıklıkları
+            ise büyüklüğünü verir. Çizgiler pozitiften çıkıp negatifte biter ve <b>asla kesişmez</b> —
+            kesişselerdi aynı noktada iki farklı alan yönü olurdu. Aynı işaretli iki yükün tam
+            ortasında çizgiler birbirini iter ve alanın sıfırlandığı bir nokta doğar.
+          </figcaption>
+        </figure>
+
         <h3 id="k6">Düzgün alan: paralel levhalar</h3>
         <p>
           Aralarına gerilim uygulanan iki paralel levha arasında alan <strong>her noktada aynı</strong>
@@ -1892,6 +2210,41 @@
           Alan çizgileri <strong>birbirine paralel, eşit aralıklı</strong> doğrulardır ve pozitif
           levhadan negatif levhaya doğrudur.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Paralel levhalar arasında oluşan düzgün elektrik alanı ve E eşittir V bölü d bağıntısı.">
+            <text class="tt fd" x="200" y="28" text-anchor="middle">düzgün alan: her noktada aynı</text>
+            <rect class="st sr wr hair" x="90" y="50" width="220" height="10" rx="3" />
+            <rect class="st sb wb hair" x="90" y="150" width="220" height="10" rx="3" />
+            <text class="tt fr" x="120" y="44" text-anchor="middle">+</text>
+            <text class="tt fr" x="160" y="44" text-anchor="middle">+</text>
+            <text class="tt fr" x="200" y="44" text-anchor="middle">+</text>
+            <text class="tt fr" x="240" y="44" text-anchor="middle">+</text>
+            <text class="tt fr" x="280" y="44" text-anchor="middle">+</text>
+            <text class="tt fb" x="120" y="180" text-anchor="middle">−</text>
+            <text class="tt fb" x="160" y="180" text-anchor="middle">−</text>
+            <text class="tt fb" x="200" y="180" text-anchor="middle">−</text>
+            <text class="tt fb" x="240" y="180" text-anchor="middle">−</text>
+            <text class="tt fb" x="280" y="180" text-anchor="middle">−</text>
+            <path class="st sa" d="M120 62v84" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M160 62v84" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M200 62v84" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M240 62v84" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M280 62v84" marker-end="url(#ah-a)" />
+            <path class="st sd hair" d="M70 60v90M64 60h12M64 150h12" />
+            <text class="tt fd" x="58" y="110" text-anchor="end">d</text>
+            <path class="st sd hair" d="M310 55h44v33M354 122v33h-44" />
+            <path class="st sk" d="M340 88h28M346 96h16" />
+            <text class="tt" x="378" y="98">V</text>
+            <text class="tl fb" x="400" y="178" text-anchor="middle">E = V / d</text>
+          </svg>
+          <figcaption>
+            Zıt yüklü iki paralel levha arasındaki alan, kenarlardan uzakta <b>her noktada aynı
+            büyüklükte ve aynı yöndedir</b>; çizgiler birbirine paralel ve eşit aralıklıdır. Bu
+            yüzden bir yük nereye konursa konsun aynı kuvveti görür. Alanı ölçmenin en pratik yolu
+            E = V/d'dir: levhalar arası gerilimi aralarındaki uzaklığa bölmek yeter.
+          </figcaption>
+        </figure>
 
         <h3 id="k7">Düzgün alanda yüklü parçacığın hareketi</h3>
         <p>
@@ -1914,6 +2267,39 @@
             tipik olarak 10¹³ katı mertebesindedir; bu yüzden yerçekimi hesaba katılmaz.
           </p>
         </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Paralel levhalar arasına yatay giren bir elektronun elektrik alanı yüzünden parabolik yörünge çizerek sapması.">
+            <rect class="st sr wr hair" x="110" y="58" width="230" height="9" rx="3" />
+            <rect class="st sb wb hair" x="110" y="150" width="230" height="9" rx="3" />
+            <g class="st sa hair" opacity="0.5">
+              <path d="M140 70v72" marker-end="url(#ah-sa)" />
+              <path d="M180 70v72" marker-end="url(#ah-sa)" />
+              <path d="M220 70v72" marker-end="url(#ah-sa)" />
+              <path d="M260 70v72" marker-end="url(#ah-sa)" />
+              <path d="M300 70v72" marker-end="url(#ah-sa)" />
+            </g>
+            <path class="st sl hair dash" d="M110 105h230" />
+            <path class="st sb bold" d="M110 105Q225 105 340 72" />
+            <path class="st sb" d="M70 105h30" marker-end="url(#ah-b)" />
+            <text class="tt fb" x="64" y="101" text-anchor="end">v₀</text>
+            <circle class="fb" cx="340" cy="72" r="8" />
+            <text class="tt fs" x="340" y="77" text-anchor="middle">−</text>
+            <path class="st sd hair" d="M356 72v33M350 72h12M350 105h12" />
+            <text class="tt fd" x="368" y="94">y</text>
+            <path class="st sd hair" d="M110 176h230M110 171v10M340 171v10" />
+            <text class="tt fd" x="225" y="196" text-anchor="middle">L</text>
+            <text class="tt" x="410" y="140" text-anchor="middle">atış hareketi</text>
+            <text class="tt" x="410" y="158" text-anchor="middle">ile aynı</text>
+          </svg>
+          <figcaption>
+            Levhalar arasına yatay giren yüklü parçacık, yatayda sabit hızla ilerlerken düşeyde
+            sabit bir kuvvetle ivmelenir — yani <b>tam olarak bir atış hareketi</b> yapar, yalnızca
+            yerçekiminin yerini elektriksel kuvvet almıştır. Yörünge bu yüzden paraboldür ve sapma
+            y = qEL²/(2mv₀²) ile bulunur. Elektron negatif olduğu için alanın <b>tersi</b> yönde,
+            artı levhaya doğru sapar.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
         <p>Hesaplarda k = 9·10⁹ N·m²/C² alınmıştır.</p>

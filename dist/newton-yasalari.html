@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1790,6 +1893,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Otobüs ani fren yapınca neden öne savrulursun? Roket, itecek hiçbir şeyin olmadığı
+          boşlukta nasıl hızlanır? Asansörde tartı neden bazen fazla, bazen az yazar? Üç sorunun
+          da cevabı aynı <b>üç yasada</b>. Newton'un yaptığı şey, "kuvvet" gibi bulanık bir
+          sezgiyi <b>ölçülebilir bir büyüklüğe</b> çevirmekti: artık kuvveti biliyorsan hareketi
+          hesaplayabilir, hareketi görüyorsan kuvveti geri okuyabilirsin.
+        </p>
+
         <h3 id="k1">Kuvvet ve net kuvvet</h3>
         <p>
           <strong>Kuvvet</strong>, bir cismin hareket durumunu ya da şeklini değiştiren
@@ -1820,6 +1947,42 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 176" role="img" aria-label="Net kuvvetin üç hâli: aynı yönlü kuvvetler toplanır, zıt yönlüler çıkarılır, dik olanlar Pisagor ile birleşir.">
+            <path class="st sl hair dots" d="M161 16v150M319 16v150" />
+            <text class="tt fd" x="82" y="24" text-anchor="middle">aynı yönde</text>
+            <text class="tt fd" x="240" y="24" text-anchor="middle">zıt yönde</text>
+            <text class="tt fd" x="398" y="24" text-anchor="middle">birbirine dik</text>
+            <circle class="st sk wk" cx="82" cy="88" r="14" />
+            <circle class="st sk wk" cx="240" cy="88" r="14" />
+            <circle class="st sk wk" cx="398" cy="88" r="14" />
+            <path class="st sb" d="M96 80h34" marker-end="url(#ah-b)" />
+            <path class="st sv" d="M96 96h22" marker-end="url(#ah-v)" />
+            <text class="tt fb" x="118" y="72" text-anchor="middle">F₁</text>
+            <text class="tt fv" x="112" y="114" text-anchor="middle">F₂</text>
+            <path class="st sg bold" d="M62 132h58" marker-end="url(#ah-g)" />
+            <text class="tt" x="82" y="162" text-anchor="middle">ΣF = F₁ + F₂</text>
+            <path class="st sb" d="M254 88h34" marker-end="url(#ah-b)" />
+            <path class="st sv" d="M226 88h-22" marker-end="url(#ah-v)" />
+            <text class="tt fb" x="276" y="80" text-anchor="middle">F₁</text>
+            <text class="tt fv" x="212" y="80" text-anchor="middle">F₂</text>
+            <path class="st sg bold" d="M230 132h14" marker-end="url(#ah-g)" />
+            <text class="tt" x="240" y="162" text-anchor="middle">ΣF = F₁ − F₂</text>
+            <path class="st sb" d="M412 88h30" marker-end="url(#ah-b)" />
+            <path class="st sa" d="M398 74V48" marker-end="url(#ah-a)" />
+            <text class="tt fb" x="432" y="106" text-anchor="middle">F₁</text>
+            <text class="tt fa" x="388" y="58" text-anchor="end">F₂</text>
+            <path class="st sg bold" d="M408 78 434 54" marker-end="url(#ah-g)" />
+            <text class="tt" x="398" y="162" text-anchor="middle">ΣF = √(F₁² + F₂²)</text>
+          </svg>
+          <figcaption>
+            Kuvvet bir <b>vektördür</b>; bu yüzden kuvvetler sayı gibi değil, ok gibi toplanır.
+            Cismin ne yapacağını tek tek kuvvetler değil, yeşil okla gösterilen <b>net kuvvet</b>
+            belirler. Net kuvvet sıfırsa cisim ya durur ya da sabit hızla gider — ikisi de
+            denge hâlidir.
+          </figcaption>
+        </figure>
+
         <h3 id="k2">1. yasa: eylemsizlik</h3>
         <p>
           <strong>Bir cisme etki eden net kuvvet sıfırsa, duran cisim durmaya devam eder;
@@ -1848,6 +2011,35 @@
             ve g'ye bağlıdır: Ay'da kütlen aynı, ağırlığın altıda birdir.
           </p>
         </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Aynı hızla itilen dört disk halı, parke, buz ve sürtünmesiz zeminde; sürtünme azaldıkça durma mesafesi uzuyor, sürtünmesiz zeminde disk hiç durmuyor.">
+            <text class="tt fd" x="110" y="22">hepsi aynı hızla itiliyor</text>
+            <path class="st sl hair dash" d="M110 30v146" />
+            <text class="tt" x="102" y="53" text-anchor="end">halı</text>
+            <text class="tt" x="102" y="91" text-anchor="end">parke</text>
+            <text class="tt" x="102" y="129" text-anchor="end">buz</text>
+            <text class="tt" x="102" y="167" text-anchor="end">sürtünmesiz</text>
+            <path class="st sl hair" d="M110 48h360M110 86h360M110 124h360M110 162h360" />
+            <path class="st sr bold" d="M110 48h42" />
+            <path class="st sa bold" d="M110 86h83" />
+            <path class="st sb bold" d="M110 124h250" />
+            <path class="st sg bold" d="M110 162h356" marker-end="url(#ah-g)" />
+            <circle class="fr" cx="152" cy="40" r="8" />
+            <circle class="fa" cx="193" cy="78" r="8" />
+            <circle class="fb" cx="360" cy="116" r="8" />
+            <text class="tt fr" x="164" y="53">1,3 m</text>
+            <text class="tt fa" x="205" y="91">2,7 m</text>
+            <text class="tt fb" x="372" y="129">8 m</text>
+            <text class="tt fg" x="452" y="152" text-anchor="end">hiç durmaz</text>
+          </svg>
+          <figcaption>
+            Diskleri durduran şey hareketin doğası değil, <b>sürtünmedir</b>. μ küçüldükçe durma
+            mesafesi d = v²/(2μg) ile uzar; sürtünme sıfıra giderse mesafe sonsuza gider ve disk
+            sonsuza kadar aynı hızla ilerler. 1. yasanın söylediği tam olarak budur: hareketi
+            sürdürmek için kuvvet gerekmez, <b>değiştirmek</b> için gerekir.
+          </figcaption>
+        </figure>
 
         <h3 id="k3">2. yasa: ΣF = m·a</h3>
         <p>
@@ -1880,6 +2072,39 @@
           1. yasa da aslında 2. yasanın özel hâlidir: ΣF = 0 ise a = 0.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 164" role="img" aria-label="Aynı kütleye iki kat kuvvet uygulanınca ivme iki katına çıkıyor, aynı kuvvet iki kat kütleye uygulanınca ivme yarıya iniyor.">
+            <path class="st sl hair dots" d="M161 16v138M319 16v138" />
+            <text class="tt fd" x="82" y="24" text-anchor="middle">temel durum</text>
+            <text class="tt fd" x="240" y="24" text-anchor="middle">kuvvet 2 katı</text>
+            <text class="tt fd" x="398" y="24" text-anchor="middle">kütle 2 katı</text>
+            <rect class="st sk wk" x="65" y="56" width="34" height="34" rx="7" />
+            <rect class="st sk wk" x="223" y="56" width="34" height="34" rx="7" />
+            <rect class="st sk wv" x="374" y="49" width="48" height="48" rx="9" />
+            <text class="tt fk" x="82" y="78" text-anchor="middle">5 kg</text>
+            <text class="tt fk" x="240" y="78" text-anchor="middle">10 kg</text>
+            <text class="tt fk" x="398" y="78" text-anchor="middle">10 kg</text>
+            <path class="st sb" d="M99 73h28" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M257 73h56" marker-end="url(#ah-b)" />
+            <path class="st sb" d="M422 73h28" marker-end="url(#ah-b)" />
+            <text class="tt fb" x="127" y="62" text-anchor="middle">20 N</text>
+            <text class="tt fb" x="285" y="62" text-anchor="middle">40 N</text>
+            <text class="tt fb" x="443" y="62" text-anchor="middle">20 N</text>
+            <path class="st sg" d="M67 118h30" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M210 118h60" marker-end="url(#ah-g)" />
+            <path class="st sg" d="M390 118h15" marker-end="url(#ah-g)" />
+            <text class="tl" x="82" y="148" text-anchor="middle">a = 4 m/s²</text>
+            <text class="tl" x="240" y="148" text-anchor="middle">a = 8 m/s²</text>
+            <text class="tl" x="398" y="148" text-anchor="middle">a = 2 m/s²</text>
+          </svg>
+          <figcaption>
+            <b>Kütle 5 kg iken</b> kuvveti iki katına çıkarmak ivmeyi de iki katına çıkarır; aynı
+            kuvveti iki kat kütleye uygulamak ivmeyi yarıya indirir. Yeşil oklar bu üç durumun
+            ivmelerini aynı ölçekte gösteriyor. İvmenin yönü daima <b>net kuvvetin yönündedir</b> —
+            hızın yönü değil.
+          </figcaption>
+        </figure>
+
         <h3 id="k4">3. yasa: etki–tepki</h3>
         <p>
           <strong>Bir cisim ikinci bir cisme kuvvet uyguladığında, ikinci cisim de
@@ -1909,6 +2134,36 @@
           <b>03</b> numaralı deneyde 2 kg'lık araba, 6 kg'lık arabanın 3 katı hızla ayrılır.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Birbirini iten iki araba: kuvvetler eşit büyüklükte ve zıt yönde, ama hafif arabanın ivmesi üç kat büyük.">
+            <text class="tt" x="240" y="22" text-anchor="middle">eşit büyüklük · zıt yön</text>
+            <path class="st sa" d="M170 56h-50" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M206 56h50" marker-end="url(#ah-a)" />
+            <text class="tt fa" x="145" y="44" text-anchor="middle">B → A</text>
+            <text class="tt fa" x="231" y="44" text-anchor="middle">A → B</text>
+            <rect class="st sk wb" x="120" y="72" width="56" height="44" rx="8" />
+            <rect class="st sk wv" x="200" y="62" width="90" height="54" rx="8" />
+            <path class="st sd hair" d="M176 94h6l4-8 8 16 6-8h-6" />
+            <text class="tl fk" x="148" y="100" text-anchor="middle">2 kg</text>
+            <text class="tl fk" x="245" y="100" text-anchor="middle">6 kg</text>
+            <circle class="fd" cx="134" cy="120" r="5" />
+            <circle class="fd" cx="162" cy="120" r="5" />
+            <circle class="fd" cx="216" cy="120" r="5" />
+            <circle class="fd" cx="274" cy="120" r="5" />
+            <path class="st sg bold" d="M170 148h-60" marker-end="url(#ah-g)" />
+            <path class="st sg bold" d="M206 148h20" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="140" y="172" text-anchor="middle">3a</text>
+            <text class="tl fg" x="216" y="172" text-anchor="middle">a</text>
+            <text class="tt" x="240" y="194" text-anchor="middle">kuvvetler eşit, ivmeler kütleyle ters orantılı</text>
+          </svg>
+          <figcaption>
+            İki araba birbirini iter: arabaya etkiyen kuvvetlerin büyüklüğü <b>her zaman eşittir</b>,
+            yönleri zıttır. Ama sonuçları eşit değildir — a = F/m olduğu için 2 kg'lık araba 6 kg'lık
+            arabanın <b>üç katı</b> ivme kazanır. Bu iki kuvvet birbirini dengeleyemez, çünkü
+            <b>farklı cisimlere</b> etki ederler.
+          </figcaption>
+        </figure>
+
         <h3 id="k5">Serbest cisim diyagramı</h3>
         <p>
           Dinamik problemlerinin tamamı aynı yöntemle çözülür: cismi yalnız bırak,
@@ -1930,6 +2185,38 @@
             bozulur; her seferinde yeniden yazmak gerekir.
           </p>
         </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 230" role="img" aria-label="Solda iple çekilen kutunun gerçek görünümü, sağda aynı kutunun serbest cisim diyagramı: ağırlık, normal kuvvet, sürtünme ve uygulanan kuvvet okları.">
+            <path class="st sd" d="M20 190h226" />
+            <path class="st sd hair" opacity="0.5" d="M24 190l-8 9M54 190l-8 9M84 190l-8 9M114 190l-8 9M144 190l-8 9M174 190l-8 9M204 190l-8 9M234 190l-8 9" />
+            <rect class="st sk wk" x="70" y="146" width="62" height="44" rx="8" />
+            <path class="st sk hair" d="M132 152 196 116" />
+            <path class="st sv bold" d="M170 130 206 110" marker-end="url(#ah-v)" />
+            <text class="tl fv" x="212" y="106">F</text>
+            <text class="tt fd" x="133" y="216" text-anchor="middle">gerçek sahne</text>
+            <path class="st sl hair dots" d="M264 24v186" />
+            <path class="st sl hair dots" d="M300 130h150M370 66v134" />
+            <path class="st sb bold" d="M370 130V95" marker-end="url(#ah-b)" />
+            <path class="st sa bold" d="M370 130v60" marker-end="url(#ah-a)" />
+            <path class="st sv bold" d="M370 130 413 105" marker-end="url(#ah-v)" />
+            <path class="st sr bold" d="M370 130h-25" marker-end="url(#ah-r)" />
+            <path class="st sd hair" d="M398 130A28 28 0 0 0 394 116" />
+            <text class="tt" x="402" y="124">α</text>
+            <circle class="fk" cx="370" cy="130" r="6" />
+            <text class="tl fb" x="360" y="92" text-anchor="end">N</text>
+            <text class="tl fa" x="360" y="186" text-anchor="end">G</text>
+            <text class="tl fv" x="420" y="102">F</text>
+            <text class="tl fr" x="338" y="126" text-anchor="end">f</text>
+            <text class="tt fd" x="370" y="216" text-anchor="middle">serbest cisim diyagramı</text>
+          </svg>
+          <figcaption>
+            Yöntem her problemde aynı: cismi sahneden <b>söküp al</b>, bir nokta olarak çiz ve
+            yalnızca <b>ona etkiyen</b> kuvvetleri koy. Kutunun yere ya da ipe uyguladığı kuvvetler
+            bu diyagrama girmez. Dikkat: ip yukarı doğru çektiği için burada <b>N &lt; G</b>'dir —
+            normal kuvveti otomatik olarak m·g yazmak en sık yapılan hatadır.
+          </figcaption>
+        </figure>
 
         <h3 id="k6">Sürtünme kuvveti</h3>
         <p>
@@ -1960,6 +2247,31 @@
             <tr><td>Lastik – kuru asfalt</td><td>0,7 – 0,9</td></tr>
           </tbody>
         </table>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Sürtünme kuvvetinin uygulanan kuvvete göre grafiği: eşiğe kadar eşit büyüyen statik sürtünme, eşikten sonra sabit kalan kinetik sürtünme.">
+            <path class="st sd hair" d="M70 28v132h360" />
+            <path class="st sl hair dash" d="M70 60h130M70 82h130M200 82v78" />
+            <path class="st sb bold" d="M70 160 200 60" />
+            <path class="st sa bold" d="M200 82h220" />
+            <circle class="fb" cx="200" cy="60" r="5" />
+            <text class="tt fb" x="62" y="64" text-anchor="end">μs·N</text>
+            <text class="tt fa" x="62" y="96" text-anchor="end">μk·N</text>
+            <text class="tt fb" x="100" y="106">f = F</text>
+            <text class="tt fa" x="300" y="74" text-anchor="middle">f sabit kalır</text>
+            <text class="tt fd" x="200" y="178" text-anchor="middle">eşik</text>
+            <text class="tt fb" x="128" y="178" text-anchor="middle">durgun</text>
+            <text class="tt fa" x="310" y="178" text-anchor="middle">kayıyor</text>
+            <text class="tt fd" x="70" y="22">f (sürtünme)</text>
+            <text class="tt fd" x="430" y="150" text-anchor="end">F (uygulanan)</text>
+          </svg>
+          <figcaption>
+            Statik sürtünme <b>uygulanan kuvvetle birlikte büyür</b> ve onu tam olarak dengeler —
+            bu yüzden mavi kısım 45°'lik bir doğrudur. Ama μs·N eşiğini aşamaz; o noktada cisim
+            kurtulur ve sürtünme <b>daha küçük</b> olan kinetik değerine düşer. Bir eşyayı
+            yerinden oynatmanın, sonra itmekten daha zor olmasının sebebi budur.
+          </figcaption>
+        </figure>
 
         <h3 id="k7">Ağırlık, normal kuvvet ve asansör</h3>
         <p>
@@ -1992,6 +2304,56 @@
           tartı da aynı ivmeyle düştüğü için aranızda kuvvet kalmamasıdır. Uzay
           istasyonundaki astronotlar da aslında sürekli serbest düşmektedir.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 210" role="img" aria-label="Asansörün dört hâlinde tartının gösterdiği değer: durgunken gerçek değer, yukarı hızlanırken fazla, aşağı hızlanırken az, serbest düşmede sıfır.">
+            <text class="tt fd" x="240" y="20" text-anchor="middle">tartının yazdığı değer = normal kuvvet</text>
+            <path class="st sl hair dots" d="M120 32v168M240 32v168M360 32v168" />
+            <rect class="st sl f2 hair" x="22" y="38" width="76" height="92" rx="9" />
+            <rect class="st sl f2 hair" x="142" y="38" width="76" height="92" rx="9" />
+            <rect class="st sl f2 hair" x="262" y="38" width="76" height="92" rx="9" />
+            <rect class="st sl f2 hair" x="382" y="38" width="76" height="92" rx="9" />
+            <g class="st sk hair">
+              <path d="M52 78v22M42 88h20M52 100 44 112M52 100l8 12" />
+              <path d="M172 78v22M162 88h20M172 100 164 112M172 100l8 12" />
+              <path d="M292 78v22M282 88h20M292 100 284 112M292 100l8 12" />
+              <path d="M412 78v22M402 88h20M412 100 404 112M412 100l8 12" />
+            </g>
+            <circle class="fk" cx="52" cy="68" r="8" />
+            <circle class="fk" cx="172" cy="68" r="8" />
+            <circle class="fk" cx="292" cy="68" r="8" />
+            <circle class="fk" cx="412" cy="68" r="8" />
+            <rect class="st sk wk hair" x="34" y="114" width="36" height="12" rx="3" />
+            <rect class="st sk wk hair" x="154" y="114" width="36" height="12" rx="3" />
+            <rect class="st sk wk hair" x="274" y="114" width="36" height="12" rx="3" />
+            <rect class="st sk wk hair" x="394" y="114" width="36" height="12" rx="3" />
+            <path class="st sb" d="M206 104V64" marker-end="url(#ah-b)" />
+            <path class="st sb" d="M326 64v40" marker-end="url(#ah-b)" />
+            <path class="st sr" d="M446 58v52" marker-end="url(#ah-r)" />
+            <text class="tt fb" x="200" y="88" text-anchor="end">a</text>
+            <text class="tt fb" x="320" y="88" text-anchor="end">a</text>
+            <text class="tt fr" x="440" y="88" text-anchor="end">g</text>
+            <text class="tt fd" x="60" y="152" text-anchor="middle">durgun</text>
+            <text class="tt fd" x="180" y="152" text-anchor="middle">yukarı hızlanır</text>
+            <text class="tt fd" x="300" y="152" text-anchor="middle">aşağı hızlanır</text>
+            <text class="tt fd" x="420" y="152" text-anchor="middle">serbest düşme</text>
+            <text class="tl" x="60" y="176" text-anchor="middle">N = mg</text>
+            <text class="tl" x="180" y="176" text-anchor="middle">N = m(g+a)</text>
+            <text class="tl" x="300" y="176" text-anchor="middle">N = m(g−a)</text>
+            <text class="tl fr" x="420" y="176" text-anchor="middle">N = 0</text>
+            <text class="tt" x="60" y="198" text-anchor="middle">gerçek</text>
+            <text class="tt" x="180" y="198" text-anchor="middle">fazla yazar</text>
+            <text class="tt" x="300" y="198" text-anchor="middle">az yazar</text>
+            <text class="tt" x="420" y="198" text-anchor="middle">sıfır</text>
+          </svg>
+          <figcaption>
+            Tartı senin ağırlığını değil, sana uyguladığı <b>normal kuvveti</b> yazar. Yukarı
+            ivmelenirken net kuvvetin yukarı olması gerekir, bu yüzden N büyür; aşağı ivmelenirken
+            küçülür. Halat koparsa sen de tartı da aynı ivmeyle düşersiniz, aranızda kuvvet kalmaz
+            ve tartı sıfır gösterir. Uzaydaki "ağırlıksızlık" da tam olarak budur —
+            <b>yerçekimi yok olduğu için değil, sürekli düşüldüğü için.</b>
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
         <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>

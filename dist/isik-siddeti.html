@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1775,6 +1878,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Ampul kutularında neden artık "watt" değil <b>"lümen"</b> yazıyor? Çalışma masan yeterince
+          aydınlık mı, nasıl ölçersin? Bu konunun tamamı, birbirine çok benzeyen üç büyüklüğü
+          ayırmakla ilgili: <b>akı</b> kaynağın ürettiği toplam ışıktır, <b>şiddet</b> bunun belli
+          bir yöndeki yoğunluğu, <b>aydınlanma</b> ise yüzeye düşen paydır. Üçünü karıştırmayı
+          bıraktığın an konu biter.
+        </p>
+
         <h3 id="k1">Işık kaynakları ve doğrusal yayılma</h3>
         <p>
           Işığı kendisi üreten cisimlere <strong>ışık kaynağı</strong> denir. Işık, saydam ve
@@ -1794,6 +1921,35 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 244" role="img" aria-label="Noktasal kaynağın keskin kenarlı tam gölge, yaygın kaynağın ise tam gölge ile birlikte yarı gölge oluşturması.">
+            <text class="tt fd" x="40" y="30" text-anchor="middle">noktasal</text>
+            <circle class="fa" cx="40" cy="55" r="6" />
+            <path class="st sa hair" d="M46 55 380 13M46 55 380 97" />
+            <rect class="fk" x="150" y="41" width="14" height="28" rx="2" />
+            <path class="st sd" d="M380 6v100" />
+            <rect class="fk" x="376" y="13" width="8" height="84" />
+            <text class="tt" x="392" y="58">tam gölge</text>
+            <text class="tt fd" x="40" y="150" text-anchor="middle">yaygın</text>
+            <rect class="fa" x="34" y="167" width="12" height="16" rx="3" />
+            <path class="st sa hair" d="M46 167 340 141M46 183 340 209M46 183 340 122M46 167 340 228" />
+            <rect class="fk" x="164" y="155" width="14" height="40" rx="2" />
+            <path class="st sd" d="M340 114v124" />
+            <rect class="fk" x="336" y="141" width="8" height="68" />
+            <rect class="fk" x="336" y="122" width="8" height="19" opacity="0.4" />
+            <rect class="fk" x="336" y="209" width="8" height="19" opacity="0.4" />
+            <text class="tt" x="352" y="180">tam gölge</text>
+            <text class="tt fd" x="352" y="130">yarı gölge</text>
+          </svg>
+          <figcaption>
+            Işık <b>doğrular boyunca</b> yayıldığı için gölgeler keskin kenarlıdır. Noktasal bir
+            kaynakta perdenin her noktası ya ışık alır ya almaz — arada ara ton yoktur. Kaynak
+            büyüdüğünde ise perdenin bazı noktaları kaynağın <b>yalnızca bir kısmını</b> görebilir;
+            o bölgeye <b>yarı gölge</b> denir. Güneş tutulmasında tam ve parçalı tutulma bölgeleri
+            tam olarak bu iki bölgedir.
+          </figcaption>
+        </figure>
+
         <h3 id="k2">Işık akısı (Φ)</h3>
         <p>
           Kaynağın <strong>birim zamanda yaydığı görünür ışık enerjisi</strong>dir. Birimi
@@ -1809,6 +1965,44 @@
           <strong>4π steradyan</strong> olduğu için toplam akı 4π·I olur.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Kaynağın her yöne yaydığı toplam ışık akısı ve bazı ışık kaynaklarının lümen değerleri.">
+            <g class="st sa hair">
+              <path d="M138 100h38" marker-end="url(#ah-sa)" />
+              <path d="M134 86 167 67" marker-end="url(#ah-sa)" />
+              <path d="M124 76 143 43" marker-end="url(#ah-sa)" />
+              <path d="M110 72v-38" marker-end="url(#ah-sa)" />
+              <path d="M96 76 77 43" marker-end="url(#ah-sa)" />
+              <path d="M86 86 53 67" marker-end="url(#ah-sa)" />
+              <path d="M82 100H44" marker-end="url(#ah-sa)" />
+              <path d="M86 114 53 133" marker-end="url(#ah-sa)" />
+              <path d="M96 124 77 157" marker-end="url(#ah-sa)" />
+              <path d="M110 128v38" marker-end="url(#ah-sa)" />
+              <path d="M124 124 143 157" marker-end="url(#ah-sa)" />
+              <path d="M134 114 167 133" marker-end="url(#ah-sa)" />
+            </g>
+            <circle class="st sa wa" cx="110" cy="100" r="22" />
+            <text class="tt" x="110" y="188" text-anchor="middle">Φ = toplam ışık akısı</text>
+            <path class="st sl hair dots" d="M234 20v160" />
+            <text class="tt fd" x="360" y="36" text-anchor="middle">birim: lümen (lm)</text>
+            <text class="tt" x="276" y="76" text-anchor="end">mum</text>
+            <rect class="fa" x="284" y="68" width="2" height="10" rx="1" />
+            <text class="tt" x="296" y="77">12 lm</text>
+            <text class="tt" x="276" y="111" text-anchor="end">LED ampul</text>
+            <rect class="fa" x="284" y="103" width="87" height="10" rx="3" />
+            <text class="tt" x="379" y="112">800 lm</text>
+            <text class="tt" x="276" y="146" text-anchor="end">araba farı</text>
+            <rect class="fa" x="284" y="138" width="130" height="10" rx="3" />
+            <text class="tt" x="422" y="147">1200 lm</text>
+          </svg>
+          <figcaption>
+            Işık akısı, kaynağın <b>her yöne birden</b> yaydığı görünür ışığın toplamıdır; birimi
+            lümendir. Ampul kutusundaki watt değeri kaynağın <em>harcadığı</em> elektrik gücünü
+            söyler, <em>ürettiği</em> ışığı değil — bu yüzden 9 W'lık bir LED, 60 W'lık akkor
+            ampulle aynı 800 lümeni verebilir.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">Işık şiddeti (I)</h3>
         <p>
           Kaynağın <strong>belli bir doğrultuda, birim katı açıya gönderdiği akı</strong>dır.
@@ -1823,6 +2017,28 @@
           <strong>ω = A / r²</strong> ile hesaplanır; birimi <strong>steradyan (sr)</strong>'dır.
           Tüm küre 4π ≈ 12,57 sr'dir.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Kaynaktan çıkan ışığın belli bir uzay açısı içindeki payı olarak ışık şiddeti.">
+            <path class="wa" d="M70 110 330 50A140 140 0 0 1 330 170Z" opacity="0.6" />
+            <path class="st sa" d="M70 110 330 50M70 110 330 170" />
+            <path class="st sa" d="M330 50A140 140 0 0 1 330 170" />
+            <circle class="fa" cx="70" cy="110" r="7" />
+            <text class="tt" x="200" y="106" text-anchor="middle">ω</text>
+            <text class="tt" x="200" y="126" text-anchor="middle">uzay açısı</text>
+            <text class="tt fa" x="200" y="190" text-anchor="middle">bu koninin içindeki akı: Φ</text>
+            <path class="st sl hair dots" d="M354 24v154" />
+            <text class="tl fb" x="416" y="100" text-anchor="middle">I = Φ / ω</text>
+            <text class="tt" x="416" y="126" text-anchor="middle">1 cd = 1 lm/sr</text>
+          </svg>
+          <figcaption>
+            Bir kaynak ışığını her yöne eşit dağıtmayabilir: el feneri ışığın çoğunu dar bir koniye
+            sıkıştırır, mum her yöne aynı miktarda yayar. <b>Işık şiddeti</b>, belli bir yöndeki
+            akı yoğunluğudur — yani akının uzay açısına bölümü. Bu yüzden 100 lümenlik bir el feneri,
+            100 lümenlik bir mumdan <b>çok daha parlak</b> görünür: aynı akıyı çok daha küçük bir
+            açıya sıkıştırmıştır.
+          </figcaption>
+        </figure>
 
         <h3 id="k4">Aydınlanma şiddeti (E)</h3>
         <p>
@@ -1840,6 +2056,35 @@
           <tr><td>Işık şiddeti</td><td>I</td><td>kandela (cd)</td><td>kaynağın, bir yönde</td></tr>
           <tr><td>Aydınlanma şiddeti</td><td>E</td><td>lüks (lx)</td><td>yüzeyin</td></tr>
         </table>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Aynı ışık akısı küçük bir yüzeye düşerse aydınlanma büyük, dört kat geniş bir yüzeye yayılırsa dörtte bir olur.">
+            <text class="tt fd" x="240" y="26" text-anchor="middle">aynı akı (100 lm), farklı alan</text>
+            <path class="st sa" d="M100 50v58" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M118 50v58" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M136 50v58" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M154 50v58" marker-end="url(#ah-a)" />
+            <path class="wg" d="M92 120h76l-22 30H70z" />
+            <path class="st sg" d="M92 120h76l-22 30H70z" />
+            <text class="tt" x="119" y="142" text-anchor="middle">1 m²</text>
+            <text class="tl fg" x="119" y="182" text-anchor="middle">E = 100 lx</text>
+            <path class="st sl hair dots" d="M218 34v150" />
+            <path class="st sa" d="M290 50v56" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M330 50v56" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M370 50v56" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M410 50v56" marker-end="url(#ah-a)" />
+            <path class="wg" d="M272 118h164l-30 34H242z" opacity="0.55" />
+            <path class="st sg" d="M272 118h164l-30 34H242z" />
+            <text class="tt" x="339" y="140" text-anchor="middle">4 m²</text>
+            <text class="tl fg" x="339" y="182" text-anchor="middle">E = 25 lx</text>
+          </svg>
+          <figcaption>
+            Aydınlanma, yüzeye düşen akının <b>birim alana</b> bölünmesidir. Sağdaki yüzeye tam
+            olarak aynı miktarda ışık düşüyor — ama dört kat geniş olduğu için her metrekaresine
+            dörtte biri düşer ve yüzey dört kat sönük görünür. Bu yüzden lüks, kaynağın değil
+            <b>yüzeyin</b> özelliğidir: aynı ampul, masayı aydınlatır ama odanın köşesini aydınlatmaz.
+          </figcaption>
+        </figure>
 
         <h3 id="k5">Ters kare yasası</h3>
         <p>
@@ -1861,6 +2106,30 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Aynı ışık demetinin uzaklık iki ve üç katına çıktığında dört ve dokuz kat geniş alana yayılması.">
+            <path class="st sa hair" d="M46 100 340 40M46 100 340 160" />
+            <circle class="fa" cx="40" cy="100" r="7" />
+            <rect class="st sa wa hair" x="140" y="80" width="40" height="40" />
+            <rect class="st sa wa hair" x="240" y="60" width="80" height="80" />
+            <rect class="st sa wa hair" x="340" y="40" width="120" height="120" />
+            <path class="st sa hair" opacity="0.55" d="M280 60v80M240 100h80M380 40v120M420 40v120M340 80h120M340 120h120" />
+            <text class="tl fk" x="160" y="70" text-anchor="middle">E</text>
+            <text class="tl fk" x="280" y="50" text-anchor="middle">E / 4</text>
+            <text class="tl fk" x="400" y="30" text-anchor="middle">E / 9</text>
+            <path class="st sd hair" d="M40 186h300M40 181v10M140 181v10M240 181v10M340 181v10" />
+            <text class="tt fd" x="140" y="202" text-anchor="middle">d</text>
+            <text class="tt fd" x="240" y="202" text-anchor="middle">2d</text>
+            <text class="tt fd" x="340" y="202" text-anchor="middle">3d</text>
+          </svg>
+          <figcaption>
+            Kaynaktan çıkan aynı demet, uzaklık iki katına çıkınca <b>dört kat</b>, üç katına çıkınca
+            <b>dokuz kat</b> geniş bir alana yayılır. Aynı akı daha çok kareye bölündüğü için her
+            kareye düşen pay ters kareyle azalır: E = I/d². Ampulden iki kat uzaklaşmak, masanı
+            yarı değil <b>dörtte bir</b> kadar aydınlık yapar.
+          </figcaption>
+        </figure>
+
         <h3 id="k6">Eğik yüzeyler: cosθ çarpanı</h3>
         <p>
           Işık yüzeye dik gelmiyorsa, aynı akı <strong>daha büyük bir alana</strong> yayılır.
@@ -1874,6 +2143,36 @@
           (ışık yüzeye teğet) sıfırdır. Mevsimlerin oluş sebebi de budur: kışın Güneş ışınları
           yere daha eğik gelir.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 192" role="img" aria-label="Işık yüzeye dik gelirse dar bir alanı, eğik gelirse iki kat geniş bir alanı aydınlatır.">
+            <text class="tt fd" x="240" y="24" text-anchor="middle">aynı demet, farklı geliş açısı</text>
+            <path class="st sa" d="M105 56v66" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M125 56v66" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M145 56v66" marker-end="url(#ah-a)" />
+            <path class="st sd" d="M70 130h120" />
+            <path class="st sa bold" d="M105 130h40" />
+            <text class="tt fd" x="125" y="154" text-anchor="middle">dar alan</text>
+            <text class="tl fg" x="125" y="176" text-anchor="middle">parlak</text>
+            <path class="st sl hair dots" d="M218 34v146" />
+            <path class="st sa" d="M251 70 348 126" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M291 70 388 126" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M331 70 428 126" marker-end="url(#ah-a)" />
+            <path class="st sd" d="M250 130h210" />
+            <path class="st sa bold" d="M355 130h80" />
+            <path class="st sd hair dash" d="M395 130V86" />
+            <path class="st sd hair" d="M395 104A26 26 0 0 0 372 118" />
+            <text class="tt fd" x="378" y="100" text-anchor="end">θ</text>
+            <text class="tt fd" x="395" y="154" text-anchor="middle">iki kat geniş alan</text>
+            <text class="tl fr" x="395" y="176" text-anchor="middle">sönük</text>
+          </svg>
+          <figcaption>
+            Yüzey eğildiğinde aynı ışık demeti <b>daha geniş bir alana</b> yayılır, bu yüzden her
+            metrekareye düşen pay azalır. Kayıp tam olarak cosθ çarpanıyla verilir: E = I·cosθ/d².
+            Kışın güneşin daha eğik gelmesi ve kutupların hep soğuk olması aynı geometrinin sonucudur —
+            gelen enerji aynıdır, <b>yayıldığı alan</b> farklıdır.
+          </figcaption>
+        </figure>
 
         <h3 id="k7">Günlük hayattan değerler</h3>
         <table class="tbl">
@@ -1889,6 +2188,38 @@
           Bir mum yaklaşık <strong>1 cd</strong> şiddetindedir; 100 W'lık akkor ampul
           ≈ 1400 lm, 10 W'lık LED ampul ≈ 800 lm akı yayar.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 212" role="img" aria-label="Dolunaydan doğrudan güneş ışığına kadar tipik aydınlanma değerlerinin logaritmik ölçekte gösterimi.">
+            <path class="st sd hair" d="M60 150h390M60 145v10M125 145v10M190 145v10M255 145v10M320 145v10M385 145v10M450 145v10" />
+            <path class="st sb hair" d="M86 150v-30M201 150V96M266 150v-30M294 150V44M320 150V96M450 150V64" />
+            <circle class="fb" cx="86" cy="150" r="4" />
+            <circle class="fb" cx="201" cy="150" r="4" />
+            <circle class="fb" cx="266" cy="150" r="4" />
+            <circle class="fb" cx="294" cy="150" r="4" />
+            <circle class="fb" cx="320" cy="150" r="4" />
+            <circle class="fa" cx="450" cy="150" r="5" />
+            <text class="tt" x="86" y="112" text-anchor="middle">dolunay</text>
+            <text class="tt" x="201" y="88" text-anchor="middle">sokak lambası</text>
+            <text class="tt" x="266" y="112" text-anchor="middle">oturma odası</text>
+            <text class="tt fg" x="294" y="36" text-anchor="middle">sınıf / ofis</text>
+            <text class="tt" x="330" y="88">bulutlu gün</text>
+            <text class="tt fa" x="452" y="56" text-anchor="end">doğrudan güneş</text>
+            <text class="tt fd" x="60" y="172" text-anchor="middle">0,1</text>
+            <text class="tt fd" x="125" y="172" text-anchor="middle">1</text>
+            <text class="tt fd" x="190" y="172" text-anchor="middle">10</text>
+            <text class="tt fd" x="255" y="172" text-anchor="middle">100</text>
+            <text class="tt fd" x="320" y="172" text-anchor="middle">1000</text>
+            <text class="tt fd" x="452" y="172" text-anchor="end">100 bin</text>
+            <text class="tt fd" x="255" y="198" text-anchor="middle">aydınlanma (lüks) · logaritmik ölçek</text>
+          </svg>
+          <figcaption>
+            Ölçek <b>logaritmiktir</b>: her adım on katı gösterir. Dolunaylı bir gece ile doğrudan
+            güneş arasında <b>dört yüz bin kat</b> fark var, ama gözümüz bu farkı öyle algılamaz —
+            göz bebeği ve retina kendini uyarlar. Bu yüzden "yeterince aydınlık" demek yerine
+            ölçmek gerekir: bir okuma masası için hedef <b>300–500 lüks</b>.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
 

@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1767,6 +1870,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Bir kuş tüyünü ve bir çelik bilyeyi aynı anda bıraksan hangisi önce yere iner? Havası
+          boşaltılmış bir cam tüpte ikisi de <b>tam olarak aynı anda</b> düşer — Ay'da bu deney
+          1971'de gerçekten yapıldı. Demek ki düşüşü belirleyen şey cismin ağırlığı değil;
+          <b>yalnızca geçen süre</b>. Aşağıda önce bunun nedenini kuracağız, sonra süreyi, hızı ve
+          yolu birbirine bağlayan dört bağıntıyı çıkaracağız.
+        </p>
+
         <h3 id="k1">Serbest düşme nedir?</h3>
         <p>
           Bir cisim <strong>ilk hızsız olarak bırakıldığında</strong> ve üzerine yalnızca
@@ -1791,6 +1918,38 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 252" role="img" aria-label="Solda eşit zaman aralıklarıyla çekilmiş strobo görüntüleri düşen cismin aralıklarının açıldığını gösteriyor, sağda cisme etkiyen tek kuvvetin ağırlık olduğu serbest cisim diyagramı çizili.">
+            <text class="tt" x="120" y="15" text-anchor="middle">bırakılıyor · v₀ = 0</text>
+            <path class="st sd hair" d="M100 26h40" />
+            <circle class="fb" cx="120" cy="40" r="10" opacity="0.22" />
+            <circle class="fb" cx="120" cy="60" r="10" opacity="0.42" />
+            <circle class="fb" cx="120" cy="120" r="10" opacity="0.68" />
+            <circle class="fb" cx="120" cy="220" r="10" />
+            <text class="tt" x="150" y="45">t = 0</text>
+            <text class="tt" x="150" y="65">1 s</text>
+            <text class="tt" x="150" y="125">2 s</text>
+            <text class="tt" x="150" y="225">3 s</text>
+            <path class="st sd" d="M42 234h156" />
+            <path class="st sd hair" opacity="0.55" d="M46 234l-8 9M66 234l-8 9M86 234l-8 9M106 234l-8 9M126 234l-8 9M146 234l-8 9M166 234l-8 9M186 234l-8 9" />
+            <path class="st sl hair dots" d="M232 18v220" />
+            <path class="st sr hair dash" opacity="0.7" d="M330 64V20" marker-end="url(#ah-r)" />
+            <path class="st sr hair" d="M322 39l16 16M338 39l-16 16" />
+            <text class="tt fr" x="352" y="42">hava direnci</text>
+            <text class="tt fr" x="352" y="58">ihmal edilir</text>
+            <rect class="st sk wk" x="304" y="70" width="52" height="52" rx="11" />
+            <path class="st sa bold" d="M330 126v72" marker-end="url(#ah-a)" />
+            <text class="tl fa" x="344" y="166">G = m·g</text>
+            <text class="tt" x="344" y="184">tek kuvvet</text>
+            <text class="tv fk" x="330" y="230" text-anchor="middle">a = g</text>
+          </svg>
+          <figcaption>
+            Üç koşul tek karede: cisim <b>ilk hızsız bırakılır</b>, üzerindeki <b>tek kuvvet
+            ağırlıktır</b>, bu yüzden ivmesi sabit kalır ve g'ye eşit olur. Eşit sürelerle çekilmiş
+            strobo görüntülerinin arası sürekli açılıyor; çünkü hız her saniye aynı miktarda büyüyor.
+          </figcaption>
+        </figure>
+
         <h3 id="k2">Kütle neden fark etmez?</h3>
         <p>
           Sezgi “ağır olan daha hızlı düşer” der, ama Newton'un ikinci yasası bunun tersini söyler.
@@ -1812,6 +1971,42 @@
           aynı anda toza değdi. Günlük hayatta tüyün geride kalmasının sebebi kütlesi değil,
           <strong>hava direnci</strong>dir.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 270" role="img" aria-label="Solda kütlesi m ve 8m olan iki cisim aynı hizada düşerken, sağda m·g = m·a eşitliğinde kütlenin sadeleşip a = g kaldığı gösteriliyor.">
+            <text class="tl fb" x="85" y="18" text-anchor="middle">m</text>
+            <text class="tl fv" x="170" y="18" text-anchor="middle">8m</text>
+            <path class="st sl hair dash" opacity="0.9" d="M97 40h54M97 85h54M97 221h54" />
+            <circle class="fb" cx="85" cy="40" r="8" opacity="0.35" />
+            <circle class="fb" cx="85" cy="85" r="8" opacity="0.65" />
+            <circle class="fb" cx="85" cy="221" r="8" />
+            <circle class="fv" cx="170" cy="40" r="15" opacity="0.35" />
+            <circle class="fv" cx="170" cy="85" r="15" opacity="0.65" />
+            <circle class="fv" cx="170" cy="221" r="15" />
+            <path class="st sd" d="M38 236h176" />
+            <path class="st sd hair" opacity="0.55" d="M42 236l-8 9M62 236l-8 9M82 236l-8 9M102 236l-8 9M122 236l-8 9M142 236l-8 9M162 236l-8 9M182 236l-8 9M202 236l-8 9" />
+            <text class="tt" x="126" y="262" text-anchor="middle">hep aynı hizada</text>
+            <path class="st sl hair dots" d="M242 22v222" />
+            <text class="tt" x="366" y="48" text-anchor="middle">tek kuvvet ağırlıksa</text>
+            <text class="tv fk" x="312" y="94" text-anchor="middle">m</text>
+            <text class="tv fk" x="327" y="94" text-anchor="middle">·</text>
+            <text class="tv fk" x="341" y="94" text-anchor="middle">g</text>
+            <text class="tv fk" x="366" y="94" text-anchor="middle">=</text>
+            <text class="tv fk" x="391" y="94" text-anchor="middle">m</text>
+            <text class="tv fk" x="406" y="94" text-anchor="middle">·</text>
+            <text class="tv fk" x="420" y="94" text-anchor="middle">a</text>
+            <path class="st sr" d="M304 102l16-18M383 102l16-18" />
+            <path class="st sd hair" d="M366 112v22" marker-end="url(#ah-d)" />
+            <rect class="st sg wg hair" x="322" y="142" width="88" height="38" rx="12" />
+            <text class="tv fk" x="366" y="168" text-anchor="middle">a = g</text>
+            <text class="tt" x="366" y="202" text-anchor="middle">kütle sadeleşti</text>
+          </svg>
+          <figcaption>
+            Ağır cisim daha büyük bir kuvvetle çekilir (m·g), ama tam o oranda harekete de direnir
+            (m·a). <b>Kütle eşitliğin iki yanında da bulunduğu için sadeleşir</b> ve geriye yalnızca
+            a = g kalır. Bu yüzden 8 kat ağır olan cisim, hafif olanla hep aynı hizada düşer.
+          </figcaption>
+        </figure>
 
         <h3 id="k3">Temel bağıntılar</h3>
         <p>
@@ -1839,11 +2034,66 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 246" role="img" aria-label="Süre, hız ve yol düğümlerinden oluşan üçgen; kenarlarda v = g·t, h = yarım g t kare ve v kare = 2gh bağıntıları yazılı.">
+            <path class="st sl" d="M142 60h196M133 83l85 85M347 83l-85 85" />
+            <circle class="st sb wb" cx="110" cy="60" r="32" />
+            <circle class="st sb wb" cx="370" cy="60" r="32" />
+            <circle class="st sb wb" cx="240" cy="190" r="32" />
+            <text class="tv fk" x="110" y="69" text-anchor="middle">t</text>
+            <text class="tv fk" x="370" y="69" text-anchor="middle">v</text>
+            <text class="tv fk" x="240" y="199" text-anchor="middle">h</text>
+            <text class="tt" x="110" y="114" text-anchor="middle">süre</text>
+            <text class="tt" x="370" y="114" text-anchor="middle">hız</text>
+            <text class="tt" x="240" y="240" text-anchor="middle">yol</text>
+            <text class="tl fb" x="240" y="46" text-anchor="middle">v = g · t</text>
+            <text class="tl fb" x="176" y="146" text-anchor="end">h = ½ · g · t²</text>
+            <text class="tl fb" x="304" y="146">v² = 2 · g · h</text>
+            <text class="tt" x="304" y="164">süre gerekmez</text>
+          </svg>
+          <figcaption>
+            Serbest düşmede üç büyüklük vardır ve her ikisini birbirine bir kenar bağlar. Soruda
+            hangi ikisi geçiyorsa <b>o kenardaki bağıntıyı</b> kullan: süre ile hız arasında v = g·t,
+            süre ile yol arasında h = ½g·t², <b>sürenin hiç geçmediği</b> sorularda v² = 2gh.
+          </figcaption>
+        </figure>
+
         <h3 id="k4">Grafikler ve yorumu</h3>
         <p>
           Sayfadaki laboratuvarın altında bu üç grafik canlı çiziliyor. Ezberlemek yerine
           eğim–alan ilişkisini kurmak yeterli:
         </p>
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 182" role="img" aria-label="Yan yana üç grafik: a-t grafiği zaman eksenine paralel doğru, v-t grafiği orijinden geçen doğru, h-t grafiği yukarı açılan parabol.">
+            <text class="tl" x="30" y="22">a – t</text>
+            <rect class="wa" x="30" y="70" width="112" height="80" />
+            <path class="st sd hair" d="M30 34V150h112" />
+            <path class="st sa" d="M30 70h112" />
+            <text class="tt fa" x="86" y="62" text-anchor="middle">a = g</text>
+            <text class="tt" x="86" y="118" text-anchor="middle">alan = Δv</text>
+            <text class="tt fd" x="142" y="168" text-anchor="end">t</text>
+            <text class="tl" x="195" y="22">v – t</text>
+            <path class="wb" d="M195 150h112V46z" />
+            <path class="st sd hair" d="M195 34V150h112" />
+            <path class="st sb" d="M195 150 307 46" />
+            <text class="tt fb" x="201" y="60">eğim = g</text>
+            <text class="tt" x="272" y="134" text-anchor="middle">alan = h</text>
+            <text class="tt fd" x="307" y="168" text-anchor="end">t</text>
+            <text class="tl" x="360" y="22">h – t</text>
+            <path class="st sd hair" d="M360 34V150h112" />
+            <path class="st sv" d="M360 150C394 150 420 116 472 44" />
+            <text class="tt fv" x="366" y="60">parabol</text>
+            <text class="tt" x="366" y="80">eğim = v</text>
+            <text class="tt fd" x="472" y="168" text-anchor="end">t</text>
+          </svg>
+          <figcaption>
+            Üç grafiği ezberlemek yerine birbirine bağla: <b>bir grafiğin eğimi bir üsttekini,
+            altındaki alan bir alttakini verir.</b> v–t doğrusunun altındaki üçgenin alanı
+            ½·t·(g·t) = ½g·t²'dir — yani tam olarak alınan yol. Sayfadaki laboratuvarın altında bu
+            üç grafik sen izlerken çiziliyor.
+          </figcaption>
+        </figure>
+
         <table class="tbl">
           <thead>
             <tr><th>Grafik</th><th>Şekli</th><th>Eğimi</th><th>Altındaki alan</th></tr>
@@ -1878,6 +2128,47 @@
           yani <strong>1 : 2 : 3 : 4</strong>. Bu üç diziyi karıştırmamak sınavda zaman kazandırır.
         </p>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 288" role="img" aria-label="Eşit zaman aralıklarında düşen cismin konumları; aralıklarda alınan yollar 1, 3, 5, 7 birim, baştan itibaren toplam yollar 1, 4, 9, 16 birim, hızlar 1, 2, 3, 4 birim.">
+            <text class="tt fd" x="106" y="18" text-anchor="end">her aralıkta</text>
+            <text class="tt fd" x="178" y="18">süre</text>
+            <text class="tt fd" x="252" y="18">toplam yol</text>
+            <text class="tt fd" x="366" y="18">hız</text>
+            <path class="st sl hair dots" opacity="0.75" d="M160 26h250M160 41h250M160 86h250M160 161h250M160 266h250" />
+            <path class="st sl hair" d="M150 26v246" />
+            <path class="st sb hair" d="M118 26v15M112 26h12M112 41h12M118 41v45M112 86h12M118 86v75M112 161h12M118 161v105M112 266h12" />
+            <text class="tt fb" x="106" y="38" text-anchor="end">1h</text>
+            <text class="tt fb" x="106" y="68" text-anchor="end">3h</text>
+            <text class="tt fb" x="106" y="128" text-anchor="end">5h</text>
+            <text class="tt fb" x="106" y="218" text-anchor="end">7h</text>
+            <circle class="fb" cx="150" cy="26" r="6" opacity="0.25" />
+            <circle class="fb" cx="150" cy="41" r="6" opacity="0.4" />
+            <circle class="fb" cx="150" cy="86" r="6" opacity="0.6" />
+            <circle class="fb" cx="150" cy="161" r="6" opacity="0.8" />
+            <circle class="fb" cx="150" cy="266" r="6" />
+            <text class="tl" x="178" y="46">1t</text>
+            <text class="tl" x="252" y="46">1h</text>
+            <text class="tl" x="366" y="46">1v</text>
+            <text class="tl" x="178" y="91">2t</text>
+            <text class="tl" x="252" y="91">4h</text>
+            <text class="tl" x="366" y="91">2v</text>
+            <text class="tl" x="178" y="166">3t</text>
+            <text class="tl" x="252" y="166">9h</text>
+            <text class="tl" x="366" y="166">3v</text>
+            <text class="tl" x="178" y="271">4t</text>
+            <text class="tl" x="252" y="271">16h</text>
+            <text class="tl" x="366" y="271">4v</text>
+            <path class="st sd" d="M114 274h72" />
+            <path class="st sd hair" opacity="0.55" d="M118 274l-8 9M138 274l-8 9M158 274l-8 9M178 274l-8 9" />
+          </svg>
+          <figcaption>
+            Aynı düşüşün üç ayrı okuması. <b>Her aralıkta</b> alınan yollar tek sayılarla gider
+            (1 : 3 : 5 : 7); <b>baştan itibaren toplam</b> yol sürenin karesiyle büyür
+            (1 : 4 : 9 : 16); <b>hız</b> ise eşit adımlarla artar (1 : 2 : 3 : 4). Toplam yollardaki
+            farkları alırsan tek sayıları bulursun — üç dizi aynı hareketi anlatır.
+          </figcaption>
+        </figure>
+
         <h3 id="k6">Düşey atış: yukarı fırlatınca ne değişir?</h3>
         <p>
           Cismi v₀ hızıyla yukarı atarsan artık “serbest düşme” değil <strong>düşey atış</strong>
@@ -1902,11 +2193,56 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 252" role="img" aria-label="Yukarı atılan cismin simetrik yörüngesi: çıkışta yavaşlayan hız okları, tepe noktada hızın sıfırlanması ama ivmenin yine aşağı yönlü g olması, inişte hızın simetrik olarak büyümesi.">
+            <path class="st sd hair dash" opacity="0.7" d="M150 200Q240 -110 330 200" />
+            <path class="st sl hair dash" d="M207 84h66" />
+            <text class="tt" x="240" y="78" text-anchor="middle">eşit sürat</text>
+            <path class="st sb bold" d="M134 200V154" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M179 84V61" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M301 84v23" marker-end="url(#ah-b)" />
+            <path class="st sb bold" d="M346 154v46" marker-end="url(#ah-b)" />
+            <text class="tt fb" x="128" y="148" text-anchor="end">v₀</text>
+            <text class="tt fb" x="354" y="148">v₀</text>
+            <path class="st sa" d="M168 168v30" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M312 168v30" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M240 96v30" marker-end="url(#ah-a)" />
+            <text class="tt fa" x="176" y="190">g</text>
+            <text class="tt fa" x="304" y="190" text-anchor="end">g</text>
+            <text class="tt fa" x="240" y="146" text-anchor="middle">tepede bile a = g</text>
+            <circle class="fb" cx="150" cy="200" r="9" />
+            <circle class="fb" cx="195" cy="84" r="9" />
+            <circle class="fb" cx="240" cy="45" r="9" />
+            <circle class="fb" cx="285" cy="84" r="9" />
+            <circle class="fb" cx="330" cy="200" r="9" />
+            <text class="tl fb" x="240" y="16" text-anchor="middle">v = 0</text>
+            <text class="tt fd" x="240" y="32" text-anchor="middle">tepe nokta</text>
+            <path class="st sl hair" d="M388 45h24M388 214h24" />
+            <path class="st sd hair" d="M400 128V52" marker-end="url(#ah-d)" />
+            <path class="st sd hair" d="M400 144v63" marker-end="url(#ah-d)" />
+            <text class="tt" x="400" y="140" text-anchor="middle">h maks</text>
+            <path class="st sd" d="M120 214h280" />
+            <path class="st sd hair" opacity="0.55" d="M124 214l-8 9M154 214l-8 9M184 214l-8 9M214 214l-8 9M244 214l-8 9M274 214l-8 9M304 214l-8 9M334 214l-8 9M364 214l-8 9M394 214l-8 9" />
+            <text class="tt" x="240" y="242" text-anchor="middle">çıkış süresi = iniş süresi</text>
+          </svg>
+          <figcaption>
+            Düşey atış, serbest düşmenin aynadaki görüntüsüdür: <b>çıkış süresi iniş süresine
+            eşittir</b> ve cisim aynı yükseklikten geçerken süratinin büyüklüğü iki geçişte de
+            aynıdır. Tepe noktada hız sıfırlanır ama <b>ivme sıfırlanmaz</b> — sarı oklar her yerde
+            aynı boydadır. İvme orada gerçekten sıfır olsaydı cisim havada asılı kalırdı.
+          </figcaption>
+        </figure>
+
         <h3 id="k7">Gerçekte hava direnci ve limit hız</h3>
         <p>
           Hava direnci hıza bağlı olarak artan, harekete ters yönlü bir kuvvettir. Cisim
           hızlandıkça direnç büyür; ağırlığa eşitlendiği anda net kuvvet sıfırlanır, ivme biter
           ve cisim sabit hızla düşmeye devam eder. Bu sabit hıza <strong>limit hız</strong> denir.
+        </p>
+        <p>
+          Bu kuvvet olmasaydı yağmurun altında durmak hayli tehlikeli olurdu: yağmur bulutları
+          yaklaşık 2 km yüksekte olduğuna göre, damlalar yere v = √(2·9,81·2000) ≈ <strong>198 m/s</strong>
+          hızla — bir tabanca mermisi hızında — çarpardı. Hava direnci sayesinde bu hız 8–9 m/s'de kalıyor.
         </p>
         <ul>
           <li>Yağmur damlası: yaklaşık 8–9 m/s</li>
@@ -1918,6 +2254,41 @@
           ulaşır; bu yüzden “yavaş düşüyor” gibi görünürler. Havası boşaltılmış bir tüpte bu fark
           tamamen kaybolur.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 216" role="img" aria-label="Solda üç aşamada hava direncinin büyüyerek ağırlığa eşitlenmesi ve ivmenin sıfırlanması, sağda hızın limit hızda doyduğu v-t eğrisi.">
+            <rect class="st sk wk hair" x="47" y="82" width="26" height="26" rx="7" />
+            <rect class="st sk wk hair" x="127" y="82" width="26" height="26" rx="7" />
+            <rect class="st sk wk hair" x="207" y="82" width="26" height="26" rx="7" />
+            <path class="st sa" d="M60 108v44" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M140 108v44" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M220 108v44" marker-end="url(#ah-a)" />
+            <path class="st sb" d="M140 82V56" marker-end="url(#ah-b)" />
+            <path class="st sb" d="M220 82V38" marker-end="url(#ah-b)" />
+            <text class="tt fb" x="220" y="28" text-anchor="middle">F = G</text>
+            <text class="tt fd" x="60" y="176" text-anchor="middle">bırakıldı</text>
+            <text class="tt fd" x="140" y="176" text-anchor="middle">hızlanıyor</text>
+            <text class="tt fd" x="220" y="176" text-anchor="middle">limit hız</text>
+            <text class="tl" x="60" y="198" text-anchor="middle">a = g</text>
+            <text class="tl" x="140" y="198" text-anchor="middle">a &lt; g</text>
+            <text class="tl fg" x="220" y="198" text-anchor="middle">a = 0</text>
+            <path class="st sl hair dots" d="M262 18v180" />
+            <path class="st sd hair" d="M296 30V170h164" />
+            <path class="st sd hair dash" opacity="0.8" d="M296 62h164" />
+            <text class="tt" x="458" y="84" text-anchor="end">limit hız</text>
+            <path class="st sv hair dash" d="M296 170 368 34" />
+            <text class="tt fv" x="372" y="40">direnç yok</text>
+            <path class="st sb" d="M296 170C320 140 344 86 384 72 418 60 440 62 460 62" />
+            <text class="tt fd" x="290" y="34" text-anchor="end">v</text>
+            <text class="tt fd" x="458" y="190" text-anchor="end">t</text>
+          </svg>
+          <figcaption>
+            Hava direnci hız arttıkça büyür. Ağırlığa eşitlendiği anda net kuvvet sıfırlanır, ivme
+            biter ve cisim <b>sabit hızla</b> düşmeye devam eder. v–t eğrisi bu yüzden düz bir doğru
+            olarak başlayıp yatay bir çizgiye doğru yatar; mor kesikli çizgi hava direnci hiç
+            olmasaydı hızın nereye gideceğini gösteriyor.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
         <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>

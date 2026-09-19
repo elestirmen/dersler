@@ -1109,6 +1109,108 @@
 
       .steps li { margin-bottom: 8px; }
 
+      .lead-in {
+        margin: 6px 0 4px;
+        padding: 15px 18px;
+        border: 1px solid color-mix(in srgb, var(--violet) 32%, transparent);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--violet) 7%, transparent);
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.62;
+      }
+
+      .lead-in b { color: var(--violet); font-weight: 750; }
+
+      /* ================= konu anlatımı görselleri ================= */
+      .fig {
+        margin: 18px 0 20px;
+        padding: 16px 18px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--violet) 5%, transparent), transparent 54%),
+          var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .fig > svg {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .fig figcaption {
+        max-width: 560px;
+        margin: 13px auto 0;
+        padding-top: 11px;
+        border-top: 1px dashed var(--line);
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .fig figcaption b { color: var(--muted); font-weight: 700; }
+
+      .figdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* --- şekillerin ortak çizim dili --- */
+      .fx text {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+
+      .fx .tl { font-size: 18px; font-weight: 700; fill: var(--ink); }
+      .fx .tv { font-size: 22px; font-weight: 750; fill: var(--ink); }
+      .fx .tt { font-size: 15px; font-weight: 600; fill: var(--dim); }
+      .fx .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      .fx .st { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .fx .hair { stroke-width: 1.5; }
+      .fx .bold { stroke-width: 3.6; }
+      .fx .dash { stroke-dasharray: 7 6; }
+      .fx .dots { stroke-dasharray: 1.6 5.4; }
+
+      .fx .sk { stroke: var(--ink); }
+      .fx .sm { stroke: var(--muted); }
+      .fx .sd { stroke: var(--dim); }
+      .fx .sl { stroke: var(--line); }
+      .fx .sb { stroke: var(--blue); }
+      .fx .sv { stroke: var(--violet); }
+      .fx .sa { stroke: var(--amber); }
+      .fx .sg { stroke: var(--lime); }
+      .fx .sr { stroke: var(--rose); }
+
+      .fx .fk { fill: var(--ink); }
+      .fx .fm { fill: var(--muted); }
+      .fx .fd { fill: var(--dim); }
+      .fx .fb { fill: var(--blue); }
+      .fx .fv { fill: var(--violet); }
+      .fx .fa { fill: var(--amber); }
+      .fx .fg { fill: var(--lime); }
+      .fx .fr { fill: var(--rose); }
+      .fx .fs { fill: var(--surface); }
+      .fx .f2 { fill: var(--surface-2); }
+      .fx .f3 { fill: var(--surface-3); }
+      .fx .fn { fill: none; }
+
+      .fx .wb { fill: color-mix(in srgb, var(--blue) 16%, transparent); }
+      .fx .wv { fill: color-mix(in srgb, var(--violet) 16%, transparent); }
+      .fx .wa { fill: color-mix(in srgb, var(--amber) 18%, transparent); }
+      .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
+      .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
+      .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      .fx .flow { animation: figflow 1.7s linear infinite; }
+
+      @keyframes figflow { to { stroke-dashoffset: -26; } }
+
+      @media (prefers-reduced-motion: reduce) { .fx .flow { animation: none; } }
+
       /* ================= alt bilgi ================= */
       footer {
         margin-top: 88px;
@@ -1397,6 +1499,7 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .fig { padding: 12px 10px 11px; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 6px; }
       }
@@ -1758,6 +1861,30 @@
       </div>
 
       <div class="modal-body" id="konu-body">
+        <svg class="fx figdefs" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="ah-k" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fk" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-m" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fm" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-d" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fd" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fb" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fv" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-a" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fa" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-g" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fg" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-r" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11.5" refY="6.5" orient="auto"><path class="fr" d="M1.5 1.5 12 6.5 1.5 11.5 3.8 6.5z" /></marker>
+            <marker id="ah-sb" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fb" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sa" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fa" d="M1 1 8.2 4.5 1 8z" /></marker>
+            <marker id="ah-sm" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path class="fm" d="M1 1 8.2 4.5 1 8z" /></marker>
+          </defs>
+        </svg>
+
+        <p class="lead-in">
+          Newton, 1666'da karanlık odasına giren güneş ışığını bir prizmadan geçirdi ve duvarda
+          bir gökkuşağı gördü. O güne kadar herkes rengin camdan geldiğini sanıyordu; Newton
+          <b>ikinci bir prizmayla renkleri yeniden birleştirip</b> beyaz ışığı geri elde etti ve
+          rengin ışığın kendisinde olduğunu kanıtladı. Bu konuda hem o deneyi hem de prizmanın
+          ışığı nasıl büktüğünü hesaplamayı göreceğiz.
+        </p>
+
         <h3 id="k1">Prizma nedir?</h3>
         <p>
           İki yüzü birbirine paralel <strong>olmayan</strong> saydam cisme <strong>prizma</strong>
@@ -1769,6 +1896,32 @@
           <li><strong>Taban:</strong> tepe açısının karşısındaki yüzey.</li>
           <li>Işık her zaman <strong>tabana doğru</strong> sapar.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Prizmanın tepe açısı, tabanı ve içinden geçen ışının tabana doğru sapması.">
+            <path class="st sb wb" d="M240 40 320 160 160 160z" />
+            <path class="st sd hair" d="M221 68A34 34 0 0 0 259 68" />
+            <text class="tl fk" x="240" y="62" text-anchor="middle">A</text>
+            <text class="tt fd" x="240" y="178" text-anchor="middle">taban</text>
+            <path class="st sa bold" d="M100 90 200 105" marker-end="url(#ah-a)" />
+            <path class="st sa bold" d="M200 105 285 125" />
+            <path class="st sa bold" d="M285 125 400 175" marker-end="url(#ah-a)" />
+            <path class="st sl hair dash" d="M285 125 420 145" />
+            <path class="st sd hair" d="M374 138A90 90 0 0 1 367 161" />
+            <text class="tl fg" x="386" y="156">δ</text>
+            <text class="tt fa" x="96" y="82" text-anchor="end">gelen</text>
+            <text class="tt fa" x="404" y="192" text-anchor="end">çıkan</text>
+            <text class="tt fd" x="36" y="40">tepe açısı A</text>
+            <path class="st sd hair dash" d="M96 46 226 60" />
+          </svg>
+          <figcaption>
+            Prizma iki eğik yüzeyi olan bir cam bloktur. Işık birinci yüzeyde içeri girerken
+            normale yaklaşır, ikinci yüzeyden çıkarken normalden uzaklaşır — ama iki yüzey paralel
+            olmadığı için <b>bu iki kırılma birbirini götürmez</b>, toplanır. Sonuç: ışın daima
+            <b>tabana doğru</b> sapar. Gelen ve çıkan ışın arasındaki açıya <b>sapma açısı (δ)</b>
+            denir.
+          </figcaption>
+        </figure>
 
         <h3 id="k2">Sapma açısı</h3>
         <p>
@@ -1791,6 +1944,30 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Prizmada giriş açısı, iç kırılma açıları ve çıkış açısının gösterimi.">
+            <path class="st sb wb" d="M240 40 320 160 160 160z" />
+            <path class="st sa bold" d="M110 88 200 105" marker-end="url(#ah-a)" />
+            <path class="st sa bold" d="M200 105 285 125" />
+            <path class="st sa bold" d="M285 125 386 169" marker-end="url(#ah-a)" />
+            <path class="st sd hair dash" d="M200 105 262 64M285 125 226 158" />
+            <text class="tt fd" x="266" y="58">normal</text>
+            <text class="tt fd" x="220" y="170" text-anchor="end">normal</text>
+            <text class="tl fa" x="176" y="86">i₁</text>
+            <text class="tl fb" x="224" y="104">r₁</text>
+            <text class="tl fb" x="266" y="140">r₂</text>
+            <text class="tl fa" x="300" y="150">i₂</text>
+            <text class="tl fb" x="72" y="180">r₁ + r₂ = A</text>
+            <text class="tl fg" x="404" y="180" text-anchor="end">δ = i₁ + i₂ − A</text>
+          </svg>
+          <figcaption>
+            Dört açı vardır: ışının birinci yüzeye <b>geliş</b> açısı i₁, içerideki <b>kırılma</b>
+            açısı r₁, ikinci yüzeye <b>varış</b> açısı r₂ ve dışarı <b>çıkış</b> açısı i₂. Geometriden
+            r₁ + r₂ = A çıkar; sapma ise δ = i₁ + i₂ − A'dır. Bu iki bağıntı, prizma sorularının
+            neredeyse tamamını çözer.
+          </figcaption>
+        </figure>
+
         <h3 id="k3">En küçük sapma</h3>
         <p>
           Gelme açısı artırıldıkça sapma açısı önce azalır, bir <strong>en küçük değere</strong>
@@ -1805,6 +1982,33 @@
           Bu bağıntı, bir prizmanın kırılma indisini <strong>ölçmenin</strong> klasik yöntemidir:
           en küçük sapma açısı ölçülür, formülden n bulunur.
         </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 194" role="img" aria-label="Sapma açısının geliş açısına göre değişim eğrisi ve en küçük sapmadaki simetrik ışın yolu.">
+            <path class="st sd hair" d="M60 30v120h240" />
+            <path class="st sg bold" d="M70 58C110 108 150 128 180 128 210 128 250 110 292 62" />
+            <path class="st sl hair dash" d="M60 128h120M180 128v22" />
+            <circle class="fg" cx="180" cy="128" r="5" />
+            <text class="tt fg" x="54" y="132" text-anchor="end">δ min</text>
+            <text class="tt fd" x="180" y="168" text-anchor="middle">i₁ = i₂</text>
+            <text class="tt fd" x="54" y="26" text-anchor="end">δ</text>
+            <text class="tt fd" x="298" y="168" text-anchor="end">i₁</text>
+            <path class="st sl hair dots" d="M320 24v150" />
+            <path class="st sb wb" d="M392 52 428 130 356 130z" />
+            <path class="st sa bold" d="M330 82 374 96" />
+            <path class="st sa bold" d="M374 96h36" />
+            <path class="st sa bold" d="M410 96 454 82" marker-end="url(#ah-a)" />
+            <text class="tt fg" x="392" y="166" text-anchor="middle">simetrik yol</text>
+            <text class="tt" x="392" y="184" text-anchor="middle">ışın tabana paralel</text>
+          </svg>
+          <figcaption>
+            Geliş açısını büyüttükçe sapma önce azalır, bir en küçük değere iner, sonra tekrar
+            artar. O en küçük noktada ışın prizmadan <b>simetrik geçer</b>: giriş açısı çıkış
+            açısına eşittir ve içerideki ışın tabana paraleldir. Bu özel durum, bir maddenin
+            kırılma indisini <b>çok duyarlı biçimde ölçmeye</b> yarar — refraktometrelerin
+            çalışma ilkesi budur.
+          </figcaption>
+        </figure>
 
         <h3 id="k4">Dispersiyon: renklere ayrılma</h3>
         <p>
@@ -1834,6 +2038,34 @@
           </p>
         </div>
 
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Beyaz ışığın prizmada renklerine ayrılması; kırmızı en az, mor en çok sapıyor.">
+            <path class="st sb wb" d="M200 40 260 160 140 160z" />
+            <path class="st sk bold" d="M60 80 172 100" marker-end="url(#ah-k)" />
+            <text class="tt" x="34" y="70">beyaz ışık</text>
+            <path class="st sk bold" d="M172 100 239 118" opacity="0.7" />
+            <path class="st sr bold" d="M239 118 380 145" marker-end="url(#ah-r)" />
+            <path class="st sa bold" d="M239 118 380 154" marker-end="url(#ah-a)" />
+            <path class="st sg bold" d="M239 118 380 163" marker-end="url(#ah-g)" />
+            <path class="st sb bold" d="M239 118 380 172" marker-end="url(#ah-b)" />
+            <path class="st sv bold" d="M239 118 380 181" marker-end="url(#ah-v)" />
+            <rect class="fr" x="386" y="140" width="18" height="10" />
+            <rect class="fa" x="386" y="150" width="18" height="9" />
+            <rect class="fg" x="386" y="159" width="18" height="9" />
+            <rect class="fb" x="386" y="168" width="18" height="9" />
+            <rect class="fv" x="386" y="177" width="18" height="9" />
+            <text class="tt fr" x="410" y="148">kırmızı</text>
+            <text class="tt fv" x="410" y="186">mor</text>
+            <text class="tt fd" x="200" y="196" text-anchor="middle">n(mor) &gt; n(kırmızı)</text>
+          </svg>
+          <figcaption>
+            Camın kırılma indisi her renk için biraz farklıdır: mor ışık için en büyük, kırmızı için
+            en küçüktür. Bu yüzden beyaz ışık prizmadan geçerken renkler <b>farklı açılarda</b> sapar
+            ve tayf hâlinde açılır. Buna <b>dispersiyon</b> denir. Renkler camın içinde ortaya
+            çıkmaz — beyaz ışığın içinde zaten vardır, prizma yalnızca onları ayırır.
+          </figcaption>
+        </figure>
+
         <h3 id="k5">Tam yansımalı prizma</h3>
         <p>
           Cam için sınır açı ≈ 41,8°'dir. 45° – 45° – 90° biçimindeki bir prizmada ışık hipotenüse
@@ -1846,6 +2078,32 @@
           <li>Aynaya göre üstünlüğü: <strong>kayıp neredeyse yoktur</strong>, kaplama
             zamanla bozulmaz, ikincil görüntü oluşmaz.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="45 derecelik prizmada ışığın bir yansımayla 90 derece, iki yansımayla 180 derece döndürülmesi.">
+            <path class="st sb wb" d="M80 50 80 130 160 130z" />
+            <path class="st sa bold" d="M30 90h90" />
+            <path class="st sa bold" d="M120 90v76" marker-end="url(#ah-a)" />
+            <circle class="fg" cx="120" cy="90" r="4" />
+            <text class="tt fd" x="110" y="184" text-anchor="middle">90° döndürür</text>
+            <text class="tt" x="34" y="80">periskop</text>
+            <path class="st sl hair dots" d="M228 24v154" />
+            <path class="st sb wb" d="M300 50 300 130 380 130z" />
+            <path class="st sa bold" d="M378 72 350 100" />
+            <path class="st sa bold" d="M350 100 320 130 300 110 330 80" />
+            <path class="st sa bold" d="M330 80 358 52" marker-end="url(#ah-a)" />
+            <circle class="fg" cx="320" cy="130" r="4" />
+            <circle class="fg" cx="300" cy="110" r="4" />
+            <text class="tt fd" x="340" y="184" text-anchor="middle">180° geri gönderir</text>
+            <text class="tt" x="396" y="66">reflektör</text>
+          </svg>
+          <figcaption>
+            45°'lik prizmada ışık iç yüzeye <b>sınır açının üstünde</b> çarpar ve tam yansır. Bir
+            yansımayla 90°, iki yansımayla 180° döner. Neden ayna yerine prizma? Çünkü tam yansımada
+            <b>hiç ışık kaybı yoktur</b> ve zamanla kararacak bir gümüş kaplama gerekmez. Dürbünlerde,
+            periskoplarda ve bisiklet reflektörlerinde bu yüzden prizma kullanılır.
+          </figcaption>
+        </figure>
 
         <h3 id="k6">Gökkuşağı</h3>
         <p>
@@ -1877,6 +2135,33 @@
           <li><strong>Reflektör:</strong> araç ve bisiklet reflektörleri ışığı geldiği yöne döndürür.</li>
           <li><strong>Optik ölçüm:</strong> refraktometrelerle sıvıların indisi ölçülür.</li>
         </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 214" role="img" aria-label="Su damlasında kırılma, iç yansıma ve yeniden kırılma ile gökkuşağı oluşumu.">
+            <circle class="st sb wb" cx="240" cy="100" r="70" />
+            <path class="st sk bold" d="M100 30 186 55" marker-end="url(#ah-k)" />
+            <path class="st sa bold" d="M186 55 309 88" />
+            <path class="st sa bold" d="M309 88 275 161" />
+            <path class="st sr bold" d="M275 161 196 194" marker-end="url(#ah-r)" />
+            <path class="st sv bold" d="M275 161 204 202" marker-end="url(#ah-v)" />
+            <circle class="fg" cx="186" cy="55" r="4" />
+            <circle class="fg" cx="309" cy="88" r="4" />
+            <circle class="fg" cx="275" cy="161" r="4" />
+            <text class="tt" x="96" y="24" text-anchor="end">güneş ışığı</text>
+            <text class="tt fg" x="176" y="44" text-anchor="end">1 · kırılma</text>
+            <text class="tt fg" x="320" y="82">2 · iç yansıma</text>
+            <text class="tt fg" x="290" y="176">3 · kırılma</text>
+            <text class="tl fk" x="150" y="182" text-anchor="end">≈ 42°</text>
+            <text class="tt" x="446" y="150" text-anchor="end">su damlası</text>
+          </svg>
+          <figcaption>
+            Bir yağmur damlasında ışık üç işlemden geçer: girerken kırılır, arka yüzeyden
+            <b>içeriden yansır</b>, çıkarken yeniden kırılır. Her renk biraz farklı açıyla çıkar ve
+            en yoğun çıkış kırmızı için <b>42°</b>, mor için 40° civarındadır. Bu yüzden gökkuşağı
+            hep aynı açıda görünür ve kırmızı hep dışta kalır — gökkuşağının yeri yağmurun değil,
+            <b>senin nerede durduğunun</b> sonucudur.
+          </figcaption>
+        </figure>
 
         <h3 id="k8">Çözümlü örnekler</h3>
 
