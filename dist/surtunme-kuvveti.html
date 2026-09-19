@@ -2260,7 +2260,21 @@
           ctx.closePath();
           ctx.fill();
           ctx.restore();
-          if (label) tag(ctx, label, ex + ux * 12, ey + uy * 12, color, "center", 11);
+          if (label) {
+            /* yatay oklarda etiket ucun hemen ötesine hizalanır: gövdenin üstüne binmez */
+            var al = ux > 0.4 ? "left" : ux < -0.4 ? "right" : "center";
+            var lx = ex + ux * 10, ly = ey + uy * 11;
+            if (al !== "center") {
+              ctx.save();
+              ctx.font = "700 11px " + FONT;
+              var lw = ctx.measureText(label).width;
+              ctx.restore();
+              var sw = ctx.canvas.width / ((ctx.getTransform && ctx.getTransform().a) || 1);
+              if (al === "left") lx = Math.min(lx, sw - 4 - lw);
+              else lx = Math.max(lx, 4 + lw);
+            }
+            tag(ctx, label, lx, ly, color, al, 11);
+          }
         }
 
         /* arkasına sahne rengiyle hâle çizilen küçük etiket */
@@ -2389,7 +2403,15 @@
         /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
         function surukle(k, o) {
           if (!k || !k.el) return null;
-          var el = k.el, aktif = null, dokunuldu = false;
+          var el = k.el, aktif = null, dokunuldu = false, sonBirak = -1e9;
+          function simdi() { return window.performance ? performance.now() : Date.now(); }
+          /* sürüklemenin ardından gelen click sahneyi başlatmasın */
+          window.addEventListener("click", function (e) {
+            if (e.target !== el || simdi() - sonBirak > 400) return;
+            sonBirak = -1e9;
+            e.stopPropagation();
+            e.preventDefault();
+          }, true);
           /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
              "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
           var eksen = o.eksen || "x";
@@ -2421,6 +2443,7 @@
             el.addEventListener(t, function (e) {
               if (aktif === null) return;
               aktif = null;
+              sonBirak = simdi();
               el.style.cursor = "grab";
               try { el.releasePointerCapture(e.pointerId); } catch (q) {}
               if (o.birak) o.birak();
@@ -2430,29 +2453,53 @@
         }
 
         /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
-        function ipucu(ctx, W, H, metin, goster) {
+        function ipucu(ctx, W, H, metin, goster, konum) {
           if (!goster) return;
           ctx.save();
           ctx.font = "700 11.5px " + FONT;
-          var w = ctx.measureText(metin).width + 34;
-          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
-          roundRect(ctx, x0, H - 32, w, 24, 12);
+          var w = ctx.measureText(metin).width + 41;
+          /* varsayılan sağ alt köşe; sahnenin orası doluysa üst orta kullanılır.
+             Dar ekranda üst orta rozetlerle çakışır, o yüzden alta iner. */
+          var ustte = konum === "ust-orta" && W >= 520;
+          var x0 = konum === "ust-orta" ? Math.max(6, (W - w) / 2) : W - w - 10;
+          var y0 = ustte ? 8 : H - 32;
+          roundRect(ctx, x0, y0, w, 24, 12);
           ctx.fillStyle = A(COL.lime, 0.16);
           ctx.fill();
           ctx.strokeStyle = A(COL.lime, 0.5);
           ctx.lineWidth = 1;
           ctx.stroke();
+          var ax = x0 + 15, cy = y0 + 12;
+          ctx.strokeStyle = COL.lime;
+          ctx.lineWidth = 1.6;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(ax - 5, cy);
+          ctx.lineTo(ax + 5, cy);
+          ctx.stroke();
           ctx.fillStyle = COL.lime;
-          ctx.textAlign = "center";
+          ctx.beginPath();
+          ctx.moveTo(ax - 9, cy);
+          ctx.lineTo(ax - 4, cy - 3.4);
+          ctx.lineTo(ax - 4, cy + 3.4);
+          ctx.closePath();
+          ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(ax + 9, cy);
+          ctx.lineTo(ax + 4, cy - 3.4);
+          ctx.lineTo(ax + 4, cy + 3.4);
+          ctx.closePath();
+          ctx.fill();
+          ctx.textAlign = "left";
           ctx.textBaseline = "middle";
-          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.fillText(metin, ax + 13, cy + 0.5);
           ctx.restore();
         }
 
         /* ============ 01 · sürtünme laboratuvarı ============ */
 
         (function lab() {
-          var S = kit("lab-scene", function (w) { return clamp(w * 0.36, 240, 320); });
+          var S = kit("lab-scene", function (w) { return clamp(w * 0.33, 226, 296); });
           var G = kit("lab-graphs", function (w) { return w < 640 ? 640 : 320; });
           if (!S || !G) return;
 
@@ -2474,7 +2521,7 @@
           function drawScene() {
             var ctx = S.ctx, W = S.w, H = S.h;
             ctx.clearRect(0, 0, W, H);
-            var padL = 26, padR = 26, padB = 46;
+            var padL = 26, padR = 26, padB = 74;   /* G oku zemin altında tam sığsın */
             var gy = H - padB;
             var side = clamp(30 + st.m * 0.9, 30, 62);
             var sc = (W - padL - padR - side) / XEND;
@@ -2531,15 +2578,22 @@
             if (st.fbd) {
               var cy = by + side / 2;
               var big = Math.max(st.F, N(), 1);
-              function len(F) { return F < 0.5 ? 0 : clamp((F / big) * 62, 18, 66); }
+              var amp = clamp(Math.min(gy - side - 44, padB - 24), 26, 72);
+              function len(F) { return F < 0.5 ? 0 : clamp((F / big) * amp, 18, amp); }
               function lbl(sym, F) { return st.values ? sym + " = " + fmt(F, 0) + " N" : sym; }
-              if (st.F > 0.5) arrow(ctx, bx + side, cy, len(st.F), 0, COL.blue, lbl("F", st.F), 3);
+              if (st.F > 0.5) {
+                var lF = len(st.F);
+                arrow(ctx, bx + side, cy, lF, 0, COL.blue, null, 3);
+                tag(ctx, lbl("F", st.F), bx + side + lF / 2 + 6, by - 8, COL.blue, "center", 11);
+              }
               if (fric() > 0.5) {
-                arrow(ctx, bx, cy, -len(fric()), 0, COL.rose,
-                      lbl(sliding() ? "f kinetik" : "f statik", fric()), 2.8);
+                var lf = len(fric());
+                arrow(ctx, bx, cy, -lf, 0, COL.rose, null, 2.8);
+                tag(ctx, lbl(sliding() ? "f kinetik" : "f statik", fric()),
+                    bx - lf / 2 - 6, by - 8, COL.rose, "center", 11);
               }
               arrow(ctx, bx + side / 2, by, 0, -len(N()), COL.lime, lbl("N", N()), 2.4);
-              arrow(ctx, bx + side / 2, by + side, 0, Math.min(len(N()), padB - 22), COL.violet,
+              arrow(ctx, bx + side / 2, by + side, 0, len(N()), COL.violet,
                     lbl("G", N()), 2.4);
             }
 
@@ -2697,6 +2751,8 @@
             st.values = this.checked; sync();
           });
 
+          S.el.dataset.tikla = "1";
+
           S.el.addEventListener("click", function () { playBtn.click(); });
           S.el.addEventListener("keydown", function (e) {
             if (e.code === "Space" || e.key === " " || e.key === "Enter") { e.preventDefault(); playBtn.click(); }
@@ -2716,6 +2772,7 @@
 
           var GR = 9.81, LEN = 5.2;
           var st = { ang: 10, mus: 0.5, muk: 0.35, name: "Ahşap", auto: false, s: 0, v: 0 };
+          var sonE = { ax: 0, ay: 0, gy: 0, L: 1 }, SUR = null, donL = null;
           var verdict = document.getElementById("slope-verdict");
           var playBtn = document.getElementById("slope-play");
           var angIn = document.getElementById("slope-a"), angOut = document.getElementById("slope-a-out");
@@ -2734,13 +2791,14 @@
           function draw() {
             var ctx = K.ctx, W = K.w, H = K.h;
             ctx.clearRect(0, 0, W, H);
-            var padL = 34, padB = 44, padT = 40;
+            var padL = 78, padB = 44, padT = 40;
             var gy = H - padB;
             var sc = Math.min((W - padL - 76) / (LEN * Math.cos(rad())),
                               (gy - padT) / (LEN * Math.max(Math.sin(rad()), 0.12)));
             var L = LEN * sc;
             var ax = padL, ay = gy - L * Math.sin(rad());
             var bx = padL + L * Math.cos(rad()), by = gy;
+            sonE = { ax: ax, ay: ay, gy: gy, L: donL != null ? donL : L };
 
             /* üçgen */
             ctx.beginPath();
@@ -2773,7 +2831,7 @@
 
             /* blok */
             var ux = (bx - ax) / L, uy = (by - ay) / L;
-            var px = ax + ux * (st.s * sc + 18), py = ay + uy * (st.s * sc + 18);
+            var px = ax + ux * (st.s * sc + 30), py = ay + uy * (st.s * sc + 30);
             var bs = 40;
             ctx.save();
             ctx.translate(px, py);
@@ -2796,12 +2854,17 @@
             arrow(ctx, mcx, mcy, 0, mg() * k, COL.violet, "G = " + fmt(mg(), 0) + " N", 3);
             arrow(ctx, mcx, mcy, Math.sin(rad()) * nor() * k, -Math.cos(rad()) * nor() * k,
                   COL.lime, "N = " + fmt(nor(), 0) + " N", 2.8);
-            arrow(ctx, mcx, mcy, -ux * fNow * k, -uy * fNow * k,
-                  COL.rose, "f = " + fmt(fNow, 0) + " N", 2.8);
+            /* sürtünme oku kısa kalabiliyor: etiketi kutunun üstüne, eğim boyunca yukarı al */
+            var fl = fNow * k, nx = Math.sin(rad()), ny = -Math.cos(rad());
+            arrow(ctx, mcx, mcy, -ux * fl, -uy * fl, COL.rose, null, 2.8);
+            tag(ctx, "f = " + fmt(fNow, 0) + " N",
+                mcx - ux * (fl + 14) + nx * 34, mcy - uy * (fl + 14) + ny * 34,
+                COL.rose, "center", 11);
 
             chip(ctx, st.name + " · μs = " + fmt(st.mus, 2), 8, 8, COL.amber, "left");
             chip(ctx, "kritik açı " + fmt(crit(), 1) + "°", W - 8, 8,
                  slides() ? COL.rose : COL.muted, "right");
+            ipucu(ctx, W, H, "eğimin tepesini sürükle", SUR && SUR.yeni());
           }
 
           function say() {
@@ -2894,6 +2957,25 @@
             st.s = 0; st.v = 0;
             draw();
             say();
+          });
+
+          /* eğimi doğrudan sürükleyerek değiştir */
+          SUR = surukle(K, {
+            eksen: "y",
+            tut: function (x, y) {
+              if (st.auto) return null;
+              return (Math.abs(x - sonE.ax) < 34 && Math.abs(y - sonE.ay) < 34) ? "tepe" : null;
+            },
+            bas: function () { donL = sonE.L; },
+            birak: function () { donL = null; draw(); },
+            tasi: function (id, x, y) {
+              var h = clamp((sonE.gy - y) / sonE.L, 0, 0.94);
+              var a = clamp(Math.round((Math.asin(h) * 180) / Math.PI), 0, 70);
+              if (a !== st.ang) {
+                angIn.value = a;
+                angIn.dispatchEvent(new Event("input", { bubbles: true }));
+              }
+            }
           });
 
           K.bind(draw);
@@ -3250,6 +3332,8 @@
             say();
           });
 
+          B.el.dataset.tikla = "1";
+
           B.el.addEventListener("click", function () { playBtn.click(); });
           B.el.addEventListener("keydown", function (e) {
             if (e.code === "Space" || e.key === " " || e.key === "Enter") { e.preventDefault(); playBtn.click(); }
@@ -3552,6 +3636,54 @@
               apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
             });
           }
+        })();
+
+        /* sahneye tıklamak da deneyi başlatır - durdurur */
+        (function tiklaOynat() {
+          var btns = document.querySelectorAll("button[id$='-play']");
+          for (var i = 0; i < btns.length; i++) {
+            (function (b) {
+              var sec = b.closest ? b.closest("section") : null;
+              if (!sec) return;
+              var c = sec.querySelector("canvas");
+              if (!c || c.dataset.tikla) return;
+              c.dataset.tikla = "1";
+              if (c.dataset.surukle) {
+                c.title = "Tutamağı sürükle · boş alana tıkla: başlat / durdur";
+              } else {
+                c.style.cursor = "pointer";
+                c.title = "Tıkla: başlat / durdur";
+              }
+              c.addEventListener("click", function () { b.click(); });
+            })(btns[i]);
+          }
+        })();
+
+        /* klavye: boşluk başlat-durdur, R sıfırla (ekranda görünen deneyde) */
+        (function kisayol() {
+          var oyna = [].slice.call(document.querySelectorAll("button[id$='-play']"));
+          if (!oyna.length) return;
+          window.addEventListener("keydown", function (e) {
+            if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+            var t = e.target;
+            if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" ||
+              t.tagName === "BUTTON" || t.tagName === "SUMMARY" || t.isContentEditable)) return;
+            var bosluk = e.key === " " || e.key === "Spacebar";
+            var sifirla = e.key === "r" || e.key === "R";
+            if (!bosluk && !sifirla) return;
+            var orta = window.innerHeight / 2, en = null, enD = 1e9;
+            oyna.forEach(function (b) {
+              var r = b.getBoundingClientRect();
+              if (r.bottom < 40 || r.top > window.innerHeight - 20) return;
+              var d = Math.abs((r.top + r.bottom) / 2 - orta);
+              if (d < enD) { enD = d; en = b; }
+            });
+            if (!en) return;
+            e.preventDefault();
+            if (bosluk) { en.click(); return; }
+            var s = document.getElementById(en.id.replace(/-play$/, "-reset"));
+            if (s) s.click();
+          });
         })();
 
         /* ilk yerleşim */

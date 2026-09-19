@@ -2323,7 +2323,21 @@
           ctx.closePath();
           ctx.fill();
           ctx.restore();
-          if (label) tag(ctx, label, ex + ux * 12, ey + uy * 12, color, "center", 11);
+          if (label) {
+            /* yatay oklarda etiket ucun hemen ötesine hizalanır: gövdenin üstüne binmez */
+            var al = ux > 0.4 ? "left" : ux < -0.4 ? "right" : "center";
+            var lx = ex + ux * 10, ly = ey + uy * 11;
+            if (al !== "center") {
+              ctx.save();
+              ctx.font = "700 11px " + FONT;
+              var lw = ctx.measureText(label).width;
+              ctx.restore();
+              var sw = ctx.canvas.width / ((ctx.getTransform && ctx.getTransform().a) || 1);
+              if (al === "left") lx = Math.min(lx, sw - 4 - lw);
+              else lx = Math.max(lx, 4 + lw);
+            }
+            tag(ctx, label, lx, ly, color, al, 11);
+          }
         }
 
         /* arkasına sahne rengiyle hâle çizilen küçük etiket */
@@ -2346,7 +2360,15 @@
         /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
         function surukle(k, o) {
           if (!k || !k.el) return null;
-          var el = k.el, aktif = null, dokunuldu = false;
+          var el = k.el, aktif = null, dokunuldu = false, sonBirak = -1e9;
+          function simdi() { return window.performance ? performance.now() : Date.now(); }
+          /* sürüklemenin ardından gelen click sahneyi başlatmasın */
+          window.addEventListener("click", function (e) {
+            if (e.target !== el || simdi() - sonBirak > 400) return;
+            sonBirak = -1e9;
+            e.stopPropagation();
+            e.preventDefault();
+          }, true);
           /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
              "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
           var eksen = o.eksen || "x";
@@ -2378,6 +2400,7 @@
             el.addEventListener(t, function (e) {
               if (aktif === null) return;
               aktif = null;
+              sonBirak = simdi();
               el.style.cursor = "grab";
               try { el.releasePointerCapture(e.pointerId); } catch (q) {}
               if (o.birak) o.birak();
@@ -2387,22 +2410,46 @@
         }
 
         /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
-        function ipucu(ctx, W, H, metin, goster) {
+        function ipucu(ctx, W, H, metin, goster, konum) {
           if (!goster) return;
           ctx.save();
           ctx.font = "700 11.5px " + FONT;
-          var w = ctx.measureText(metin).width + 34;
-          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
-          roundRect(ctx, x0, H - 32, w, 24, 12);
+          var w = ctx.measureText(metin).width + 41;
+          /* varsayılan sağ alt köşe; sahnenin orası doluysa üst orta kullanılır.
+             Dar ekranda üst orta rozetlerle çakışır, o yüzden alta iner. */
+          var ustte = konum === "ust-orta" && W >= 520;
+          var x0 = konum === "ust-orta" ? Math.max(6, (W - w) / 2) : W - w - 10;
+          var y0 = ustte ? 8 : H - 32;
+          roundRect(ctx, x0, y0, w, 24, 12);
           ctx.fillStyle = A(COL.lime, 0.16);
           ctx.fill();
           ctx.strokeStyle = A(COL.lime, 0.5);
           ctx.lineWidth = 1;
           ctx.stroke();
+          var ax = x0 + 15, cy = y0 + 12;
+          ctx.strokeStyle = COL.lime;
+          ctx.lineWidth = 1.6;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(ax - 5, cy);
+          ctx.lineTo(ax + 5, cy);
+          ctx.stroke();
           ctx.fillStyle = COL.lime;
-          ctx.textAlign = "center";
+          ctx.beginPath();
+          ctx.moveTo(ax - 9, cy);
+          ctx.lineTo(ax - 4, cy - 3.4);
+          ctx.lineTo(ax - 4, cy + 3.4);
+          ctx.closePath();
+          ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(ax + 9, cy);
+          ctx.lineTo(ax + 4, cy - 3.4);
+          ctx.lineTo(ax + 4, cy + 3.4);
+          ctx.closePath();
+          ctx.fill();
+          ctx.textAlign = "left";
           ctx.textBaseline = "middle";
-          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.fillText(metin, ax + 13, cy + 0.5);
           ctx.restore();
         }
 
@@ -2416,6 +2463,9 @@
           var st = { v0: 25, ang: 45, h0: 0, g: 9.81, name: "Dünya", speed: 1, t: 0,
                      run: false, strobe: true, vec: true, shadow: true };
           var flash = 0;
+          /* sahnede en son çizilen atış noktası ve vektör ölçeği (sürükleme için) */
+          var son = { bx: 0, by: 0, k: 1 };
+          var SUR = null, donK = null;
 
           function rad() { return (st.ang * Math.PI) / 180; }
           function vx() { return st.v0 * Math.cos(rad()); }
@@ -2632,13 +2682,18 @@
 
             /* hız bileşenleri */
             if (st.vec) {
-              var k3 = clamp(58 / Math.max(st.v0, 1), 0.5, 7);
+              var k3 = donK != null ? donK : clamp(58 / Math.max(st.v0, 1), 0.5, 7);
+              son = { bx: bx, by: by, k: k3 };
               var ax2 = vx() * k3, ay2 = -vyAt(t) * k3;
               if (Math.abs(ax2) > 11 && Math.abs(ay2) > 11) {
                 dashLine(ctx, bx + ax2, by, bx + ax2, by + ay2, A(COL.dim, 0.45));
                 dashLine(ctx, bx, by + ay2, bx + ax2, by + ay2, A(COL.dim, 0.45));
-                arrow(ctx, bx, by, ax2, 0, COL.lime, "vx", 2.2);
-                arrow(ctx, bx, by, 0, ay2, COL.amber, "vy", 2.2);
+                arrow(ctx, bx, by, ax2, 0, COL.lime, null, 2.2);
+                tag(ctx, "vx", bx + ax2 / 2, by + 13, COL.lime, "center", 11);
+                arrow(ctx, bx, by, 0, ay2, COL.amber, null, 2.2);
+                var sagda = Math.abs(ax2) >= 26;   /* dik atışta v oku sağ tarafı kapatıyor */
+                tag(ctx, "vy", bx + (sagda ? 13 : -13), by + ay2 - 10,
+                    COL.amber, sagda ? "left" : "right", 11);
               }
               arrow(ctx, bx, by, ax2, ay2, COL.blue, "v", 3);
               var gx = clamp(bx - 48, 16, W - 26);
@@ -2648,6 +2703,9 @@
 
             /* rozetler */
             chip(ctx, "t = " + fmt(t, 2) + " s", 8, 8, COL.blue, "left");
+            if (!st.run && t < 0.001 && st.vec) {
+              ipucu(ctx, W, H, "hız okunun ucunu sürükle", SUR && SUR.yeni(), "ust-orta");
+            }
             chip(ctx, st.name + " · g = " + fmt(st.g, 2) + " m/s²", W - 8, 8, COL.violet, "right");
             if (done && reach() > 0.5) {
               tag(ctx, "menzil · " + fmt(reach(), 1) + " m", px(reach()), gy - 22, COL.lime, "center", 11);
@@ -2655,7 +2713,7 @@
             if (tEnd() < 0.05) {
               chip(ctx, "açıyı ya da atış yüksekliğini artır", W / 2, gy - 44, COL.amber, "center");
             } else if (t <= 0 && !st.run) {
-              chip(ctx, "fırlatmak için tıkla ya da boşluk tuşuna bas", W / 2, gy - 44, COL.muted, "center");
+              chip(ctx, (W < 520 ? "fırlatmak için tıkla" : "fırlatmak için tıkla ya da boşluk tuşuna bas"), W / 2, gy - 44, COL.muted, "center");
             }
           }
 
@@ -2940,10 +2998,32 @@
             st.shadow = this.checked; sync();
           });
 
+          S.el.dataset.tikla = "1";
+
           S.el.addEventListener("click", function () { playBtn.click(); });
           S.el.addEventListener("keydown", function (e) {
             if (e.code === "Space" || e.key === " " || e.key === "Enter") { e.preventDefault(); playBtn.click(); }
             else if (e.key === "r" || e.key === "R") { e.preventDefault(); reset(); }
+          });
+
+          /* hız vektörünün ucunu sürükleyerek açı ve sürat ayarla */
+          SUR = surukle(S, {
+            eksen: "x",
+            tut: function (x, y) {
+              if (st.run || st.t > 0.001 || !st.vec) return null;
+              var tx = son.bx + vx() * son.k, ty = son.by - vy0() * son.k;
+              return (Math.abs(x - tx) < 22 && Math.abs(y - ty) < 22) ? "uc" : null;
+            },
+            bas: function () { donK = son.k; },
+            birak: function () { donK = null; drawScene(); },
+            tasi: function (id, x, y) {
+              var dx = x - son.bx, dy = son.by - y;
+              var ang = clamp(Math.round((Math.atan2(Math.max(dy, 0), Math.max(dx, 0.001)) * 180) / Math.PI), 0, 90);
+              var v = clamp(Math.round(Math.sqrt(dx * dx + dy * dy) / son.k), 5, 50);
+              var ae = document.getElementById("c-ang"), ve = document.getElementById("c-v0");
+              if (ang !== st.ang) { ae.value = ang; ae.dispatchEvent(new Event("input", { bubbles: true })); }
+              if (v !== st.v0) { ve.value = v; ve.dispatchEvent(new Event("input", { bubbles: true })); }
+            }
           });
 
           S.bind(drawScene);
@@ -3195,9 +3275,7 @@
               ctx.moveTo(xx, gy);
               ctx.lineTo(xx, padT - 16);
               ctx.stroke();
-              ctx.fillStyle = COL.dim;
-              ctx.textAlign = "center";
-              ctx.textBaseline = "top";
+              tag(ctx, fmt(i * sx, 0) + " m", xx, padT - 9, COL.dim, "center", 10);
             }
             var grd = ctx.createLinearGradient(0, gy, 0, H);
             grd.addColorStop(0, A(COL.lime, 0.2));
@@ -3260,6 +3338,27 @@
               tag(ctx, fmt(+key, 1) + " m", X, gy + 14, c, "center", 11);
               tag(ctx, names, X, gy + 28, list.length > 1 ? COL.ink : COL.dim, "center", 10);
             });
+
+            /* sıradaki atışın soluk önizlemesi: sahne boş kalmasın */
+            if (!fired.length && st.cur < 0) {
+              var nx = 0;
+              ctx.save();
+              ctx.setLineDash([5, 5]);
+              ctx.strokeStyle = A(tint(nx), 0.45);
+              ctx.lineWidth = 1.6;
+              ctx.beginPath();
+              for (var j2 = 0; j2 <= 70; j2++) {
+                var t2 = (flight(nx) * j2) / 70;
+                var X2 = px(ux(nx) * t2), Y2 = py(Math.max(0, yOf(nx, t2)));
+                if (j2) ctx.lineTo(X2, Y2); else ctx.moveTo(X2, Y2);
+              }
+              ctx.stroke();
+              ctx.restore();
+              tag(ctx, "sıradaki: " + ANG[nx] + "°", px(reach(nx) / 2), py(apex(nx)) - 12,
+                  A(tint(nx), 0.75), "center", 11);
+              chip(ctx, (W < 520 ? "fırlatmak için tıkla" : "fırlatmak için tıkla ya da boşluk tuşuna bas"), W / 2, padT + 26,
+                   COL.muted, "center");
+            }
 
             /* atıcı */
             ctx.fillStyle = A(COL.ink, 0.55);
@@ -3675,6 +3774,8 @@
           bindSlider("aim-ang", "aim-ang-out", "ang", "°");
           bindSlider("aim-v", "aim-v-out", "v", " m/s");
 
+          K.el.dataset.tikla = "1";
+
           K.el.addEventListener("click", fire);
           K.el.addEventListener("keydown", function (e) {
             if (e.code === "Space" || e.key === " " || e.key === "Enter") { e.preventDefault(); fire(); }
@@ -3983,6 +4084,54 @@
               apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
             });
           }
+        })();
+
+        /* sahneye tıklamak da deneyi başlatır - durdurur */
+        (function tiklaOynat() {
+          var btns = document.querySelectorAll("button[id$='-play']");
+          for (var i = 0; i < btns.length; i++) {
+            (function (b) {
+              var sec = b.closest ? b.closest("section") : null;
+              if (!sec) return;
+              var c = sec.querySelector("canvas");
+              if (!c || c.dataset.tikla) return;
+              c.dataset.tikla = "1";
+              if (c.dataset.surukle) {
+                c.title = "Tutamağı sürükle · boş alana tıkla: başlat / durdur";
+              } else {
+                c.style.cursor = "pointer";
+                c.title = "Tıkla: başlat / durdur";
+              }
+              c.addEventListener("click", function () { b.click(); });
+            })(btns[i]);
+          }
+        })();
+
+        /* klavye: boşluk başlat-durdur, R sıfırla (ekranda görünen deneyde) */
+        (function kisayol() {
+          var oyna = [].slice.call(document.querySelectorAll("button[id$='-play']"));
+          if (!oyna.length) return;
+          window.addEventListener("keydown", function (e) {
+            if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+            var t = e.target;
+            if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" ||
+              t.tagName === "BUTTON" || t.tagName === "SUMMARY" || t.isContentEditable)) return;
+            var bosluk = e.key === " " || e.key === "Spacebar";
+            var sifirla = e.key === "r" || e.key === "R";
+            if (!bosluk && !sifirla) return;
+            var orta = window.innerHeight / 2, en = null, enD = 1e9;
+            oyna.forEach(function (b) {
+              var r = b.getBoundingClientRect();
+              if (r.bottom < 40 || r.top > window.innerHeight - 20) return;
+              var d = Math.abs((r.top + r.bottom) / 2 - orta);
+              if (d < enD) { enD = d; en = b; }
+            });
+            if (!en) return;
+            e.preventDefault();
+            if (bosluk) { en.click(); return; }
+            var s = document.getElementById(en.id.replace(/-play$/, "-reset"));
+            if (s) s.click();
+          });
         })();
 
         /* ilk yerleşim */

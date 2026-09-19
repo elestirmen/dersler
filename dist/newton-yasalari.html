@@ -2310,7 +2310,21 @@
           ctx.closePath();
           ctx.fill();
           ctx.restore();
-          if (label) tag(ctx, label, ex + ux * 12, ey + uy * 12, color, "center", 11);
+          if (label) {
+            /* yatay oklarda etiket ucun hemen ötesine hizalanır: gövdenin üstüne binmez */
+            var al = ux > 0.4 ? "left" : ux < -0.4 ? "right" : "center";
+            var lx = ex + ux * 10, ly = ey + uy * 11;
+            if (al !== "center") {
+              ctx.save();
+              ctx.font = "700 11px " + FONT;
+              var lw = ctx.measureText(label).width;
+              ctx.restore();
+              var sw = ctx.canvas.width / ((ctx.getTransform && ctx.getTransform().a) || 1);
+              if (al === "left") lx = Math.min(lx, sw - 4 - lw);
+              else lx = Math.max(lx, 4 + lw);
+            }
+            tag(ctx, label, lx, ly, color, al, 11);
+          }
         }
 
         /* arkasına sahne rengiyle hâle çizilen küçük etiket */
@@ -2333,7 +2347,15 @@
         /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
         function surukle(k, o) {
           if (!k || !k.el) return null;
-          var el = k.el, aktif = null, dokunuldu = false;
+          var el = k.el, aktif = null, dokunuldu = false, sonBirak = -1e9;
+          function simdi() { return window.performance ? performance.now() : Date.now(); }
+          /* sürüklemenin ardından gelen click sahneyi başlatmasın */
+          window.addEventListener("click", function (e) {
+            if (e.target !== el || simdi() - sonBirak > 400) return;
+            sonBirak = -1e9;
+            e.stopPropagation();
+            e.preventDefault();
+          }, true);
           /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
              "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
           var eksen = o.eksen || "x";
@@ -2365,6 +2387,7 @@
             el.addEventListener(t, function (e) {
               if (aktif === null) return;
               aktif = null;
+              sonBirak = simdi();
               el.style.cursor = "grab";
               try { el.releasePointerCapture(e.pointerId); } catch (q) {}
               if (o.birak) o.birak();
@@ -2374,35 +2397,60 @@
         }
 
         /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
-        function ipucu(ctx, W, H, metin, goster) {
+        function ipucu(ctx, W, H, metin, goster, konum) {
           if (!goster) return;
           ctx.save();
           ctx.font = "700 11.5px " + FONT;
-          var w = ctx.measureText(metin).width + 34;
-          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
-          roundRect(ctx, x0, H - 32, w, 24, 12);
+          var w = ctx.measureText(metin).width + 41;
+          /* varsayılan sağ alt köşe; sahnenin orası doluysa üst orta kullanılır.
+             Dar ekranda üst orta rozetlerle çakışır, o yüzden alta iner. */
+          var ustte = konum === "ust-orta" && W >= 520;
+          var x0 = konum === "ust-orta" ? Math.max(6, (W - w) / 2) : W - w - 10;
+          var y0 = ustte ? 8 : H - 32;
+          roundRect(ctx, x0, y0, w, 24, 12);
           ctx.fillStyle = A(COL.lime, 0.16);
           ctx.fill();
           ctx.strokeStyle = A(COL.lime, 0.5);
           ctx.lineWidth = 1;
           ctx.stroke();
+          var ax = x0 + 15, cy = y0 + 12;
+          ctx.strokeStyle = COL.lime;
+          ctx.lineWidth = 1.6;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(ax - 5, cy);
+          ctx.lineTo(ax + 5, cy);
+          ctx.stroke();
           ctx.fillStyle = COL.lime;
-          ctx.textAlign = "center";
+          ctx.beginPath();
+          ctx.moveTo(ax - 9, cy);
+          ctx.lineTo(ax - 4, cy - 3.4);
+          ctx.lineTo(ax - 4, cy + 3.4);
+          ctx.closePath();
+          ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(ax + 9, cy);
+          ctx.lineTo(ax + 4, cy - 3.4);
+          ctx.lineTo(ax + 4, cy + 3.4);
+          ctx.closePath();
+          ctx.fill();
+          ctx.textAlign = "left";
           ctx.textBaseline = "middle";
-          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.fillText(metin, ax + 13, cy + 0.5);
           ctx.restore();
         }
 
         /* ============ 01 · kuvvet laboratuvarı ============ */
 
         (function lab() {
-          var S = kit("lab-scene", function (w) { return clamp(w * 0.38, 250, 330); });
+          var S = kit("lab-scene", function (w) { return clamp(w * 0.34, 230, 300); });
           var G = kit("lab-graphs", function (w) { return w < 640 ? 830 : 440; });
           if (!S || !G) return;
 
           var GR = 9.81, XMAX = 12;
           var st = { F: 20, m: 5, mu: 0, name: "Sürtünmesiz", speed: 1, t: 0,
                      run: false, fbd: true, values: true, strobe: true };
+          var sonF = { x: 0, y: 0, big: 49 }, SUR = null, donBig = null;
 
           function weight() { return st.m * GR; }
           function normal() { return weight(); }
@@ -2429,7 +2477,7 @@
             var ctx = S.ctx, W = S.w, H = S.h;
             ctx.clearRect(0, 0, W, H);
 
-            var padL = 30, padR = 30, padB = 54;
+            var padL = 30, padR = 30, padB = 74;
             var gy = H - padB;
             var t = st.t, x = xAt(t), v = vAt(t);
             var side = clamp(28 + st.m * 1.1, 28, 58);
@@ -2518,16 +2566,23 @@
             if (st.fbd) {
               var cx = bx + side / 2, cy = by + side / 2;
               var big = Math.max(st.F, weight(), 1);
-              function len(F) { return F < 0.01 ? 0 : clamp((F / big) * 64, 20, 68); }
+              var amp = clamp(Math.min(gy - side - 44, padB - 24), 28, 74);
+              function len(F) { return F < 0.01 ? 0 : clamp((F / big) * amp, 20, amp); }
               function lbl(sym, F) {
                 return st.values ? sym + " = " + fmt(F, 0) + " N" : sym;
               }
-              arrow(ctx, bx + side, cy, len(st.F), 0, COL.blue, lbl("F", st.F), 3);
+              sonF = { x: bx + side, y: cy, big: big, amp: amp };
+              /* yatay okların etiketi gövdenin üstünde durur: ok kısayken bile okunur */
+              var lF = len(st.F);
+              arrow(ctx, bx + side, cy, lF, 0, COL.blue, null, 3);
+              if (lF) tag(ctx, lbl("F", st.F), bx + side + lF / 2 + 6, by - 8, COL.blue, "center", 11);
               if (friction() > 0.01) {
-                arrow(ctx, bx, cy, -len(friction()), 0, COL.rose, lbl("f", friction()), 2.6);
+                var lf = len(friction());
+                arrow(ctx, bx, cy, -lf, 0, COL.rose, null, 2.6);
+                tag(ctx, lbl("f", friction()), bx - lf / 2 - 6, by - 8, COL.rose, "center", 11);
               }
               arrow(ctx, cx, by, 0, -len(normal()), COL.lime, lbl("N", normal()), 2.6);
-              arrow(ctx, cx, by + side, 0, Math.min(len(weight()), padB - 20), COL.violet,
+              arrow(ctx, cx, by + side, 0, len(weight()), COL.violet,
                     lbl("G", weight()), 2.6);
             }
 
@@ -2538,7 +2593,7 @@
               chip(ctx, "statik sürtünme dengeliyor · kutu kıpırdamıyor", W / 2, gy - 26,
                    COL.rose, "center");
             } else if (t <= 0 && !st.run) {
-              chip(ctx, "itmek için tıkla ya da boşluk tuşuna bas", W / 2, gy - 26,
+              chip(ctx, (W < 520 ? "itmek için tıkla" : "itmek için tıkla ya da boşluk tuşuna bas"), W / 2, gy - 26,
                    COL.muted, "center");
             } else if (t >= tEnd() - 1e-9) {
               chip(ctx, fmt(x, 1) + " m · " + fmt(v, 1) + " m/s", W / 2, gy - 26,
@@ -2814,10 +2869,35 @@
             st.strobe = this.checked; sync();
           });
 
+          S.el.dataset.tikla = "1";
+
           S.el.addEventListener("click", function () { playBtn.click(); });
           S.el.addEventListener("keydown", function (e) {
             if (e.code === "Space" || e.key === " " || e.key === "Enter") { e.preventDefault(); playBtn.click(); }
             else if (e.key === "r" || e.key === "R") { e.preventDefault(); reset(); }
+          });
+
+          /* kuvvet okunun ucunu sürükleyerek F ayarla */
+          SUR = surukle(S, {
+            eksen: "x",
+            tut: function (x, y) {
+              if (!st.fbd || st.run) return null;
+              var big = donBig != null ? donBig : sonF.big;
+              var amp = sonF.amp || 64;
+              var l = st.F < 0.01 ? 0 : clamp((st.F / big) * amp, 20, amp);
+              return (Math.abs(x - (sonF.x + l)) < 24 && Math.abs(y - sonF.y) < 22) ? "F" : null;
+            },
+            bas: function () { donBig = sonF.big; },
+            birak: function () { donBig = null; },
+            tasi: function (id, x, y) {
+              var big = donBig != null ? donBig : sonF.big;
+              var F = clamp(Math.round(((x - sonF.x) / (sonF.amp || 64)) * big), 0, 120);
+              if (F !== st.F) {
+                var el = document.getElementById("c-f");
+                el.value = F;
+                el.dispatchEvent(new Event("input", { bubbles: true }));
+              }
+            }
           });
 
           S.bind(drawScene);
@@ -2897,7 +2977,7 @@
               ctx.fillStyle = col;
               ctx.textAlign = "left";
               ctx.textBaseline = "bottom";
-              ctx.fillText(ln.name + " · μ = " + fmt(ln.mu, 2), padL - 6, y - 12);
+              ctx.fillText(ln.name + " · μ = " + fmt(ln.mu, 2), padL - 8, y - 26);
 
               var d = dist(ln.mu);
               if (isFinite(d)) {
@@ -2993,7 +3073,7 @@
         /* ============ 03 · etki ve tepki ============ */
 
         (function push() {
-          var P = kit("push-scene", function (w) { return clamp(w * 0.33, 215, 275); });
+          var P = kit("push-scene", function (w) { return clamp(w * 0.27, 186, 240); });
           if (!P) return;
 
           var FORCE = 60, DT = 0.25, TEND = 2.2, SPEED = 0.45;
@@ -3071,10 +3151,12 @@
             var c2 = cart(ctx, x2, gy, st.m2, "#e6dcff", "#9c86e0", fmt(st.m2, 0) + " kg");
 
             if (st.t <= DT + 1e-9) {
-              arrow(ctx, x1 - c1.w / 2 - 4, gy - c1.h / 2, -58, 0, COL.blue,
-                    "F = " + FORCE + " N", 3);
-              arrow(ctx, x2 + c2.w / 2 + 4, gy - c2.h / 2, 58, 0, COL.violet,
-                    "F = " + FORCE + " N", 3);
+              /* etiketler okların üstünde: ok uçlarıyla çakışmıyorlar */
+              var fy1 = gy - c1.h / 2, fy2 = gy - c2.h / 2;
+              arrow(ctx, x1 - c1.w / 2 - 4, fy1, -58, 0, COL.blue, null, 3);
+              tag(ctx, "F = " + FORCE + " N", x1 - c1.w / 2 - 33, fy1 - 15, COL.blue, "center", 11);
+              arrow(ctx, x2 + c2.w / 2 + 4, fy2, 58, 0, COL.violet, null, 3);
+              tag(ctx, "F = " + FORCE + " N", x2 + c2.w / 2 + 33, fy2 - 15, COL.violet, "center", 11);
               chip(ctx, "itme sürüyor · " + fmt(DT, 2) + " s", W / 2, 8, COL.amber, "center");
             } else {
               tag(ctx, fmt(v1(), 1) + " m/s", x1, gy - c1.h - 16, COL.blue, "center", 12);
@@ -3243,9 +3325,9 @@
             /* kuvvet okları */
             var big = Math.max(normal(), st.m * GR, 1);
             function flen(F) { return F < 0.5 ? 0 : clamp((F / big) * 74, 20, 78); }
-            arrow(ctx, cx - 44, py - 8, 0, -flen(normal()), COL.lime,
+            arrow(ctx, cx - 66, py - 8, 0, -flen(normal()), COL.lime,
                   "N = " + fmt(normal(), 0) + " N", 3);
-            arrow(ctx, cx + 44, py - 74, 0, flen(st.m * GR), COL.violet,
+            arrow(ctx, cx + 66, py - 88, 0, flen(st.m * GR), COL.violet,
                   "G = " + fmt(st.m * GR, 0) + " N", 3);
 
             /* ivme oku */
@@ -3617,6 +3699,54 @@
               apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
             });
           }
+        })();
+
+        /* sahneye tıklamak da deneyi başlatır - durdurur */
+        (function tiklaOynat() {
+          var btns = document.querySelectorAll("button[id$='-play']");
+          for (var i = 0; i < btns.length; i++) {
+            (function (b) {
+              var sec = b.closest ? b.closest("section") : null;
+              if (!sec) return;
+              var c = sec.querySelector("canvas");
+              if (!c || c.dataset.tikla) return;
+              c.dataset.tikla = "1";
+              if (c.dataset.surukle) {
+                c.title = "Tutamağı sürükle · boş alana tıkla: başlat / durdur";
+              } else {
+                c.style.cursor = "pointer";
+                c.title = "Tıkla: başlat / durdur";
+              }
+              c.addEventListener("click", function () { b.click(); });
+            })(btns[i]);
+          }
+        })();
+
+        /* klavye: boşluk başlat-durdur, R sıfırla (ekranda görünen deneyde) */
+        (function kisayol() {
+          var oyna = [].slice.call(document.querySelectorAll("button[id$='-play']"));
+          if (!oyna.length) return;
+          window.addEventListener("keydown", function (e) {
+            if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+            var t = e.target;
+            if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" ||
+              t.tagName === "BUTTON" || t.tagName === "SUMMARY" || t.isContentEditable)) return;
+            var bosluk = e.key === " " || e.key === "Spacebar";
+            var sifirla = e.key === "r" || e.key === "R";
+            if (!bosluk && !sifirla) return;
+            var orta = window.innerHeight / 2, en = null, enD = 1e9;
+            oyna.forEach(function (b) {
+              var r = b.getBoundingClientRect();
+              if (r.bottom < 40 || r.top > window.innerHeight - 20) return;
+              var d = Math.abs((r.top + r.bottom) / 2 - orta);
+              if (d < enD) { enD = d; en = b; }
+            });
+            if (!en) return;
+            e.preventDefault();
+            if (bosluk) { en.click(); return; }
+            var s = document.getElementById(en.id.replace(/-play$/, "-reset"));
+            if (s) s.click();
+          });
         })();
 
         /* ilk yerleşim */

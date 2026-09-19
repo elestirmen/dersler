@@ -55,7 +55,7 @@ Dört etkileşimli deney, canlı grafikler ve konunun tamamını anlatan bir mod
 
 | # | Bölüm | Ne yapıyor |
 |---|---|---|
-| 01 | Düşme laboratuvarı | Yükseklik, yukarı fırlatma hızı, gökcismi (Dünya/Ay/Mars/Jüpiter) ve zaman ölçeği ayarlanır. Strobo izleri, hız–ivme okları, 8 kat ağır ikinci cisim. Altında **x–t, v–t, a–t** grafikleri canlı çizilir. |
+| 01 | Düşme laboratuvarı | Yükseklik **cisim yukarı aşağı sürüklenerek** de seçilir; yukarı fırlatma hızı, gökcismi (Dünya/Ay/Mars/Jüpiter) ve zaman ölçeği ayarlanır. Strobo izleri, hız–ivme okları, 8 kat ağır ikinci cisim. Altında **x–t, v–t, a–t** grafikleri canlı çizilir. |
 | 02 | Tüy ve bilye | Havalı tüpte tüy limit hıza takılır, vakumlu tüpte ikisi aynı anda iner. Karesel sürtünme modeli sayısal olarak çözülür. |
 | 03 | 1 : 3 : 5 kuralı | Eşit zaman aralıkları adım adım açılır; çubuklar tek sayı oranını, toplamlar 1:4:9:16:25'i gösterir. |
 | 04 | Cetvelle tepki süresi | Cetvel habersizce bırakılır, boşluk tuşuyla yakalanır; düşme mesafesinden `t = √(2d/g)` hesaplanır. |
@@ -71,9 +71,9 @@ etkileşimli bölüm:
 
 | # | Bölüm | Ne yapıyor |
 |---|---|---|
-| 01 | Atış laboratuvarı | Sürat, açı, atış yüksekliği, gökcismi ve zaman ölçeği ayarlanır. Strobo izleri, hız bileşeni okları (v, vₓ, v_y ve g) ve yörüngenin yatay/düşey izdüşümleri. Altında **x–t, y–t, vₓ–t, v_y–t** grafikleri canlı çizilir. |
+| 01 | Atış laboratuvarı | Sürat ve açı **hız okunun ucu sürüklenerek** de ayarlanır; atış yüksekliği, gökcismi ve zaman ölçeği kaydırıcılarla seçilir. Strobo izleri, hız bileşeni okları (v, vₓ, v_y ve g) ve yörüngenin yatay/düşey izdüşümleri. Altında **x–t, y–t, vₓ–t, v_y–t** grafikleri canlı çizilir. |
 | 02 | Bırakılan ve atılan | Aynı yükseklikten biri bırakılır, biri yatay atılır; kesikli çizgiler her an iki cismi aynı yükseklikte birleştirir. Bağımsızlık ilkesinin doğrudan gösterimi. |
-| 03 | Menzil ve açı | Aynı süratle 15°–75° arası beş açı sırayla atılır; tümler açıların aynı noktaya düştüğü, 45°'nin en uzağa gittiği ekranda kalır. |
+| 03 | Menzil ve açı | Aynı süratle 15°–75° arası beş açı sırayla atılır (sıradaki atışın yolu soluk önizlemeyle görünür); tümler açıların aynı noktaya düştüğü, 45°'nin en uzağa gittiği ekranda kalır. |
 | 04 | Hedefi vur | Rastgele uzaklık ve yükseklikteki hedefe açı + sürat ayarlanarak atış yapılır. İpucu düğmesi o açı için gereken sürati formülden hesaplar. |
 | 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
 
@@ -87,7 +87,7 @@ Kuvveti ve sonucunu ölçülebilir hâle getiren dört etkileşimli bölüm:
 
 | # | Bölüm | Ne yapıyor |
 |---|---|---|
-| 01 | Kuvvet laboratuvarı | Uygulanan kuvvet, kütle ve zemin (μ) ayarlanır; kutunun üzerinde **serbest cisim diyagramı** (F, f, N, G) canlı çizilir. Statik sürtünme eşiği aşılmazsa kutu kıpırdamaz. Altında **ΣF–t, a–t, v–t, x–t** grafikleri. |
+| 01 | Kuvvet laboratuvarı | Uygulanan kuvvet **F okunun ucu sürüklenerek** de ayarlanır; kütle ve zemin (μ) seçilir; kutunun üzerinde **serbest cisim diyagramı** (F, f, N, G) canlı çizilir. Statik sürtünme eşiği aşılmazsa kutu kıpırdamaz. Altında **ΣF–t, a–t, v–t, x–t** grafikleri. |
 | 02 | Sürtünmeyi azaltınca | Aynı hızla itilen dört disk halı, parke, buz ve sürtünmesiz ortamda; durma mesafeleri `d = v²/(2μg)`. Sürtünmesiz şerit hiç durmaz — 1. yasanın deneysel yüzü. |
 | 03 | Etki ve tepki | İki araba birbirini iter; kuvvetler eşit, ivmeler kütleyle ters orantılı. Ayrılma hızlarının oranı kütle oranının tersidir. |
 | 04 | Asansörde görünen ağırlık | Kütle ve asansör durumu seçilir; `N = m(g + a)` ile tartının yazdığı değer değişir, serbest düşmede sıfırlanır. |
@@ -103,7 +103,7 @@ Statik ve kinetik sürtünmeyi ölçülebilir hâle getiren dört bölüm:
 | # | Bölüm | Ne yapıyor |
 |---|---|---|
 | 01 | Sürtünme laboratuvarı | Kuvvet yavaşça artırılır; sürtünme uygulanan kuvvete eşit büyür, eşiği aşınca kinetik değerine düşer. Yanında **f–F** ve **a–F** grafikleri canlı çizilir. |
-| 02 | Eğik düzlemde kritik açı | Eğim yavaşça artırılır; kayma açısının tanjantı doğrudan μs'yi verir. |
+| 02 | Eğik düzlemde kritik açı | Eğim, **tepesinden sürüklenerek** ya da kaydırıcıyla artırılır; kayma açısının tanjantı doğrudan μs'yi verir. |
 | 03 | Temas alanı | Aynı kütleli üç farklı yüzey aynı noktada durur: f = μ·N bağıntısında alan yoktur. |
 | 04 | Fren mesafesi | Hız, tepki süresi ve yol durumu seçilir; tepki + fren mesafesi ayrı ayrı gösterilir. |
 | 05 | Hızlı kontrol | Beş soruluk test. |
@@ -126,7 +126,7 @@ Sabit süratli ama ivmeli hareketi gösteren dört bölüm:
 
 | # | Bölüm | Ne yapıyor |
 |---|---|---|
-| 01 | Çember laboratuvarı | Yarıçap, periyot ve kütle ayarlanır; hız teğet, ivme merkeze doğru çizilir. **a–v** ve **a–r** grafikleri. |
+| 01 | Çember laboratuvarı | Yarıçap **top içeri dışarı sürüklenerek**, periyot ve kütle kaydırıcıyla ayarlanır; hız teğet, ivme merkeze doğru çizilir. **a–v** ve **a–r** grafikleri. |
 | 02 | İpi kes | İp kesildiğinde cisim teğet doğrultuda gider; "merkezden dışarı" sanısı da çizilir. |
 | 03 | Aynı disk | Üç farklı yarıçaptaki nokta: T ve ω ortak, v ve a farklı. |
 | 04 | Virajda savrulma | Gereken merkezcil kuvvet ile sürtünme sınırı karşılaştırılır; sınır hız √(μgr). |
@@ -138,9 +138,9 @@ Yüklerin birbirine dokunmadan uyguladığı kuvveti ve alan kavramını kuran d
 
 | # | Bölüm | Ne yapıyor |
 |---|---|---|
-| 01 | Coulomb laboratuvarı | İki yükün büyüklüğü, işareti ve arasındaki uzaklık ayarlanır; kuvvet okları ve çekme/itme canlı gösterilir. **F–r** (ters kare) ve **F–q** (doğru orantı) grafikleri. |
+| 01 | Coulomb laboratuvarı | İki yükün büyüklüğü ve işareti seçilir, aralarındaki uzaklık **yükler sürüklenerek** de değiştirilir; kuvvet okları ve çekme/itme canlı gösterilir. **F–r** (ters kare) ve **F–q** (doğru orantı) grafikleri. |
 | 02 | Alan haritası | Izgara üzerinde alan okları çizilir; tek yük, dipol ve aynı işaretli iki yük seçilebilir. Tıklanan noktaya test yükü konur, gördüğü kuvvet okla gösterilir. |
-| 03 | Alanın sıfırlandığı nokta | İkinci yükün değeri ve yeri değiştirilir; bileşke alanın sıfırlandığı nokta sayısal taramayla bulunur ve işaretlenir. |
+| 03 | Alanın sıfırlandığı nokta | İkinci yükün değeri değiştirilir, **prob eksende sürüklenir**; bileşke alanın sıfırlandığı nokta sayısal taramayla bulunur ve işaretlenir. |
 | 04 | Paralel levhalar | `E = V/d` ile düzgün alan kurulur; elektron ya da proton atılır, parabolik yörünge ve levhaya çarpma izlenir. |
 | 05 | Hızlı kontrol | Beş soruluk test. |
 
@@ -150,7 +150,7 @@ Akımın ürettiği alanı ve alanın uyguladığı kuvveti gösteren dört böl
 
 | # | Bölüm | Ne yapıyor |
 |---|---|---|
-| 01 | Telin manyetik alanı | Akım ve uzaklık ayarlanır; `B = 2·10⁻⁷·I/r` halkaları ve pusula iğnesi çizilir. **B–r** ve **B–I** grafikleri. |
+| 01 | Telin manyetik alanı | Akım kaydırıcıyla, uzaklık **pusula sürüklenerek** ayarlanır; `B = 2·10⁻⁷·I/r` halkaları ve pusula iğnesi çizilir. **B–r** ve **B–I** grafikleri. |
 | 02 | Tele etkiyen kuvvet | Alan, akım ve açı değiştirilir; `F = B·I·L·sinα` kuvvet oku ve sinüs eğrisi aynı sahnede gösterilir. |
 | 03 | Dairesel hareket | Alana dik giren elektron/protonun yarıçapı `r = mv/(qB)` ve periyodu `T = 2πm/(qB)`; ölçek çubuğuyla birlikte. |
 | 04 | Sağ el kuralı alıştırması | Rastgele akım–alan çiftleri için kuvvet yönü sorulur; puan ve doğruluk oranı tutulur. |
@@ -162,7 +162,7 @@ Değişen akının akım doğurmasını dört ayrı deneyle gösteren bölümler
 
 | # | Bölüm | Ne yapıyor |
 |---|---|---|
-| 01 | Mıknatıs ve bobin | Mıknatıs bobinden geçirilir; akı çan eğrisi, indüklenen emk ve galvanometre iğnesi eşzamanlı çizilir. **Φ–t** ve **ε–t** grafikleri. |
+| 01 | Mıknatıs ve bobin | Mıknatıs bobinden geçirilir ya da **elle sürüklenerek** ileri geri oynatılır; akı çan eğrisi, indüklenen emk ve galvanometre iğnesi eşzamanlı çizilir. **Φ–t** ve **ε–t** grafikleri. |
 | 02 | Jeneratör | Dönen çerçevede `Φ = B·A·cosωt` ve `ε = N·B·A·ω·sinωt`; çeyrek periyotluk faz farkı grafikte görünür. |
 | 03 | Hareketli çubuk | `ε = B·L·v`, `I = ε/R` ve karşı kuvvet `F = B·I·L` hesaplanır; mekanik güç ile elektriksel güç karşılaştırılır. |
 | 04 | Bakır boru | Aynı mıknatıs plastik ve bakır borudan bırakılır: 0,49 s'e karşı 5,5 s. Lenz yasasının en çarpıcı gösterimi. |
@@ -328,14 +328,24 @@ Deneylerde ortak etkileşimler:
 | Başlat / durdur | Sahneye tıkla ya da **boşluk** tuşuna bas |
 | Sıfırla | **R** tuşu ya da bölümdeki *Sıfırla* düğmesi |
 | Hazır deney | Bölümün üstündeki çipler; tek tıkla anlamlı bir düzen kurar |
-| Doğrudan sürükleme | Sahnedeki cisim, lamba, ekran ya da mercek imleçle sürüklenir; imleç `grab` olur ve ilk kullanımda sahnede ipucu belirir |
+| Doğrudan sürükleme | 16 sahnede tutamak var: kuvvet okunun ucu, eğimin tepesi, çembersel harekette top, pusula, mıknatıs, prob, hız oku, cisim, lamba, ekran, mercek. İmleç `grab` olur, ilk kullanımda sahnede ipucu belirir ve sürükleme ilgili kaydırıcıyı sürer |
 | Değer girişi | Kaydırıcılar klavyeyle de kullanılır (ok tuşları); dokunmatik ekranda tutamaklar büyür |
+
+Bu davranışlar üç ünitenin tamamında aynıdır: her deneyde sahneye tıklamak ya da
+**boşluk** tuşuna basmak deneyi tam bir kez başlatır, **R** sıfırlar. Sürükleme
+tutamağı olan sahnelerde sürüklemenin hemen ardından gelen tıklama yutulur, yani
+tutamağı bırakmak deneyi başlatmaz; sahnenin boş bir yerine tıklamak yine başlatır.
 
 Sürüklenebilir sahnelerde `touch-action` eksene göre ayarlanır: yatay sürüklenen
 sahnelerde dikey kaydırma serbest kalır, dikey sürüklenenlerde dokunmatik
 sürükleme kapatılır ki sayfa parmakla kaydırılabilsin. Bölüm özet cümleleri
 (`.verdict`) `aria-live="polite"` taşır; tuvaller `role="img"` ve açıklayıcı
 etiketle sunulur.
+
+Çizim düzeni de ortaktır: ok etiketleri okun ucunun hemen ötesine hizalanır
+(gövdenin üstüne binmez), grafiklerde eksen adı son değer etiketiyle çakışmaz,
+sürükleme ipucu sahneyi kapatmayacak köşeye yerleşir ve dar ekranlarda uzun
+rozetler kısalır.
 
 ## Yapı
 

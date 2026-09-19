@@ -2217,7 +2217,15 @@
         /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
         function surukle(k, o) {
           if (!k || !k.el) return null;
-          var el = k.el, aktif = null, dokunuldu = false;
+          var el = k.el, aktif = null, dokunuldu = false, sonBirak = -1e9;
+          function simdi() { return window.performance ? performance.now() : Date.now(); }
+          /* sürüklemenin ardından gelen click sahneyi başlatmasın */
+          window.addEventListener("click", function (e) {
+            if (e.target !== el || simdi() - sonBirak > 400) return;
+            sonBirak = -1e9;
+            e.stopPropagation();
+            e.preventDefault();
+          }, true);
           /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
              "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
           var eksen = o.eksen || "x";
@@ -2249,6 +2257,7 @@
             el.addEventListener(t, function (e) {
               if (aktif === null) return;
               aktif = null;
+              sonBirak = simdi();
               el.style.cursor = "grab";
               try { el.releasePointerCapture(e.pointerId); } catch (q) {}
               if (o.birak) o.birak();
@@ -2258,22 +2267,46 @@
         }
 
         /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
-        function ipucu(ctx, W, H, metin, goster) {
+        function ipucu(ctx, W, H, metin, goster, konum) {
           if (!goster) return;
           ctx.save();
           ctx.font = "700 11.5px " + FONT;
-          var w = ctx.measureText(metin).width + 34;
-          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
-          roundRect(ctx, x0, H - 32, w, 24, 12);
+          var w = ctx.measureText(metin).width + 41;
+          /* varsayılan sağ alt köşe; sahnenin orası doluysa üst orta kullanılır.
+             Dar ekranda üst orta rozetlerle çakışır, o yüzden alta iner. */
+          var ustte = konum === "ust-orta" && W >= 520;
+          var x0 = konum === "ust-orta" ? Math.max(6, (W - w) / 2) : W - w - 10;
+          var y0 = ustte ? 8 : H - 32;
+          roundRect(ctx, x0, y0, w, 24, 12);
           ctx.fillStyle = A(COL.lime, 0.16);
           ctx.fill();
           ctx.strokeStyle = A(COL.lime, 0.5);
           ctx.lineWidth = 1;
           ctx.stroke();
+          var ax = x0 + 15, cy = y0 + 12;
+          ctx.strokeStyle = COL.lime;
+          ctx.lineWidth = 1.6;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(ax - 5, cy);
+          ctx.lineTo(ax + 5, cy);
+          ctx.stroke();
           ctx.fillStyle = COL.lime;
-          ctx.textAlign = "center";
+          ctx.beginPath();
+          ctx.moveTo(ax - 9, cy);
+          ctx.lineTo(ax - 4, cy - 3.4);
+          ctx.lineTo(ax - 4, cy + 3.4);
+          ctx.closePath();
+          ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(ax + 9, cy);
+          ctx.lineTo(ax + 4, cy - 3.4);
+          ctx.lineTo(ax + 4, cy + 3.4);
+          ctx.closePath();
+          ctx.fill();
+          ctx.textAlign = "left";
           ctx.textBaseline = "middle";
-          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.fillText(metin, ax + 13, cy + 0.5);
           ctx.restore();
         }
 
@@ -2287,6 +2320,7 @@
           var st = { h0: 45, g: 9.81, name: "Dünya", v0: 0, speed: 1, t: 0, run: false,
                      strobe: true, vec: true, twin: true };
           var flash = 0;
+          var SUR = null, donTop = null, kay = 0;      /* cismi sürükleme */
 
           function tEnd() { return (st.v0 + Math.sqrt(st.v0 * st.v0 + 2 * st.g * st.h0)) / st.g; }
           function yAt(t) { return st.h0 + st.v0 * t - 0.5 * st.g * t * t; }
@@ -2315,7 +2349,7 @@
 
             var padT = 54, padB = 46, padL = 56, padR = 18;
             var gy = H - padB;
-            var top = Math.max(hMax(), 0.001);
+            var top = donTop != null ? donTop : Math.max(hMax(), 0.001);
             /* cisim boyu sahnenin piksel/metre ölçeğine bağlı: alçaktan bakınca
                büyük, yükseldikçe küçülür (tuval kısaldığında da orantılı iner) */
             var r1 = clamp(6.55 * Math.pow((gy - padT) / top, 0.3), 6.5, 22);
@@ -2487,7 +2521,8 @@
             if (done) {
               chip(ctx, "yere çarptı · " + fmt(vHit(), 1) + " m/s", W / 2, gy + 10, COL.lime, "center");
             } else if (t <= 0 && !st.run) {
-              chip(ctx, "bırakmak için tıkla ya da boşluk tuşuna bas", W / 2, gy - 38, COL.muted, "center");
+              chip(ctx, (W < 520 ? "bırakmak için tıkla" : "bırakmak için tıkla ya da boşluk tuşuna bas"), W / 2, gy - 38, COL.muted, "center");
+              ipucu(ctx, W, H, "cismi sürükleyerek yüksekliği seç", SUR && SUR.yeni());
             }
           }
 
@@ -2763,10 +2798,48 @@
             st.twin = this.checked; sync();
           });
 
+          S.el.dataset.tikla = "1";
+
           S.el.addEventListener("click", function () { playBtn.click(); });
           S.el.addEventListener("keydown", function (e) {
             if (e.code === "Space" || e.key === " " || e.key === "Enter") { e.preventDefault(); playBtn.click(); }
             else if (e.key === "r" || e.key === "R") { e.preventDefault(); reset(); }
+          });
+
+          /* cismi doğrudan sürükleyerek bırakma yüksekliğini ayarla */
+          function sahneOlcek() {
+            var W = S.w, H = S.h;
+            var padT = 54, padB = 46, padL = 56, padR = 18;
+            var gy = H - padB;
+            var top = donTop != null ? donTop : Math.max(hMax(), 0.001);
+            var r1 = clamp(6.55 * Math.pow((gy - padT) / top, 0.3), 6.5, 22);
+            if (W < 470) padT = Math.max(padT, 48 + 2 * r1);
+            var sc = (gy - padT) / top;
+            return { gy: gy, sc: sc, bx: padL + (W - padL - padR) * 0.34, r: r1 };
+          }
+          SUR = surukle(S, {
+            eksen: "y",
+            tut: function (x, y) {
+              if (st.run || st.t > 0.001) return null;      /* yalnız durgunken */
+              var q = sahneOlcek();
+              var by = q.gy - st.h0 * q.sc;
+              return (Math.abs(x - q.bx) < q.r + 16 && Math.abs(y - by) < q.r + 16) ? "cisim" : null;
+            },
+            bas: function (id, x, y) {
+              var q = sahneOlcek();
+              donTop = Math.max(hMax(), 0.001);
+              kay = (q.gy - st.h0 * q.sc) - y;
+            },
+            birak: function () { donTop = null; drawScene(); },
+            tasi: function (id, x, y) {
+              var q = sahneOlcek();
+              var h = clamp(Math.round((q.gy - (y + kay)) / q.sc), 5, 150);
+              if (h !== st.h0) {
+                var el = document.getElementById("c-h");
+                el.value = h;
+                el.dispatchEvent(new Event("input", { bubbles: true }));
+              }
+            }
           });
 
           S.bind(drawScene);
@@ -3103,10 +3176,10 @@
         /* ============ 04 · cetvelle tepki süresi ============ */
 
         (function ruler() {
-          var K = kit("ruler-scene", function () { return 360; });
+          var K = kit("ruler-scene", function () { return 380; });
           if (!K) return;
 
-          var G_ = 9.81, PPM = 300, FINGER = 150, LEN = 0.5, MAXD = 0.62;
+          var G_ = 9.81, PPM = 300, FINGER = 172, LEN = 0.5, MAXD = 0.62;
           var verdict = document.getElementById("ruler-verdict");
           var startBtn = document.getElementById("ruler-start");
           var catchBtn = document.getElementById("ruler-catch");
@@ -3129,7 +3202,9 @@
             ctx.textBaseline = "bottom";
             ctx.fillText("yakalama çizgisi · cetvelin 0 cm'i", 18, FINGER - 6);
 
-            roundRect(ctx, cx - rw / 2, top, rw, rulerPx, 7);
+            /* gövde uç çizgilerin biraz dışına taşar: 0 ve 50 rakamları kesilmesin */
+            var govTop = top - 15, govH = rulerPx + 22;
+            roundRect(ctx, cx - rw / 2, govTop, rw, govH, 7);
             var gr = ctx.createLinearGradient(cx - rw / 2, 0, cx + rw / 2, 0);
             gr.addColorStop(0, "#f2e7c6");
             gr.addColorStop(0.5, "#fbf4dd");
@@ -3141,7 +3216,7 @@
             ctx.stroke();
 
             ctx.save();
-            roundRect(ctx, cx - rw / 2, top, rw, rulerPx, 7);
+            roundRect(ctx, cx - rw / 2, govTop, rw, govH, 7);
             ctx.clip();
             for (var c = 0; c <= 50; c++) {
               var y = top + rulerPx - (c / 100) * PPM;
@@ -3284,6 +3359,7 @@
           });
 
           catchBtn.addEventListener("click", grab);
+          K.el.dataset.tikla = "1";
           K.el.addEventListener("click", grab);
 
           window.addEventListener("keydown", function (e) {
@@ -3597,6 +3673,54 @@
               apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
             });
           }
+        })();
+
+        /* sahneye tıklamak da deneyi başlatır - durdurur */
+        (function tiklaOynat() {
+          var btns = document.querySelectorAll("button[id$='-play']");
+          for (var i = 0; i < btns.length; i++) {
+            (function (b) {
+              var sec = b.closest ? b.closest("section") : null;
+              if (!sec) return;
+              var c = sec.querySelector("canvas");
+              if (!c || c.dataset.tikla) return;
+              c.dataset.tikla = "1";
+              if (c.dataset.surukle) {
+                c.title = "Tutamağı sürükle · boş alana tıkla: başlat / durdur";
+              } else {
+                c.style.cursor = "pointer";
+                c.title = "Tıkla: başlat / durdur";
+              }
+              c.addEventListener("click", function () { b.click(); });
+            })(btns[i]);
+          }
+        })();
+
+        /* klavye: boşluk başlat-durdur, R sıfırla (ekranda görünen deneyde) */
+        (function kisayol() {
+          var oyna = [].slice.call(document.querySelectorAll("button[id$='-play']"));
+          if (!oyna.length) return;
+          window.addEventListener("keydown", function (e) {
+            if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+            var t = e.target;
+            if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" ||
+              t.tagName === "BUTTON" || t.tagName === "SUMMARY" || t.isContentEditable)) return;
+            var bosluk = e.key === " " || e.key === "Spacebar";
+            var sifirla = e.key === "r" || e.key === "R";
+            if (!bosluk && !sifirla) return;
+            var orta = window.innerHeight / 2, en = null, enD = 1e9;
+            oyna.forEach(function (b) {
+              var r = b.getBoundingClientRect();
+              if (r.bottom < 40 || r.top > window.innerHeight - 20) return;
+              var d = Math.abs((r.top + r.bottom) / 2 - orta);
+              if (d < enD) { enD = d; en = b; }
+            });
+            if (!en) return;
+            e.preventDefault();
+            if (bosluk) { en.click(); return; }
+            var s = document.getElementById(en.id.replace(/-play$/, "-reset"));
+            if (s) s.click();
+          });
         })();
 
         /* ilk yerleşim */
