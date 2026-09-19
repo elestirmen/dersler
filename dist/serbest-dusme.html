@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1586,7 +1594,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Alınan yol, hız ve ivmenin zamana bağlı grafikleri"></canvas>
+        <canvas id="lab-graphs" role="img" aria-label="Alınan yol, hız ve ivmenin zamana bağlı grafikleri"></canvas>
         <p class="note">
           Grafiklerde <b>aşağı yön pozitif</b> seçildi: ivme sabit ve <b>+g</b>, hız doğrusal artıyor,
           alınan yol ise parabol çiziyor. Cismi yukarı fırlatırsan hız önce negatif görünür
@@ -1603,7 +1611,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="air-scene" aria-label="Havalı ve vakumlu tüplerde tüy ile bilyenin düşüşü"></canvas>
+          <canvas id="air-scene" role="img" aria-label="Havalı ve vakumlu tüplerde tüy ile bilyenin düşüşü"></canvas>
           <div class="panel">
             <h3>Neyi gösteriyor?</h3>
             <p>
@@ -1612,7 +1620,7 @@
               o neredeyse serbest düşer. Havayı boşaltınca tek kuvvet ağırlık kalır: ikisi de
               aynı <b>g</b> ivmesiyle, yan yana iner.
             </p>
-            <div class="verdict" id="air-verdict">Başlamak için <b>Bırak</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="air-verdict">Başlamak için <b>Bırak</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="air-play">Bırak</button>
               <button class="button ghost" type="button" id="air-reset">Sıfırla</button>
@@ -1633,14 +1641,14 @@
         </div>
 
         <div class="demo split">
-          <canvas id="rule-scene" aria-label="Eşit zaman aralıklarında alınan yolların 1:3:5:7:9 oranı"></canvas>
+          <canvas id="rule-scene" role="img" aria-label="Eşit zaman aralıklarında alınan yolların 1:3:5:7:9 oranı"></canvas>
           <div class="panel">
             <h3>Adım adım izle</h3>
             <p>
               Aralıkları tek tek açmak için <b>Bir aralık</b> düğmesini kullan. Sağdaki çubuklar
               o aralıkta alınan yolu gösteriyor; boylar 1, 3, 5, 7, 9 oranında.
             </p>
-            <div class="verdict" id="rule-verdict">Δt = 0,20 s'lik ilk aralığı açmak için düğmeye bas.</div>
+            <div class="verdict" aria-live="polite" id="rule-verdict">Δt = 0,20 s'lik ilk aralığı açmak için düğmeye bas.</div>
             <div class="actions">
               <button class="button" type="button" id="rule-step">Bir aralık</button>
               <button class="button ghost" type="button" id="rule-play">Tümü</button>
@@ -1670,7 +1678,7 @@
               görmez <b>boşluk tuşuna</b> bas ya da cetvele tıkla. Yakaladığın yerdeki santimetre,
               tepki süreni verir.
             </p>
-            <div class="verdict" id="ruler-verdict">Parmakların cetvelin 0 çizgisinde. Hazır olunca başla.</div>
+            <div class="verdict" aria-live="polite" id="ruler-verdict">Parmakların cetvelin 0 çizgisinde. Hazır olunca başla.</div>
             <div class="actions">
               <button class="button" type="button" id="ruler-start">Hazırım</button>
               <button class="button ghost" type="button" id="ruler-catch">Yakala</button>
@@ -2203,6 +2211,71 @@
         }
 
         function halt(fn) { tickers.delete(fn); }
+
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
+        }
 
         /* ============ 01 · düşme laboratuvarı ============ */
 

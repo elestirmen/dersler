@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1566,7 +1574,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Kuvvetin uzaklığa ve yüke bağlılığı"></canvas>
+        <canvas id="lab-graphs" role="img" aria-label="Kuvvetin uzaklığa ve yüke bağlılığı"></canvas>
         <p class="note">
           Soldaki grafik <b>ters kare</b> bağımlılığı gösterir: uzaklık iki katına çıkınca kuvvet
           <b>dörtte bire</b> iner. Sağdaki grafikte kuvvet yükle <b>doğru orantılıdır</b>.
@@ -1599,7 +1607,7 @@
                 <button type="button" data-m="ayni">Aynı ikili<b>+q +q</b></button>
               </div>
             </div>
-            <div class="verdict" id="map-verdict">Test yükünü koymak için sahneye tıkla.</div>
+            <div class="verdict" aria-live="polite" id="map-verdict">Test yükünü koymak için sahneye tıkla.</div>
             <p class="note">
               Okların sıklaştığı yerde alan güçlüdür. Zıt ikilide çizgiler bir yükten diğerine
               geçer; aynı işaretli ikilide ise ortada birbirini iterek dışarı doğru bükülür.
@@ -1616,7 +1624,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="zero-scene" aria-label="İki yükün alanlarının toplandığı doğru üzerinde net alanın değişimi"></canvas>
+          <canvas id="zero-scene" role="img" aria-label="İki yükün alanlarının toplandığı doğru üzerinde net alanın değişimi"></canvas>
           <div class="panel">
             <h3>Probu kaydır</h3>
             <p>
@@ -1632,7 +1640,7 @@
               <label for="zero-q2">q₂ yükü <output id="zero-q2-out" for="zero-q2">+4,0 µC</output></label>
               <input id="zero-q2" type="range" min="-80" max="80" step="1" value="40" />
             </div>
-            <div class="verdict" id="zero-verdict">Probu kaydır, net alanı sıfırlamayı dene.</div>
+            <div class="verdict" aria-live="polite" id="zero-verdict">Probu kaydır, net alanı sıfırlamayı dene.</div>
             <div class="actions">
               <button class="button" type="button" id="zero-find">Sıfır noktasına git</button>
               <button class="button ghost" type="button" id="zero-reset">Sıfırla</button>
@@ -1676,7 +1684,7 @@
                 <button type="button" data-k="p">Proton<b>+e</b></button>
               </div>
             </div>
-            <div class="verdict" id="pl-verdict">Parçacığı göndermek için <b>Gönder</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="pl-verdict">Parçacığı göndermek için <b>Gönder</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="pl-play">Gönder</button>
               <button class="button ghost" type="button" id="pl-reset">Sıfırla</button>
@@ -2321,6 +2329,71 @@
           ctx.fillText(o.xLabel, X + W - 17, Y + H - 8);
         }
 
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
+        }
+
         /* ============ 01 · Coulomb laboratuvarı ============ */
 
         (function lab() {
@@ -2330,6 +2403,7 @@
 
           var KC = 9e9;
           var st = { q1: 2e-6, q2: 2e-6, r: 0.2, vec: true, field: true };
+          var SUR = null, kay = 0;
 
           function force() { return (KC * Math.abs(st.q1 * st.q2)) / (st.r * st.r); }
           function attract() { return st.q1 * st.q2 < 0; }
@@ -2399,6 +2473,7 @@
             chip(ctx, attract() ? "zıt işaretli · çekme" : "aynı işaretli · itme", 8, 8,
                  attract() ? COL.violet : COL.amber, "left");
             chip(ctx, "F = k·q₁·q₂ / r²", W - 8, 8, COL.muted, "right");
+            ipucu(ctx, W, H, "yükleri sürükleyerek uzaklığı değiştir", SUR && SUR.yeni());
           }
 
           function drawGraphs() {
@@ -2479,6 +2554,35 @@
           });
           document.getElementById("c-field").addEventListener("change", function () {
             st.field = this.checked; sync();
+          });
+
+          /* yükleri doğrudan sürükle */
+          SUR = surukle(S, {
+            eksen: "x",
+            tut: function (x, y) {
+              var W = S.w, H = S.h, cy = H * 0.46;
+              var sc = (W - 190) / 0.5, gap = st.r * sc;
+              var cx1 = W / 2 - gap / 2, cx2 = W / 2 + gap / 2;
+              if (Math.abs(y - cy) > 30) return null;
+              if (Math.abs(x - cx2) < 26) return "q2";
+              if (Math.abs(x - cx1) < 26) return "q1";
+              return null;
+            },
+            bas: function (id, x, y) {
+              var W = S.w, sc = (W - 190) / 0.5, gap = st.r * sc;
+              kay = (id === "q2" ? W / 2 + gap / 2 : W / 2 - gap / 2) - x;
+            },
+            tasi: function (id, x, y) {
+              var W = S.w, sc = (W - 190) / 0.5;
+              x = x + kay;
+              var yeni = id === "q2" ? ((x - W / 2) * 2) / sc : ((W / 2 - x) * 2) / sc;
+              var cm = clamp(Math.round(yeni * 100), 5, 50);
+              if (cm !== Math.round(st.r * 100)) {
+                var el = document.getElementById("c-r");
+                el.value = cm;
+                el.dispatchEvent(new Event("input", { bubbles: true }));
+              }
+            }
           });
 
           var presets = document.querySelectorAll(".presets button[data-q1]");

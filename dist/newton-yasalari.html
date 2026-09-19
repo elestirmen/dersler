@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1587,7 +1595,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Net kuvvet, ivme, hız ve konumun zamana bağlı grafikleri"></canvas>
+        <canvas id="lab-graphs" role="img" aria-label="Net kuvvet, ivme, hız ve konumun zamana bağlı grafikleri"></canvas>
         <p class="note">
           Sabit bir net kuvvet <b>sabit ivme</b> üretir: ivme grafiği yatay bir doğrudur,
           hız doğrusal artar, konum parabol çizer. Kuvveti iki katına çıkarınca ivme de iki
@@ -1604,7 +1612,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="slide-scene" aria-label="Aynı hızla itilen disklerin farklı zeminlerde aldığı yollar"></canvas>
+          <canvas id="slide-scene" role="img" aria-label="Aynı hızla itilen disklerin farklı zeminlerde aldığı yollar"></canvas>
           <div class="panel">
             <h3>1. yasa: eylemsizlik</h3>
             <p>
@@ -1616,7 +1624,7 @@
               <label for="slide-v">İtme hızı <output id="slide-v-out" for="slide-v">8 m/s</output></label>
               <input id="slide-v" type="range" min="4" max="14" step="1" value="8" />
             </div>
-            <div class="verdict" id="slide-verdict">Başlamak için <b>Hepsini it</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="slide-verdict">Başlamak için <b>Hepsini it</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="slide-play">Hepsini it</button>
               <button class="button ghost" type="button" id="slide-reset">Sıfırla</button>
@@ -1637,7 +1645,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="push-scene" aria-label="Birbirini iten iki arabanın kuvvet okları ve ayrılışı"></canvas>
+          <canvas id="push-scene" role="img" aria-label="Birbirini iten iki arabanın kuvvet okları ve ayrılışı"></canvas>
           <div class="panel">
             <h3>3. yasa: eşit ve zıt</h3>
             <p>
@@ -1653,7 +1661,7 @@
               <label for="push-m2">Mor arabanın kütlesi <output id="push-m2-out" for="push-m2">6 kg</output></label>
               <input id="push-m2" type="range" min="1" max="10" step="1" value="6" />
             </div>
-            <div class="verdict" id="push-verdict">Yayı bırakmak için <b>İt</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="push-verdict">Yayı bırakmak için <b>İt</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="push-play">İt</button>
               <button class="button ghost" type="button" id="push-reset">Sıfırla</button>
@@ -1674,7 +1682,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="lift-scene" aria-label="Asansörde tartı üzerinde duran kişiye etki eden normal kuvvet ve ağırlık"></canvas>
+          <canvas id="lift-scene" role="img" aria-label="Asansörde tartı üzerinde duran kişiye etki eden normal kuvvet ve ağırlık"></canvas>
           <div class="panel">
             <h3>Tartı neyi ölçer?</h3>
             <p>
@@ -1695,7 +1703,7 @@
                 <button type="button" data-a="-9.81">Halat koptu<b>a = −g</b></button>
               </div>
             </div>
-            <div class="verdict" id="lift-verdict">Asansör sabit hızla gidiyor: tartı gerçek kütleni gösterir.</div>
+            <div class="verdict" aria-live="polite" id="lift-verdict">Asansör sabit hızla gidiyor: tartı gerçek kütleni gösterir.</div>
             <ul class="mini">
               <li>Ağırlık (m·g) <b id="lift-g">588,6 N</b></li>
               <li>Normal kuvvet <b id="lift-n">588,6 N</b></li>
@@ -2317,6 +2325,71 @@
           ctx.strokeText(text, x, y);
           ctx.fillStyle = color;
           ctx.fillText(text, x, y);
+          ctx.restore();
+        }
+
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
           ctx.restore();
         }
 

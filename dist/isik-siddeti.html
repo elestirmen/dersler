@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1528,7 +1536,7 @@
 
         <div class="lab">
           <div>
-            <canvas id="lab-scene" aria-label="Nokta kaynak, ışık konisi ve aydınlanan yüzey"></canvas>
+            <canvas id="lab-scene" role="img" aria-label="Nokta kaynak, ışık konisi ve aydınlanan yüzey"></canvas>
             <div class="readouts">
               <div class="readout"><span>Aydınlanma</span><strong id="ro-e">100</strong> <i>lüks</i></div>
               <div class="readout"><span>Işık akısı</span><strong id="ro-flux">5027</strong> <i>lümen</i></div>
@@ -1562,7 +1570,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Aydınlanmanın uzaklığa ve ışık şiddetine bağlılığı"></canvas>
+        <canvas id="lab-graphs" role="img" aria-label="Aydınlanmanın uzaklığa ve ışık şiddetine bağlılığı"></canvas>
         <p class="note">
           Aydınlanma, kaynağın şiddetiyle <b>doğru</b>, uzaklığın <b>karesiyle ters</b>
           orantılıdır. Lambayı iki katı yükseğe asmak masadaki aydınlanmayı
@@ -1578,7 +1586,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="sq-scene" aria-label="Noktasal kaynaktan çıkan ışık konisinin uzaklıkla yayılması"></canvas>
+          <canvas id="sq-scene" role="img" aria-label="Noktasal kaynaktan çıkan ışık konisinin uzaklıkla yayılması"></canvas>
           <div class="panel">
             <h3>Akı korunur, alan büyür</h3>
             <p>
@@ -1590,7 +1598,7 @@
               <label for="sq-d">Perdenin uzaklığı <output id="sq-d-out" for="sq-d">1,0 birim</output></label>
               <input id="sq-d" type="range" min="10" max="30" step="1" value="10" />
             </div>
-            <div class="verdict" id="sq-verdict">Perdeyi uzaklaştır.</div>
+            <div class="verdict" aria-live="polite" id="sq-verdict">Perdeyi uzaklaştır.</div>
             <div class="actions">
               <button class="button" type="button" id="sq-play">Uzaklaştır</button>
               <button class="button ghost" type="button" id="sq-reset">Başa dön</button>
@@ -1613,7 +1621,7 @@
 
         <div class="lab">
           <div>
-            <canvas id="ph-scene" aria-label="İki lamba arasında hareket eden fotometre ekranı"></canvas>
+            <canvas id="ph-scene" role="img" aria-label="İki lamba arasında hareket eden fotometre ekranı"></canvas>
             <div class="readouts">
               <div class="readout"><span>Sol lambadan</span><strong id="ro-e1">160</strong> <i>lx</i></div>
               <div class="readout"><span>Sağ lambadan</span><strong id="ro-e2">40</strong> <i>lx</i></div>
@@ -1650,7 +1658,7 @@
           </div>
         </div>
 
-        <canvas id="ph-graph" aria-label="İki lambanın aydınlanmasının konuma göre değişimi"></canvas>
+        <canvas id="ph-graph" role="img" aria-label="İki lambanın aydınlanmasının konuma göre değişimi"></canvas>
         <p class="note">
           Denge noktasında <b>I₁ / x² = I₂ / (L−x)²</b>'dir. Karekök alınırsa uzaklıkların
           oranı, şiddetlerin karekökünün oranına eşit çıkar: <b>x / (L−x) = √(I₁/I₂)</b>.
@@ -1666,7 +1674,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="rm-scene" aria-label="Odanın üstten görünümü ve yerleştirilen ampuller"></canvas>
+          <canvas id="rm-scene" role="img" aria-label="Odanın üstten görünümü ve yerleştirilen ampuller"></canvas>
           <div class="panel">
             <h3>Φ = E · A</h3>
             <div class="seg" id="rm-use" role="group" aria-label="Kullanım amacı">
@@ -1688,7 +1696,7 @@
               <label for="rm-l">Ampul başına akı <output id="rm-l-out" for="rm-l">800 lm</output></label>
               <input id="rm-l" type="range" min="400" max="2400" step="100" value="800" />
             </div>
-            <div class="verdict" id="rm-verdict">Kullanım amacını seç.</div>
+            <div class="verdict" aria-live="polite" id="rm-verdict">Kullanım amacını seç.</div>
             <ul class="mini">
               <li>Gereken toplam akı <b id="rm-need">8000 lm</b></li>
               <li>Ampul sayısı <b id="rm-count">10</b></li>
@@ -2455,6 +2463,71 @@
           return l > 0.58 ? "#101528" : "#ffffff";
         }
 
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
+        }
+
         /* ============ 01 · aydınlanma laboratuvarı ============ */
 
         (function lab() {
@@ -2463,6 +2536,7 @@
           if (!S || !G) return;
 
           var st = { I: 400, d: 200, th: 0 };
+          var SUR = null, kay = 0;
 
           function cosT() { return Math.cos((st.th * Math.PI) / 180); }
           function lux(I, dcm, th) {
@@ -2546,8 +2620,8 @@
             dashLine(ctx, cx, yLamp + 12, cx, yPlate - 2, A(COL.amber, 0.9));
             dashLine(ctx, cx, yPlate, cx + Math.sin(th) * 58, yPlate - Math.cos(th) * 58,
               A(COL.blue, 0.9));
-            tag(ctx, "normal", cx + Math.sin(th) * 72, yPlate - Math.cos(th) * 72,
-              COL.blue, "center", 10.5);
+            tag(ctx, "normal", cx + Math.sin(th) * 58 + 30, yPlate - Math.cos(th) * 58,
+              COL.blue, "left", 10.5);
             if (st.th > 0) {
               ctx.strokeStyle = A(COL.blue, 0.8);
               ctx.lineWidth = 1.6;
@@ -2598,6 +2672,7 @@
             chip(ctx, "I = " + fmt(st.I, 0) + " cd", 10, 10, COL.amber, "left");
             chip(ctx, "Φ = " + fmt(flux(), 0) + " lm", 10, 40, COL.violet, "left");
             chip(ctx, "E = " + fmt(E, E < 10 ? 1 : 0) + " lx", W - 10, 10, COL.lime, "right");
+            ipucu(ctx, W, H, "lambayı yukarı aşağı sürükle", SUR && SUR.yeni());
             tag(ctx, "ölçüm yüzeyi", cx + Math.cos(th) * (HALF + 16),
               yPlate + Math.sin(th) * (HALF + 16) + 12, COL.dim, "left", 10.5);
           }
@@ -2676,6 +2751,33 @@
           slider("c-i", "o-i", "I", " cd");
           slider("c-d", "o-d", "d", " cm");
           slider("c-th", "o-th", "th", "°");
+
+          /* lambayı doğrudan sürükleyerek yüksekliği değiştir */
+          function lambaYeri() {
+            var H = S.h;
+            var ySurf = H - 54, yPlate = ySurf - 74;
+            return { cx: S.w * 0.5, yPlate: yPlate, yLamp: yPlate - hpx(H), H: H };
+          }
+          SUR = surukle(S, {
+            eksen: "y",
+            tut: function (x, y) {
+              var q = lambaYeri();
+              return (Math.abs(x - q.cx) < 34 && Math.abs(y - q.yLamp) < 34) ? "lamba" : null;
+            },
+            bas: function (id, x, y) { kay = lambaYeri().yLamp - y; },
+            tasi: function (id, x, y) {
+              var q = lambaYeri();
+              var px = clamp(q.yPlate - (y + kay), 46, q.H - 240 + 46);
+              var r = (px - 46) / (q.H - 240);
+              var d = Math.exp(Math.log(50) + r * (Math.log(800) - Math.log(50)));
+              d = clamp(Math.round(d / 10) * 10, 50, 800);
+              if (d !== st.d) {
+                var el = document.getElementById("c-d");
+                el.value = d;
+                el.dispatchEvent(new Event("input", { bubbles: true }));
+              }
+            }
+          });
 
           var presets = document.querySelectorAll(".presets button[data-i]");
           for (var i = 0; i < presets.length; i++) {
@@ -2863,6 +2965,7 @@
 
           var L = 200;
           var st = { i1: 400, i2: 100, x: 100 };
+          var SUR = null, kay = 0;
 
           function e1(x) { return st.i1 / Math.pow((x == null ? st.x : x) / 100, 2); }
           function e2(x) { return st.i2 / Math.pow((L - (x == null ? st.x : x)) / 100, 2); }
@@ -2937,6 +3040,7 @@
 
             chip(ctx, "E₁ = " + fmt(a1, a1 < 100 ? 1 : 0) + " lx", 10, 10, COL.amber, "left");
             chip(ctx, "E₂ = " + fmt(a2, a2 < 100 ? 1 : 0) + " lx", W - 10, 10, COL.rose, "right");
+            ipucu(ctx, W, H, "ekranı sağa sola sürükle", SUR && SUR.yeni());
           }
 
           function drawGraph() {
@@ -2993,6 +3097,29 @@
           slider("c-i1", "o-i1", "i1", " cd");
           slider("c-i2", "o-i2", "i2", " cd");
           slider("c-x", "o-x", "x", " cm");
+
+          /* ekranı doğrudan sürükle */
+          SUR = surukle(P, {
+            eksen: "x",
+            tut: function (x, y) {
+              var W = P.w, H = P.h, m = 46, cy = H * 0.46;
+              var sx = m + ((W - 2 * m) * st.x) / L;
+              return (Math.abs(x - sx) < 22 && Math.abs(y - cy) < 46) ? "ekran" : null;
+            },
+            bas: function (id, x, y) {
+              var W = P.w, m = 46;
+              kay = m + ((W - 2 * m) * st.x) / L - x;
+            },
+            tasi: function (id, x, y) {
+              var W = P.w, m = 46;
+              var cm = clamp(Math.round((((x + kay) - m) / (W - 2 * m)) * L), 20, 180);
+              if (cm !== Math.round(st.x)) {
+                var el = document.getElementById("c-x");
+                el.value = cm;
+                el.dispatchEvent(new Event("input", { bubbles: true }));
+              }
+            }
+          });
 
           document.getElementById("ph-balance").addEventListener("click", function () {
             var el = document.getElementById("c-x"), out = document.getElementById("o-x");
@@ -3376,6 +3503,51 @@
             btn.addEventListener("click", function () {
               apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
             });
+          }
+        })();
+
+        /* ============ boşluk ve R kısayolları ============ */
+
+        (function kisayol() {
+          var oyna = [].slice.call(document.querySelectorAll("button[id$='-play']"));
+          if (!oyna.length) return;
+          window.addEventListener("keydown", function (e) {
+            if (e.metaKey || e.ctrlKey || e.altKey) return;
+            var t = e.target;
+            if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" ||
+              t.tagName === "BUTTON" || t.tagName === "SUMMARY" || t.isContentEditable)) return;
+            var bosluk = e.key === " " || e.key === "Spacebar";
+            var sifirla = e.key === "r" || e.key === "R";
+            if (!bosluk && !sifirla) return;
+            var orta = window.innerHeight / 2, en = null, enD = 1e9;
+            oyna.forEach(function (b) {
+              var r = b.getBoundingClientRect();
+              if (r.bottom < 40 || r.top > window.innerHeight - 20) return;
+              var d = Math.abs((r.top + r.bottom) / 2 - orta);
+              if (d < enD) { enD = d; en = b; }
+            });
+            if (!en) return;
+            e.preventDefault();
+            if (bosluk) { en.click(); return; }
+            var s = document.getElementById(en.id.replace(/-play$/, "-reset"));
+            if (s) s.click();
+          });
+        })();
+
+        /* ============ sahneye tıklayınca oynat/durdur ============ */
+
+        (function tiklaOynat() {
+          var btns = document.querySelectorAll("button[id$='-play']");
+          for (var i = 0; i < btns.length; i++) {
+            (function (b) {
+              var sec = b.closest ? b.closest("section") : null;
+              if (!sec) return;
+              var c = sec.querySelector("canvas");
+              if (!c || c.dataset.surukle) return;
+              c.style.cursor = "pointer";
+              c.title = "Tıkla: başlat / durdur";
+              c.addEventListener("click", function () { b.click(); });
+            })(btns[i]);
           }
         })();
 

@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1578,7 +1586,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Sürtünme kuvvetinin ve ivmenin uygulanan kuvvete göre değişimi"></canvas>
+        <canvas id="lab-graphs" role="img" aria-label="Sürtünme kuvvetinin ve ivmenin uygulanan kuvvete göre değişimi"></canvas>
         <p class="note">
           Soldaki grafik konunun tamamını özetler: uygulanan kuvvet küçükken sürtünme
           <b>ona eşittir</b> (45°'lik doğru), eşiği aşınca <b>kinetik değerine düşer</b> ve sabit kalır.
@@ -1595,7 +1603,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="slope-scene" aria-label="Eğik düzlemde duran cisme etki eden kuvvetler ve kritik açı"></canvas>
+          <canvas id="slope-scene" role="img" aria-label="Eğik düzlemde duran cisme etki eden kuvvetler ve kritik açı"></canvas>
           <div class="panel">
             <h3>μ'yü ölçmek</h3>
             <p>
@@ -1615,7 +1623,7 @@
                 <button type="button" data-mu="0.8" data-muk="0.6" data-name="Kauçuk">Kauçuk<b>0,80</b></button>
               </div>
             </div>
-            <div class="verdict" id="slope-verdict">Açıyı artır ya da <b>Yavaşça yatır</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="slope-verdict">Açıyı artır ya da <b>Yavaşça yatır</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="slope-play">Yavaşça yatır</button>
               <button class="button ghost" type="button" id="slope-reset">Sıfırla</button>
@@ -1636,7 +1644,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="area-scene" aria-label="Farklı temas alanlarına sahip üç bloğun aynı zeminde kayması"></canvas>
+          <canvas id="area-scene" role="img" aria-label="Farklı temas alanlarına sahip üç bloğun aynı zeminde kayması"></canvas>
           <div class="panel">
             <h3>Sezgiye aykırı sonuç</h3>
             <p>
@@ -1644,7 +1652,7 @@
               Alan büyüdükçe birim alana düşen basınç azalır; toplam sürtünme değişmez.
               Üç blok da <b>aynı noktada durur</b>.
             </p>
-            <div class="verdict" id="area-verdict">Üçünü aynı anda fırlatmak için düğmeye bas.</div>
+            <div class="verdict" aria-live="polite" id="area-verdict">Üçünü aynı anda fırlatmak için düğmeye bas.</div>
             <div class="actions">
               <button class="button" type="button" id="area-play">Üçünü it</button>
               <button class="button ghost" type="button" id="area-reset">Sıfırla</button>
@@ -1690,7 +1698,7 @@
                 <button type="button" data-mu="0.1" data-name="Buzlu yol">Buz<b>0,10</b></button>
               </div>
             </div>
-            <div class="verdict" id="brake-verdict">Aracı frenletmek için <b>Fren!</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="brake-verdict">Aracı frenletmek için <b>Fren!</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="brake-play">Fren!</button>
               <button class="button ghost" type="button" id="brake-reset">Sıfırla</button>
@@ -2374,6 +2382,71 @@
           ctx.fillStyle = COL.muted;
           ctx.fillText(fmt(o.f(clamp(o.xNow, 0, xM)), o.dec == null ? 1 : o.dec) + " " + o.unit,
                        X + W - 17, Y + 24);
+        }
+
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
         }
 
         /* ============ 01 · sürtünme laboratuvarı ============ */

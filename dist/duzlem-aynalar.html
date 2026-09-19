@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1518,9 +1526,17 @@
           <p>Gelen ışının açısını değiştir, aynayı döndür; açıların nasıl bağlandığını izle.</p>
         </div>
 
+        <div class="presets" id="ys-presets" role="group" aria-label="Hazır deneyler">
+          <span>Hazır deneyler</span>
+          <button type="button" data-i="0" data-rot="0" style="--tone: var(--blue)"><i aria-hidden="true"></i>Dik geliş</button>
+          <button type="button" data-i="45" data-rot="0" style="--tone: var(--violet)"><i aria-hidden="true"></i>45° ile gelen ışın</button>
+          <button type="button" data-i="60" data-rot="0" style="--tone: var(--amber)"><i aria-hidden="true"></i>Yüzeye yatık</button>
+          <button type="button" data-i="40" data-rot="20" style="--tone: var(--rose)"><i aria-hidden="true"></i>Ayna 20° dönük</button>
+        </div>
+
         <div class="lab">
           <div>
-            <canvas id="lab-scene" aria-label="Aynaya gelen ve yansıyan ışın, normal ve açılar"></canvas>
+            <canvas id="lab-scene" role="img" aria-label="Aynaya gelen ve yansıyan ışın, normal ve açılar"></canvas>
             <div class="readouts">
               <div class="readout"><span>Gelme açısı</span><strong id="ro-i">40</strong> <i>derece</i></div>
               <div class="readout"><span>Yansıma açısı</span><strong id="ro-r">40</strong> <i>derece</i></div>
@@ -1549,7 +1565,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graph" aria-label="Yansıyan ışının dönme açısının aynanın dönme açısına bağlılığı"></canvas>
+        <canvas id="lab-graph" role="img" aria-label="Yansıyan ışının dönme açısının aynanın dönme açısına bağlılığı"></canvas>
         <p class="note">
           Açılar <b>yüzeyle değil, normalle</b> ölçülür. Ayna sabit dururken gelme açısı ne olursa
           olsun yansıma açısı ona eşittir. Ayna <b>α</b> kadar döndürülürse, gelen ışın
@@ -1566,7 +1582,7 @@
 
         <div class="lab">
           <div>
-            <canvas id="gr-scene" aria-label="Cisim, ayna, yansıyan ışınlar ve aynanın arkasındaki sanal görüntü"></canvas>
+            <canvas id="gr-scene" role="img" aria-label="Cisim, ayna, yansıyan ışınlar ve aynanın arkasındaki sanal görüntü"></canvas>
             <div class="readouts">
               <div class="readout"><span>Cisim – ayna</span><strong id="ro-od">80</strong> <i>cm</i></div>
               <div class="readout"><span>Görüntü – ayna</span><strong id="ro-id">80</strong> <i>cm</i></div>
@@ -1586,7 +1602,7 @@
               <input id="c-oy" type="range" min="-60" max="60" step="5" value="40" />
             </div>
 
-            <div class="verdict" id="gr-verdict">Cismi hareket ettir.</div>
+            <div class="verdict" aria-live="polite" id="gr-verdict">Cismi hareket ettir.</div>
             <div class="actions">
               <button class="button" type="button" id="gr-play">Aynaya yaklaştır</button>
               <button class="button ghost" type="button" id="gr-reset">Başa dön</button>
@@ -1608,7 +1624,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="ik-scene" aria-label="Aralarında açı bulunan iki ayna ve oluşan görüntüler"></canvas>
+          <canvas id="ik-scene" role="img" aria-label="Aralarında açı bulunan iki ayna ve oluşan görüntüler"></canvas>
           <div class="panel">
             <h3>n = 360/α − 1</h3>
             <p>
@@ -1620,7 +1636,7 @@
               <label for="c-ang">Aynalar arası açı <output id="o-ang" for="c-ang">60°</output></label>
               <input id="c-ang" type="range" min="0" max="10" step="1" value="6" />
             </div>
-            <div class="verdict" id="ik-verdict">Açıyı değiştir.</div>
+            <div class="verdict" aria-live="polite" id="ik-verdict">Açıyı değiştir.</div>
             <ul class="mini">
               <li>360 / α <b id="s-ratio">6,0</b></li>
               <li>Görüntü sayısı <b id="s-count">5</b></li>
@@ -1638,7 +1654,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="by-scene" aria-label="Kişi, duvardaki ayna ve baş ile ayaktan gelen ışınlar"></canvas>
+          <canvas id="by-scene" role="img" aria-label="Kişi, duvardaki ayna ve baş ile ayaktan gelen ışınlar"></canvas>
           <div class="panel">
             <h3>Yarısı yeter</h3>
             <p>
@@ -1655,7 +1671,7 @@
               <label for="c-md">Aynaya uzaklık <output id="o-md" for="c-md">150 cm</output></label>
               <input id="c-md" type="range" min="40" max="300" step="5" value="150" />
             </div>
-            <div class="verdict" id="by-verdict">Boyu değiştir.</div>
+            <div class="verdict" aria-live="polite" id="by-verdict">Boyu değiştir.</div>
             <ul class="mini">
               <li>Gereken ayna boyu <b id="s-mh">85 cm</b></li>
               <li>Alt kenarın yüksekliği <b id="s-bottom">80 cm</b></li>
@@ -2408,6 +2424,71 @@
           return l > 0.58 ? "#101528" : "#ffffff";
         }
 
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
+        }
+
         /* ============ 01 · yansıma laboratuvarı ============ */
 
         (function lab() {
@@ -2552,6 +2633,17 @@
           slider("c-i", "o-i", "i");
           slider("c-rot", "o-rot", "rot");
 
+          var hazir = document.querySelectorAll("#ys-presets button[data-i]");
+          for (var hi = 0; hi < hazir.length; hi++) {
+            hazir[hi].addEventListener("click", function () {
+              var a = document.getElementById("c-i"), b = document.getElementById("c-rot");
+              a.value = this.dataset.i;
+              b.value = this.dataset.rot;
+              a.dispatchEvent(new Event("input", { bubbles: true }));
+              b.dispatchEvent(new Event("input", { bubbles: true }));
+            });
+          }
+
           S.bind(drawScene);
           G.bind(drawGraph);
           sync();
@@ -2564,6 +2656,7 @@
           if (!R) return;
 
           var st = { ox: 80, oy: 40, run: false, v: 0 };
+          var SUR = null, kay = [0, 0];
           var verdict = document.getElementById("gr-verdict");
 
           function drawScene() {
@@ -2672,6 +2765,7 @@
             tag(ctx, fmt(st.ox, 0) + " cm", (imx + mx) / 2, cy + 46, COL.dim, "center", 10.5);
 
             chip(ctx, "sanal · düz · eşit boy", 10, 10, COL.violet, "left");
+            ipucu(ctx, W, H, "cismi sürükleyerek aynaya yaklaştır", SUR && SUR.yeni());
           }
 
           var ro = {
@@ -2716,6 +2810,34 @@
           });
           paint(xIn);
           paint(yIn);
+
+          /* cismi doğrudan sürükle */
+          function grSahne() {
+            var W = R.w, H = R.h;
+            var mx = W * 0.52, cy = H * 0.58;
+            return { mx: mx, cy: cy, sc: Math.min((mx - 70) / 210, (H * 0.34) / 60) };
+          }
+          SUR = surukle(R, {
+            eksen: "x",
+            tut: function (x, y) {
+              var q = grSahne();
+              var ox = q.mx - st.ox * q.sc, oy = q.cy - st.oy * q.sc;
+              return (Math.abs(x - ox) < 24 && y > Math.min(oy, q.cy) - 20 &&
+                y < Math.max(oy, q.cy) + 20) ? "cisim" : null;
+            },
+            bas: function (id, x, y) {
+              var q = grSahne();
+              kay = [(q.mx - st.ox * q.sc) - x, (q.cy - st.oy * q.sc) - y];
+            },
+            tasi: function (id, x, y) {
+              var q = grSahne();
+              var ox = clamp(Math.round((q.mx - (x + kay[0])) / q.sc / 5) * 5, 20, 200);
+              var oy = clamp(Math.round((q.cy - (y + kay[1])) / q.sc / 5) * 5, -60, 60);
+              var xe = document.getElementById("c-ox"), ye = document.getElementById("c-oy");
+              if (ox !== st.ox) { xe.value = ox; xe.dispatchEvent(new Event("input", { bubbles: true })); }
+              if (oy !== st.oy) { ye.value = oy; ye.dispatchEvent(new Event("input", { bubbles: true })); }
+            }
+          });
 
           var ticker = function (dt) {
             if (!st.run) return;
@@ -3280,6 +3402,51 @@
             btn.addEventListener("click", function () {
               apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
             });
+          }
+        })();
+
+        /* ============ boşluk ve R kısayolları ============ */
+
+        (function kisayol() {
+          var oyna = [].slice.call(document.querySelectorAll("button[id$='-play']"));
+          if (!oyna.length) return;
+          window.addEventListener("keydown", function (e) {
+            if (e.metaKey || e.ctrlKey || e.altKey) return;
+            var t = e.target;
+            if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" ||
+              t.tagName === "BUTTON" || t.tagName === "SUMMARY" || t.isContentEditable)) return;
+            var bosluk = e.key === " " || e.key === "Spacebar";
+            var sifirla = e.key === "r" || e.key === "R";
+            if (!bosluk && !sifirla) return;
+            var orta = window.innerHeight / 2, en = null, enD = 1e9;
+            oyna.forEach(function (b) {
+              var r = b.getBoundingClientRect();
+              if (r.bottom < 40 || r.top > window.innerHeight - 20) return;
+              var d = Math.abs((r.top + r.bottom) / 2 - orta);
+              if (d < enD) { enD = d; en = b; }
+            });
+            if (!en) return;
+            e.preventDefault();
+            if (bosluk) { en.click(); return; }
+            var s = document.getElementById(en.id.replace(/-play$/, "-reset"));
+            if (s) s.click();
+          });
+        })();
+
+        /* ============ sahneye tıklayınca oynat/durdur ============ */
+
+        (function tiklaOynat() {
+          var btns = document.querySelectorAll("button[id$='-play']");
+          for (var i = 0; i < btns.length; i++) {
+            (function (b) {
+              var sec = b.closest ? b.closest("section") : null;
+              if (!sec) return;
+              var c = sec.querySelector("canvas");
+              if (!c || c.dataset.surukle) return;
+              c.style.cursor = "pointer";
+              c.title = "Tıkla: başlat / durdur";
+              c.addEventListener("click", function () { b.click(); });
+            })(btns[i]);
           }
         })();
 

@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1518,9 +1526,17 @@
           <p>Çekirdek ve kılıfın indisini, ışığın giriş açısını değiştir; taşınıyor mu kaçıyor mu gör.</p>
         </div>
 
+        <div class="presets" id="fb-presets" role="group" aria-label="Hazır deneyler">
+          <span>Hazır deneyler</span>
+          <button type="button" data-n1="150" data-n2="146" data-in="14" style="--tone: var(--blue)"><i aria-hidden="true"></i>Cam fiber</button>
+          <button type="button" data-n1="149" data-n2="140" data-in="20" style="--tone: var(--violet)"><i aria-hidden="true"></i>Plastik fiber</button>
+          <button type="button" data-n1="150" data-n2="146" data-in="0" style="--tone: var(--lime)"><i aria-hidden="true"></i>Eksen boyunca</button>
+          <button type="button" data-n1="150" data-n2="146" data-in="32" style="--tone: var(--rose)"><i aria-hidden="true"></i>Koninin dışı</button>
+        </div>
+
         <div class="lab">
           <div>
-            <canvas id="lab-scene" aria-label="Fiber optik kablo içinde tam yansımayla ilerleyen ışın"></canvas>
+            <canvas id="lab-scene" role="img" aria-label="Fiber optik kablo içinde tam yansımayla ilerleyen ışın"></canvas>
             <div class="readouts">
               <div class="readout"><span>Sınır açı</span><strong id="ro-crit">76,7</strong> <i>derece</i></div>
               <div class="readout"><span>Çekirdekteki açı</span><strong id="ro-in">9,5</strong> <i>derece</i></div>
@@ -1569,7 +1585,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="kb-scene" aria-label="Fiberin giriş yüzeyindeki kabul konisi"></canvas>
+          <canvas id="kb-scene" role="img" aria-label="Fiberin giriş yüzeyindeki kabul konisi"></canvas>
           <div class="panel">
             <h3>Kabul konisi</h3>
             <p>
@@ -1581,7 +1597,7 @@
               <label for="kb-n2">Kılıf indisi n₂ <output id="kb-n2-out" for="kb-n2">1,46</output></label>
               <input id="kb-n2" type="range" min="140" max="149" step="1" value="146" />
             </div>
-            <div class="verdict" id="kb-verdict">Kılıf indisini değiştir.</div>
+            <div class="verdict" aria-live="polite" id="kb-verdict">Kılıf indisini değiştir.</div>
             <ul class="mini">
               <li>Çekirdek <b>n₁ = 1,50</b></li>
               <li>NA = √(n₁² − n₂²) <b id="kb-na">0,345</b></li>
@@ -1600,7 +1616,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="gc-scene" aria-label="Eksenel ve zikzak ışınların fiberde aldığı yol farkı"></canvas>
+          <canvas id="gc-scene" role="img" aria-label="Eksenel ve zikzak ışınların fiberde aldığı yol farkı"></canvas>
           <div class="panel">
             <h3>Hız, süre ve mod dağılımı</h3>
             <p>
@@ -1612,7 +1628,7 @@
               <label for="gc-l">Kablo uzunluğu <output id="gc-l-out" for="gc-l">10 km</output></label>
               <input id="gc-l" type="range" min="1" max="100" step="1" value="10" />
             </div>
-            <div class="verdict" id="gc-verdict">Uzunluğu değiştir.</div>
+            <div class="verdict" aria-live="polite" id="gc-verdict">Uzunluğu değiştir.</div>
             <ul class="mini">
               <li>Fiberdeki hız <b id="gc-v">2,00×10⁸ m/s</b></li>
               <li>En hızlı ışın <b id="gc-t1">50,0 µs</b></li>
@@ -1631,7 +1647,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="bk-scene" aria-label="Bükülmüş fiberde ışığın kaçması"></canvas>
+          <canvas id="bk-scene" role="img" aria-label="Bükülmüş fiberde ışığın kaçması"></canvas>
           <div class="panel">
             <h3>En küçük bükülme yarıçapı</h3>
             <p>
@@ -1647,7 +1663,7 @@
               <label for="bk-n2">Kılıf indisi n₂ <output id="bk-n2-out" for="bk-n2">1,46</output></label>
               <input id="bk-n2" type="range" min="140" max="149" step="1" value="146" />
             </div>
-            <div class="verdict" id="bk-verdict">Yarıçapı küçült.</div>
+            <div class="verdict" aria-live="polite" id="bk-verdict">Yarıçapı küçült.</div>
             <ul class="mini">
               <li>Çekirdek yarıçapı <b>25 µm</b></li>
               <li>En küçük yarıçap <b id="bk-min">1,85 mm</b></li>
@@ -2402,6 +2418,71 @@
           return (Math.asin(Math.min(n2 / n1, 1)) * 180) / Math.PI;
         }
 
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
+        }
+
         /* ============ 01 · fiber laboratuvarı ============ */
 
         (function lab() {
@@ -2526,6 +2607,18 @@
           b.addEventListener("input", function () { st.n2 = +b.value / 100; paint(b); sync(); });
           c.addEventListener("input", function () { st.aci = +c.value; paint(c); sync(); });
           paint(a); paint(b); paint(c);
+
+          var hazir = document.querySelectorAll("#fb-presets button[data-n1]");
+          for (var hi = 0; hi < hazir.length; hi++) {
+            hazir[hi].addEventListener("click", function () {
+              a.value = this.dataset.n1;
+              b.value = this.dataset.n2;
+              c.value = this.dataset.in;
+              a.dispatchEvent(new Event("input", { bubbles: true }));
+              b.dispatchEvent(new Event("input", { bubbles: true }));
+              c.dispatchEvent(new Event("input", { bubbles: true }));
+            });
+          }
 
           S.bind(drawScene);
           sync();

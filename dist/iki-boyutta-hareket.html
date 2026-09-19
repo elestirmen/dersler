@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1593,7 +1601,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Yatay konum, yükseklik, yatay hız ve düşey hızın zamana bağlı grafikleri"></canvas>
+        <canvas id="lab-graphs" role="img" aria-label="Yatay konum, yükseklik, yatay hız ve düşey hızın zamana bağlı grafikleri"></canvas>
         <p class="note">
           Dört grafik konunun tamamını özetler: <b>x – t</b> doğrudur (yatayda ivme yok),
           <b>y – t</b> paraboldür, <b>v<sub>x</sub> – t</b> yatay bir doğrudur (yatay hız hiç değişmez) ve
@@ -1610,7 +1618,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="drop-scene" aria-label="Aynı yükseklikten biri bırakılan, biri yatay atılan iki cismin düşüşü"></canvas>
+          <canvas id="drop-scene" role="img" aria-label="Aynı yükseklikten biri bırakılan, biri yatay atılan iki cismin düşüşü"></canvas>
           <div class="panel">
             <h3>Bağımsızlık ilkesi</h3>
             <p>
@@ -1623,7 +1631,7 @@
               <label for="drop-v">Yatay atış hızı <output id="drop-v-out" for="drop-v">12 m/s</output></label>
               <input id="drop-v" type="range" min="2" max="26" step="1" value="12" />
             </div>
-            <div class="verdict" id="drop-verdict">Başlamak için <b>Bırak</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="drop-verdict">Başlamak için <b>Bırak</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="drop-play">Bırak</button>
               <button class="button ghost" type="button" id="drop-reset">Sıfırla</button>
@@ -1644,7 +1652,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="range-scene" aria-label="Aynı süratle 15, 30, 45, 60 ve 75 derecede atılan cisimlerin yörüngeleri ve menzilleri"></canvas>
+          <canvas id="range-scene" role="img" aria-label="Aynı süratle 15, 30, 45, 60 ve 75 derecede atılan cisimlerin yörüngeleri ve menzilleri"></canvas>
           <div class="panel">
             <h3>Sırayla at</h3>
             <p>
@@ -1652,7 +1660,7 @@
               Yere düştüğü nokta menzilidir. Tümler açıların (toplamı 90° olanların)
               nereye düştüğüne dikkat et.
             </p>
-            <div class="verdict" id="range-verdict">Sıradaki açı: <b>15°</b>. Fırlatmak için düğmeye bas.</div>
+            <div class="verdict" aria-live="polite" id="range-verdict">Sıradaki açı: <b>15°</b>. Fırlatmak için düğmeye bas.</div>
             <div class="actions">
               <button class="button" type="button" id="range-step">Bir açı at</button>
               <button class="button ghost" type="button" id="range-play">Tümü</button>
@@ -1691,7 +1699,7 @@
               <label for="aim-v">Atış sürati <output id="aim-v-out" for="aim-v">25 m/s</output></label>
               <input id="aim-v" type="range" min="10" max="45" step="1" value="25" />
             </div>
-            <div class="verdict" id="aim-verdict">Hedef hazır. Açıyı ve sürati ayarlayıp <b>At!</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="aim-verdict">Hedef hazır. Açıyı ve sürati ayarlayıp <b>At!</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="aim-fire">At!</button>
               <button class="button ghost" type="button" id="aim-hint">İpucu</button>
@@ -2330,6 +2338,71 @@
           ctx.strokeText(text, x, y);
           ctx.fillStyle = color;
           ctx.fillText(text, x, y);
+          ctx.restore();
+        }
+
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
           ctx.restore();
         }
 

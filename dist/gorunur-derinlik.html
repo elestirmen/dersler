@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1520,7 +1528,7 @@
 
         <div class="lab">
           <div>
-            <canvas id="lab-scene" aria-label="Havuzun dibindeki cisim, kırılan ışınlar ve görünen konum"></canvas>
+            <canvas id="lab-scene" role="img" aria-label="Havuzun dibindeki cisim, kırılan ışınlar ve görünen konum"></canvas>
             <div class="readouts">
               <div class="readout"><span>Gerçek derinlik</span><strong id="ro-h">200</strong> <i>cm</i></div>
               <div class="readout"><span>Görünen derinlik</span><strong id="ro-hp">150</strong> <i>cm</i></div>
@@ -1551,7 +1559,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Görünen derinliğin gerçek derinliğe ve indise bağlılığı"></canvas>
+        <canvas id="lab-graphs" role="img" aria-label="Görünen derinliğin gerçek derinliğe ve indise bağlılığı"></canvas>
         <p class="note">
           Görünen derinlik, gerçek derinlikle <b>doğru</b>, kırılma indisiyle <b>ters</b>
           orantılıdır. Suda her cisim gerçek derinliğinin yaklaşık <b>dörtte üçünde</b> görünür;
@@ -1567,7 +1575,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="bl-scene" aria-label="Suyun içindeki balık, görünen konumu ve atılan mızrak"></canvas>
+          <canvas id="bl-scene" role="img" aria-label="Suyun içindeki balık, görünen konumu ve atılan mızrak"></canvas>
           <div class="panel">
             <h3>Gördüğün yer gerçek yer değil</h3>
             <p>
@@ -1579,7 +1587,7 @@
               <label for="bl-a">Nişan açısı <output id="bl-a-out" for="bl-a">35°</output></label>
               <input id="bl-a" type="range" min="10" max="70" step="1" value="35" />
             </div>
-            <div class="verdict" id="bl-verdict">Nişan al ve at.</div>
+            <div class="verdict" aria-live="polite" id="bl-verdict">Nişan al ve at.</div>
             <div class="actions">
               <button class="button" type="button" id="bl-throw">At</button>
               <button class="button ghost" type="button" id="bl-new">Yeni balık</button>
@@ -1601,7 +1609,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="yk-scene" aria-label="Su altındaki gözlemcinin havadaki cismi daha yüksekte görmesi"></canvas>
+          <canvas id="yk-scene" role="img" aria-label="Su altındaki gözlemcinin havadaki cismi daha yüksekte görmesi"></canvas>
           <div class="panel">
             <h3>h′ = n · h</h3>
             <p>
@@ -1617,7 +1625,7 @@
               <label for="yk-n">Sıvının indisi <output id="yk-n-out" for="yk-n">1,33</output></label>
               <input id="yk-n" type="range" min="110" max="170" step="1" value="133" />
             </div>
-            <div class="verdict" id="yk-verdict">Yüksekliği değiştir.</div>
+            <div class="verdict" aria-live="polite" id="yk-verdict">Yüksekliği değiştir.</div>
             <ul class="mini">
               <li>Görünen yükseklik <b id="yk-hp">200 cm</b></li>
               <li>Yükselme <b id="yk-dh">50 cm</b></li>
@@ -1635,7 +1643,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="lv-scene" aria-label="Cam levha altındaki yazının görünen konumu"></canvas>
+          <canvas id="lv-scene" role="img" aria-label="Cam levha altındaki yazının görünen konumu"></canvas>
           <div class="panel">
             <h3>Δ = t (1 − 1/n)</h3>
             <p>
@@ -1651,7 +1659,7 @@
               <label for="lv-n">Levhanın indisi <output id="lv-n-out" for="lv-n">1,50</output></label>
               <input id="lv-n" type="range" min="110" max="200" step="1" value="150" />
             </div>
-            <div class="verdict" id="lv-verdict">Kalınlığı değiştir.</div>
+            <div class="verdict" aria-live="polite" id="lv-verdict">Kalınlığı değiştir.</div>
             <ul class="mini">
               <li>Yükselme <b id="lv-d">2,0 cm</b></li>
               <li>Camın içinde görünen kalınlık <b id="lv-app">4,0 cm</b></li>
@@ -2394,6 +2402,71 @@
           return l > 0.58 ? "#101528" : "#ffffff";
         }
 
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
+        }
+
         /* ============ 01 · havuz laboratuvarı ============ */
 
         (function havuz() {
@@ -2402,6 +2475,7 @@
           if (!S || !G) return;
 
           var st = { h: 200, n: 1.33 };
+          var SUR = null, kay = 0;
 
           function hp() { return st.h / st.n; }
 
@@ -2509,6 +2583,7 @@
               COL.violet, "right", 10.5);
 
             chip(ctx, "h′ = h / n", 10, 10, COL.violet, "left");
+            ipucu(ctx, W, H, "cismi dibe doğru sürükle", SUR && SUR.yeni());
           }
 
           function drawGraphs() {
@@ -2555,6 +2630,31 @@
           }
           el.addEventListener("input", function () { st.h = +el.value; paint(); sync(); });
           paint();
+
+          /* cismi doğrudan sürükleyerek derinliği değiştir */
+          SUR = surukle(S, {
+            eksen: "y",
+            tut: function (x, y) {
+              var W = S.w, H = S.h;
+              var ySurf = H * 0.26, yBot = H - 26, sc = (yBot - ySurf) / 300;
+              var ox = W * 0.44, oy = ySurf + st.h * sc;
+              return (Math.abs(x - ox) < 24 && Math.abs(y - oy) < 24) ? "cisim" : null;
+            },
+            bas: function (id, x, y) {
+              var H = S.h, ySurf = H * 0.26, sc = (H - 26 - ySurf) / 300;
+              kay = (ySurf + st.h * sc) - y;
+            },
+            tasi: function (id, x, y) {
+              var H = S.h;
+              var ySurf = H * 0.26, yBot = H - 26, sc = (yBot - ySurf) / 300;
+              var h = clamp(Math.round(((y + kay) - ySurf) / sc / 5) * 5, 20, 300);
+              if (h !== st.h) {
+                var el = document.getElementById("c-h");
+                el.value = h;
+                el.dispatchEvent(new Event("input", { bubbles: true }));
+              }
+            }
+          });
 
           var seg = document.getElementById("sivi");
           seg.addEventListener("click", function (e) {

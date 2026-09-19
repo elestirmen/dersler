@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1520,7 +1528,7 @@
 
         <div class="lab">
           <div>
-            <canvas id="lab-scene" aria-label="İki ortamın sınırında gelen, kırılan ve yansıyan ışın"></canvas>
+            <canvas id="lab-scene" role="img" aria-label="İki ortamın sınırında gelen, kırılan ve yansıyan ışın"></canvas>
             <div class="readouts">
               <div class="readout"><span>Kırılma açısı</span><strong id="ro-r">32,1</strong> <i>derece</i></div>
               <div class="readout"><span>2. ortamdaki hız</span><strong id="ro-v">2,26</strong> <i>×10⁸ m/s</i></div>
@@ -1557,7 +1565,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graph" aria-label="Kırılma açısının gelme açısına bağlılığı"></canvas>
+        <canvas id="lab-graph" role="img" aria-label="Kırılma açısının gelme açısına bağlılığı"></canvas>
         <p class="note">
           Işık <b>az yoğun ortamdan çok yoğun ortama</b> geçerken normale <b>yaklaşır</b>;
           tersi durumda normalden <b>uzaklaşır</b>. Işının doğrultusu değişse de
@@ -1574,7 +1582,7 @@
 
         <div class="lab">
           <div>
-            <canvas id="tm-scene" aria-label="Sınır açıya yaklaşan ışının kırılan ve yansıyan bileşenleri"></canvas>
+            <canvas id="tm-scene" role="img" aria-label="Sınır açıya yaklaşan ışının kırılan ve yansıyan bileşenleri"></canvas>
             <div class="readouts">
               <div class="readout"><span>Sınır açı</span><strong id="ro-crit">48,8</strong> <i>derece</i></div>
               <div class="readout"><span>Kırılma açısı</span><strong id="ro-rr">62,5</strong> <i>derece</i></div>
@@ -1599,7 +1607,7 @@
               <button class="button ghost" type="button" id="tm-over">Sınırı aş</button>
             </div>
 
-            <div class="verdict" id="tm-verdict">Açıyı büyüt.</div>
+            <div class="verdict" aria-live="polite" id="tm-verdict">Açıyı büyüt.</div>
 
             <ul class="mini">
               <li>Üstteki ortam <b>hava (n = 1,00)</b></li>
@@ -1618,7 +1626,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="dg-scene" aria-label="Sınırdan geçerken sıklaşan dalga cepheleri"></canvas>
+          <canvas id="dg-scene" role="img" aria-label="Sınırdan geçerken sıklaşan dalga cepheleri"></canvas>
           <div class="panel">
             <h3>Neden yön değişir?</h3>
             <p>
@@ -1654,7 +1662,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="lv-scene" aria-label="Paralel kenarlı cam levhadan geçen ışının yandan kayması"></canvas>
+          <canvas id="lv-scene" role="img" aria-label="Paralel kenarlı cam levhadan geçen ışının yandan kayması"></canvas>
           <div class="panel">
             <h3>Giren ve çıkan ışın paraleldir</h3>
             <p>
@@ -1673,7 +1681,7 @@
               <label for="lv-n">Levhanın indisi <output id="lv-n-out" for="lv-n">1,50</output></label>
               <input id="lv-n" type="range" min="110" max="200" step="1" value="150" />
             </div>
-            <div class="verdict" id="lv-verdict">Kalınlığı ve açıyı değiştir.</div>
+            <div class="verdict" aria-live="polite" id="lv-verdict">Kalınlığı ve açıyı değiştir.</div>
             <ul class="mini">
               <li>Levha içindeki açı <b id="lv-r">30,7°</b></li>
               <li>Yandan kayma <b id="lv-d">2,2 cm</b></li>
@@ -2477,6 +2485,71 @@
           tag(ctx, "normal", cx, 20, COL.dim, "center", 10.5);
         }
 
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
+        }
+
         /* ============ 01 · Snell laboratuvarı ============ */
 
         (function lab() {
@@ -3214,6 +3287,51 @@
             btn.addEventListener("click", function () {
               apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
             });
+          }
+        })();
+
+        /* ============ boşluk ve R kısayolları ============ */
+
+        (function kisayol() {
+          var oyna = [].slice.call(document.querySelectorAll("button[id$='-play']"));
+          if (!oyna.length) return;
+          window.addEventListener("keydown", function (e) {
+            if (e.metaKey || e.ctrlKey || e.altKey) return;
+            var t = e.target;
+            if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" ||
+              t.tagName === "BUTTON" || t.tagName === "SUMMARY" || t.isContentEditable)) return;
+            var bosluk = e.key === " " || e.key === "Spacebar";
+            var sifirla = e.key === "r" || e.key === "R";
+            if (!bosluk && !sifirla) return;
+            var orta = window.innerHeight / 2, en = null, enD = 1e9;
+            oyna.forEach(function (b) {
+              var r = b.getBoundingClientRect();
+              if (r.bottom < 40 || r.top > window.innerHeight - 20) return;
+              var d = Math.abs((r.top + r.bottom) / 2 - orta);
+              if (d < enD) { enD = d; en = b; }
+            });
+            if (!en) return;
+            e.preventDefault();
+            if (bosluk) { en.click(); return; }
+            var s = document.getElementById(en.id.replace(/-play$/, "-reset"));
+            if (s) s.click();
+          });
+        })();
+
+        /* ============ sahneye tıklayınca oynat/durdur ============ */
+
+        (function tiklaOynat() {
+          var btns = document.querySelectorAll("button[id$='-play']");
+          for (var i = 0; i < btns.length; i++) {
+            (function (b) {
+              var sec = b.closest ? b.closest("section") : null;
+              if (!sec) return;
+              var c = sec.querySelector("canvas");
+              if (!c || c.dataset.surukle) return;
+              c.style.cursor = "pointer";
+              c.title = "Tıkla: başlat / durdur";
+              c.addEventListener("click", function () { b.click(); });
+            })(btns[i]);
           }
         })();
 

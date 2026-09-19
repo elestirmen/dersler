@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1566,7 +1574,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Manyetik akının ve indüksiyon emk'sının zamana bağlı değişimi"></canvas>
+        <canvas id="lab-graphs" role="img" aria-label="Manyetik akının ve indüksiyon emk'sının zamana bağlı değişimi"></canvas>
         <p class="note">
           <b>Φ – t</b> eğrisi mıknatıs bobinin merkezine gelirken tepe yapar; <b>ε – t</b> eğrisi ise
           Φ'nin <b>eğimidir</b>: akı en hızlı değiştiği anda emk en büyüktür, akı tepedeyken
@@ -1583,7 +1591,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="gen-scene" aria-label="Manyetik alan içinde dönen çerçeve ve ürettiği alternatif emk"></canvas>
+          <canvas id="gen-scene" role="img" aria-label="Manyetik alan içinde dönen çerçeve ve ürettiği alternatif emk"></canvas>
           <div class="panel">
             <h3>Φ kosinüs, ε sinüs</h3>
             <p>
@@ -1599,7 +1607,7 @@
               <label for="gen-b">Manyetik alan <output id="gen-b-out" for="gen-b">0,50 T</output></label>
               <input id="gen-b" type="range" min="1" max="20" step="1" value="5" />
             </div>
-            <div class="verdict" id="gen-verdict">Çerçeveyi döndürmek için <b>Döndür</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="gen-verdict">Çerçeveyi döndürmek için <b>Döndür</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="gen-play">Döndür</button>
               <button class="button ghost" type="button" id="gen-reset">Sıfırla</button>
@@ -1621,7 +1629,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="rod-scene" aria-label="Manyetik alan içinde raylar üzerinde hareket eden iletken çubuk"></canvas>
+          <canvas id="rod-scene" role="img" aria-label="Manyetik alan içinde raylar üzerinde hareket eden iletken çubuk"></canvas>
           <div class="panel">
             <h3>Üreteç ve fren</h3>
             <p>
@@ -1642,7 +1650,7 @@
               <label for="rod-r">Devre direnci <output id="rod-r-out" for="rod-r">2,0 Ω</output></label>
               <input id="rod-r" type="range" min="1" max="20" step="1" value="4" />
             </div>
-            <div class="verdict" id="rod-verdict">Çubuğu itmek için <b>İt</b> düğmesine bas.</div>
+            <div class="verdict" aria-live="polite" id="rod-verdict">Çubuğu itmek için <b>İt</b> düğmesine bas.</div>
             <div class="actions">
               <button class="button" type="button" id="rod-play">İt</button>
               <button class="button ghost" type="button" id="rod-reset">Sıfırla</button>
@@ -1664,7 +1672,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="tube-scene" aria-label="Plastik ve bakır borularda düşen mıknatısların karşılaştırması"></canvas>
+          <canvas id="tube-scene" role="img" aria-label="Plastik ve bakır borularda düşen mıknatısların karşılaştırması"></canvas>
           <div class="panel">
             <h3>Neden yavaşlıyor?</h3>
             <p>
@@ -1673,7 +1681,7 @@
               <b>yukarı doğru</b> iten bir manyetik kuvvet oluştururlar. Plastik boruda ise
               iletken olmadığı için akım doğmaz ve mıknatıs serbest düşer.
             </p>
-            <div class="verdict" id="tube-verdict">İkisini aynı anda bırakmak için düğmeye bas.</div>
+            <div class="verdict" aria-live="polite" id="tube-verdict">İkisini aynı anda bırakmak için düğmeye bas.</div>
             <div class="actions">
               <button class="button" type="button" id="tube-play">İkisini bırak</button>
               <button class="button ghost" type="button" id="tube-reset">Sıfırla</button>
@@ -2315,6 +2323,71 @@
           ctx.font = "10.5px " + FONT;
           ctx.fillStyle = COL.dim;
           ctx.fillText(o.unit, X + W - 17, Y + 24);
+        }
+
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
         }
 
         /* ============ 01 · mıknatıs ve bobin ============ */
@@ -3170,6 +3243,51 @@
             btn.addEventListener("click", function () {
               apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
             });
+          }
+        })();
+
+        /* ============ boşluk ve R kısayolları ============ */
+
+        (function kisayol() {
+          var oyna = [].slice.call(document.querySelectorAll("button[id$='-play']"));
+          if (!oyna.length) return;
+          window.addEventListener("keydown", function (e) {
+            if (e.metaKey || e.ctrlKey || e.altKey) return;
+            var t = e.target;
+            if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" ||
+              t.tagName === "BUTTON" || t.tagName === "SUMMARY" || t.isContentEditable)) return;
+            var bosluk = e.key === " " || e.key === "Spacebar";
+            var sifirla = e.key === "r" || e.key === "R";
+            if (!bosluk && !sifirla) return;
+            var orta = window.innerHeight / 2, en = null, enD = 1e9;
+            oyna.forEach(function (b) {
+              var r = b.getBoundingClientRect();
+              if (r.bottom < 40 || r.top > window.innerHeight - 20) return;
+              var d = Math.abs((r.top + r.bottom) / 2 - orta);
+              if (d < enD) { enD = d; en = b; }
+            });
+            if (!en) return;
+            e.preventDefault();
+            if (bosluk) { en.click(); return; }
+            var s = document.getElementById(en.id.replace(/-play$/, "-reset"));
+            if (s) s.click();
+          });
+        })();
+
+        /* ============ sahneye tıklayınca oynat/durdur ============ */
+
+        (function tiklaOynat() {
+          var btns = document.querySelectorAll("button[id$='-play']");
+          for (var i = 0; i < btns.length; i++) {
+            (function (b) {
+              var sec = b.closest ? b.closest("section") : null;
+              if (!sec) return;
+              var c = sec.querySelector("canvas");
+              if (!c || c.dataset.surukle) return;
+              c.style.cursor = "pointer";
+              c.title = "Tıkla: başlat / durdur";
+              c.addEventListener("click", function () { b.click(); });
+            })(btns[i]);
           }
         })();
 

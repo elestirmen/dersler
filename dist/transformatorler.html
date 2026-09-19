@@ -615,6 +615,14 @@
         background: var(--lime);
       }
 
+
+      /* dokunmatik ekranda kaydırıcı tutamakları büyür */
+      @media (pointer: coarse) {
+        input[type="range"] { height: 34px; }
+        input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+      }
+
       .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 
       .seg button {
@@ -1527,7 +1535,7 @@
 
         <div class="lab">
           <div>
-            <canvas id="lab-scene" aria-label="Transformatörün nüvesi, primer ve sekonder sarımları ile ölçüm değerleri"></canvas>
+            <canvas id="lab-scene" role="img" aria-label="Transformatörün nüvesi, primer ve sekonder sarımları ile ölçüm değerleri"></canvas>
             <div class="readouts">
               <div class="readout"><span>Çıkış gerilimi</span><strong id="ro-v2">440</strong> <i>V</i></div>
               <div class="readout"><span>Çıkış akımı</span><strong id="ro-i2">4,40</strong> <i>A</i></div>
@@ -1566,7 +1574,7 @@
           </div>
         </div>
 
-        <canvas id="lab-graphs" aria-label="Çıkış geriliminin ve akımının sekonder sarım sayısına bağlılığı"></canvas>
+        <canvas id="lab-graphs" role="img" aria-label="Çıkış geriliminin ve akımının sekonder sarım sayısına bağlılığı"></canvas>
         <p class="note">
           Gerilim sarım sayısıyla <b>doğru</b>, akım ise <b>ters</b> orantılıdır. İdeal
           transformatörde çarpımları — yani güç — sabit kalır: <b>V₁·I₁ = V₂·I₂</b>.
@@ -1582,7 +1590,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="eff-scene" aria-label="Giriş gücü, çıkış gücü ve kayıpların karşılaştırması"></canvas>
+          <canvas id="eff-scene" role="img" aria-label="Giriş gücü, çıkış gücü ve kayıpların karşılaştırması"></canvas>
           <div class="panel">
             <h3>Kayıplar nereden gelir?</h3>
             <p>
@@ -1598,7 +1606,7 @@
               <label for="eff-e">Verim <output id="eff-e-out" for="eff-e">%95</output></label>
               <input id="eff-e" type="range" min="60" max="100" step="1" value="95" />
             </div>
-            <div class="verdict" id="eff-verdict">Verimi değiştir, kaybın nasıl büyüdüğünü izle.</div>
+            <div class="verdict" aria-live="polite" id="eff-verdict">Verimi değiştir, kaybın nasıl büyüdüğünü izle.</div>
             <p class="note">
               Büyük güç transformatörlerinde verim %98–99'a ulaşır; buna rağmen kaybedilen güç
               kilowatt mertebesinde olduğu için bu cihazlar <b>yağla soğutulur</b>.
@@ -1616,7 +1624,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="line-scene" aria-label="Santralden şehre iletim hattında gerilime bağlı kayıp"></canvas>
+          <canvas id="line-scene" role="img" aria-label="Santralden şehre iletim hattında gerilime bağlı kayıp"></canvas>
           <div class="panel">
             <h3>Kayıp akımın karesiyle</h3>
             <p>
@@ -1632,7 +1640,7 @@
               <label for="ln-r">Hat direnci <output id="ln-r-out" for="ln-r">5 Ω</output></label>
               <input id="ln-r" type="range" min="1" max="20" step="1" value="5" />
             </div>
-            <div class="verdict" id="line-verdict">Gerilimi değiştir.</div>
+            <div class="verdict" aria-live="polite" id="line-verdict">Gerilimi değiştir.</div>
             <ul class="mini">
               <li>Taşınan güç <b>1,0 MW</b></li>
               <li>Hat akımı <b id="ln-i">100 A</b></li>
@@ -1651,7 +1659,7 @@
         </div>
 
         <div class="demo split">
-          <canvas id="game-scene" aria-label="Hedef çıkış gerilimi için sekonder sarım sayısını ayarlama oyunu"></canvas>
+          <canvas id="game-scene" role="img" aria-label="Hedef çıkış gerilimi için sekonder sarım sayısını ayarlama oyunu"></canvas>
           <div class="panel">
             <h3>Nasıl oynanır?</h3>
             <p>
@@ -1663,7 +1671,7 @@
               <label for="gm-n2">Sekonder sarım N₂ <output id="gm-n2-out" for="gm-n2">500</output></label>
               <input id="gm-n2" type="range" min="10" max="3500" step="5" value="500" />
             </div>
-            <div class="verdict" id="game-verdict">Sekonder sarımı ayarla ve bağla.</div>
+            <div class="verdict" aria-live="polite" id="game-verdict">Sekonder sarımı ayarla ve bağla.</div>
             <div class="actions">
               <button class="button" type="button" id="gm-check">Bağla</button>
               <button class="button ghost" type="button" id="gm-new">Yeni hedef</button>
@@ -2305,6 +2313,71 @@
           var q = A(c, 1).replace(/rgba?\(|\)/g, "").split(/[,\s\/]+/);
           var l = (0.299 * +q[0] + 0.587 * +q[1] + 0.114 * +q[2]) / 255;
           return l > 0.58 ? "#101528" : "#ffffff";
+        }
+
+        /* ============ tuval üzerinde sürükleme ============ */
+
+        /* k: kit, o.tut(x,y) → tutamak kimliği ya da null, o.tasi(id,x,y) → taşı */
+        function surukle(k, o) {
+          if (!k || !k.el) return null;
+          var el = k.el, aktif = null, dokunuldu = false;
+          /* eksen: "x" yatay sürükleme (dikey kaydırma serbest kalır),
+             "y" dikey sürükleme (dokunmatikte devre dışı, sayfa kayabilsin) */
+          var eksen = o.eksen || "x";
+          el.style.touchAction = eksen === "x" ? "pan-y" : "auto";
+          el.dataset.surukle = "1";
+          function yerel(e) {
+            var r = el.getBoundingClientRect();
+            return [e.clientX - r.left, e.clientY - r.top];
+          }
+          el.addEventListener("pointermove", function (e) {
+            var p = yerel(e);
+            if (aktif !== null) { o.tasi(aktif, p[0], p[1]); return; }
+            el.style.cursor = o.tut(p[0], p[1]) !== null ? "grab" : "default";
+          });
+          el.addEventListener("pointerdown", function (e) {
+            if (eksen === "y" && e.pointerType === "touch") return;
+            var p = yerel(e);
+            var id = o.tut(p[0], p[1]);
+            if (id === null) return;
+            aktif = id;
+            dokunuldu = true;
+            try { el.setPointerCapture(e.pointerId); } catch (q) {}
+            el.style.cursor = "grabbing";
+            if (o.bas) o.bas(id, p[0], p[1]);
+            o.tasi(aktif, p[0], p[1]);
+            e.preventDefault();
+          });
+          ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+            el.addEventListener(t, function (e) {
+              if (aktif === null) return;
+              aktif = null;
+              el.style.cursor = "grab";
+              try { el.releasePointerCapture(e.pointerId); } catch (q) {}
+              if (o.birak) o.birak();
+            });
+          });
+          return { yeni: function () { return !dokunuldu; } };
+        }
+
+        /* sürüklenebilir sahnelerde ilk kullanımda çıkan ipucu */
+        function ipucu(ctx, W, H, metin, goster) {
+          if (!goster) return;
+          ctx.save();
+          ctx.font = "700 11.5px " + FONT;
+          var w = ctx.measureText(metin).width + 34;
+          var x0 = W - w - 10;                  /* sağ alt köşe: sahneyi kapatmaz */
+          roundRect(ctx, x0, H - 32, w, 24, 12);
+          ctx.fillStyle = A(COL.lime, 0.16);
+          ctx.fill();
+          ctx.strokeStyle = A(COL.lime, 0.5);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COL.lime;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("↔  " + metin, x0 + w / 2, H - 19.5);
+          ctx.restore();
         }
 
         /* ============ 01 · transformatör laboratuvarı ============ */

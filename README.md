@@ -319,8 +319,23 @@ vardır. Dosyalar `sunum/*.js` betikleriyle üretilir; ayrıntılar
 
 Sayfalar açık temayla açılır, üst bardaki düğmeyle koyu temaya geçer ve seçim
 tarayıcıda saklanır. Tuval renkleri CSS değişkenlerinden okunduğu için
-animasyonlar tema değişiminde yeniden çizilir. Sahneye tıklayarak ya da
-**boşluk** ile başlat/durdur, **R** ile sıfırla.
+animasyonlar tema değişiminde yeniden çizilir.
+
+Deneylerde ortak etkileşimler:
+
+| Ne | Nasıl |
+|---|---|
+| Başlat / durdur | Sahneye tıkla ya da **boşluk** tuşuna bas |
+| Sıfırla | **R** tuşu ya da bölümdeki *Sıfırla* düğmesi |
+| Hazır deney | Bölümün üstündeki çipler; tek tıkla anlamlı bir düzen kurar |
+| Doğrudan sürükleme | Sahnedeki cisim, lamba, ekran ya da mercek imleçle sürüklenir; imleç `grab` olur ve ilk kullanımda sahnede ipucu belirir |
+| Değer girişi | Kaydırıcılar klavyeyle de kullanılır (ok tuşları); dokunmatik ekranda tutamaklar büyür |
+
+Sürüklenebilir sahnelerde `touch-action` eksene göre ayarlanır: yatay sürüklenen
+sahnelerde dikey kaydırma serbest kalır, dikey sürüklenenlerde dokunmatik
+sürükleme kapatılır ki sayfa parmakla kaydırılabilsin. Bölüm özet cümleleri
+(`.verdict`) `aria-live="polite"` taşır; tuvaller `role="img"` ve açıklayıcı
+etiketle sunulur.
 
 ## Yapı
 
