@@ -4,18 +4,39 @@ const T = require("./tema.js");
 const { C, F, W, M } = T;
 const CW = W - M * 2;
 
-/* kapak: koyu zemin, üst başlık, büyük başlık, giriş cümlesi, formül satırı */
+/* numaralı yuvarlatılmış kare (kartların içinde) */
+function rozet(s, n, x, y, d, color) {
+  s.addShape("roundRect", { x: x, y: y, w: d, h: d, rectRadius: d * 0.26,
+    fill: { color: color }, line: { type: "none" } });
+  s.addText(String(n), { x: x, y: y, w: d, h: d, align: "center", valign: "middle",
+    fontFace: F.body, fontSize: d > 0.43 ? 12 : 11.5, bold: true, color: C.white,
+    isTextBox: true, margin: 0 });
+}
+
+/* kapak: koyu zemin, marka, üst başlık, büyük başlık, giriş cümlesi, formül satırı */
 function kapak(p, o) {
   const s = T.dark(p);
+  T.motif(s);
+  s.addShape("roundRect", { x: 0.95, y: 0.9, w: 0.34, h: 0.34, rectRadius: 0.1,
+    fill: { color: "A9E648" }, line: { type: "none" } });
+  s.addText([{ text: "Dersler", options: { color: C.white, bold: true } },
+    { text: "  ·  fizik", options: { color: "8D97B5" } }],
+    { x: 1.4, y: 0.9, w: 4, h: 0.34, fontFace: F.body, fontSize: 12.5, valign: "middle",
+      isTextBox: true, margin: 0 });
+  s.addShape("rect", { x: 0.7, y: 2.15, w: 0.06, h: 1.2, fill: { color: C.limeBright },
+    line: { type: "none" } });
   s.addText(o.ust, { x: 0.95, y: 1.7, w: 8.4, h: 0.35, fontFace: F.body, fontSize: 13,
     bold: true, color: C.limeBright, charSpacing: 3, isTextBox: true, margin: 0 });
   s.addText(o.baslik, { x: 0.9, y: 2.1, w: 8.6, h: 1.3, fontFace: F.head,
-    fontSize: o.baslik.length > 24 ? 42 : 48, bold: true, color: C.white,
-    isTextBox: true, margin: 0 });
-  s.addText(o.lede, { x: 0.95, y: 3.6, w: 7.4, h: 1.15, fontFace: F.body, fontSize: 15.5,
+    fontSize: o.baslik.length > 34 ? 34 : (o.baslik.length > 24 ? 42 : 48), bold: true, color: C.white,
+    isTextBox: true, margin: 0, charSpacing: -1 });
+  s.addText(o.lede, { x: 0.95, y: 3.6, w: 7.4, h: 1.15, fontFace: F.body, fontSize: o.ledeSize || 15.5,
     color: "C3CEE8", lineSpacingMultiple: 1.25, isTextBox: true, margin: 0 });
-  s.addText(o.formul, { x: 0.95, y: 5.05, w: 8.6, h: 0.5, fontFace: "Courier New",
-    fontSize: 13.5, bold: true, color: C.limeBright, isTextBox: true, margin: 0 });
+  s.addShape("roundRect", { x: 0.95, y: 4.98, w: 8.4, h: 0.62, rectRadius: 0.1,
+    fill: { color: C.inkSoft }, line: { color: "2C3860", width: 0.75 } });
+  s.addText(o.formul, { x: 1.2, y: 4.98, w: 8.0, h: 0.62, fontFace: F.mono,
+    fontSize: 13.5, bold: true, color: C.limeBright, isTextBox: true, margin: 0,
+    valign: "middle" });
   T.footer(s, o.link, null, true);
   if (o.not) s.addNotes(o.not);
   return s;
@@ -30,11 +51,7 @@ function buDerste(p, o) {
     const col = i % 3, row = Math.floor(i / 3);
     const x = M + col * (3.71 + 0.4), y = 1.95 + row * 2.28;
     T.card(s, { x: x, y: y, w: 3.71, h: 2.05 });
-    s.addShape("ellipse", { x: x + 0.28, y: y + 0.28, w: 0.42, h: 0.42,
-      fill: { color: a[2] }, line: { type: "none" } });
-    s.addText(String(i + 1), { x: x + 0.28, y: y + 0.28, w: 0.42, h: 0.42, align: "center",
-      valign: "middle", fontFace: F.body, fontSize: 11.5, bold: true, color: C.white,
-      isTextBox: true, margin: 0 });
+    rozet(s, i + 1, x + 0.28, y + 0.28, 0.42, a[2]);
     s.addText(a[0], { x: x + 0.85, y: y + 0.26, w: 2.7, h: 0.46, fontFace: F.body,
       fontSize: 15, bold: true, color: C.ink, isTextBox: true, margin: 0, valign: "middle" });
     T.body(s, a[1], { x: x + 0.3, y: y + 0.95, w: 3.1, h: 0.9, size: 12.5 });
@@ -56,7 +73,7 @@ function kartlar6(p, o) {
     s.addText(a[0], { x: x + 0.3, y: y + 0.22, w: 3.1, h: 0.42, fontFace: F.body,
       fontSize: 14.5, bold: true, color: C.ink, isTextBox: true, margin: 0, valign: "middle" });
     T.body(s, a[1], { x: x + 0.3, y: y + 0.72, w: 3.1, h: 0.9, size: 12 });
-    s.addText(a[2], { x: x + 0.3, y: y + 1.6, w: 3.1, h: 0.32, fontFace: "Courier New",
+    s.addText(a[2], { x: x + 0.3, y: y + 1.6, w: 3.1, h: 0.32, fontFace: F.mono,
       fontSize: 11.5, bold: true, color: a[3], isTextBox: true, margin: 0 });
   });
   T.footer(s, o.foot, o.sayfa);
@@ -81,11 +98,7 @@ function ornek(p, o) {
   o.adimlar.forEach((a, i) => {
     const y = 1.95 + i * (h + gap);
     T.card(s, { x: M + 4.85, y: y, w: CW - 4.85, h: h });
-    s.addShape("ellipse", { x: M + 5.15, y: y + (h - 0.44) / 2, w: 0.44, h: 0.44,
-      fill: { color: o.tone }, line: { type: "none" } });
-    s.addText(a[0], { x: M + 5.15, y: y + (h - 0.44) / 2, w: 0.44, h: 0.44, align: "center",
-      valign: "middle", fontFace: F.body, fontSize: 12, bold: true, color: C.white,
-      isTextBox: true, margin: 0 });
+    rozet(s, a[0], M + 5.15, y + (h - 0.44) / 2, 0.44, o.tone);
     s.addText(a[1], { x: M + 5.8, y: y, w: CW - 6.1, h: h, valign: "middle", fontFace: F.body,
       fontSize: 13.5, color: C.muted, lineSpacingMultiple: 1.15, isTextBox: true, margin: 0 });
   });
@@ -103,13 +116,17 @@ function hatalar(p, o) {
     const col = i % 2, row = Math.floor(i / 2);
     const x = M + col * (5.85 + 0.23), y = 1.95 + row * 1.52;
     T.card(s, { x: x, y: y, w: 5.85, h: 1.35, fill: C.white });
+    s.addShape("roundRect", { x: x + 0.25, y: y + 0.18, w: 0.35, h: 0.35, rectRadius: 0.09,
+      fill: { color: "FBE9EE" }, line: { type: "none" } });
     s.addText("✗", { x: x + 0.25, y: y + 0.18, w: 0.35, h: 0.35, align: "center",
-      valign: "middle", fontFace: F.body, fontSize: 15, bold: true, color: C.rose,
+      valign: "middle", fontFace: F.body, fontSize: 14, bold: true, color: C.rose,
       isTextBox: true, margin: 0 });
     s.addText(h[0], { x: x + 0.68, y: y + 0.15, w: 4.9, h: 0.42, valign: "middle",
       fontFace: F.body, fontSize: 13, bold: true, color: C.ink, isTextBox: true, margin: 0 });
+    s.addShape("roundRect", { x: x + 0.25, y: y + 0.68, w: 0.35, h: 0.35, rectRadius: 0.09,
+      fill: { color: "EAF7DC" }, line: { type: "none" } });
     s.addText("✓", { x: x + 0.25, y: y + 0.68, w: 0.35, h: 0.35, align: "center",
-      valign: "middle", fontFace: F.body, fontSize: 15, bold: true, color: C.lime,
+      valign: "middle", fontFace: F.body, fontSize: 14, bold: true, color: C.lime,
       isTextBox: true, margin: 0 });
     s.addText(h[1], { x: x + 0.68, y: y + 0.62, w: 4.9, h: 0.55, valign: "middle",
       fontFace: F.body, fontSize: 12, color: C.muted, isTextBox: true, margin: 0 });
@@ -122,8 +139,10 @@ function hatalar(p, o) {
 /* koyu zeminli kapanış */
 function ozet(p, o) {
   const s = T.dark(p);
-  s.addText("Özetle", { x: M + 0.25, y: 1.1, w: 6, h: 0.9, fontFace: F.head, fontSize: 40,
-    bold: true, color: C.white, isTextBox: true, margin: 0 });
+  s.addShape("rect", { x: M + 0.25, y: 1.25, w: 0.06, h: 0.6, fill: { color: C.limeBright },
+    line: { type: "none" } });
+  s.addText("Özetle", { x: M + 0.5, y: 1.1, w: 6, h: 0.9, fontFace: F.head, fontSize: 40,
+    bold: true, color: C.white, isTextBox: true, margin: 0, charSpacing: -1 });
   o.maddeler.forEach((k, i) => {
     const y = 2.3 + i * 1.02;
     s.addText(String(i + 1).padStart(2, "0"), { x: M + 0.25, y: y, w: 0.7, h: 0.5,
@@ -133,9 +152,13 @@ function ozet(p, o) {
       fontSize: 15.5, bold: true, color: C.white, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(k[1], { x: M + 5.55, y: y - 0.04, w: 5.4, h: 0.62, fontFace: F.body,
       fontSize: 13.5, color: "AEBBD6", isTextBox: true, margin: 0, valign: "middle" });
+    if (i < o.maddeler.length - 1) {
+      s.addShape("line", { x: M + 1.05, y: y + 0.78, w: 9.9, h: 0,
+        line: { color: "2C3860", width: 0.75 } });
+    }
   });
   s.addShape("roundRect", { x: M + 0.25, y: 6.35, w: 11.0, h: 0.62, rectRadius: 0.1,
-    fill: { color: C.inkSoft }, line: { color: "2C3860", width: 1 } });
+    fill: { color: C.inkSoft }, line: { color: "2C3860", width: 0.75 } });
   s.addText([{ text: o.linkMetin + "  ", options: { color: "AEBBD6" } },
     { text: o.link, options: { color: C.limeBright, bold: true } }],
     { x: M + 0.6, y: 6.35, w: 10.3, h: 0.62, valign: "middle", fontFace: F.body,
@@ -152,11 +175,14 @@ function tablo(s, rows, o) {
     if (i > 0) {
       s.addShape("roundRect", { x: o.x, y: y, w: o.w, h: o.step - 0.08, rectRadius: 0.08,
         fill: { color: o.vurgu === i ? "EAF7DC" : (i % 2 ? C.white : C.softer) },
-        line: { color: o.vurgu === i ? "CFE8B2" : C.line, width: 1 } });
+        line: { color: o.vurgu === i ? "CFE8B2" : C.line, width: 0.75 } });
+    } else {
+      s.addShape("line", { x: o.x, y: y + o.step - 0.1, w: o.w, h: 0,
+        line: { color: C.line, width: 1 } });
     }
     r.forEach((txt, j) => {
       s.addText(txt, { x: cols[j][0], y: y, w: cols[j][1], h: o.step - 0.08, valign: "middle",
-        fontFace: i === 0 ? F.body : (o.mono && j > 0 ? "Courier New" : F.body),
+        fontFace: i === 0 ? F.body : (o.mono && j > 0 ? F.mono : F.body),
         fontSize: i === 0 ? 11.5 : (o.size || 12.5), bold: i === 0 || j === 0,
         color: i === 0 ? C.dim : (o.vurgu === i ? C.lime : (j === 0 ? C.ink : C.muted)),
         charSpacing: i === 0 ? 1 : 0, isTextBox: true, margin: 0 });
@@ -164,4 +190,4 @@ function tablo(s, rows, o) {
   });
 }
 
-module.exports = { kapak, buDerste, kartlar6, ornek, hatalar, ozet, tablo, CW };
+module.exports = { kapak, buDerste, kartlar6, ornek, hatalar, ozet, tablo, rozet, CW };

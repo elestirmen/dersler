@@ -1,66 +1,70 @@
 # Sunumlar
 
 Ders sayfalarıyla aynı paleti ve dili kullanan, 16:9 PowerPoint sunumları.
-Her sunum 11–14 slayttır ve her slaytta konuşmacı notu vardır.
+On sekiz konunun her biri için bir deste; **her deste, o konunun "Konu
+anlatımı" modalından üretilir** ve onunla birebir aynıdır: aynı dokuz başlık,
+aynı sırada; aynı formüller, tablolar ve çizimler; aynı çözümlü örnekler ve sık
+yapılan hatalar. Konuşmacı notu, ilgili bölümün anlatım metninin kendisidir.
 
 Çıktılar doğrudan yayınlanan köke, `dist/sunum/` altına yazılır; yani üretildiği
 anda `dersler.perinet.org/sunum/...` adresinden indirilebilir. Ders sayfalarındaki
-**Sunum (PPTX)** düğmesi ve giriş sayfasındaki *Sunumlar* bölümü buraya bakar.
+**Sunum (PPTX)** düğmesi ve giriş sayfasındaki *Sunumlar* bölümü buraya bakar;
+`dersler-sunumlar.zip` on sekizini bir arada verir.
 
-| Dosya (`dist/sunum/`) | Konu |
+## Bir destenin yapısı
+
+| Slayt | Kaynağı (konu sayfasında) |
 |---|---|
-| `serbest-dusme.pptx` | Serbest düşme — tanım, kütlenin sadeleşmesi, bağıntılar, grafikler, 1:3:5, düşey atış, limit hız, iki çözümlü örnek |
-| `iki-boyutta-hareket.pptx` | İki boyutta sabit ivmeli hareket — bağımsızlık ilkesi, bileşenler, yatay/eğik atış, menzil–açı, dört grafik, yörünge denklemi, iki çözümlü örnek |
-| `newton-yasalari.pptx` | Newton'un hareket yasaları — net kuvvet, üç yasa, serbest cisim diyagramı, sürtünme grafiği, asansör tablosu, üç çözümlü örnek |
-| `surtunme-kuvveti.pptx` | Sürtünme kuvveti — statik/kinetik, f–F grafiği, μ tablosu, eğik düzlem, fren mesafesi eğrileri, üç çözümlü örnek |
-| `limit-hiz.pptx` | Limit hız — hava direnci, denge tablosu, v–t doyma eğrisi, m ve A bağımlılığı, paraşüt eğrisi, üç çözümlü örnek |
-| `cembersel-hareket.pptx` | Düzgün çembersel hareket — periyot/frekans, v ve a bağıntıları, merkezcil kuvvet tablosu, merkezkaç yanılgısı, viraj eğrileri, üç çözümlü örnek |
-| `elektriksel-kuvvet.pptx` | Elektriksel kuvvet ve alan — yük, Coulomb yasası, F–r eğrisi, alan tanımı ve E–r eğrileri, alan çizgileri, paralel levhalar, üç çözümlü örnek |
-| `manyetik-alan.pptx` | Manyetik alan ve kuvvet — tesla ölçeği, telin alanı ve B–r eğrisi, sağ el kuralları, F–α sinüs eğrisi, dairesel hareket, üç çözümlü örnek |
-| `induksiyon-akimi.pptx` | İndüksiyon akımı — manyetik akı, Faraday yasası ve Φ–t eğrisi, Lenz yasası, hareketli çubuk, jeneratörde faz farkı, üç çözümlü örnek |
-| `transformatorler.pptx` | Transformatörler — yapı ve çalışma ilkesi, V₂–N₂ doğrusu, güç korunumu tablosu, verim sütun grafiği, iletim kaybı eğrisi, üç çözümlü örnek |
-| `isik-siddeti.pptx` | Işık şiddeti, akı ve aydınlanma — üç büyüklük tablosu, katı açı, ters kare ve cosθ eğrileri, günlük değerler, üç çözümlü örnek |
-| `duzlem-aynalar.pptx` | Düzlem aynalar — yansıma yasası, görüntü özellikleri, hareket ve 2α dönmesi, iki ayna tablosu, boy aynası, üç çözümlü örnek |
-| `kuresel-aynalar.pptx` | Küresel aynalar — temel kavramlar, asal ışınlar, beş durum tablosu, b–a eğrisi, kullanım alanları, üç çözümlü örnek |
-| `kirilma.pptx` | Kırılma — indis tablosu, Snell eğrileri, değişen/değişmeyen tablosu, tam yansıma, günlük örnekler, üç çözümlü örnek |
-| `gorunur-derinlik.pptx` | Görünür derinlik — dört adımlık açıklama, h′–n eğrisi, sıvı tablosu, sudan havaya bakış, cam levha, üç çözümlü örnek |
-| `fiber-optik.pptx` | Fiber optik — yapı ve ilke, kabul açısı eğrisi, sinyal süresi tablosu, kayıplar ve bakır karşılaştırması, üç çözümlü örnek |
-| `prizmalar.pptx` | Prizmalar — sapma açısı, δ–i eğrisi ve en küçük sapma, dispersiyon tablosu, tam yansımalı prizma, gökkuşağı eğrisi, üç çözümlü örnek |
-| `mercekler.pptx` | Mercekler — mercek türleri, asal ışınlar, beş durum tablosu, b–a eğrisi, göz kusurları, üç çözümlü örnek |
+| Kapak | Sayfa başlığı, künye, giriş paragrafı, temel bağıntılar |
+| Başlarken | Konu anlatımının açılış sorusu (`.lead-in`), büyük puntoyla |
+| Bu derste | Dokuz bölüm başlığı ve her birinin ilk cümlesi |
+| 01–07 · Bölümler | Bölümün paragrafları (her cümle bir madde), formül kutuları, uyarı kutuları, tablolar; sağda bölümün çizimi ve alt yazısı. Uzun bölüm dengeli biçimde iki slayta bölünür |
+| 08 · Çözümlü örnekler | Her örnek bir slayt: soru solda, adımlar sağda numaralı kartlarda; kart yükseklikleri içeriğe göre |
+| 09 · Sık yapılan hatalar | İki sütunlu ✗ / ✓ kartları |
+| Özetle | "Aklında kalsın" (sayfa künyesindeki dört gerçek), temel bağıntılar, sayfa bağlantısı ve sıradaki konu |
 
-Grafikler PowerPoint'in kendi grafik nesneleridir (resim değil), yani sunum
-içinde düzenlenebilir.
+Yazı boyutu bölümün uzunluğuna göre 16 pt ile 12 pt arasında seçilir; kısa
+bölümlerde çizim genişler. Çizimler konu anlatımındaki SVG'lerin açık temada
+2× çözünürlükte alınmış PNG kopyalarıdır, bu yüzden sayfadakiyle aynı görünür.
 
 ## Yeniden üretmek
 
-Dosyalar `pptxgenjs` ile üretilir; `.js` dosyaları tek kaynaktır, `.pptx`
-çıktıları onlardan doğar. Depoda paket bağımlılığı tutulmaz:
+Tek kaynak konu sayfalarıdır; bir sayfanın konu anlatımı değişince desteyi
+yeniden üretmek yeterlidir. Küresel paketler: `pptxgenjs` ve `puppeteer`
+(çizimleri PNG'ye çevirmek ve modalı okumak için).
 
 ```bash
-npm install -g pptxgenjs
-cd /opt/dersler/sunum
-NODE_PATH=$(npm root -g) node serbest-dusme.js
-NODE_PATH=$(npm root -g) node iki-boyutta-hareket.js
-NODE_PATH=$(npm root -g) node newton-yasalari.js
-NODE_PATH=$(npm root -g) node surtunme-kuvveti.js
-NODE_PATH=$(npm root -g) node limit-hiz.js
-NODE_PATH=$(npm root -g) node cembersel-hareket.js
-NODE_PATH=$(npm root -g) node elektriksel-kuvvet.js
-NODE_PATH=$(npm root -g) node manyetik-alan.js
-NODE_PATH=$(npm root -g) node induksiyon-akimi.js
-NODE_PATH=$(npm root -g) node transformatorler.js
-NODE_PATH=$(npm root -g) node isik-siddeti.js
-NODE_PATH=$(npm root -g) node duzlem-aynalar.js
-NODE_PATH=$(npm root -g) node kuresel-aynalar.js
-NODE_PATH=$(npm root -g) node kirilma.js
-NODE_PATH=$(npm root -g) node gorunur-derinlik.js
-NODE_PATH=$(npm root -g) node fiber-optik.js
-NODE_PATH=$(npm root -g) node prizmalar.js
-NODE_PATH=$(npm root -g) node mercekler.js
+npm install -g pptxgenjs puppeteer
+cd /opt/dersler
+NODE_PATH=$(npm root -g) node sunum/uret.js                    # 18 deste → dist/sunum
+NODE_PATH=$(npm root -g) node sunum/uret.js --konu kirilma     # tek konu
+cd dist/sunum && rm -f dersler-sunumlar.zip && zip -q -X dersler-sunumlar.zip *.pptx
 ```
 
-`tema.js` ortak renkleri, yazı tiplerini ve kart/formül/başlık yardımcılarını;
-`blok.js` ise tekrar eden slayt düzenlerini (kapak, "bu derste" ızgarası, altı
-kartlık uygulama sayfası, çözümlü örnek, sık yapılan hatalar, özet ve tablo)
-tutar. Yeni bir sunum bu ikisini `require` ederek birkaç yüz satırda yazılabilir;
-konuya özgü slaytlar (grafikler, şemalar, tablolar) dosyanın kendisinde durur.
+`--cikti DIR` çıktıyı başka bir klasöre yazar (yayına almadan denemek için),
+`--sekiller DIR` çizim PNG'lerinin önbelleğini seçer.
+
+## Yerleşimi doğrulamak
+
+Sunucuda PowerPoint yok; bu yüzden `uret.js --onizleme DIR` her slaydın kutularını
+kaydeder, `onizleme.js` de bunları aynı inç ölçüleriyle HTML'de yeniden çizer
+(Calibri/Cambria yerine aynı ölçülerdeki Carlito/Caladea), slayt başına PNG alır
+ve taşan metin kutularını raporlar:
+
+```bash
+NODE_PATH=$(npm root -g) node sunum/uret.js --cikti /tmp/d --onizleme /tmp/d/on
+NODE_PATH=$(npm root -g) node sunum/onizleme.js --girdi /tmp/d/on --ekran
+```
+
+Rapor "tümü temiz" demiyorsa ilgili slaytın PNG'sine bakıp `uret.js` içindeki
+ölçü sabitlerini düzeltin.
+
+## Dosyalar
+
+| Dosya | İş |
+|---|---|
+| `uret.js` | Konu sayfasını puppeteer ile okur, çizimleri PNG'ye çevirir, desteyi kurar |
+| `onizleme.js` | Kaydedilen slaytları HTML'de çizer, ekran görüntüsü alır, taşma raporlar |
+| `tema.js` | Renkler, yazı tipleri, kart / formül / başlık / alt bilgi / motif yardımcıları |
+| `blok.js` | Kapak, "bu derste", çözümlü örnek, hatalar, özet ve tablo düzenleri |
+| `eski/` | Eylül 2026 öncesinin elle yazılmış konu betikleri; üretimde değil |

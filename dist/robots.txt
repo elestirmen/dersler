@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dersler.perinet.org/sitemap.xml

@@ -3,7 +3,9 @@
 Etkileşimli ders anlatımları için sade, statik bir öğrenme alanı.
 İçerik **ders → ünite → konu** hiyerarşisiyle düzenlenir.
 Derleme adımı, paket bağımlılığı ve JavaScript çatısı yok: her sayfa kendi
-stilini ve betiğini taşıyan tek bir HTML dosyası.
+stilini ve betiğini taşıyan tek bir HTML dosyası. Ortak tasarım dili
+(`stil/`) tüm sayfalarda aynıdır; on sekiz konu sayfası bire bir aynı stil
+bloğunu paylaşır.
 
 **Canlı:** [dersler.perinet.org](https://dersler.perinet.org)
 
@@ -278,7 +280,10 @@ Tam yansımanın mühendislik uygulaması, dört bölümde:
 
 ## Sunumlar
 
-On sekiz konunun her biri için, sitede indirilebilir 11–14 slaytlık PowerPoint dosyaları:
+On sekiz konunun her biri için, sitede indirilebilir 16–19 slaytlık PowerPoint
+dosyaları. Her deste o konunun **konu anlatımından üretilir** ve onunla birebir
+aynıdır: aynı dokuz başlık, aynı formüller, tablolar ve çizimler, aynı çözümlü
+örnekler ve sık yapılan hatalar; konuşmacı notu anlatım metninin kendisidir.
 
 | # | Sunum | Bağlantı |
 |---|---|---|
@@ -311,9 +316,13 @@ Optik ünitesi:
 | 07 | Prizmalar | [dersler.perinet.org/sunum/prizmalar.pptx](https://dersler.perinet.org/sunum/prizmalar.pptx) |
 | 08 | Mercekler | [dersler.perinet.org/sunum/mercekler.pptx](https://dersler.perinet.org/sunum/mercekler.pptx) |
 
-Grafikler PowerPoint'in kendi grafik nesneleridir, her slaytta konuşmacı notu
-vardır. Dosyalar `sunum/*.js` betikleriyle üretilir; ayrıntılar
-[`sunum/README.md`](sunum/README.md) içinde.
+Her deste kapak, açılış sorusu, "bu derste" ızgarası, bölüm slaytları (sağda
+ilgili çizim), örnek başına bir çözüm slaydı, iki sütunlu hata kartları ve
+özetle kapanır; tablolar PowerPoint'in kendi tablo nesneleridir. On sekiz dosya
+tek seferde
+[dersler.perinet.org/sunum/dersler-sunumlar.zip](https://dersler.perinet.org/sunum/dersler-sunumlar.zip)
+adresinden de indirilebilir. Dosyalar `sunum/*.js` betikleriyle üretilir;
+ayrıntılar [`sunum/README.md`](sunum/README.md) içinde.
 
 ## Konu anlatımı çizimleri
 
@@ -339,11 +348,48 @@ Teknik olarak: ortak `.fig` kartı, `480` birimlik `viewBox`, paylaşılan ok
 başlıkları (`<marker>`), `role="img"` ve açıklayıcı `aria-label`. Dar ekranda
 çizim 292 piksele iner, yatay kaydırma oluşmaz.
 
+## Tasarım dili
+
+Sayfalar tek bir belirteç kümesinden beslenir; renk, gölge, köşe yarıçapı ve
+yazı tipi seçimleri `:root` üzerindeki CSS değişkenlerinde durur ve koyu tema
+aynı değişkenleri yeniden tanımlar.
+
+| Katman | Seçim |
+|---|---|
+| Başlıklar | **Fraunces** (değişken serif, `opsz` ekseni açık, vurgu sözcüğü italik) |
+| Metin ve arayüz | **Inter** (`cv11`, `ss01`; sayısal okumalarda `tabular-nums`) |
+| Formül ve kod | **JetBrains Mono** |
+| Ana düğme | Mürekkep rengi zemin, beyaz yazı; koyu temada tersi |
+| Yüzeyler | Beyaz kart, ince çizgi, lacivert tonlu katmanlı gölge, üst kenarda 1 px ışık |
+| Zemin | Yumuşak radyal yıkamalar + `%4` opaklıkta SVG kâğıt dokusu |
+| Hareket | Bölümler görünüme girince belirir; tema düğmesi View Transitions ile dairesel geçiş yapar; `prefers-reduced-motion` tümünü kapatır |
+
+Renklerin anlamı (mavi hız / akım, sarı kuvvet / alan, yeşil sonuç, mor ikinci
+durum, kırmızı karşı kuvvet) tuvallerde ve 122 çizimde aynıdır; tema
+değişiminde tuvaller CSS değişkenlerini yeniden okuyup çizer.
+
+Ana sayfada hero arkasında eşit zaman aralıklı strobo izleriyle üç atış yayı
+canlı çizilir (tuval, düşük alfa; sekme görünmezken ve azaltılmış harekette
+durur). Konu sayfalarında `Boşluk` ve `R` kısayolları alt bilgide hatırlatılır.
+Klavye kullanıcıları için her sayfanın başında "İçeriğe geç" bağlantısı vardır.
+
+Paylaşım için her sayfada Open Graph / Twitter kartı etiketleri ve ortak bir
+`og.png` bulunur; site `manifest.webmanifest` ile ana ekrana eklenebilir,
+`sitemap.xml` ve `robots.txt` taşır, bilinmeyen adresler özel `404.html`
+sayfasına düşer.
+
 ## Ortak davranış
 
 Sayfalar açık temayla açılır, üst bardaki düğmeyle koyu temaya geçer ve seçim
 tarayıcıda saklanır. Tuval renkleri CSS değişkenlerinden okunduğu için
 animasyonlar tema değişiminde yeniden çizilir.
+
+Hızlı kontrol testi tamamlanınca sonuç (`doğru / toplam`, tarih) yalnızca o
+tarayıcının `localStorage` alanına yazılır (`dersler-skor`); sayfa yeniden
+açıldığında skor kutusunda "Son sonucun" rozeti görünür. Ana sayfa aynı kaydı
+okuyup konu kartlarına ✓ rozetini, ünite künyesine "n konu çalışıldı" satırını
+ekler ve sağ üstteki kartı "Kaldığın yer" kartına çevirir. Sunucuya hiçbir şey
+gitmez.
 
 Deneylerde ortak etkileşimler:
 
@@ -394,15 +440,40 @@ dist/                        yayınlanan kök (nginx bunu sunar)
   fiber-optik.html           3. ünite · konu 06 · fiber optik
   prizmalar.html             3. ünite · konu 07 · prizmalar
   mercekler.html             3. ünite · konu 08 · mercekler
+  404.html                   özel hata sayfası (nginx error_page)
+  favicon.svg, icon-*.png    site simgesi; apple-touch-icon.png ve maskable ikon
+  og.png                     paylaşım kartı görseli (1200×630)
+  manifest.webmanifest       ana ekrana ekleme
+  sitemap.xml, robots.txt    arama motorları
   sunum/*.pptx               indirilebilir ders sunumları
-sunum/                       sunumların kaynağı (pptxgenjs betikleri)
+  sunum/dersler-sunumlar.zip on sekiz sunum tek dosyada
+stil/                        ortak tasarım dilinin kaynağı
+  konu.css                   konu sayfalarının tamamında birebir aynı stil bloğu
+  anasayfa.css               ana sayfaya özgü bileşenler (konu.css tabanının üstüne)
+  uygula.js                  iki dosyayı dist/ içindeki <style> bloklarına yazar
+sunum/                       sunumların üreticisi (pptxgenjs + puppeteer)
+  uret.js                    konu anlatımını okur, çizimleri PNG'ye çevirir, desteleri kurar
+  onizleme.js                slaytları HTML'de yeniden çizip taşma raporlar (QA)
   tema.js                    ortak renk, yazı tipi ve yerleşim yardımcıları
   blok.js                    tekrar eden slayt düzenleri (kapak, örnek, hatalar, özet)
+  eski/                      önceki elle yazılmış konu betikleri (üretimde değil)
 deploy/
   docker-compose.yml         nginx:alpine konteyneri, dist/ salt-okunur bağlı
-  nginx.conf                 statik sunum, kökte no-cache, varlıklarda uzun önbellek
+  nginx.conf                 statik sunum, HTML no-cache, varlıklarda uzun önbellek, 404 sayfası
   yayina-al.sh               Cloudflare CNAME + NPM proxy host + Let's Encrypt
 ```
+
+Ortak stili değiştirmek için `stil/konu.css` ya da `stil/anasayfa.css`
+düzenlenir ve
+
+```bash
+node stil/uygula.js
+```
+
+çalıştırılır; betik on sekiz konu sayfasının ve ana sayfanın `<style>` bloğunu
+yeniler, başka hiçbir şeye dokunmaz. Konu sayfalarına özel bir stil gerekirse
+ilgili sayfanın kendi bloğuna değil, `konu.css` içine yazılmalıdır; aksi hâlde
+bir sonraki uygulamada silinir.
 
 ## Yerel çalıştırma
 
@@ -438,7 +509,8 @@ tutulmaz.
 ünitenin konu ızgarasına bir kart (numarası, etiketi ve `data-tags` arama
 anahtarlarıyla) eklemek yeterli. Yeni bir ünite, `.unit` bloğunun kopyasıdır;
 konu sayfalarındaki önceki/sonraki şeridi de güncellenmelidir — dizin konteynere bağlı olduğu için dosya
-kaydedildiği anda yayında olur. Ortak tema değişkenleri, tuval yardımcıları ve
-konu anlatımı modalı her sayfanın kendi `<style>` / `<script>` bloğunda
-tanımlıdır; var olan ders sayfalarından biri başlangıç noktası olarak
-kopyalanabilir.
+kaydedildiği anda yayında olur. Tuval yardımcıları ve konu anlatımı modalı her
+sayfanın kendi `<script>` bloğunda tanımlıdır; stil bloğu `stil/konu.css`
+kaynağından gelir. Var olan ders sayfalarından biri başlangıç noktası olarak
+kopyalanabilir; yeni sayfanın `<title>`, açıklaması, künye satırı ve alt bilgisi
+güncellenmeli, `sitemap.xml` listesine adresi eklenmelidir.
