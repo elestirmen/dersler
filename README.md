@@ -483,6 +483,8 @@ sunum/                       sunumların üreticisi (pptxgenjs + puppeteer)
   tema.js                    ortak renk, yazı tipi ve yerleşim yardımcıları
   blok.js                    tekrar eden slayt düzenleri (kapak, örnek, hatalar, özet)
   eski/                      önceki elle yazılmış konu betikleri (üretimde değil)
+denetim/                     deneylerin tarayıcıda denetimi (puppeteer)
+  deney.js                   hata, boş tuval, taşma, sıfırlama, ekran dışı çizim, takılma
 sunucu/                      erişim kapısı (Node, bağımlılıksız)
   sunucu.js                  yetki kararı, giriş ve yönetim uçları
   kimlik.js                  imzalı çerez, scrypt parola, deneme sınırı
@@ -610,6 +612,24 @@ KAPI_PORT=8099 KAPI_VERI=/tmp/veri.json KAPI_PAROLA=deneme node sunucu/sunucu.js
 Kapının çerezi `Secure` olduğu için giriş akışı düz http üzerinde tamamlanmaz;
 uçlar yine `curl` ile denenebilir.
 
+## Deneyleri denetlemek
+
+Sunumlar için `sunum/onizleme.js` neyse, deneyler için `denetim/deney.js` odur:
+on sekiz sayfayı gerçek bir tarayıcıda (puppeteer) açar, her deneyi başlatır ve
+bozulmaları sayar.
+
+```bash
+NODE_PATH=$(npm root -g) node denetim/deney.js
+```
+
+Sayılanlar: sayfa ve konsol hataları, ilk çizimde boş kalan tuval, 390 px'te
+yatay taşma, yalnızca yükseklik değişince yeniden kurulan tuval (mobil adres
+çubuğu), ekran dışındayken çizilen kare ve 25 ms'yi aşan kare. Biri çıkan satır
+✗ ile işaretlenir ve araç 1 koduyla biter. Sayfalar diskten sunulur; kapı ya da
+çalışan bir sunucu gerekmez. Tek konu (`--konu`), `dist/` dışında bir kopya
+(`--kok`) ve etiket çakışmalarına bakmak için görüntüler (`--ekran`):
+[`denetim/README.md`](denetim/README.md).
+
 ## Yayına alma
 
 Konteyneri başlat:
@@ -649,3 +669,7 @@ karşılık iki şey şarttır:
 - Sayfanın sonunda `<script src="erisim.js" defer></script>` bulunması (var olan
   bir sayfadan kopyalanınca gelir) — yoksa indirme düğmesi, izni olmayana da
   indirme düğmesi gibi görünür.
+
+Denetim aracı yeni sayfayı kendiliğinden bulur; tek başına denetlemek için
+`NODE_PATH=$(npm root -g) node denetim/deney.js --konu yeni-konu` (dosya adı,
+`.html` olmadan; bkz. "Deneyleri denetlemek").
