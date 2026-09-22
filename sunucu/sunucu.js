@@ -9,10 +9,12 @@
 // Ortam değişkenleri:
 //   KAPI_PORT      dinlenecek port (varsayılan 8080)
 //   KAPI_VERI      veri dosyası (varsayılan /veri/veri.json)
+//   KAPI_KOK       yayınlanan dizin, salt okunur (varsayılan /dist); kataloğa
+//                  girmemiş bir dosyanın gerçekten var olup olmadığını anlamak için
 //   KAPI_PAROLA    ilk açılışta kullanılacak yönetici parolası (isteğe bağlı)
 
 import { createServer } from "node:http";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -33,6 +35,11 @@ import {
 const BURASI = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.KAPI_PORT || 8080);
 const VERI_YOLU = process.env.KAPI_VERI || "/veri/veri.json";
+const KOK = process.env.KAPI_KOK || "/dist";
+
+// Kök bağlanmamışsa "dosya yok" cevabına güvenilemez: o zaman kataloğa girmemiş
+// her dosya kapalı tutulur (yanlış yapılandırma kapıyı açmasın, kapatsın).
+const KOK_HAZIR = existsSync(join(KOK, "index.html"));
 
 const OGRENCI_OMUR_GUN = 30;
 const YONETICI_OMUR_GUN = 0.5;
@@ -47,6 +54,8 @@ const parolaSayaci = new DenemeSayaci(6, 15 * 60 * 1000);
 const SAYFALAR = {
   giris: readFileSync(join(BURASI, "sayfa", "giris.html"), "utf8"),
   yonetim: readFileSync(join(BURASI, "sayfa", "yonetim.html"), "utf8"),
+  // QR kodu için Kazuhiko Arase'nin qrcode-generator'ı (MIT), değiştirilmeden.
+  qrcode: readFileSync(join(BURASI, "sayfa", "qrcode.js"), "utf8"),
 };
 
 // ---------------------------------------------------------------- yardımcılar
@@ -138,6 +147,12 @@ function bos(cevap, kod) {
   cevap.end();
 }
 
+// Katalog sırasında, tekrarsız.
+function sirala(liste) {
+  const kume = new Set(liste);
+  return TUM_SLUGLAR.filter((s) => kume.has(s));
+}
+
 // ------------------------------------------------------------------ yetkiler
 
 // Bir ders kodunun bugün geçerli olup olmadığı. Sebep, günlükte ve giriş
@@ -155,68 +170,107 @@ function kodDurumu(kayit) {
   return { tamam: true, sebep: "" };
 }
 
-// Ziyaretçinin elindeki erişim: yönetici her şeyi görür.
+// Kod gerekmeden herkesin elindeki hak.
+function herkesinHakki() {
+  const h = depo.veri.herkeseAcik || {};
+  const konular = sirala(Array.isArray(h.konular) ? h.konular.filter(konuVarMi) : []);
+  return { konular, indirilebilir: h.indirme === true ? konular : [] };
+}
+
+// Görülebilir ve indirilebilir konu kümelerinden erişim kaydı kurar. İndirme
+// hakkı görme hakkının alt kümesidir; toplu paket ancak hepsi indirilebilirse.
+function hakKur(temel, konular, indirilebilir) {
+  const gor = sirala(konular);
+  const indir = sirala(indirilebilir).filter((s) => gor.includes(s));
+  return { ...temel, konular: gor, indirilebilir: indir, toplu: indir.length === TUM_SLUGLAR.length };
+}
+
+// Ziyaretçinin elindeki erişim: herkese açık konular + (varsa) kodunun
+// konuları. Yönetici her şeyi görür.
 function erisim(yuk) {
+  const herkes = herkesinHakki();
   if (yuk?.tip === "yonetici") {
-    return { rol: "yonetici", ad: "Yönetici", konular: TUM_SLUGLAR, indirme: true };
+    return hakKur({ rol: "yonetici", ad: "Yönetici" }, TUM_SLUGLAR, TUM_SLUGLAR);
   }
   if (yuk?.tip === "ogrenci") {
     const kayit = depo.kodBul(yuk.kod);
     const durum = kodDurumu(kayit);
-    if (!durum.tamam) return { rol: "yok", sebep: durum.sebep };
-    return {
-      rol: "ogrenci",
-      kod: kayit.kod,
-      ad: kayit.ad || kayit.kod,
-      konular: kayit.konular.filter(konuVarMi),
-      indirme: kayit.indirme !== false,
-    };
+    if (durum.tamam) {
+      const kendi = kayit.konular.filter(konuVarMi);
+      return hakKur(
+        { rol: "ogrenci", kod: kayit.kod, ad: kayit.ad || kayit.kod },
+        [...herkes.konular, ...kendi],
+        [...herkes.indirilebilir, ...(kayit.indirme !== false ? kendi : [])],
+      );
+    }
+    // Elinde artık geçmeyen bir kod var: giriş ekranı nedenini söyleyebilsin.
+    const sebep = kayit ? durum.sebep : "silindi";
+    return hakKur({ rol: "yok", sebep }, herkes.konular, herkes.indirilebilir);
   }
-  return { rol: "yok", sebep: "yok" };
+  return hakKur({ rol: "yok", sebep: null }, herkes.konular, herkes.indirilebilir);
 }
 
 // "/a/../sunum/x.pptx" gibi yolları nginx'in sunacağı hâle indirger; aksi
 // hâlde kapı başka bir yola bakarken nginx başka bir dosyayı verebilir.
 function yoluDuzle(yol) {
-  const yiginn = [];
+  const yigin = [];
   for (const parca of yol.split("/")) {
     if (!parca || parca === ".") continue;
-    if (parca === "..") yiginn.pop();
-    else yiginn.push(parca);
+    if (parca === "..") yigin.pop();
+    else yigin.push(parca);
   }
-  return `/${yiginn.join("/")}`;
+  return `/${yigin.join("/")}`;
+}
+
+// Kataloğa girmemiş bir dosya gerçekten yayında mı? Yoksa kapı geçirir ve
+// 404'ü nginx verir; varsa kapalı tutulur. Dizin okunamıyorsa "var" sayılır:
+// şüphede kapı kapalı kalır.
+function dosyaVarMi(duzYol) {
+  if (!KOK_HAZIR) return true;
+  try {
+    return statSync(join(KOK, duzYol)).isFile();
+  } catch (hata) {
+    return hata.code !== "ENOENT" && hata.code !== "ENOTDIR";
+  }
+}
+
+const uyarilanlar = new Set();
+function katalogdisi(duzYol) {
+  if (!uyarilanlar.has(duzYol)) {
+    uyarilanlar.add(duzYol);
+    console.warn(`[kapı] konular.js'te olmayan dosya kapalı tutuldu: ${duzYol}`);
+  }
 }
 
 // İstenen yol için karar: 204 geç, 401 giriş gerek, 403 yetki yok.
 function yolKarari(hamYol, hak) {
+  if (hamYol === null) return 403; // çözülemeyen yol: şüphede kapalı
+  const duz = yoluDuzle(hamYol);
   // nginx'in ~* eşleşmesi büyük/küçük harfe duyarsız; kapı daha gevşek davranıp
   // "/Mercekler.HTML" gibi bir yolu tanımaz duruma düşmemeli.
-  const yol = yoluDuzle(hamYol).toLowerCase();
+  const yol = duz.toLowerCase();
   const parcalar = yol.split("/").filter(Boolean);
   const dosya = parcalar[parcalar.length - 1] || "index.html";
 
-  if (yol === "/" || ACIK_SAYFALAR.has(dosya)) return 204;
+  if (parcalar.length <= 1 && (yol === "/" || ACIK_SAYFALAR.has(dosya))) return 204;
+  if (hak.rol === "yonetici") return 204;
 
-  if (dosya.endsWith(".html")) {
-    const slug = dosya.slice(0, -5);
-    if (!konuVarMi(slug)) return 204; // tanınmayan sayfa; 404'ü nginx versin
-    if (hak.rol === "yok") return 401;
-    return hak.konular.includes(slug) ? 204 : 403;
-  }
+  const reddet = hak.rol === "yok" ? 401 : 403;
 
   if (parcalar[0] === "sunum") {
-    if (hak.rol === "yok") return 401;
-    if (!hak.indirme) return 403;
-    if (dosya.endsWith(".zip")) {
-      // Toplu paket bütün desteleri taşır; ancak hepsi açıksa verilir.
-      return TUM_SLUGLAR.every((s) => hak.konular.includes(s)) ? 204 : 403;
-    }
-    const slug = dosya.replace(/\.pptx$/i, "");
-    if (!konuVarMi(slug)) return 204;
-    return hak.konular.includes(slug) ? 204 : 403;
+    if (parcalar.length === 2 && dosya.endsWith(".zip")) return hak.toplu ? 204 : reddet;
+    const slug = dosya.endsWith(".pptx") ? dosya.slice(0, -5) : "";
+    if (parcalar.length === 2 && konuVarMi(slug)) return hak.indirilebilir.includes(slug) ? 204 : reddet;
+  } else if (dosya.endsWith(".html")) {
+    const slug = dosya.slice(0, -5);
+    if (parcalar.length === 1 && konuVarMi(slug)) return hak.konular.includes(slug) ? 204 : reddet;
+  } else {
+    return 204; // korunan location'lar yalnızca .html ve /sunum/ için sorar
   }
 
-  return 204;
+  if (!dosyaVarMi(duz)) return 204;
+  katalogdisi(duz);
+  return reddet;
 }
 
 // -------------------------------------------------------------------- uçlar
@@ -270,45 +324,76 @@ function kodTemizle(ham) {
     .slice(0, 32);
 }
 
-async function kodKaydet(istek, cevap) {
+// Elle verilen kod: 6–32 karakter, harf/rakam ile başlayıp biter. Kısa bir kod
+// deneme sınırına rağmen tahmin edilebilir olurdu.
+const KOD_BICIMI = /^[A-Z0-9][A-Z0-9-]{4,30}[A-Z0-9]$/;
+
+// Panelden gelen alanları doğrular. "kismi" iken yalnızca gönderilen alanlar
+// döner (güncelleme), değilse eksikler varsayılanla dolar (yeni kod).
+function alanlariAyikla(veri, kismi) {
+  const alanlar = {};
+  const var_ = (ad) => Object.prototype.hasOwnProperty.call(veri, ad);
+
+  if (!kismi || var_("ad")) alanlar.ad = String(veri.ad || "").trim().slice(0, 80);
+  if (!kismi || var_("konular")) {
+    alanlar.konular = sirala(Array.isArray(veri.konular) ? veri.konular.filter(konuVarMi) : []);
+    if (alanlar.konular.length === 0) return { hata: "konu-yok" };
+  }
+  if (!kismi || var_("indirme")) alanlar.indirme = veri.indirme !== false;
+  if (!kismi || var_("etkin")) alanlar.etkin = veri.etkin !== false;
+  if (!kismi || var_("bitis")) {
+    const b = veri.bitis;
+    if (b === null || b === undefined || b === "") alanlar.bitis = null;
+    else if (/^\d{4}-\d{2}-\d{2}$/.test(b) && !Number.isNaN(new Date(`${b}T00:00:00`).valueOf())) alanlar.bitis = b;
+    else return { hata: "tarih" };
+  }
+  return { alanlar };
+}
+
+async function kodEkle(istek, cevap) {
   const veri = await govde(istek);
   if (!veri) return json(cevap, 400, { hata: "bicim" });
-
-  const konular = Array.isArray(veri.konular) ? veri.konular.filter(konuVarMi) : [];
-  const ad = String(veri.ad || "").trim().slice(0, 80);
-  const bitis = /^\d{4}-\d{2}-\d{2}$/.test(veri.bitis || "") ? veri.bitis : null;
-  const alanlar = {
-    ad,
-    konular,
-    indirme: veri.indirme !== false,
-    bitis,
-    etkin: veri.etkin !== false,
-  };
-
-  const mevcut = veri.kod ? depo.kodBul(veri.kod) : null;
-  if (mevcut) {
-    Object.assign(mevcut, alanlar);
-    depo.yaz();
-    return json(cevap, 200, { tamam: true, kod: mevcut.kod });
-  }
+  const { alanlar, hata } = alanlariAyikla(veri, false);
+  if (hata) return json(cevap, 400, { hata });
 
   let kod = kodTemizle(veri.kod);
   if (!kod) {
     do {
       kod = kodUret();
     } while (depo.kodBul(kod));
+  } else if (!KOD_BICIMI.test(kod)) {
+    return json(cevap, 400, { hata: "kod-gecersiz" });
   } else if (depo.kodBul(kod)) {
+    // Var olan kod sessizce ezilmesin: yeni kod oluşturmak güncellemek değildir.
     return json(cevap, 409, { hata: "kod-var" });
   }
 
-  depo.kodEkle({
-    kod,
-    ...alanlar,
-    olusturma: new Date().toISOString(),
-    sonGiris: null,
-    girisSayisi: 0,
-  });
-  json(cevap, 200, { tamam: true, kod });
+  const kayit = { kod, ...alanlar, olusturma: new Date().toISOString(), sonGiris: null, girisSayisi: 0 };
+  depo.kodEkle(kayit);
+  json(cevap, 200, { tamam: true, kayit });
+}
+
+async function kodGuncelle(istek, cevap) {
+  const veri = await govde(istek);
+  if (!veri) return json(cevap, 400, { hata: "bicim" });
+  const kayit = depo.kodBul(veri.kod);
+  if (!kayit) return json(cevap, 404, { hata: "kod-yok" });
+  const { alanlar, hata } = alanlariAyikla(veri, true);
+  if (hata) return json(cevap, 400, { hata });
+  Object.assign(kayit, alanlar);
+  depo.yaz();
+  json(cevap, 200, { tamam: true, kayit });
+}
+
+async function herkeseAcikKaydet(istek, cevap) {
+  const veri = await govde(istek);
+  if (!veri) return json(cevap, 400, { hata: "bicim" });
+  depo.veri.herkeseAcik = {
+    konular: sirala(Array.isArray(veri.konular) ? veri.konular.filter(konuVarMi) : []),
+    indirme: veri.indirme === true,
+  };
+  depo.yaz();
+  json(cevap, 200, { tamam: true, herkeseAcik: depo.veri.herkeseAcik });
 }
 
 async function parolaDegistir(istek, cevap) {
@@ -323,83 +408,126 @@ async function parolaDegistir(istek, cevap) {
   json(cevap, 200, { tamam: true });
 }
 
+// Ana sayfa ve konu sayfaları neyi kilitli göstereceğini buradan öğrenir.
+// Yönetici ?onizleme=herkes ya da ?onizleme=KOD ile başkasının gözünden bakar.
+function durumCevabi(yuk, istenen) {
+  let hak = erisim(yuk);
+  let onizleme = null;
+  if (istenen && yuk?.tip === "yonetici") {
+    if (istenen === "herkes") {
+      hak = erisim(null);
+      onizleme = { tur: "herkes" };
+    } else {
+      const kayit = depo.kodBul(istenen);
+      if (kayit) {
+        hak = erisim({ tip: "ogrenci", kod: kayit.kod });
+        onizleme = { tur: "kod", kod: kayit.kod, ad: kayit.ad || kayit.kod, sebep: kodDurumu(kayit).sebep || null };
+      }
+    }
+  }
+  return {
+    rol: hak.rol,
+    ad: hak.ad || null,
+    kod: hak.kod || null,
+    konular: hak.konular,
+    indirilebilir: hak.indirilebilir,
+    toplu: hak.toplu,
+    herkeseAcik: herkesinHakki().konular,
+    sebep: hak.sebep || null,
+    onizleme,
+  };
+}
+
 // ------------------------------------------------------------------ yönlendirme
 
-const sunucu = createServer(async (istek, cevap) => {
-  let yol;
+async function yonlendir(istek, cevap) {
+  let adres;
   try {
-    yol = new URL(istek.url, "http://kapi").pathname;
+    adres = new URL(istek.url, "http://kapi");
   } catch {
     return bos(cevap, 400);
   }
+  const yol = adres.pathname;
   const yontem = istek.method || "GET";
-  const yuk = oturum(istek);
 
   if (yontem === "POST" && !ayniKokenMi(istek)) {
     return json(cevap, 403, { hata: "koken" });
   }
 
-  try {
-    // nginx auth_request buraya sorar; gövde ve yanıt gövdesi yoktur.
-    if (yol === "/yetki") {
-      const ozgun = String(istek.headers["x-ozgun-uri"] || "/");
-      let hedef;
-      try {
-        hedef = decodeURIComponent(new URL(ozgun, "http://kapi").pathname);
-      } catch {
-        hedef = "/";
-      }
-      return bos(cevap, yolKarari(hedef, erisim(yuk)));
-    }
+  const yuk = oturum(istek);
 
-    // Ana sayfanın hangi konuları kilitli göstereceğini buradan öğrenir.
-    if (yol === "/durum") {
-      const hak = erisim(yuk);
+  // nginx auth_request buraya sorar; gövde ve yanıt gövdesi yoktur.
+  if (yol === "/yetki") {
+    const ozgun = String(istek.headers["x-ozgun-uri"] || "/");
+    let hedef;
+    try {
+      hedef = decodeURIComponent(new URL(ozgun, "http://kapi").pathname);
+    } catch {
+      hedef = null;
+    }
+    return bos(cevap, yolKarari(hedef, erisim(yuk)));
+  }
+
+  if (yol === "/durum") return json(cevap, 200, durumCevabi(yuk, adres.searchParams.get("onizleme")));
+
+  if (yol === "/giris") {
+    if (yontem === "POST") return ogrenciGirisi(istek, cevap);
+    return html(cevap, SAYFALAR.giris);
+  }
+
+  if (yol === "/cikis") {
+    cevap.writeHead(302, { location: "/", "set-cookie": cerezSil(), "cache-control": "no-store" });
+    return cevap.end();
+  }
+
+  if (yol === "/yonetim" || yol === "/yonetim/") return html(cevap, SAYFALAR.yonetim);
+
+  if (yol === "/yonetim/qrcode.js") {
+    cevap.writeHead(200, {
+      "content-type": "text/javascript; charset=utf-8",
+      "cache-control": "public, max-age=86400",
+    });
+    return cevap.end(SAYFALAR.qrcode);
+  }
+
+  if (yol === "/yonetim/giris" && yontem === "POST") return yoneticiGirisi(istek, cevap);
+
+  if (yol === "/yonetim/cikis" && yontem === "POST") {
+    return json(cevap, 200, { tamam: true }, cerezSil());
+  }
+
+  // Buradan sonrası yalnızca yöneticiye.
+  if (yol.startsWith("/yonetim/")) {
+    if (yuk?.tip !== "yonetici") return json(cevap, 401, { hata: "yetki" });
+
+    if (yol === "/yonetim/veri" && yontem === "GET") {
       return json(cevap, 200, {
-        rol: hak.rol,
-        ad: hak.ad || null,
-        kod: hak.kod || null,
-        konular: hak.konular || [],
-        indirme: Boolean(hak.indirme),
-        toplu: Boolean(hak.indirme) && TUM_SLUGLAR.every((s) => (hak.konular || []).includes(s)),
+        uniteler: UNITELER,
+        kodlar: depo.veri.kodlar,
+        herkeseAcik: { konular: herkesinHakki().konular, indirme: depo.veri.herkeseAcik?.indirme === true },
       });
     }
-
-    if (yol === "/giris") {
-      if (yontem === "POST") return ogrenciGirisi(istek, cevap);
-      return html(cevap, SAYFALAR.giris);
-    }
-
-    if (yol === "/cikis") {
-      cevap.writeHead(302, { location: "/", "set-cookie": cerezSil(), "cache-control": "no-store" });
-      return cevap.end();
-    }
-
-    if (yol === "/yonetim" || yol === "/yonetim/") return html(cevap, SAYFALAR.yonetim);
-
-    if (yol === "/yonetim/giris" && yontem === "POST") return yoneticiGirisi(istek, cevap);
-
-    if (yol === "/yonetim/cikis" && yontem === "POST") {
-      return json(cevap, 200, { tamam: true }, cerezSil());
-    }
-
-    // Buradan sonrası yalnızca yöneticiye.
-    if (yol.startsWith("/yonetim/")) {
-      if (yuk?.tip !== "yonetici") return json(cevap, 401, { hata: "yetki" });
-
-      if (yol === "/yonetim/veri" && yontem === "GET") {
-        return json(cevap, 200, { uniteler: UNITELER, kodlar: depo.veri.kodlar });
-      }
-      if (yol === "/yonetim/kod" && yontem === "POST") return kodKaydet(istek, cevap);
-      if (yol === "/yonetim/kod-sil" && yontem === "POST") {
+    if (yontem === "POST") {
+      if (yol === "/yonetim/kod") return kodEkle(istek, cevap);
+      if (yol === "/yonetim/kod-guncelle") return kodGuncelle(istek, cevap);
+      if (yol === "/yonetim/kod-sil") {
         const veri = await govde(istek);
         return json(cevap, 200, { tamam: depo.kodSil(kodTemizle(veri?.kod)) });
       }
-      if (yol === "/yonetim/parola" && yontem === "POST") return parolaDegistir(istek, cevap);
-      return json(cevap, 404, { hata: "yok" });
+      if (yol === "/yonetim/herkese-acik") return herkeseAcikKaydet(istek, cevap);
+      if (yol === "/yonetim/parola") return parolaDegistir(istek, cevap);
     }
+    return json(cevap, 404, { hata: "yok" });
+  }
 
-    bos(cevap, 404);
+  bos(cevap, 404);
+}
+
+// Bütün istek tek bir try içinde: bir istekteki beklenmedik hata yalnızca o
+// isteği 500'e düşürür, süreci değil.
+const sunucu = createServer(async (istek, cevap) => {
+  try {
+    await yonlendir(istek, cevap);
   } catch (hata) {
     console.error("[kapı] istek hatası:", hata.message);
     if (!cevap.headersSent) bos(cevap, 500);
@@ -407,8 +535,16 @@ const sunucu = createServer(async (istek, cevap) => {
   }
 });
 
+// Son emniyet: gözden kaçan bir söz reddi süreci düşürmesin, günlüğe düşsün.
+process.on("unhandledRejection", (hata) => {
+  console.error("[kapı] yakalanmamış hata:", hata?.stack || hata);
+});
+
 sunucu.listen(PORT, () => {
-  console.log(`[kapı] ${PORT} portunda; veri: ${VERI_YOLU}; ${depo.veri.kodlar.length} ders kodu`);
+  console.log(`[kapı] ${PORT} portunda; veri: ${VERI_YOLU}; kök: ${KOK}; ${depo.veri.kodlar.length} ders kodu`);
+  if (!KOK_HAZIR) {
+    console.warn(`[kapı] UYARI: ${KOK}/index.html okunamıyor; kataloğa girmemiş her dosya kapalı tutulacak`);
+  }
 });
 
 for (const isaret of ["SIGTERM", "SIGINT"]) {

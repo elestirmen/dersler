@@ -21,12 +21,14 @@
         --bg: #f4f5f9;
         --surface: #ffffff;
         --surface-2: #f8f9fc;
+        --surface-3: #eef1f7;
         --line: #e1e5ee;
         --ink: #0e1426;
         --muted: #4a5470;
         --dim: #7b849e;
         --rose: #c53455;
         --lime: #3c8c21;
+        --amber: #a56209;
         --primary: #0e1426;
         --primary-hover: #1c2542;
         --primary-ink: #ffffff;
@@ -40,12 +42,14 @@
         --bg: #0a0e1b;
         --surface: #121829;
         --surface-2: #0e1324;
+        --surface-3: #192038;
         --line: rgba(164, 178, 220, 0.15);
         --ink: #f2f5ff;
         --muted: #a5aec8;
         --dim: #6f7994;
         --rose: #ff8098;
         --lime: #9ee06a;
+        --amber: #f0b45c;
         --primary: #b9ee63;
         --primary-hover: #a9e648;
         --primary-ink: #16260a;
@@ -55,6 +59,8 @@
       }
 
       * { box-sizing: border-box; }
+
+      [hidden] { display: none !important; }
 
       body {
         margin: 0;
@@ -71,33 +77,19 @@
       .kart {
         width: 100%;
         max-width: 440px;
-        padding: 36px 32px 30px;
+        padding: 36px 32px 28px;
         border: 1px solid var(--line);
         border-radius: 26px;
         background: var(--surface);
         box-shadow: var(--shadow-lg), var(--edge);
       }
 
-      .marka {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-        color: var(--muted);
-      }
-
+      .marka { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; color: var(--muted); text-decoration: none; }
       .marka svg { width: 26px; height: 26px; color: var(--ink); }
 
-      h1 {
-        margin: 22px 0 8px;
-        font-family: var(--font-display);
-        font-size: 1.9rem;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-      }
+      h1 { margin: 22px 0 8px; font-family: var(--font-display); font-size: 1.9rem; font-weight: 600; letter-spacing: -0.02em; }
 
-      p.aciklama { margin: 0 0 24px; color: var(--muted); line-height: 1.6; font-size: 0.95rem; }
+      p.aciklama { margin: 0 0 22px; color: var(--muted); line-height: 1.6; font-size: 0.95rem; }
 
       label { display: block; margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; color: var(--muted); }
 
@@ -118,54 +110,98 @@
       }
 
       input::placeholder { font-family: var(--font-sans); letter-spacing: 0; text-transform: none; color: var(--dim); }
-
       input:focus { outline: none; border-color: color-mix(in srgb, var(--ink) 40%, var(--line)); box-shadow: var(--shadow); }
 
-      button {
+      .dugme {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         width: 100%;
-        min-height: 54px;
-        margin-top: 16px;
-        border: 0;
+        min-height: 52px;
+        padding: 0 18px;
+        border: 1px solid transparent;
         border-radius: 16px;
         background: var(--primary);
         color: var(--primary-ink);
         font: inherit;
         font-weight: 650;
         font-size: 1rem;
+        text-decoration: none;
         cursor: pointer;
         transition: background 160ms ease, transform 160ms ease;
       }
 
-      button:hover { background: var(--primary-hover); }
-      button:active { transform: translateY(1px); }
-      button[disabled] { opacity: 0.6; cursor: progress; }
+      .dugme:hover { background: var(--primary-hover); }
+      .dugme:active { transform: translateY(1px); }
+      .dugme[disabled] { opacity: 0.6; cursor: progress; }
 
-      .uyari {
+      .dugme.ikincil { border-color: var(--line); background: var(--surface-2); color: var(--ink); }
+      .dugme.ikincil:hover { background: var(--surface-3); }
+
+      form .dugme { margin-top: 16px; }
+
+      .dugmeler { display: grid; gap: 10px; margin-top: 18px; }
+      .dugmeler.yan { grid-template-columns: 1fr 1fr; }
+
+      .kutu {
         margin: 0 0 18px;
-        padding: 12px 14px;
-        border: 1px solid color-mix(in srgb, var(--rose) 35%, var(--line));
+        padding: 13px 15px;
+        border: 1px solid var(--line);
         border-radius: 14px;
-        background: color-mix(in srgb, var(--rose) 8%, var(--surface));
-        color: var(--rose);
-        font-size: 0.9rem;
-        line-height: 1.5;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.55;
       }
 
-      .uyari[hidden] { display: none; }
+      .kutu b { color: var(--ink); font-weight: 650; }
+
+      .kutu.uyari {
+        border-color: color-mix(in srgb, var(--rose) 35%, var(--line));
+        background: color-mix(in srgb, var(--rose) 8%, var(--surface));
+        color: var(--rose);
+      }
+
+      .kutu.uyari b { color: inherit; }
+
+      .kutu.tamam {
+        border-color: color-mix(in srgb, var(--lime) 40%, var(--line));
+        background: color-mix(in srgb, var(--lime) 9%, var(--surface));
+      }
+
+      .durum-satiri { display: flex; align-items: center; gap: 12px; }
+
+      .rozet {
+        flex: none;
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--lime) 16%, var(--surface));
+        color: var(--lime);
+      }
+
+      .rozet svg { width: 20px; height: 20px; }
+
+      .ipucu { margin: 18px 0 0; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
+      .ipucu a { color: var(--ink); font-weight: 650; }
 
       .alt {
-        margin: 24px 0 0;
-        padding-top: 18px;
+        margin: 22px 0 0;
+        padding-top: 16px;
         border-top: 1px solid var(--line);
         display: flex;
         justify-content: space-between;
         gap: 12px;
         font-size: 0.85rem;
-        color: var(--dim);
       }
 
       .alt a { color: var(--muted); text-decoration: none; font-weight: 600; }
       .alt a:hover { color: var(--ink); text-decoration: underline; }
+
+      .baglanti { color: inherit; font-weight: 650; }
     </style>
     <script>
       /* tema, boya öncesinde uygulansın: varsayılan açık */
@@ -178,24 +214,54 @@
   </head>
   <body>
     <main class="kart">
-      <div class="marka">
+      <a class="marka" href="/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M3 6.5C6.5 4.5 9.5 4.5 12 6.5c2.5-2 5.5-2 9-0V18c-3.5-2-6.5-2-9 0-2.5-2-5.5-2-9 0V6.5Z" />
           <path d="M12 6.5V18" opacity=".5" />
         </svg>
         Dersler
-      </div>
+      </a>
 
-      <h1>Derse giriş</h1>
-      <p class="aciklama">Öğretmeninizin verdiği ders kodunu yazın. Kod, bu tarayıcıda açık kalır; her seferinde yeniden girmeniz gerekmez.</p>
+      <h1 id="baslik">Derse giriş</h1>
+      <p class="aciklama" id="aciklama">Öğretmeninizin verdiği ders kodunu yazın. Kod bu tarayıcıda açık kalır; her seferinde yeniden girmeniz gerekmez.</p>
 
-      <p class="uyari" id="uyari" role="alert" hidden></p>
+      <p class="kutu uyari" id="uyari" role="alert" hidden></p>
+
+      <!-- zaten girişliyken -->
+      <section id="oturum" hidden>
+        <div class="kutu">
+          <div class="durum-satiri">
+            <span class="rozet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17.5 19 7" /></svg>
+            </span>
+            <span id="oturum-metin"></span>
+          </div>
+        </div>
+        <div class="dugmeler">
+          <a class="dugme" id="oturum-devam" href="/">Derslere dön</a>
+        </div>
+        <div class="dugmeler yan">
+          <button class="dugme ikincil" type="button" id="baska-kod">Başka kod gir</button>
+          <a class="dugme ikincil" href="/cikis" id="oturum-cikis">Çıkış yap</a>
+        </div>
+      </section>
+
+      <!-- sunum bağlantısından gelip giriş yapınca -->
+      <section id="basari" hidden>
+        <div class="kutu tamam" id="basari-metin"></div>
+        <div class="dugmeler">
+          <a class="dugme" href="/">Ana sayfaya git</a>
+        </div>
+        <p class="ipucu">İndirme başlamadıysa <a id="basari-bag" href="/">buraya tıklayın</a>.</p>
+      </section>
 
       <form id="form" novalidate>
         <label for="kod">Ders kodu</label>
         <input id="kod" name="kod" placeholder="örn. DRS-K7M2PX" autocomplete="off" autocapitalize="characters" spellcheck="false" required />
-        <button type="submit" id="dugme">Derse gir</button>
+        <button class="dugme" type="submit" id="dugme">Derse gir</button>
       </form>
+
+      <p class="ipucu" id="acik-ipucu" hidden></p>
 
       <p class="alt">
         <a href="/">Ana sayfa</a>
@@ -209,39 +275,132 @@
         var alan = document.getElementById("kod");
         var dugme = document.getElementById("dugme");
         var uyari = document.getElementById("uyari");
+        var oturum = document.getElementById("oturum");
+        var basari = document.getElementById("basari");
 
         var METIN = {
           yok: "Bu kod tanınmadı. Harfleri ve çizgiyi olduğu gibi yazdığınızdan emin olun.",
           kapali: "Bu kod öğretmen tarafından kapatılmış.",
           "suresi-doldu": "Bu kodun süresi dolmuş. Öğretmeninizden yeni bir kod isteyin.",
           "cok-deneme": "Çok fazla deneme yapıldı. Birkaç dakika sonra tekrar deneyin.",
-          yetkisiz: "Bu sayfa girdiğiniz koda açık değil. Başka bir kodunuz varsa onu deneyin.",
           ag: "Bağlantı kurulamadı. İnternetinizi kontrol edip tekrar deneyin.",
         };
 
-        function goster(anahtar) {
-          uyari.textContent = METIN[anahtar] || METIN.yok;
-          uyari.hidden = false;
+        /* Elde geçmeyen bir kod varken (çerez duruyor) kapının söylediği neden */
+        var ELDEKI = {
+          "suresi-doldu": "Kodunuzun süresi doldu. Öğretmeninizden yeni bir kod isteyin.",
+          kapali: "Kodunuz öğretmen tarafından kapatıldı.",
+          silindi: "Kodunuz artık geçerli değil. Öğretmeninizden yeni bir kod isteyin.",
+        };
+
+        function uyar(metin) {
+          uyari.textContent = metin;
+          uyari.hidden = !metin;
+        }
+
+        /* Sınıf adı öğretmenin yazdığı serbest metin: metin olarak yerleşir. */
+        function yaz(kap, parcalar) {
+          kap.textContent = "";
+          parcalar.forEach(function (p) {
+            if (p.kalin) {
+              var b = document.createElement("b");
+              b.textContent = p.metin;
+              kap.append(b);
+            } else {
+              kap.append(document.createTextNode(p.metin));
+            }
+          });
         }
 
         var sorgu = new URLSearchParams(location.search);
 
         /* Yalnızca bu sitedeki bir yola dönülür; dışarıya yönlendirme olmaz. */
         var hedef = sorgu.get("hedef") || "/";
-        if (!/^\/[^/\\]/.test(hedef) && hedef !== "/") hedef = "/";
+        if (hedef !== "/" && !/^\/[^/\\]/.test(hedef)) hedef = "/";
+        if (/^\/giris(\?|$)/.test(hedef)) hedef = "/";
+        var sunumHedefi = /^\/sunum\//.test(hedef);
 
         if (sorgu.get("kod")) alan.value = sorgu.get("kod").toUpperCase();
-        if (sorgu.get("durum") === "yetkisiz") goster("yetkisiz");
-        if (!alan.value) alan.focus();
 
+        function formuGoster() {
+          oturum.hidden = true;
+          form.hidden = false;
+          alan.focus();
+          alan.select();
+        }
+
+        document.getElementById("baska-kod").addEventListener("click", formuGoster);
+
+        /* ---- açılışta: ziyaretçi zaten girişli mi, elinde geçmeyen kod mu var ---- */
+        fetch("/durum", { headers: { accept: "application/json" } })
+          .then(function (c) { return c.ok ? c.json() : null; })
+          .then(function (d) {
+            if (!d) return;
+            var yetkisiz = sorgu.get("durum") === "yetkisiz";
+
+            if (d.rol === "ogrenci" || d.rol === "yonetici") {
+              var n = (d.konular || []).length;
+              yaz(document.getElementById("oturum-metin"), d.rol === "yonetici"
+                ? [{ metin: "Yönetici", kalin: true }, { metin: " olarak girişlisiniz; bütün konular açık." }]
+                : [{ metin: "Şu an " }, { metin: d.ad || d.kod, kalin: true }, { metin: " koduyla girişlisiniz · " + n + " konu açık." }]);
+
+              document.getElementById("baslik").textContent = "Oturumunuz açık";
+              document.getElementById("aciklama").textContent = d.rol === "yonetici"
+                ? "Bir öğrenci kodu girerseniz yönetici oturumu kapanır."
+                : "Başka bir sınıfın kodunu girerseniz o koda geçersiniz.";
+
+              var devam = document.getElementById("oturum-devam");
+              if (d.rol === "yonetici") {
+                devam.textContent = "Yönetime git";
+                devam.href = "/yonetim";
+              } else if (!yetkisiz && hedef !== "/" && !sunumHedefi) {
+                devam.href = hedef;
+              }
+
+              if (yetkisiz) {
+                uyar(sunumHedefi
+                  ? "Bu sunum kodunuzla indirilemiyor. İndirme izni olan başka bir kodunuz varsa girin."
+                  : "Bu konu kodunuza açık değil. Başka bir kodunuz varsa girin.");
+                oturum.hidden = false;
+                form.hidden = false;
+                alan.focus();
+              } else {
+                oturum.hidden = false;
+                form.hidden = true;
+              }
+              return;
+            }
+
+            if (ELDEKI[d.sebep]) uyar(ELDEKI[d.sebep]);
+
+            var acik = (d.herkeseAcik || []).length;
+            if (acik > 0) {
+              var ipucu = document.getElementById("acik-ipucu");
+              ipucu.textContent = "Kodunuz yoksa da " + acik + " konuya bakabilirsiniz: ";
+              var a = document.createElement("a");
+              a.href = "/";
+              a.textContent = "ana sayfaya git";
+              ipucu.append(a, document.createTextNode("."));
+              ipucu.hidden = false;
+            }
+            if (!alan.value) alan.focus();
+          })
+          .catch(function () { if (!alan.value) alan.focus(); });
+
+        /* ---- kod gönderme ---- */
         form.addEventListener("submit", function (olay) {
           olay.preventDefault();
           var kod = alan.value.trim().toUpperCase();
           if (!kod) return alan.focus();
 
-          uyari.hidden = true;
+          uyar("");
           dugme.disabled = true;
           dugme.textContent = "Kontrol ediliyor…";
+
+          function geriAl() {
+            dugme.disabled = false;
+            dugme.textContent = "Derse gir";
+          }
 
           fetch("/giris", {
             method: "POST",
@@ -250,16 +409,34 @@
           })
             .then(function (c) { return c.json().then(function (v) { return { ok: c.ok, veri: v }; }); })
             .then(function (s) {
-              if (s.ok) { location.href = hedef; return; }
-              goster(s.veri && s.veri.hata);
-              dugme.disabled = false;
-              dugme.textContent = "Derse gir";
-              alan.select();
+              if (!s.ok) {
+                uyar(METIN[s.veri && s.veri.hata] || METIN.yok);
+                geriAl();
+                alan.select();
+                return;
+              }
+              if (!sunumHedefi) {
+                location.href = hedef;
+                return;
+              }
+              /* Sunum indirmesi sayfadan ayrılmaz; öğrenci "Kontrol ediliyor…"
+                 ekranında takılı kalmasın, ne olduğunu görsün. */
+              form.hidden = true;
+              oturum.hidden = true;
+              document.getElementById("acik-ipucu").hidden = true;
+              document.getElementById("baslik").textContent = "Giriş yapıldı";
+              document.getElementById("aciklama").hidden = true;
+              yaz(document.getElementById("basari-metin"), [
+                { metin: s.veri.ad || kod, kalin: true },
+                { metin: " koduyla girdiniz. Sunumun indirilmesi başladı." },
+              ]);
+              document.getElementById("basari-bag").href = hedef;
+              basari.hidden = false;
+              location.href = hedef;
             })
             .catch(function () {
-              goster("ag");
-              dugme.disabled = false;
-              dugme.textContent = "Derse gir";
+              uyar(METIN.ag);
+              geriAl();
             });
         });
       })();

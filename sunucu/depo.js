@@ -7,12 +7,17 @@ import { randomBytes } from "node:crypto";
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
-const BOS = {
-  surum: 1,
-  gizliAnahtar: "",
-  yoneticiParolaOzeti: "",
-  kodlar: [],
-};
+// Her çağrıda taze nesne: varsayılanlar paylaşılıp yanlışlıkla değişmesin.
+function bos() {
+  return {
+    surum: 1,
+    gizliAnahtar: "",
+    yoneticiParolaOzeti: "",
+    // Kod gerekmeden herkesin gördüğü konular; indirme ayrı bir izin.
+    herkeseAcik: { konular: [], indirme: false },
+    kodlar: [],
+  };
+}
 
 export class Depo {
   constructor(yol) {
@@ -21,15 +26,22 @@ export class Depo {
   }
 
   #oku() {
+    let ham;
     try {
-      const ham = JSON.parse(readFileSync(this.yol, "utf8"));
-      return { ...BOS, ...ham, kodlar: Array.isArray(ham.kodlar) ? ham.kodlar : [] };
+      ham = JSON.parse(readFileSync(this.yol, "utf8"));
     } catch (hata) {
       if (hata.code !== "ENOENT") {
         throw new Error(`Veri dosyası okunamadı (${this.yol}): ${hata.message}`);
       }
-      return structuredClone(BOS);
+      return bos();
     }
+    const varsayilan = bos();
+    return {
+      ...varsayilan,
+      ...ham,
+      herkeseAcik: { ...varsayilan.herkeseAcik, ...(ham.herkeseAcik || {}) },
+      kodlar: Array.isArray(ham.kodlar) ? ham.kodlar : [],
+    };
   }
 
   yaz() {

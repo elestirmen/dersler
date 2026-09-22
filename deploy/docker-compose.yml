@@ -47,12 +47,16 @@ services:
     environment:
       KAPI_PORT: "8080"
       KAPI_VERI: /veri/veri.json
+      # Kataloğa (konular.js) girmemiş bir dosya gerçekten var mı diye bakmak için;
+      # varsa kapalı tutulur, yoksa 404'ü nginx verir.
+      KAPI_KOK: /dist
       TZ: Europe/Istanbul
     expose:
       - "8080"
     volumes:
       - /opt/dersler/sunucu:/uygulama:ro
       - /opt/dersler/veri:/veri
+      - /opt/dersler/dist:/dist:ro
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/durum || exit 1"]
       interval: 30s

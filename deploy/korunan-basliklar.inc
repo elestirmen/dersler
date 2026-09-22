@@ -3,8 +3,8 @@
 # Site Cloudflare üzerinden yayınlanıyor ve Cloudflare .pptx/.zip gibi uzantıları
 # uzantısına bakarak kendiliğinden önbelleğe alır. Yetkili bir öğrencinin indirdiği
 # deste kenarda saklanıp sonraki anonim isteğe verilebilir — kapı bu noktada
-# tamamen devre dışı kalır. "private, no-store" bunu keser: yanıtı yalnızca isteği
-# yapan tarayıcı görür, ne CDN ne de vekil saklar.
+# tamamen devre dışı kalır. "private" bunu keser: yanıtı yalnızca isteği yapan
+# tarayıcı saklayabilir, ne CDN ne de vekil.
 #
 # "no-store" yerine "private, no-cache": ikisi de paylaşımlı önbelleği yasaklar,
 # ama no-store tarayıcının geri/ileri önbelleğini (bfcache) de kapatır ve konu

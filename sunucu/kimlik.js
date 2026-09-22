@@ -34,13 +34,19 @@ export function coz(jeton, anahtar) {
   }
 }
 
+// Bozuk yüzde kodlaması (ör. "%E0%A4%A") decodeURIComponent'ı patlatır; tek bir
+// kötü başlık süreci düşürmesin diye o değer yok sayılır.
 export function cerezleriAyristir(baslik) {
   const sonuc = {};
-  if (!baslik) return sonuc;
+  if (typeof baslik !== "string" || !baslik) return sonuc;
   for (const parca of baslik.split(";")) {
     const i = parca.indexOf("=");
     if (i < 0) continue;
-    sonuc[parca.slice(0, i).trim()] = decodeURIComponent(parca.slice(i + 1).trim());
+    try {
+      sonuc[parca.slice(0, i).trim()] = decodeURIComponent(parca.slice(i + 1).trim());
+    } catch {
+      /* bozuk değer: yok say */
+    }
   }
   return sonuc;
 }

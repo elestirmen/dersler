@@ -413,9 +413,34 @@ sürükleme kapatılır ki sayfa parmakla kaydırılabilsin. Bölüm özet cüml
 etiketle sunulur.
 
 Çizim düzeni de ortaktır: ok etiketleri okun ucunun hemen ötesine hizalanır
-(gövdenin üstüne binmez), grafiklerde eksen adı son değer etiketiyle çakışmaz,
-sürükleme ipucu sahneyi kapatmayacak köşeye yerleşir ve dar ekranlarda uzun
-rozetler kısalır.
+(gövdenin üstüne binmez), grafiklerde eksen sayıları hem sağdaki eksen adıyla hem
+soldaki eğri adlarıyla çakışınca atlanır, sürükleme ipucu sahneyi kapatmayacak
+köşeye yerleşir ve dar ekranlarda uzun rozetler kısalır. Etiketler, üstlerinden
+geçebilecek oklardan ve ışınlardan sonra çizilir; bir etiket dar tuvalde başka
+bir etiketle ya da rozetle çakışacaksa yer değiştirir (ör. aynaya çok yaklaşan
+cismin ölçüleri aynanın iki yanına ayrılır).
+
+Animasyon altyapısı on sekiz sayfada birebir aynıdır (`kit`, tek
+`requestAnimationFrame` döngüsü, `surukle`):
+
+- Döngü gerçek geçen süreyle ilerler, kare hızından bağımsızdır; kare başına 50 ms
+  ile sınırlanır, sekmeye dönünce sahne sıçramaz. Oynayan bir şey yokken durur.
+- **Ekrandan çıkan deney bekler.** Hangi deneyin hangi bölüme çizdiği ilk karesinde
+  tuvalinden öğrenilir; bölüm tamamen görünmez olunca o deney çağrılmaz, zamanı da
+  ilerlemez, geri gelince kaldığı yerden sürer. "Durdur"a basılana kadar dönen
+  sahneler eskiden başka bölüme geçilince de görünmeyen tuvale çiziyordu.
+- **Bir deneydeki hata yalnızca onu durdurur.** Hata konsola yazılır, öteki
+  deneyler çalışmayı sürdürür; eskiden tek bir hata sayfadaki bütün deneyleri
+  yenilenene kadar donduruyordu.
+- Tuval yalnızca genişlik, yükseklik ya da piksel yoğunluğu gerçekten değişince
+  yeniden kurulur. Mobilde adres çubuğu açılıp kapandıkça gelen, yerleşimi
+  değiştirmeyen `resize` olayları eskiden sitedeki 91 tuvalin hepsini sıfırlatıp
+  yeniden çizdiriyordu. Tema değişince tuvaller yine yeni renklerle çizilir.
+
+Hızlı testte cevaptan sonra odak açıklamaya taşınır ve sonuç ("Doğru." ya da
+"Yanlış; doğru cevap C.") ekran okuyucu için metin olarak da yazılır; bitiş cümlesi
+canlı bölgedir. Ana sayfanın arka planındaki atış yaylarının kenar sönümü tuvale
+her karede ikinci bir geçiş olarak değil, CSS maskesi olarak uygulanır.
 
 ## Yapı
 
@@ -441,6 +466,7 @@ dist/                        yayınlanan kök (nginx bunu sunar)
   prizmalar.html             3. ünite · konu 07 · prizmalar
   mercekler.html             3. ünite · konu 08 · mercekler
   404.html                   özel hata sayfası (nginx error_page)
+  erisim.js                  erişim arayüzü: kilitler, indirme düğmeleri (her sayfada)
   favicon.svg, icon-*.png    site simgesi; apple-touch-icon.png ve maskable ikon
   og.png                     paylaşım kartı görseli (1200×630)
   manifest.webmanifest       ana ekrana ekleme
@@ -462,15 +488,16 @@ sunucu/                      erişim kapısı (Node, bağımlılıksız)
   kimlik.js                  imzalı çerez, scrypt parola, deneme sınırı
   depo.js                    veri.json okuma/atomik yazma, kod üretimi
   konular.js                 kapının tanıdığı konu kataloğu
-  sayfa/giris.html           öğrencinin kod girdiği ekran
-  sayfa/yonetim.html         ders kodu paneli
+  sayfa/giris.html           öğrencinin kod girdiği ekran ve oturum durumu
+  sayfa/yonetim.html         yönetim paneli: herkese açık konular, ders kodları
+  sayfa/qrcode.js            QR üreticisi (qrcode-generator 2.0.4, MIT, değiştirilmeden)
 veri/                        kapının verisi (depoda değil, sunucuda durur)
   veri.json                  ders kodları, çerez anahtarı, parola özeti
 deploy/
   docker-compose.yml         nginx:alpine + node:22-alpine kapı, dist/ salt-okunur bağlı
   nginx.conf                 statik sunum, auth_request ile erişim denetimi, 404 sayfası
   guvenlik-basliklar.inc     her yanıtta bulunan güvenlik başlıkları
-  korunan-basliklar.inc      kod arkasındaki yollar: private, no-store + noindex
+  korunan-basliklar.inc      kod arkasındaki yollar: private, no-cache + noindex
   kapi-basliklar.inc         kapıya giden isteklerin ortak başlıkları
   yayina-al.sh               Cloudflare CNAME + NPM proxy host + Let's Encrypt
   onbellek-temizle.sh        korunan adresleri Cloudflare kenar önbelleğinden düşürür
@@ -488,22 +515,42 @@ yeniler, başka hiçbir şeye dokunmaz. Konu sayfalarına özel bir stil gerekir
 ilgili sayfanın kendi bloğuna değil, `konu.css` içine yazılmalıdır; aksi hâlde
 bir sonraki uygulamada silinir.
 
-## Erişim: ders kodları
+## Erişim: herkese açık konular ve ders kodları
 
-Ana sayfa herkese açıktır; **konu sayfaları ve sunumlar ders koduyla** açılır.
-Kod bir öğrenciye değil bir sınıfa karşılık gelir ve üç şeyi taşır: hangi
-konuların açık olduğu, sunumların indirilip indirilemeyeceği, son geçerlilik
-günü.
+Ana sayfa herkese açıktır. Konu sayfaları ve sunumlar için iki yol var:
+
+- **Herkese açık konular:** öğretmenin seçtiği konuları kod girmeden herkes
+  görür; bu konuların sunumlarının herkesçe indirilip indirilemeyeceği ayrı bir
+  ayardır. Arama motorlarına yine kapalı kalırlar.
+- **Ders kodları:** geri kalan konular ders koduyla açılır. Kod bir öğrenciye
+  değil bir sınıfa karşılık gelir ve üç şeyi taşır: hangi konuların açık olduğu,
+  sunumların indirilip indirilemeyeceği, son geçerlilik günü.
+
+Bir öğrencinin gördüğü, ikisinin birleşimidir.
 
 Denetim tarayıcıda değil sunucuda yapılır. nginx her korunan istek için
 `auth_request` ile kapıya sorar; kapı 204 derse dosyayı nginx verir, 401/403
-derse ziyaretçi giriş ekranına düşer. Ana sayfadaki kilit işaretleri yalnızca
-görünürlük içindir — adresi doğrudan yazmak da işe yaramaz.
+derse ziyaretçi giriş ekranına düşer. Sayfalardaki kilit işaretleri yalnızca
+görünürlük içindir — adresi doğrudan yazmak da işe yaramaz. Bu işaretleri ana
+sayfa ile on sekiz konu sayfasının paylaştığı
+[`dist/erisim.js`](dist/erisim.js) koyar: kapalı konular "Kod gerekli"
+rozetiyle görünür, indirilemeyecek bir sunum indirme düğmesi gibi durmaz (kodu
+olmayana kilit, kodu olup izni olmayana hiç görünmez).
 
-**Öğretmen** `/yonetim` adresinden parolayla girer, kod oluşturur ve **Paylaş**
-düğmesiyle kodu içinde taşıyan bağlantıyı kopyalar
-(`…/giris?kod=DRS-K7M2PX`). Öğrenci bağlantıyı açar, kod alanı dolu gelir,
-**Derse gir** der; kod o tarayıcıda 30 gün açık kalır.
+Bir kısmı açık bir kısmı kapalıyken **açık konular renkli, kapalı konular gri**
+görünür; hangisinin açıldığı bir bakışta okunur. Renk kartın `--tone`
+değişkeninden geldiği için kapalı kartta o değişken nötre çekilir — imleç
+kutusu, etiket ve arka plan tonu birden griye döner. Hepsi açık ya da hepsi
+kapalıyken ayrım yapılacak bir şey olmadığından sayfa olduğu gibi kalır.
+
+**Öğretmen** `/yonetim` adresinden parolayla girer, kod oluşturur; kod
+oluşunca paylaşım penceresi açılır: QR, giriş bağlantısı
+(`…/giris?kod=DRS-K7M2PX`) ve sınıfta **tahtaya yansıt**. Öğrenci QR'ı okutur
+ya da bağlantıyı açar, kod alanı dolu gelir, **Derse gir** der; kod o
+tarayıcıda 30 gün açık kalır. **Önizle**, ana sayfayı bir sınıfın ya da kodsuz
+bir ziyaretçinin gözünden gösterir. Giriş ekranı kodun neden geçmediğini
+(süresi doldu, kapatıldı, silindi) söyler; zaten girişli olan öğrenciye hangi
+kodla girdiğini gösterir.
 
 İlk yönetici parolası kapı ilk açıldığında üretilir:
 
@@ -522,7 +569,7 @@ Site Cloudflare üzerinden yayınlanıyor ve Cloudflare `.pptx`/`.zip` gibi
 dosyaları **uzantısına bakarak** kenarda saklar. Yetki denetimi origin'de
 yapıldığı için, yetkili bir öğrencinin indirdiği deste kenarda kalır ve sonraki
 anonim isteğe oradan verilir; kapı bu noktada tamamen devre dışı kalır. Bu
-yüzden korunan yollar `Cache-Control: private, no-store` ile verilir
+yüzden korunan yollar `Cache-Control: private, no-cache` ile verilir
 ([`deploy/korunan-basliklar.inc`](deploy/korunan-basliklar.inc)). Denetlemek
 için, kod olmadan:
 
@@ -541,6 +588,10 @@ bash deploy/onbellek-temizle.sh
 Betik Cloudflare belirtecinde **Cache Purge** izni ister; izin yoksa aynı iş
 Cloudflare panelinde Caching → Configuration → Purge Custom URLs ekranından
 yapılır.
+
+Aynı nedenle 404 yanıtları `no-store` taşır: nginx'in `expires` yönergesi 404'e
+uygulanmaz ve başlıksız bir 404'ü Cloudflare `.js`/`.pptx` gibi uzantılarda
+birkaç dakika saklar; yeni eklenen bir dosya bile bir süre yok görünürdü.
 
 ## Yerel çalıştırma
 
@@ -591,5 +642,10 @@ kaynağından gelir. Var olan ders sayfalarından biri başlangıç noktası ola
 kopyalanabilir; yeni sayfanın `<title>`, açıklaması, künye satırı ve alt bilgisi
 güncellenmelidir. Konu sayfaları arama motorlarına kapalı olduğu için
 `sitemap.xml` yalnızca ana sayfayı bildirir; oraya bir şey eklenmez. Buna
-karşılık **`sunucu/konular.js` listesine eklemek şarttır** — kapı tanımadığı
-sayfayı hiçbir koda açmaz.
+karşılık iki şey şarttır:
+
+- **`sunucu/konular.js` listesine eklemek** — eklenmezse kapı sayfayı yalnızca
+  yöneticiye açar ve günlüğe "konular.js'te olmayan dosya kapalı tutuldu" yazar.
+- Sayfanın sonunda `<script src="erisim.js" defer></script>` bulunması (var olan
+  bir sayfadan kopyalanınca gelir) — yoksa indirme düğmesi, izni olmayana da
+  indirme düğmesi gibi görünür.
