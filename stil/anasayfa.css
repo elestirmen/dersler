@@ -18,6 +18,12 @@
         background: none;
         box-shadow: none;
         pointer-events: none;
+        /* Kenar sönümü. Eskiden her karede tuvalin tamamına destination-in ile
+           ikinci bir geçiş çiziliyordu (DPR 2'de ~2,4 milyon piksel); GPU'suz
+           çizen makinede animasyonu yarı kare hızına düşürüyordu. Maske bir kez,
+           kompozitörde uygulanır. --r'yi betik tuval boyutuyla günceller. */
+        -webkit-mask-image: radial-gradient(circle var(--r, 720px) at 62% 50%, #000 0, rgba(0, 0, 0, 0.9) 55%, transparent 100%);
+        mask-image: radial-gradient(circle var(--r, 720px) at 62% 50%, #000 0, rgba(0, 0, 0, 0.9) 55%, transparent 100%);
       }
 
       h1 { max-width: 640px; font-size: clamp(2.7rem, 5.6vw, 4.6rem); }
@@ -626,9 +632,42 @@
       .erisim-serit .erisim-link:hover { background: var(--primary-hover); }
       .erisim-serit .erisim-link svg { color: currentColor; }
 
-      /* kilitli kart: görünür kalır, ama kapının arkasında olduğu bellidir */
+      /* display kuralları hidden niteliğini ezer; site genelinde [hidden] kuralı
+         olmadığı için her bileşen kendisininkini tanımlar */
+      .erisim-serit[hidden], .erisim-link[hidden] { display: none; }
+
+      /* önizleme: yönetici sayfaya bir sınıfın ya da kodsuz ziyaretçinin gözünden bakıyor */
+      .erisim-serit.onizleme {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 9%, var(--surface));
+      }
+
+      .erisim-serit.onizleme b:first-child { color: var(--amber); }
+
+      /* Kilitli kart: görünür kalır, ama kapının arkasında olduğu bellidir.
+         Rozet her durumda konur; renk ayrımı yalnızca ortada bir ayrım varken
+         (bazısı açık, bazısı kapalı) yapılır — hepsi kapalıyken bütün sayfayı
+         griye çevirmenin anlattığı bir şey olmaz. Sınıfı erisim.js koyar. */
       .lesson.kilitli { border-style: dashed; }
       .lesson.kilitli .mark, .lesson.kilitli p, .lesson.kilitli .meta { opacity: 0.62; }
+
+      /* Renk --tone'dan geliyor: değişkeni nötre çekmek kartın imlecini,
+         etiketini ve arka plan tonunu birden griye çevirir. filter: grayscale
+         yerine bu; metin karşıtlığı bozulmuyor ve yerleşim etkilenmiyor. */
+      .erisim-ayrimli .lesson.kilitli {
+        /* !important şart: kartların çoğu tonunu style="--tone: …" ile taşıyor
+           ve satır içi tanım, sınıf kuralını yenerdi. */
+        --tone: var(--dim) !important;
+        background: var(--surface-2);
+        box-shadow: none;
+      }
+
+      .erisim-ayrimli .lesson.kilitli .mark { background: var(--surface-3); border-color: var(--line); }
+      .erisim-ayrimli .lesson.kilitli:hover .mark { background: var(--dim); color: var(--surface); }
+      .erisim-ayrimli .lesson.kilitli h3 a { color: var(--muted); }
+
+      /* Açık kalanlar öne çıksın: kapalıların gölgesi kalkarken bunlar durur. */
+      .erisim-ayrimli .lesson:not(.kilitli) { border-color: color-mix(in srgb, var(--tone) 26%, var(--line)); }
 
       .kilit {
         display: inline-flex;
@@ -649,7 +688,14 @@
 
       .lesson.kilitli .go { color: var(--dim); }
 
-      .dl.kilitli { opacity: 0.55; }
+      /* kilitli deste: katalogda kalır ama indirme gibi durmaz */
+      .dl.kilitli { border-style: dashed; }
+      .dl.kilitli .ic, .dl.kilitli p { opacity: 0.62; }
+      .dl.kilitli .kilit { margin-top: 7px; }
+
+      .erisim-ayrimli .dl.kilitli { background: var(--surface-2); box-shadow: none; }
+      .erisim-ayrimli .dl.kilitli .ic { background: var(--surface-3); color: var(--dim); box-shadow: none; }
+      .erisim-ayrimli .dl.kilitli h3 { color: var(--muted); }
 
       /* ================= duyarlılık (ana sayfa) ================= */
       @media (max-width: 900px) {

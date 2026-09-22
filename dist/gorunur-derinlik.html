@@ -2675,8 +2675,9 @@
           var el = document.getElementById(id);
           if (!el) return null;
           var ctx = el.getContext("2d");
-          var W = 0, H = 0, draw = null;
+          var W = 0, H = 0, D = 0, draw = null;
 
+          /* tema değişiminde ve ilk yerleşimde çağrılır: boyutla, çiz */
           function fit() {
             var dpr = Math.min(window.devicePixelRatio || 1, 2);
             var w = el.clientWidth || 600;
@@ -2687,8 +2688,41 @@
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             W = w;
             H = h;
+            D = dpr;
             if (draw) draw();
           }
+
+          /* Boyut olaylarında yalnızca gerçekten bir şey değiştiyse yeniden kur.
+             Tuvalin width'ine atamak içeriği siler ve arka belleği baştan ayırır;
+             mobilde adres çubuğu açılıp kapandıkça gelen, genişliği değiştirmeyen
+             resize olayları eskiden her tuvali sıfırlayıp yeniden çizdiriyordu.
+             Aynı karede gelen olaylar tek ölçüme iner. ResizeObserver, pencere
+             boyutu değişmeden kapsayıcı daraldığında da (kaydırma çubuğu
+             belirince, yazı tipi yüklenince) tuvali keskin tutar. */
+          var bekleyen = 0;
+          function boyutaBak() {
+            if (bekleyen) return;
+            bekleyen = requestAnimationFrame(function () {
+              bekleyen = 0;
+              var w = el.clientWidth || 600;
+              if (w !== W || Math.min(window.devicePixelRatio || 1, 2) !== D ||
+                  Math.round(heightOf(w)) !== H) fit();
+            });
+          }
+
+          /* Görünmeyen deneyi bekletebilmek için: bir ticker'ın karesi sırasında
+             bu tuval temizlenirse, o ticker bu tuvalin bölümüne çiziyor demektir. */
+          var bolum = el.closest("section") || el;
+          if (bolumGozcu) bolumGozcu.observe(bolum);
+          var temizle = ctx.clearRect;
+          ctx.clearRect = function () {
+            if (calisan) {
+              var b = sahip.get(calisan);
+              if (!b) { b = new Set(); sahip.set(calisan, b); }
+              b.add(bolum);
+            }
+            return temizle.apply(ctx, arguments);
+          };
 
           var api = {
             el: el, ctx: ctx,
@@ -2697,7 +2731,8 @@
             fit: fit,
             bind: function (fn) { draw = fn; }
           };
-          window.addEventListener("resize", fit);
+          window.addEventListener("resize", boyutaBak);
+          if ("ResizeObserver" in window) new ResizeObserver(boyutaBak).observe(el);
           fits.push(fit);
           fit();
           return api;
@@ -2708,11 +2743,51 @@
         var tickers = new Set();
         var rafId = 0, prev = 0;
 
+        /* Ekranda olmayan deney beklesin: "Durdur"a basılana kadar dönen
+           sahneler başka bölüme geçilince de görünmeyen tuvale çizip işlemciyi
+           yoruyordu. Her ticker'ın hangi bölüme çizdiğini kit, ilk karesinde
+           öğrenir; o bölümlerin hepsi ekrandan çıkınca ticker çağrılmaz, zamanı
+           da ilerlemez, geri gelince kaldığı yerden sürer. Sahibi bilinmeyen
+           ticker hep çalışır; IntersectionObserver yoksa hiçbir şey beklemez. */
+        var calisan = null;
+        var sahip = new Map();
+        var gorunmez = new Set();
+        var bolumGozcu = "IntersectionObserver" in window
+          ? new IntersectionObserver(function (girdiler) {
+              girdiler.forEach(function (g) {
+                if (g.isIntersecting) gorunmez.delete(g.target);
+                else gorunmez.add(g.target);
+              });
+              canlandir();
+            }, { rootMargin: "160px 0px" })
+          : null;
+
+        function bekliyor(fn) {
+          var b = sahip.get(fn);
+          if (!b || !gorunmez.size) return false;
+          var hepsi = true;
+          b.forEach(function (x) { if (!gorunmez.has(x)) hepsi = false; });
+          return hepsi;
+        }
+
         function loop(ts) {
           var dt = prev ? Math.min((ts - prev) / 1000, 0.05) : 0;
           prev = ts;
-          tickers.forEach(function (fn) { fn(dt); });
-          if (tickers.size) {
+          var calisti = false;
+          tickers.forEach(function (fn) {
+            if (bekliyor(fn)) return;
+            calisti = true;
+            calisan = fn;
+            /* bir deneydeki hata ötekileri durdurmasın: eskiden istisna döngüyü
+               yeni kare istemeden bırakıyor, rafId dolu kaldığı için sayfadaki
+               bütün deneyler yenilenene kadar donuyordu */
+            try { fn(dt); } catch (e) {
+              tickers.delete(fn);
+              if (window.console) console.error(e);
+            }
+            calisan = null;
+          });
+          if (tickers.size && calisti) {
             rafId = requestAnimationFrame(loop);
           } else {
             rafId = 0;
@@ -2720,9 +2795,13 @@
           }
         }
 
+        function canlandir() {
+          if (!rafId && tickers.size) { prev = 0; rafId = requestAnimationFrame(loop); }
+        }
+
         function play(fn) {
           tickers.add(fn);
-          if (!rafId) { prev = 0; rafId = requestAnimationFrame(loop); }
+          canlandir();
         }
 
         function halt(fn) { tickers.delete(fn); }
@@ -2970,13 +3049,25 @@
           var xs = niceStep(xM - xm, 4);
           ctx.font = "10.5px " + FONT;
           var adSol = X + W - 25 - (o.xLabel ? ctx.measureText(o.xLabel).width : 0);
+          /* Eğri adları sol altta, eksen sayılarıyla aynı yükseklikte duruyor.
+             Sayılar sağdaki eksen adına çarpınca atlanıyordu, soldaki adlara
+             çarpınca atlanmıyordu; dar panelde "— sağ lamba" ile "50" üst üste
+             biniyordu. Artık iki yan için de aynı kural geçerli. */
+          var lejSag = null;
+          ctx.font = "700 10.5px " + FONT;
+          (o.curves || []).forEach(function (c) {
+            if (!c.label) return;
+            var lw = ctx.measureText("— " + c.label).width;
+            lejSag = lejSag === null ? X + 17 + lw : lejSag + 14 + lw;
+          });
           ctx.font = "10px " + FONT;
           ctx.textAlign = "center";
           ctx.textBaseline = "top";
           for (var t = Math.ceil(xm / xs) * xs; t <= xM + 1e-9; t += xs) {
             ctx.fillStyle = COL.dim;
             var et = fmt(t, xs < 1 ? 1 : 0);
-            if (px(t) + ctx.measureText(et).width / 2 <= adSol)
+            var ew = ctx.measureText(et).width;
+            if (px(t) + ew / 2 <= adSol && (lejSag === null || px(t) - ew / 2 >= lejSag + 6))
               ctx.fillText(et, px(t), y1 + 6);
           }
           (o.curves || []).forEach(function (c) {
@@ -3397,8 +3488,6 @@
             }
             fish(fx, ay, COL.violet, true);
             fish(fx, fy, COL.amber, false);
-            tag(ctx, "göründüğü yer", fx + 32, ay, COL.violet, "left", 10.5);
-            tag(ctx, "gerçek yeri", fx + 32, fy, COL.amber, "left", 10.5);
 
             /* görüş ışını: gerçek balıktan yüzeye, oradan göze */
             var sx = px + (fx - px) * 0.62;
@@ -3438,7 +3527,7 @@
             ctx.stroke();
             ctx.restore();
 
-            /* atılan mızrak */
+            /* atılan mızrak: önce gövdesi, etiketlerden sonra ucu */
             if (st.atis != null) {
               ctx.strokeStyle = st.vurdu ? COL.lime : COL.rose;
               ctx.lineWidth = 3;
@@ -3446,6 +3535,17 @@
               ctx.moveTo(px + 8, py + 6);
               ctx.lineTo(st.atis.x, st.atis.y);
               ctx.stroke();
+            }
+
+            /* Mızrak, balığın derinliğine iner ve ıskada çoğu zaman balığın hemen
+               arkasına düşer; etiketler o satırdayken mızrak ve ucu "gerçek yeri"ni
+               okunmaz yapıyordu. Etiketler satırın dışına alınır: görünen balığın
+               üstüne, gerçek balığın altına. Mızrak gövdesi etiketlerin arkasında
+               kalır, düştüğü yer (sonucun kendisi) en üstte. */
+            tag(ctx, "göründüğü yer", fx, Math.min(ay, fy - 20) - 16, COL.violet, "center", 10.5);
+            tag(ctx, "gerçek yeri", fx, fy + 19, COL.amber, "center", 10.5);
+
+            if (st.atis != null) {
               ctx.fillStyle = st.vurdu ? COL.lime : COL.rose;
               ctx.beginPath();
               ctx.arc(st.atis.x, st.atis.y, 5, 0, TAU);
@@ -3668,10 +3768,24 @@
             ctx.strokeStyle = A(COL.blue, 0.6);
             ctx.lineWidth = 1.6;
             ctx.strokeRect(28, y0, W - 56, y1 - y0);
-            tag(ctx, "cam · n = " + fmt(st.n, 2), W - 40, (y0 + y1) / 2, COL.blue, "right", 11);
-
             /* görünen yazı */
             var ay = yYazi - 10 - delta() * sc;
+
+            /* "cam · n" levhanın ortasına yazılıyordu; dar ekranda "göründüğü yer"le
+               aynı satıra düşüp üst üste biniyordu. Önce levhanın üst kenarına,
+               yine çakışırsa levhanın üstüne yazılır. */
+            var camEt = "cam · n = " + fmt(st.n, 2);
+            ctx.save();
+            ctx.font = "700 11px " + FONT;
+            var wCam = ctx.measureText(camEt).width;
+            ctx.font = "700 10px " + FONT;
+            var wGy = ctx.measureText("göründüğü yer").width;
+            ctx.restore();
+            var yatayCakisir = W - 40 - wCam < cx + 58 + wGy + 6;
+            var camY = (y0 + y1) / 2;
+            if (yatayCakisir && Math.abs(camY - ay) < 14) camY = Math.min(camY, y0 + 12);
+            if (yatayCakisir && Math.abs(camY - ay) < 14) camY = y0 - 11;
+            tag(ctx, camEt, W - 40, camY, COL.blue, "right", 11);
             ctx.save();
             ctx.globalAlpha = 0.65;
             tag(ctx, "FİZİK", cx, ay, COL.violet, "center", 15);
@@ -3813,7 +3927,11 @@
             box.innerHTML = "";
             score = 0;
             scoreEl.textContent = "0 / " + DATA.length;
-            if (finalEl) finalEl.textContent = "";
+            if (finalEl) {
+              finalEl.textContent = "";
+              /* bitiş cümlesi, odağı kaçırmadan duyurulsun */
+              finalEl.setAttribute("aria-live", "polite");
+            }
             DATA.forEach(function (item, qi) {
               var card = document.createElement("div");
               card.className = "q";
@@ -3841,7 +3959,17 @@
                     score++;
                     scoreEl.textContent = score + " / " + DATA.length;
                   }
+                  /* Sonuç ekranda yalnızca renk ve CSS'le çizilen ✓/✕ idi; ekran
+                     okuyucuya hiçbir şey söylenmiyordu. Seçenekler devre dışı
+                     kalınca odak da kayboluyordu. Açıklamanın başına sonuç yazılır
+                     (yalnızca ekran okuyucu için) ve odak oraya taşınır. */
+                  var sonuc = document.createElement("span");
+                  sonuc.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap";
+                  sonuc.textContent = oi === item.a ? "Doğru. " : "Yanlış; doğru cevap " + KEYS[item.a] + ". ";
+                  why.insertBefore(sonuc, why.firstChild);
+                  why.tabIndex = -1;
                   why.hidden = false;
+                  why.focus();
                   if (box.querySelectorAll(".opts button.right").length === DATA.length) finish();
                 });
                 opts.appendChild(b);
@@ -4099,5 +4227,6 @@
         }
       })();
     </script>
+    <script src="erisim.js" defer></script>
   </body>
 </html>

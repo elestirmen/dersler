@@ -792,6 +792,12 @@
         background: none;
         box-shadow: none;
         pointer-events: none;
+        /* Kenar sönümü. Eskiden her karede tuvalin tamamına destination-in ile
+           ikinci bir geçiş çiziliyordu (DPR 2'de ~2,4 milyon piksel); GPU'suz
+           çizen makinede animasyonu yarı kare hızına düşürüyordu. Maske bir kez,
+           kompozitörde uygulanır. --r'yi betik tuval boyutuyla günceller. */
+        -webkit-mask-image: radial-gradient(circle var(--r, 720px) at 62% 50%, #000 0, rgba(0, 0, 0, 0.9) 55%, transparent 100%);
+        mask-image: radial-gradient(circle var(--r, 720px) at 62% 50%, #000 0, rgba(0, 0, 0, 0.9) 55%, transparent 100%);
       }
 
       h1 { max-width: 640px; font-size: clamp(2.7rem, 5.6vw, 4.6rem); }
@@ -1400,9 +1406,42 @@
       .erisim-serit .erisim-link:hover { background: var(--primary-hover); }
       .erisim-serit .erisim-link svg { color: currentColor; }
 
-      /* kilitli kart: görünür kalır, ama kapının arkasında olduğu bellidir */
+      /* display kuralları hidden niteliğini ezer; site genelinde [hidden] kuralı
+         olmadığı için her bileşen kendisininkini tanımlar */
+      .erisim-serit[hidden], .erisim-link[hidden] { display: none; }
+
+      /* önizleme: yönetici sayfaya bir sınıfın ya da kodsuz ziyaretçinin gözünden bakıyor */
+      .erisim-serit.onizleme {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 9%, var(--surface));
+      }
+
+      .erisim-serit.onizleme b:first-child { color: var(--amber); }
+
+      /* Kilitli kart: görünür kalır, ama kapının arkasında olduğu bellidir.
+         Rozet her durumda konur; renk ayrımı yalnızca ortada bir ayrım varken
+         (bazısı açık, bazısı kapalı) yapılır — hepsi kapalıyken bütün sayfayı
+         griye çevirmenin anlattığı bir şey olmaz. Sınıfı erisim.js koyar. */
       .lesson.kilitli { border-style: dashed; }
       .lesson.kilitli .mark, .lesson.kilitli p, .lesson.kilitli .meta { opacity: 0.62; }
+
+      /* Renk --tone'dan geliyor: değişkeni nötre çekmek kartın imlecini,
+         etiketini ve arka plan tonunu birden griye çevirir. filter: grayscale
+         yerine bu; metin karşıtlığı bozulmuyor ve yerleşim etkilenmiyor. */
+      .erisim-ayrimli .lesson.kilitli {
+        /* !important şart: kartların çoğu tonunu style="--tone: …" ile taşıyor
+           ve satır içi tanım, sınıf kuralını yenerdi. */
+        --tone: var(--dim) !important;
+        background: var(--surface-2);
+        box-shadow: none;
+      }
+
+      .erisim-ayrimli .lesson.kilitli .mark { background: var(--surface-3); border-color: var(--line); }
+      .erisim-ayrimli .lesson.kilitli:hover .mark { background: var(--dim); color: var(--surface); }
+      .erisim-ayrimli .lesson.kilitli h3 a { color: var(--muted); }
+
+      /* Açık kalanlar öne çıksın: kapalıların gölgesi kalkarken bunlar durur. */
+      .erisim-ayrimli .lesson:not(.kilitli) { border-color: color-mix(in srgb, var(--tone) 26%, var(--line)); }
 
       .kilit {
         display: inline-flex;
@@ -1423,7 +1462,14 @@
 
       .lesson.kilitli .go { color: var(--dim); }
 
-      .dl.kilitli { opacity: 0.55; }
+      /* kilitli deste: katalogda kalır ama indirme gibi durmaz */
+      .dl.kilitli { border-style: dashed; }
+      .dl.kilitli .ic, .dl.kilitli p { opacity: 0.62; }
+      .dl.kilitli .kilit { margin-top: 7px; }
+
+      .erisim-ayrimli .dl.kilitli { background: var(--surface-2); box-shadow: none; }
+      .erisim-ayrimli .dl.kilitli .ic { background: var(--surface-3); color: var(--dim); box-shadow: none; }
+      .erisim-ayrimli .dl.kilitli h3 { color: var(--muted); }
 
       /* ================= duyarlılık (ana sayfa) ================= */
       @media (max-width: 900px) {
@@ -2758,12 +2804,19 @@
             var n = parseInt(h, 16);
             return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
           }
+          /* Boyut gerçekten değiştiyse yeniden kurar ve true döner. Mobilde adres
+             çubuğu açılıp kapandıkça gelen resize olayları tuvalin yerleşimini
+             değiştirmez; eskiden her birinde tuval baştan ayrılıyordu. */
           function size() {
             var r = c.getBoundingClientRect();
-            dpr = Math.min(2, window.devicePixelRatio || 1);
+            var d = Math.min(2, window.devicePixelRatio || 1);
+            if (r.width === W && r.height === H && d === dpr) return false;
+            dpr = d;
             W = r.width; H = r.height;
             c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            c.style.setProperty("--r", Math.round(Math.max(W, H) * 0.62) + "px");
+            return true;
           }
           function pt(arc, u) {
             return { x: (arc.x + arc.r * u) * W, y: (arc.y - 4 * arc.h * u * (1 - u)) * H };
@@ -2813,15 +2866,7 @@
               }
             });
 
-            /* kenarlarda yumuşak sönüm */
-            ctx.globalCompositeOperation = "destination-in";
-            var m = ctx.createRadialGradient(W * 0.62, H * 0.5, 0, W * 0.62, H * 0.5, Math.max(W, H) * 0.62);
-            m.addColorStop(0, "rgba(0,0,0,1)");
-            m.addColorStop(0.55, "rgba(0,0,0,0.9)");
-            m.addColorStop(1, "rgba(0,0,0,0)");
-            ctx.fillStyle = m;
-            ctx.fillRect(0, 0, W, H);
-            ctx.globalCompositeOperation = "source-over";
+            /* kenarlardaki yumuşak sönüm CSS maskesinde (.hero-art) */
           }
           function loop(now) {
             raf = 0;
@@ -2835,7 +2880,15 @@
           size();
           start();
 
-          window.addEventListener("resize", function () { size(); if (reduced) draw(performance.now()); else start(); });
+          var bekleyen = 0;
+          window.addEventListener("resize", function () {
+            if (bekleyen) return;
+            bekleyen = requestAnimationFrame(function () {
+              bekleyen = 0;
+              if (!size()) return;
+              if (reduced) draw(performance.now()); else start();
+            });
+          });
           document.addEventListener("visibilitychange", start);
           if ("IntersectionObserver" in window) {
             new IntersectionObserver(function (es) {
@@ -2850,152 +2903,6 @@
         })();
       })();
     </script>
-    <script>
-      /* ================= erişim durumu =================
-         Ana sayfa herkese açık; hangi konunun açık olduğunu kapı söyler.
-         Buradaki kilit işaretleri yalnızca görünürlük içindir — asıl denetim
-         sunucuda, nginx auth_request ile yapılır. */
-      (function () {
-        var serit = document.getElementById("erisim-serit");
-        var metin = document.getElementById("erisim-metin");
-        var eylem = document.getElementById("erisim-eylem");
-        var ustBag = document.getElementById("erisim-link");
-        var ustMetin = document.getElementById("erisim-link-metin");
-        if (!serit) return;
-
-        var KILIT =
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-          '<rect x="4.5" y="10.5" width="15" height="10" rx="2.5" /><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7" /></svg>';
-
-        function hepsi(secici) {
-          return Array.prototype.slice.call(document.querySelectorAll(secici));
-        }
-
-        function kilitRozeti() {
-          var s = document.createElement("span");
-          s.className = "kilit";
-          s.innerHTML = KILIT;
-          s.append(document.createTextNode("Kod gerekli"));
-          return s;
-        }
-
-        /* Sınıf adı öğretmenin yazdığı serbest metindir; HTML olarak değil,
-           metin olarak yerleştirilir. */
-        function cumle(kap, parcalar) {
-          kap.textContent = "";
-          parcalar.forEach(function (p) {
-            if (p.kalin) {
-              var b = document.createElement("b");
-              b.textContent = p.metin;
-              kap.append(b);
-            } else {
-              kap.append(document.createTextNode(p.metin));
-            }
-          });
-        }
-
-        function slugu(bag) {
-          var href = bag.getAttribute("href") || "";
-          return href.replace(/^.*\//, "").replace(/\.(html|pptx)$/, "");
-        }
-
-        function uygula(durum) {
-          var acik = durum.konular || [];
-          var girisli = durum.rol === "ogrenci" || durum.rol === "yonetici";
-
-          /* ---- konu kartları: kapalı olan görünür kalır, kilitli işaretlenir ---- */
-          hepsi("article.lesson").forEach(function (kart) {
-            var bag = kart.querySelector("h3 a");
-            if (!bag) return;
-            var acikMi = acik.indexOf(slugu(bag)) >= 0;
-            var sunum = kart.querySelector("a.pill");
-
-            if (!acikMi) {
-              kart.classList.add("kilitli");
-              var etiket = kart.querySelector(".tag");
-              if (etiket && !kart.querySelector(".kilit")) etiket.after(kilitRozeti());
-            }
-            if (sunum && (!acikMi || !durum.indirme)) sunum.remove();
-          });
-
-          /* ---- sunum ızgarası ---- */
-          var kalan = 0;
-          hepsi("a.dl").forEach(function (bag) {
-            if (durum.indirme && acik.indexOf(slugu(bag)) >= 0) { kalan++; return; }
-            /* Girişi olmayan tıklayınca giriş ekranına düşer; girişi olana
-               kapalı bir bağlantı göstermenin anlamı yok. */
-            if (girisli) bag.remove();
-            else { bag.classList.add("kilitli"); kalan++; }
-          });
-
-          hepsi('a[href$="dersler-sunumlar.zip"]').forEach(function (bag) {
-            if (durum.toplu) return;
-            if (!girisli) return bag.classList.add("kilitli");
-            /* "Hepsi bir arada" kutusu bağlantısıyla birlikte kalksın */
-            var kap = bag.closest(".dl-all");
-            (kap || bag).remove();
-          });
-
-          var bolum = document.getElementById("sunumlar");
-          if (girisli && bolum) {
-            if (kalan === 0) {
-              bolum.hidden = true;
-              hepsi('a[href="#sunumlar"]').forEach(function (a) { a.remove(); });
-            } else {
-              var giris = bolum.querySelector(".section-heading p");
-              if (giris) {
-                giris.textContent =
-                  "Kodunuza açık " + kalan + " sunum: her biri 16–19 slayt, konu anlatımıyla " +
-                  "birebir aynı bölümler ve her slaytta konuşmacı notu.";
-              }
-            }
-          }
-
-          /* ---- şerit ve üst bar ---- */
-          if (durum.rol === "yonetici") {
-            cumle(metin, [
-              { metin: "Yönetici", kalin: true },
-              { metin: " olarak giriş yaptınız; bütün konular ve sunumlar açık." },
-            ]);
-            eylem.textContent = "Yönetim";
-            eylem.href = "/yonetim";
-            ustMetin.textContent = "Yönetim";
-            ustBag.href = "/yonetim";
-          } else if (durum.rol === "ogrenci") {
-            cumle(metin, [
-              { metin: durum.ad || durum.kod, kalin: true },
-              {
-                metin: " için " + acik.length + " konu açık. " +
-                  (durum.indirme ? "Sunumlar indirilebilir." : "Sunum indirme bu kodda kapalı."),
-              },
-            ]);
-            eylem.textContent = "Çıkış";
-            eylem.href = "/cikis";
-            ustMetin.textContent = durum.ad || durum.kod;
-            ustBag.href = "/cikis";
-            ustBag.title = "Çıkış yap";
-          } else {
-            cumle(metin, [
-              { metin: "Konu sayfaları ve sunumlar " },
-              { metin: "ders koduyla", kalin: true },
-              { metin: " açılır. Öğretmeninizin verdiği kodu girin; kod bu tarayıcıda açık kalır." },
-            ]);
-            eylem.textContent = "Kod gir";
-            eylem.href = "/giris";
-          }
-
-          serit.hidden = false;
-
-          /* Arama betiği dizilerini tazelesin, sayaçlar doğru kalsın. */
-          var q = document.getElementById("q");
-          if (q) q.dispatchEvent(new Event("input"));
-        }
-
-        fetch("/durum", { headers: { accept: "application/json" } })
-          .then(function (c) { return c.ok ? c.json() : null; })
-          .then(function (d) { if (d) uygula(d); })
-          .catch(function () { /* kapı yanıt vermiyorsa sayfa olduğu gibi kalır */ });
-      })();
-    </script>
+    <script src="erisim.js" defer></script>
   </body>
 </html>
