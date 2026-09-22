@@ -1,4 +1,7 @@
 User-agent: *
-Allow: /
+Allow: /$
+Disallow: /giris
+Disallow: /yonetim
+Disallow: /sunum/
 
 Sitemap: https://dersler.perinet.org/sitemap.xml

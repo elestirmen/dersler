@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#f4f5f9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0e1b" media="(prefers-color-scheme: dark)" />
+    <title>Derse giriş — Dersler</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..700&family=Inter:wght@400..800&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: light;
+        --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        --font-display: Fraunces, "Iowan Old Style", Georgia, serif;
+        --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        --bg: #f4f5f9;
+        --surface: #ffffff;
+        --surface-2: #f8f9fc;
+        --line: #e1e5ee;
+        --ink: #0e1426;
+        --muted: #4a5470;
+        --dim: #7b849e;
+        --rose: #c53455;
+        --lime: #3c8c21;
+        --primary: #0e1426;
+        --primary-hover: #1c2542;
+        --primary-ink: #ffffff;
+        --shadow: 0 2px 4px rgba(14, 20, 38, 0.04), 0 14px 34px -10px rgba(14, 20, 38, 0.16);
+        --shadow-lg: 0 8px 16px -6px rgba(14, 20, 38, 0.12), 0 44px 110px -24px rgba(14, 20, 38, 0.32);
+        --edge: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #0a0e1b;
+        --surface: #121829;
+        --surface-2: #0e1324;
+        --line: rgba(164, 178, 220, 0.15);
+        --ink: #f2f5ff;
+        --muted: #a5aec8;
+        --dim: #6f7994;
+        --rose: #ff8098;
+        --lime: #9ee06a;
+        --primary: #b9ee63;
+        --primary-hover: #a9e648;
+        --primary-ink: #16260a;
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 14px 34px -10px rgba(0, 0, 0, 0.6);
+        --shadow-lg: 0 8px 16px -6px rgba(0, 0, 0, 0.5), 0 44px 110px -24px rgba(0, 0, 0, 0.75);
+        --edge: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        padding: 32px 16px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .kart {
+        width: 100%;
+        max-width: 440px;
+        padding: 36px 32px 30px;
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        background: var(--surface);
+        box-shadow: var(--shadow-lg), var(--edge);
+      }
+
+      .marka {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+      }
+
+      .marka svg { width: 26px; height: 26px; color: var(--ink); }
+
+      h1 {
+        margin: 22px 0 8px;
+        font-family: var(--font-display);
+        font-size: 1.9rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      p.aciklama { margin: 0 0 24px; color: var(--muted); line-height: 1.6; font-size: 0.95rem; }
+
+      label { display: block; margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+
+      input {
+        width: 100%;
+        min-height: 56px;
+        padding: 0 18px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-family: var(--font-mono);
+        font-size: 1.15rem;
+        letter-spacing: 0.08em;
+        text-align: center;
+        text-transform: uppercase;
+        transition: border-color 180ms ease, box-shadow 180ms ease;
+      }
+
+      input::placeholder { font-family: var(--font-sans); letter-spacing: 0; text-transform: none; color: var(--dim); }
+
+      input:focus { outline: none; border-color: color-mix(in srgb, var(--ink) 40%, var(--line)); box-shadow: var(--shadow); }
+
+      button {
+        width: 100%;
+        min-height: 54px;
+        margin-top: 16px;
+        border: 0;
+        border-radius: 16px;
+        background: var(--primary);
+        color: var(--primary-ink);
+        font: inherit;
+        font-weight: 650;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      button:hover { background: var(--primary-hover); }
+      button:active { transform: translateY(1px); }
+      button[disabled] { opacity: 0.6; cursor: progress; }
+
+      .uyari {
+        margin: 0 0 18px;
+        padding: 12px 14px;
+        border: 1px solid color-mix(in srgb, var(--rose) 35%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--rose) 8%, var(--surface));
+        color: var(--rose);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .uyari[hidden] { display: none; }
+
+      .alt {
+        margin: 24px 0 0;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 0.85rem;
+        color: var(--dim);
+      }
+
+      .alt a { color: var(--muted); text-decoration: none; font-weight: 600; }
+      .alt a:hover { color: var(--ink); text-decoration: underline; }
+    </style>
+    <script>
+      /* tema, boya öncesinde uygulansın: varsayılan açık */
+      (function () {
+        var mode = "light";
+        try { if (localStorage.getItem("dersler-tema") === "dark") mode = "dark"; } catch (e) {}
+        document.documentElement.setAttribute("data-theme", mode);
+      })();
+    </script>
+  </head>
+  <body>
+    <main class="kart">
+      <div class="marka">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6.5C6.5 4.5 9.5 4.5 12 6.5c2.5-2 5.5-2 9-0V18c-3.5-2-6.5-2-9 0-2.5-2-5.5-2-9 0V6.5Z" />
+          <path d="M12 6.5V18" opacity=".5" />
+        </svg>
+        Dersler
+      </div>
+
+      <h1>Derse giriş</h1>
+      <p class="aciklama">Öğretmeninizin verdiği ders kodunu yazın. Kod, bu tarayıcıda açık kalır; her seferinde yeniden girmeniz gerekmez.</p>
+
+      <p class="uyari" id="uyari" role="alert" hidden></p>
+
+      <form id="form" novalidate>
+        <label for="kod">Ders kodu</label>
+        <input id="kod" name="kod" placeholder="örn. DRS-K7M2PX" autocomplete="off" autocapitalize="characters" spellcheck="false" required />
+        <button type="submit" id="dugme">Derse gir</button>
+      </form>
+
+      <p class="alt">
+        <a href="/">Ana sayfa</a>
+        <a href="/yonetim">Öğretmen girişi</a>
+      </p>
+    </main>
+
+    <script>
+      (function () {
+        var form = document.getElementById("form");
+        var alan = document.getElementById("kod");
+        var dugme = document.getElementById("dugme");
+        var uyari = document.getElementById("uyari");
+
+        var METIN = {
+          yok: "Bu kod tanınmadı. Harfleri ve çizgiyi olduğu gibi yazdığınızdan emin olun.",
+          kapali: "Bu kod öğretmen tarafından kapatılmış.",
+          "suresi-doldu": "Bu kodun süresi dolmuş. Öğretmeninizden yeni bir kod isteyin.",
+          "cok-deneme": "Çok fazla deneme yapıldı. Birkaç dakika sonra tekrar deneyin.",
+          yetkisiz: "Bu sayfa girdiğiniz koda açık değil. Başka bir kodunuz varsa onu deneyin.",
+          ag: "Bağlantı kurulamadı. İnternetinizi kontrol edip tekrar deneyin.",
+        };
+
+        function goster(anahtar) {
+          uyari.textContent = METIN[anahtar] || METIN.yok;
+          uyari.hidden = false;
+        }
+
+        var sorgu = new URLSearchParams(location.search);
+
+        /* Yalnızca bu sitedeki bir yola dönülür; dışarıya yönlendirme olmaz. */
+        var hedef = sorgu.get("hedef") || "/";
+        if (!/^\/[^/\\]/.test(hedef) && hedef !== "/") hedef = "/";
+
+        if (sorgu.get("kod")) alan.value = sorgu.get("kod").toUpperCase();
+        if (sorgu.get("durum") === "yetkisiz") goster("yetkisiz");
+        if (!alan.value) alan.focus();
+
+        form.addEventListener("submit", function (olay) {
+          olay.preventDefault();
+          var kod = alan.value.trim().toUpperCase();
+          if (!kod) return alan.focus();
+
+          uyari.hidden = true;
+          dugme.disabled = true;
+          dugme.textContent = "Kontrol ediliyor…";
+
+          fetch("/giris", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ kod: kod }),
+          })
+            .then(function (c) { return c.json().then(function (v) { return { ok: c.ok, veri: v }; }); })
+            .then(function (s) {
+              if (s.ok) { location.href = hedef; return; }
+              goster(s.veri && s.veri.hata);
+              dugme.disabled = false;
+              dugme.textContent = "Derse gir";
+              alan.select();
+            })
+            .catch(function () {
+              goster("ag");
+              dugme.disabled = false;
+              dugme.textContent = "Derse gir";
+            });
+        });
+      })();
+    </script>
+  </body>
+</html>

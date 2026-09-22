@@ -444,7 +444,7 @@ dist/                        yayınlanan kök (nginx bunu sunar)
   favicon.svg, icon-*.png    site simgesi; apple-touch-icon.png ve maskable ikon
   og.png                     paylaşım kartı görseli (1200×630)
   manifest.webmanifest       ana ekrana ekleme
-  sitemap.xml, robots.txt    arama motorları
+  sitemap.xml, robots.txt    arama motorları (yalnızca ana sayfa bildirilir)
   sunum/*.pptx               indirilebilir ders sunumları
   sunum/dersler-sunumlar.zip on sekiz sunum tek dosyada
 stil/                        ortak tasarım dilinin kaynağı
@@ -457,10 +457,23 @@ sunum/                       sunumların üreticisi (pptxgenjs + puppeteer)
   tema.js                    ortak renk, yazı tipi ve yerleşim yardımcıları
   blok.js                    tekrar eden slayt düzenleri (kapak, örnek, hatalar, özet)
   eski/                      önceki elle yazılmış konu betikleri (üretimde değil)
+sunucu/                      erişim kapısı (Node, bağımlılıksız)
+  sunucu.js                  yetki kararı, giriş ve yönetim uçları
+  kimlik.js                  imzalı çerez, scrypt parola, deneme sınırı
+  depo.js                    veri.json okuma/atomik yazma, kod üretimi
+  konular.js                 kapının tanıdığı konu kataloğu
+  sayfa/giris.html           öğrencinin kod girdiği ekran
+  sayfa/yonetim.html         ders kodu paneli
+veri/                        kapının verisi (depoda değil, sunucuda durur)
+  veri.json                  ders kodları, çerez anahtarı, parola özeti
 deploy/
-  docker-compose.yml         nginx:alpine konteyneri, dist/ salt-okunur bağlı
-  nginx.conf                 statik sunum, HTML no-cache, varlıklarda uzun önbellek, 404 sayfası
+  docker-compose.yml         nginx:alpine + node:22-alpine kapı, dist/ salt-okunur bağlı
+  nginx.conf                 statik sunum, auth_request ile erişim denetimi, 404 sayfası
+  guvenlik-basliklar.inc     her yanıtta bulunan güvenlik başlıkları
+  korunan-basliklar.inc      kod arkasındaki yollar: private, no-store + noindex
+  kapi-basliklar.inc         kapıya giden isteklerin ortak başlıkları
   yayina-al.sh               Cloudflare CNAME + NPM proxy host + Let's Encrypt
+  onbellek-temizle.sh        korunan adresleri Cloudflare kenar önbelleğinden düşürür
 ```
 
 Ortak stili değiştirmek için `stil/konu.css` ya da `stil/anasayfa.css`
@@ -475,13 +488,76 @@ yeniler, başka hiçbir şeye dokunmaz. Konu sayfalarına özel bir stil gerekir
 ilgili sayfanın kendi bloğuna değil, `konu.css` içine yazılmalıdır; aksi hâlde
 bir sonraki uygulamada silinir.
 
+## Erişim: ders kodları
+
+Ana sayfa herkese açıktır; **konu sayfaları ve sunumlar ders koduyla** açılır.
+Kod bir öğrenciye değil bir sınıfa karşılık gelir ve üç şeyi taşır: hangi
+konuların açık olduğu, sunumların indirilip indirilemeyeceği, son geçerlilik
+günü.
+
+Denetim tarayıcıda değil sunucuda yapılır. nginx her korunan istek için
+`auth_request` ile kapıya sorar; kapı 204 derse dosyayı nginx verir, 401/403
+derse ziyaretçi giriş ekranına düşer. Ana sayfadaki kilit işaretleri yalnızca
+görünürlük içindir — adresi doğrudan yazmak da işe yaramaz.
+
+**Öğretmen** `/yonetim` adresinden parolayla girer, kod oluşturur ve **Paylaş**
+düğmesiyle kodu içinde taşıyan bağlantıyı kopyalar
+(`…/giris?kod=DRS-K7M2PX`). Öğrenci bağlantıyı açar, kod alanı dolu gelir,
+**Derse gir** der; kod o tarayıcıda 30 gün açık kalır.
+
+İlk yönetici parolası kapı ilk açıldığında üretilir:
+
+```bash
+docker logs dersler-kapi | head -1
+```
+
+Panelden değiştirilebilir. Ayrıntılar: [`sunucu/README.md`](sunucu/README.md).
+
+Kapının koruyamayacağı tek şey, ekranda gösterilen içeriğin kopyalanmasıdır;
+"indirme kapalı" pptx dosyasını dağıtmamak demektir, kopyalanamaz demek değil.
+
+### Önbellek tuzağı
+
+Site Cloudflare üzerinden yayınlanıyor ve Cloudflare `.pptx`/`.zip` gibi
+dosyaları **uzantısına bakarak** kenarda saklar. Yetki denetimi origin'de
+yapıldığı için, yetkili bir öğrencinin indirdiği deste kenarda kalır ve sonraki
+anonim isteğe oradan verilir; kapı bu noktada tamamen devre dışı kalır. Bu
+yüzden korunan yollar `Cache-Control: private, no-store` ile verilir
+([`deploy/korunan-basliklar.inc`](deploy/korunan-basliklar.inc)). Denetlemek
+için, kod olmadan:
+
+```bash
+curl -sI https://dersler.perinet.org/sunum/mercekler.pptx | grep -i "HTTP\|cf-cache-status"
+```
+
+Beklenen: `302` ve `BYPASS`. `200` ve `HIT` görünüyorsa o dosyanın eski bir
+kopyası kenarda duruyordur; kendiliğinden en çok 24 saatte düşer, hemen
+düşürmek için:
+
+```bash
+bash deploy/onbellek-temizle.sh
+```
+
+Betik Cloudflare belirtecinde **Cache Purge** izni ister; izin yoksa aynı iş
+Cloudflare panelinde Caching → Configuration → Purge Custom URLs ekranından
+yapılır.
+
 ## Yerel çalıştırma
 
 ```bash
 python3 -m http.server 8000 --directory dist
 ```
 
-Ardından <http://127.0.0.1:8000> adresini aç. Başka bir şey gerekmiyor.
+Ardından <http://127.0.0.1:8000> adresini aç. İçeriğe bakmak için başka bir şey
+gerekmiyor: bu sunucuda kapı yoktur, bütün sayfalar açıktır. Kapıyı da denemek
+için ikinci bir kabukta:
+
+```bash
+KAPI_PORT=8099 KAPI_VERI=/tmp/veri.json KAPI_PAROLA=deneme node sunucu/sunucu.js
+```
+
+Kapının çerezi `Secure` olduğu için giriş akışı düz http üzerinde tamamlanmaz;
+uçlar yine `curl` ile denenebilir.
 
 ## Yayına alma
 
@@ -513,4 +589,7 @@ kaydedildiği anda yayında olur. Tuval yardımcıları ve konu anlatımı modal
 sayfanın kendi `<script>` bloğunda tanımlıdır; stil bloğu `stil/konu.css`
 kaynağından gelir. Var olan ders sayfalarından biri başlangıç noktası olarak
 kopyalanabilir; yeni sayfanın `<title>`, açıklaması, künye satırı ve alt bilgisi
-güncellenmeli, `sitemap.xml` listesine adresi eklenmelidir.
+güncellenmelidir. Konu sayfaları arama motorlarına kapalı olduğu için
+`sitemap.xml` yalnızca ana sayfayı bildirir; oraya bir şey eklenmez. Buna
+karşılık **`sunucu/konular.js` listesine eklemek şarttır** — kapı tanımadığı
+sayfayı hiçbir koda açmaz.

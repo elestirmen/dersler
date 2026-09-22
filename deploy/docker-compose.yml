@@ -1,4 +1,4 @@
-# Dersler — statik yayın konteyneri.
+# Dersler — statik yayın konteyneri + erişim kapısı.
 #
 # Sunucudaki desen: her site nginx:alpine ile npm-net ağında durur, dışarıya
 # port açmaz; 80/443'ü Nginx Proxy Manager karşılar ve isme göre yönlendirir.
@@ -6,6 +6,10 @@
 #   docker compose -f /opt/dersler/deploy/docker-compose.yml up -d
 #
 # NPM tarafında proxy host: dersler.perinet.org + dersler.urgup.keenetic.link -> dersler-web:80
+#
+# İki servis vardır: dosyaları nginx sunar, "bu ziyaretçi bu dosyayı görebilir
+# mi?" kararını kapı verir. Kapı düşerse konu sayfaları ve sunumlar kapanır,
+# ana sayfa açık kalır.
 
 name: dersler
 
@@ -18,9 +22,39 @@ services:
       - "80"
     volumes:
       - /opt/dersler/dist:/usr/share/nginx/html:ro
-      - /opt/dersler/deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      # Dizin olarak bağlanır: tek dosya bağlansaydı, dosyayı düzenlemek yeni
+      # bir inode üretip bağlamayı eskisine sabitler ve değişiklik görünmezdi.
+      - /opt/dersler/deploy:/etc/nginx/conf.d:ro
+    depends_on:
+      - kapi
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - npm-net
+
+  kapi:
+    image: node:22-alpine
+    container_name: dersler-kapi
+    restart: unless-stopped
+    # Veri dosyaları sunucudaki kullanıcıya ait olsun; kapı root olarak koşmasın.
+    user: "1000:1000"
+    working_dir: /uygulama
+    command: ["node", "sunucu.js"]
+    environment:
+      KAPI_PORT: "8080"
+      KAPI_VERI: /veri/veri.json
+      TZ: Europe/Istanbul
+    expose:
+      - "8080"
+    volumes:
+      - /opt/dersler/sunucu:/uygulama:ro
+      - /opt/dersler/veri:/veri
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/durum || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 3

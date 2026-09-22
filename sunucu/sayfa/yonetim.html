@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#f4f5f9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0e1b" media="(prefers-color-scheme: dark)" />
+    <title>Yönetim — Dersler</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..700&family=Inter:wght@400..800&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: light;
+        --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        --font-display: Fraunces, "Iowan Old Style", Georgia, serif;
+        --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        --bg: #f4f5f9;
+        --surface: #ffffff;
+        --surface-2: #f8f9fc;
+        --surface-3: #eef1f7;
+        --line: #e1e5ee;
+        --ink: #0e1426;
+        --muted: #4a5470;
+        --dim: #7b849e;
+        --blue: #2957d4;
+        --lime: #3c8c21;
+        --amber: #a56209;
+        --rose: #c53455;
+        --primary: #0e1426;
+        --primary-hover: #1c2542;
+        --primary-ink: #ffffff;
+        --shadow-sm: 0 1px 2px rgba(14, 20, 38, 0.05), 0 2px 8px -2px rgba(14, 20, 38, 0.06);
+        --shadow: 0 2px 4px rgba(14, 20, 38, 0.04), 0 14px 34px -10px rgba(14, 20, 38, 0.16);
+        --edge: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #0a0e1b;
+        --surface: #121829;
+        --surface-2: #0e1324;
+        --surface-3: #192038;
+        --line: rgba(164, 178, 220, 0.15);
+        --ink: #f2f5ff;
+        --muted: #a5aec8;
+        --dim: #6f7994;
+        --blue: #86a9ff;
+        --lime: #9ee06a;
+        --amber: #f0b45c;
+        --rose: #ff8098;
+        --primary: #b9ee63;
+        --primary-hover: #a9e648;
+        --primary-ink: #16260a;
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 14px 34px -10px rgba(0, 0, 0, 0.6);
+        --edge: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100svh;
+        padding: 0 16px 80px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .sarmal { max-width: 1040px; margin: 0 auto; }
+
+      header.ust {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        padding: 28px 0 22px;
+      }
+
+      .marka { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--muted); }
+      .marka svg { width: 24px; height: 24px; color: var(--ink); }
+
+      h1 { margin: 0 0 6px; font-family: var(--font-display); font-size: 2.1rem; font-weight: 600; letter-spacing: -0.02em; }
+      h2 { margin: 0 0 4px; font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; letter-spacing: -0.015em; }
+      p.alt { margin: 0; color: var(--muted); font-size: 0.93rem; line-height: 1.6; }
+
+      .pano {
+        padding: 24px;
+        margin-bottom: 20px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      button, .dugme {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 42px;
+        padding: 0 18px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font: inherit;
+        font-size: 0.92rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+      }
+
+      button:hover, .dugme:hover { background: var(--surface-3); }
+      button:active { transform: translateY(1px); }
+      button[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+      button.ana { border-color: transparent; background: var(--primary); color: var(--primary-ink); }
+      button.ana:hover { background: var(--primary-hover); }
+      button.tehlike { color: var(--rose); }
+      button.ufak { min-height: 34px; padding: 0 12px; font-size: 0.84rem; }
+
+      label { display: block; margin-bottom: 7px; font-size: 0.84rem; font-weight: 600; color: var(--muted); }
+
+      input[type="text"], input[type="password"], input[type="date"] {
+        width: 100%;
+        min-height: 46px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font: inherit;
+        font-size: 0.95rem;
+      }
+
+      input::placeholder { text-transform: none; letter-spacing: 0; color: var(--dim); }
+
+      input:focus { outline: 2px solid color-mix(in srgb, var(--ink) 30%, transparent); outline-offset: 1px; }
+
+      .satirlar { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+
+      .kutucuk { display: flex; align-items: center; gap: 9px; margin: 0; font-size: 0.92rem; font-weight: 500; color: var(--ink); cursor: pointer; }
+      .kutucuk input { width: 17px; height: 17px; margin: 0; accent-color: var(--blue); cursor: pointer; }
+
+      .unite { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+      .unite:first-of-type { border-top: 0; padding-top: 0; }
+      .unite-bas { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+      .unite-bas strong { font-size: 0.95rem; letter-spacing: -0.01em; }
+      .konular { display: grid; gap: 10px 18px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+
+      table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+      thead th { padding: 0 12px 10px; text-align: left; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--dim); }
+      tbody tr { border-top: 1px solid var(--line); }
+      tbody td { padding: 14px 12px; vertical-align: middle; }
+      tbody tr:hover { background: var(--surface-2); }
+
+      .kod { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; }
+      .ad { color: var(--muted); font-size: 0.86rem; }
+
+      .rozet {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: var(--surface-3);
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 650;
+        white-space: nowrap;
+      }
+      .rozet.iyi { background: color-mix(in srgb, var(--lime) 16%, var(--surface)); color: var(--lime); }
+      .rozet.uyari { background: color-mix(in srgb, var(--amber) 16%, var(--surface)); color: var(--amber); }
+      .rozet.kapali { background: color-mix(in srgb, var(--rose) 14%, var(--surface)); color: var(--rose); }
+
+      .islem { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+
+      .bos { padding: 40px 0; text-align: center; color: var(--dim); }
+
+      .uyari-kutu {
+        margin-bottom: 16px;
+        padding: 12px 14px;
+        border: 1px solid color-mix(in srgb, var(--rose) 35%, var(--line));
+        border-radius: 13px;
+        background: color-mix(in srgb, var(--rose) 8%, var(--surface));
+        color: var(--rose);
+        font-size: 0.9rem;
+      }
+      .uyari-kutu[hidden], [hidden] { display: none !important; }
+
+      .bilgi {
+        position: fixed;
+        left: 50%;
+        bottom: 26px;
+        transform: translate(-50%, 20px);
+        padding: 12px 20px;
+        border-radius: 14px;
+        background: var(--primary);
+        color: var(--primary-ink);
+        font-size: 0.9rem;
+        font-weight: 600;
+        box-shadow: var(--shadow);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 200ms ease, transform 200ms ease;
+      }
+      .bilgi.acik { opacity: 1; transform: translate(-50%, 0); }
+
+      .giris-sarmal { display: grid; place-items: center; min-height: 100svh; }
+      .giris-sarmal .pano { width: 100%; max-width: 400px; }
+
+      @media (max-width: 720px) {
+        thead { display: none; }
+        tbody tr { display: grid; gap: 8px; padding: 14px 0; }
+        tbody td { padding: 0 4px; }
+        .islem { justify-content: flex-start; }
+      }
+    </style>
+    <script>
+      (function () {
+        var mode = "light";
+        try { if (localStorage.getItem("dersler-tema") === "dark") mode = "dark"; } catch (e) {}
+        document.documentElement.setAttribute("data-theme", mode);
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- ================= parola ekranı ================= -->
+    <div class="giris-sarmal" id="giris-ekrani" hidden>
+      <form class="pano" id="giris-form">
+        <div class="marka">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 6.5C6.5 4.5 9.5 4.5 12 6.5c2.5-2 5.5-2 9-0V18c-3.5-2-6.5-2-9 0-2.5-2-5.5-2-9 0V6.5Z" />
+          </svg>
+          Dersler
+        </div>
+        <h1 style="margin-top: 18px">Yönetim</h1>
+        <p class="alt" style="margin-bottom: 22px">Ders kodlarını buradan açar, kapatır ve paylaşırsınız.</p>
+        <p class="uyari-kutu" id="giris-uyari" role="alert" hidden></p>
+        <label for="parola">Yönetici parolası</label>
+        <input type="password" id="parola" autocomplete="current-password" required />
+        <button class="ana" type="submit" style="width: 100%; margin-top: 16px; min-height: 48px">Gir</button>
+      </form>
+    </div>
+
+    <!-- ================= panel ================= -->
+    <div class="sarmal" id="panel" hidden>
+      <header class="ust">
+        <div>
+          <div class="marka">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 6.5C6.5 4.5 9.5 4.5 12 6.5c2.5-2 5.5-2 9-0V18c-3.5-2-6.5-2-9 0-2.5-2-5.5-2-9 0V6.5Z" />
+            </svg>
+            Dersler
+          </div>
+          <h1 style="margin-top: 10px">Ders kodları</h1>
+          <p class="alt">Her kod bir sınıfa karşılık gelir: hangi konuların açık olduğunu ve sunumların indirilip indirilemeyeceğini kod belirler.</p>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <a class="dugme" href="/" target="_blank" rel="noopener">Siteyi aç</a>
+          <button id="parola-dugme">Parolayı değiştir</button>
+          <button id="cikis-dugme">Çıkış</button>
+        </div>
+      </header>
+
+      <!-- düzenleyici -->
+      <section class="pano">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap">
+          <div>
+            <h2 id="duzen-baslik">Yeni ders kodu</h2>
+            <p class="alt" id="duzen-alt">Kodu boş bırakırsanız kendiliğinden üretilir.</p>
+          </div>
+          <button id="iptal-dugme" hidden>Vazgeç</button>
+        </div>
+
+        <div class="satirlar" style="margin-top: 20px">
+          <div>
+            <label for="alan-ad">Sınıf / grup adı</label>
+            <input type="text" id="alan-ad" placeholder="örn. 11-A Fizik" maxlength="80" />
+          </div>
+          <div>
+            <label for="alan-kod">Kod</label>
+            <input type="text" id="alan-kod" placeholder="kendiliğinden üretilir" style="font-family: var(--font-mono); text-transform: uppercase" maxlength="32" />
+          </div>
+          <div>
+            <label for="alan-bitis">Son geçerlilik günü</label>
+            <input type="date" id="alan-bitis" />
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 22px; flex-wrap: wrap; margin-top: 18px">
+          <label class="kutucuk"><input type="checkbox" id="alan-indirme" checked /> Sunumlar indirilebilsin</label>
+          <label class="kutucuk"><input type="checkbox" id="alan-etkin" checked /> Kod etkin</label>
+        </div>
+
+        <div id="konu-secim" style="margin-top: 24px"></div>
+
+        <p class="uyari-kutu" id="duzen-uyari" role="alert" hidden></p>
+
+        <div style="display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap">
+          <button class="ana" id="kaydet-dugme">Kaydet</button>
+          <button id="tumu-dugme">Tüm konuları seç</button>
+          <button id="hicbiri-dugme">Seçimi temizle</button>
+        </div>
+      </section>
+
+      <!-- parola -->
+      <section class="pano" id="parola-pano" hidden>
+        <h2>Parolayı değiştir</h2>
+        <p class="alt" style="margin-bottom: 18px">Değişiklikten sonra açık oturum sürer; yeni parola bir sonraki girişte geçerlidir.</p>
+        <div class="satirlar">
+          <div>
+            <label for="p-eski">Şimdiki parola</label>
+            <input type="password" id="p-eski" autocomplete="current-password" />
+          </div>
+          <div>
+            <label for="p-yeni">Yeni parola (en az 8 karakter)</label>
+            <input type="password" id="p-yeni" autocomplete="new-password" />
+          </div>
+        </div>
+        <p class="uyari-kutu" id="p-uyari" role="alert" hidden style="margin-top: 16px"></p>
+        <div style="display: flex; gap: 10px; margin-top: 18px">
+          <button class="ana" id="p-kaydet">Değiştir</button>
+          <button id="p-iptal">Vazgeç</button>
+        </div>
+      </section>
+
+      <!-- liste -->
+      <section class="pano">
+        <h2>Kodlar</h2>
+        <p class="alt" style="margin-bottom: 18px">Paylaş düğmesi, kodu içinde taşıyan giriş bağlantısını panoya kopyalar.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Kod</th>
+              <th>Konu</th>
+              <th>Sunum</th>
+              <th>Durum</th>
+              <th>Giriş</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="liste"></tbody>
+        </table>
+        <p class="bos" id="liste-bos" hidden>Henüz kod yok. Yukarıdan ilkini oluşturun.</p>
+      </section>
+    </div>
+
+    <div class="bilgi" id="bilgi" role="status" aria-live="polite"></div>
+
+    <script>
+      (function () {
+        var girisEkrani = document.getElementById("giris-ekrani");
+        var panel = document.getElementById("panel");
+        var bilgiKutu = document.getElementById("bilgi");
+        var uniteler = [];
+        var kodlar = [];
+        var duzenlenen = null;
+
+        function bilgi(metin) {
+          bilgiKutu.textContent = metin;
+          bilgiKutu.classList.add("acik");
+          clearTimeout(bilgi.zaman);
+          bilgi.zaman = setTimeout(function () { bilgiKutu.classList.remove("acik"); }, 2600);
+        }
+
+        function istek(yol, secenek) {
+          return fetch(yol, Object.assign({ headers: { "content-type": "application/json" } }, secenek))
+            .then(function (c) {
+              return c.json().catch(function () { return {}; }).then(function (v) { return { ok: c.ok, kod: c.status, veri: v }; });
+            });
+        }
+
+        // ---------------- parola ekranı ----------------
+
+        var girisForm = document.getElementById("giris-form");
+        var girisUyari = document.getElementById("giris-uyari");
+
+        girisForm.addEventListener("submit", function (olay) {
+          olay.preventDefault();
+          girisUyari.hidden = true;
+          istek("/yonetim/giris", { method: "POST", body: JSON.stringify({ parola: document.getElementById("parola").value }) })
+            .then(function (s) {
+              if (s.ok) return yukle();
+              girisUyari.textContent = s.veri.hata === "cok-deneme"
+                ? "Çok fazla deneme yapıldı. 15 dakika sonra tekrar deneyin."
+                : "Parola doğru değil.";
+              girisUyari.hidden = false;
+            })
+            .catch(function () {
+              girisUyari.textContent = "Bağlantı kurulamadı.";
+              girisUyari.hidden = false;
+            });
+        });
+
+        document.getElementById("cikis-dugme").addEventListener("click", function () {
+          istek("/yonetim/cikis", { method: "POST" }).then(function () { location.reload(); });
+        });
+
+        var parolaPano = document.getElementById("parola-pano");
+        var pEski = document.getElementById("p-eski");
+        var pYeni = document.getElementById("p-yeni");
+        var pUyari = document.getElementById("p-uyari");
+
+        function parolaPanoKapat() {
+          parolaPano.hidden = true;
+          pEski.value = "";
+          pYeni.value = "";
+          pUyari.hidden = true;
+        }
+
+        document.getElementById("parola-dugme").addEventListener("click", function () {
+          parolaPano.hidden = !parolaPano.hidden;
+          if (!parolaPano.hidden) {
+            pEski.focus();
+            parolaPano.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        });
+
+        document.getElementById("p-iptal").addEventListener("click", parolaPanoKapat);
+
+        document.getElementById("p-kaydet").addEventListener("click", function () {
+          pUyari.hidden = true;
+          if (pYeni.value.length < 8) {
+            pUyari.textContent = "Yeni parola en az 8 karakter olmalı.";
+            pUyari.hidden = false;
+            return;
+          }
+          istek("/yonetim/parola", {
+            method: "POST",
+            body: JSON.stringify({ eski: pEski.value, yeni: pYeni.value }),
+          }).then(function (s) {
+            if (s.ok) {
+              parolaPanoKapat();
+              return bilgi("Parola değiştirildi");
+            }
+            pUyari.textContent = s.veri.hata === "kisa"
+              ? "Yeni parola en az 8 karakter olmalı."
+              : "Şimdiki parola doğru değil.";
+            pUyari.hidden = false;
+          });
+        });
+
+        // ---------------- veri ----------------
+
+        function parolaEkrani() {
+          girisEkrani.hidden = false;
+          panel.hidden = true;
+          document.getElementById("parola").focus();
+        }
+
+        function yukle() {
+          return istek("/yonetim/veri").then(function (s) {
+            if (!s.ok) {
+              parolaEkrani();
+              return;
+            }
+            uniteler = s.veri.uniteler;
+            kodlar = s.veri.kodlar;
+            girisEkrani.hidden = true;
+            panel.hidden = false;
+            konulariCiz();
+            listeyiCiz();
+          });
+        }
+
+        // ---------------- konu seçimi ----------------
+
+        function konulariCiz() {
+          var kap = document.getElementById("konu-secim");
+          if (kap.dataset.hazir) return;
+          kap.dataset.hazir = "1";
+
+          uniteler.forEach(function (unite) {
+            var blok = document.createElement("div");
+            blok.className = "unite";
+
+            var bas = document.createElement("div");
+            bas.className = "unite-bas";
+            var ad = document.createElement("strong");
+            ad.textContent = unite.ad;
+            var hepsi = document.createElement("button");
+            hepsi.type = "button";
+            hepsi.className = "ufak";
+            hepsi.textContent = "Üniteyi seç";
+            hepsi.addEventListener("click", function () {
+              var kutular = blok.querySelectorAll("input");
+              var acilsin = Array.prototype.some.call(kutular, function (k) { return !k.checked; });
+              Array.prototype.forEach.call(kutular, function (k) { k.checked = acilsin; });
+              hepsi.textContent = acilsin ? "Üniteyi bırak" : "Üniteyi seç";
+            });
+            bas.append(ad, hepsi);
+
+            var izgara = document.createElement("div");
+            izgara.className = "konular";
+            unite.konular.forEach(function (konu) {
+              var etiket = document.createElement("label");
+              etiket.className = "kutucuk";
+              var kutu = document.createElement("input");
+              kutu.type = "checkbox";
+              kutu.value = konu.slug;
+              kutu.dataset.konu = "1";
+              etiket.append(kutu, document.createTextNode(" " + konu.ad));
+              izgara.append(etiket);
+            });
+
+            blok.append(bas, izgara);
+            kap.append(blok);
+          });
+        }
+
+        function secilenler() {
+          return Array.prototype.map.call(
+            document.querySelectorAll("#konu-secim input:checked"),
+            function (k) { return k.value; },
+          );
+        }
+
+        function secimiKur(liste) {
+          Array.prototype.forEach.call(document.querySelectorAll("#konu-secim input"), function (k) {
+            k.checked = liste.indexOf(k.value) >= 0;
+          });
+        }
+
+        document.getElementById("tumu-dugme").addEventListener("click", function () {
+          Array.prototype.forEach.call(document.querySelectorAll("#konu-secim input"), function (k) { k.checked = true; });
+        });
+        document.getElementById("hicbiri-dugme").addEventListener("click", function () { secimiKur([]); });
+
+        // ---------------- düzenleyici ----------------
+
+        var alanAd = document.getElementById("alan-ad");
+        var alanKod = document.getElementById("alan-kod");
+        var alanBitis = document.getElementById("alan-bitis");
+        var alanIndirme = document.getElementById("alan-indirme");
+        var alanEtkin = document.getElementById("alan-etkin");
+        var duzenUyari = document.getElementById("duzen-uyari");
+        var iptalDugme = document.getElementById("iptal-dugme");
+
+        function formuSifirla() {
+          duzenlenen = null;
+          alanAd.value = "";
+          alanKod.value = "";
+          alanKod.disabled = false;
+          alanBitis.value = "";
+          alanIndirme.checked = true;
+          alanEtkin.checked = true;
+          secimiKur([]);
+          duzenUyari.hidden = true;
+          iptalDugme.hidden = true;
+          document.getElementById("duzen-baslik").textContent = "Yeni ders kodu";
+          document.getElementById("duzen-alt").textContent = "Kodu boş bırakırsanız kendiliğinden üretilir.";
+        }
+
+        function duzenle(kayit) {
+          duzenlenen = kayit.kod;
+          alanAd.value = kayit.ad || "";
+          alanKod.value = kayit.kod;
+          alanKod.disabled = true;
+          alanBitis.value = kayit.bitis || "";
+          alanIndirme.checked = kayit.indirme !== false;
+          alanEtkin.checked = kayit.etkin !== false;
+          secimiKur(kayit.konular || []);
+          duzenUyari.hidden = true;
+          iptalDugme.hidden = false;
+          document.getElementById("duzen-baslik").textContent = "Kodu düzenle";
+          document.getElementById("duzen-alt").textContent = kayit.kod + " — değişiklikler kaydedilir kaydedilmez geçerli olur.";
+          document.getElementById("duzen-baslik").scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        iptalDugme.addEventListener("click", formuSifirla);
+
+        document.getElementById("kaydet-dugme").addEventListener("click", function () {
+          var konular = secilenler();
+          if (!konular.length) {
+            duzenUyari.textContent = "En az bir konu seçin; boş bir kod kimseye hiçbir şey açmaz.";
+            duzenUyari.hidden = false;
+            return;
+          }
+          istek("/yonetim/kod", {
+            method: "POST",
+            body: JSON.stringify({
+              kod: duzenlenen || alanKod.value.trim(),
+              ad: alanAd.value.trim(),
+              konular: konular,
+              indirme: alanIndirme.checked,
+              etkin: alanEtkin.checked,
+              bitis: alanBitis.value || null,
+            }),
+          }).then(function (s) {
+            if (!s.ok) {
+              duzenUyari.textContent = s.veri.hata === "kod-var" ? "Bu kod zaten kullanılıyor." : "Kaydedilemedi.";
+              duzenUyari.hidden = false;
+              return;
+            }
+            bilgi(duzenlenen ? "Güncellendi" : "Kod oluşturuldu: " + s.veri.kod);
+            formuSifirla();
+            yukle();
+          });
+        });
+
+        // ---------------- liste ----------------
+
+        function konuAdi(slug) {
+          for (var i = 0; i < uniteler.length; i++) {
+            var bulunan = uniteler[i].konular.filter(function (k) { return k.slug === slug; })[0];
+            if (bulunan) return bulunan.ad;
+          }
+          return slug;
+        }
+
+        function gunFarki(tarih) {
+          var fark = new Date(tarih + "T23:59:59") - Date.now();
+          return Math.ceil(fark / 864e5);
+        }
+
+        function durumRozeti(kayit) {
+          if (kayit.etkin === false) return { sinif: "kapali", metin: "Kapalı" };
+          if (kayit.bitis) {
+            var kalan = gunFarki(kayit.bitis);
+            if (kalan < 0) return { sinif: "kapali", metin: "Süresi doldu" };
+            if (kalan <= 7) return { sinif: "uyari", metin: kalan + " gün kaldı" };
+            return { sinif: "iyi", metin: kayit.bitis + "'e kadar" };
+          }
+          return { sinif: "iyi", metin: "Açık" };
+        }
+
+        function hucre(satir, icerik) {
+          var td = document.createElement("td");
+          if (typeof icerik === "string") td.textContent = icerik;
+          else td.append(icerik);
+          satir.append(td);
+          return td;
+        }
+
+        function rozet(metin, sinif) {
+          var s = document.createElement("span");
+          s.className = "rozet" + (sinif ? " " + sinif : "");
+          s.textContent = metin;
+          return s;
+        }
+
+        function listeyiCiz() {
+          var govde = document.getElementById("liste");
+          govde.textContent = "";
+          document.getElementById("liste-bos").hidden = kodlar.length > 0;
+
+          var toplamKonu = uniteler.reduce(function (t, u) { return t + u.konular.length; }, 0);
+
+          kodlar.forEach(function (kayit) {
+            var satir = document.createElement("tr");
+
+            var kimlik = document.createElement("div");
+            var kodSatir = document.createElement("div");
+            kodSatir.className = "kod";
+            kodSatir.textContent = kayit.kod;
+            var adSatir = document.createElement("div");
+            adSatir.className = "ad";
+            adSatir.textContent = kayit.ad || "—";
+            kimlik.append(kodSatir, adSatir);
+            hucre(satir, kimlik);
+
+            var sayi = (kayit.konular || []).length;
+            var konuRozeti = rozet(sayi === toplamKonu ? "Tüm konular" : sayi + " konu");
+            konuRozeti.title = (kayit.konular || []).map(konuAdi).join("\n") || "konu yok";
+            hucre(satir, konuRozeti);
+            hucre(satir, rozet(kayit.indirme !== false ? "İndirilebilir" : "Kapalı", kayit.indirme !== false ? "iyi" : "kapali"));
+
+            var durum = durumRozeti(kayit);
+            hucre(satir, rozet(durum.metin, durum.sinif));
+
+            hucre(satir, kayit.girisSayisi ? kayit.girisSayisi + " giriş" : "—");
+
+            var islem = document.createElement("div");
+            islem.className = "islem";
+
+            var paylas = document.createElement("button");
+            paylas.className = "ufak";
+            paylas.textContent = "Paylaş";
+            paylas.addEventListener("click", function () {
+              var bag = location.origin + "/giris?kod=" + encodeURIComponent(kayit.kod);
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(bag).then(
+                  function () { bilgi("Bağlantı kopyalandı"); },
+                  function () { prompt("Bağlantıyı kopyalayın:", bag); },
+                );
+              } else {
+                prompt("Bağlantıyı kopyalayın:", bag);
+              }
+            });
+
+            var duzenDugme = document.createElement("button");
+            duzenDugme.className = "ufak";
+            duzenDugme.textContent = "Düzenle";
+            duzenDugme.addEventListener("click", function () { duzenle(kayit); });
+
+            var silDugme = document.createElement("button");
+            silDugme.className = "ufak tehlike";
+            silDugme.textContent = "Sil";
+            silDugme.addEventListener("click", function () {
+              if (!confirm(kayit.kod + " silinsin mi? Bu kodu kullanan öğrenciler derse giremez.")) return;
+              istek("/yonetim/kod-sil", { method: "POST", body: JSON.stringify({ kod: kayit.kod }) }).then(function () {
+                bilgi("Kod silindi");
+                if (duzenlenen === kayit.kod) formuSifirla();
+                yukle();
+              });
+            });
+
+            islem.append(paylas, duzenDugme, silDugme);
+            hucre(satir, islem).style.textAlign = "right";
+
+            govde.append(satir);
+          });
+        }
+
+        /* Açılışta doğrudan /yonetim/veri istemek konsola 401 düşürüyordu;
+           herkese açık /durum ucu aynı soruyu gürültüsüz cevaplıyor. */
+        istek("/durum")
+          .then(function (s) {
+            if (s.ok && s.veri.rol === "yonetici") return yukle();
+            parolaEkrani();
+          })
+          .catch(parolaEkrani);
+      })();
+    </script>
+  </body>
+</html>

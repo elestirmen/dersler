@@ -1,98 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Konu sayfaları ders koduyla açıldığı için dizine verilmez;
+     dışarıya yalnızca ana sayfa bildirilir. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dersler.perinet.org/</loc>
     <lastmod>2026-09-20</lastmod>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/cembersel-hareket.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/duzlem-aynalar.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/elektriksel-kuvvet.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/fiber-optik.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/gorunur-derinlik.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/iki-boyutta-hareket.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/induksiyon-akimi.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/isik-siddeti.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/kirilma.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/kuresel-aynalar.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/limit-hiz.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/manyetik-alan.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/mercekler.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/newton-yasalari.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/prizmalar.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/serbest-dusme.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/surtunme-kuvveti.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dersler.perinet.org/transformatorler.html</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.8</priority>
   </url>
 </urlset>
