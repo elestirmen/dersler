@@ -24,17 +24,26 @@
     return Array.prototype.slice.call((kok || document).querySelectorAll(secici));
   }
 
-  function kilitSvg() {
+  function kilitSvg(sinif) {
     var kap = document.createElement("span");
     kap.innerHTML = KILIT;
+    if (sinif) kap.firstChild.setAttribute("class", sinif);
     return kap.firstChild;
   }
 
-  function kilitRozeti() {
+  function kilitRozeti(metin) {
     var s = document.createElement("span");
     s.className = "kilit";
     s.innerHTML = KILIT;
-    s.append(document.createTextNode("Kod gerekli"));
+    s.append(document.createTextNode(metin || "Kod gerekli"));
+    return s;
+  }
+
+  /* Ekranda görünmeyen, yalnızca ekran okuyucunun duyduğu ek. */
+  function duyulan(metin) {
+    var s = document.createElement("span");
+    s.className = "duyulan";
+    s.textContent = metin;
     return s;
   }
 
@@ -86,6 +95,72 @@
   function acikMi(d, slug) { return d.konular.indexOf(slug) >= 0; }
   function inerMi(d, slug) { return d.indirilebilir.indexOf(slug) >= 0; }
 
+  /* Ünite başına açık/toplam sayısından ana sayfanın üst katmanlarını
+     işaretler: ünite başlıkları, ilk ekrandaki süzgeç düğmeleri ve açılış
+     kartı. Kartlara inmeden hangi ünitenin açık olduğu okunur. */
+  function isaretle(d, unite, acikKart, kartSayisi) {
+    function durumu(id) {
+      var u = unite[id];
+      if (!u) return null;
+      return u.acik === u.toplam ? "acik" : u.acik === 0 ? "kilitli" : "kismi";
+    }
+
+    hepsi("article.unit").forEach(function (blok) {
+      var durum = durumu(blok.id);
+      var kunye = blok.querySelector(".unit-meta");
+      if (!durum || !kunye || kunye.querySelector(".erisim-durum")) return;
+      var u = unite[blok.id];
+      blok.dataset.erisim = durum;
+      var satir = document.createElement("span");
+      satir.className = "erisim-durum " + durum;
+      if (durum === "kilitli") satir.append(kilitSvg(), document.createTextNode("Kod gerekli"));
+      else if (durum === "kismi") satir.textContent = u.acik + " açık · " + (u.toplam - u.acik) + " kodla";
+      else satir.textContent = "Hepsi açık";
+      /* "… konu çalışıldı" satırı varsa onun üstüne */
+      kunye.insertBefore(satir, kunye.querySelector(".prog"));
+    });
+
+    hepsi("#filters button[data-unit]").forEach(function (dugme) {
+      var durum = durumu(dugme.dataset.unit);
+      if (!durum || dugme.dataset.erisim) return;
+      var u = unite[dugme.dataset.unit];
+      dugme.dataset.erisim = durum;
+      if (durum === "kilitli") {
+        dugme.append(kilitSvg("erisim-simge"), duyulan(" (kod gerekli)"));
+      } else if (durum === "kismi") {
+        var sayi = document.createElement("span");
+        sayi.className = "erisim-sayi";
+        sayi.setAttribute("aria-hidden", "true");
+        sayi.textContent = u.acik + "/" + u.toplam;
+        dugme.append(sayi, duyulan(" (" + u.acik + " konu açık)"));
+      } else {
+        var nokta = document.createElement("span");
+        nokta.className = "erisim-nokta";
+        nokta.setAttribute("aria-hidden", "true");
+        dugme.prepend(nokta);
+        dugme.append(duyulan(" (açık)"));
+      }
+    });
+
+    /* Açılış kartı yeni üniteyi (ya da kaldığın konuyu) öne çıkarır; orası
+       kapalıysa bunu söylesin, alt satır da kaç konunun açık olduğunu. */
+    var vitrin = document.querySelector(".latest");
+    if (!vitrin || vitrin.querySelector(".kilit")) return;
+    var vitrinBag = vitrin.querySelector(".button");
+    var hedef = vitrinBag ? vitrinBag.getAttribute("href") || "" : "";
+    var kapali = hedef.charAt(0) === "#"
+      ? durumu(hedef.slice(1)) === "kilitli"
+      : !acikMi(d, slugu(vitrinBag));
+    if (kapali) {
+      var baslik = vitrin.querySelector("h2");
+      if (baslik) baslik.after(kilitRozeti());
+    }
+    var durumYazisi = vitrin.querySelector(".status");
+    if (durumYazisi && !vitrin.classList.contains("continue")) {
+      durumYazisi.textContent = acikKart + " / " + kartSayisi + " konu açık";
+    }
+  }
+
   /* ------------------------------------------------------------ ana sayfa */
 
   function anaSayfa(d) {
@@ -99,18 +174,28 @@
     /* ---- konu kartları: kapalı olan görünür kalır, kilitli işaretlenir ---- */
     var kartSayisi = 0;
     var acikKart = 0;
+    var unite = {};   /* ünite kimliği → { toplam, acik } */
     hepsi("article.lesson").forEach(function (kart) {
       var bag = kart.querySelector("h3 a");
       if (!bag) return;
       var slug = slugu(bag);
       var sunum = kart.querySelector("a.pill");
+      var u = unite[kart.dataset.unit] || (unite[kart.dataset.unit] = { toplam: 0, acik: 0 });
       kartSayisi++;
+      u.toplam++;
       if (acikMi(d, slug)) {
         acikKart++;
-      } else {
+        u.acik++;
+      } else if (!kart.classList.contains("kilitli")) {
         kart.classList.add("kilitli");
-        var etiket = kart.querySelector(".tag");
-        if (etiket && !kart.querySelector(".kilit")) etiket.after(kilitRozeti());
+        /* İmleçteki konu simgesinin yanına kilit konur; hangisinin görüneceğine
+           stil karar verir (ayrım varken kilit, yokken konu simgesi). */
+        var imlec = kart.querySelector(".mark");
+        if (imlec) imlec.append(kilitSvg("kilit-simge"));
+        /* "Konuya git" yerine durum: kartın eylem köşesi kilitli olduğunu söyler. */
+        var git = kart.querySelector(".go");
+        if (git) git.replaceWith(kilitRozeti("Ders koduyla açılır"));
+        bag.append(duyulan(" (kod gerekli)"));
       }
       if (sunum && !inerMi(d, slug)) sunum.remove();
     });
@@ -118,7 +203,13 @@
     /* Açık ve kapalı bir aradaysa kapalılar renksizleşir, açıklar renkli kalır:
        hangisinin açıldığı bir bakışta görünür. Hepsi aynı durumdaysa ayrım
        yapılacak bir şey yoktur, sayfa olduğu gibi kalır. */
-    document.documentElement.classList.toggle("erisim-ayrimli", acikKart > 0 && acikKart < kartSayisi);
+    var ayrimli = acikKart > 0 && acikKart < kartSayisi;
+    document.documentElement.classList.toggle("erisim-ayrimli", ayrimli);
+
+    /* Ünite, süzgeç ve açılış kartı işaretleri de yalnızca ayrım varken
+       konur: hepsi kapalıyken üç kez "kod gerekli" demek, şeridin zaten
+       söylediğini tekrarlamaktır. */
+    if (ayrimli) isaretle(d, unite, acikKart, kartSayisi);
 
     /* ---- sunum ızgarası ---- */
     var kalan = 0;

@@ -1419,29 +1419,71 @@
       .erisim-serit.onizleme b:first-child { color: var(--amber); }
 
       /* Kilitli kart: görünür kalır, ama kapının arkasında olduğu bellidir.
-         Rozet her durumda konur; renk ayrımı yalnızca ortada bir ayrım varken
-         (bazısı açık, bazısı kapalı) yapılır — hepsi kapalıyken bütün sayfayı
-         griye çevirmenin anlattığı bir şey olmaz. Sınıfı erisim.js koyar. */
+         Eylem köşesindeki "Konuya git" her durumda "Ders koduyla açılır"
+         rozetine döner. Renk ayrımı yalnızca ortada bir ayrım varken (bazısı
+         açık, bazısı kapalı) yapılır — hepsi kapalıyken bütün sayfayı griye
+         çevirmenin anlattığı bir şey olmaz. Sınıfları erisim.js koyar. */
       .lesson.kilitli { border-style: dashed; }
-      .lesson.kilitli .mark, .lesson.kilitli p, .lesson.kilitli .meta { opacity: 0.62; }
+      .lesson.kilitli .mark, .lesson.kilitli > p, .lesson.kilitli .meta { opacity: 0.62; }
 
-      /* Renk --tone'dan geliyor: değişkeni nötre çekmek kartın imlecini,
-         etiketini ve arka plan tonunu birden griye çevirir. filter: grayscale
-         yerine bu; metin karşıtlığı bozulmuyor ve yerleşim etkilenmiyor. */
+      /* erisim.js imlece kilidi konu simgesinin yanına koyar; ayrım yokken gizli */
+      .lesson .mark .kilit-simge { display: none; }
+
+      .duyulan {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
+      /* Ayrım varken kapalı kart geri çekilir: renk --tone'dan geldiği için
+         değişkeni nötre çekmek imleci, etiketi ve arka plan tonunu birden
+         griye çevirir (filter: grayscale metin karşıtlığını bozardı). Konu
+         simgesinin yerini kilit alır, ayrıntı çipleri kalkar, açıklama iki
+         satıra iner: açık kartlar dolu ve renkli, kapalılar boş bir yuva gibi. */
       .erisim-ayrimli .lesson.kilitli {
         /* !important şart: kartların çoğu tonunu style="--tone: …" ile taşıyor
            ve satır içi tanım, sınıf kuralını yenerdi. */
         --tone: var(--dim) !important;
+        border-color: color-mix(in srgb, var(--dim) 45%, var(--line));
         background: var(--surface-2);
         box-shadow: none;
       }
 
-      .erisim-ayrimli .lesson.kilitli .mark { background: var(--surface-3); border-color: var(--line); }
-      .erisim-ayrimli .lesson.kilitli:hover .mark { background: var(--dim); color: var(--surface); }
+      .erisim-ayrimli .lesson.kilitli:hover {
+        border-color: color-mix(in srgb, var(--dim) 80%, var(--line));
+        box-shadow: none;
+        transform: none;
+      }
+
+      .erisim-ayrimli .lesson.kilitli .mark {
+        border: 1px dashed color-mix(in srgb, var(--dim) 55%, transparent);
+        background: transparent;
+        color: var(--dim);
+        box-shadow: none;
+        opacity: 1;
+      }
+
+      .erisim-ayrimli .lesson.kilitli .mark svg:not(.kilit-simge) { display: none; }
+      .erisim-ayrimli .lesson.kilitli .mark .kilit-simge { display: block; width: 22px; height: 22px; }
+      .erisim-ayrimli .lesson.kilitli:hover .mark { background: var(--surface-3); color: var(--muted); transform: none; }
+
       .erisim-ayrimli .lesson.kilitli h3 a { color: var(--muted); }
 
-      /* Açık kalanlar öne çıksın: kapalıların gölgesi kalkarken bunlar durur. */
-      .erisim-ayrimli .lesson:not(.kilitli) { border-color: color-mix(in srgb, var(--tone) 26%, var(--line)); }
+      .erisim-ayrimli .lesson.kilitli > p {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+
+      .erisim-ayrimli .lesson.kilitli .meta { display: none; }
+
+      /* Açık kalanlar öne çıksın: kenar kendi tonunu alır, gölge kalır. */
+      .erisim-ayrimli .lesson:not(.kilitli) { border-color: color-mix(in srgb, var(--tone) 34%, var(--line)); }
 
       .kilit {
         display: inline-flex;
@@ -1460,7 +1502,60 @@
 
       .kilit svg { width: 13px; height: 13px; }
 
-      .lesson.kilitli .go { color: var(--dim); }
+      .lesson .foot .kilit { padding: 5px 11px 5px 9px; color: var(--muted); font-size: 0.8rem; }
+
+      /* ünite başlığı: kartlara inmeden ünitenin durumu okunur */
+      .unit-meta .erisim-durum {
+        display: block;
+        margin-top: 3px;
+        color: var(--dim);
+        font-size: 0.76rem;
+        font-weight: 650;
+        white-space: nowrap;
+      }
+
+      .unit-meta .erisim-durum.acik { color: var(--lime); }
+      .unit-meta .erisim-durum.kismi { color: var(--ink); }
+      .unit-meta .erisim-durum svg { width: 12px; height: 12px; margin-right: 4px; vertical-align: -1px; }
+
+      /* Bütünüyle kapalı ünite: numara rozeti ve etiketi renksiz, rozet kesik
+         çizgili. --utone satır içinde tanımlı olabildiği için !important. */
+      .erisim-ayrimli .unit[data-erisim="kilitli"] { --utone: var(--dim) !important; }
+
+      .erisim-ayrimli .unit[data-erisim="kilitli"] .unit-no {
+        border: 1px dashed color-mix(in srgb, var(--dim) 55%, transparent);
+        background: var(--surface);
+        color: var(--dim);
+        box-shadow: none;
+      }
+
+      .erisim-ayrimli .unit[data-erisim="kilitli"] .unit-title h3 { color: var(--muted); }
+
+      /* süzgeç düğmeleri: sayfanın ilk ekranında görünen ayrım */
+      .erisim-nokta {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        margin-right: 8px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 3px var(--accent-ring);
+        vertical-align: 1px;
+      }
+
+      .filters .erisim-simge { width: 13px; height: 13px; margin-left: 7px; vertical-align: -2px; }
+
+      .erisim-sayi { margin-left: 7px; opacity: 0.7; font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+
+      .filters button[data-erisim="kilitli"]:not([aria-pressed="true"]) {
+        border-style: dashed;
+        background: var(--surface-2);
+        color: var(--dim);
+        box-shadow: none;
+      }
+
+      /* açılış kartı kilitli bir üniteyi gösteriyorsa */
+      .latest .kilit { margin: -2px 0 12px; }
 
       /* kilitli deste: katalogda kalır ama indirme gibi durmaz */
       .dl.kilitli { border-style: dashed; }
