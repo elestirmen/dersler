@@ -14,7 +14,14 @@ const C = {
   lime: "3C8C21",       // açık zeminde okunur yeşil
   limeBright: "C6F36B", // koyu zeminde vurgu
   amber: "A56209",
-  rose: "C53455"
+  rose: "C53455",
+  /* koyu zeminde okunan tonlar (sitenin koyu temasındaki değerler) */
+  blueBright: "82AAFF",
+  violetBright: "A093FF",
+  amberBright: "FFCB6B",
+  roseBright: "FF8FA3",
+  paleText: "C3CEE8",   // koyu zeminde gövde metni
+  paleDim: "8D97B5"     // koyu zeminde etiket
 };
 
 const F = { head: "Cambria", body: "Calibri", mono: "Courier New" };
@@ -67,9 +74,13 @@ function head(slide, n, text, tone) {
     x: M, y: 0.46, w: 0.54, h: 0.54, align: "center", valign: "middle",
     fontFace: F.body, fontSize: 13, bold: true, color: C.white, isTextBox: true, margin: 0
   });
+  /* uzun başlık tek satıra sığsın diye küçülür (Cambria kalın ≈ 0,54 em/karakter) */
+  const w = W - M * 2 - 0.78;
+  let size = 32;
+  while (size > 20 && String(text).length * size * 0.54 / 72 > w * 0.96) size -= 1;
   slide.addText(text, {
-    x: M + 0.78, y: 0.4, w: W - M * 2 - 0.78, h: 0.7, align: "left", valign: "middle",
-    fontFace: F.head, fontSize: 32, bold: true, color: C.ink, isTextBox: true, margin: 0,
+    x: M + 0.78, y: 0.4, w: w, h: 0.7, align: "left", valign: "middle",
+    fontFace: F.head, fontSize: size, bold: true, color: C.ink, isTextBox: true, margin: 0,
     charSpacing: -0.5
   });
 }

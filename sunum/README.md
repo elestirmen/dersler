@@ -2,9 +2,10 @@
 
 Ders sayfalarıyla aynı paleti ve dili kullanan, 16:9 PowerPoint sunumları.
 On sekiz konunun her biri için bir deste; **her deste, o konunun "Konu
-anlatımı" modalından üretilir** ve onunla birebir aynıdır: aynı dokuz başlık,
-aynı sırada; aynı formüller, tablolar ve çizimler; aynı çözümlü örnekler ve sık
-yapılan hatalar. Konuşmacı notu, ilgili bölümün anlatım metninin kendisidir.
+anlatımı" modalından üretilir** ve onun dört basamaklı yolunu izler (Temel →
+Orta → İleri → Pekiştir): aynı başlıklar, formüller, tablolar, çizimler ve
+görseller, aynı "Düşün" soruları, kolaydan zora aynı çözümlü örnekler.
+Slaytta az metin durur; anlatımın paragrafları konuşmacı notundadır.
 
 Çıktılar doğrudan yayınlanan köke, `dist/sunum/` altına yazılır; yani üretildiği
 anda `dersler.perinet.org/sunum/...` adresinden indirilebilir. Ders sayfalarındaki
@@ -15,23 +16,29 @@ anda `dersler.perinet.org/sunum/...` adresinden indirilebilir. Ders sayfalarınd
 
 | Slayt | Kaynağı (konu sayfasında) |
 |---|---|
-| Kapak | Sayfa başlığı, künye, giriş paragrafı, temel bağıntılar |
-| Başlarken | Konu anlatımının açılış sorusu (`.lead-in`), büyük puntoyla |
-| Bu derste | Dokuz bölüm başlığı ve her birinin ilk cümlesi |
-| 01–07 · Bölümler | Bölümün paragrafları (her cümle bir madde), formül kutuları, uyarı kutuları, tablolar; sağda bölümün çizimi ve alt yazısı. Uzun bölüm dengeli biçimde iki slayta bölünür |
-| 08 · Çözümlü örnekler | Her örnek bir slayt: soru solda, adımlar sağda numaralı kartlarda; kart yükseklikleri içeriğe göre |
-| 09 · Sık yapılan hatalar | İki sütunlu ✗ / ✓ kartları |
+| Kapak | Koyu zemin; solda künye, başlık, giriş paragrafı ve dört basamak şeridi, sağda konunun **giriş görseli** (kenarı zemine karışır) |
+| Başlarken | Konu anlatımının açılış sorusu (`.lead-in`'in harita cümlesinden önceki kısmı), büyük puntoyla |
+| Bu derste | Dört sütun: her basamağın adı, açıklaması ve başlıkları |
+| Basamak ayracı | Koyu zemin, büyük numara, basamağın adı, açıklaması ve başlıkları; sağda 1'de günlük görsel, 2'de temel bağıntılar, 3'te uygulama görseli, 4'te zorluk rozetli örnek listesi |
+| Bölüm | Başlık, altında **Kısaca** bandı (bölümün özet cümlesi), gövdede listeler, formül kutuları, tablolar, uyarı kutuları; sağda bölümün çizimi. Gövde slaytın yarısını doldurmuyorsa anlatımın paragrafları bütün hâlinde eklenir; uzun bölüm dengeli biçimde iki slayta bölünür |
+| Düşün → Cevap | Soru slaytı (büyük soru işareti, "Cevap bir sonraki slaytta"), ardından cevap slaytı. Deste başına en çok altı çift: önce her basamaktan biri, sonra sırayla; kalanlar bölüm notunda |
+| Çözümlü örnek | Her örnek bir slayt: sağ üstte **Kolay / Orta / Zor** rozeti, soru solda, adımlar sağda numaralı kartlarda |
+| Sık yapılan hatalar | İki sütunlu ✗ / ✓ kartları; altıdan çok madde iki slayta bölünür |
 | Özetle | "Aklında kalsın" (sayfa künyesindeki dört gerçek), temel bağıntılar, sayfa bağlantısı ve sıradaki konu |
 
-Yazı boyutu bölümün uzunluğuna göre 16 pt ile 12 pt arasında seçilir; kısa
-bölümlerde çizim genişler. Çizimler konu anlatımındaki SVG'lerin açık temada
-2× çözünürlükte alınmış PNG kopyalarıdır, bu yüzden sayfadakiyle aynı görünür.
+Bir deste 38–47 slayttır. Başlık rengi basamağı söyler (yeşil, mavi, mor,
+turuncu), sağ üstte "2 / 4 ORTA" gibi bir etiket durur. Yazı boyutu içeriğe göre
+seçilir; uzun başlıklar tek satıra sığacak kadar küçülür. Çizimler konu
+anlatımındaki SVG'lerin açık temada 2× çözünürlükte alınmış PNG kopyalarıdır;
+görseller özgün PNG'lerden (`gorsel/ham/`, yoksa `dist/gorsel/*.webp`) ImageMagick ile
+slayt çerçevesinin oranına kırpılır ve "Yapay zekâ ile üretildi" etiketi taşır.
 
 ## Yeniden üretmek
 
 Tek kaynak konu sayfalarıdır; bir sayfanın konu anlatımı değişince desteyi
 yeniden üretmek yeterlidir. Küresel paketler: `pptxgenjs` ve `puppeteer`
-(çizimleri PNG'ye çevirmek ve modalı okumak için).
+(çizimleri PNG'ye çevirmek ve modalı okumak için); görselleri kırpmak için
+ImageMagick (`magick`).
 
 ```bash
 npm install -g pptxgenjs puppeteer
@@ -42,7 +49,8 @@ cd dist/sunum && rm -f dersler-sunumlar.zip && zip -q -X dersler-sunumlar.zip *.
 ```
 
 `--cikti DIR` çıktıyı başka bir klasöre yazar (yayına almadan denemek için),
-`--sekiller DIR` çizim PNG'lerinin önbelleğini seçer.
+`--kok DIR` konu sayfalarını `dist` yerine bir kopyadan okur, `--sekiller DIR`
+çizim ve kırpılmış görsel önbelleğini seçer.
 
 ## Yerleşimi doğrulamak
 
