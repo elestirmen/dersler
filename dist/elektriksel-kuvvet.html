@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1872,7 +2092,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Elektriksel kuvvet ve alan</h3>
-          <p>Yükten Coulomb yasasına, alan çizgilerinden düzgün alanda hareketine kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce yük ve yüklenme üzerine sezgi, sonra Coulomb yasası, süperpozisyon ve elektriksel alan, ardından düzgün alanda hareket, iletkenler ve yıldırım; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2148,15 +2368,20 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Elektrik yükü</button>
-        <button type="button" data-goto="k2">Coulomb yasası</button>
-        <button type="button" data-goto="k3">Kuvvetlerin toplamı</button>
-        <button type="button" data-goto="k4">Elektriksel alan</button>
-        <button type="button" data-goto="k5">Alan çizgileri</button>
-        <button type="button" data-goto="k6">Düzgün alan</button>
-        <button type="button" data-goto="k7">Alanda hareket</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Elektrik yükü</button>
+        <button type="button" data-goto="k3" data-basamak="1">Yüklenme yolları</button>
+        <button type="button" data-goto="k4" data-basamak="2">Coulomb yasası</button>
+        <button type="button" data-goto="k5" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k6" data-basamak="2">Kuvvetlerin toplamı</button>
+        <button type="button" data-goto="k7" data-basamak="2">Elektriksel alan</button>
+        <button type="button" data-goto="k8" data-basamak="2">Alan çizgileri</button>
+        <button type="button" data-goto="k9" data-basamak="3">Düzgün alan</button>
+        <button type="button" data-goto="k10" data-basamak="3">Alanda hareket</button>
+        <button type="button" data-goto="k11" data-basamak="3">İletkenler ve yıldırım</button>
+        <button type="button" data-goto="k12" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k13" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k14" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2181,32 +2406,86 @@
           üçü de aynı kuvvetin eseri. Elektriksel kuvvet öyle güçlüdür ki iki proton arasında
           yerçekiminden <b>10³⁶ kat</b> büyüktür. Onu her an hissetmememizin tek sebebi, artı ve
           eksi yüklerin çevremizde neredeyse <b>kusursuz biçimde dengelenmiş</b> olmasıdır.
-          Bu dengeyi azıcık bozduğunda ortaya çıkan şeyi bu konuda hesaplamayı öğreneceğiz.
+          Bu dengeyi azıcık bozduğunda ortaya çıkan şeyi hesaplamayı öğreneceğiz. Anlatım dört
+          basamakta ilerliyor: önce saça sürtülen bir balonu gözleyip yükü tanıyacağız, sonra Coulomb
+          yasasını ve elektriksel alanı kuracağız, ardından düzgün alanda hareket eden parçacıklara,
+          iletkenlere ve yıldırıma geçeceğiz. En sonda kolaydan zora örneklerle hepsini birleştireceğiz.
         </p>
 
-        <h3 id="k1">Elektrik yükü</h3>
+        <figure class="foto">
+          <img src="gorsel/elektriksel-kuvvet-giris.webp?v=2" srcset="gorsel/elektriksel-kuvvet-giris-800.webp?v=2 800w, gorsel/elektriksel-kuvvet-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Gece, mor ışıklı fırtına bulutlarından inen parlak bir şimşek, öndeki yüksek gökdelenin tepesindeki ince, sivri uca çarpıyor; bulutların içinde yanlara dallanan ince şimşek kolları da görülüyor. Aşağıda ışıkları yanan binalarla dolu bir şehir ve bu ışıkları yansıtan bir nehir var.">
+          <figcaption>
+            <b>Şimşek</b>, bulut ile yer arasında biriken yük farkı o kadar büyüdüğünde çakar ki hava yalıtkanlığını yitirir. Gökdelenin tepesindeki sivri <b>paratoner</b> yıldırımı üzerine alır ve akımı binanın içinden değil, kendi iletkeninden toprağa indirir. Yük, kuvvet, alan ve sivri uçlar: bu sahnenin her parçası bu konunun bir başlığı.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: yüklü bir cismin ne yaptığını gözle, yükü tanı ve cisimlerin nasıl yüklendiğini gör. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: balon saçı neden çeker?</h3>
+        <p>
+          Bir balonu saçına birkaç kez sürt ve yavaşça başının üstüne kaldır. Saç telleri, balona
+          dokunmadan önce havaya kalkıp ona doğru uzanır. Aynı balonu duvara bastırıp bırakırsan
+          düşmeden asılı kalır; masadaki küçük kâğıt parçalarının üzerine tutarsan kâğıtlar sıçrayıp
+          balona yapışır. Sürtmeden önce bunların hiçbiri olmuyordu.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/elektriksel-kuvvet-gunluk.webp?v=2" srcset="gorsel/elektriksel-kuvvet-gunluk-800.webp?v=2 800w, gorsel/elektriksel-kuvvet-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Aydınlık bir oturma odasında lila kazaklı, gülümseyen bir kız mor bir balonu başının üstünde tutup yukarı bakıyor; saçının tepesindeki teller havaya kalkıp balona doğru uzanıyor. Arkada yanan bir abajur, kanepe, saksı bitkileri ve güneş alan bir pencere görünüyor.">
+          <figcaption>
+            Saça sürtülen balon <b>elektron kazanarak</b> negatif, saç ise elektron kaybederek pozitif yüklenir. Zıt yükler çekiştiği için saç telleri balona doğru kalkar; aynı yükü taşıyan teller ise birbirini iter ve dağılır. Teller balona değmeden kalkmaya başlar: elektriksel kuvvet <b>uzaktan</b> etki eder.
+          </figcaption>
+        </figure>
+
+        <p>Bu küçük deneyden ve benzerlerinden üç şey öğrenilir:</p>
+        <ul>
+          <li><strong>Sürtünme bir şeyi değiştirir:</strong> sürtülen balon, sürtülmemiş balonun yapmadığı şeyleri yapar.</li>
+          <li><strong>Kuvvet temas gerektirmez:</strong> teller, kâğıtlar ve duvar aradaki boşluğa rağmen etkilenir.</li>
+          <li><strong>Hem çekme hem itme vardır:</strong> teller balona çekilirken birbirini iter.</li>
+        </ul>
+        <p>
+          Kazağını çıkarırken duyduğun çıtırtı, karanlıkta görülen minik kıvılcımlar ve halıda yürüdükten
+          sonra kapı kolunda çarpılman da aynı olgudur. Bu olgunun kaynağına <strong>elektrik yükü</strong>
+          diyoruz.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Saç telleri balona doğru kalkarken neden birbirinden de uzaklaşır?</summary>
+          <p>
+            Bütün teller aynı balona sürtüldü ve hepsi aynı biçimde, <b>aynı işaretle</b> yüklendi.
+            Aynı işaretli yükler birbirini iter; bu yüzden teller birbirinden kaçar. Balon ise zıt işaretle
+            yüklendiği için telleri çeker. Tek bir sahnede hem itme hem çekme görmek, iki tür yük
+            olduğunun ilk ipucudur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Sürtülen cisimler dokunmadan çekme ya da itme kuvveti uygulamaya başlar. Bu
+          davranışın kaynağı elektrik yüküdür ve hem çeken hem iten iki tür etki vardır.
+        </p>
+
+        <h3 id="k2">Elektrik yükü nedir?</h3>
         <p>
           Maddenin temel özelliklerinden biri olan elektrik yükü iki çeşittir: <strong>pozitif</strong>
           ve <strong>negatif</strong>. Aynı işaretli yükler birbirini iter, zıt işaretli yükler
           birbirini çeker.
+        </p>
+        <p>
+          Yükün yuvası atomdur. Atomun çekirdeğinde pozitif yüklü <strong>protonlar</strong> ve yüksüz
+          nötronlar, çevresinde negatif yüklü <strong>elektronlar</strong> bulunur. Proton ile
+          elektronun yükleri eşit büyüklükte ve zıt işaretlidir. Proton ve elektron sayısı eşit olan
+          cisim <strong>nötrdür</strong>: içinde hiç yük olmadığı için değil, artılar ile eksiler birbirini
+          tam götürdüğü için. Cisim elektron kaybederse pozitif, elektron kazanırsa negatif yüklenir.
         </p>
         <ul>
           <li>Yükün birimi <strong>coulomb (C)</strong>'dur. Günlük deneylerde µC (10⁻⁶ C) ölçeğinde çalışılır.</li>
           <li>En küçük yük birimi elektronun yüküdür: <strong>e = 1,6·10⁻¹⁹ C</strong>. Her yük bunun tam katıdır (yük kuantumludur).</li>
           <li><strong>Yük korunumludur:</strong> yaratılamaz ve yok edilemez, yalnızca aktarılır.</li>
         </ul>
-        <p>
-          Cisimler sürtünme, dokunma ve etki (indüksiyon) yoluyla yüklenir. Sürtünmede yük
-          <em>aktarılır</em>: biri elektron kaybederek (+), diğeri kazanarak (−) yüklenir; toplam
-          yük değişmez.
-        </p>
-        <div class="callout">
-          <p>
-            <b>Yalıtkan ve iletken:</b> İletkenlerde yükler serbestçe hareket eder ve yüzeye dağılır;
-            yalıtkanlarda ise bulundukları yerde kalır. Bu yüzden bir iletkeni topraklamak onu
-            nötrlerken, yalıtkanda yük bölgesel kalır.
-          </p>
-        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 180" role="img" aria-label="Aynı işaretli yüklerin birbirini itmesi, zıt işaretli yüklerin birbirini çekmesi üç ayrı çizimde gösteriliyor.">
@@ -2245,11 +2524,65 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Coulomb yasası</h3>
+        <p>
+          Bir coulomb yaklaşık 6,25·10¹⁸ elektronun yüküdür; 1 µC bile trilyonlarca elektronun fazlası
+          ya da eksiği demektir. Çizimdeki bir ayrıntıyı atlama: iki yük birbirine her zaman
+          <strong>eşit büyüklükte, zıt yönlü</strong> kuvvet uygular.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Elektrik yükü pozitif ya da negatiftir; aynı işaretliler iter, zıt işaretliler
+          çeker. Her yük, e = 1,6·10⁻¹⁹ C'luk temel yükün tam katıdır ve yük korunur.
+        </p>
+
+        <h3 id="k3">Cisimler nasıl yüklenir? İletken ve yalıtkan</h3>
+        <p>
+          Cisimler sürtünme, dokunma ve etki (indüksiyon) yoluyla yüklenir. Sürtünmede yük
+          <em>aktarılır</em>: biri elektron kaybederek (+), diğeri kazanarak (−) yüklenir; toplam
+          yük değişmez. Yer değiştiren hep elektronlardır; protonlar çekirdeğe sıkıca bağlıdır.
+        </p>
+        <table class="tbl">
+          <tr><th>Yol</th><th>Ne olur?</th><th>Sonuç</th></tr>
+          <tr><td>Sürtünme</td><td>Elektronlar bir maddeden ötekine geçer</td><td>Eşit büyüklükte, zıt işaretli yükler</td></tr>
+          <tr><td>Dokunma</td><td>Yüklü iletken, yüksüz iletkenle yükünü paylaşır</td><td>Aynı işaretli yükler</td></tr>
+          <tr><td>Etki</td><td>Yüklü cisim yaklaşır; iletken topraklanır, sonra topraktan ayrılır</td><td>Yaklaşan cisme zıt işaretli yük</td></tr>
+        </table>
+        <div class="callout">
+          <p>
+            <b>Yalıtkan ve iletken:</b> İletkenlerde yükler serbestçe hareket eder ve yüzeye dağılır;
+            yalıtkanlarda ise bulundukları yerde kalır. Bu yüzden bir iletkeni topraklamak onu
+            nötrlerken, yalıtkanda yük bölgesel kalır.
+          </p>
+        </div>
+        <p>
+          Peki balon nötr duvara neden yapışır? Yüklü balon yaklaşınca duvarın moleküllerindeki yükler
+          hafifçe kayar: balona yakın yüzeyde zıt işaretli, uzak tarafta aynı işaretli yük öne çıkar.
+          Buna <strong>kutuplanma</strong> denir. Yakındaki çekme uzaktaki itmeden güçlü olduğu için
+          sonuç çekmedir. Nötr kâğıt parçalarının yüklü tarağa sıçraması da böyledir.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Kış aylarında kapı koluna dokununca neden daha sık çarpılırsın?</summary>
+          <p>
+            Kışın ısıtılan kapalı ortamlarda hava çok <b>kurudur</b>. Nemli havada yüzeylerde oluşan ince
+            su tabakası yükün yavaşça sızıp gitmesine izin verir. Kuru havada bu yol kapanır; yürürken
+            biriken yük üzerinde kalır ve metal kola yaklaştığında küçük bir kıvılcımla bir anda boşalır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Cisimler sürtünme, dokunma ve etki ile yüklenir; her durumda yer değiştiren
+          elektronlardır ve toplam yük korunur. Yüklü cisim, kutuplanma yüzünden nötr cisimleri de çeker.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: kuvveti Coulomb yasasıyla hesapla, kuvvetleri topla ve alan kavramıyla uzayın haritasını çıkar.</span>
+        </div>
+
+        <h3 id="k4">Coulomb yasası</h3>
         <p>
           İki <strong>noktasal yük</strong> arasındaki elektriksel kuvvetin büyüklüğü, yüklerin
           çarpımıyla <strong>doğru</strong>, aralarındaki uzaklığın karesiyle <strong>ters</strong>
-          orantılıdır:
+          orantılıdır. (<strong>Noktasal yük</strong>, boyutları aradaki uzaklığın yanında ihmal
+          edilebilen yüklü cisimdir.)
         </p>
         <div class="formula">
           <code>F = k · q₁ · q₂ / r²</code>
@@ -2261,21 +2594,13 @@
           <strong>birbirlerine uyguladıkları kuvvetler eşit ve zıttır</strong> — Newton'un 3. yasası
           burada da geçerlidir.
         </p>
-        <table class="tbl">
-          <thead><tr><th>Değişen</th><th>Kuvvet</th></tr></thead>
-          <tbody>
-            <tr><td>Yüklerden biri 2 katına çıkar</td><td>2 katına çıkar</td></tr>
-            <tr><td>İkisi de 2 katına çıkar</td><td>4 katına çıkar</td></tr>
-            <tr><td>Uzaklık 2 katına çıkar</td><td>4'te birine iner</td></tr>
-            <tr><td>Uzaklık yarıya iner</td><td>4 katına çıkar</td></tr>
-          </tbody>
-        </table>
-        <div class="callout warn">
-          <p>
-            <b>Coulomb yasası noktasal yükler içindir.</b> Küresel simetrik yüklü küreler için de
-            geçerlidir; bu durumda r, <b>merkezler arası</b> uzaklıktır.
-          </p>
-        </div>
+        <h4>Yasa nereden geliyor?</h4>
+        <ol>
+          <li><strong>Deney:</strong> Charles-Augustin de Coulomb 1785'te burulma terazisiyle küçük yüklü küreler arasındaki kuvveti ölçtü: uzaklık iki katına çıkınca kuvvet dörtte bire iniyordu.</li>
+          <li><strong>Yük:</strong> Bir kürenin yükü, özdeş yüksüz bir küreye dokundurularak yarıya indirilebilir; kuvvet de yarıya iner. Demek ki F, q₁·q₂ ile orantılıdır.</li>
+          <li><strong>Geometri:</strong> Kaynaktan her yöne yayılan etki, r uzaklıkta 4πr² yüzeyli bir küreye dağılır; bu da 1/r²'yi açıklar.</li>
+          <li><strong>Sabit:</strong> Orantıyı eşitliğe çeviren k deneyle bulunur. Birim kontrolü: (N·m²/C²)·C·C / m² = N ✓</li>
+        </ol>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 188" role="img" aria-label="Uzaklık iki ve üç katına çıktığında elektriksel kuvvetin dörtte bire ve dokuzda bire inmesi.">
@@ -2306,7 +2631,65 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Birden fazla yük: kuvvetlerin toplamı</h3>
+        <table class="tbl">
+          <thead><tr><th>Değişen</th><th>Kuvvet</th></tr></thead>
+          <tbody>
+            <tr><td>Yüklerden biri 2 katına çıkar</td><td>2 katına çıkar</td></tr>
+            <tr><td>İkisi de 2 katına çıkar</td><td>4 katına çıkar</td></tr>
+            <tr><td>Uzaklık 2 katına çıkar</td><td>4'te birine iner</td></tr>
+            <tr><td>Uzaklık yarıya iner</td><td>4 katına çıkar</td></tr>
+          </tbody>
+        </table>
+        <div class="callout warn">
+          <p>
+            <b>Coulomb yasası noktasal yükler içindir.</b> Küresel simetrik yüklü küreler için de
+            geçerlidir; bu durumda r, <b>merkezler arası</b> uzaklıktır.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: +1 µC ile +9 µC'luk iki yükten hangisi daha büyük kuvvet hisseder?</summary>
+          <p>
+            İkisi de <b>aynı büyüklükte</b> kuvvet hisseder. Coulomb yasasında iki yük aynı çarpımda
+            geçer; kuvvet “kimin yükü büyük” diye ayrım yapmaz. Newton'un 3. yasası da etki ile tepkinin
+            eşit olduğunu söyler. Farklı olabilecek tek şey, kütleleri farklıysa kazanacakları ivmedir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> F = k·q₁·q₂/r²: kuvvet yüklerin çarpımıyla doğru, uzaklığın karesiyle ters
+          orantılıdır. İki yük birbirine her zaman eşit büyüklükte ve zıt yönlü kuvvet uygular.
+        </p>
+
+        <h3 id="k5">Sayılarla hisset: coulomb ne kadar büyük?</h3>
+        <p>
+          Formül soyut kalmasın; birkaç gerçekçi durumda kuvvetin büyüklüğüne bakalım
+          (k = 9·10⁹ N·m²/C², değerler yuvarlatılmış):
+        </p>
+        <table class="tbl">
+          <tr><th>Durum</th><th>Her bir yük</th><th>Uzaklık</th><th>Kuvvet</th></tr>
+          <tr><td>İki küçük yüklü küre</td><td>0,1 µC</td><td>10 cm</td><td>0,009 N</td></tr>
+          <tr><td>Aynı küreler, yarı uzaklıkta</td><td>0,1 µC</td><td>5 cm</td><td>0,036 N</td></tr>
+          <tr><td>Hidrojen atomu (proton ve elektron)</td><td>e</td><td>5,3·10⁻¹¹ m</td><td>8,2·10⁻⁸ N</td></tr>
+          <tr><td>İki 1 C'luk yük (düşünce deneyi)</td><td>1 C</td><td>1 m</td><td>9·10⁹ N</td></tr>
+          <tr><td>Aynı yükler, uzakta</td><td>1 C</td><td>1 km</td><td>9 000 N</td></tr>
+        </table>
+        <p>
+          İlk iki satır ters kare kuralını gösteriyor: uzaklık yarıya inince kuvvet 4 katına çıkıyor.
+          Son iki satır ise coulombun <strong>dev bir birim</strong> olduğunu söylüyor: 1 m arayla duran
+          iki 1 C'luk yük arasındaki kuvvet, yaklaşık 900 000 tonluk bir kütlenin ağırlığına eşittir.
+          1 km uzakta bile küçük bir otomobilin ağırlığı kadardır. Bu yüzden günlük deneylerde µC ve nC ile
+          çalışılır.
+        </p>
+        <p>
+          Hidrojen atomundaki kuvvet küçük görünür, ama elektronun kütlesi yalnızca 9,1·10⁻³¹ kg'dır:
+          bu kuvvet ona yaklaşık 9·10²² m/s²'lik bir ivme kazandırır. Atomları, molekülleri ve bütün
+          katıları bir arada tutan bu kuvvettir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Uzaklık yarıya inince kuvvet 4 katına çıkar. Coulomb çok büyük bir birimdir: 1 m
+          arayla iki 1 C'luk yük 9·10⁹ N ile etkileşir, bu yüzden günlük yükler µC ve nC mertebesindedir.
+        </p>
+
+        <h3 id="k6">Birden fazla yük: kuvvetlerin toplamı</h3>
         <p>
           Bir yüke birden çok yük etki ediyorsa, her biriyle olan kuvvet <strong>ayrı ayrı</strong>
           hesaplanır ve <strong>vektörel olarak</strong> toplanır. Buna <strong>üst üste binme
@@ -2314,13 +2697,20 @@
         </p>
         <div class="formula">
           <code>F(net) = F₁ + F₂ + F₃ + …</code>
-          <code>aynı doğrultuda: toplama/çıkarma</code>
+          <code>aynı yönde: F₁ + F₂</code>
+          <code>zıt yönde: F₁ − F₂</code>
           <code>dik ise: √(F₁² + F₂²)</code>
         </div>
         <p>
           Bir yükün varlığı, diğer ikisi arasındaki kuvveti <strong>değiştirmez</strong>. Her çift
-          birbirini "görmez"; toplam etki, tek tek etkilerin vektörel toplamıdır.
+          birbirini "görmez"; toplam etki, tek tek etkilerin vektörel toplamıdır. Bu yüzden soruları
+          hep aynı sırayla çözersin:
         </p>
+        <ol>
+          <li><strong>Büyüklükleri bul:</strong> her çift için F = k·q₁·q₂/r²'yi ayrı hesapla; işaretleri buraya katma.</li>
+          <li><strong>Yönleri çiz:</strong> aynı işaretli çift için itme, zıt işaretli çift için çekme oku çiz.</li>
+          <li><strong>Okları topla:</strong> aynı doğrultudakileri topla ya da çıkar, dik olanlara Pisagor uygula.</li>
+        </ol>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 218" role="img" aria-label="Üçüncü bir yüke etkiyen iki kuvvetin vektörel toplamı ve bileşke kuvvetin bulunuşu.">
@@ -2355,7 +2745,20 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Elektriksel alan</h3>
+        <details class="dusun">
+          <summary>Düşün: Eşkenar üçgenin köşelerinde üç eşit yük varsa, üçgenin merkezindeki bir yüke net kuvvet ne olur?</summary>
+          <p>
+            <b>Sıfırdır.</b> Üç kuvvet eşit büyüklüktedir, çünkü merkez üç köşeye eşit uzaklıktadır.
+            Aralarında 120°'lik açılar bulunduğu için okları uç uca eklediğinde başladığın noktaya dönersin.
+            Simetri, hesap yapmadan sonucu verir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Birden fazla yük varsa her çiftin kuvveti ayrı hesaplanır ve oklar vektörel
+          olarak toplanır. Bir yük, öteki iki yük arasındaki kuvveti değiştirmez.
+        </p>
+
+        <h3 id="k7">Elektriksel alan</h3>
         <p>
           Yükler birbirine dokunmadan kuvvet uygular. Bu "uzaktan etki"yi anlatmak için
           <strong>alan</strong> kavramı kullanılır: yük, çevresindeki uzayı değiştirir; başka bir
@@ -2368,8 +2771,11 @@
         </div>
         <p>
           Alan bir <strong>vektördür</strong>; birimi <strong>N/C</strong>'dur. Yönü, o noktaya
-          konacak <strong>pozitif</strong> bir yükün iteceği yöndür. Bu yüzden pozitif yükün alanı
-          dışarı doğru, negatif yükün alanı içeri doğrudur.
+          konacak <strong>pozitif</strong> bir yüke etki eden kuvvetin yönüdür. Bu yüzden pozitif yükün alanı
+          dışarı doğru, negatif yükün alanı içeri doğrudur. İkinci bağıntı ilkinden çıkar: q
+          kaynağından r uzaktaki bir q₀ test yüküne etki eden kuvvet k·q·q₀/r²'dir; bunu q₀'a bölünce
+          q₀ sadeleşir ve E = k·q/r² kalır. Yerçekimi alanı g = F/m ile aynı fikirdir: orada birim kütle
+          başına, burada birim yük başına kuvvet.
         </p>
         <div class="callout">
           <p>
@@ -2414,7 +2820,28 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Alan çizgileri</h3>
+        <table class="tbl">
+          <tr><th>Nerede?</th><th>Alan şiddeti (yaklaşık)</th></tr>
+          <tr><td>Açık havada, yer yüzeyinin hemen üstü</td><td>100 N/C</td></tr>
+          <tr><td>Fırtına bulutunun altında, yerde</td><td>10 000 N/C mertebesi</td></tr>
+          <tr><td>Kuru havada kıvılcım çakma eşiği</td><td>3·10⁶ N/C</td></tr>
+          <tr><td>Hücre zarının içinde</td><td>10⁷ N/C</td></tr>
+          <tr><td>Hidrojen atomunda elektronun bulunduğu yer</td><td>5·10¹¹ N/C</td></tr>
+        </table>
+        <details class="dusun">
+          <summary>Düşün: Bir elektron ve bir proton aynı alana konursa hangisi daha büyük ivme kazanır?</summary>
+          <p>
+            Yüklerinin büyüklüğü aynı olduğu için ikisine de <b>aynı büyüklükte</b> kuvvet etki eder
+            (F = q·E), yalnızca yönler zıttır. Ama elektronun kütlesi protonunkinin yaklaşık 1836'da
+            biridir; a = F/m olduğundan elektronun ivmesi yaklaşık <b>1836 kat</b> büyüktür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Elektriksel alan, bir noktaya konan birim pozitif yüke etki eden kuvvettir:
+          E = F/q, noktasal yük için E = k·q/r². Alan test yükünden bağımsızdır; F = q·E ile kuvvete geçilir.
+        </p>
+
+        <h3 id="k8">Alan çizgileri</h3>
         <p>Alanı görselleştirmenin en kullanışlı yolu alan çizgileridir. Kuralları:</p>
         <ul>
           <li><strong>Pozitif yükten çıkar, negatif yükte son bulur.</strong></li>
@@ -2486,7 +2913,27 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Düzgün alan: paralel levhalar</h3>
+        <h4>Alanın sıfırlandığı nokta</h4>
+        <p>
+          İki yükün alanları bir noktada eşit büyüklükte ve zıt yönlüyse o noktada net alan sıfırdır ve
+          oraya konan yük hiçbir kuvvet hissetmez. Yükler eşit değilse bu nokta tam ortada olmaz.
+          <strong>Aynı işaretli</strong> yüklerde sıfır noktası iki yükün <strong>arasındadır</strong>;
+          <strong>zıt işaretlilerde</strong> ise dışarıda, küçük yükün ötesindedir. İki durumda da
+          <strong>küçük yüke daha yakındır</strong>, çünkü küçük yükün alanı ancak yakınında büyüğünkünü
+          dengeleyebilir. Sayfanın 03 numaralı bölümündeki başlangıç düzeninde (+1 µC ile +4 µC, aralarında 100 cm)
+          sıfır noktası küçük yükten 33,3 cm uzakta, yani aradaki uzaklığın üçte birindedir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Alan çizgileri pozitiften çıkar, negatifte biter, asla kesişmez; sıklıkları alanın
+          şiddetini verir. Yükler eşit değilse net alanın sıfır olduğu nokta her zaman küçük yüke daha yakındır.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: düzgün alanda parçacıklar nasıl hareket eder, iletkenler yükü nereye taşır ve elektriksel kuvvet gerçek dünyada nerede çalışır?</span>
+        </div>
+
+        <h3 id="k9">Düzgün alan: paralel levhalar</h3>
         <p>
           Aralarına gerilim uygulanan iki paralel levha arasında alan <strong>her noktada aynı</strong>
           büyüklük ve yöndedir; buna düzgün alan denir.
@@ -2499,6 +2946,14 @@
           Burada V levhalar arasındaki potansiyel fark (gerilim), d ise levhalar arası uzaklıktır.
           Alan çizgileri <strong>birbirine paralel, eşit aralıklı</strong> doğrulardır ve pozitif
           levhadan negatif levhaya doğrudur.
+        </p>
+        <p>
+          <strong>Gerilim</strong>, bir yükü bir levhadan ötekine taşırken birim yük başına değişen
+          enerjidir; birimi volttur (1 V = 1 J/C). Birim kontrolü E = V/d'nin tutarlı olduğunu gösterir:
+          V/m = (J/C)/m = (N·m)/(C·m) = N/C ✓. Alan şiddeti için “volt/metre” ile “newton/coulomb” aynı
+          şeydir. Örneğin 9 V'luk bir pilin uçları 1 mm arayla iki levhaya bağlanırsa aradaki alan
+          9 / 0,001 = 9 000 N/C olur; sayfanın 04 numaralı bölümündeki 2 cm aralıklı levhalara 200 V
+          uygulanınca alan 10⁴ N/C'dur.
         </p>
 
         <figure class="fig">
@@ -2536,7 +2991,19 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Düzgün alanda yüklü parçacığın hareketi</h3>
+        <div class="callout warn">
+          <p>
+            <b>Modelin sınırı:</b> Alan yalnızca levhaların ortasında, kenarlardan uzakta düzgündür.
+            Kenarlarda çizgiler dışarı doğru bükülür ve alan zayıflar. Levhalar arası uzaklık, levha
+            boyutunun yanında küçük olduğunda bu kenar etkisi ihmal edilir.
+          </p>
+        </div>
+        <p class="kisaca">
+          <b>Kısaca:</b> Paralel levhalar arasında alan her noktada aynıdır ve E = V/d; birimi N/C ya da
+          V/m'dir. Bu yüzden levhalar arasındaki bir yük nereye konursa konsun aynı kuvveti hisseder.
+        </p>
+
+        <h3 id="k10">Düzgün alanda yüklü parçacığın hareketi</h3>
         <p>
           Sabit alan sabit kuvvet, sabit kuvvet de <strong>sabit ivme</strong> demektir:
           a = qE/m. Parçacık alana dik girerse hareket, <strong>yatay atışın birebir aynısıdır</strong>:
@@ -2546,6 +3013,12 @@
           <code>y = ½ · (qE/m) · t²</code>
           <code>y = q·E·L² / (2·m·v₀²)</code>
         </div>
+        <ol>
+          <li><strong>Kuvvet ve ivme:</strong> parçacığa yalnızca alana paralel F = q·E etki eder; ivmesi a = q·E/m.</li>
+          <li><strong>Yatayda:</strong> kuvvet yoktur, hız v₀ olarak kalır: x = v₀·t. Uzunluğu L olan levhaları t = L/v₀ sürede geçer.</li>
+          <li><strong>Düşeyde:</strong> ilk hız yoktur, ivme sabittir: y = ½·a·t².</li>
+          <li><strong>Birleştir:</strong> t = L/v₀ ve a = qE/m koyunca y = q·E·L² / (2·m·v₀²) çıkar.</li>
+        </ol>
         <p>
           Yörünge <strong>paraboldür</strong>. Sapma miktarı alanla ve levha uzunluğunun karesiyle
           artar; giriş hızının karesiyle ve kütleyle azalır. Katot ışınlı tüplerde ve mürekkep
@@ -2553,8 +3026,8 @@
         </p>
         <div class="callout warn">
           <p>
-            <b>Yerçekimini ihmal ediyoruz.</b> Elektron için elektriksel kuvvet, ağırlığının
-            tipik olarak 10¹³ katı mertebesindedir; bu yüzden yerçekimi hesaba katılmaz.
+            <b>Yerçekimini ihmal ediyoruz.</b> Elektron için elektriksel kuvvet ağırlığının çok üstündedir:
+            10⁴ N/C'luk bir alanda yaklaşık 2·10¹⁴ katı. Bu yüzden yerçekimi hesaba katılmaz.
           </p>
         </div>
 
@@ -2591,11 +3064,110 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <details class="dusun">
+          <summary>Düşün: Aynı levhalara elektron yerine proton aynı hızla girerse ne değişir?</summary>
+          <p>
+            Proton pozitif olduğu için <b>ters yöne</b>, negatif levhaya doğru sapar. Kuvvetin büyüklüğü
+            aynıdır, ama proton yaklaşık 1836 kat ağır olduğu için ivmesi ve dolayısıyla sapması da
+            yaklaşık <b>1836 kat küçüktür</b>. Sayfanın 04 numaralı bölümünde iki parçacığı karşılaştırabilirsin.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düzgün alana dik giren yüklü parçacık yatayda sabit hızla, düşeyde sabit ivmeyle
+          hareket eder ve parabol çizer. Sapma y = q·E·L²/(2·m·v₀²) ile bulunur.
+        </p>
+
+        <h3 id="k11">İletkenler, sivri uçlar ve yıldırım</h3>
+        <p>
+          Bir iletkene yük verdiğinde yükler serbestçe hareket eder ve birbirini iterek olabildiğince
+          uzaklaşır; sonunda hepsi <strong>dış yüzeye</strong> yerleşir. Yükler durulduğunda iletkenin
+          içinde alan <strong>sıfırdır</strong>: alan olsaydı serbest yükler hareket etmeyi sürdürürdü.
+          Bu iki sonucun gündelik karşılıkları şaşırtıcıdır:
+        </p>
+        <ul>
+          <li><strong>Sivri uçlar:</strong> yük yüzeyin sivri bölgelerinde yoğunlaşır ve orada alan çok büyür; hava iyonlaşır, yük uçtan kolayca boşalır.</li>
+          <li><strong>Paratoner:</strong> binanın tepesindeki sivri metal çubuk, kalın bir iletkenle toprağa bağlanır; yıldırım akımı binaya değil toprağa gider.</li>
+          <li><strong>Faraday kafesi:</strong> iletken bir kabuğun içi dış alanlardan korunur; yıldırım düşen otomobilin ya da uçağın içindekiler bu yüzden büyük ölçüde güvendedir.</li>
+        </ul>
+        <p>
+          Yıldırım da bu konunun bütün parçalarını birleştirir. Fırtına bulutunun içinde yükler ayrışır;
+          bulutun altı genellikle negatif yüklenir ve etkiyle yerde pozitif yük toplanır. Alan, havanın
+          yalıtkan kalabildiği sınırı aşınca hava iletken hâle gelir ve yük bir anda boşalır. Paratoner
+          fikrini 18. yüzyılda Benjamin Franklin ortaya attı.
+        </p>
+        <div class="callout warn">
+          <p>
+            <b>Coulomb yasasının sınırları:</b> Yasa noktasal yükler ve boşluk (pratikte hava) içindir.
+            Suyun içinde aynı iki yük arasındaki kuvvet yaklaşık 80 kat zayıflar; tuzun suda kolayca
+            çözünmesinin bir sebebi budur. Birbirine yaklaşan iletkenlerde ise yükler yeniden dağılır ve
+            “merkezler arası uzaklık” basitliği bozulur.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: Yıldırımlı havada otomobilin içi neden görece güvenlidir?</summary>
+          <p>
+            Koruyan şey lastikler değil, <b>metal gövdedir</b>. Yıldırım akımı iletken kabuğun dış yüzeyi
+            boyunca akar ve toprağa geçer; iletkenin içinde alan sıfır kaldığı için içeridekiler akımın
+            yolunda olmaz. Bu, iletkenlerin yükü dış yüzeyde taşımasının doğrudan sonucudur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> İletkende yük dış yüzeye yerleşir, içeride alan sıfırdır ve sivri uçlarda alan
+          en büyüktür. Paratoner ve Faraday kafesi bu iki özelliğe dayanır.
+        </p>
+
+        <h3 id="k12">Elektriksel kuvvet gerçek dünyada</h3>
+        <p>
+          Yerçekimini ayırırsan günlük hayatta hissettiğin kuvvetlerin neredeyse tamamı elektriksel
+          kökenlidir. Masanın kitabı taşıyan normal kuvveti, sürtünme, ipteki gerilme: hepsi atomların
+          elektron bulutları arasındaki itme ve çekmedir. Teknoloji de bu kuvveti bilerek kullanır.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/elektriksel-kuvvet-uygulama.webp?v=2" srcset="gorsel/elektriksel-kuvvet-uygulama-800.webp?v=2 800w, gorsel/elektriksel-kuvvet-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Bir otomobil fabrikasının boya kabininde robot kolun ucundaki boya tabancası mavi karosere ince bir damlacık akışı gönderiyor; damlacıklar gövdenin yan yüzüne ve kenarlarına tutunuyor, kabinin havasında süzülen boya çok az. Karoser ızgaralı zeminin üzerindeki bir taşıyıcıda duruyor.">
+          <figcaption>
+            <b>Elektrostatik boyamada</b> tabancadan çıkan boya damlacıkları yüklenir, karoser ise topraklanır. Damlacıklar gövdenin çektiği yöne sapar; düz gitmek yerine kıvrılıp gövdenin arka yüzlerine de ulaşır. Böylece boya daha eşit dağılır ve havaya daha az boya saçılır.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Elektrostatik boya:</strong> yüklü damlacıklar topraklı gövdeye çekilir; boya israfı azalır, girintiler de kaplanır.</li>
+          <li><strong>Lazer yazıcı ve fotokopi:</strong> tambur üzerinde ışıkla bir yük deseni oluşturulur; toz mürekkep yalnızca bu desene yapışır.</li>
+          <li><strong>Elektrostatik filtre:</strong> fabrika bacalarındaki duman tanecikleri yüklenir ve zıt yüklü levhalarda toplanır.</li>
+          <li><strong>Mürekkep püskürtmeli yazıcı:</strong> bazı türlerde yüklü damlacıklar levhalar arasında saptırılarak kâğıda yönlendirilir.</li>
+          <li><strong>Dokunmatik ekran:</strong> parmağın ekrandaki elektrik alanını değiştirmesi algılanır; eldivenle çalışmamasının sebebi budur.</li>
+        </ul>
+        <p>
+          Boyadaki damlacıklar neden gövdenin arkasına kadar kıvrılır? Havada sürüklenen çok hafif
+          damlacıklarda hava direnci büyüktür; damlacık hızlanamaz, kuvvetin gösterdiği yönde yavaşça
+          ilerler. Bu yüzden yolu alan çizgilerine yakın olur ve çizgiler topraklı gövdeye her yönden
+          ulaşır. Boşlukta hızla hareket eden bir elektron ise alan çizgisini izlemez, parabol çizer.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Elektrostatik boyada karoser neden topraklanır?</summary>
+          <p>
+            Damlacıklar gövdeye yük taşır. Gövde yalıtılmış olsaydı bu yük birikir ve bir süre sonra yeni
+            gelen aynı işaretli damlacıkları <b>iterdi</b>. Topraklama biriken yükü toprağa aktarır; üstelik
+            yaklaşan yüklü boya bulutu, etki yoluyla gövdede zıt işaretli yük toplar ve çekim boyama boyunca sürer.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Yerçekimi dışındaki günlük kuvvetlerin çoğu elektriksel kökenlidir. Elektrostatik
+          boya, yazıcılar, filtreler ve dokunmatik ekranlar bu kuvveti bilerek kullanır.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve elektriksel kuvvette puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k13">Çözümlü örnekler</h3>
         <p>Hesaplarda k = 9·10⁹ N·m²/C² alınmıştır.</p>
 
         <details>
-          <summary>Örnek 1 — İki yük arasındaki kuvvet</summary>
+          <summary data-zorluk="kolay">Örnek 1 — İki yük arasındaki kuvvet</summary>
           <p>
             Havada birbirinden 30 cm uzaklıkta duran q₁ = +2 µC ve q₂ = −3 µC yükleri arasındaki
             kuvvetin büyüklüğünü ve türünü bulunuz.
@@ -2610,7 +3182,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Uzaklık değişirse</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Uzaklık değişirse</summary>
           <p>
             İki nokta yük arasındaki kuvvet 36 N'dur. Yükler değiştirilmeden aralarındaki uzaklık
             3 katına çıkarılırsa kuvvet ne olur? Uzaklık aynı kalıp yüklerden biri 2 katına
@@ -2624,13 +3196,41 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Alanın sıfırlandığı nokta</summary>
+          <summary data-zorluk="kolay">Örnek 3 — Bir noktadaki alan ve kuvvet</summary>
+          <p>
+            q = +4 µC'luk noktasal yükten 20 cm uzaktaki bir noktada (a) alanın büyüklüğünü ve yönünü,
+            (b) bu noktaya −2 µC'luk bir yük konursa ona etki eden kuvveti bulunuz.
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> E = k·q/r² = 9·10⁹ · 4·10⁻⁶ / 0,04 = <strong>9·10⁵ N/C</strong></li>
+            <li>Kaynak pozitif olduğu için alan <strong>yükten dışarı</strong> doğrudur.</li>
+            <li><strong>(b)</strong> F = q·E = 2·10⁻⁶ · 9·10⁵ = <strong>1,8 N</strong></li>
+            <li>Konan yük negatif olduğu için kuvvet alana <strong>zıt</strong>, yani kaynağa doğrudur (çekme).</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — Dik doğrultulu iki kuvvetin toplamı</summary>
+          <p>
+            q₃ = +1 µC'luk yükün 10 cm soluna q₁ = +1 µC, 15 cm aşağısına q₂ = −3 µC yerleştiriliyor.
+            q₃'e etki eden net kuvvetin büyüklüğünü bulunuz.
+          </p>
+          <ol class="steps">
+            <li>F₁ = 9·10⁹ · 1·10⁻⁶ · 1·10⁻⁶ / 0,01 = <strong>0,9 N</strong>; aynı işaretli, q₃'ü sağa iter.</li>
+            <li>F₂ = 9·10⁹ · 3·10⁻⁶ · 1·10⁻⁶ / 0,0225 = <strong>1,2 N</strong>; zıt işaretli, q₃'ü aşağı çeker.</li>
+            <li>İki kuvvet birbirine dik: F<sub>net</sub> = √(0,9² + 1,2²) = √2,25 = <strong>1,5 N</strong></li>
+            <li>Yön: sağ-aşağı; yatayla yaptığı açı için tan α = 1,2 / 0,9 = 4/3, yani α = 53°.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 5 — Alanın sıfırlandığı nokta</summary>
           <p>
             Aralarında 30 cm bulunan q₁ = +4 µC ve q₂ = +1 µC yükleri için, aralarındaki doğru
             üzerinde alanın sıfır olduğu noktayı bulunuz.
           </p>
           <ol class="steps">
-            <li>Aynı işaretli yüklerde sıfır noktası <strong>aralarındadır</strong> ve küçük yüke daha yakındır.</li>
+            <li>Aynı işaretli yüklerde sıfır noktası <strong>aralarındadır</strong>; yükler eşit değilse küçük yüke daha yakındır.</li>
             <li>q₁'den x uzaklıkta olsun: k·4/x² = k·1/(30−x)²</li>
             <li>4·(30−x)² = x² → 2·(30 − x) = x → 60 = 3x → <strong>x = 20 cm</strong></li>
             <li>Nokta q₁'den 20 cm, q₂'den 10 cm uzaktadır — beklendiği gibi küçük yüke yakın.</li>
@@ -2638,12 +3238,31 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — Paralel levhalar arasında elektron</summary>
+          <summary data-zorluk="zor">Örnek 6 — Havada asılı duran yağ damlası</summary>
           <p>
-            Aralarında 2 cm bulunan paralel levhalara 200 V uygulanıyor. Levhalar arasına, levhalara
-            paralel olarak 6·10⁶ m/s hızla giren bir elektron için: (a) alan şiddeti, (b) elektrona
-            etki eden kuvvet, (c) 8 cm'lik levhaları geçerken sapması nedir?
-            (e = 1,6·10⁻¹⁹ C · m = 9,1·10⁻³¹ kg)
+            Aralarında 1 cm bulunan yatay levhalara 1000 V uygulanıyor; üst levha pozitif. Kütlesi
+            4,8·10⁻¹⁵ kg olan küçük bir yağ damlası levhalar arasında hareketsiz duruyor. Damlanın yükünün
+            işaretini ve büyüklüğünü bulunuz; bu yük kaç elektrona karşılık gelir? (g = 10 m/s²)
+          </p>
+          <ol class="steps">
+            <li>E = V/d = 1000 / 0,01 = <strong>10⁵ N/C</strong>; alan pozitif üst levhadan aşağı doğrudur.</li>
+            <li>Damla durduğuna göre elektriksel kuvvet ağırlığı dengeler ve <strong>yukarı</strong> doğrudur. Kuvvet alana zıt olduğundan yük <strong>negatiftir</strong>.</li>
+            <li>q·E = m·g → q = 4,8·10⁻¹⁵ · 10 / 10⁵ = <strong>4,8·10⁻¹⁹ C</strong></li>
+            <li>Elektron sayısı: 4,8·10⁻¹⁹ / 1,6·10⁻¹⁹ = <strong>3</strong>; damlada 3 elektron fazlası vardır.</li>
+          </ol>
+          <p>
+            Robert Millikan 20. yüzyılın başında bu fikirle çok sayıda damlanın yükünü ölçtü ve hepsinin
+            aynı temel yükün tam katları olduğunu gösterdi: yükün kuantumlu olduğunun deneysel kanıtı budur.
+          </p>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Paralel levhalar arasında elektron</summary>
+          <p>
+            Aralarında 2 cm bulunan paralel levhalara 200 V uygulanıyor. Levhaların tam ortasından,
+            levhalara paralel olarak 6·10⁶ m/s hızla giren bir elektron için: (a) alan şiddeti,
+            (b) elektrona etki eden kuvvet, (c) 8 cm'lik levhaları geçerken sapması nedir?
+            (e = 1,6·10⁻¹⁹ C; m = 9,1·10⁻³¹ kg)
           </p>
           <ol class="steps">
             <li><strong>(a)</strong> E = V/d = 200 / 0,02 = <strong>10⁴ N/C</strong></li>
@@ -2651,12 +3270,17 @@
             <li>İvme: a = F/m = 1,6·10⁻¹⁵ / 9,1·10⁻³¹ ≈ 1,76·10¹⁵ m/s²</li>
             <li>Levhalarda geçen süre: t = L/v₀ = 0,08 / 6·10⁶ ≈ 1,33·10⁻⁸ s</li>
             <li><strong>(c)</strong> y = ½·a·t² = 0,5 · 1,76·10¹⁵ · (1,33·10⁻⁸)² ≈ <strong>1,6·10⁻¹ m</strong>
-              — bu, 1 cm'lik boşluktan çok büyük olduğu için elektron <strong>levhaya çarpar</strong>.
+        </li>
+            <li>Bu, 1 cm'lik boşluktan çok büyük olduğu için elektron <strong>levhaya çarpar</strong>.
               Sapmayı küçültmek için gerilimi azaltmak ya da giriş hızını artırmak gerekir.</li>
           </ol>
+          <p>
+            Çarpmadan geçmesi için y ≤ 1 cm olmalıdır; bu da v₀'ın yaklaşık 2,4·10⁷ m/s'den büyük olmasını
+            gerektirir. Sayfanın 04 numaralı bölümündeki levhalar bu örnektekilerle aynı boyuttadır.
+          </p>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <h3 id="k14">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Büyük yük küçük yüke daha büyük kuvvet uygular.”</strong> Kuvvetler eşittir;
             farklı olan <em>ivmelerdir</em> (a = F/m).</li>
@@ -2668,9 +3292,11 @@
           <li><strong>Alan çizgilerini yörünge sanmak.</strong> Çizgi, kuvvetin <em>yönünü</em> verir;
             parçacığın izleyeceği yol değildir (ilk hızı varsa yörünge farklıdır).</li>
           <li><strong>Negatif yükün alan yönünü karıştırmak.</strong> Alan yönü daima <em>pozitif</em>
-            test yükünün iteleceği yöndür; negatif yüke etki eden kuvvet alana <em>zıttır</em>.</li>
+            test yüküne etki eden kuvvetin yönüdür; negatif yüke etki eden kuvvet alana <em>zıttır</em>.</li>
           <li><strong>Düzgün alanda kuvveti uzaklığa bağlı sanmak.</strong> Levhalar arasında E her
             noktada aynıdır; F = qE değişmez.</li>
+          <li><strong>“Yüklü cisim yalnızca yüklü cisimleri çeker.”</strong> Nötr cisimler de
+            kutuplanma yüzünden yüklü cisme çekilir; balonun duvara yapışması bundandır.</li>
         </ul>
 
         <div class="callout">

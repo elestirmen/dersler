@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Sürtünme kuvveti</h3>
-          <p>Statik ve kinetik sürtünmeden eğik düzleme, sürtünmenin neye bağlı olduğundan fren mesafesine kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce gözlem ve statik–kinetik ayrımı, sonra sürtünme katsayısı, eğik düzlem ve fren mesafesi bağıntıları, ardından normal kuvvetin değiştiği ince durumlar ve dönen tekerlek; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2165,15 +2385,19 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Sürtünme nedir</button>
-        <button type="button" data-goto="k2">Statik sürtünme</button>
-        <button type="button" data-goto="k3">Kinetik sürtünme</button>
-        <button type="button" data-goto="k4">Neye bağlı?</button>
-        <button type="button" data-goto="k5">Eğik düzlem</button>
-        <button type="button" data-goto="k6">Fayda ve zararları</button>
-        <button type="button" data-goto="k7">Fren mesafesi</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Tanım</button>
+        <button type="button" data-goto="k3" data-basamak="1">Statik ve kinetik</button>
+        <button type="button" data-goto="k4" data-basamak="2">Katsayı ve bağıntılar</button>
+        <button type="button" data-goto="k5" data-basamak="2">Neye bağlı?</button>
+        <button type="button" data-goto="k6" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k7" data-basamak="2">Eğik düzlem</button>
+        <button type="button" data-goto="k8" data-basamak="2">Fren mesafesi</button>
+        <button type="button" data-goto="k9" data-basamak="3">N her zaman mg değil</button>
+        <button type="button" data-goto="k10" data-basamak="3">Tekerlek ve sınırlar</button>
+        <button type="button" data-goto="k11" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k12" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k13" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2194,24 +2418,104 @@
         </svg>
 
         <p class="lead-in">
-          Yürüyebilmemizin, frene basınca durabilmemizin, bir bardağı elimizde tutabilmemizin
-          sorumlusu hep aynı kuvvet. Aynı kuvvet motorları aşındırır, yakıt yakar ve buzda
-          arabayı savurur. Bu yüzden sürtünmeyi "iyi" ya da "kötü" diye değil,
-          <b>ne zaman ne kadar ortaya çıktığını hesaplayabildiğimiz bir kuvvet</b> olarak
-          öğreniyoruz — ve şaşırtıcı biçimde temas alanının bununla hiç ilgisi yok.
+          Ağır bir sandığı itmeye başladığında neden önce hiç kıpırdamaz, sonra bir anda kurtulup daha
+          kolay kaymaya başlar? Yürüyebilmemizin, frene basınca durabilmemizin, bir bardağı elimizde
+          tutabilmemizin sorumlusu hep aynı kuvvet. Aynı kuvvet motorları aşındırır, yakıt yakar ve buzda
+          arabayı savurur. Bu yüzden sürtünmeyi "iyi" ya da "kötü" diye değil, <b>ne zaman ne kadar ortaya
+          çıktığını hesaplayabildiğimiz bir kuvvet</b> olarak öğreniyoruz — ve şaşırtıcı biçimde temas
+          alanının bununla hiç ilgisi yok. Anlatım dört basamakta ilerliyor: önce sürtünmeyi gözleyip
+          durgun ve kayan cisimdeki iki türünü tanıyacağız, sonra sürtünme katsayısıyla eğik düzlemi ve
+          fren mesafesini hesaplayacağız, ardından normal kuvvetin değiştiği ve basit modelin zorlandığı
+          durumlara geçeceğiz. En sonda kolaydan zora sıralanmış örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Sürtünme kuvveti nedir?</h3>
+        <figure class="foto">
+          <img src="gorsel/surtunme-kuvveti-giris.webp?v=2" srcset="gorsel/surtunme-kuvveti-giris-800.webp?v=2 800w, gorsel/surtunme-kuvveti-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Yüksek pencerelerinden ılık güneş ışığı giren, ahşap zeminli bir depoda sakallı bir adam öne eğilmiş, iki avucunu dayadığı büyük bir ahşap sandığı yüzünü buruşturarak itiyor; bacakları geriye gerilmiş, iş botları zemine basıyor. Arkada üst üste dizilmiş sandıklar ve fıçılar var.">
+          <figcaption>
+            <b>İki yerde, iki yönde sürtünme.</b> Sandık yerinden oynamadıkça zemin ona, itme kuvvetine eşit ve zıt yönde bir sürtünme uygular. Aynı anda adamın botları zemini geriye doğru iter; zeminin botlara uyguladığı sürtünme de onu <b>ileriye</b> iterek itmeyi mümkün kılar. Sürtünme aynı sahnede hem engel hem dayanak olabilir.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: sürtünmeyi gündelik sahnelerde gözle, adını koy ve durgun cisimle kayan cisim arasındaki farkı gör. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: sürtünme ne zaman ortaya çıkar?</h3>
+        <p>
+          Evde kitap dolu bir koliyi yerde itmeyi düşün. Önce hafifçe itersin; koli kıpırdamaz. Biraz daha
+          yüklenirsin; yine yerinde durur. Bir noktada birden "kopar" ve kaymaya başlar. İlginç olan şudur:
+          kaymaya başladıktan sonra onu itmeye devam etmek, yerinden oynatmaktan <strong>daha kolaydır</strong>.
+          Aynı koliyi halının üstünde itmek cilalı parkede itmekten zordur; içindeki kitapları boşaltınca
+          iş iyice kolaylaşır.
+        </p>
+        <p>
+          Parktaki kaydırak da aynı etkiyi gösterir. Ağırlığı çocuğu eğim boyunca aşağı çeker, ama çocuk
+          inerken kıyafeti ile metal yüzey arasında onu frenleyen bir etki vardır. Aynı çocuk kotla daha
+          yavaş, kaygan kumaşlı bir eşofmanla daha hızlı iner. Kaydırağın eğimi çok az olsaydı hiç
+          kaymadan üstünde oturabilirdi.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/surtunme-kuvveti-gunluk.webp?v=2" srcset="gorsel/surtunme-kuvveti-gunluk-800.webp?v=2 800w, gorsel/surtunme-kuvveti-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir parkta lila tişörtlü bir kız çocuğu, elleri kaydırağın kenarlarında ve saçları arkaya uçuşarak uzun, eğik bir metal kaydıraktan gülümseyerek kayıyor. Solda dört çocuk merdivende ve üstteki platformda sırasını bekliyor.">
+          <figcaption>
+            <b>Kaydırak küçük bir eğik düzlemdir.</b> Ağırlığın eğime paralel parçası çocuğu aşağı çeker, kıyafet ile metal arasındaki sürtünme ise kaymaya karşı koyar. Çocuğun ne kadar hızlı ineceğini bu ikisinin farkı belirler; farkın eğimle ve kumaşla nasıl değiştiğini ikinci basamakta hesaplayacağız.
+          </figcaption>
+        </figure>
+
+        <p>Bu sahnelerden şu gözlemleri çıkarabilirsin:</p>
+        <ul>
+          <li><strong>Duran cisim direnir:</strong> itme belli bir sınırı aşana kadar cisim yerinden oynamaz.</li>
+          <li><strong>Kayan cisim daha az direnir:</strong> kaymaya başlayınca itmeye devam etmek kolaylaşır.</li>
+          <li><strong>Yüzeyler önemlidir:</strong> halı ile parke, kot ile eşofman aynı sonucu vermez.</li>
+          <li><strong>Bastırmak önemlidir:</strong> dolu koli boş koliden zor itilir.</li>
+          <li><strong>Durgun hâlde de iş başındadır:</strong> yürürken ayağının kaymamasını sağlayan da aynı etkidir.</li>
+        </ul>
+        <p>
+          Bütün bu gözlemlerin arkasında tek bir kuvvet var. Önce ona bir ad verelim, sonra neden bir
+          sınırı olduğunu ve cisim kayınca neden küçüldüğünü anlayalım.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Aynı çocuk aynı kaydıraktan bir kez kotla, bir kez kaygan bir eşofmanla kayıyor. Değişen ne?</summary>
+          <p>
+            Çocuğun ağırlığı da kaydırağın eğimi de aynıdır. Değişen, birbirine değen <b>iki yüzeyin</b>
+            — kumaş ile metalin — birbirine ne kadar tutunduğudur. Demek ki sürtünme tek bir cismin değil,
+            birbirine değen yüzey çiftinin özelliğidir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Duran bir cisim, itme belli bir sınırı aşana dek yerinden oynamaz; kaymaya
+          başlayınca onu itmek kolaylaşır. Bu direncin büyüklüğü yüzeylere ve cismin zemine ne kadar
+          bastırdığına bağlıdır.
+        </p>
+
+        <h3 id="k2">Sürtünme kuvveti nedir?</h3>
         <p>
           Birbirine değen iki yüzey arasında, <strong>bağıl kaymaya zıt yönde</strong> ortaya çıkan
           kuvvete sürtünme kuvveti denir. Yüzeyler çıplak gözle pürüzsüz görünse bile mikroskobik
           ölçekte girinti çıkıntılıdır; temas noktalarındaki bu kenetlenme ve moleküler yapışma
           sürtünmeyi doğurur.
         </p>
-        <p>Sürtünme kuvvetinin iki temel özelliği vardır:</p>
+        <p>
+          <strong>Bağıl kayma</strong>, iki yüzeyin birbirine göre kaymasıdır. Masada duran bir kitaba
+          kimse dokunmuyorsa kaymaya çalışan bir şey yoktur; sürtünme de yoktur. Kitabı yana doğru ittiğin
+          anda yüzeyler birbirinin üstünden kaymaya "niyetlenir" ve sürtünme belirir.
+        </p>
+        <p>
+          Sürtünme, zeminin cisme uyguladığı temas kuvvetinin bir parçasıdır. Bu temas kuvvetini iki
+          bileşene ayırırız. Yüzeye dik olan bileşene <strong>normal kuvvet (N)</strong> denir: zemin,
+          cismin kendi içine batmaması için onu dik olarak iter. Yüzeye paralel olan bileşen ise
+          sürtünmedir. Yatay bir zeminde başka düşey kuvvet yoksa normal kuvvet cismin ağırlığına eşittir.
+        </p>
+        <p>Sürtünme kuvvetinin temel özellikleri şunlardır:</p>
         <ul>
           <li><strong>Yüzeye paraleldir</strong> (normal kuvvet ise yüzeye diktir).</li>
           <li><strong>Yönü, cismin kaymakta olduğu ya da kaymaya çalıştığı yönün tersidir.</strong></li>
+          <li><strong>Çift olarak doğar:</strong> zemin kutuyu geriye çekerken kutu da zemini ileriye sürükler (Newton'un üçüncü yasası).</li>
         </ul>
         <div class="callout">
           <p>
@@ -2220,6 +2524,12 @@
             hareketi engellemez, hareketi mümkün kılar.
           </p>
         </div>
+        <p>
+          Cilalı bir çelik yüzey bile mikroskop altında sıradağlara benzer. Üst üste konan iki yüzey
+          yalnızca en yüksek tepelerinde birbirine değer ve bu noktalarda atomlar arasında bağlar kurulur.
+          Cismi kaydırmak için bu bağları koparman gerekir; araya giren yağ tepelerin doğrudan değmesini
+          engellediği için sürtünmeyi azaltır.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 206" role="img" aria-label="Solda itilen kutuya etkiyen sürtünme kuvveti, sağda yüzeylerin mikroskobik pürüzlerinin birbirine takıldığı yakınlaştırılmış görünüm.">
@@ -2251,22 +2561,44 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Statik sürtünme: eşiğe kadar dengeler</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Sürtünme, birbirine değen yüzeyler arasında yüzeye paralel ve bağıl kaymaya zıt
+          yönde oluşan kuvvettir. Kaynağı mikroskobik pürüzlerin kenetlenmesi ve temas noktalarındaki
+          moleküler yapışmadır.
+        </p>
+
+        <h3 id="k3">Durgunken ve kayarken: iki tür sürtünme</h3>
         <p>
           Cisim henüz hareket etmiyorken ortaya çıkan sürtünmeye <strong>statik sürtünme</strong> denir.
           Bu kuvvetin en ilginç yanı, <strong>sabit bir değeri olmamasıdır</strong>: uygulanan kuvvet
-          ne kadarsa, statik sürtünme de o kadar büyür ve onu tam olarak dengeler.
+          ne kadarsa, statik sürtünme de o kadar büyür ve onu tam olarak dengeler. Kısacası statik
+          sürtünme sana <b>ayak uydurur</b>.
         </p>
-        <div class="formula">
-          <code>f<sub>s</sub> = F<sub>uygulanan</sub> (cisim durduğu sürece)</code>
-          <code>f<sub>s</sub> ≤ μ<sub>s</sub> · N</code>
-        </div>
         <p>
-          Ancak bu uyum sonsuza kadar sürmez. Statik sürtünmenin bir <strong>üst sınırı</strong>
-          vardır: μ<sub>s</sub>·N. Uygulanan kuvvet bu eşiği geçtiği anda denge bozulur ve cisim
-          kaymaya başlar. Sayfadaki <b>01</b> numaralı laboratuvarda kuvveti yavaşça artırdığında
-          bu kopuş anını göreceksin.
+          Bunu, bir kapıyı öbür taraftan tutan birine benzetebilirsin: sen ne kadar itersen o da o kadar
+          karşı koyar ve kapı kıpırdamaz; ama onun gücü de sınırlıdır. Statik sürtünmenin de böyle bir
+          <strong>üst sınırı</strong> (eşiği) vardır: uygulanan kuvvet bu eşiği geçtiği anda denge
+          bozulur ve cisim kaymaya başlar.
         </p>
+        <p>
+          Cisim kaymaya başladığı anda devreye <strong>kinetik (hareket) sürtünmesi</strong> girer.
+          Kinetik sürtünme artık uygulanan kuvvete ayak uydurmaz; yaklaşık <strong>sabittir</strong> ve
+          genellikle statik sürtünmenin eşiğinden küçüktür. Nedeni sezgiyle anlaşılır: durgun yüzeylerde
+          pürüzler birbirine iyice oturur ve temas noktalarında bağlar kurulmaya zaman bulur; kayarken ise
+          pürüzler tam yerleşemeden birbirinin üstünden atlar.
+        </p>
+        <p>
+          Sayfanın <b>01</b> numaralı laboratuvarındaki 10 kg'lık ahşap kutu için ekranda statik eşik
+          49,1 N, kinetik sürtünme 34,3 N yazar. Kuvveti yavaşça artırdığında olanlar:
+        </p>
+        <table class="tbl">
+          <tr><th>Uygulanan kuvvet</th><th>Sürtünme</th><th>Kutu ne yapar?</th></tr>
+          <tr><td>0 N</td><td>0 N</td><td>Durur</td></tr>
+          <tr><td>20 N</td><td>20 N</td><td>Durur</td></tr>
+          <tr><td>40 N</td><td>40 N</td><td>Durur</td></tr>
+          <tr><td>49 N</td><td>49 N</td><td>Tam sınırda, kıpırdamak üzere</td></tr>
+          <tr><td>60 N</td><td>34,3 N</td><td>Kayar; net kuvvet 25,7 N</td></tr>
+        </table>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 186" role="img" aria-label="Üç aşama: küçük kuvvette sürtünme kuvveti ona eşit olup cismi durdurur, eşikte sürtünme en büyük değerindedir, eşik aşılınca cisim kayar ve sürtünme kinetik değerine düşer.">
@@ -2306,10 +2638,43 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Kinetik sürtünme: sabit ve daha küçük</h3>
+        <details class="dusun">
+          <summary>Düşün: Yerde duran bir kutuyu hiç itmiyorsan, kutuya etki eden sürtünme kuvveti kaç N'dur?</summary>
+          <p>
+            <b>Sıfır.</b> Statik sürtünme yalnızca kaydırmaya çalışan bir kuvvet varken ve o kuvvet kadar
+            ortaya çıkar. Kimse itmiyorsa kutunun kaymaya çalıştığı bir yön yoktur, sürtünmenin karşı
+            koyacağı bir şey de yoktur. Eşik, sürtünmenin alabileceği en büyük değerdir; her an etki eden
+            değer değildir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Durgun cisimde statik sürtünme uygulanan kuvvete eşittir ve bir eşiğe kadar
+          büyüyebilir. Eşik aşılınca cisim kayar ve sürtünme daha küçük, yaklaşık sabit olan kinetik
+          değere düşer.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: eşiği sayıyla yaz, katsayıyı tanı; sonra eğik düzlemde ve frenlemede sürtünmeyi adım adım hesapla.</span>
+        </div>
+
+        <h3 id="k4">Sürtünme katsayısı ve temel bağıntılar</h3>
         <p>
-          Cisim kaymaya başladığı anda devreye <strong>kinetik (hareket) sürtünmesi</strong> girer.
-          Bu kuvvet, uygulanan kuvvetten bağımsızdır ve sabittir:
+          Birinci basamakta "eşik" dediğimiz sınırın ne kadar olduğunu şimdi yazabiliriz. Deneyler,
+          eşiğin normal kuvvetle <strong>doğru orantılı</strong> olduğunu gösterir: N iki katına çıkınca
+          eşik de iki katına çıkar. Bu orantının sabitine <strong>statik sürtünme katsayısı</strong>
+          (μ<sub>s</sub>) denir. Cisim durduğu sürece statik sürtünme uygulanan kuvvete eşittir, ama
+          μ<sub>s</sub>·N'yi aşamaz:
+        </p>
+        <div class="formula">
+          <code>f<sub>s</sub> = F<sub>uygulanan</sub></code>
+          <code>f<sub>s</sub> ≤ μ<sub>s</sub> · N</code>
+        </div>
+        <p>
+          Birinci satır yalnızca cisim durduğu sürece geçerlidir; ikinci satırdaki μ<sub>s</sub>·N ise
+          eşiğin kendisidir. Sayfadaki <b>01</b> numaralı laboratuvarda kuvveti yavaşça artırdığında bu
+          kopuş anını görürsün. Kayan cisim için de bir sabit tanımlanır: <strong>kinetik sürtünme
+          katsayısı</strong> (μ<sub>k</sub>). Kinetik sürtünme uygulanan kuvvetten bağımsızdır ve sabittir:
         </p>
         <div class="formula">
           <code>f<sub>k</sub> = μ<sub>k</sub> · N</code>
@@ -2370,7 +2735,41 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Sürtünme neye bağlı, neye bağlı değil?</h3>
+        <div class="callout">
+          <p>
+            <b>μ birimsizdir</b> ve genellikle 0 ile 1 arasındadır; ama yapışkan yüzeylerde
+            1'in üstüne de çıkabilir. Sürtünme katsayısı bir <b>oran</b>dır: f ile N'nin oranı.
+            Birim kontrolü de bunu doğrular: μ = f/N için N/N, yani birim sadeleşir.
+          </p>
+        </div>
+        <h4>Bir sürtünme sorusunu çözme sırası</h4>
+        <ol>
+          <li><strong>Normal kuvveti bul:</strong> yatay zeminde, başka düşey kuvvet yoksa N = m·g.</li>
+          <li><strong>Eşiği hesapla:</strong> μ<sub>s</sub>·N, cismi kıpırdatmak için aşılması gereken kuvvettir.</li>
+          <li><strong>Karşılaştır:</strong> F ≤ μ<sub>s</sub>·N ise cisim durur; f = F ve a = 0.</li>
+          <li><strong>Kayıyorsa kinetiğe geç:</strong> F &gt; μ<sub>s</sub>·N ise f = μ<sub>k</sub>·N olur.</li>
+          <li><strong>Net kuvvetten ivmeye:</strong> a = (F − f) / m.</li>
+        </ol>
+        <details class="dusun">
+          <summary>Düşün: Kıpırdatmak için 100 N gereken kutu kaydıktan sonra sürtünme 80 N'a düşüyor. 100 N ile itmeye devam edersen ne olur?</summary>
+          <p>
+            Kutu <b>hızlanır</b>. Kayarken sürtünme 80 N'dur; sen 100 N ile ittiğine göre 20 N'luk net
+            kuvvet kalır. Kutu 20 kg ise ivmesi 20/20 = 1 m/s² olur. Kutuyu sabit hızla götürmek
+            istiyorsan kuvvetini 80 N'a düşürmen yeter.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Statik sürtünme f<sub>s</sub> ≤ μ<sub>s</sub>·N, kinetik sürtünme
+          f<sub>k</sub> = μ<sub>k</sub>·N'dir ve genellikle μ<sub>k</sub> &lt; μ<sub>s</sub>. Önce cismin
+          kayıp kaymadığına karar ver, sonra geçerli bağıntıyı seç.
+        </p>
+
+        <h3 id="k5">Sürtünme neye bağlı, neye bağlı değil?</h3>
+        <p>
+          Gözlemlerde yüzeylerin ve bastırmanın önemli olduğunu gördün. f = μ·N bağıntısı bunu
+          kesinleştirir: yüzey çifti μ'nün, bastırma N'nin içindedir. Bağıntıda <em>geçmeyen</em>
+          büyüklüklerden de sezgiye ters iki sonuç çıkar.
+        </p>
         <p><strong>Bağlıdır:</strong></p>
         <ul>
           <li><strong>Normal kuvvete (N).</strong> Cisme bastırırsan ya da kütlesi artarsa sürtünme artar.</li>
@@ -2381,6 +2780,18 @@
           <li><strong>Temas alanına.</strong> Aynı kütleli bir tuğlayı yan yatırmak sürtünmeyi değiştirmez.</li>
           <li><strong>Kayma hızına</strong> (yaklaşık olarak). Hızla belirgin biçimde artan kuvvet, sürtünme değil <strong>hava direncidir</strong>.</li>
         </ul>
+        <p>
+          Temas alanının etkisizliği en şaşırtıcı olanıdır; geniş yüzey daha çok "tutar" gibi görünür.
+          Ama iki yüzey yalnızca pürüzlerinin tepelerinde birbirine değer. <strong>Gerçek temas
+          alanı</strong>, gözle gördüğün alanın çok küçük bir kesridir. Görünür alan büyüyünce ağırlık daha
+          çok tepeye dağılır, ama her tepe daha az ezilir; görünür alan küçülünce ağırlığı daha az tepe
+          taşır, ama her biri daha çok ezilir. İki etki birbirini götürür ve gerçek temas alanı — dolayısıyla
+          sürtünme — hemen hemen aynı kalır. Onu belirleyen, yüzeylerin birbirine ne kadar bastırıldığıdır.
+        </p>
+        <p>
+          Yüzey çiftinin etkisi ise büyüktür. Aşağıdaki değerler yaklaşıktır; yüzeyin temizliğine, nemine
+          ve cilasına göre değişir:
+        </p>
         <table class="tbl">
           <thead><tr><th>Yüzey çifti</th><th>μ<sub>s</sub></th><th>μ<sub>k</sub></th></tr></thead>
           <tbody>
@@ -2390,12 +2801,12 @@
             <tr><td>Lastik – kuru asfalt</td><td>0,90</td><td>0,70</td></tr>
           </tbody>
         </table>
-        <div class="callout">
-          <p>
-            <b>μ birimsizdir</b> ve genellikle 0 ile 1 arasındadır; ama yapışkan yüzeylerde
-            1'in üstüne de çıkabilir. Sürtünme katsayısı bir <b>oran</b>dır: f ile N'nin oranı.
-          </p>
-        </div>
+        <p>
+          Sayfanın <b>03</b> numaralı bölümünde aynı kütleli üç blok, büyüklüğü farklı üç yüzü üzerinde
+          aynı ilk hızla fırlatılır; üçü de aynı noktada durur. Hız için de benzer bir durum vardır: bir
+          kutuyu yavaş ya da hızlı kaydırman sürtünmeyi pek değiştirmez. Değişen tek şey sürtünmenin ne
+          kadar sürdüğüdür.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Solda aynı tuğla yatık ve dik konumda aynı sürtünmeyi görüyor, sağda iki tuğla üst üste konunca sürtünme iki katına çıkıyor.">
@@ -2428,7 +2839,49 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Eğik düzlemde sürtünme</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Sürtünme normal kuvvete ve yüzey çiftine bağlıdır; temas alanına ve (yaklaşık
+          olarak) kayma hızına bağlı değildir. Cisme bastırmak sürtünmeyi artırır, tuğlayı yan yatırmak
+          değiştirmez.
+        </p>
+
+        <h3 id="k6">Sayılarla hisset: ne kadar kuvvet, ne kadar yavaşlama?</h3>
+        <p>
+          Katsayılar soyut kalmasın. Bir önceki bölümdeki dört yüzey çiftini somut bir cisme uygulayalım:
+          yatay zeminde duran <strong>20 kg'lık</strong> bir kutu (g = 10 m/s², N = 200 N). Son sütun,
+          kutu kendi hâlinde kayarken sürtünmenin ona verdiği yavaşlamadır:
+        </p>
+        <table class="tbl">
+          <tr><th>Yüzey çifti</th><th>Kıpırdatmak için (μ<sub>s</sub>·N)</th><th>Kayarken sürtünme (μ<sub>k</sub>·N)</th><th>Yavaşlama (μ<sub>k</sub>·g)</th></tr>
+          <tr><td>Buz – çelik</td><td>20 N</td><td>6 N</td><td>0,3 m/s²</td></tr>
+          <tr><td>Ahşap – ahşap</td><td>100 N</td><td>70 N</td><td>3,5 m/s²</td></tr>
+          <tr><td>Çelik – çelik</td><td>140 N</td><td>120 N</td><td>6 m/s²</td></tr>
+          <tr><td>Lastik – kuru asfalt</td><td>180 N</td><td>140 N</td><td>7 m/s²</td></tr>
+        </table>
+        <p>Tablodan okunan düzen:</p>
+        <ul>
+          <li><strong>İkinci sütun hep üçüncüden büyük:</strong> her yüzeyde kıpırdatmak, itmeye devam etmekten zordur.</li>
+          <li><strong>Buz ile asfalt arasında büyük fark:</strong> kutuyu kıpırdatmak için lastik–asfaltta buz–çeliğin 9 katı kuvvet gerekir.</li>
+          <li><strong>Yavaşlama kütleden bağımsızdır:</strong> 10 m/s ile kayan kutu buz–çelikte yaklaşık 33 s'de, lastik–asfaltta 1,4 s'de durur; kutu kaç kilo olursa olsun.</li>
+        </ul>
+        <h4>Yavaşlama neden μ<sub>k</sub>·g?</h4>
+        <ol>
+          <li>Kayan kutuya etki eden tek yatay kuvvet sürtünmedir: f = μ<sub>k</sub>·N.</li>
+          <li>Yatay zeminde N = m·g olduğundan f = μ<sub>k</sub>·m·g.</li>
+          <li>Newton'un ikinci yasası: m·a = μ<sub>k</sub>·m·g.</li>
+          <li>Kütle iki yanda da var, sadeleşir: <strong>a = μ<sub>k</sub>·g</strong>.</li>
+        </ol>
+        <p>
+          Serbest düşmedeki gibi kütle sadeleşir: ağır kutu daha büyük sürtünmeyle frenlenir, ama
+          durdurulması da o oranda zordur.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Aynı 20 kg'lık kutuyu buz–çelikte kıpırdatmak için 20 N, lastik–asfaltta 180 N
+          gerekir. Kendi hâlinde kayan cisim a = μ<sub>k</sub>·g ile yavaşlar; bu yavaşlama kütleden
+          bağımsızdır.
+        </p>
+
+        <h3 id="k7">Eğik düzlemde sürtünme</h3>
         <p>
           Eğik düzlemde ağırlığı iki bileşene ayırırız: eğime paralel olan bileşen cismi aşağı
           çekmeye çalışır, dik olan bileşen ise normal kuvveti belirler.
@@ -2438,23 +2891,40 @@
           <code>N = m·g·cosθ</code>
           <code>f<sub>maks</sub> = μ<sub>s</sub>·m·g·cosθ</code>
         </div>
-        <p>
-          Cisim, paralel bileşen statik eşiği geçtiği anda kaymaya başlar:
-          m·g·sinθ &gt; μ<sub>s</sub>·m·g·cosθ. Kütleler sadeleşince geriye çok zarif bir
-          sonuç kalır:
-        </p>
+        <h4>Kritik açı nereden çıkıyor?</h4>
+        <ol>
+          <li><strong>Dik doğrultu:</strong> cisim eğime dik yönde hareket etmez; N, ağırlığın dik bileşenini dengeler: N = m·g·cosθ.</li>
+          <li><strong>Eşik:</strong> statik sürtünme en fazla μ<sub>s</sub>·N = μ<sub>s</sub>·m·g·cosθ olabilir.</li>
+          <li><strong>Kayma koşulu:</strong> paralel bileşen eşiği geçince cisim kayar: m·g·sinθ &gt; μ<sub>s</sub>·m·g·cosθ.</li>
+          <li><strong>Sadeleştir:</strong> m·g iki yanda da var; sinθ/cosθ = tanθ olduğundan kayma tanθ &gt; μ<sub>s</sub> iken başlar.</li>
+        </ol>
+        <p>Kütleler sadeleşince geriye çok zarif bir sonuç kalır:</p>
         <div class="formula">
           <code>tanθ<sub>kritik</sub> = μ<sub>s</sub></code>
         </div>
         <p>
           Yani cismin kaymaya başladığı açının tanjantı, doğrudan statik sürtünme katsayısını
           verir. Laboratuvarda μ ölçmenin en kolay yolu budur — sayfadaki <b>02</b> numaralı
-          bölüm tam olarak bunu yapıyor. Kayma başladıktan sonra ivme:
+          bölüm tam olarak bunu yapıyor. Oradaki üç yüzeyin kritik açıları:
         </p>
+        <table class="tbl">
+          <tr><th>Yüzey</th><th>μ<sub>s</sub></th><th>Kritik açı</th></tr>
+          <tr><td>Kaygan</td><td>0,20</td><td>yaklaşık 11°</td></tr>
+          <tr><td>Ahşap</td><td>0,50</td><td>yaklaşık 27°</td></tr>
+          <tr><td>Kauçuk</td><td>0,80</td><td>yaklaşık 39°</td></tr>
+        </table>
+        <p>Kayma başladıktan sonra sürtünme kinetiğe döner ve ivme şöyle olur:</p>
         <div class="formula">
           <code>a = g·(sinθ − μ<sub>k</sub>·cosθ)</code>
         </div>
         <p><strong>Kütle bu bağıntıların hiçbirinde yoktur:</strong> ağır da olsa hafif de olsa aynı açıda kayar, aynı ivmeyle iner.</p>
+        <div class="callout warn">
+          <p>
+            <b>Kritik açının altında f ≠ μ<sub>s</sub>·N.</b> Cisim eğik düzlemde duruyorsa statik sürtünme,
+            ağırlığın paralel bileşenine eşittir: f = m·g·sinθ. μ<sub>s</sub>·m·g·cosθ yalnızca bu
+            sürtünmenin çıkabileceği en büyük değerdir.
+          </p>
+        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 226" role="img" aria-label="Solda eğik düzlemde duran kutu, sağda aynı kutunun kuvvet diyagramı: ağırlık eğime paralel ve dik bileşenlerine ayrılmış, normal kuvvet ve sürtünme gösterilmiş.">
@@ -2492,26 +2962,32 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Sürtünmenin faydaları ve zararları</h3>
-        <table class="tbl">
-          <thead><tr><th>Faydalı olduğu yerler</th><th>Zararlı olduğu yerler</th></tr></thead>
-          <tbody>
-            <tr><td>Yürümek, koşmak</td><td>Makine parçalarının aşınması</td></tr>
-            <tr><td>Fren yapmak, virajı dönmek</td><td>Isınma ve enerji kaybı</td></tr>
-            <tr><td>Vida, çivi ve düğümün tutması</td><td>Verimin düşmesi</td></tr>
-            <tr><td>Elimizle bir şey tutabilmek</td><td>Uçak ve araçlarda yakıt tüketimi</td></tr>
-          </tbody>
-        </table>
-        <p>
-          İstemediğimiz yerde sürtünmeyi <strong>azaltmak</strong> için yağ, rulman, hava yastığı;
-          istediğimiz yerde <strong>artırmak</strong> için tırtıklı yüzey, kışlık lastik, reçine kullanılır.
+        <details class="dusun">
+          <summary>Düşün: Eğik düzlemde duran bir kutunun üstüne aynı kütlede ikinci bir kutu koyarsan ikisi kaymaya başlar mı?</summary>
+          <p>
+            <b>Hayır.</b> Kütle iki katına çıkınca kutuyu aşağı çeken paralel bileşen de iki katına çıkar,
+            sürtünmenin eşiği de; çünkü N de iki katına çıkar. Kayma koşulu tanθ &gt; μ<sub>s</sub>'de kütle
+            hiç geçmez. Kutuyu kaydırmak istiyorsan açıyı artırman ya da yüzeyi kayganlaştırman gerekir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Eğik düzlemde N = m·g·cosθ olur ve cisim tanθ &gt; μ<sub>s</sub> olduğunda kaymaya
+          başlar; kayarken ivme a = g·(sinθ − μ<sub>k</sub>·cosθ)'dır. Kütle bu bağıntıların hiçbirinde
+          yoktur.
         </p>
 
-        <h3 id="k7">Fren mesafesi ve trafik</h3>
+        <h3 id="k8">Fren mesafesi ve trafik</h3>
         <p>
           Frenleyen bir araç için sürtünme kuvveti f = μ·m·g, ivme ise a = μ·g'dir (kütle yine
-          sadeleşir). Buradan durma mesafesi:
+          sadeleşir). Bu yavaşlamayı sabit ivmeli hareketin bağıntılarıyla birleştirirsen durma mesafesi
+          adım adım çıkar:
         </p>
+        <ol>
+          <li><strong>Yavaşlama:</strong> yolun lastiğe uyguladığı sürtünme f = μ·m·g, ivme a = μ·g.</li>
+          <li><strong>Zamansız bağıntı:</strong> sabit ivmeyle yavaşlayıp duran araç için v² = 2·a·d yazılır (son hız sıfır).</li>
+          <li><strong>Yerine koy:</strong> v² = 2·μ·g·d, buradan d<sub>fren</sub> = v² / (2·μ·g).</li>
+          <li><strong>Tepki payını ekle:</strong> sürücü frene basana kadar araç sabit hızla gider: d<sub>tepki</sub> = v·t<sub>tepki</sub>.</li>
+        </ol>
         <div class="formula">
           <code>d<sub>fren</sub> = v² / (2·μ·g)</code>
           <code>d<sub>tepki</sub> = v · t<sub>tepki</sub></code>
@@ -2522,14 +2998,22 @@
           mesafesini <strong>dört katına</strong> çıkarır. Islak asfaltta μ yarıya inerse mesafe
           iki katına çıkar. Tepki mesafesi ise hızla <strong>doğru orantılıdır</strong> ve
           frenden önce alınır — sayfadaki <b>04</b> numaralı bölümde ikisini ayrı ayrı görebilirsin.
+          Oradaki kuru yol ayarıyla (μ = 0,80, tepki süresi 1,0 s, g = 9,81 m/s²) yuvarlanmış değerler:
         </p>
-        <div class="callout warn">
-          <p>
-            <b>ABS neden var?</b> Tekerlek kilitlenip kayarsa devreye <b>kinetik</b> sürtünme girer
-            ve μ küçülür. ABS, tekerleği kilitlenme sınırında tutarak daha büyük olan
-            <b>statik</b> sürtünmeden yararlanır; ayrıca direksiyon hâkimiyetini korur.
-          </p>
-        </div>
+        <table class="tbl">
+          <tr><th>Hız</th><th>Tepki mesafesi</th><th>Fren mesafesi</th><th>Toplam</th></tr>
+          <tr><td>50 km/h</td><td>14 m</td><td>12 m</td><td>26 m</td></tr>
+          <tr><td>90 km/h</td><td>25 m</td><td>40 m</td><td>65 m</td></tr>
+          <tr><td>100 km/h</td><td>28 m</td><td>49 m</td><td>77 m</td></tr>
+          <tr><td>120 km/h</td><td>33 m</td><td>71 m</td><td>104 m</td></tr>
+          <tr><td>130 km/h</td><td>36 m</td><td>83 m</td><td>119 m</td></tr>
+        </table>
+        <p>
+          Düşük hızda durma mesafesinin büyük kısmı tepki payıdır; hız arttıkça fren payı hızla öne
+          geçer. 50'den 100 km/h'ye çıkınca tepki mesafesi 2 katına, fren mesafesi 4 katına, toplam ise
+          yaklaşık 3 katına çıkar. Yol ıslanınca (μ = 0,50) 90 km/h'deki fren mesafesi 40 m'den yaklaşık
+          64 m'ye, karda (μ = 0,20) yaklaşık 159 m'ye uzar.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="50 ve 100 kilometre hızda tepki mesafesi ve fren mesafesi çubukları; hız iki katına çıkınca toplam durma mesafesi üç katına çıkıyor.">
@@ -2556,11 +3040,166 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Fren mesafesi v²/(2·μ·g) hızın karesiyle, tepki mesafesi v·t hızla doğru
+          orantılı büyür. Hız iki katına çıkınca fren mesafesi 4, toplam durma mesafesi yaklaşık 3 katına
+          çıkar.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: normal kuvvet değişince, tekerlek dönünce ve basit model zorlanınca ne olur; sonra sürtünme gerçek hayatta.</span>
+        </div>
+
+        <h3 id="k9">Normal kuvvet her zaman m·g değildir</h3>
+        <p>
+          Şimdiye kadarki örneklerin çoğunda N = m·g aldık. Oysa normal kuvvet cismin sabit bir özelliği
+          değildir; zemin, cismi içine batırmamak için <strong>ne kadar gerekiyorsa o kadar</strong> iter.
+          Cisme başka düşey kuvvetler etki edince ya da zemin ivmelenince N, onunla birlikte de sürtünmenin
+          eşiği değişir:
+        </p>
+        <table class="tbl">
+          <tr><th>Durum</th><th>Normal kuvvet</th></tr>
+          <tr><td>Yatay zemin, başka düşey kuvvet yok</td><td>N = m·g</td></tr>
+          <tr><td>Üstten F kuvvetiyle bastırılıyor</td><td>N = m·g + F</td></tr>
+          <tr><td>F ile α açısıyla yukarı doğru çekiliyor</td><td>N = m·g − F·sinα</td></tr>
+          <tr><td>F ile α açısıyla aşağı doğru itiliyor</td><td>N = m·g + F·sinα</td></tr>
+          <tr><td>Yukarı doğru a ivmesiyle hızlanan asansör</td><td>N = m·(g + a)</td></tr>
+        </table>
+        <p>
+          Eğik düzlemde de N = m·g·cosθ olduğunu görmüştün. Kısacası N'yi her soruda yüzeye dik
+          doğrultudaki kuvvetlerden yeniden bul; eğik çekilen kızakla eğik itilen kızak arasındaki farkı çözümlü
+          örneklerde sayılarla göreceksin.
+        </p>
+        <h4>Duvara bastırılan kitap</h4>
+        <p>
+          Bir kitabı elinle duvara yatay olarak bastır: düşmez. Burada normal kuvvet yataydır ve senin
+          bastırma kuvvetine eşittir. Sürtünme ise duvara paralel, yani düşeydir ve kitabın ağırlığını
+          yukarı doğru dengeler. Kitabın düşmemesi için gereken koşul:
+        </p>
+        <div class="formula">
+          <code>N = F</code>
+          <code>m·g ≤ μ<sub>s</sub>·F</code>
+          <code>F ≥ m·g / μ<sub>s</sub></code>
+        </div>
+        <p>
+          1 kg'lık kitap ve μ<sub>s</sub> = 0,5 için F ≥ 10 / 0,5 = <strong>20 N</strong> gerekir. Burada
+          kitabın ağırlığı sürtünmeyi artırmaz, yalnızca taşınması gereken yükü artırır; sürtünmeyi
+          artırmanın tek yolu daha sıkı bastırmaktır.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Karda bir kızağı ipiyle yukarı doğru eğik çekmek mi, arkadan aşağı doğru eğik itmek mi daha kolaydır?</summary>
+          <p>
+            <b>Çekmek.</b> Eğik çektiğinde kuvvetin düşey bileşeni kızağı biraz kaldırır; N ve dolayısıyla
+            sürtünme küçülür. Aşağı doğru eğik ittiğinde düşey bileşen kızağı kara bastırır; N büyür,
+            sürtünme artar. Kuvvetin yatay bileşeni iki durumda da aynıdır, ama çekerken ona karşı koyan
+            sürtünme daha küçüktür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Normal kuvvet, zeminin gerektiği kadar ittiği bir tepkidir: bastırınca, eğik
+          çekince, asansörde ya da eğik düzlemde değişir. N'yi her soruda yüzeye dik doğrultudaki
+          kuvvetlerden yeniden bul.
+        </p>
+
+        <h3 id="k10">Dönen tekerlek, ABS ve modelin sınırları</h3>
+        <p>
+          Bir araba yolda kaymadan ilerlerken lastiğin yola değen noktası o an yola göre
+          <strong>durgundur</strong>: tekerleğin dönüşü ile aracın ilerleyişi o noktada birbirini tam
+          olarak götürür. Bu yüzden yol ile lastik arasındaki sürtünme, araba 100 km/h ile gitse bile
+          <strong>statik</strong> sürtünmedir. Araba hızlanırken tekerlek yolu geriye doğru iter, yol da
+          arabayı ileriye iter. Arabayı hızlandıran, frenlerken durduran ve virajda yolunda tutan kuvvet
+          hep budur.
+        </p>
+        <div class="callout warn">
+          <p>
+            <b>ABS neden var?</b> Tekerlek kilitlenip kayarsa devreye <b>kinetik</b> sürtünme girer
+            ve μ küçülür. ABS, tekerleği kilitlenme sınırında tutarak daha büyük olan
+            <b>statik</b> sürtünmeden yararlanır; ayrıca direksiyon hâkimiyetini korur.
+          </p>
+        </div>
+        <p>
+          Direksiyon hâkimiyeti de sürtünmenin yönüyle ilgilidir: kilitlenmiş tekerlek kayarken kinetik
+          sürtünme kayma yönünün tersine bakar; direksiyonu çevirsen de bu yön değişmez, araç düz gitmeye
+          devam eder. f = μ·N modeli çok kullanışlıdır, ama bir yaklaşımdır:
+        </p>
+        <ul>
+          <li><strong>μ tam sabit değildir:</strong> kayma hızıyla ve sıcaklıkla biraz değişir; uzun yokuş inişinde aşırı ısınan frenler zayıflayabilir.</li>
+          <li><strong>μ 1'i aşabilir:</strong> yumuşak kauçuk ve silikon gibi malzemelerde yapışma baskındır; sürtünme normal kuvvetten büyük olabilir.</li>
+          <li><strong>Araya giren sıvı yüzeyleri ayırır:</strong> yağ makinede sürtünmeyi azaltır; ıslak yolda lastik su tabakasının üstüne çıkarsa tutuş neredeyse kaybolur.</li>
+          <li><strong>Yuvarlanmak kaymaktan çok kolaydır:</strong> yuvarlanma direnci katsayısı araba lastiğinde yaklaşık 0,01'dir, çelik tren tekerleğinde bundan da birkaç kat küçüktür.</li>
+          <li><strong>Yumuşak malzemede alan biraz etkiler:</strong> kauçuğun katsayısı basınç arttıkça bir miktar düşer; "alan fark etmez" kuralı sert yüzeylerde daha iyi tutar.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Temas alanı sürtünmeyi değiştirmiyorsa yarış arabalarının lastikleri neden bu kadar geniştir?</summary>
+          <p>
+            Çünkü kauçuk, f = μ·N modeline tam uymaz. Geniş lastik aynı ağırlığı daha geniş bir alana
+            yayıp basıncı düşürür; kauçuğun katsayısı düşük basınçta biraz daha yüksektir. Ayrıca geniş
+            yüzey, sürtünmenin ürettiği ısıyı ve aşınmayı daha büyük bir alana dağıtır ve lastik aşırı
+            ısınmaz.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kaymadan dönen tekerlekte yol ile lastik arasındaki sürtünme statiktir; aracı
+          hızlandıran, durduran ve virajda tutan odur. f = μ·N bir yaklaşımdır: μ sıcaklıkla değişebilir,
+          1'i aşabilir, araya sıvı girince çok küçülür.
+        </p>
+
+        <h3 id="k11">Sürtünme gerçek dünyada</h3>
+        <p>
+          Mühendislik çoğu zaman sürtünmeyi doğru yerde artırıp doğru yerde azaltma işidir. İstemediğimiz
+          yerde sürtünmeyi <strong>azaltmak</strong> için yağ, rulman, hava yastığı; istediğimiz yerde
+          <strong>artırmak</strong> için tırtıklı yüzey, kışlık lastik, reçine kullanılır. Bazı sporlar
+          ise tamamen sürtünmenin ince ayarı üzerine kuruludur.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/surtunme-kuvveti-uygulama.webp?v=2" srcset="gorsel/surtunme-kuvveti-uygulama-800.webp?v=2 800w, gorsel/surtunme-kuvveti-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Buz hizasından görülen ışıklı bir curling pistinde kırmızı saplı, gri granit bir taş; beyaz-siyah-kırmızı formalı iki kadın oyuncu taşın iki yanında eğilmiş, hemen önündeki buzu fırçalarla süpürüyor. Arkada buzun üzerinde hedef halkalarının kırmızı ve mavi çemberleri görünüyor.">
+          <figcaption>
+            <b>Curling, sürtünmeyi ayarlama oyunudur.</b> Yaklaşık 20 kg'lık granit taş buz üzerinde onlarca metre kayar. Oyuncular taşın yolundaki buzu fırçalayarak sürtünmeyi biraz daha azaltır; böylece taş biraz daha uzağa ve daha düz gider. Taş bırakıldıktan sonra bile yolunu bu küçük sürtünme farkı belirler.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Curling:</strong> 2 m/s ile bırakılıp 28 m kayan bir taş varsayarsan μ<sub>k</sub> = v²/(2·g·d) ≈ 0,007 çıkar; buz–çelikteki 0,03'ün yaklaşık dörtte biri.</li>
+          <li><strong>Frenler:</strong> 1000 kg'lık bir araç 90 km/h'den durunca yaklaşık 310 kJ kinetik enerji balata–disk sürtünmesiyle ısıya dönüşür.</li>
+          <li><strong>Kış lastiği ve zincir:</strong> karda μ 0,20'ye iner; 90 km/h'de fren mesafesi kuru yolun 4 katına, yaklaşık 160 m'ye çıkar.</li>
+          <li><strong>Yağ ve rulman:</strong> kuru çelik–çelikte 0,6 olan katsayı yağlanınca 0,1 civarına iner; bilyeli rulman kaymayı yuvarlanmaya çevirir.</li>
+          <li><strong>Yürümek:</strong> adım atan ayak yere eğik basar; buzda μ çok küçük olduğundan kısa adımlarla, ayağı daha dik basarak yürürsün.</li>
+          <li><strong>Kibrit:</strong> kutunun yan yüzeyine sürtülen kibrit başı, sürtünmenin ürettiği ısıyla tutuşma sıcaklığına ulaşır.</li>
+        </ul>
+        <table class="tbl">
+          <thead><tr><th>Faydalı olduğu yerler</th><th>Zararlı olduğu yerler</th></tr></thead>
+          <tbody>
+            <tr><td>Yürümek, koşmak</td><td>Makine parçalarının aşınması</td></tr>
+            <tr><td>Fren yapmak, virajı dönmek</td><td>Isınma ve enerji kaybı</td></tr>
+            <tr><td>Vida, çivi ve düğümün tutması</td><td>Verimin düşmesi</td></tr>
+            <tr><td>Elimizle bir şey tutabilmek</td><td>Uçak ve araçlarda yakıt tüketimi</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Frenler önceki bölüme bağlanır: araç kaymadan durduğunda lastik ile yol arasındaki sürtünme
+          statiktir ve enerjiyi ısıya çevirmez. Isınan, birbirine göre kayan balata ile disktir. Tekerlek
+          kilitlenirse ısınan lastiğin kendisi olur ve yolda siyah bir iz kalır.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Sürtünme mühendislikte bir ayar düğmesidir: frende, lastikte ve yürürken artırılır,
+          makinelerde yağ ve rulmanla azaltılır. Curling'de oyuncular buzu fırçalayarak taşın ne kadar
+          kayacağını değiştirir.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sürtünme sorularında puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k12">Çözümlü örnekler</h3>
         <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>
 
         <details>
-          <summary>Örnek 1 — Kutu hareket eder mi?</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Kutu hareket eder mi?</summary>
           <p>
             Yatay zeminde duran 20 kg'lık kutu için μ<sub>s</sub> = 0,5 ve μ<sub>k</sub> = 0,4'tür.
             (a) 80 N'luk yatay kuvvet uygulanırsa kutu hareket eder mi, sürtünme kaç N olur?
@@ -2577,7 +3216,37 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Kritik açıdan μ bulma</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Sabit hızla çekilen kutudan μ<sub>k</sub> ölçmek</summary>
+          <p>
+            5 kg'lık bir kutu, yatay zeminde dinamometreyle sabit hızla çekiliyor; dinamometre 15 N
+            gösteriyor. (a) μ<sub>k</sub> kaçtır? (b) Kutunun üstüne 5 kg'lık ikinci bir kutu konup ikisi
+            yine sabit hızla çekilirse dinamometre kaç N gösterir?
+          </p>
+          <ol class="steps">
+            <li>Sabit hız → net kuvvet sıfır → kinetik sürtünme çekme kuvvetine eşit: f = 15 N</li>
+            <li>N = m·g = 5 · 10 = 50 N</li>
+            <li><strong>(a)</strong> μ<sub>k</sub> = f / N = 15 / 50 = <strong>0,3</strong></li>
+            <li><strong>(b)</strong> N = 10 · 10 = 100 N → f = 0,3 · 100 = <strong>30 N</strong>; kütle 2 katına çıkınca sürtünme de 2 katına çıktı.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 3 — Kayan cismin durması</summary>
+          <p>
+            Yatay zeminde 10 m/s hızla kayan 5 kg'lık cisim, μ<sub>k</sub> = 0,25 olan yüzeyde
+            yavaşlıyor. Kaç metre sonra ve kaç saniyede durur?
+          </p>
+          <ol class="steps">
+            <li>Tek yatay kuvvet sürtünmedir: f = μ<sub>k</sub>·m·g = 0,25 · 5 · 10 = 12,5 N</li>
+            <li>a = −f/m = −2,5 m/s² (yavaşlatıcı)</li>
+            <li>Mesafe: v²/(2a) = 100 / 5 = <strong>20 m</strong></li>
+            <li>Süre: v/a = 10 / 2,5 = <strong>4 s</strong></li>
+            <li>Kütle sonuçta görünmez: a = μ·g olduğu için 50 kg'lık cisim de aynı yerde dururdu.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — Kritik açıdan μ bulma</summary>
           <p>
             Eğimi yavaşça artırılan bir düzlemde cisim, açı 37° olduğunda kaymaya başlıyor.
             (a) μ<sub>s</sub> kaçtır? (b) μ<sub>k</sub> = 0,5 ise kaymaya başladıktan sonraki
@@ -2592,7 +3261,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Fren mesafesi ve hız</summary>
+          <summary data-zorluk="orta">Örnek 5 — Fren mesafesi ve hız</summary>
           <p>
             72 km/h ile giden bir araç, μ = 0,5 olan bir yolda fren yapıyor. Sürücünün tepki
             süresi 1 s'dir. (a) Toplam durma mesafesi nedir? (b) Hız iki katına çıkarsa
@@ -2608,21 +3277,43 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — Kayan cismin durması</summary>
+          <summary data-zorluk="zor">Örnek 6 — Kızağı çekmek mi, itmek mi?</summary>
           <p>
-            Yatay zeminde 10 m/s hızla kayan 5 kg'lık cisim, μ<sub>k</sub> = 0,25 olan yüzeyde
-            yavaşlıyor. Kaç metre sonra ve kaç saniyede durur?
+            Karda kaymakta olan 20 kg'lık bir kızağa 100 N'luk kuvvet, yatayla 37° açı yapacak biçimde
+            uygulanıyor; μ<sub>k</sub> = 0,2. Kuvvet (a) yukarı doğru eğik çekerek, (b) aşağı doğru eğik
+            iterek uygulanırsa kızağın ivmesi ne olur? (sin37° = 0,6 · cos37° = 0,8)
           </p>
           <ol class="steps">
-            <li>Tek yatay kuvvet sürtünmedir: f = μ<sub>k</sub>·m·g = 0,25 · 5 · 10 = 12,5 N</li>
-            <li>a = −f/m = −2,5 m/s² (yavaşlatıcı)</li>
-            <li>Mesafe: v²/(2a) = 100 / 5 = <strong>20 m</strong></li>
-            <li>Süre: v/a = 10 / 2,5 = <strong>4 s</strong></li>
-            <li>Kütle sonuçta görünmez: a = μ·g olduğu için 50 kg'lık cisim de aynı yerde dururdu.</li>
+            <li>Kuvvetin bileşenleri: yatay 100 · 0,8 = 80 N, düşey 100 · 0,6 = 60 N; ağırlık 200 N.</li>
+            <li><strong>(a)</strong> Çekerken düşey bileşen yukarı: N = 200 − 60 = 140 N → f = 0,2 · 140 = 28 N</li>
+            <li>a = (80 − 28) / 20 = <strong>2,6 m/s²</strong></li>
+            <li><strong>(b)</strong> İterken düşey bileşen aşağı: N = 200 + 60 = 260 N → f = 0,2 · 260 = 52 N</li>
+            <li>a = (80 − 52) / 20 = <strong>1,4 m/s²</strong> — aynı kuvvet, çekerken neredeyse iki kat ivme.</li>
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Eğik düzlemde yukarı fırlatılan blok</summary>
+          <p>
+            37°'lik eğik düzlemin altından bir blok, eğim boyunca yukarı 10 m/s hızla fırlatılıyor
+            (μ<sub>s</sub> = 0,7 · μ<sub>k</sub> = 0,5). (a) Blok eğim boyunca kaç metre çıkar? (b) Tepede
+            kalır mı? (c) Kalmıyorsa başlangıç noktasına hangi süratle döner?
+          </p>
+          <ol class="steps">
+            <li>Çıkarken sürtünme de ağırlığın paralel bileşeni de aşağı yönlüdür:
+              a = g·(sinθ + μ<sub>k</sub>·cosθ) = 10·(0,6 + 0,4) = 10 m/s² (yavaşlatıcı)</li>
+            <li><strong>(a)</strong> d = v₀² / (2a) = 100 / 20 = <strong>5 m</strong></li>
+            <li><strong>(b)</strong> tan37° = 0,75 &gt; μ<sub>s</sub> = 0,7 → statik sürtünme yetmez, blok <strong>geri kayar</strong>.</li>
+            <li>İnerken sürtünme yukarı yönlüdür: a = g·(sinθ − μ<sub>k</sub>·cosθ) = 10·(0,6 − 0,4) = 2 m/s²</li>
+            <li><strong>(c)</strong> v² = 2·a·d = 2 · 2 · 5 = 20 → v = √20 ≈ <strong>4,5 m/s</strong></li>
+          </ol>
+          <p>
+            Serbest düşmedeki simetri burada yoktur: blok 1 s'de çıkar, ama √5 ≈ 2,2 s'de iner ve
+            fırlatıldığı hızın yarısından azıyla döner. Aradaki enerji sürtünmeyle ısıya dönüşmüştür.
+          </p>
+        </details>
+
+        <h3 id="k13">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Sürtünme her zaman hareketi engeller.”</strong> Sürtünme <em>bağıl kaymaya</em>
             zıttır; yürümeyi, frenlemeyi ve virajı dönmeyi sağlayan da odur.</li>
@@ -2636,6 +3327,8 @@
           <li><strong>“Ağır cisim eğik düzlemde daha geç kayar.”</strong> Kritik açı kütleden bağımsızdır.</li>
           <li><strong>“Fren mesafesi hızla doğru orantılıdır.”</strong> Hızın <em>karesiyle</em> artar;
             doğru orantılı olan tepki mesafesidir.</li>
+          <li><strong>“Dönen tekerlekteki sürtünme kinetiktir.”</strong> Kaymadan dönen tekerleğin
+            yola değen noktası o an durgundur, sürtünme statiktir; kinetik olan kilitlenip kayan tekerlektir.</li>
         </ul>
 
         <div class="callout">

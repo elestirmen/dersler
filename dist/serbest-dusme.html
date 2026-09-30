@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1872,7 +2092,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Serbest düşme</h3>
-          <p>Tanımdan formüllere, grafik yorumundan çözümlü örneklere kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce sezgi ve tanım, sonra formüller ve grafikler, ardından düşey atış ve hava direnci; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2148,15 +2368,18 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Tanım</button>
-        <button type="button" data-goto="k2">Kütle neden fark etmez</button>
-        <button type="button" data-goto="k3">Formüller</button>
-        <button type="button" data-goto="k4">Grafikler</button>
-        <button type="button" data-goto="k5">1 : 3 : 5</button>
-        <button type="button" data-goto="k6">Düşey atış</button>
-        <button type="button" data-goto="k7">Hava direnci</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Tanım</button>
+        <button type="button" data-goto="k3" data-basamak="1">Kütle neden fark etmez</button>
+        <button type="button" data-goto="k4" data-basamak="2">Formüller</button>
+        <button type="button" data-goto="k5" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k6" data-basamak="2">Grafikler</button>
+        <button type="button" data-goto="k7" data-basamak="2">1 : 3 : 5</button>
+        <button type="button" data-goto="k8" data-basamak="3">Düşey atış</button>
+        <button type="button" data-goto="k9" data-basamak="3">Hava direnci</button>
+        <button type="button" data-goto="k10" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k11" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k12" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2180,15 +2403,83 @@
           Bir kuş tüyünü ve bir çelik bilyeyi aynı anda bıraksan hangisi önce yere iner? Havası
           boşaltılmış bir cam tüpte ikisi de <b>tam olarak aynı anda</b> düşer — Ay'da bu deney
           1971'de gerçekten yapıldı. Demek ki düşüşü belirleyen şey cismin ağırlığı değil;
-          <b>yalnızca geçen süre</b>. Aşağıda önce bunun nedenini kuracağız, sonra süreyi, hızı ve
-          yolu birbirine bağlayan dört bağıntıyı çıkaracağız.
+          <b>yalnızca geçen süre</b>. Bu anlatım dört basamakta ilerliyor: önce düşen bir cismi
+          gözleyip adını koyacağız, sonra süreyi, hızı ve yolu birbirine bağlayan bağıntıları
+          çıkaracağız, ardından yukarı atışa ve hava direncine geçeceğiz. En sonda kolaydan zora
+          sıralanmış örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Serbest düşme nedir?</h3>
+        <figure class="foto">
+          <img src="gorsel/serbest-dusme-giris.webp?v=2" srcset="gorsel/serbest-dusme-giris-800.webp?v=2 800w, gorsel/serbest-dusme-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Ay yüzeyinde bir astronot iki kolunu öne uzatmış, avuçları açık; ellerinin hemen altında bir çekiç ile çizgili bir kuş tüyü yan yana, aynı yükseklikte havada. Arka planda yıldızlı siyah gökyüzünde Dünya görünüyor.">
+          <figcaption>
+            <b>Apollo 15, 1971.</b> Astronot David Scott Ay'da bir çekiçle bir şahin tüyünü aynı anda bıraktı. Ay'da onları yavaşlatacak hava olmadığı için ikisi yan yana düştü ve toza aynı anda değdi. Bu anlatımın bütün hikâyesi bu sahnede saklı: düşüşü <b>kütle değil</b>, yalnızca yerçekimi ve geçen süre belirler.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: düşen bir cisme bak, ne yaptığını gör ve adını koy. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: düşen bir cisim ne yapar?</h3>
+        <p>
+          Elindeki anahtarı bırak. Önce yavaş ayrılır, sonra giderek hızlanarak yere çarpar. Bu
+          hızlanmayı gözle izlemek zordur, çünkü her şey bir saniyeden kısa sürer. Fizikçiler bu yüzden
+          düşüşü <strong>strobo fotoğrafla</strong> incelemeyi sever: karanlık bir odada, eşit
+          aralıklarla (örneğin saniyede on kez) yanıp sönen bir ışık altında tek bir fotoğraf çekilir ve
+          cismin her an bulunduğu yer aynı karede üst üste görünür.
+        </p>
+        <p>
+          Böyle bir fotoğrafta ilk dikkat çeken şey şudur: görüntüler arasındaki boşluklar
+          <strong>eşit değildir</strong>, aşağı indikçe açılır. Eşit sürelerde giderek daha uzun yol
+          alınıyorsa cisim <strong>hızlanıyor</strong> demektir. Sabit hızla giden bir araba aynı
+          yöntemle fotoğraflansaydı görüntüler cetvel çizgileri gibi eşit aralıklı dizilirdi.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/serbest-dusme-gunluk.webp?v=2" srcset="gorsel/serbest-dusme-gunluk-800.webp?v=2 800w, gorsel/serbest-dusme-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Alçaktaki güneşin altın ışığında bir elma bahçesi: daldaki elmanın altında, aynı düşey çizgi üzerinde düşen elmanın üç görüntüsü daha var. İlk iki görüntü neredeyse üst üste biniyor, aradaki boşluklar aşağı indikçe büyüyor ve en alttaki elma çimenlerin hemen üstünde.">
+          <figcaption>
+            Düşen bir elmanın eşit zaman aralıklarıyla çekilmiş görüntüleri. Elma her aralıkta bir öncekinden
+    <b>daha uzun yol</b> alıyor; ilk görüntüler neredeyse üst üste binerken sonrakiler iyice açılıyor.
+    Bu görselde aralıklar tam olarak <b>1 : 3 : 5</b> oranında: elmanın konumları, sahne yapay zekâyla
+    üretildikten sonra y = ½·g·t² bağıntısına göre yerleştirildi. Bu kuralı ikinci basamakta kanıtlayacağız.
+          </figcaption>
+        </figure>
+
+        <p>Düşen her cisimde, hava direnci küçük kaldığı sürece, aynı üç şey gözlenir:</p>
+        <ul>
+          <li><strong>Doğrultu düşeydir:</strong> cisim şakül ipi gibi dümdüz aşağı iner.</li>
+          <li><strong>Hız sürekli artar:</strong> her saniye bir önceki saniyeden daha hızlıdır.</li>
+          <li><strong>Hızlanma herkes için aynıdır:</strong> bilye de taş da anahtar da aynı biçimde hızlanır.</li>
+        </ul>
+        <p>
+          Üçüncü madde sezgimize en ters gelenidir; bu yüzden ona ayrı bir başlık ayıracağız. Önce
+          gözlediğimiz harekete bir ad verelim.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Musluktan eşit aralıklarla damlayan su damlaları aşağı indikçe neden birbirinden uzaklaşır?</summary>
+          <p>
+            Her damla ötekinden biraz önce yola çıkmıştır, yani her an ondan <b>daha hızlıdır</b>. Öndeki
+            damla arkadakinden hep daha hızlı gittiği için aradaki boşluk sürekli büyür. Damlalar eşit
+            zaman aralıklarıyla kopsa da aralarındaki uzaklık eşit kalmaz — tam da strobo fotoğraftaki
+            gibi.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düşen bir cisim düşey doğrultuda ve giderek hızlanarak iner. Eşit sürelerde
+          alınan yolların büyümesi bu hızlanmanın izidir.
+        </p>
+
+        <h3 id="k2">Serbest düşme nedir?</h3>
         <p>
           Bir cisim <strong>ilk hızsız olarak bırakıldığında</strong> ve üzerine yalnızca
           <strong>yerçekimi kuvveti</strong> etki ettiğinde yaptığı harekete serbest düşme denir.
-          Hareket düşey doğrultudadır, aşağı yöndedir ve ivmesi sabittir.
+          Hareket düşey doğrultudadır, aşağı yöndedir ve ivmesi sabittir. “Serbest” sözcüğü cismin
+          hiçbir şeye (ipe, ele, havaya) takılmadan, yalnızca yerçekimine bırakıldığını anlatır.
         </p>
         <p>Bir hareketin “serbest düşme” sayılması için üç koşul aranır:</p>
         <ul>
@@ -2196,9 +2487,26 @@
           <li><strong>Hava direnci ihmal edilir</strong>; tek kuvvet ağırlıktır (G = m·g).</li>
           <li><strong>İvme sabittir</strong> ve yerçekimi ivmesi g'ye eşittir.</li>
         </ul>
+        <h4>İvme ne demek?</h4>
         <p>
-          Serbest düşme, sabit ivmeli doğrusal hareketin özel bir hâlidir: ivmenin adı g,
-          yönü daima yerin merkezine doğrudur.
+          İvme, hızın <strong>her saniye ne kadar değiştiğini</strong> söyler. Dünya'da g yaklaşık
+          10 m/s²'dir: bunu “her saniye hız 10 m/s artar” diye okuyabilirsin. Serbest bırakılan bir
+          cismin hızını saniye saniye yazmak için hiçbir formül gerekmez, yalnızca her saniye 10 eklemek
+          yeter:
+        </p>
+        <table class="tbl">
+          <tr><th>Geçen süre</th><th>Hız</th><th>O saniyede alınan yol</th><th>Toplam yol</th></tr>
+          <tr><td>0 s</td><td>0 m/s</td><td>—</td><td>0 m</td></tr>
+          <tr><td>1 s</td><td>10 m/s</td><td>5 m</td><td>5 m</td></tr>
+          <tr><td>2 s</td><td>20 m/s</td><td>15 m</td><td>20 m</td></tr>
+          <tr><td>3 s</td><td>30 m/s</td><td>25 m</td><td>45 m</td></tr>
+          <tr><td>4 s</td><td>40 m/s</td><td>35 m</td><td>80 m</td></tr>
+        </table>
+        <p>
+          Her saniye alınan yol, o saniyenin <strong>ortalama hızı</strong> kadardır: ilk saniyede hız
+          0'dan 10'a çıktığı için ortalama 5 m/s, yol 5 m; ikinci saniyede 10'dan 20'ye, ortalama 15 m/s,
+          yol 15 m. Tablonun son sütunu, bir sonraki basamakta çıkaracağımız formülün sonucunu şimdiden
+          veriyor.
         </p>
         <div class="callout">
           <p>
@@ -2240,10 +2548,23 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Kütle neden fark etmez?</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Serbest düşme, ilk hızsız bırakılan ve yalnızca ağırlığın etkisindeki bir
+          cismin hareketidir. İvmesi sabittir ve g'ye eşittir: hız her saniye yaklaşık 10 m/s artar.
+        </p>
+
+        <h3 id="k3">Kütle neden fark etmez?</h3>
         <p>
-          Sezgi “ağır olan daha hızlı düşer” der, ama Newton'un ikinci yasası bunun tersini söyler.
-          Düşen cisme etki eden tek kuvvet ağırlığıdır:
+          Sezgi “ağır olan daha hızlı düşer” der. Aristoteles de böyle düşünüyordu ve bu fikir yaklaşık
+          iki bin yıl boyunca genel kabul gördü. Galileo ise 1600'lerde bunu basit bir düşünce deneyiyle
+          çürüttü: ağır bir taşla hafif bir taşı iple birbirine bağlayalım. Hafif taş daha yavaş düşmek
+          isteyeceği için ağır olanı <strong>frenler</strong>; o zaman ikili, ağır taştan yavaş düşmeli.
+          Ama ikili tek başına ağır taştan <strong>daha ağırdır</strong>; o zaman daha hızlı düşmeli.
+          Aynı öncül iki zıt sonuç veriyorsa öncül yanlıştır: düşüş hızı ağırlığa bağlı olamaz.
+        </p>
+        <p>
+          Newton'un ikinci yasası aynı sonucu hesapla gösterir. Düşen cisme etki eden tek kuvvet
+          ağırlığıdır:
         </p>
         <div class="formula">
           <code>F = m · a</code>
@@ -2256,10 +2577,10 @@
           tam olarak götürür. Sonuç: <strong>10 gramlık bilye ile 10 kiloluk gülle aynı anda yere düşer.</strong>
         </p>
         <p>
-          Galileo bunu 1600'lerin başında savundu; 1971'de Apollo 15 astronotu David Scott,
-          havasız Ay yüzeyinde bir şahin tüyü ile alüminyum çekici aynı anda bıraktı. İkisi de
-          aynı anda toza değdi. Günlük hayatta tüyün geride kalmasının sebebi kütlesi değil,
-          <strong>hava direnci</strong>dir.
+          1971'de Apollo 15 astronotu David Scott, havasız Ay yüzeyinde bir şahin tüyü ile alüminyum
+          çekici aynı anda bıraktı; ikisi de aynı anda toza değdi. Günlük hayatta tüyün geride kalmasının
+          sebebi kütlesi değil, <strong>hava direnci</strong>dir: tüy çok hafif ama yüzeyi geniştir, bu
+          yüzden hava onu ağırlığına oranla çok daha güçlü frenler.
         </p>
 
         <figure class="fig">
@@ -2298,7 +2619,26 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Temel bağıntılar</h3>
+        <details class="dusun">
+          <summary>Düşün: Ağır cisme daha büyük bir kuvvet etki ediyorsa, neden daha hızlı düşmüyor?</summary>
+          <p>
+            Çünkü onu hızlandırmak da o kadar zordur. 8 kat ağır bir cisme 8 kat büyük kuvvet etki eder,
+            ama onun hızını değiştirmek için de 8 kat büyük kuvvet gerekir. Kuvvetin kütleye oranı
+            (F/m) ikisinde de aynıdır ve bu oran tam olarak g'dir. İvmeyi belirleyen kuvvetin kendisi
+            değil, <b>kuvvetin kütleye oranıdır</b>.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Hava direnci yoksa bütün cisimler aynı ivmeyle düşer, çünkü ağırlık ve
+          eylemsizlik kütleyle aynı oranda büyür ve m·g = m·a eşitliğinde kütle sadeleşir.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar ve grafikler: gözlediğini sayılara dök, bir büyüklükten ötekine geç.</span>
+        </div>
+
+        <h3 id="k4">Temel bağıntılar</h3>
         <p>
           Aşağı yönü pozitif alalım: v₀ = 0, a = g. Sabit ivmeli hareketin denklemleri doğrudan
           serbest düşmenin denklemlerine dönüşür (h: alınan yol, t: düşme süresi):
@@ -2310,17 +2650,25 @@
           <code>t = √(2h / g)</code>
           <code>v<sub>ort</sub> = h / t = v / 2</code>
         </div>
-        <h4>Üçüncü bağıntı nereden geliyor?</h4>
+        <h4>Bağıntılar nereden geliyor?</h4>
         <p>
-          İlk ikisinde süreyi yok edelim. v = g·t ifadesinden t = v/g yazıp ikinciye koyarsak:
-          h = ½·g·(v/g)² = v² / (2g), yani <strong>v² = 2·g·h</strong>. Süre sorulmayan
-          sorularda doğrudan bu bağıntıyı kullanmak en kısa yoldur.
+          Hiçbirini ezberlemek gerekmez; üçü de ivmenin tanımından adım adım çıkar.
         </p>
+        <ol>
+          <li><strong>Hız:</strong> İvme “her saniye hıza eklenen miktar” olduğuna göre t saniye sonra hız
+            g'nin t katıdır: <strong>v = g·t</strong>. Tablodaki 10, 20, 30 m/s tam olarak budur.</li>
+          <li><strong>Yol:</strong> Hız düzgün arttığı için ortalama hız, ilk ve son hızın ortalamasıdır:
+            (0 + g·t)/2. Yol = ortalama hız × süre = (g·t/2)·t, yani <strong>h = ½·g·t²</strong>.</li>
+          <li><strong>Süresiz bağıntı:</strong> İlk bağıntıdan t = v/g yazıp ikinciye koyarsak
+            h = ½·g·(v/g)² = v²/(2g), yani <strong>v² = 2·g·h</strong>. Süre sorulmayan sorularda doğrudan
+            bu bağıntıyı kullanmak en kısa yoldur.</li>
+        </ol>
         <div class="callout">
           <p>
-            <b>Hemen okunacak üç sonuç:</b> Düşme süresi <b>yüksekliğin kareköküyle</b> artar
-            (yükseklik 4 katına çıkarsa süre 2 katına çıkar). Çarpma hızı da yüksekliğin
-            kareköküyle artar. Alınan yol ise <b>sürenin karesiyle</b> büyür.
+            <b>Birim kontrolü:</b> Bir bağıntıyı doğru hatırlayıp hatırlamadığını birimlerle sınayabilirsin.
+            g·t için (m/s²)·s = m/s çıkar, bu bir hızdır ✓. ½·g·t² için (m/s²)·s² = m çıkar, bu bir
+            yoldur ✓. “v = 2gh” yazsaydın sağ taraf m²/s² çıkardı; hız değil hızın karesi — hatanı birim
+            yakalar.
           </p>
         </div>
 
@@ -2348,11 +2696,69 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Grafikler ve yorumu</h3>
+        <table class="tbl">
+          <tr><th>Soruda verilenler</th><th>İstenen</th><th>Kullan</th></tr>
+          <tr><td>Süre</td><td>Hız</td><td>v = g·t</td></tr>
+          <tr><td>Süre</td><td>Yükseklik</td><td>h = ½·g·t²</td></tr>
+          <tr><td>Yükseklik</td><td>Çarpma hızı</td><td>v² = 2·g·h</td></tr>
+          <tr><td>Yükseklik</td><td>Düşme süresi</td><td>t = √(2h/g)</td></tr>
+        </table>
+        <p class="kisaca">
+          <b>Kısaca:</b> v = g·t, h = ½·g·t² ve v² = 2·g·h ivmenin tanımından çıkar. Soruda hangi iki
+          büyüklük geçiyorsa onları bağlayan bağıntıyı seç; süre yoksa v² = 2gh.
+        </p>
+
+        <h3 id="k5">Sayılarla hisset: ne kadar hızlı, ne kadar sürede?</h3>
+        <p>
+          Formüller soyut kalmasın; tanıdık yüksekliklerden bırakılan bir cismin ne kadar sürede ve hangi
+          hızla yere ulaştığına bakalım (g = 10 m/s², hava direnci yok):
+        </p>
+        <table class="tbl">
+          <tr><th>Nereden</th><th>Yükseklik</th><th>Düşme süresi</th><th>Çarpma hızı</th></tr>
+          <tr><td>Masadan</td><td>0,8 m</td><td>0,4 s</td><td>4 m/s (14 km/h)</td></tr>
+          <tr><td>İkinci kat balkonundan</td><td>5 m</td><td>1 s</td><td>10 m/s (36 km/h)</td></tr>
+          <tr><td>Altı katlı binadan</td><td>20 m</td><td>2 s</td><td>20 m/s (72 km/h)</td></tr>
+          <tr><td>On beş katlı binadan</td><td>45 m</td><td>3 s</td><td>30 m/s (108 km/h)</td></tr>
+          <tr><td>Kırk katlı binadan</td><td>125 m</td><td>5 s</td><td>50 m/s (180 km/h)</td></tr>
+        </table>
+        <p>
+          Tablodan hemen okunan bir düzen var: <strong>yükseklik 4 katına çıkınca süre ve hız yalnızca
+          2 katına çıkıyor</strong> (5 m → 20 m: 1 s → 2 s). Çünkü süre de hız da yüksekliğin
+          <strong>kareköküyle</strong> büyür. 125 m, 5 m'nin 25 katıdır; süre ise √25 = 5 katıdır.
+        </p>
+        <p>
+          Bu tabloyu tersinden de okuyabilirsin: çarpma hızını ikiye katlamak için yüksekliği dört katına
+          çıkarmak gerekir. Bir de süreye bak: 125 metrelik düşüş bile yalnızca 5 saniye sürüyor.
+          Serbest düşme, gündelik hayatta gördüğümüz en hızlı gelişen hareketlerden biridir.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Kendi tepki süreni ölç:</b> Sayfanın 04 numaralı bölümündeki cetvel deneyi bu tabloyu
+            tersine kullanır. Bir arkadaşın cetveli habersizce bıraktığında onu kaç santimetre sonra
+            yakaladığını ölçersin; t = √(2d/g) bağıntısı düşme mesafesini tepki süresine çevirir. 20 cm
+            yaklaşık 0,2 saniye demektir.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: 5 m yükseklikten düşüş 1 s sürüyorsa, 20 m yükseklikten kaç saniye sürer?</summary>
+          <p>
+            Dört değil, <b>iki saniye</b>. Yükseklik 4 katına çıkınca süre √4 = 2 katına çıkar. Kontrol:
+            h = ½·10·2² = 20 m ✓. “Yükseklik kaç kat, süre de o kat” diye düşünmek serbest düşmedeki en
+            yaygın tuzaktır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Süre ve çarpma hızı yüksekliğin kareköküyle büyür: 4 kat yükseklik 2 kat süre ve
+          2 kat hız demektir. 5 m'den düşüş 1 s, 45 m'den düşüş 3 s sürer.
+        </p>
+
+        <h3 id="k6">Grafikler ve yorumu</h3>
         <p>
           Sayfadaki laboratuvarın altında bu üç grafik canlı çiziliyor. Ezberlemek yerine
-          eğim–alan ilişkisini kurmak yeterli:
+          eğim–alan ilişkisini kurmak yeterli: bir grafiğin <strong>eğimi</strong> bir üstteki
+          büyüklüğü, <strong>altındaki alan</strong> bir alttaki büyüklüğü verir.
         </p>
+
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 182" role="img" aria-label="Yan yana üç grafik: a-t grafiği zaman eksenine paralel doğru, v-t grafiği orijinden geçen doğru, h-t grafiği yukarı açılan parabol.">
             <text class="tl" x="30" y="22">a – t</text>
@@ -2396,10 +2802,21 @@
         </table>
         <p>
           v – t doğrusunun altındaki üçgenin alanı ½·t·(g·t) = ½·g·t² eder; bu da tam olarak
-          alınan yoldur. Grafikler birbirini böyle doğrular.
+          alınan yoldur. Grafikler birbirini böyle doğrular. Bir grafik sorusunda üç adımı sırayla uygula:
+        </p>
+        <ol>
+          <li><strong>Eksenleri oku:</strong> düşey eksende ne var (a, v, h)? Birimi ne?</li>
+          <li><strong>Şekli tanı:</strong> yatay doğru sabit, eğik doğru düzgün değişen, parabol karesel
+            büyüyen bir büyüklük demektir.</li>
+          <li><strong>Eğime ya da alana bak:</strong> soru bir üst büyüklüğü soruyorsa eğim, bir alt
+            büyüklüğü soruyorsa alan hesapla.</li>
+        </ol>
+        <p class="kisaca">
+          <b>Kısaca:</b> Serbest düşmede a–t yatay, v–t orijinden geçen eğik bir doğru, h–t yukarı açılan
+          bir paraboldür. Eğim bir üst büyüklüğü, alan bir alt büyüklüğü verir.
         </p>
 
-        <h3 id="k5">Eşit zaman aralıkları: 1 : 3 : 5 kuralı</h3>
+        <h3 id="k7">Eşit zaman aralıkları: 1 : 3 : 5 kuralı</h3>
         <p>
           Düşüşü eşit süreli dilimlere bölelim (her biri Δt). İlk dilimde alınan yol
           h = ½·g·Δt² olsun. O zaman ardışık dilimlerde alınan yollar:
@@ -2411,7 +2828,9 @@
         <p>
           Baştan itibaren toplam yollar ise 1h, 4h, 9h, 16h, 25h olur — yani
           <strong>1 : 4 : 9 : 16</strong>, sürenin karesiyle orantılı. İki dizi de aynı şeyi söyler:
-          toplam yollardaki farkları alırsan tek sayıları bulursun.
+          toplam yollardaki farkları alırsan tek sayıları bulursun. Neden tek sayılar? Çünkü ardışık
+          iki karenin farkı her zaman tek sayıdır: n² − (n−1)² = 2n − 1. 4 − 1 = 3, 9 − 4 = 5,
+          16 − 9 = 7…
         </p>
         <p>
           Hızlar da eşit sürelerde eşit miktarda artar: Δt sonunda g·Δt, 2Δt sonunda 2g·Δt…
@@ -2459,12 +2878,22 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Düşey atış: yukarı fırlatınca ne değişir?</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Eşit süre dilimlerinde alınan yollar 1 : 3 : 5 : 7, baştan itibaren toplam yollar
+          1 : 4 : 9 : 16, hızlar 1 : 2 : 3 : 4 oranında gider.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: cisim atılınca, hava işe karışınca ve serbest düşme gerçek hayata çıkınca ne olur?</span>
+        </div>
+
+        <h3 id="k8">Düşey atış: yukarı fırlatınca ne değişir?</h3>
         <p>
           Cismi v₀ hızıyla yukarı atarsan artık “serbest düşme” değil <strong>düşey atış</strong>
           olur; ama ivme yine g'dir ve yine aşağı yöndedir. Yukarı çıkarken hız ile ivme zıt
-          yönlü olduğu için cisim <strong>yavaşlayarak</strong> çıkar, tepe noktada hızı sıfırlanır,
-          sonra serbest düşmeye başlar.
+          yönlü olduğu için cisim <strong>yavaşlayarak</strong> çıkar: her saniye hızından 10 m/s
+          kaybeder. Tepe noktada hızı sıfırlanır, sonra serbest düşmeye başlar.
         </p>
         <div class="formula">
           <code>h<sub>maks</sub> = v₀² / (2g)</code>
@@ -2475,6 +2904,18 @@
           Hareket <strong>simetriktir</strong>: çıkış süresi iniş süresine eşittir ve cisim aynı
           yükseklikten geçerken hızının büyüklüğü çıkışta da inişte de aynıdır, yalnızca yönü
           terstir. Atıldığı noktaya döndüğünde sürati v₀'a eşittir.
+        </p>
+        <h4>İşaret seçimi</h4>
+        <p>
+          Atış problemlerinde en sık hata işaretlerde yapılır. Başta bir yönü pozitif seç ve soru boyunca
+          değiştirme. Yukarıyı pozitif seçersen v₀ pozitif, g negatif olur: v = v₀ − g·t ve
+          h = v₀·t − ½·g·t². Bu denklemlerde h negatif çıkarsa cisim atıldığı noktanın altına inmiş
+          demektir; bu bir hata değil, balkondan atışlarda beklenen sonuçtur.
+        </p>
+        <p>
+          Cisim <strong>aşağı doğru</strong> v₀ hızıyla atılırsa hız ile ivme aynı yöndedir; cisim baştan
+          itibaren hızlanır. Aşağıyı pozitif alarak v = v₀ + g·t ve h = v₀·t + ½·g·t² yazılır. Serbest
+          düşme, bu denklemlerin v₀ = 0 olduğu özel hâlidir.
         </p>
         <div class="callout warn">
           <p>
@@ -2523,16 +2964,31 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Gerçekte hava direnci ve limit hız</h3>
+        <details class="dusun">
+          <summary>Düşün: Balkondan bir top aynı süratle bir kez yukarı, bir kez aşağı atılıyor. Hangisi yere daha hızlı çarpar?</summary>
+          <p>
+            İkisi de <b>aynı süratle</b> çarpar. Yukarı atılan top simetri gereği balkon hizasına v₀
+            süratiyle ve aşağı doğru hareket ederek döner; o andan sonra tam olarak aşağı atılan top gibi
+            davranır. Fark yalnızca süredir: yukarı atılan top havada 2v₀/g kadar daha uzun kalır. Aynı
+            sonucu v² = v₀² + 2gh da verir; bu bağıntıda atış yönü hiç geçmez.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düşey atışta ivme her an g'dir ve aşağı yönlüdür; çıkış iniş simetriktir,
+          tepe noktada yalnızca hız sıfırlanır. Başta seçtiğin pozitif yönü soru boyunca koru.
+        </p>
+
+        <h3 id="k9">Gerçekte hava direnci ve limit hız</h3>
         <p>
-          Hava direnci hıza bağlı olarak artan, harekete ters yönlü bir kuvvettir. Cisim
-          hızlandıkça direnç büyür; ağırlığa eşitlendiği anda net kuvvet sıfırlanır, ivme biter
-          ve cisim sabit hızla düşmeye devam eder. Bu sabit hıza <strong>limit hız</strong> denir.
+          Şimdiye kadar hava direncini ihmal ettik. Hava direnci hıza bağlı olarak artan, harekete ters
+          yönlü bir kuvvettir. Cisim hızlandıkça direnç büyür; ağırlığa eşitlendiği anda net kuvvet
+          sıfırlanır, ivme biter ve cisim sabit hızla düşmeye devam eder. Bu sabit hıza
+          <strong>limit hız</strong> denir.
         </p>
         <p>
           Bu kuvvet olmasaydı yağmurun altında durmak hayli tehlikeli olurdu: yağmur bulutları
           yaklaşık 2 km yüksekte olduğuna göre, damlalar yere v = √(2·9,81·2000) ≈ <strong>198 m/s</strong>
-          hızla — bir tabanca mermisi hızında — çarpardı. Hava direnci sayesinde bu hız 8–9 m/s'de kalıyor.
+          hızla — saatte 700 kilometreyi aşan bir hızla — çarpardı. Hava direnci sayesinde bu hız 8–9 m/s'de kalıyor.
         </p>
         <ul>
           <li>Yağmur damlası: yaklaşık 8–9 m/s</li>
@@ -2542,7 +2998,9 @@
         <p>
           Yüzey alanı büyük, kütlesi küçük cisimler (tüy, kâğıt, tüy topu) limit hıza çok çabuk
           ulaşır; bu yüzden “yavaş düşüyor” gibi görünürler. Havası boşaltılmış bir tüpte bu fark
-          tamamen kaybolur.
+          tamamen kaybolur. Günlük hızlarda (birkaç metreden bırakılan bilye, taş, top) hava direnci
+          ağırlığın yanında küçük kalır; serbest düşme bağıntıları bu yüzden gerçek sonuca çok yakın
+          sonuç verir. Hava direncinin ayrıntıları bu ünitenin “Limit hız” konusunda.
         </p>
 
         <figure class="fig">
@@ -2580,11 +3038,82 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
-        <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Havada düşen bir cisimde direnç hızla büyür ve ağırlığa eşitlenince cisim limit
+          hızla sabit düşer. Kısa düşüşlerde ve yoğun cisimlerde bu etki küçüktür; serbest düşme iyi bir
+          yaklaşımdır.
+        </p>
+
+        <h3 id="k10">Serbest düşme gerçek dünyada</h3>
+        <p>
+          Serbest düşme yalnızca ders kitabı problemi değildir; lunaparktan uzay araştırmalarına kadar
+          bilerek kullanılır. Ortak noktaları şu: cisim ve içindeki her şey <strong>aynı ivmeyle
+          düştüğü</strong> sürece birbirine bastırmaz. Bu duyguya <strong>ağırlıksızlık</strong> denir.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/serbest-dusme-uygulama.webp?v=2" srcset="gorsel/serbest-dusme-uygulama-800.webp?v=2 800w, gorsel/serbest-dusme-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Alacakaranlıkta ışıklı bir lunaparkta düşme kulesi: kulenin çevresindeki koltuk halkası hareketten bulanıklaşmış, çığlık atan yolcuların kolları havada, bacakları boşlukta sarkıyor. Aşağıda kalabalık başını kaldırmış izliyor, solda bir hız treninin rayı görünüyor.">
+          <figcaption>
+            Lunaparktaki düşme kulesi, serbest düşmeyi birkaç saniyeliğine yaşatır. 45 metrelik bir düşüş yaklaşık <b>3 saniye</b> sürer ve koltuklar <b>108 km/h</b> hıza ulaşır; ardından mıknatıslı frenler yumuşakça devreye girer. Düşüş boyunca koltuk yolcuyu itmez, yolcu kendini ağırlıksız hisseder.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Düşme kuleleri ve tüpleri:</strong> Araştırma merkezlerinde havası boşaltılmış
+            yüz metreden uzun tüplerin içine deney kapsülleri bırakılır. Kapsülün düştüğü birkaç saniye
+            boyunca içindeki deney ağırlıksız ortamda çalışır; alevlerin, sıvıların ve kristallerin
+            yerçekimsiz davranışı böyle incelenir.</li>
+          <li><strong>Parabolik uçuşlar:</strong> Astronot adayları, bir uçağın motor gücünü ayarlayarak
+            kendisini bir atış yörüngesine bıraktığı uçuşlarda, her seferinde yaklaşık 20 saniye
+            ağırlıksız kalır. Uçak ve içindekiler birlikte serbest hareket eder.</li>
+          <li><strong>g'yi ölçmek:</strong> Bir cismin bilinen bir yüksekliği kaç saniyede düştüğü
+            ölçülürse g = 2h/t² ile yerçekimi ivmesi bulunur. Jeologlar g'deki çok küçük farkları ölçerek
+            yer altındaki maden ve petrol yataklarını arar.</li>
+        </ul>
+        <p>
+          Uzay istasyonundaki astronotlar da aynı nedenle süzülür. İstasyonun bulunduğu yaklaşık 400 km
+          yükseklikte yerçekimi ivmesi hâlâ 8,7 m/s² civarındadır, yani yeryüzündekinin yaklaşık
+          %89'u. İstasyon ve içindeki her şey Dünya'nın çevresinde sürekli olarak <strong>birlikte
+          düşer</strong>; yalnızca yana doğru o kadar hızlı gider ki yere hiç ulaşamaz.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Düşen bir asansörün içinde elinden bıraktığın anahtar ne yapar?</summary>
+          <p>
+            Anahtar da sen de asansör de aynı ivmeyle, g ile düştüğünüz için anahtar <b>elinin yanında
+            asılı kalıyormuş gibi</b> görünür. Yere göre düşmeye devam eder, ama sana göre hareketsizdir.
+            Ağırlıksızlık yerçekiminin yokluğu değil, herkesin birlikte serbest düşmesidir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Aynı ivmeyle birlikte düşen cisimler birbirine bastırmaz ve ağırlıksızlık
+          hissedilir. Düşme kuleleri, parabolik uçuşlar ve uzay istasyonu bu ilkeyle çalışır.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k11">Çözümlü örnekler</h3>
+        <p>Aşağıdaki çözümlerde g = 10 m/s² alınmış, hava direnci ihmal edilmiştir.</p>
 
         <details>
-          <summary>Örnek 1 — 45 m yükseklikten bırakılan cisim</summary>
+          <summary data-zorluk="kolay">Örnek 1 — 2 saniye sonra hız ve yol</summary>
+          <p>
+            Bir köprüden serbest bırakılan taş 2 saniye sonra suya çarpıyor. (a) Taşın suya çarpma
+            hızını, (b) köprünün su yüzeyinden yüksekliğini bulunuz.
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> Hız her saniye 10 m/s artar: v = g·t = 10 · 2 = <strong>20 m/s</strong></li>
+            <li><strong>(b)</strong> h = ½·g·t² = ½ · 10 · 2² = <strong>20 m</strong></li>
+            <li>Kontrol: ortalama hız (0 + 20)/2 = 10 m/s, 2 saniyede 10 · 2 = 20 m ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="kolay">Örnek 2 — 45 m yükseklikten bırakılan cisim</summary>
           <p>
             45 m yüksekten serbest bırakılan bir cisim için: (a) düşme süresini,
             (b) yere çarpma hızını, (c) hareketin 2. saniyesinde aldığı yolu bulunuz.
@@ -2599,7 +3128,36 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Son 1 saniyede 25 m düşen cisim</summary>
+          <summary data-zorluk="orta">Örnek 3 — Aynı yükseklik, farklı gökcismi</summary>
+          <p>
+            10 m yüksekten bırakılan bir cisim Dünya'da ve Ay'da kaç saniyede yere iner?
+            (g<sub>Dünya</sub> = 9,81 m/s², g<sub>Ay</sub> = 1,62 m/s²)
+          </p>
+          <ol class="steps">
+            <li>t = √(2h / g) bağıntısı kullanılır.</li>
+            <li>Dünya: t = √(20 / 9,81) ≈ <strong>1,43 s</strong></li>
+            <li>Ay: t = √(20 / 1,62) ≈ <strong>3,51 s</strong></li>
+            <li>Oran: √(9,81 / 1,62) ≈ 2,46 → Ay'da düşüş yaklaşık <strong>2,5 kat</strong> uzun sürer.
+              Laboratuvardaki gökcismi düğmeleriyle bunu deneyebilirsin.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — 20 m/s ile yukarı atılan cisim</summary>
+          <p>
+            Yerden 20 m/s hızla düşey yukarı atılan cisim için: (a) çıkabileceği en büyük
+            yüksekliği, (b) havada kalma süresini, (c) 15 m yükseklikteki süratini bulunuz.
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> h<sub>maks</sub> = v₀² / (2g) = 400 / 20 = <strong>20 m</strong></li>
+            <li><strong>(b)</strong> t<sub>çıkış</sub> = v₀ / g = 2 s → toplam <strong>4 s</strong></li>
+            <li><strong>(c)</strong> v² = v₀² − 2·g·h = 400 − 300 = 100 → <strong>v = 10 m/s</strong>.
+              Cisim 15 m'den biri çıkarken biri inerken iki kez geçer; sürat iki geçişte de aynıdır.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 5 — Son 1 saniyede 25 m düşen cisim</summary>
           <p>
             Serbest bırakılan bir cisim, yere çarpmadan önceki son 1 saniyede 25 m yol alıyor.
             Cisim kaç metreden bırakılmıştır?
@@ -2616,39 +3174,27 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — 20 m/s ile yukarı atılan cisim</summary>
+          <summary data-zorluk="zor">Örnek 6 — Balkondan yukarı atılan top</summary>
           <p>
-            Yerden 20 m/s hızla düşey yukarı atılan cisim için: (a) çıkabileceği en büyük
-            yüksekliği, (b) havada kalma süresini, (c) 15 m yükseklikteki süratini bulunuz.
+            Bir balkondan 10 m/s hızla düşey yukarı atılan top, atıldıktan 3 s sonra yere çarpıyor.
+            (a) Balkonun yerden yüksekliğini, (b) topun yere çarpma süratini bulunuz.
           </p>
           <ol class="steps">
-            <li><strong>(a)</strong> h<sub>maks</sub> = v₀² / (2g) = 400 / 20 = <strong>20 m</strong></li>
-            <li><strong>(b)</strong> t<sub>çıkış</sub> = v₀ / g = 2 s → toplam <strong>4 s</strong></li>
-            <li><strong>(c)</strong> v² = v₀² − 2·g·h = 400 − 300 = 100 → <strong>v = 10 m/s</strong>.
-              Cisim 15 m'den biri çıkarken biri inerken iki kez geçer; sürat iki geçişte de aynıdır.</li>
+            <li>Yukarıyı pozitif seçelim: v₀ = +10 m/s, ivme −10 m/s². Konum: y = v₀·t − ½·g·t².</li>
+            <li>t = 3 s'de y = 10·3 − 5·9 = 30 − 45 = −15 m. Eksi işaret topun balkonun
+              15 m altında olduğunu söyler: <strong>balkon 15 m yüksekte</strong>.</li>
+            <li>Hız: v = v₀ − g·t = 10 − 30 = −20 m/s → yere <strong>20 m/s</strong> süratle, aşağı doğru çarpar.</li>
+            <li>Kontrol: v² = v₀² + 2·g·h = 100 + 2·10·15 = 400 → v = 20 m/s ✓. Top 1 s çıkıp 5 m yükselir,
+              sonra 20 m'den serbest düşer: 2 s. Toplam 3 s ✓</li>
           </ol>
         </details>
 
-        <details>
-          <summary>Örnek 4 — Aynı yükseklik, farklı gökcismi</summary>
-          <p>
-            10 m yüksekten bırakılan bir cisim Dünya'da ve Ay'da kaç saniyede yere iner?
-            (g<sub>Dünya</sub> = 9,81 m/s², g<sub>Ay</sub> = 1,62 m/s²)
-          </p>
-          <ol class="steps">
-            <li>t = √(2h / g) bağıntısı kullanılır.</li>
-            <li>Dünya: t = √(20 / 9,81) ≈ <strong>1,43 s</strong></li>
-            <li>Ay: t = √(20 / 1,62) ≈ <strong>3,51 s</strong></li>
-            <li>Oran: √(9,81 / 1,62) ≈ 2,46 → Ay'da düşüş yaklaşık <strong>2,5 kat</strong> uzun sürer.
-              Laboratuvardaki gökcismi düğmeleriyle bunu deneyebilirsin.</li>
-          </ol>
-        </details>
-
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <h3 id="k12">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Ağır cisim önce düşer.”</strong> Hava direnci ihmal edildiğinde kütle hiç rol oynamaz.</li>
           <li><strong>“Tepe noktada ivme sıfırdır.”</strong> Sıfır olan hızdır; ivme orada da g'dir.</li>
-          <li><strong>v = 2gh yazmak.</strong> Doğrusu <strong>v² = 2gh</strong>; karekök almayı unutma.</li>
+          <li><strong>v = 2gh yazmak.</strong> Doğrusu <strong>v² = 2gh</strong>; karekök almayı unutma.
+            Birim kontrolü bu hatayı hemen yakalar.</li>
           <li><strong>İlk hızlı hareketi serbest düşme sanmak.</strong> v₀ ≠ 0 ise hareket düşey atıştır.</li>
           <li><strong>1 : 3 : 5 ile 1 : 4 : 9'u karıştırmak.</strong> Birincisi <em>her aralıkta</em>,
             ikincisi <em>baştan itibaren toplam</em> alınan yoldur.</li>
@@ -2656,6 +3202,8 @@
             değiştirilmez. Aşağı pozitif seçtiysen yukarı hızlar negatif yazılır.</li>
           <li><strong>Yüksekliği iki katına çıkarınca sürenin de iki katına çıktığını sanmak.</strong>
             Süre karekökle artar: 4 kat yükseklik → 2 kat süre.</li>
+          <li><strong>“Ağırlıksız hisseden astronotun ağırlığı yoktur.”</strong> Yerçekimi oradadır;
+            ağırlıksızlık, astronotun ve istasyonun birlikte serbest düşmesinden doğar.</li>
         </ul>
 
         <div class="callout">

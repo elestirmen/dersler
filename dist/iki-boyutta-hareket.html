@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: İki boyutta sabit ivmeli hareket</h3>
-          <p>Bağımsızlık ilkesinden yörünge denklemine, yatay ve eğik atıştan çözümlü örneklere kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce sezgi ve bağımsızlık ilkesi, sonra yatay atış, eğik atış, menzil ve grafikler, ardından yüksekten atış ve hava direnci; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2172,15 +2392,21 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Tanım</button>
-        <button type="button" data-goto="k2">Bağımsızlık ilkesi</button>
-        <button type="button" data-goto="k3">Vektörel bağıntılar</button>
-        <button type="button" data-goto="k4">Yatay atış</button>
-        <button type="button" data-goto="k5">Eğik atış</button>
-        <button type="button" data-goto="k6">Menzil ve açı</button>
-        <button type="button" data-goto="k7">Yörünge ve grafikler</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Tanım</button>
+        <button type="button" data-goto="k3" data-basamak="1">Bağımsızlık ilkesi</button>
+        <button type="button" data-goto="k4" data-basamak="2">Bileşenler</button>
+        <button type="button" data-goto="k5" data-basamak="2">Yatay atış</button>
+        <button type="button" data-goto="k6" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k7" data-basamak="2">Eğik atış</button>
+        <button type="button" data-goto="k8" data-basamak="2">Menzil ve açı</button>
+        <button type="button" data-goto="k9" data-basamak="2">Yörünge ve grafikler</button>
+        <button type="button" data-goto="k10" data-basamak="3">Yüksekten atış</button>
+        <button type="button" data-goto="k11" data-basamak="3">Düşen hedef</button>
+        <button type="button" data-goto="k12" data-basamak="3">Hava direnci</button>
+        <button type="button" data-goto="k13" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k14" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k15" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2204,16 +2430,80 @@
           Bir tüfekten yatay olarak atılan mermi ile namlunun ucundan aynı anda bırakılan bir
           mermi yere <b>aynı anda</b> iner — mermi yüzlerce metre öteye gitmiş olsa bile. Atış
           hareketlerinin tamamı bu tek fikrin üzerine kuruludur: <b>yatay hareket ile düşey
-          hareket birbirini hiç etkilemez.</b> Aşağıda önce bu ilkeyi kuracağız, sonra onunla
-          yatay atışı, eğik atışı ve menzili tek tek çözeceğiz.
+          hareket birbirini hiç etkilemez.</b> Bu anlatım dört basamakta ilerliyor: önce atılan bir
+          cismin çizdiği yolu gözleyip bu ilkeyi sezgiyle kuracağız, sonra onunla yatay atışı, eğik
+          atışı ve menzili bağıntılarıyla çözeceğiz, ardından yüksekten atışa, düşen bir hedefe nişan
+          almaya ve hava direncine geçeceğiz. En sonda kolaydan zora sıralanmış örneklerle hepsini
+          birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">İki boyutta sabit ivmeli hareket nedir?</h3>
+        <figure class="foto">
+          <img src="gorsel/iki-boyutta-hareket-giris.webp?v=2" srcset="gorsel/iki-boyutta-hareket-giris-800.webp?v=2 800w, gorsel/iki-boyutta-hareket-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneş ufuktayken kıyıdaki bir açık hava basketbol sahasında sıçrayarak şut atan bir oyuncu; topun sekiz görüntüsü, oyuncunun ellerinin üstünden potaya doğru uzanan kavisli bir yay çiziyor.">
+          <figcaption>
+            <b>Bir şutun yörüngesi.</b> Top elden çıktığı anda üzerinde yalnızca ağırlığı kalır; bu yüzden izlediği yol bir yay, daha doğrusu bir <b>parabol</b> olur. Tepeye yakın görüntülerin yüksekliği neredeyse değişmez: orada düşey hız sıfıra iner ve top bir an yalnızca yatay ilerler. Bu anlatım, bu yayı iki basit harekete ayırarak çözmeyi öğretiyor.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: atılan bir cismin yoluna bak, hareketi iki eksene ayır ve iki eksenin neden birbirini etkilemediğini gör. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: atılan bir cisim nasıl bir yol çizer?</h3>
+        <p>
+          Bahçe hortumunun ağzını yere paralel tut ve musluğu aç. Su ağızdan dümdüz ileri çıkar, ama
+          hemen, önce belli belirsiz, aşağı kıvrılmaya başlar; yere yaklaştıkça yolu giderek dikleşir ve sonunda
+          ileride bir noktaya iner. Masanın kenarından yuvarlanıp düşen bir bilye, kaleye doğru havalanan
+          bir top, fıskiyeden fışkıran su da aynı biçimde kıvrılır. Hiçbiri ne dümdüz ileri ne dümdüz
+          aşağı gider; hepsi ikisini <strong>aynı anda</strong> yapar.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/iki-boyutta-hareket-gunluk.webp?v=2" srcset="gorsel/iki-boyutta-hareket-gunluk-800.webp?v=2 800w, gorsel/iki-boyutta-hareket-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir bahçede bir çocuk hortumun ağzını bel hizasında yere paralel tutuyor; su ağızdan yatay çıkıp aşağı doğru kıvrılarak ileride bir çiçek tarhına iniyor.">
+          <figcaption>
+            Hortumdan çıkan su yolun başında <b>yatay</b> gider, sonra giderek dikleşen bir eğriyle aşağı kıvrılır. Damlaların yatay hızı yol boyunca aynı kalır; kıvrılmanın sebebi, her damlanın bir yandan da serbest düşmesidir. Bu yarım parabol, ikinci basamakta çözeceğimiz yatay atışın ta kendisidir.
+          </figcaption>
+        </figure>
+
+        <p>
+          Aynı hareketi eşit zaman aralıklarıyla fotoğraflasan (strobo fotoğraf) cismin art arda
+          görüntülerinde şu düzeni görürsün:
+        </p>
+        <ul>
+          <li><strong>Yol eğridir:</strong> cisim hem ileri gider hem aşağı iner; iki hareket birleşince yol kıvrılır.</li>
+          <li><strong>Yatay ilerleyiş düzenlidir:</strong> eşit sürelerde cisim yatayda hep aynı mesafeyi alır.</li>
+          <li><strong>Düşüş giderek hızlanır:</strong> eşit sürelerde aşağı doğru alınan yollar gittikçe büyür.</li>
+          <li><strong>Eğri gittikçe dikleşir:</strong> başta yataya yakın olan yol, yere yaklaştıkça düşeye yaklaşır.</li>
+        </ul>
+        <p>
+          Matematikte bu eğriye <strong>parabol</strong> denir. Bu anlatımın geri kalanı, bu dört
+          gözlemin nereden geldiğini açıklıyor. İpucu şimdiden listede saklı: yatayda ilerleyiş
+          “sabit hızla giden bir araba” gibi, düşeydeki iniş ise “bırakılan bir taş” gibi davranıyor.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Hortumun ağzını yine yatay tutup daha yükseğe kaldırırsan su neden daha uzağa düşer?</summary>
+          <p>
+            Su daha yüksekten düştüğü için havada <b>daha uzun kalır</b>. Yatay hızı değişmediğine göre,
+            havada geçirdiği her ek anda biraz daha ileri gider. Suyun ne kadar uzağa düşeceğini yatay hız
+            ile havada kalma süresi birlikte belirler.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Atılan bir cisim hem ileri gider hem düşer; iki hareket birleşince yolu giderek
+          dikleşen bir eğri, yani parabol olur. Hortumdan çıkan su bunun günlük bir örneğidir.
+        </p>
+
+        <h3 id="k2">İki boyutta sabit ivmeli hareket nedir?</h3>
         <p>
           Bir cisim bir <strong>düzlem içinde</strong> hareket ediyorsa ve ivme vektörü hem
           büyüklük hem yön olarak <strong>değişmiyorsa</strong>, bu harekete iki boyutta sabit
           ivmeli hareket denir. Konum, hız ve ivme artık birer sayı değil, birer
-          <strong>vektördür</strong>.
+          <strong>vektördür</strong>. “İki boyut” demek, cismin yerini söylemek için iki sayının
+          gerekmesi demektir: ne kadar ileride ve ne kadar yukarıda olduğu.
         </p>
         <p>
           Günlük hayattaki en yaygın örneği <strong>atış hareketleridir</strong>: atılan bir top,
@@ -2227,7 +2517,11 @@
         </ul>
         <p>
           Yani yeni bir hareket öğrenmiyorsun: bildiğin iki hareketi aynı anda,
-          aynı saatle çalıştırıyorsun.
+          aynı saatle çalıştırıyorsun. Bunu iki gölgeyle düşünebilirsin. Güneş tam tepedeyken atılan
+          topun yere düşen gölgesi yalnızca <strong>yatay hareketi</strong> gösterir ve sabit hızla
+          kayar. Atış doğrultusunda yatay gelen bir ışıkla karşıdaki duvara düşen gölgesi ise yalnızca <strong>düşey hareketi</strong>
+          gösterir: yukarı çıkıp yavaşlar, durur, sonra hızlanarak iner. Top, bu iki gölgenin aynı anda
+          yaptığı şeyi yapar.
         </p>
         <div class="callout">
           <p>
@@ -2268,7 +2562,12 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Bağımsızlık ilkesi</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> İki boyutta sabit ivmeli harekette cisim bir düzlemde ve sabit ivmeyle hareket
+          eder. Atışlarda bu ivme g'dir: yatayda ivme yoktur, düşeyde ise serbest düşme ya da düşey atış vardır.
+        </p>
+
+        <h3 id="k3">Bağımsızlık ilkesi</h3>
         <p>
           İki boyutlu hareketin bütün sırrı tek cümlede: <strong>yatay hareket ile düşey
           hareket birbirini etkilemez.</strong> Yatay hızın büyük olması cismin düşmesini
@@ -2293,6 +2592,11 @@
           boyutlu soruya</strong> bölersin, her birini kendi denklemiyle çözersin ve sonuçları
           <strong>zaman üzerinden</strong> birleştirirsin.
         </p>
+        <ol>
+          <li><strong>Böl:</strong> hareketi yatay ve düşey olarak iki ayrı harekete ayır.</li>
+          <li><strong>Çöz:</strong> yatayı sabit hızla, düşeyi serbest düşme ya da düşey atış gibi çöz.</li>
+          <li><strong>Birleştir:</strong> iki hareketi bağlayan tek büyüklük olan süreyi kullan.</li>
+        </ol>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 236" role="img" aria-label="Aynı yükseklikten biri serbest bırakılan, biri yatay atılan iki cisim; kesikli çizgiler her anda ikisinin aynı yükseklikte olduğunu gösteriyor ve ikisi aynı anda yere iniyor.">
@@ -2322,7 +2626,25 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Vektörel bağıntılar ve bileşenlere ayırma</h3>
+        <details class="dusun">
+          <summary>Düşün: Sabit hızla giden bir trende elindeki elmayı dümdüz yukarı atarsan elma nereye düşer?</summary>
+          <p>
+            Yine <b>eline</b> düşer. Elma atıldığı anda trenin yatay hızına sahiptir ve havadayken bu hız
+            değişmez; sen de aynı hızla ilerlediğin için elma hep elinin üstünde kalır. Perondaki biri
+            ise elmanın yükselip alçalan bir parabol çizdiğini görür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Yatay ve düşey hareketler birbirini etkilemez; tek ortak değişkenleri zamandır.
+          İki boyutlu bir problemi iki tek boyutlu probleme bölüp sonuçları süre üzerinden birleştirirsin.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: hızı bileşenlerine ayır, yatay ve eğik atışı çöz, menzili ve yörüngeyi adım adım türet.</span>
+        </div>
+
+        <h3 id="k4">Vektörel bağıntılar ve bileşenlere ayırma</h3>
         <p>
           Sabit ivmeli hareketin denklemleri vektörel olarak da aynen geçerlidir:
         </p>
@@ -2338,6 +2660,13 @@
           <code>v₀ₓ = v₀·cosα</code>
           <code>v₀ᵧ = v₀·sinα</code>
         </div>
+        <h4>Bileşenler nereden geliyor?</h4>
+        <ol>
+          <li><strong>Dik üçgen kur:</strong> ilk hız vektörü hipotenüstür; yatay ve düşey bileşenler üçgenin iki dik kenarıdır.</li>
+          <li><strong>Yatay kenar:</strong> α açısının komşusudur; cosα = v₀ₓ / v₀ olduğundan <strong>v₀ₓ = v₀·cosα</strong>.</li>
+          <li><strong>Düşey kenar:</strong> α açısının karşısındadır; sinα = v₀ᵧ / v₀ olduğundan <strong>v₀ᵧ = v₀·sinα</strong>.</li>
+          <li><strong>Kontrol:</strong> Pisagor bağıntısı v₀ₓ² + v₀ᵧ² = v₀² vermelidir.</li>
+        </ol>
         <table class="tbl">
           <thead>
             <tr><th>&nbsp;</th><th>Yatay (x)</th><th>Düşey (y)</th></tr>
@@ -2356,6 +2685,19 @@
           <code>v = √(v<sub>x</sub>² + v<sub>y</sub>²)</code>
           <code>tanθ = v<sub>y</sub> / v<sub>x</sub></code>
         </div>
+        <p>
+          Sorularda en sık kullanılan açıların yaklaşık değerleri aşağıda. 37° ile 53°'nin birbirini
+          tamamladığına dikkat et: birinin sinüsü ötekinin kosinüsüdür. 37°–53° üçgeni kenarları
+          3 : 4 : 5 oranında olan ünlü dik üçgendir.
+        </p>
+        <table class="tbl">
+          <tr><th>Açı</th><th>sinα</th><th>cosα</th></tr>
+          <tr><td>30°</td><td>0,5</td><td>0,87</td></tr>
+          <tr><td>37°</td><td>0,6</td><td>0,8</td></tr>
+          <tr><td>45°</td><td>0,71</td><td>0,71</td></tr>
+          <tr><td>53°</td><td>0,8</td><td>0,6</td></tr>
+          <tr><td>60°</td><td>0,87</td><td>0,5</td></tr>
+        </table>
         <div class="callout warn">
           <p>
             <b>Bileşenler skaler toplanmaz.</b> v<sub>x</sub> = 30 m/s ve v<sub>y</sub> = 40 m/s ise
@@ -2394,7 +2736,12 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Yatay atış</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> İlk hızı dik üçgenle bileşenlerine ayır: v₀ₓ = v₀·cosα, v₀ᵧ = v₀·sinα. Yatay
+          bileşen sabit kalır, düşey bileşen g ile değişir; sürat bileşenlerin vektörel toplamıdır.
+        </p>
+
+        <h3 id="k5">Yatay atış</h3>
         <p>
           Cisim h yüksekliğinden <strong>yatay</strong> olarak v₀ süratiyle atılırsa
           (α = 0 olduğu için) ilk hızın düşey bileşeni sıfırdır: v₀ᵧ = 0. Düşey hareket
@@ -2406,6 +2753,13 @@
           <code>v<sub>y</sub> = g·t</code>
           <code>v = √(v₀² + 2gh)</code>
         </div>
+        <h4>Bağıntılar nereden geliyor?</h4>
+        <ol>
+          <li><strong>Düşeyde süre:</strong> cisim h yüksekliğinden ilk hızsız düşer, h = ½·g·t² olur; buradan <strong>t = √(2h/g)</strong>.</li>
+          <li><strong>Yatayda yol:</strong> yatay hız sabit v₀ olduğundan x = v₀·t; süreyi yerine koyunca <strong>x = v₀·√(2h/g)</strong>.</li>
+          <li><strong>Düşey hız:</strong> serbest düşmedeki gibi v<sub>y</sub> = g·t; yere değerken v<sub>y</sub>² = 2gh.</li>
+          <li><strong>Sürat:</strong> dik bileşenler Pisagor ile birleşir: v² = v₀² + v<sub>y</sub>² = <strong>v₀² + 2gh</strong>.</li>
+        </ol>
         <p>
           <strong>Uçuş süresi v₀'a bağlı değildir.</strong> Topu ister hafifçe it, ister
           topla fırlat; aynı masadan aynı sürede yere iner. Değişen tek şey ne kadar
@@ -2414,8 +2768,17 @@
         <p>
           Yörünge <strong>yarım paraboldür</strong>. Eşit zaman aralıklarında cisim yatayda
           <strong>eşit</strong> yollar alır, düşeyde ise <strong>1 : 3 : 5 : 7</strong> oranında
-          artan yollar alır. Sayfadaki strobo izlerinde bu iki dizi aynı anda görünür.
+          artan yollar alır. Sayfadaki strobo izlerinde bu iki dizi aynı anda görünür; 01 numaralı
+          laboratuvardaki “Yatay atış · 30 m'den” hazır deneyini strobo izleri açıkken çalıştırıp
+          kendin say.
         </p>
+        <div class="callout">
+          <p>
+            <b>Birim kontrolü:</b> √(2h/g) için √(m ÷ m/s²) = √(s²) = s çıkar, bu bir süredir ✓.
+            v₀·t için (m/s)·s = m çıkar, bu bir uzunluktur ✓. “t = 2h/g” yazsaydın birim s² olurdu;
+            karekökü unuttuğunu birim söyler.
+          </p>
+        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 248" role="img" aria-label="Aynı yükseklikten v0 ve iki katı süratle yatay atılan iki cisim; ikisi de aynı anda yere iniyor ama biri iki kat uzağa düşüyor.">
@@ -2451,7 +2814,52 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Eğik atış</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Yatay atışta düşey hareket serbest düşmedir: süre t = √(2h/g) yalnızca
+          yüksekliğe bağlıdır. Menzil x = v₀·t, çarpma sürati v = √(v₀² + 2gh) ile bulunur.
+        </p>
+
+        <h3 id="k6">Sayılarla hisset: ne kadar sürede, ne kadar öteye?</h3>
+        <p>
+          Bağıntılar soyut kalmasın. Aynı topu hep <strong>10 m/s</strong> ile yatay olarak, ama farklı
+          yüksekliklerden attığını düşün (g = 10 m/s², hava direnci yok):
+        </p>
+        <table class="tbl">
+          <tr><th>Yükseklik</th><th>Uçuş süresi</th><th>Menzil</th><th>Çarpma sürati</th></tr>
+          <tr><td>0,8 m (masa)</td><td>0,4 s</td><td>4 m</td><td>≈ 10,8 m/s</td></tr>
+          <tr><td>5 m (balkon)</td><td>1 s</td><td>10 m</td><td>≈ 14,1 m/s</td></tr>
+          <tr><td>20 m (altı kat)</td><td>2 s</td><td>20 m</td><td>≈ 22,4 m/s</td></tr>
+          <tr><td>45 m (on beş kat)</td><td>3 s</td><td>30 m</td><td>≈ 31,6 m/s</td></tr>
+          <tr><td>80 m (kule)</td><td>4 s</td><td>40 m</td><td>≈ 41,2 m/s</td></tr>
+        </table>
+        <p>
+          Tablodan hemen okunan düzen: <strong>yükseklik 4 katına çıkınca süre ve menzil yalnızca 2
+          katına çıkıyor</strong> (5 m → 20 m: 1 s → 2 s, 10 m → 20 m). Çünkü süre yüksekliğin
+          <strong>kareköküyle</strong> büyür, menzil de süreyle orantılıdır. Son sütun ise başka bir şey
+          söylüyor: alçaktan atışta çarpma sürati neredeyse 10 m/s'lik ilk hız kadardır, yüksekten
+          atışta ise düşey hız baskın çıkar.
+        </p>
+        <p>
+          İlk hızı değiştirmek tabloyu bambaşka biçimde etkiler. Aynı 20 m'lik binadan 20 m/s ile atarsan
+          süre yine <strong>2 s</strong> olur, menzil ise <strong>40 m</strong>'ye çıkar: ilk hız yalnızca
+          menzili ölçekler. Bahçe hortumu da böyle: bel hizasında (yaklaşık 0,8 m) tutulan ve suyu 5 m/s
+          ile yatay püskürten bir hortumda su 0,4 s'de yere iner ve 5 · 0,4 = 2 m öteye düşer. Musluğu
+          açıp hızı iki katına çıkarırsan su 4 m öteye gider. Sayfanın 02 numaralı bölümündeki hız
+          sürgüsüyle bunu dene: sarı cisim uzağa gider ama iniş süresi hiç değişmez.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: 80 m'lik kuleden topu 10 m/s yerine 20 m/s ile yatay atarsan uçuş süresi ve menzil ne olur?</summary>
+          <p>
+            Uçuş süresi <b>değişmez</b>, yine 4 s'dir; süreyi yalnızca yükseklik ve g belirler. Menzil ise
+            ilk hızla doğru orantılı olduğu için iki katına çıkar: 20 · 4 = <b>80 m</b>.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Yatay atışta süre yüksekliğin kareköküyle büyür ve ilk hızdan bağımsızdır; menzil
+          ilk hızla doğru orantılıdır. 4 kat yükseklik 2 kat süre, 2 kat ilk hız 2 kat menzil demektir.
+        </p>
+
+        <h3 id="k7">Eğik atış</h3>
         <p>
           Cisim yatayla α açısı yapacak şekilde v₀ süratiyle atılırsa hareket
           <strong>eğik atış</strong> olur. Çıkarken düşey hız azalır, tepe noktada sıfırlanır,
@@ -2463,17 +2871,26 @@
           <code>t<sub>uçuş</sub> = 2·v₀·sinα / g</code>
           <code>R = v₀²·sin2α / g</code>
         </div>
+        <h4>Bağıntılar nereden geliyor?</h4>
+        <ol>
+          <li><strong>Tepe anı:</strong> tepede v<sub>y</sub> = 0 olur: 0 = v₀·sinα − g·t, buradan <strong>t<sub>tepe</sub> = v₀·sinα / g</strong>.</li>
+          <li><strong>Tepe yüksekliği:</strong> düşeyde bir düşey atış vardır; v<sub>y</sub>² = v₀ᵧ² − 2gh ifadesinde v<sub>y</sub> = 0 alınır.</li>
+          <li><strong>Sonuç:</strong> h<sub>maks</sub> = v₀ᵧ² / (2g) = <strong>v₀²·sin²α / (2g)</strong>.</li>
+          <li><strong>Uçuş süresi:</strong> iniş çıkışın ayna görüntüsüdür; aynı yüksekliğe dönüş için süre iki katıdır: <strong>2·v₀·sinα / g</strong>.</li>
+        </ol>
         <p>
           Son iki bağıntı yalnızca <strong>atış ve iniş noktaları aynı yükseklikteyse</strong>
           geçerlidir. Bir tepeden ya da kuleden atıldığında uçuş süresini
-          y = 0 denkleminden (ikinci dereceden denklem) çözmen gerekir.
+          y = 0 denkleminden (ikinci dereceden denklem) çözmen gerekir. Laboratuvarın açılış ayarında
+          (25 m/s, 45°, Dünya) fırlattığında ekrandaki 3,60 s uçuş süresi ve 15,9 m tepe yüksekliği tam
+          olarak bu bağıntılardan çıkar.
         </p>
         <h4>Simetri</h4>
         <ul>
-          <li>Çıkış süresi iniş süresine eşittir.</li>
-          <li>Aynı yükseklikten geçerken süratler eşit, düşey hızların yönleri terstir.</li>
-          <li>İniş açısı, atış açısına eşittir.</li>
-          <li>Yörünge tepe noktasından geçen düşey doğruya göre simetriktir.</li>
+          <li><strong>Süreler:</strong> çıkış süresi iniş süresine eşittir.</li>
+          <li><strong>Süratler:</strong> aynı yükseklikten geçerken süratler eşit, düşey hızların yönleri terstir.</li>
+          <li><strong>Açılar:</strong> iniş açısı, atış açısına eşittir.</li>
+          <li><strong>Yörünge:</strong> tepe noktasından geçen düşey doğruya göre simetriktir.</li>
         </ul>
         <div class="callout warn">
           <p>
@@ -2516,31 +2933,63 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Menzil, açı ve tümler açılar</h3>
+        <details class="dusun">
+          <summary>Düşün: Eğik atışta cismin sürati yörüngenin neresinde en küçüktür? Orada sıfır olur mu?</summary>
+          <p>
+            En küçük sürat <b>tepe noktasındadır</b>, çünkü orada düşey bileşen sıfırdır ve geriye yalnızca
+            v₀·cosα kalır. Süratin sıfır olması için yatay bileşenin de sıfır olması, yani cismin dümdüz
+            yukarı (α = 90°) atılması gerekir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Eğik atışta yatay hız sabit kalır, düşey hız tepede sıfırlanır. Tepeye çıkış
+          süresi v₀·sinα/g, tepe yüksekliği v₀²·sin²α/(2g)'dir; hareket tepeye göre simetriktir.
+        </p>
+
+        <h3 id="k8">Menzil, açı ve tümler açılar</h3>
         <p>
           Menzil bağıntısını bileşenlerden türetmek kolaydır: uçuş süresi
           t = 2v₀sinα / g, yatay yol ise x = v₀cosα · t. İkisini çarpınca
         </p>
         <div class="formula">
-          <code>R = 2·v₀²·sinα·cosα / g = v₀²·sin2α / g</code>
+          <code>R = 2·v₀²·sinα·cosα / g</code>
+          <code>R = v₀²·sin2α / g</code>
         </div>
         <p>
-          Bağıntıdan üç sonuç doğrudan okunur:
+          İkinci satıra geçerken 2·sinα·cosα = sin2α özdeşliği kullanıldı. Bağıntıdan üç sonuç
+          doğrudan okunur:
         </p>
         <ul>
           <li><strong>En uzun menzil 45°'dedir.</strong> sin2α en büyük değerini (1) 2α = 90° için alır.</li>
-          <li><strong>Tümler açılar aynı menzili verir.</strong> sin2α = sin(180° − 2α) olduğundan
-            α ile 90° − α aynı R'yi verir: 30° ile 60°, 20° ile 70°… Ancak büyük açı daha
-            uzun süre havada kalır ve daha yükseğe çıkar.</li>
+          <li><strong>Tümler açılar aynı menzili verir.</strong> sin2α = sin(180° − 2α) olduğundan α ile
+            90° − α aynı R'yi verir: 30° ile 60°, 20° ile 70°… Büyük açı daha yükseğe çıkar.</li>
           <li><strong>Menzil süratin karesiyle artar.</strong> v₀ iki katına çıkarsa menzil
             <strong>dört katına</strong> çıkar.</li>
         </ul>
+        <p>
+          Aynı topu hep <strong>20 m/s</strong> ile, ama beş farklı açıyla attığını düşün (g = 10 m/s²).
+          Menzil, tepe yüksekliği ve uçuş süresi şöyle değişir:
+        </p>
+        <table class="tbl">
+          <tr><th>Açı</th><th>Menzil</th><th>Tepe yüksekliği</th><th>Uçuş süresi</th></tr>
+          <tr><td>15°</td><td>20 m</td><td>≈ 1,3 m</td><td>≈ 1,04 s</td></tr>
+          <tr><td>30°</td><td>≈ 34,6 m</td><td>5 m</td><td>2 s</td></tr>
+          <tr><td>45°</td><td>40 m</td><td>10 m</td><td>≈ 2,83 s</td></tr>
+          <tr><td>60°</td><td>≈ 34,6 m</td><td>15 m</td><td>≈ 3,46 s</td></tr>
+          <tr><td>75°</td><td>20 m</td><td>≈ 18,7 m</td><td>≈ 3,86 s</td></tr>
+        </table>
+        <p>
+          Menzil sütunu 45°'ye göre simetrik, tepe yüksekliği ve süre sütunları ise açıyla sürekli
+          artıyor. Sayfanın 03 numaralı bölümünde bu beş açıyı sırayla at ve tümler çiftlerin aynı
+          noktaya düştüğünü izle. 04 numaralı bölümdeki hedef oyunu da aynı gerçeğe dayanır: bir hedefi
+          genellikle biri 45°'nin altında, biri üstünde iki farklı açı vurur.
+        </p>
         <div class="callout">
           <p>
             <b>Yükseklikten atışta 45° en iyi değildir.</b> Bir kuleden atıldığında optimum açı
             45°'nin altına iner; yükseklik arttıkça yatay hıza pay ayırmak daha kârlıdır.
-            Gerçek hayatta hava direnci de optimum açıyı küçültür — bu yüzden gülle atma
-            sporcuları 40° civarında atar.
+            Gerçek hayatta hava direnci de optimum açıyı küçültür. Gülle atma sporcuları 40° civarında
+            atar; gülleyi omuz yüksekliğinden bırakmaları da açıyı 45°'nin altına çeker.
           </p>
         </div>
 
@@ -2571,13 +3020,23 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Yörünge denklemi ve grafikler</h3>
-        <p>
-          Yörüngenin denklemini bulmak için x = v₀cosα·t bağıntısından
-          t = x / (v₀cosα) çekip y denkleminde yerine koyarız:
+        <p class="kisaca">
+          <b>Kısaca:</b> Aynı yükseklikte başlayıp biten atışta menzil R = v₀²·sin2α/g'dir. En uzun
+          menzil 45°'de alınır, tümler açılar aynı menzili verir, menzil ilk süratin karesiyle büyür.
         </p>
+
+        <h3 id="k9">Yörünge denklemi ve grafikler</h3>
+        <p>
+          Yörüngenin denklemini bulmak için zamanı iki denklemin arasından çıkarırız. Adımlar şöyle:
+        </p>
+        <ol>
+          <li><strong>Süreyi yalnız bırak:</strong> x = v₀cosα·t bağıntısından t = x / (v₀cosα).</li>
+          <li><strong>Yerine koy:</strong> bu t'yi y = v₀sinα·t − ½g·t² denkleminde kullan.</li>
+          <li><strong>Sadeleştir:</strong> ilk terim x·sinα/cosα = x·tanα olur, ikinci terim x²'li kalır.</li>
+        </ol>
         <div class="formula">
-          <code>y = x·tanα − g·x² / (2·v₀²·cos²α)</code>
+          <code>y = x·tanα − k·x²</code>
+          <code>k = g / (2·v₀²·cos²α)</code>
         </div>
         <p>
           Bu, y = ax − bx² biçiminde bir <strong>parabol</strong> denklemidir. Yörüngenin parabol
@@ -2598,7 +3057,10 @@
         <p>
           v<sub>y</sub> – t doğrusunun zaman eksenini kestiği an <strong>tepe noktasıdır</strong>.
           O ana kadarki üçgenin alanı çıkılan yüksekliği, sonrasındaki (negatif) alan ise
-          inilen yüksekliği verir. Aynı yükseklikte başlayıp bitiyorsa iki alan eşittir.
+          inilen yüksekliği verir. Aynı yükseklikte başlayıp bitiyorsa iki alan eşittir. Sayfadaki
+          laboratuvarın altında bu dört grafik sen izlerken çizilir. “Yatay atış · 30 m'den” hazır
+          deneyinde y – t parabolünün tepesi tam başlangıç anındadır: yatay atış, tepesinden başlayan
+          bir eğik atıştır.
         </p>
 
         <figure class="fig">
@@ -2638,11 +3100,186 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
-        <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Zamanı yok edince yörünge y = x·tanα − k·x² parabolü çıkar. Yatayda x–t doğru ve
+          vₓ–t sabit, düşeyde y–t parabol ve v<sub>y</sub>–t eğimi −g olan doğrudur.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: yüksekten atış, düşen bir hedefe nişan, hava direnci ve atışların gerçek hayattaki yüzü.</span>
+        </div>
+
+        <h3 id="k10">Yüksekten atış: 45° artık en iyi değil</h3>
+        <p>
+          Atış noktası iniş noktasından h kadar yüksekse simetri bozulur: cisim atıldığı hizaya
+          döndükten sonra h kadar daha düşer. Bu durumda R = v₀²·sin2α/g kullanılamaz; uçuş süresini
+          cismin yere değdiği an yazılan düşey denklemden bulursun. Yukarıyı pozitif alırsan:
+        </p>
+        <div class="formula">
+          <code>h + v₀ᵧ·t − ½·g·t² = 0</code>
+          <code>R = v₀ₓ · t</code>
+        </div>
+        <p>
+          Bu ikinci dereceden denklemin iki kökü çıkar; negatif olanı atıştan önceki bir anı gösterir ve
+          atılır. Şimdi 20 m yükseklikteki bir kuleden topu hep <strong>10 m/s</strong> ile, ama farklı
+          açılarla attığını düşün (g = 10 m/s²):
+        </p>
+        <table class="tbl">
+          <tr><th>Açı</th><th>Uçuş süresi</th><th>Menzil</th></tr>
+          <tr><td>0° (yatay)</td><td>2 s</td><td>20 m</td></tr>
+          <tr><td>15°</td><td>≈ 2,28 s</td><td>≈ 22,0 m</td></tr>
+          <tr><td>≈ 24°</td><td>≈ 2,45 s</td><td>≈ 22,4 m (en uzun)</td></tr>
+          <tr><td>30°</td><td>≈ 2,56 s</td><td>≈ 22,2 m</td></tr>
+          <tr><td>45°</td><td>≈ 2,83 s</td><td>20 m</td></tr>
+        </table>
+        <p>
+          Şaşırtıcı bir sonuç: bu kulede 45°'lik atış, yatay atıştan daha uzağa gitmiyor; ikisi de
+          20 m'ye düşüyor. En uzun menzil yaklaşık <strong>24°</strong>'de. Neden? Cisim zaten
+          yüksekten düşeceği için havada kalma süresini artırmaya pek gerek yoktur; hızın büyük kısmını
+          yataya vermek daha kârlıdır. Aynı kuleden 20 m/s ile atınca en iyi açı yaklaşık 35°'ye çıkar:
+          ilk hız yüksekliğe göre büyüdükçe en iyi açı 45°'ye yaklaşır.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Bu kulede yatay atış ile 45°'lik atış aynı yere düşüyor. Hangisi yere daha hızlı çarpar?</summary>
+          <p>
+            İkisi de <b>aynı süratle</b> çarpar. v² = v₀² + 2gh bağıntısında atış açısı hiç geçmez:
+            v² = 100 + 400 = 500, v ≈ 22,4 m/s. Açı yalnızca çarpma yönünü ve havada kalma süresini değiştirir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Atış noktası iniş noktasından yüksekse süre ikinci dereceden denklemden bulunur ve
+          en uzun menzil 45°'nin altındaki bir açıda alınır. Yükseklik ilk hıza göre büyüdükçe bu açı küçülür.
+        </p>
+
+        <h3 id="k11">Düşen hedefe nişan: bağımsızlığın en şaşırtıcı sonucu</h3>
+        <p>
+          Fizik derslerinin klasik bir düşünce deneyi: bir avcı, daldan sarkan bir maymuna doğrudan nişan
+          alır. Maymun, silah ateşlendiği anda kendini bırakır. Avcı nişanını düzeltmeli mi?
+          Sezgi “maymun aşağı kaçtığına göre mermi üstünden geçer” der. Oysa mermi yine maymuna isabet
+          eder — yeter ki maymun yere değmeden önce mermi ona ulaşsın.
+        </p>
+        <p>
+          Sebebi bağımsızlık ilkesidir. Yerçekimi olmasaydı mermi namlunun gösterdiği düz çizgi boyunca
+          gider ve maymunun <strong>ilk</strong> bulunduğu noktaya varırdı. Yerçekimi, mermiyi bu düz
+          çizginin altına her an ½·g·t² kadar indirir. Maymun da aynı anda serbest düşmeye başladığı için
+          kendi ilk yerinin tam ½·g·t² kadar altındadır. İkisi aynı sürede aynı miktar düştüğünden
+          buluşurlar.
+        </p>
+        <div class="formula">
+          <code>mermi: düz çizgi − ½·g·t²</code>
+          <code>hedef: ilk yer − ½·g·t²</code>
+        </div>
+        <ul>
+          <li><strong>Sayılarla:</strong> 100 m ötedeki hedefe 200 m/s'lik mermi 0,5 s'de varır; bu sürede ikisi de ½·10·0,5² = 1,25 m düşer.</li>
+          <li><strong>Açı fark etmez:</strong> nişan eğik de olsa sonuç aynıdır; iki cisim de düz çizgiden aynı miktarda sapar.</li>
+          <li><strong>Hız fark etmez:</strong> mermi yavaşsa ikisi daha çok düşer ama yine buluşur; yeter ki hedef yere değmeden varsın.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Maymun kendini bırakmasaydı, 200 m/s'lik mermi 100 m ötede ona göre nereden geçerdi?</summary>
+          <p>
+            Maymunun yaklaşık <b>1,25 m altından</b>. Mermi 0,5 s içinde düz nişan çizgisinin 1,25 m
+            altına iner; yerinde kalan hedef ise nişan çizgisinin üzerinde durur. Düşen hedefi vuran şey,
+            yerinde kalan hedefi ıskalatan şeyle aynıdır: yerçekimi.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Aynı anda serbest kalan mermi ve hedef, aynı sürede aynı ½·g·t² kadar düşer. Bu
+          yüzden düşen hedefe doğrudan nişan alınırsa mermi, hedef yere değmeden varmak koşuluyla isabet eder.
+        </p>
+
+        <h3 id="k12">Hava direnci işe karışınca: modelin sınırları</h3>
+        <p>
+          Buraya kadar hava direncini ihmal ettik. Bu, ağır ve yavaş cisimler için çok iyi bir
+          yaklaşımdır: birkaç metreden atılan bir taş ya da bilye, hesapladığımız parabolü neredeyse
+          birebir izler. Ama hız büyüdükçe ya da cisim hafifleyip genişledikçe hava direnci ağırlığın
+          yanında önemli hâle gelir ve yörünge parabolden uzaklaşır. Hava direnci hızla büyüyen ve
+          harekete ters yönlü bir kuvvettir; bu yüzden hem yatay hem düşey hareketi etkiler.
+        </p>
+        <ul>
+          <li><strong>Yatay hız sabit kalmaz:</strong> direnç yatayda da etki ettiği için cisim ileri giderken yavaşlar.</li>
+          <li><strong>Menzil kısalır:</strong> gerçek top, havasız ortamdaki menzilinin belirgin biçimde altında kalır.</li>
+          <li><strong>Simetri bozulur:</strong> iniş çıkıştan daha dik olur ve daha uzun sürer.</li>
+          <li><strong>En iyi açı küçülür:</strong> hızlı ve hafif toplarda en uzun menzil 45°'nin altındaki açılarda alınır.</li>
+          <li><strong>Kütle yeniden önem kazanır:</strong> aynı boyutta ağır top, direnci ağırlığına oranla daha az hisseder.</li>
+        </ul>
+        <p>
+          Bir örnek fikir versin: havasız bir ortamda 40 m/s ile 45°'de atılan bir top
+          R = 1600/10 = 160 m giderdi. Gerçek bir top bu hızda havayla o kadar güçlü etkileşir ki bu
+          uzaklığın çok gerisinde kalır. Badminton topu ya da pinpon topu gibi hafif cisimlerde fark çok
+          daha büyüktür. Hava direncinin ayrıntıları bu ünitenin “Limit hız” konusunda.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Hava direnci varken eğik atılan bir topun çıkışı mı daha uzun sürer, inişi mi?</summary>
+          <p>
+            <b>İnişi.</b> Çıkarken ağırlık da direnç de aşağı yönlüdür, top çabuk yavaşlar. İnerken direnç
+            yukarı yönlüdür ve ağırlığın bir kısmını götürür; top daha yavaş hızlanır. Bu yüzden iniş daha
+            uzun sürer ve yörünge inişte dikleşir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Hava direnci yatay hızı da azaltır; menzil kısalır, iniş çıkıştan dik ve uzun olur,
+          en iyi açı 45°'nin altına iner. Ağır ve yavaş cisimlerde parabol modeli yine çok iyi çalışır.
+        </p>
+
+        <h3 id="k13">Atışlar gerçek dünyada</h3>
+        <p>
+          Atış hareketi yalnızca ders kitabı problemi değildir; sporda, kurtarma çalışmalarında ve
+          mühendislikte her gün hesaplanır. Hepsinde aynı iki kural işler: <strong>yatayda sabit hız,
+          düşeyde sabit ivme</strong>. Gerçek sayılar ise modelin nerede yeterli, nerede eksik kaldığını
+          gösterir.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/iki-boyutta-hareket-uygulama.webp?v=2" srcset="gorsel/iki-boyutta-hareket-uygulama-800.webp?v=2 800w, gorsel/iki-boyutta-hareket-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Akşam vakti projektörlerle aydınlatılmış, tribünleri dolu bir stadyumda uzun atlayan bir kadın sporcu kum havuzunun üstünde havada; kollarını ve bacaklarını öne uzatmış. Solda koşu yolunun üstünde beyaz sıçrama tahtası görünüyor.">
+          <figcaption>
+            <b>Uzun atlama bir eğik atıştır.</b> Sporcu tahtadan ayrıldığı anda üzerinde yalnızca ağırlığı (ve küçük bir hava direnci) kalır; ağırlık merkezi bir parabol çizer. Havada kollarını ve bacaklarını nasıl savurursa savursun bu yayı değiştiremez: atlayışın uzunluğunu kalkıştaki hız ve açı belirler.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Uzun atlama:</strong> sporcular tahtadan yaklaşık 9–10 m/s hızla ama 45° değil, 20° civarında ayrılır; koşudan gelen hızı dikleşerek harcamak kârlı değildir.</li>
+          <li><strong>Havadan yardım:</strong> 500 m yükseklikte 100 m/s ile uçan uçaktan bırakılan paket 10 s düşer ve yatayda 1 km gider; hedeften 1 km önce bırakılır.</li>
+          <li><strong>Basketbol:</strong> çember yerden 3,05 m yüksektedir. Yüksek kavisli şut çembere dik iner; çemberin ağzı topa daha geniş görünür, hata payı artar.</li>
+          <li><strong>Ay'da atış:</strong> Ay'da g yaklaşık altı kat küçüktür; 25 m/s ve 45° ile atılan cismin menzili 63,7 m'den yaklaşık 386 m'ye çıkar.</li>
+          <li><strong>Fıskiyeler:</strong> su jetleri de birer atıştır. Düşey 10 m/s ile fışkıran su v₀²/(2g) = 5 m yükselir; tasarımcı yüksekliği bu bağıntıyla seçer.</li>
+        </ul>
+        <p>
+          Havadan yardım örneğinde bir ayrıntı daha var: paket yere değdiğinde uçak tam onun
+          <strong>üstündedir</strong>, çünkü ikisinin yatay hızı hep aynıdır. Ay örneğini laboratuvardaki
+          “Ay'da 45°” hazır deneyiyle kendin görebilirsin; cisim havada yaklaşık 22 saniye kalır.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Uzun atlamadan havadan yardıma, basketboldan fıskiyelere kadar atışlar yatayda sabit
+          hız, düşeyde sabit ivme kuralıyla çözülür. Gerçek en iyi açıyı hava direnci ve vücudun sınırları da belirler.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k14">Çözümlü örnekler</h3>
+        <p>Aşağıdaki çözümlerde g = 10 m/s² alınmış, hava direnci ihmal edilmiştir.</p>
 
         <details>
-          <summary>Örnek 1 — 80 m yüksekten yatay atış</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Masadan yuvarlanan bilye</summary>
+          <p>
+            0,8 m yüksekliğindeki bir masanın kenarından yatay olarak yuvarlanan bilye, masanın
+            ayağından 1,2 m ötede yere düşüyor. (a) Düşme süresini, (b) bilyenin masadan ayrılma
+            süratini, (c) yere çarpma süratini bulunuz.
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> Düşeyde serbest düşme: 0,8 = ½·10·t² → t² = 0,16 → <strong>t = 0,4 s</strong></li>
+            <li><strong>(b)</strong> Yatayda sabit hız: v₀ = x / t = 1,2 / 0,4 = <strong>3 m/s</strong></li>
+            <li><strong>(c)</strong> v<sub>y</sub> = g·t = 4 m/s → v = √(3² + 4²) = <strong>5 m/s</strong></li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="kolay">Örnek 2 — 80 m yüksekten yatay atış</summary>
           <p>
             80 m yüksekliğindeki bir kuleden yatay doğrultuda 30 m/s süratle atılan cisim için:
             (a) uçuş süresini, (b) menzili, (c) yere çarpma süratini bulunuz.
@@ -2656,7 +3293,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — 53° ile eğik atış</summary>
+          <summary data-zorluk="orta">Örnek 3 — 53° ile eğik atış</summary>
           <p>
             Yerden 50 m/s süratle, yatayla 53° açı yapacak şekilde atılan cisim için:
             (a) tepe noktasına çıkma süresini, (b) maksimum yüksekliği, (c) menzili bulunuz.
@@ -2672,22 +3309,54 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Aynı süratle farklı açılar</summary>
+          <summary data-zorluk="orta">Örnek 4 — Aynı süratle farklı açılar</summary>
           <p>
             20 m/s süratle atılan bir cismin 30°, 45° ve 60° için menzillerini karşılaştırınız.
           </p>
           <ol class="steps">
             <li>R = v₀²·sin2α / g = 400·sin2α / 10 = 40·sin2α</li>
-            <li>30° → 40·sin60° = 40·0,87 = <strong>34,6 m</strong></li>
+            <li>30° → 40·sin60° = 40·0,866 ≈ <strong>34,6 m</strong></li>
             <li>45° → 40·sin90° = <strong>40 m</strong> (en uzun)</li>
-            <li>60° → 40·sin120° = 40·0,87 = <strong>34,6 m</strong> — 30° ile aynı!</li>
+            <li>60° → 40·sin120° = 40·0,866 ≈ <strong>34,6 m</strong> — 30° ile aynı!</li>
             <li>Uçuş süreleri farklıdır: 30° için 2 s, 60° için 3,46 s. Aynı yere düşerler,
               ama biri diğerinden çok daha uzun havada kalır.</li>
           </ol>
         </details>
 
         <details>
-          <summary>Örnek 4 — Yükseklikten eğik atış</summary>
+          <summary data-zorluk="orta">Örnek 5 — Uçaktan bırakılan yardım paketi</summary>
+          <p>
+            500 m yükseklikte, yatay doğrultuda 100 m/s süratle uçan bir uçak yere bir yardım paketi
+            bırakacak. (a) Paket kaç saniyede yere iner? (b) Uçak, hedefin kaç metre gerisindeyken paketi
+            bırakmalıdır? (c) Paket yere değdiğinde uçak nerededir?
+          </p>
+          <ol class="steps">
+            <li>Paket bırakıldığı anda uçağın yatay hızına sahiptir: v₀ = 100 m/s, v₀ᵧ = 0 (yatay atış).</li>
+            <li><strong>(a)</strong> 500 = ½·10·t² → t² = 100 → <strong>t = 10 s</strong></li>
+            <li><strong>(b)</strong> x = 100 · 10 = <strong>1000 m</strong>; paket hedeften 1 km önce bırakılmalıdır.</li>
+            <li><strong>(c)</strong> Uçak da 10 s'de 1000 m gider: paket yere değdiğinde uçak <strong>tam üstündedir</strong>.</li>
+            <li>Çarpma: v<sub>y</sub> = 100 m/s → v = √(100² + 100²) ≈ <strong>141 m/s</strong>, yerle 45° açıyla.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Top duvarın üstünden geçer mi?</summary>
+          <p>
+            Yerden 25 m/s süratle, yatayla 37° açıyla atılan bir top, 20 m ötedeki 8 m yüksekliğindeki
+            bir duvara doğru gidiyor. (a) Top duvarı aşar mı? (b) Duvarın hizasından geçerken yükselmekte
+            mi, alçalmakta mıdır? (c) Duvar olmasaydı top nereye düşerdi? (sin37° = 0,6 · cos37° = 0,8)
+          </p>
+          <ol class="steps">
+            <li>Bileşenler: v₀ₓ = 25·0,8 = 20 m/s, v₀ᵧ = 25·0,6 = 15 m/s</li>
+            <li>Duvara varış: t = 20 / 20 = 1 s</li>
+            <li><strong>(a)</strong> O andaki yükseklik: y = 15·1 − 5·1² = 10 m &gt; 8 m → top duvarı <strong>2 m farkla aşar</strong>.</li>
+            <li><strong>(b)</strong> v<sub>y</sub> = 15 − 10·1 = +5 m/s &gt; 0 → top hâlâ <strong>yükselmektedir</strong> (tepeye 1,5 s'de varır).</li>
+            <li><strong>(c)</strong> Uçuş süresi 2·15/10 = 3 s → R = 20 · 3 = <strong>60 m</strong></li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Yükseklikten eğik atış</summary>
           <p>
             20 m yüksekliğindeki bir çatıdan, yatayla 37° açıyla 25 m/s süratle atılan cisim için:
             (a) yere çarpma süresini, (b) yatay uzaklığı, (c) çarpma süratini bulunuz.
@@ -2701,11 +3370,11 @@
             <li><strong>(c)</strong> v<sub>y</sub> = 15 − 10·4 = −25 m/s (aşağı), v<sub>x</sub> = 20 m/s →
               v = √(20² + 25²) = √1025 ≈ <strong>32 m/s</strong></li>
             <li>Kısa yol: v² = v₀² + 2gh = 625 + 2·10·20 = 1025 ✓ (yükseklik farkı aynıysa
-              atış açısı süratı değiştirmez)</li>
+              atış açısı sürati değiştirmez)</li>
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <h3 id="k15">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Tepe noktada hız sıfırdır.”</strong> Sıfırlanan yalnızca v<sub>y</sub>'dir;
             yatay bileşen v₀cosα devam eder. Yalnızca düşey atışta (α = 90°) hız tümüyle sıfırlanır.</li>

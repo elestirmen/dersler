@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Newton'un hareket yasaları</h3>
-          <p>Net kuvvetten serbest cisim diyagramına, sürtünmeden asansör problemlerine kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce sezgi, net kuvvet ve eylemsizlik, sonra ΣF = m·a, etki–tepki, serbest cisim diyagramı, sürtünme ve asansör, ardından bağlı cisimler ve roketler; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2171,15 +2391,21 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Kuvvet ve net kuvvet</button>
-        <button type="button" data-goto="k2">1. yasa</button>
-        <button type="button" data-goto="k3">2. yasa</button>
-        <button type="button" data-goto="k4">3. yasa</button>
-        <button type="button" data-goto="k5">Serbest cisim diyagramı</button>
-        <button type="button" data-goto="k6">Sürtünme</button>
-        <button type="button" data-goto="k7">Ağırlık ve asansör</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Kuvvet ve net kuvvet</button>
+        <button type="button" data-goto="k3" data-basamak="1">1. yasa: eylemsizlik</button>
+        <button type="button" data-goto="k4" data-basamak="1">Kütle ve ağırlık</button>
+        <button type="button" data-goto="k5" data-basamak="2">2. yasa: ΣF = m·a</button>
+        <button type="button" data-goto="k6" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k7" data-basamak="2">3. yasa: etki–tepki</button>
+        <button type="button" data-goto="k8" data-basamak="2">Serbest cisim diyagramı</button>
+        <button type="button" data-goto="k9" data-basamak="2">Sürtünme</button>
+        <button type="button" data-goto="k10" data-basamak="2">Asansör</button>
+        <button type="button" data-goto="k11" data-basamak="3">Bağlı cisimler</button>
+        <button type="button" data-goto="k12" data-basamak="3">Yasaların sınırları</button>
+        <button type="button" data-goto="k13" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k14" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k15" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2204,14 +2430,84 @@
           boşlukta nasıl hızlanır? Asansörde tartı neden bazen fazla, bazen az yazar? Üç sorunun
           da cevabı aynı <b>üç yasada</b>. Newton'un yaptığı şey, "kuvvet" gibi bulanık bir
           sezgiyi <b>ölçülebilir bir büyüklüğe</b> çevirmekti: artık kuvveti biliyorsan hareketi
-          hesaplayabilir, hareketi görüyorsan kuvveti geri okuyabilirsin.
+          hesaplayabilir, hareketi görüyorsan kuvveti geri okuyabilirsin. Bu anlatım dört basamakta
+          ilerliyor: önce otobüsteki savrulmayı gözleyip kuvvet, net kuvvet ve eylemsizlik kavramlarını
+          kuracağız; sonra ΣF = m·a'yı, etki–tepkiyi, serbest cisim diyagramını, sürtünmeyi ve asansörü
+          bağıntılarıyla çözeceğiz; ardından bağlı cisimlere, yasaların sınırlarına ve roketlere
+          geçeceğiz. En sonda kolaydan zora sıralanmış örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Kuvvet ve net kuvvet</h3>
+        <figure class="foto">
+          <img src="gorsel/newton-yasalari-giris.webp?v=2" srcset="gorsel/newton-yasalari-giris-800.webp?v=2 800w, gorsel/newton-yasalari-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Alçak güneş ışığında donmuş bir gölde patenli bir yetişkin ile küçük bir çocuk birbirine dönük; ikisi de hafifçe geriye yaslanmış, kolları hâlâ birbirine uzanıyor ama elleri arasında açıklık var: itişip birbirlerinden uzaklaşıyorlar. Arkada karlı bir kıyı ve ağaçlar görünüyor.">
+          <figcaption>
+            <b>Bir itiş, iki kuvvet.</b> Yetişkin ile çocuk avuç avuca itişti: ikisi de öbürüne aynı büyüklükte,
+    zıt yönlü bir kuvvet uyguladı (3. yasa), bu yüzden ikisi de geriye, zıt yönlere kayıyor. Kuvvetler
+    eşittir ama kütleler değil: hafif çocuk büyük bir ivme kazanıp hızla uzaklaşır, ağır yetişkinin hızı
+    çok daha az değişir. Buzun sürtünmesi küçük olduğu için itiş bittikten sonra da ikisi uzun süre
+    kaymayı sürdürür (1. yasa).
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: günlük bir savrulmayı gözle, kuvvete ve net kuvvete ad koy, eylemsizliği ve kütle ile ağırlığın farkını kavra. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: otobüs ani fren yapınca ne olur?</h3>
+        <p>
+          Ayakta durduğun bir otobüs aniden fren yapıyor. Tutunduğun kol gerilir, gövden öne doğru
+          savrulur; koltuktaki poşet öne kayar, bardaktaki kahve öne doğru çalkalanıp taşar. Bu sahnede
+          tuhaf bir şey var: seni öne doğru iten <strong>hiçbir şey yok</strong>. Ne bir el, ne bir ip,
+          ne de bir rüzgâr. Peki neden öne gidiyorsun?
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/newton-yasalari-gunluk.webp?v=2" srcset="gorsel/newton-yasalari-gunluk-800.webp?v=2 800w, gorsel/newton-yasalari-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Ani fren yapan bir şehir otobüsünün içi: ayakta duran yolcular tavandaki tutamaklara tutunmuş, gövdeleri öne doğru savrulmuş; saçları ve öndeki kadının atkısı da öne savruluyor. Kadının elindeki karton bardaktan kahve öne sıçrıyor, koltuktaki kâğıt poşet öne devriliyor.">
+          <figcaption>
+            Otobüs yavaşlıyor ama yolcular, kahve ve poşet <b>eski hızlarıyla</b> gitmeye devam ediyor. Onları öne iten bir kuvvet yok; yavaşlayan otobüstür. Yolcuları otobüsle birlikte yavaşlatan, ayaklarındaki sürtünme ile tutundukları direklerin ve tutamakların onları geriye çeken kuvvetidir.
+          </figcaption>
+        </figure>
+
+        <p>
+          Cevap şaşırtıcı derecede basittir: seni öne atan bir şey yok, otobüs senin altında
+          yavaşlıyor. Sen ise eski hızınla gitmeye devam etmek istiyorsun. Otobüsün tabanı ayaklarını sürtünmeyle yavaşlatır,
+          ama gövdeni yavaşlatacak böyle bir etki yoktur; bu yüzden gövden öne eğilir. Otobüsteki
+          her ayrıntı aynı eğilimle açıklanır:
+        </p>
+        <ul>
+          <li><strong>Yolcular öne savrulur:</strong> ayakları zeminle birlikte yavaşlar, gövdeleri eski hızla ilerlemeyi sürdürür.</li>
+          <li><strong>Kahve öne sıçrar:</strong> bardak otobüsle birlikte yavaşlar, içindeki sıvı ise ilerlemeyi sürdürüp taşar.</li>
+          <li><strong>Poşet öne kayar:</strong> koltuğun sürtünmesi onu otobüsle birlikte yavaşlatmaya yetmez.</li>
+          <li><strong>Kalkışta tersi olur:</strong> otobüs hızlanınca yolcular arkaya yaslanır, kahve arkaya doğru çalkalanır.</li>
+        </ul>
+        <p>
+          Hepsinin ortak noktası şu: cisimler <strong>hareket durumlarını korumak ister</strong>.
+          Hareketi değiştiren şey bir itme ya da çekmedir; değişim yoksa hiçbir kuvvete de gerek yoktur.
+          Newton'un üç yasası bu gözlemi sayılara döker.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Otobüs sağa dönerken neden sola doğru savrulursun?</summary>
+          <p>
+            Aslında sola itilmiyorsun: gövden <b>dümdüz gitmeyi</b> sürdürmek ister. Otobüs sağa döndüğü için
+            zemin ve koltuk sağa kayar; sen ona göre sola kalmış gibi görünürsün. Seni otobüsle birlikte
+            döndüren şey, tutunduğun direğin sana sağa doğru uyguladığı kuvvettir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Ani frende öne savrulmanın sebebi seni iten bir kuvvet değil, eski hızınla gitmeyi
+          sürdürme eğilimindir. Hareketi değiştirmek için kuvvet gerekir, sürdürmek için gerekmez.
+        </p>
+
+        <h3 id="k2">Kuvvet ve net kuvvet</h3>
         <p>
           <strong>Kuvvet</strong>, bir cismin hareket durumunu ya da şeklini değiştiren
           etkidir. Vektörel bir büyüklüktür: büyüklüğü, doğrultusu ve yönü vardır.
-          Birimi <strong>newton (N)</strong>'dur ve 1 N = 1 kg·m/s² demektir.
+          Birimi <strong>newton (N)</strong>'dur ve 1 N = 1 kg·m/s² demektir. Bir fikir versin:
+          elinde tuttuğun 100 gramlık bir elmanın ağırlığı yaklaşık 1 N'dur.
         </p>
         <p>
           Bir cisme aynı anda birçok kuvvet etki edebilir. Hareketi belirleyen tek tek
@@ -2224,6 +2520,12 @@
           <code>zıt yönde: ΣF = F₁ − F₂</code>
           <code>dik ise: ΣF = √(F₁² + F₂²)</code>
         </div>
+        <p>
+          Halat çekme yarışını düşün. İki takım da halatı yüzlerce newtonla çekiyor, ama kuvvetler eşitse
+          halat kıpırdamaz: net kuvvet sıfırdır. Takımlardan biri biraz daha güçlü çektiği anda halat o
+          yöne doğru <strong>hızlanmaya</strong> başlar. Birbirine dik iki kuvvet ise Pisagor ile toplanır:
+          3 N ile 4 N'luk dik kuvvetlerin toplamı 7 N değil, 5 N'dur.
+        </p>
         <p>
           Net kuvvet sıfırsa kuvvetler <strong>dengelenmiştir</strong>; cisim ya durgundur
           ya da sabit hızla doğrusal hareket eder. İkisi de <strong>denge hâlidir</strong>:
@@ -2273,7 +2575,12 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">1. yasa: eylemsizlik</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kuvvet, hareketi ya da şekli değiştiren vektörel bir etkidir ve newtonla ölçülür.
+          Hareketi tek tek kuvvetler değil, onların vektörel toplamı olan net kuvvet belirler.
+        </p>
+
+        <h3 id="k3">1. yasa: eylemsizlik</h3>
         <p>
           <strong>Bir cisme etki eden net kuvvet sıfırsa, duran cisim durmaya devam eder;
           hareketli cisim sabit hızla doğrusal hareketine devam eder.</strong>
@@ -2282,6 +2589,15 @@
           Cisimlerin hareket durumundaki değişime gösterdiği bu dirence
           <strong>eylemsizlik (atalet)</strong> denir. Eylemsizliğin ölçüsü
           <strong>kütledir</strong>: kütle büyüdükçe cismin hızını değiştirmek zorlaşır.
+        </p>
+        <p>
+          Bu yasa bugün sade görünür, ama yaklaşık iki bin yıl boyunca tersine inanıldı. Aristoteles'e
+          göre hareket eden bir cisim, onu itmeye devam eden bir şey olmadıkça dururdu; gözlem de bunu
+          doğruluyor gibiydi, çünkü itmeyi bıraktığın araba durur. Galileo 1600'lerde bir düşünce deneyi
+          önerdi: bir rampadan bırakılan bilye karşıdaki rampaya neredeyse aynı yüksekliğe tırmanır.
+          İkinci rampayı yatıklaştırdıkça bilye aynı yüksekliğe ulaşmak için daha uzağa gider. Rampa
+          tamamen yatay olsaydı? Bilye <strong>hiç durmadan</strong> gitmeliydi. Onu durduran şey
+          hareketin doğası değil, sürtünmedir. Newton bu fikri 1687'de yasalarının ilki yaptı.
         </p>
         <ul>
           <li><strong>Ani frende öne savrulmak:</strong> otobüs yavaşlar, sen eski hızınla gitmeye devam edersin.</li>
@@ -2294,13 +2610,6 @@
           şey hareketin doğası değil, sürtünmedir. Sürtünme sıfıra giderse durma mesafesi
           sonsuza gider.
         </p>
-        <div class="callout warn">
-          <p>
-            <b>Kütle ile ağırlığı karıştırma.</b> Kütle skalerdir, kilogramla ölçülür ve
-            gittiğin yere göre değişmez. Ağırlık bir kuvvettir (G = m·g), newtonla ölçülür
-            ve g'ye bağlıdır: Ay'da kütlen aynı, ağırlığın altıda birdir.
-          </p>
-        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Aynı hızla itilen dört disk halı, parke, buz ve sürtünmesiz zeminde; sürtünme azaldıkça durma mesafesi uzuyor, sürtünmesiz zeminde disk hiç durmuyor.">
@@ -2331,7 +2640,66 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">2. yasa: ΣF = m·a</h3>
+        <details class="dusun">
+          <summary>Düşün: Uzay boşluğunda fırlatılan ve üzerine hiçbir kuvvet etki etmeyen bir top ne zaman durur?</summary>
+          <p>
+            <b>Hiçbir zaman.</b> Topu yavaşlatacak ne sürtünme ne de hava direnci vardır; top aynı hızla,
+            aynı doğrultuda gitmeyi sürdürür. Gerçek uzayda gökcisimlerinin çekimi yolunu yavaş yavaş
+            değiştirir, ama hareketini sürdürmek için hiçbir motora gerek yoktur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Net kuvvet sıfırsa duran cisim durur, hareketli cisim sabit hızla doğrusal gider.
+          Cisimleri durduran hareketin doğası değil, sürtünme gibi dış kuvvetlerdir.
+        </p>
+
+        <h3 id="k4">Kütle ve ağırlık: aynı şey değil</h3>
+        <p>
+          Günlük dilde “kilom 60” deriz ve kütle ile ağırlığı aynı şey sanırız. Fizikte ikisi farklı
+          büyüklüklerdir. <strong>Kütle</strong>, cismin eylemsizliğinin ölçüsüdür: hızını değiştirmenin
+          ne kadar zor olduğunu söyler. Skalerdir, kilogramla ölçülür ve nereye gidersen git değişmez.
+          <strong>Ağırlık</strong> ise cismin bulunduğu gökcisminin onu çektiği kuvvettir: G = m·g. Vektördür, newtonla
+          ölçülür, daima aşağı yönlüdür ve bulunduğun yerin g değerine bağlıdır.
+        </p>
+        <p>60 kg kütleli bir öğrenci farklı gökcisimlerinde şu ağırlıklara sahip olur:</p>
+        <table class="tbl">
+          <tr><th>Nerede</th><th>g</th><th>Kütle</th><th>Ağırlık</th></tr>
+          <tr><td>Dünya</td><td>9,81 m/s²</td><td>60 kg</td><td>≈ 589 N</td></tr>
+          <tr><td>Ay</td><td>1,62 m/s²</td><td>60 kg</td><td>≈ 97 N</td></tr>
+          <tr><td>Mars</td><td>3,72 m/s²</td><td>60 kg</td><td>≈ 223 N</td></tr>
+          <tr><td>Jüpiter</td><td>24,79 m/s²</td><td>60 kg</td><td>≈ 1487 N</td></tr>
+        </table>
+        <p>
+          Tablonun kütle sütunu hiç değişmiyor, ağırlık sütunu ise on beş kattan fazla oynuyor. İlginç
+          bir sonuç: uzay istasyonunda her şey süzülür, ama ağır bir dolabı itmek yine zordur. Dolap orada
+          ağırlıksız görünse de <strong>kütlesi</strong>, yani eylemsizliği aynen durur; onu hızlandırmak da
+          durdurmak da, Dünya'da sürtünmesiz bir zeminde olacağı kadar kuvvet ister.
+        </p>
+        <div class="callout warn">
+          <p>
+            <b>Kütle ile ağırlığı karıştırma.</b> Kütle skalerdir, kilogramla ölçülür ve
+            gittiğin yere göre değişmez. Ağırlık bir kuvvettir (G = m·g), newtonla ölçülür
+            ve g'ye bağlıdır: Ay'da kütlen aynı, ağırlığın altıda birdir.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: Uzay istasyonunda süzülen 100 kg'lık bir dolabı itmek, 1 kg'lık bir kutuyu itmek kadar kolay mıdır?</summary>
+          <p>
+            Hayır. İkisi de ağırlıksız görünür, ama <b>kütleleri</b> aynen durur. Aynı kuvvetle itersen dolap
+            kutudan 100 kat daha az hızlanır; hareket eden dolabı durdurmak da o kadar zordur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kütle eylemsizliğin ölçüsüdür, kilogramla ölçülür ve her yerde aynıdır. Ağırlık
+          G = m·g kuvvetidir, newtonla ölçülür ve bulunulan yerin g değerine bağlıdır.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: ΣF = m·a'yı, etki–tepkiyi, serbest cisim diyagramını, sürtünmeyi ve asansörü adım adım çöz.</span>
+        </div>
+
+        <h3 id="k5">2. yasa: ΣF = m·a</h3>
         <p>
           Net kuvvet sıfır değilse cisim <strong>ivmelenir</strong>. İvme, net kuvvetle
           doğru, kütleyle ters orantılıdır ve <strong>yönü daima net kuvvetin
@@ -2342,6 +2710,17 @@
           <code>a = ΣF / m</code>
           <code>1 N = 1 kg · m/s²</code>
         </div>
+        <h4>Yasa nereden geliyor?</h4>
+        <p>
+          2. yasa bir matematik türetmesi değil, deneylerden çıkan bir genellemedir. Sürtünmesiz bir
+          zeminde bir arabayı sabit kuvvetle çektiğini ve ivmesini ölçtüğünü düşün:
+        </p>
+        <ol>
+          <li><strong>Kuvveti değiştir:</strong> kütle sabitken kuvvet 2, 3 katına çıkınca ivme de 2, 3 katına çıkar: a ∝ ΣF.</li>
+          <li><strong>Kütleyi değiştir:</strong> kuvvet sabitken kütle 2 katına çıkınca ivme yarıya iner: a ∝ 1/m.</li>
+          <li><strong>Birleştir:</strong> iki gözlem birlikte a ∝ ΣF/m, yani ΣF = k·m·a verir.</li>
+          <li><strong>Birimi seç:</strong> 1 kg'lık kütleye 1 m/s² ivme veren kuvvete 1 N denirse k = 1 olur: <strong>ΣF = m·a</strong>.</li>
+        </ol>
         <table class="tbl">
           <thead>
             <tr><th>Değişen</th><th>Sonuç</th><th>Örnek</th></tr>
@@ -2355,7 +2734,8 @@
         <p>
           Dikkat: <strong>ivme hızın değil, net kuvvetin yönündedir</strong>. Yavaşlayan bir
           cisimde net kuvvet hıza zıt yöndedir. Hız ile ivme aynı yönlüyse cisim hızlanır,
-          zıt yönlüyse yavaşlar.
+          zıt yönlüyse yavaşlar. Sayfadaki laboratuvarda “Sürtünmesiz · 20 N, 5 kg” ile “Kütle 2 katı”
+          hazır deneylerini art arda çalıştır: ivme 4 m/s²'den 2 m/s²'ye iner, hız grafiğinin eğimi yarıya düşer.
         </p>
         <p>
           İki boyutta yasa bileşenlere ayrılarak yazılır: ΣFₓ = m·aₓ ve ΣFᵧ = m·aᵧ.
@@ -2395,7 +2775,49 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">3. yasa: etki–tepki</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Net kuvvet cismi ivmelendirir: a = ΣF/m. İvme net kuvvetle doğru, kütleyle ters
+          orantılıdır ve yönü hızın değil, net kuvvetin yönündedir.
+        </p>
+
+        <h3 id="k6">Sayılarla hisset: ne kadar kuvvet, ne kadar ivme?</h3>
+        <p>
+          ΣF = m·a'nın asıl gücü, çok farklı durumları aynı ölçekte karşılaştırabilmesidir. Aşağıdaki
+          değerler gündelik durumlar için gerçekçi yaklaşık değerlerdir:
+        </p>
+        <table class="tbl">
+          <tr><th>Durum</th><th>Kütle</th><th>Net kuvvet</th><th>İvme</th></tr>
+          <tr><td>İtilen market arabası</td><td>20 kg</td><td>40 N</td><td>2 m/s²</td></tr>
+          <tr><td>Kalkan bisikletli</td><td>80 kg</td><td>80 N</td><td>1 m/s²</td></tr>
+          <tr><td>Hızlanan otomobil</td><td>1200 kg</td><td>3600 N</td><td>3 m/s²</td></tr>
+          <tr><td>Sert fren yapan otomobil</td><td>1200 kg</td><td>9600 N</td><td>8 m/s²</td></tr>
+          <tr><td>Tekme yiyen futbol topu</td><td>0,45 kg</td><td>900 N</td><td>2000 m/s²</td></tr>
+        </table>
+        <p>
+          Tablodan okunan ilk düzen: <strong>büyük kuvvet, büyük ivme demek değildir</strong>. Otomobili
+          hızlandıran kuvvet topa vurulan tekmenin dört katı, ama otomobilin ivmesi topunkinin ancak
+          binde bir buçuğu kadar. Belirleyici olan kuvvetin kendisi değil, <strong>kuvvetin kütleye oranıdır</strong>.
+        </p>
+        <p>
+          Sayılar başka şeyler de söylüyor. 3 m/s²'lik ivmeyle otomobil 0'dan 100 km/h'e (27,8 m/s)
+          yaklaşık 9 saniyede çıkar; bu, sıradan bir binek otomobilin değeridir. 8 m/s²'lik fren ivmesi
+          yaklaşık 0,8·g eder ve kuru asfaltta lastiğin sağlayabildiği en büyük sürtünmeye yakındır.
+          Topun 2000 m/s²'lik ivmesi ise yalnızca yaklaşık 0,01 saniyelik temas süresince sürer; bu kısa
+          sürede top 20 m/s'ye (72 km/h) ulaşır.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Topa vurulan 900 N'luk kuvvet 1200 kg'lık otomobile uygulansaydı ivmesi ne olurdu?</summary>
+          <p>
+            a = 900 / 1200 = <b>0,75 m/s²</b>. Aynı kuvvet topa, hızını saniyede 2000 m/s artıracak büyüklükte
+            bir ivme verirken otomobilin hızını saniyede ancak 0,75 m/s artırır. Aradaki fark tamamen kütleden gelir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> İvmeyi kuvvetin kendisi değil, kuvvetin kütleye oranı belirler. Otomobili hızlandırmak
+          için gereken binlerce newton ona birkaç m/s² verir; 900 N ise hafif bir topa 2000 m/s²'lik ivme verir.
+        </p>
+
+        <h3 id="k7">3. yasa: etki–tepki</h3>
         <p>
           <strong>Bir cisim ikinci bir cisme kuvvet uyguladığında, ikinci cisim de
           birinciye eşit büyüklükte ve zıt yönde bir kuvvet uygular.</strong>
@@ -2421,7 +2843,10 @@
         <p>
           Kuvvetler eşit olsa da <strong>sonuçları eşit olmak zorunda değildir</strong>:
           a = F/m olduğu için küçük kütleli cisim daha büyük ivme kazanır. Sayfadaki
-          <b>03</b> numaralı deneyde 2 kg'lık araba, 6 kg'lık arabanın 3 katı hızla ayrılır.
+          <b>03</b> numaralı deneyde 2 kg'lık araba, 6 kg'lık arabanın 3 katı hızla ayrılır. Buzda
+          birbirini iten iki patenci de böyledir. En uç örnek Dünya ile elmadır: Dünya elmayı 1 N ile
+          çekerken elma da Dünya'yı 1 N ile çeker. Ama Dünya'nın kütlesi yaklaşık 6·10²⁴ kg olduğu için
+          kazandığı ivme ölçülemeyecek kadar küçüktür; düşen hep elma gibi görünür.
         </p>
 
         <figure class="fig">
@@ -2454,19 +2879,31 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Serbest cisim diyagramı</h3>
+        <details class="dusun">
+          <summary>Düşün: At arabayı çektiği kadar araba da atı geri çekiyorsa, ikisi birlikte nasıl hızlanabilir?</summary>
+          <p>
+            Çünkü bu iki kuvvet <b>farklı cisimlere</b> etki eder ve birbirini götürmez. Atı ileri götüren,
+            toynaklarıyla yeri geriye itmesine karşılık yerin ona uyguladığı ileri yönlü kuvvettir; bu kuvvet
+            arabanın geri çekişinden büyükse at hızlanır. Araba da atın çekişi sürtünmeden büyük olduğu için hızlanır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kuvvetler daima eşit büyüklükte, zıt yönlü çiftler hâlinde ortaya çıkar. Etki ve
+          tepki farklı cisimlere etki ettiği için birbirini dengelemez; sonuçları kütleye göre farklıdır.
+        </p>
+
+        <h3 id="k8">Serbest cisim diyagramı</h3>
         <p>
           Dinamik problemlerinin tamamı aynı yöntemle çözülür: cismi yalnız bırak,
           üzerine etki eden kuvvetleri çiz, sonra ΣF = m·a yaz.
         </p>
         <ol class="steps">
-          <li>Hangi cismi inceleyeceğine karar ver; onu bir nokta ya da kutu olarak çiz.</li>
-          <li>Yalnızca <strong>o cisme etki eden</strong> kuvvetleri çiz: ağırlık (daima aşağı),
-            normal kuvvet (yüzeye dik), sürtünme (yüzeye paralel, kaymaya zıt), ip gerilmesi,
-            uygulanan kuvvet.</li>
-          <li>Cismin <em>başkalarına</em> uyguladığı kuvvetleri <strong>çizme</strong>.</li>
-          <li>Hareket doğrultusunu pozitif seçip eksenleri kur; eğik kuvvetleri bileşenlerine ayır.</li>
-          <li>Her eksen için ΣF = m·a yaz ve bilinmeyenleri çöz.</li>
+          <li><strong>Cismi seç:</strong> hangi cismi inceleyeceğine karar ver; onu bir nokta ya da kutu olarak çiz.</li>
+          <li><strong>Kuvvetleri çiz:</strong> yalnızca o cisme etki edenleri: ağırlık (daima aşağı), normal
+            kuvvet (yüzeye dik), sürtünme (kaymaya zıt), ip gerilmesi, uygulanan kuvvet.</li>
+          <li><strong>Fazlasını çizme:</strong> cismin <em>başkalarına</em> uyguladığı kuvvetler diyagrama girmez.</li>
+          <li><strong>Eksen kur:</strong> hareket doğrultusunu pozitif seç; eğik kuvvetleri bileşenlerine ayır.</li>
+          <li><strong>Yasayı yaz:</strong> her eksen için ΣF = m·a yaz ve bilinmeyenleri çöz.</li>
         </ol>
         <div class="callout">
           <p>
@@ -2475,6 +2912,20 @@
             bozulur; her seferinde yeniden yazmak gerekir.
           </p>
         </div>
+        <p>
+          Aşağıdaki çizimdeki gibi ip yatayla α açısı yaparak çekiyorsa F kuvvetinin iki etkisi vardır.
+          Yatay bileşeni F·cosα kutuyu ileri çeker; düşey bileşeni F·sinα ise kutuyu biraz
+          <strong>yukarı kaldırır</strong> ve zeminin kutuya bastırması azalır. Düşey eksende ivme
+          olmadığı için N + F·sinα − G = 0 yazılır:
+        </p>
+        <div class="formula">
+          <code>N = m·g − F·sinα</code>
+          <code>ΣFₓ = F·cosα − f = m·a</code>
+        </div>
+        <p>
+          Normal kuvvet küçüldüğü için sürtünme de küçülür. Bir kızağı ya da ağır bir kutuyu ipi yukarı
+          doğru eğik tutarak çekmenin, yere paralel çekmekten daha kolay gelmesinin bir sebebi budur.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 230" role="img" aria-label="Solda iple çekilen kutunun gerçek görünümü, sağda aynı kutunun serbest cisim diyagramı: ağırlık, normal kuvvet, sürtünme ve uygulanan kuvvet okları.">
@@ -2508,7 +2959,12 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Sürtünme kuvveti</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Cismi yalnız çiz, yalnızca ona etkiyen kuvvetleri koy, eksen seç ve her eksen için
+          ΣF = m·a yaz. Normal kuvveti ezbere m·g yazma; her problemde düşey eksenden yeniden bul.
+        </p>
+
+        <h3 id="k9">Sürtünme kuvveti</h3>
         <p>
           Sürtünme, temas hâlindeki yüzeyler arasında, <strong>bağıl kaymaya zıt yönde</strong>
           ortaya çıkan kuvvettir. İki türü vardır:
@@ -2525,9 +2981,9 @@
           bir cismi hareket ettirmek, hareketini sürdürmekten zordur.
         </p>
         <ul>
-          <li>Sürtünme kuvveti <strong>normal kuvvete</strong> ve yüzey çiftine bağlıdır.</li>
-          <li>Temas <strong>alanına</strong> ve (yaklaşık olarak) hıza bağlı değildir.</li>
-          <li>Sürtünme her zaman kötü değildir: yürümeyi, frenlemeyi, vidanın durmasını sağlayan da odur.</li>
+          <li><strong>Neye bağlı:</strong> sürtünme kuvveti normal kuvvete ve yüzey çiftine bağlıdır.</li>
+          <li><strong>Neye bağlı değil:</strong> temas alanına ve (yaklaşık olarak) hıza bağlı değildir.</li>
+          <li><strong>Her zaman kötü değil:</strong> yürümeyi, frenlemeyi, vidanın durmasını sağlayan da sürtünmedir.</li>
         </ul>
         <table class="tbl">
           <thead><tr><th>Yüzey çifti</th><th>Yaklaşık μ</th></tr></thead>
@@ -2537,6 +2993,12 @@
             <tr><td>Lastik – kuru asfalt</td><td>0,7 – 0,9</td></tr>
           </tbody>
         </table>
+        <p>
+          Laboratuvardaki “Kuvvet yetersiz” hazır deneyi statik sürtünmeyi gösterir: 10 kg'lık kutuya
+          12 N uygulanır, ama zemin en fazla yaklaşık 0,5 · 98 ≈ 49 N'luk sürtünme verebildiği için
+          sürtünme tam 12 N olur ve kutu kıpırdamaz. Sürtünmenin ayrıntıları bu ünitenin bir sonraki
+          konusu olan “Sürtünme kuvveti” anlatımında.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Sürtünme kuvvetinin uygulanan kuvvete göre grafiği: eşiğe kadar eşit büyüyen statik sürtünme, eşikten sonra sabit kalan kinetik sürtünme.">
@@ -2563,7 +3025,20 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Ağırlık, normal kuvvet ve asansör</h3>
+        <details class="dusun">
+          <summary>Düşün: Duran ağır bir dolabı 100 N ile itiyorsun ama kıpırdamıyor. Dolaba etki eden sürtünme kuvveti kaç newtondur?</summary>
+          <p>
+            Tam <b>100 N</b>. Dolap durgun kaldığına göre net kuvvet sıfırdır; statik sürtünme uygulanan
+            kuvvete eşit büyüklükte ve zıt yönde oluşur. μs·N değeri 100 N'dan büyük olabilir, ama sürtünme
+            yalnızca gerektiği kadarını üretir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Statik sürtünme uygulanan kuvveti μs·N eşiğine kadar tam dengeler; eşik aşılınca
+          cisim kayar ve sürtünme daha küçük olan μk·N değerine düşer.
+        </p>
+
+        <h3 id="k10">Ağırlık, normal kuvvet ve asansör</h3>
         <p>
           <strong>Ağırlık</strong>, kütleye etki eden çekim kuvvetidir: G = m·g, daima aşağı
           yöndedir. <strong>Normal kuvvet</strong> ise yüzeyin cisme uyguladığı, yüzeye dik
@@ -2578,8 +3053,13 @@
           Asansörde tartının gösterdiği değer, tartının sana uyguladığı <strong>normal
           kuvvettir</strong>. Yukarı doğru ivmelenirken net kuvvet yukarı olmalıdır,
           bu yüzden N &gt; G olur ve tartı daha fazlasını yazar. Aşağı doğru ivmelenirken
-          N &lt; G olur.
+          N &lt; G olur. Bağıntı serbest cisim diyagramından adım adım çıkar:
         </p>
+        <ol>
+          <li><strong>Kuvvetler:</strong> sana yalnızca iki kuvvet etki eder: ağırlık G = m·g (aşağı) ve tartının normal kuvveti N (yukarı).</li>
+          <li><strong>Yön seç:</strong> yukarıyı pozitif al; asansörün ivmesi a olsun (aşağı ivmede a negatiftir).</li>
+          <li><strong>2. yasa:</strong> ΣF = N − m·g = m·a, buradan <strong>N = m·(g + a)</strong>.</li>
+        </ol>
         <table class="tbl">
           <thead><tr><th>Durum</th><th>İvme</th><th>Normal kuvvet</th><th>Tartı</th></tr></thead>
           <tbody>
@@ -2592,8 +3072,16 @@
         <p>
           Serbest düşmedeki "ağırlıksızlık" yerçekiminin yok olması değildir; sen de
           tartı da aynı ivmeyle düştüğü için aranızda kuvvet kalmamasıdır. Uzay
-          istasyonundaki astronotlar da aslında sürekli serbest düşmektedir.
+          istasyonundaki astronotlar da aslında sürekli serbest düşmektedir. Sayfanın 04 numaralı
+          bölümünde 60 kg'lık biri için 3 m/s²'lik yukarı ivmede tartı yaklaşık 78 kg, aynı büyüklükte
+          aşağı ivmede yaklaşık 42 kg gösterir.
         </p>
+        <div class="callout warn">
+          <p>
+            <b>Tartıyı hızın yönü değil, ivmenin yönü belirler.</b> Yukarı çıkarken yavaşlayan bir asansörün
+            ivmesi aşağı doğrudur; tartı, aşağı doğru hızlanan asansördeki gibi az gösterir.
+          </p>
+        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 210" role="img" aria-label="Asansörün dört hâlinde tartının gösterdiği değer: durgunken gerçek değer, yukarı hızlanırken fazla, aşağı hızlanırken az, serbest düşmede sıfır.">
@@ -2645,11 +3133,151 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <details class="dusun">
+          <summary>Düşün: Asansör aşağı inerken durmak için yavaşlıyor. Tartı fazla mı gösterir, az mı?</summary>
+          <p>
+            <b>Fazla</b> gösterir. Aşağı inen asansörün yavaşlaması için ivmesinin yukarı doğru olması
+            gerekir; o zaman N = m(g + a) ağırlıktan büyüktür. Asansör dururken dizlerinin hafifçe
+            büküldüğünü hissetmen bundandır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Tartı ağırlığı değil normal kuvveti ölçer: N = m·(g + a). İvme yukarıysa fazla,
+          aşağıysa az, serbest düşmede sıfır gösterir; belirleyici olan hızın değil ivmenin yönüdür.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: birlikte hareket eden cisimler, yasaların geçerli olduğu sınırlar ve Newton yasalarının gerçek hayattaki yüzü.</span>
+        </div>
+
+        <h3 id="k11">Birlikte hareket eden cisimler: sistem ve iç kuvvetler</h3>
+        <p>
+          İple bağlı iki kutu, birbirine değen iki blok ya da bir makaradan sarkan yük… Birden çok cismin
+          birlikte hareket ettiği problemlerde iki bakış açısı vardır ve ikisini birlikte kullanmak en
+          kısa yoldur. Önce bütün cisimleri <strong>tek bir sistem</strong> gibi düşünürsün. Sistemin
+          içindeki cisimlerin birbirine uyguladığı kuvvetler (örneğin ip gerilmesi) <strong>iç
+          kuvvetlerdir</strong>; 3. yasa gereği çiftler hâlinde, eşit ve zıt oldukları için sistemin
+          toplam hareketine hiçbir katkıları yoktur. Sistemi yalnızca dış kuvvetler hızlandırır.
+        </p>
+        <ol>
+          <li><strong>Sistemin ivmesi:</strong> dış kuvvetlerin hareket yönündeki toplamını toplam kütleye böl.</li>
+          <li><strong>Bir cismi ayır:</strong> ip gerilmesi gibi bir iç kuvveti bulmak için tek bir cismin serbest cisim diyagramını çiz.</li>
+          <li><strong>Kontrol et:</strong> öbür cisim için de ΣF = m·a yazıp aynı ivmenin çıktığını gör.</li>
+        </ol>
+        <div class="formula">
+          <code>a = ΣF<sub>dış</sub> / m<sub>toplam</sub></code>
+        </div>
+        <p>
+          Örnek: sürtünmesiz bir masa üstündeki 4 kg'lık kutu, masanın kenarındaki makaradan geçen iple
+          1 kg'lık sarkan bir yüke bağlı olsun (g = 10 m/s²). Sistemi hareket ettiren tek dış kuvvet
+          sarkan yükün ağırlığıdır: 10 N. Sistemin ivmesi a = 10 / 5 = <strong>2 m/s²</strong>. Masadaki
+          kutuyu yalnızca ip çeker: T = 4 · 2 = <strong>8 N</strong>. Kontrol: sarkan yük için
+          10 − 8 = 2 N = 1 · 2 ✓.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Bu örnekte ipteki gerilme neden sarkan yükün ağırlığından (10 N) küçük çıktı?</summary>
+          <p>
+            Çünkü sarkan yük <b>aşağı doğru hızlanıyor</b>; bunun için ona etkiyen net kuvvet aşağı yönlü
+            olmalı, yani ağırlığı ip gerilmesinden büyük olmalı. Gerilme ağırlığa eşit olsaydı yük sabit
+            hızla hareket ederdi.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Birlikte hareket eden cisimlerde önce sistemi tek cisim say: a = ΣF<sub>dış</sub>/m<sub>toplam</sub>.
+          İç kuvvetler birbirini götürür; ip gerilmesi gibi bir iç kuvveti tek bir cismi ayırarak bulursun.
+        </p>
+
+        <h3 id="k12">Yasaların sınırları: kime göre, ne kadar hızlı?</h3>
+        <p>
+          Newton yasaları yüzyıllardır köprüleri, uçakları ve uzay araçlarını hesaplamak için
+          kullanılıyor. Yine de her model gibi geçerli olduğu bir alan vardır. Bu sınırları bilmek,
+          yasaları doğru yerde kullanmanın parçasıdır.
+        </p>
+        <p>
+          İlk sınır gözlemcidir. Fren yapan otobüsün içinden bakan bir yolcu, koltuktaki poşetin hiçbir
+          kuvvet etki etmeden öne doğru hızlandığını görür; ona göre 1. yasa bozulmuş gibidir. Yoldaki
+          bir gözlemci ise poşetin yalnızca eski hızıyla gitmeyi sürdürdüğünü, yavaşlayanın otobüs
+          olduğunu görür. Newton yasaları, ivmesi olmayan <strong>eylemsiz gözlem çerçevelerinde</strong>
+          geçerlidir. Yer, günlük problemler için yeterince iyi bir eylemsiz çerçevedir.
+        </p>
+        <ul>
+          <li><strong>İvmeli gözlemci:</strong> fren yapan araçta ya da dönen bir platformda yasalar olduğu gibi uygulanamaz.</li>
+          <li><strong>Çok büyük hızlar:</strong> ışık hızına yaklaşan cisimlerde görelilik kuramı gerekir; günlük hızlarda fark ölçülemeyecek kadar küçüktür.</li>
+          <li><strong>Çok küçük ölçekler:</strong> atomların ve elektronların dünyasını kuantum fiziği anlatır.</li>
+          <li><strong>Kütlesi değişen cisimler:</strong> yakıt yakan bir roketin kütlesi azalır; yasa her an o anki kütleyle yazılır ve aynı itme giderek daha büyük ivme verir.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Fren yapan otobüsteki bir yolcu, poşetin hiçbir kuvvet olmadan öne kaydığını görüyor. 1. yasa bozuldu mu?</summary>
+          <p>
+            Hayır. Yolcu <b>ivmeli bir çerçeveden</b> bakıyor. Yere göre poşet yalnızca eski hızıyla gitmeyi
+            sürdürüyor, yavaşlayan otobüstür. Newton yasaları ivmesiz (eylemsiz) çerçevelerde geçerlidir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Newton yasaları eylemsiz gözlem çerçevelerinde, günlük hızlarda ve gözle görülür
+          ölçeklerde geçerlidir. İvmeli gözlemciler, ışık hızına yakın hızlar ve atom ölçeği bu modelin dışıdır.
+        </p>
+
+        <h3 id="k13">Newton yasaları gerçek dünyada</h3>
+        <p>
+          Üç yasa, arabaların güvenlik donanımından roketlere kadar mühendisliğin her köşesinde hesaplanır.
+          Aşağıdaki sayılar g = 10 m/s² ile yuvarlatılmış örneklerdir; ama hepsinde aynı soru sorulur:
+          <strong>hangi kuvvet, hangi kütleye, ne kadar süre etki ediyor?</strong>
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/newton-yasalari-uygulama.webp?v=2" srcset="gorsel/newton-yasalari-uygulama-800.webp?v=2 800w, gorsel/newton-yasalari-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneş ufuktayken fırlatma rampasından yükselen bir roket; motorlarından aşağı doğru parlak bir alev püskürüyor, rampanın dibinde yanlara yayılan kalın buhar bulutları ve yanında fırlatma kulesi görünüyor.">
+          <figcaption>
+            <b>Roket, püskürttüğü gazı iterek yükselir.</b> Motorlar yanmış gazı büyük bir hızla aşağı iter; gaz da rokete eşit büyüklükte, yukarı yönlü bir kuvvet uygular (3. yasa). Bu itme kuvveti roketin ağırlığını aştığı anda net kuvvet yukarı döner ve roket ivmelenerek yükselir (2. yasa).
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Roket kalkışı:</strong> itme ağırlığın 1,3 katıysa net kuvvet 0,3·m·g olur ve roket a ≈ 3 m/s² ile yükselir.</li>
+          <li><strong>Hava yastığı:</strong> 15 m/s ile giden 60 kg'lık sürücüyü 0,1 s'de durdurmak ortalama 9000 N ister; 0,01 s'de durursa 90 000 N.</li>
+          <li><strong>Buzlu yol:</strong> kuru asfaltta μ ≈ 0,8, buzda 0,1 civarı. 15 m/s'den en kısa duruş asfaltta ≈ 14 m, buzda ≈ 113 m.</li>
+          <li><strong>Asansör:</strong> 1 m/s²'lik yukarı ivmede 70 kg'lık yolcuya N = 70·11 = 770 N etki eder; tartı 77 kg gösterir.</li>
+          <li><strong>Koşuya çıkış:</strong> koşucu ayağıyla çıkış bloğunu geriye iter, blok onu ileri iter; bloksuz zeminde ayak kayabilir.</li>
+        </ul>
+        <p>
+          Hava yastığı ve emniyet kemerinin sırrı 2. yasadadır. Sürücünün hızı ne olursa olsun sıfıra
+          inecektir; değiştirilebilen tek şey bunun ne kadar sürede olduğudur. İvme, hız değişiminin
+          süreye oranı olduğu için süreyi on katına çıkarmak ivmeyi, dolayısıyla kuvveti onda birine
+          indirir. Buzlu yol örneği ise sürtünmenin neden hayati olduğunu gösterir: fren ivmesinin
+          üst sınırı μ·g'dir ve μ küçülünce durma mesafesi aynı oranda uzar.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Roketler 3. yasayla yükselir, hava yastıkları durma süresini uzatarak kuvveti
+          küçültür, buzlu yolda fren ivmesi μ·g ile sınırlanır. Hepsi ΣF = m·a'nın günlük hayattaki yüzüdür.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k14">Çözümlü örnekler</h3>
         <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>
 
         <details>
-          <summary>Örnek 1 — Sürtünmeli zeminde itilen kutu</summary>
+          <summary data-zorluk="kolay">Örnek 1 — İki kuvvetin üç hâli</summary>
+          <p>
+            Sürtünmesiz yatay zeminde duran 5 kg'lık bir kutuya 30 N ve 40 N'luk iki yatay kuvvet
+            uygulanıyor. Kuvvetler (a) aynı yönde, (b) zıt yönde, (c) birbirine dik olduğunda kutunun
+            ivmesini bulunuz.
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> ΣF = 30 + 40 = 70 N → a = 70 / 5 = <strong>14 m/s²</strong></li>
+            <li><strong>(b)</strong> ΣF = 40 − 30 = 10 N (40 N'un yönünde) → a = <strong>2 m/s²</strong></li>
+            <li><strong>(c)</strong> ΣF = √(30² + 40²) = 50 N → a = 50 / 5 = <strong>10 m/s²</strong>, net kuvvet yönünde.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="kolay">Örnek 2 — Sürtünmeli zeminde itilen kutu</summary>
           <p>
             Sürtünme katsayısı 0,2 olan yatay bir zeminde duran 4 kg'lık kutuya yatay
             doğrultuda 12 N'luk kuvvet uygulanıyor. Kutunun ivmesini bulunuz.
@@ -2664,7 +3292,21 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Bağlı iki cisim ve ip gerilmesi</summary>
+          <summary data-zorluk="orta">Örnek 3 — Asansördeki tartı</summary>
+          <p>
+            60 kg kütleli bir kişi, 2 m/s² ile yukarı doğru hızlanan bir asansörde tartının
+            üzerinde duruyor. Tartı kaç kilogram gösterir?
+          </p>
+          <ol class="steps">
+            <li>Kişiye etki eden kuvvetler: ağırlık G = 600 N (aşağı), normal kuvvet N (yukarı).</li>
+            <li>Net kuvvet yukarı olmalı: N − G = m·a</li>
+            <li>N = m(g + a) = 60 · (10 + 2) = <strong>720 N</strong></li>
+            <li>Tartı N/g = 720/10 = <strong>72 kg</strong> gösterir; kişinin kütlesi ise hâlâ 60 kg'dır.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — Bağlı iki cisim ve ip gerilmesi</summary>
           <p>
             Sürtünmesiz yatay zeminde, ipte bağlı 2 kg ve 3 kg'lık cisimler F = 20 N'luk
             kuvvetle çekiliyor (kuvvet 2 kg'lık cisme uygulanıyor). Sistemin ivmesini ve
@@ -2679,21 +3321,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Asansördeki tartı</summary>
-          <p>
-            60 kg kütleli bir kişi, 2 m/s² ile yukarı doğru hızlanan bir asansörde tartının
-            üzerinde duruyor. Tartı kaç kilogram gösterir?
-          </p>
-          <ol class="steps">
-            <li>Kişiye etki eden kuvvetler: ağırlık G = 600 N (aşağı), normal kuvvet N (yukarı).</li>
-            <li>Net kuvvet yukarı olmalı: N − G = m·a</li>
-            <li>N = m(g + a) = 60 · (10 + 2) = <strong>720 N</strong></li>
-            <li>Tartı N/g = 720/10 = <strong>72 kg</strong> gösterir; kişinin kütlesi ise hâlâ 60 kg'dır.</li>
-          </ol>
-        </details>
-
-        <details>
-          <summary>Örnek 4 — Eğik düzlemde kayan cisim</summary>
+          <summary data-zorluk="orta">Örnek 5 — Eğik düzlemde kayan cisim</summary>
           <p>
             Yatayla 37° açı yapan eğik düzlemde 10 kg'lık bir cisim aşağı doğru kayıyor.
             Sürtünme katsayısı 0,2 ise ivmesi nedir? (sin37° = 0,6 · cos37° = 0,8)
@@ -2706,7 +3334,39 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Eğik kuvvetle çekilen kutu</summary>
+          <p>
+            Kinetik sürtünme katsayısı 0,2 olan yatay zeminde 10 kg'lık bir kutu, yatayla 37° açı yapan
+            bir iple 50 N'luk kuvvetle çekilerek kaydırılıyor. Kutunun ivmesini bulunuz.
+            (sin37° = 0,6 · cos37° = 0,8)
+          </p>
+          <ol class="steps">
+            <li>Kuvvetin bileşenleri: Fₓ = 50 · 0,8 = 40 N (ileri), Fᵧ = 50 · 0,6 = 30 N (yukarı)</li>
+            <li>Düşeyde denge: N + 30 − 100 = 0 → <strong>N = 70 N</strong> (m·g değil!)</li>
+            <li>Sürtünme: f = 0,2 · 70 = <strong>14 N</strong></li>
+            <li>Yatayda: a = (40 − 14) / 10 = <strong>2,6 m/s²</strong></li>
+            <li>N'yi yanlışlıkla 100 N alsaydın f = 20 N ve a = 2 m/s² bulurdun: tipik tuzak.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Masadan sarkan yük</summary>
+          <p>
+            Kinetik sürtünme katsayısı 0,2 olan yatay bir masadaki 3 kg'lık kutu, masanın kenarındaki
+            sürtünmesiz makaradan geçen iple 2 kg'lık sarkan bir yüke bağlıdır. Sistem serbest
+            bırakılıyor. (a) Sistemin ivmesini, (b) ipteki gerilmeyi bulunuz.
+          </p>
+          <ol class="steps">
+            <li>Hareket yönündeki dış kuvvetler: sarkan yükün ağırlığı 2 · 10 = 20 N, kutudaki sürtünme 0,2 · 30 = 6 N (zıt).</li>
+            <li><strong>(a)</strong> a = (20 − 6) / (3 + 2) = 14 / 5 = <strong>2,8 m/s²</strong></li>
+            <li><strong>(b)</strong> Sarkan yük: 20 − T = 2 · 2,8 → T = 20 − 5,6 = <strong>14,4 N</strong></li>
+            <li>Kontrol (kutu): T − f = 14,4 − 6 = 8,4 N = 3 · 2,8 ✓</li>
+          </ol>
+          <p>Gerilme sarkan yükün ağırlığından küçüktür, çünkü yük aşağı doğru hızlanmaktadır.</p>
+        </details>
+
+        <h3 id="k15">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Hareket eden cisme mutlaka kuvvet etki eder.”</strong> Sabit hızla giden
             cisimde net kuvvet sıfırdır. Kuvvet hareketi değil, <em>hareketteki değişimi</em> doğurur.</li>
@@ -2722,6 +3382,8 @@
             cisimde hıza zıt yöndedir.</li>
           <li><strong>“Cisim kuvvete sahiptir.”</strong> Kuvvet bir <em>etkileşimdir</em>, cismin
             taşıdığı bir özellik değil. "Cismin üzerindeki kuvvet" demek doğrudur.</li>
+          <li><strong>“Roket arkasındaki havayı iterek ilerler.”</strong> Roket kendi püskürttüğü gazı
+            iter, gaz da roketi iter. Bu yüzden hava olmayan uzay boşluğunda da çalışır.</li>
         </ul>
 
         <div class="callout">

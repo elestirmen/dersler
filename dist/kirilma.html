@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Kırılma</h3>
-          <p>Kırılma indisinden Snell yasasına, tam yansımadan günlük hayattaki örneklere.</p>
+          <p>Dört basamakta: önce kaşık, havuz ve serapla sezgi, sonra Snell yasası ve dalga modeli, ardından tam yansıma, yandan kayma ve katmanlı ortamlar; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2144,15 +2364,19 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Kırılma nedir</button>
-        <button type="button" data-goto="k2">Kırılma indisi</button>
-        <button type="button" data-goto="k3">Snell yasası</button>
-        <button type="button" data-goto="k4">Hız ve dalga boyu</button>
-        <button type="button" data-goto="k5">Tam yansıma</button>
-        <button type="button" data-goto="k6">Yandan kayma</button>
-        <button type="button" data-goto="k7">Günlük hayatta</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Kırılma nedir</button>
+        <button type="button" data-goto="k3" data-basamak="1">Kırılma indisi</button>
+        <button type="button" data-goto="k4" data-basamak="1">Neden yön değişir</button>
+        <button type="button" data-goto="k5" data-basamak="2">Snell yasası</button>
+        <button type="button" data-goto="k6" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k7" data-basamak="2">Hız ve dalga boyu</button>
+        <button type="button" data-goto="k8" data-basamak="3">Tam yansıma</button>
+        <button type="button" data-goto="k9" data-basamak="3">Yandan kayma</button>
+        <button type="button" data-goto="k10" data-basamak="3">Katmanlar ve serap</button>
+        <button type="button" data-goto="k11" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k12" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k13" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2175,16 +2399,87 @@
         <p class="lead-in">
           Bardaktaki kaşık neden kırık görünür? Havuzun dibi neden göründüğünden derindir? Işık
           bir ortamdan diğerine geçerken <b>hız değiştirir</b> ve bu yüzden yol değiştirir — tıpkı
-          asfalttan kuma giren bir arabanın bir tekeri önce yavaşlayınca dönmesi gibi. Gözlükten
+          asfalttan kuma giren bir arabanın, bir tekeri önce yavaşlayınca dönmesi gibi. Gözlükten
           gökkuşağına, fiber optikten seraba kadar bu konudaki her şey <b>tek bir bağıntıdan</b>
-          çıkar: n₁·sin i = n₂·sin r.
+          çıkar: n₁·sin i = n₂·sin r. Anlatım dört basamakta ilerliyor: önce gündelik sahnelerde
+          kırılmayı gözleyip adını koyacağız, sonra bu bağıntıyı dalga cephelerinden adım adım
+          çıkarıp sayılarla deneyeceğiz, ardından tam yansımaya, levhadan geçen ışına ve katman
+          katman kıvrılan havaya geçeceğiz. En sonda kolaydan zora sıralanmış örneklerle hepsini
+          birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Kırılma nedir?</h3>
+        <figure class="foto">
+          <img src="gorsel/kirilma-giris.webp?v=2" srcset="gorsel/kirilma-giris-800.webp?v=2 800w, gorsel/kirilma-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Dağlara ve suya bakan güneşli bir pencerenin önünde, ahşap masada duran su dolu cam bardak; içine eğik konmuş metal kaşık su yüzeyinin hizasında kırılmış gibi görünüyor, sudaki kısmı yana kaymış. Bardağın dibinden masaya parlak ışık çizgileri yayılıyor.">
+          <figcaption>
+            <b>Bardaktaki kaşık.</b> Suya eğik daldırılmış bir kaşığa yandan bakınca, su yüzeyinin hizasında kopmuş ya da bükülmüş gibi görünür; oysa kaşık dümdüzdür. Değişen kaşık değil, sudan gözüne gelen ışının yoludur. Yandan bakarken bardağın yuvarlak duvarı da suyla birlikte bir mercek gibi davranır ve bu kaymayı büyütür. Bardağın yanında masaya düşen parlak ışık desenleri de aynı olayın izidir: su ve cam, güneş ışınlarını kırarak bazı noktalarda toplar.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: ışığın yol değiştirdiği sahnelere bak, kırılmanın ne olduğunu ve ışının hangi yöne saptığını formülsüz kavra.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: ışık ne zaman yolundan sapar?</h3>
+        <p>
+          Işık, aynı saydam ortamda kaldığı sürece <strong>doğru boyunca</strong> ilerler: odaya
+          vuran güneş huzmesinin tozlarda görünen kenarları dümdüzdür. Gözün bu kurala güvenir; bir
+          cismi, ondan gelen ışının geldiği doğrultunun <strong>tam karşısında</strong> sanırsın. Ama
+          ışık bir ortamdan ötekine geçerken bu güven sarsılır. Aşağıdaki gözlemlerin hepsinde ışık,
+          iki farklı saydam ortamın ya da farklı sıcaklıktaki hava katmanlarının sınırından geçiyor:
+        </p>
+        <ul>
+          <li><strong>Kaşık kırık görünür:</strong> sudaki kısmı, su yüzeyinin hizasında yukarıdaki sapla aynı doğrultuda durmaz.</li>
+          <li><strong>Havuz sığ görünür:</strong> dipteki fayanslar, ayağını basınca şaşıracağın kadar yakın durur.</li>
+          <li><strong>Yolda “su birikintisi”:</strong> yazın sıcak asfaltta ilerideki yol ıslak ve parlak görünür; yaklaşınca kaybolur.</li>
+          <li><strong>Yıldızlar titrer:</strong> yıldız ışığı, sürekli çalkalanan hava katmanlarından geçerken sağa sola sapar.</li>
+          <li><strong>Kalın camın arkası kayar:</strong> kalın bir camın arkasındaki çizgiler, camın kenarında yana kaymış görünür.</li>
+        </ul>
+
+        <figure class="foto">
+          <img src="gorsel/kirilma-gunluk.webp?v=2" srcset="gorsel/kirilma-gunluk-800.webp?v=2 800w, gorsel/kirilma-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir günde dağlara doğru uzanan dümdüz, kuru bir çöl yolu, asfaltın hizasından görülüyor. İlerideki yol, gökyüzünü yansıtan bir su birikintisi varmış gibi parlıyor; yaklaşan koyu renkli arabanın ters görüntüsü bu parlak bölgede, tam altında ve tekerleklerine bitişik olarak beliriyor.">
+          <figcaption>
+            <b>Sıcak yolda ileride parlayan “su”</b>, aslında gökyüzünün görüntüsüdür. Asfaltın hemen üstündeki sıcak havada ışık biraz daha hızlı ilerler; yola yatık inen ışınlar bu yüzden yukarı doğru kıvrılıp gözüne gelir. Arabanın altındaki ters görüntü de aynı kıvrılmış ışınlarla oluşur. Bu sahneye <b>serap</b> denir; üçüncü basamakta nedenini ayrıntılı göreceğiz.
+          </figcaption>
+        </figure>
+
+        <p>
+          Bu sahnelerin ortak noktası şu: ışık, yolunun bir yerinde kendisini <strong>farklı hızda</strong>
+          taşıyan bir ortama giriyor. Göz ise ışının kıvrıldığından habersizdir; son doğrultuyu geriye
+          uzatır ve cismi orada görür.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Sıcak yoldaki “su birikintisi” sen yaklaştıkça neden hep ileri kaçar ya da kaybolur?</summary>
+          <p>
+            Serap yalnızca yola <b>çok yatık</b> gelen ışınlarla oluşur. Uzaktaki yol parçasına neredeyse
+            yere paralel bakarsın; yaklaştıkça aynı parçaya daha dik bakmaya başlarsın ve ışınlar artık
+            yeterince kıvrılamaz. Parlak bölge bu yüzden her zaman senden belli bir uzaklıkta, ileride
+            görünür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Işık tek bir saydam ortamda doğru boyunca gider; başka bir ortama geçerken
+          yolundan sapabilir. Göz son doğrultuyu geriye uzattığı için kaşık kırık, havuz sığ, sıcak yol
+          ıslak görünür.
+        </p>
+
+        <h3 id="k2">Kırılma nedir?</h3>
         <p>
           Işık, saydam bir ortamdan başka bir saydam ortama geçerken <strong>hızı değişir</strong>.
-          Sınıra eğik geldiyse bu hız değişimi <strong>doğrultusunu da değiştirir</strong>; bu
-          olaya <strong>kırılma</strong> denir.
+          Sınıra eğik geldiyse bu hız değişimi <strong>doğrultusunu da değiştirir</strong>; bu olaya
+          <strong>kırılma</strong> denir. Sözcük, ışının sınırda bir dirsek yapmasını anlatır: ışın her
+          iki ortamda da doğru boyunca gider, yalnızca sınırda yön değiştirir.
+        </p>
+        <p>
+          Kırılmayı anlatmak için sınırda bir yardımcı çizgi kullanırız. Işının yüzeye çarptığı noktadan
+          yüzeye dik çizilen doğruya <strong>normal</strong> denir. Gelen ışının normalle yaptığı açı
+          <strong>gelme açısı</strong> (i), kırılan ışının normalle yaptığı açı <strong>kırılma
+          açısı</strong> (r) adını alır. Açıların yüzeyden değil normalden ölçülmesi keyfî değildir: dik
+          gelen ışın için ikisi de sıfır olur ve kurallar en sade hâlini alır.
         </p>
         <ul>
           <li>Sınıra <strong>dik</strong> gelen ışın (i = 0) kırılmaz, doğrultusunu korur;
@@ -2221,9 +2516,22 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Kırılma indisi</h3>
         <p>
-          Bir ortamın kırılma indisi, ışığın boşluktaki hızının o ortamdaki hızına oranıdır:
+          Son madde gündelik bir gözlemi açıklar: akşam, ışığı yanan bir odadan pencereye bakınca camda
+          kendi yansımanı görürsün. Dik gelişte camın her yüzeyi ışığın yaklaşık yüzde dördünü yansıtır;
+          dışarısı karanlık olunca bu küçük pay bile belirgin olur.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kırılma, ışığın bir saydam ortamdan ötekine eğik geçerken hız değişimi yüzünden
+          doğrultu değiştirmesidir. Açılar yüzeyden değil normalden ölçülür; dik gelen ışın kırılmaz.
+        </p>
+
+        <h3 id="k3">Kırılma indisi: ışık ne kadar yavaşlar?</h3>
+        <p>
+          Boşlukta ışık saniyede yaklaşık 300 000 km yol alır; bu hızla bir saniyede Dünya'nın çevresini
+          7,5 kez dolanabilirdi. Madde içinde ise daha yavaştır: ışık ortamın atomlarındaki elektronları
+          titreştirir ve bu etkileşim ilerleyişini geciktirir. Bir ortamın <strong>kırılma
+          indisi</strong>, ışığın boşluktaki hızının o ortamdaki hızına oranıdır:
         </p>
         <div class="formula">
           <code>n = c / v</code>
@@ -2237,8 +2545,15 @@
           <tr><td>Elmas</td><td>2,42</td><td>1,24·10⁸ m/s</td></tr>
         </table>
         <p>
+          Tabloyu şöyle oku: su için n = 1,33, yani ışık suda boşluktakinden 1,33 kat yavaş gider.
+          İndisin birimi yoktur, çünkü iki hızın oranıdır. Gündelik saydam ortamlarda indis 1'den küçük
+          olmaz; havanınki 1,0003 civarındadır ve problemlerde 1 alınır.
+        </p>
+        <p>
           İndisi büyük olan ortama <strong>çok yoğun</strong>, küçük olana <strong>az yoğun</strong>
-          ortam denir. Bu “yoğunluk” kütle yoğunluğu değil, <strong>optik yoğunluktur</strong>.
+          ortam denir. Bu “yoğunluk” kütle yoğunluğu değil, <strong>optik yoğunluktur</strong>. Zeytinyağı
+          sudan hafiftir ve suyun üstünde yüzer, ama indisi (yaklaşık 1,47) sudan büyüktür: optik olarak
+          sudan daha yoğundur.
         </p>
 
         <figure class="fig">
@@ -2274,7 +2589,95 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Snell yasası</h3>
+        <details class="dusun">
+          <summary>Düşün: Işık elmasa girince yavaşlıyorsa, elmastan havaya çıkınca yeniden hızlanır mı?</summary>
+          <p>
+            Evet. Işığın hızı ne kadar yol aldığına ya da nereden geldiğine değil, <b>içinde bulunduğu
+            ortama</b> bağlıdır. Elmasın içinde 1,24·10⁸ m/s ile giden ışık, havaya çıktığı anda yeniden
+            yaklaşık 3·10⁸ m/s ile ilerler. Yavaşlama bir yorgunluk değil, ortamın bir özelliğidir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kırılma indisi n = c/v, ışığın bir ortamda boşluğa göre kaç kat yavaşladığını
+          söyler. İndisi büyük ortam optik olarak çok yoğundur; bu, kütle yoğunluğuyla aynı şey değildir.
+        </p>
+
+        <h3 id="k4">Neden yön değişir? Yavaşlayan taraf normale yanaşır</h3>
+        <p>
+          Işığın yavaşlaması neden yönünü de değiştirsin? Asfalttan çimenliğe eğik giren bir oyuncak
+          arabayı düşün. Ön tekerlerden biri çimene önce değer ve yavaşlar; öteki hâlâ asfaltta hızla
+          dönmektedir. Hızlı taraf yavaş tarafın etrafında döner ve araba <strong>normale doğru</strong>
+          yön değiştirir. Çimenlikten asfalta çıkarken tersi olur: araba normalden uzaklaşır.
+        </p>
+        <p>
+          Işık demetinin genişliği boyunca uzanan <strong>dalga cephesi</strong>, bu arabanın aks
+          çizgisi gibidir: cephenin sınıra önce varan ucu yavaşlar, öteki ucu bir süre daha hızlı
+          ilerler ve cephe döner. Bu basit resimden dört kural çıkar:
+        </p>
+        <ul>
+          <li><strong>Yavaşlarsa yaklaşır:</strong> az yoğundan çok yoğuna geçen ışın normale yaklaşır; kırılma açısı gelme açısından küçüktür.</li>
+          <li><strong>Hızlanırsa uzaklaşır:</strong> çok yoğundan az yoğuna geçen ışın normalden uzaklaşır; kırılma açısı büyür.</li>
+          <li><strong>Dik gelirse sapmaz:</strong> cephenin iki ucu sınıra aynı anda varır ve birlikte yavaşlar; dönme olmaz.</li>
+          <li><strong>Yol tersinirdir:</strong> ters yönde gönderilen ışın, geldiği yolu aynen geri izler.</li>
+        </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Bardaktaki kaşığın kırık görünmesi ve havuzun sığ görünmesi.">
+            <path class="wb" d="M76 96 80 170h90l4-74z" />
+            <path class="st sk hair" d="M70 56 80 170h90l10-114" />
+            <path class="st sb" d="M76 96h98" />
+            <path class="st sk bold" d="M58 48 120 96" />
+            <path class="st sk bold" d="M120 96 152 166" />
+            <text class="tt fd" x="125" y="194" text-anchor="middle">kaşık kırık görünür</text>
+            <path class="st sl hair dots" d="M240 26v160" />
+            <rect class="wb" x="272" y="96" width="176" height="74" />
+            <path class="st sb" d="M272 96h176" />
+            <path class="st sk" d="M272 170h176" />
+            <path class="st sb hair" d="M320 158 355 96" />
+            <path class="st sb bold" d="M355 96 405 54" marker-end="url(#ah-b)" />
+            <path class="st sb hair" d="M320 158V96" />
+            <path class="st sb bold" d="M320 96V56" marker-end="url(#ah-b)" />
+            <path class="st sl hair dash" d="M355 96 320 125" />
+            <circle class="fk" cx="320" cy="158" r="6" />
+            <circle class="st sv fn" cx="320" cy="125" r="6" />
+            <text class="tt" x="312" y="162" text-anchor="end">gerçek</text>
+            <text class="tt fv" x="306" y="129" text-anchor="end">görünen</text>
+            <text class="tt fd" x="380" y="194" text-anchor="middle">havuz sığ görünür</text>
+          </svg>
+          <figcaption>
+            İkisi de aynı olayın sonucu. Sudan çıkan ışınlar yüzeyde kırılıp <b>normalden
+            uzaklaşınca</b>, göz onları düz bir çizgi boyunca geri izler ve cismi <b>olduğundan
+            yukarıda</b> görür. Kaşığın su altındaki kısmı yükseldiği için kırık, havuzun tabanı
+            yükseldiği için sığ görünür. Bu yüzden suya balıklama atlamadan önce derinliği gözle
+            değil ölçerek bilmek gerekir.
+          </figcaption>
+        </figure>
+
+        <p>
+          Artık kaşığın sırrı çözülüyor. Kaşığın sudaki kısmından çıkan ışınlar sudan havaya geçer,
+          hızlanır ve normalden uzaklaşır. Göz ışınları düz bir çizgi boyunca geriye uzatır ve kaşığın
+          sudaki kısmını <strong>olduğundan yukarıda</strong> görür. Suyun dışındaki kısım yerinde
+          göründüğü için iki parça yüzeyde düzgünce birleşmez ve kaşık kırık görünür. Havuzun sığ
+          görünmesi de aynı olaydır; ayrıntısı bir sonraki konu olan görünür derinlikte.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Işık yavaşladığı ortama geçerken normale yaklaşır, hızlandığı ortama geçerken
+          normalden uzaklaşır. Sudan çıkan ışınlar normalden uzaklaştığı için kaşığın sudaki kısmı
+          olduğundan yukarıda görünür.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: kırılmanın yönünü sayıya dök, Snell yasasını dalga cephelerinden çıkar, hız ve dalga boyuna ne olduğunu gör.</span>
+        </div>
+
+        <h3 id="k5">Snell yasası ve nereden geldiği</h3>
+        <p>
+          Kırılmanın yönünü biliyoruz; şimdi “ne kadar” sorusunu yanıtlayalım. Gelme ve kırılma açıları,
+          iki ortamın indisleriyle tek bir bağıntı üzerinden bağlıdır. Bu bağıntı, 1621'de onu deneylerle
+          bulan Willebrord Snellius'un adını taşır; aynı ilişki 10. yüzyılda İbn Sehl'in mercekler
+          üzerine yazdığı incelemede de geçer.
+        </p>
         <div class="formula">
           <code>n₁ · sin i = n₂ · sin r</code>
         </div>
@@ -2285,6 +2688,17 @@
             <strong>uzaklaşır</strong>, r &gt; i.</li>
           <li>i = 0 ise r = 0: dik gelen ışın kırılmaz.</li>
         </ul>
+        <h4>Bağıntı nereden geliyor?</h4>
+        <p>
+          Snell yasasını bir önceki bölümdeki dönen cephe resminden birkaç adımda çıkarabilirsin. Bir
+          dalga cephesinin A ucu sınıra değmiş, B ucu ise sınıra hâlâ BD kadar uzakta olsun.
+        </p>
+        <ol>
+          <li><strong>Aynı süre:</strong> B ucu D'ye varana kadar t süresi geçer: BD = v₁·t. Bu sürede A ucu ikinci ortamda AC = v₂·t kadar ilerler.</li>
+          <li><strong>İki dik üçgen:</strong> AD, sınır üzerindeki ortak kenardır. Cephe sınırla i açısı yaptığı için sin i = BD/AD; aynı biçimde sin r = AC/AD.</li>
+          <li><strong>Oranı al:</strong> sin i / sin r = BD/AC = v₁/v₂. Ortak kenar AD sadeleşir.</li>
+          <li><strong>İndise çevir:</strong> v = c/n olduğundan v₁/v₂ = n₂/n₁. Buradan n₁·sin i = n₂·sin r çıkar.</li>
+        </ol>
         <div class="callout">
           <p>
             <b>Hatırlatma:</b> Açılar yine <b>normalle</b> ölçülür. Soruda “yüzeyle 30° açı
@@ -2319,8 +2733,62 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Hız, dalga boyu ve frekans</h3>
-        <p>Kırılmada değişenler ve değişmeyenler:</p>
+        <p>
+          Bağıntıyı uç durumlarla sına. İki ortamın indisi eşitse sin i = sin r çıkar ve ışın hiç
+          sapmaz: cam bir çubuk, indisi camınkine eşit bir yağa daldırılınca neredeyse görünmez olur.
+          i = 0 için de sin r = 0 çıkar; dik gelen ışın düz geçer.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Snell yasası n₁·sin i = n₂·sin r, dalga cephesinin iki ucunun farklı
+          hızlarından çıkar. İndisi büyük taraftaki açı küçüktür; indisler eşitse ışın hiç sapmaz.
+        </p>
+
+        <h3 id="k6">Sayılarla hisset: ışın ne kadar kırılır?</h3>
+        <p>
+          Sayfanın 01 numaralı bölümündeki Snell laboratuvarında havadan suya 45° ile gönderilen ışın
+          suda 32,1° ile ilerler. Aynı ışın cama ya da elmasa girseydi ne olurdu? Snell yasasıyla
+          hesaplanmış değerler (ışın havadan geliyor; su için n = 1,33, cam için 1,50, elmas için 2,42):
+        </p>
+        <table class="tbl">
+          <tr><th>Gelme açısı (havada)</th><th>Suda</th><th>Camda</th><th>Elmasta</th></tr>
+          <tr><td>0°</td><td>0°</td><td>0°</td><td>0°</td></tr>
+          <tr><td>30°</td><td>22,1°</td><td>19,5°</td><td>11,9°</td></tr>
+          <tr><td>45°</td><td>32,1°</td><td>28,1°</td><td>17,0°</td></tr>
+          <tr><td>60°</td><td>40,6°</td><td>35,3°</td><td>21,0°</td></tr>
+          <tr><td>90°'ye yakın (yalayarak)</td><td>48,8°</td><td>41,8°</td><td>24,4°</td></tr>
+        </table>
+        <p>Tablodan dört düzen okunur:</p>
+        <ul>
+          <li><strong>İndis büyüdükçe sapma artar:</strong> aynı 45°'lik ışın suda 13°, elmasta 28° kadar normale yaklaşıyor.</li>
+          <li><strong>Açılar orantılı değil:</strong> gelme açısı 30°'den 60°'ye çıkınca sudaki açı 22,1°'den 40,6°'ye çıkıyor; orantılı olan sinüslerdir.</li>
+          <li><strong>Bir tavan var:</strong> ışın suya yüzeyi yalayarak girse bile sudaki açı 48,8°'yi geçemiyor.</li>
+          <li><strong>Küçük açılarda kısa yol:</strong> açı küçükken r ≈ i / n yazılabilir; 10° ile suya giren ışın yaklaşık 7,5° ile ilerler.</li>
+        </ul>
+        <p>
+          Üçüncü madde tam yansımanın habercisidir: 48,8° sayısını üçüncü basamakta yeniden göreceğiz.
+          Son madde ise bir sonraki konunun, görünür derinliğin temelidir: dike yakın bakışta açılar
+          küçüktür ve hesap basit bir bölmeye iner.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Havadan suya 30° ile giren ışın suda 22,1° ile gidiyor. Sudan havaya 22,1° ile çıkan ışın havada kaç derece yapar?</summary>
+          <p>
+            Tam <b>30°</b>. Işık yolunun tersinirliği gereği, ters yönde gönderilen ışın aynı yolu geri
+            izler. Snell yasası da bunu söyler: 1,33·sin 22,1° = 1·sin r bağıntısı, ilk hesabın tersten
+            okunuşudur. Tablodaki her satır iki yönde de geçerlidir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> İndis büyüdükçe aynı ışın normale daha çok yaklaşır. Açılar değil sinüsleri
+          orantılıdır; havadan suya giren ışın hiçbir zaman 48,8°'den büyük açıyla ilerleyemez.
+        </p>
+
+        <h3 id="k7">Hız, dalga boyu ve frekans</h3>
+        <p>
+          Işık bir dalgadır ve her dalganın üç temel büyüklüğü vardır: saniyede kaç titreşim yaptığını
+          söyleyen <strong>frekans</strong> (f), ardışık iki tepe arasındaki uzaklık olan <strong>dalga
+          boyu</strong> (λ) ve ilerleme <strong>hızı</strong> (v). Üçü v = λ·f bağıntısıyla bağlıdır.
+          Kırılmada değişenler ve değişmeyenler:
+        </p>
         <table class="tbl">
           <tr><th>Büyüklük</th><th>Kırılmada</th></tr>
           <tr><td>Frekans (f)</td><td><b>değişmez</b> — kaynağa bağlıdır</td></tr>
@@ -2332,9 +2800,17 @@
           <code>v = λ · f</code>
           <code>n₁/n₂ = v₂/v₁ = λ₂/λ₁</code>
         </div>
+        <h4>Frekans neden değişmez?</h4>
+        <ol>
+          <li><strong>Sınırda kopukluk olmaz:</strong> sınırın iki yanındaki dalga, sınır üzerinde aynı anda aynı biçimde titreşmek zorundadır.</li>
+          <li><strong>Giren cephe = çıkan cephe:</strong> sınırdan saniyede kaç cephe giriyorsa öteki yandan o kadar çıkar; frekans kaynağın frekansıdır.</li>
+          <li><strong>Hız düşerse dalga boyu kısalır:</strong> f sabitken v = λ·f bağıntısında v küçülürse λ da aynı oranda küçülür: λ = λ₀/n.</li>
+        </ol>
         <p>
-          Cephe modeli kırılmayı sezgisel yapar: dalga cephesinin bir ucu yavaşlarken öteki ucu
-          hızlı gittiği için cephe döner ve ışın yön değiştirir.
+          Cephe modeli kırılmayı sezgisel yapar: dalga cephesinin bir ucu yavaşlarken öteki ucu hızlı
+          gittiği için cephe döner ve ışın yön değiştirir. Sayfanın 03 numaralı bölümünde bunu canlı
+          izleyebilirsin: havada 600 nm olan dalga boyu camda 400 nm'ye iner, frekans 5,0·10¹⁴ Hz'de
+          kalır.
         </p>
 
         <figure class="fig">
@@ -2370,11 +2846,30 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Tam yansıma ve sınır açı</h3>
+        <details class="dusun">
+          <summary>Düşün: Sığ ve berrak bir havuzun dibindeki kırmızı top, suyun altından bakan dalgıca neden yine kırmızı görünür?</summary>
+          <p>
+            Rengi belirleyen <b>frekanstır</b> ve kırılmada frekans değişmez. Işık suda yavaşlar ve dalga
+            boyu kısalır, ama göz ışığın frekansına göre renk algılar. Derin suda kırmızının soluklaşması
+            başka bir olaydır: su, kırmızı ışığı yol boyunca soğurur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kırılmada frekans ve renk değişmez; hız v = c/n, dalga boyu λ = λ₀/n olur. Hız
+          ve dalga boyu aynı oranda küçüldüğü için v = λ·f bağıntısı her ortamda sağlanır.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: Snell yasası çözümsüz kalınca, ışık levhadan ve katman katman havadan geçince, kırılma gerçek hayata çıkınca ne olur?</span>
+        </div>
+
+        <h3 id="k8">Tam yansıma ve sınır açı</h3>
         <p>
           Işık <strong>çok yoğun ortamdan az yoğun ortama</strong> geçerken kırılma açısı gelme
-          açısından büyüktür. Gelme açısı artırıldıkça kırılan ışın yüzeye yaklaşır; belli bir
-          açıda kırılma açısı <strong>90°</strong> olur. Bu açıya <strong>sınır açı</strong> denir.
+          açısından büyüktür. Gelme açısı artırıldıkça kırılan ışın yüzeye yaklaşır; belli bir açıda
+          kırılma açısı <strong>90°</strong> olur. Bu açıya <strong>sınır açı</strong> denir. Snell
+          yasasına r = 90° koyarsan bağıntısı hemen çıkar: sin 90° = 1 olduğundan n₁·sin θ = n₂.
         </p>
         <div class="formula">
           <code>sin θ(sınır) = n₂ / n₁</code>
@@ -2386,6 +2881,13 @@
           <li>Su–hava için sınır açı ≈ <strong>48,8°</strong>; cam–hava için ≈ <strong>41,8°</strong>;
             elmas–hava için ≈ <strong>24,4°</strong>.</li>
         </ul>
+        <p>
+          Önceki basamaktaki tablonun “tavanı” burada anlam kazanıyor. Havadan suya yalayarak giren ışın
+          suda 48,8° ile ilerliyordu; yol tersinir olduğu için sudan 48,8° ile gelen ışın da havada
+          yüzeyi yalar. Daha büyük bir açı için Snell yasası sin r &gt; 1 ister; hiçbir açının sinüsü
+          1'i aşamayacağı için kırılan ışın yoktur ve ışığın tamamı geri döner. Sayfanın 02 numaralı
+          bölümünde açıyı adım adım büyüt: sınır açıya yaklaştıkça kırılan ışığın payı azalır.
+        </p>
         <div class="callout">
           <p>
             <b>Elmasın parlaklığı</b> bu küçük sınır açıdan gelir: içeri giren ışık defalarca tam
@@ -2422,7 +2924,22 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Paralel kenarlı levhada yandan kayma</h3>
+        <details class="dusun">
+          <summary>Düşün: Havadan suya giren ışında tam yansıma neden hiçbir açıda olmaz?</summary>
+          <p>
+            Havadan suya geçen ışın yavaşlar ve normale yaklaşır; kırılma açısı her zaman gelme açısından
+            küçüktür. Snell yasasından sin r = sin i / 1,33 çıkar ve bu değer hiçbir zaman 1'i geçemez.
+            Kırılan ışın her açıda vardır; tam yansıma için ışığın <b>yoğun ortamın içinden</b> gelmesi
+            gerekir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Çok yoğundan az yoğuna geçişte gelme açısı sınır açıyı (sin θ = n₂/n₁) aşarsa
+          kırılan ışın kalmaz, ışığın tamamı yansır. Sınır açı su–hava için 48,8°, elmas–hava için
+          24,4°'dir.
+        </p>
+
+        <h3 id="k9">Paralel kenarlı levhada yandan kayma</h3>
         <p>
           Işık paralel yüzlü bir cam levhaya girerken normale yaklaşır, çıkarken aynı açıyla
           uzaklaşır. Sonuçta <strong>çıkan ışın gelen ışına paraleldir</strong>, ama yanal olarak
@@ -2431,8 +2948,30 @@
         <div class="formula">
           <code>d = t · sin(i − r) / cos r</code>
         </div>
+        <h4>Bağıntı nereden geliyor?</h4>
+        <ol>
+          <li><strong>Girişte:</strong> ışın levhaya i ile gelir, içeride sin r = sin i / n ile bulunan r açısıyla ilerler.</li>
+          <li><strong>Çıkışta:</strong> alt yüz üst yüze paralel olduğu için ışın alt yüze yine r ile gelir ve havaya i ile çıkar.</li>
+          <li><strong>Levhadaki yol:</strong> t kalınlığındaki levhada ışının aldığı yol L = t / cos r'dir.</li>
+          <li><strong>Kayma:</strong> bu yol gelen ışının uzantısıyla (i − r) açısı yapar; aradaki dik uzaklık d = L·sin(i − r) olur.</li>
+        </ol>
         <p>
-          Kalınlık ve gelme açısı arttıkça kayma büyür. Dik gelişte (i = 0) kayma sıfırdır.
+          Kalınlık ve gelme açısı arttıkça kayma büyür. Dik gelişte (i = 0) kayma sıfırdır. Sayfanın 04
+          numaralı bölümündeki başlangıç değerleriyle, yani 6 cm kalınlığında ve indisi 1,5 olan bir
+          levha için hesap şunu veriyor:
+        </p>
+        <table class="tbl">
+          <tr><th>Gelme açısı</th><th>Levhadaki açı</th><th>Yandan kayma</th></tr>
+          <tr><td>0°</td><td>0°</td><td>0 cm</td></tr>
+          <tr><td>30°</td><td>19,5°</td><td>1,2 cm</td></tr>
+          <tr><td>50°</td><td>30,7°</td><td>2,3 cm</td></tr>
+          <tr><td>70°</td><td>38,8°</td><td>4,0 cm</td></tr>
+          <tr><td>80°</td><td>41,0°</td><td>5,0 cm</td></tr>
+        </table>
+        <p>
+          Kayma açıyla hızla büyüyor ve yüzeyi yalayan ışında levhanın kalınlığına, yani 6 cm'ye
+          yaklaşıyor: i = 90° için sin(90° − r) = cos r olur ve formül d = t verir. İnce levhalarda ise
+          kayma küçüktür: 4 mm'lik pencere camında 45°'lik ışın yalnızca 1,3 mm kadar kayar.
         </p>
 
         <figure class="fig">
@@ -2459,53 +2998,116 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Günlük hayatta kırılma</h3>
-        <ul>
-          <li><strong>Suya batan kaşık kırık görünür:</strong> sudan gelen ışınlar yüzeyde kırılır.</li>
-          <li><strong>Havuz sığ görünür:</strong> görünür derinlik gerçek derinlikten küçüktür
-            (bir sonraki konu).</li>
-          <li><strong>Serap:</strong> sıcak hava katmanlarının indisi farklıdır; ışık kıvrılır.</li>
-          <li><strong>Gökkuşağı:</strong> su damlasında kırılma + tam yansıma + kırılma.</li>
-          <li><strong>Gözlük ve mercekler:</strong> kırılmayı kontrollü kullanır.</li>
-          <li><strong>Fiber optik:</strong> tam yansımayla ışığı kilometrelerce taşır.</li>
-        </ul>
+        <details class="dusun">
+          <summary>Düşün: Levhanın indisi büyütülürse aynı açıyla gelen ışının kayması artar mı, azalır mı?</summary>
+          <p>
+            <b>Artar.</b> İndis büyüdükçe ışın levhanın içinde normale daha çok yaklaşır, r küçülür ve
+            (i − r) farkı büyür. 6 cm'lik levhaya 50° ile gelen ışının kayması n = 1,5'te 2,3 cm iken
+            n = 2'de yaklaşık 3,0 cm olur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Paralel kenarlı levhadan çıkan ışın gelene paraleldir, yalnızca
+          d = t·sin(i − r)/cos r kadar yana kayar. Kayma kalınlık, açı ve indisle artar; dik gelişte
+          sıfırdır.
+        </p>
 
-        <figure class="fig">
-          <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Bardaktaki kaşığın kırık görünmesi ve havuzun sığ görünmesi.">
-            <path class="wb" d="M76 96 80 170h90l4-74z" />
-            <path class="st sk hair" d="M70 56 80 170h90l10-114" />
-            <path class="st sb" d="M76 96h98" />
-            <path class="st sk bold" d="M58 48 120 96" />
-            <path class="st sk bold" d="M120 96 152 166" />
-            <text class="tt fd" x="125" y="194" text-anchor="middle">kaşık kırık görünür</text>
-            <path class="st sl hair dots" d="M240 26v160" />
-            <rect class="wb" x="272" y="96" width="176" height="74" />
-            <path class="st sb" d="M272 96h176" />
-            <path class="st sk" d="M272 170h176" />
-            <path class="st sb hair" d="M320 158 355 96" />
-            <path class="st sb bold" d="M355 96 405 54" marker-end="url(#ah-b)" />
-            <path class="st sb hair" d="M320 158V96" />
-            <path class="st sb bold" d="M320 96V56" marker-end="url(#ah-b)" />
-            <path class="st sl hair dash" d="M355 96 320 125" />
-            <circle class="fk" cx="320" cy="158" r="6" />
-            <circle class="st sv fn" cx="320" cy="125" r="6" />
-            <text class="tt" x="312" y="162" text-anchor="end">gerçek</text>
-            <text class="tt fv" x="306" y="129" text-anchor="end">görünen</text>
-            <text class="tt fd" x="380" y="194" text-anchor="middle">havuz sığ görünür</text>
-          </svg>
+        <h3 id="k10">Katman katman kırılma: serap ve atmosfer</h3>
+        <p>
+          Işık tek bir sınırdan değil, üst üste birçok paralel katmandan geçerse ne olur? Snell yasası
+          her sınırda yeniden uygulanır ve bir sınırın sağ tarafı bir sonrakinin sol tarafı olur. Sonuç
+          sade ve güçlüdür:
+        </p>
+        <div class="formula">
+          <code>n₁·sin θ₁ = n₂·sin θ₂</code>
+          <code>n₂·sin θ₂ = n₃·sin θ₃</code>
+          <code>n · sin θ = sabit</code>
+        </div>
+        <p>
+          Yani paralel katmanlarda <strong>n·sin θ çarpımı korunur</strong>. Işının son ortamdaki açısı
+          yalnızca ilk ve son ortamın indisine bağlıdır; aradaki katmanlar ışını kaydırır ama son
+          doğrultuyu değiştirmez. Hava da böyle bir katmanlar yığını gibi davranabilir: sıcak hava daha
+          seyrektir ve indisi biraz daha küçüktür. İndis yavaş yavaş değişince ışın kırık bir çizgi yerine
+          <strong>eğri</strong> bir yol izler ve hep indisin büyük olduğu tarafa doğru bükülür.
+        </p>
+        <ul>
+          <li><strong>Serap:</strong> asfaltın üstündeki sıcak havaya yatık inen ışın, indisi azalan katmanlarda normalden uzaklaşır ve yere değmeden yukarı döner.</li>
+          <li><strong>Batan Güneş:</strong> atmosfer ufka yakın ışınları yaklaşık yarım derece büker; bu, Güneş'in görünen çapı kadardır.</li>
+          <li><strong>Titreyen yıldızlar:</strong> karışan sıcak ve soğuk hava hücreleri, yıldızdan gelen ince ışın demetini sürekli farklı yönlere saptırır.</li>
+          <li><strong>Havaya kalkan gemiler:</strong> soğuk denizin üstünde durum tersine döner; ışın aşağı bükülür, uzaktaki cisimler yükselmiş görünebilir.</li>
+        </ul>
+        <p>
+          Serapta göz, yukarı dönüp kendisine gelen ışını yoldan gelmiş sanır ve yolda gökyüzünün parlak
+          görüntüsünü, yani “su”yu görür. Birinci basamaktaki görselde arabanın altında beliren ters
+          görüntü, olayın bir yansıma gibi davrandığını gösterir.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Güneş batarken ufka değdiğini gördüğün anda Güneş gerçekte nerededir?</summary>
+          <p>
+            Neredeyse tamamen <b>ufkun altındadır</b>. Atmosfer ufka yakın ışınları yere doğru yaklaşık
+            yarım derece büker; bu, Güneş'in görünen çapı kadardır. Göz son doğrultuyu geriye uzattığı için
+            Güneş'i olduğundan yukarıda görürsün; bu yüzden gündüz, atmosfer olmasaydı olacağından birkaç
+            dakika uzun sürer.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Paralel katmanlarda n·sin θ çarpımı korunur; indis yavaş değişince ışın indisi
+          büyük tarafa bükülen bir eğri çizer. Serap, batan Güneş'in yükselmesi ve yıldızların titremesi
+          bundandır.
+        </p>
+
+        <h3 id="k11">Kırılma gerçek dünyada</h3>
+        <p>
+          Kırılma yalnızca göz yanılgısı üretmez; insanlar onu yüzyıllardır bilerek kullanır. Işığı
+          toplayan, yönlendiren ya da hapseden her optik aracın arkasında iki seçim vardır: indisi uygun
+          bir malzeme ve Snell yasasıyla hesaplanmış bir yüzey şekli.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/kirilma-uygulama.webp?v=2" srcset="gorsel/kirilma-uygulama-800.webp?v=2 800w, gorsel/kirilma-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Kıvrımlı, koyu lacivert kadifenin üzerinde sivri ucunun üstünde duran büyük, pırlanta kesimli bir elmas; yüzeyleri ışıkla dolu, sağ kenarında yıldız biçimli bir ışıltı parlıyor. Çevresindeki kadifeye gökkuşağı renginde ışık şeritleri düşüyor.">
           <figcaption>
-            İkisi de aynı olayın sonucu. Sudan çıkan ışınlar yüzeyde kırılıp <b>normalden
-            uzaklaşınca</b>, göz onları düz bir çizgi boyunca geri izler ve cismi <b>olduğundan
-            yukarıda</b> görür. Kaşığın su altındaki kısmı yükseldiği için kırık, havuzun tabanı
-            yükseldiği için sığ görünür. Bu yüzden suya balıklama atlamadan önce derinliği gözle
-            değil ölçerek bilmek gerekir.
+            <b>Elmasın parıltısı</b> bir kırılma hesabıdır. Sınır açısı yalnızca 24,4° olduğu için içeri giren ışık alt yüzlere çoğunlukla bu açıdan büyük açılarla çarpar, tam yansır ve üst yüzlerden geri çıkar. Elmas renkleri de camdan belirgin biçimde daha çok ayırır; kadifeye düşen renkli ışık lekeleri bundandır.
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <ul>
+          <li><strong>Gözün kendisi:</strong> gözün odaklama gücünün yaklaşık üçte ikisini, havayla sınırdaki saydam kornea tabakası sağlar.</li>
+          <li><strong>Su altında bulanık görme:</strong> kornea (n ≈ 1,38) ile su (1,33) arasındaki fark küçüktür; kornea ışığı neredeyse kırmaz.</li>
+          <li><strong>Gözlük ve mercekler:</strong> kırılmayı eğri yüzeylerle kontrollü kullanır; yüksek indisli cam aynı gücü daha ince mercekle verir.</li>
+          <li><strong>Fiber optik:</strong> çekirdekte (n ≈ 1,47) tam yansımayla hapsolan ışık, 1000 km'lik hattı yaklaşık 5 milisaniyede geçer.</li>
+          <li><strong>Gökkuşağı:</strong> güneş ışığı damlaya girerken kırılır, arka yüzde yansır, çıkarken yeniden kırılır; indis renge bağlı olduğu için renkler ayrılır.</li>
+          <li><strong>Elmas ve cam taş:</strong> elmasın sınır açısı 24,4°, camınki 41,8°; aynı kesimdeki cam taştan ışık alttan kaçar.</li>
+        </ul>
+        <p>
+          Gökkuşağındaki yansıma çoğu zaman “tam yansıma” diye anlatılır, ama öyle değildir: damlanın
+          arka yüzüne gelen ışının açısı yaklaşık 40°'dir ve suyun 48,8°'lik sınır açısından küçüktür.
+          Işığın bir kısmı damladan arkaya kaçar, bir kısmı yansıyıp geri döner.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Aynı pırlanta kesimi camdan yapılırsa neden elmas kadar parlamaz?</summary>
+          <p>
+            Camın sınır açısı 41,8°, elmasınki 24,4°'dir. Cam taşın alt yüzlerine gelen ışınların önemli
+            bir kısmı 41,8°'den küçük açıyla çarpar ve tam yansımak yerine alttan dışarı kaçar. Üstten
+            gözüne dönen ışık azalır; cam renkleri elmas kadar ayırmadığı için renkli ışıltı da zayıftır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Göz, gözlük, fiber optik, gökkuşağı ve elmas kırılmanın iki yüzünü kullanır:
+          ışığı saptırmak için indis farkını, ışığı hapsetmek için sınır açıyı.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve kırılma sorularında puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k12">Çözümlü örnekler</h3>
+        <p>Aşağıdaki çözümlerde havanın indisi 1 alınmış, gereken trigonometrik değerler soruda verilmiştir.</p>
 
         <details>
-          <summary>Örnek 1 — Snell yasası</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Snell yasası</summary>
           <p>
             Havadan (n = 1) suya (n = 4/3) 53° ile giren ışının kırılma açısını bulunuz.
             (sin53° = 0,8)
@@ -2519,7 +3121,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Hız ve dalga boyu</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Hız ve dalga boyu</summary>
           <p>
             Dalga boyu havada 600 nm olan ışık, kırılma indisi 1,5 olan cama giriyor.
             Camdaki hızı ve dalga boyu nedir?
@@ -2533,7 +3135,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Sınır açı</summary>
+          <summary data-zorluk="kolay">Örnek 3 — Sınır açı</summary>
           <p>
             Kırılma indisi 2 olan bir ortamdan havaya geçişte sınır açı kaç derecedir?
           </p>
@@ -2545,7 +3147,25 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — Yandan kayma</summary>
+          <summary data-zorluk="orta">Örnek 4 — Sudan havaya: kırılır mı, yansır mı?</summary>
+          <p>
+            Suyun (n = 4/3) içindeki bir kaynaktan çıkan iki ışın su yüzeyine 37° ve 60° ile geliyor.
+            Her birine ne olur? (sin37° = 0,6; sin60° ≈ 0,87)
+          </p>
+          <ol class="steps">
+            <li>Işık yoğun ortamdan çıkıyor; önce sınır açıyı bul: sin θ = 1 / (4/3) = 0,75 → θ ≈ 48,6°.</li>
+            <li>37° &lt; 48,6° olduğu için ilk ışın kırılır: (4/3) · 0,6 = 1 · sin r → sin r = <strong>0,8</strong> → r = <strong>53°</strong>.</li>
+            <li>Kontrol: 53° &gt; 37°, ışın normalden uzaklaştı ✓ (Örnek 1'in tersten okunuşu).</li>
+            <li>60° &gt; 48,6°: Snell yasası sin r = (4/3) · 0,87 ≈ 1,16 ister; sinüs 1'i aşamaz.</li>
+            <li>İkinci ışın <strong>tam yansır</strong>, 60°'lik yansıma açısıyla suyun içine döner.</li>
+          </ol>
+          <p>
+            Not: n = 4/3 ile sınır açı 48,6°, n = 1,33 ile 48,8° çıkar; fark yalnızca yuvarlamadan gelir.
+          </p>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 5 — Yandan kayma</summary>
           <p>
             Kalınlığı 6 cm olan cam levhaya (n = 1,5) 50° ile gelen ışının yandan kayması
             ne kadardır?
@@ -2558,7 +3178,45 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Cam levhadan suya geçen ışın</summary>
+          <p>
+            Havadan 53° ile gelen ışın, yatay bir cam levhadan (n = 1,5) geçip hemen altındaki suya
+            (n = 4/3) giriyor. Işının camdaki ve sudaki kırılma açılarını bulunuz. (sin53° = 0,8;
+            sin37° = 0,6)
+          </p>
+          <ol class="steps">
+            <li>Hava → cam: 1 · 0,8 = 1,5 · sin r₁ → sin r₁ ≈ 0,53 → r₁ ≈ <strong>32°</strong>.</li>
+            <li>Cam–su sınırı üst yüze paralel olduğu için ışın bu sınıra da r₁ açısıyla gelir.</li>
+            <li>Cam → su: 1,5 · sin r₁ = (4/3) · sin r₂. Sol taraf ilk adımdan zaten 0,8'dir.</li>
+            <li>(4/3) · sin r₂ = 0,8 → sin r₂ = 0,6 → r₂ = <strong>37°</strong>.</li>
+            <li>Cam hiç olmasaydı da sudaki açı 37° olurdu (Örnek 1): n·sin θ çarpımı her katmanda korunur.</li>
+          </ol>
+          <p>
+            Kısa yol: paralel katmanlarda ara katmanları atla, doğrudan 1 · sin 53° = (4/3) · sin r₂ yaz.
+          </p>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Havuz lambasının ışık dairesi</summary>
+          <p>
+            Bir havuzun 2 m derinliğindeki küçük lamba her yöne ışık yayıyor. Su yüzeyinde ışığın dışarı
+            çıkabildiği dairenin yarıçapı kaç metredir? (n = 4/3; sin θ = 0,75 için tan θ ≈ 1,13)
+          </p>
+          <ol class="steps">
+            <li>Yüzeye sınır açıdan küçük açıyla gelen ışınlar dışarı çıkar, büyük açıyla gelenler tam yansır.</li>
+            <li>sin θ = 1 / (4/3) = 0,75 → θ ≈ 48,6°.</li>
+            <li>Sınır açıyla çıkan ışın, lambanın tam üstündeki noktadan R kadar ötede yüzeye varır: tan θ = R / h.</li>
+            <li>R = h · tan θ = 2 · 1,13 ≈ <strong>2,3 m</strong>.</li>
+            <li>Işığın çıktığı dairenin alanı π · R² ≈ 16 m²; dışarıdaki yüzeyden lambanın ışığı çıkmaz.</li>
+          </ol>
+          <p>
+            Aynı geometri ters çalışır: su altındaki bir dalgıç gökyüzünün tamamını yaklaşık 97°'lik bir
+            koninin içinde, parlak bir pencere gibi görür (<b>Snell penceresi</b>).
+          </p>
+        </details>
+
+        <h3 id="k13">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>Frekansın değiştiğini sanmak.</strong> Kırılmada frekans değişmez;
             değişen hız ve dalga boyudur.</li>
@@ -2571,6 +3229,10 @@
             optik yoğunluk, yani kırılma indisidir.</li>
           <li><strong>Levhadan çıkan ışının doğrultusunun değiştiğini sanmak.</strong>
             Paralel kenarlı levhada çıkan ışın gelen ışına paraleldir.</li>
+          <li><strong>sin r &gt; 1 çıkınca hesap hatası yaptığını sanmak.</strong> Bu sonuç, kırılan ışının
+            olmadığını, yani ışığın tam yansımaya uğradığını söyler.</li>
+          <li><strong>Sınır açıyı sin θ = n₁/n₂ ile hesaplamak.</strong> Sinüs 1'i aşamaz; oran her zaman
+            küçük indisin büyük indise bölümüdür.</li>
         </ul>
 
         <div class="callout">

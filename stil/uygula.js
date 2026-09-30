@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 /* Ortak stili dist/ içindeki sayfalara yazar.
- *   node stil/uygula.js            → 18 konu sayfası + index.html
+ *   node stil/uygula.js                  → 18 konu sayfası + index.html
+ *   node stil/uygula.js --kok /tmp/kopya → dist'in bir kopyasına (yayına dokunmadan)
  * Yalnızca <style>…</style> bloğunu değiştirir; başka bir şeye dokunmaz. */
 const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const DIST = path.join(ROOT, "dist");
+const ki = process.argv.indexOf("--kok");
+const DIST = ki > -1 ? path.resolve(process.argv[ki + 1]) : path.join(ROOT, "dist");
 const konu = fs.readFileSync(path.join(__dirname, "konu.css"), "utf8").replace(/\s+$/, "");
 const ana = fs.readFileSync(path.join(__dirname, "anasayfa.css"), "utf8").replace(/\s+$/, "");
 

@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1872,7 +2092,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: İndüksiyon akımı</h3>
-          <p>Manyetik akıdan Faraday yasasına, Lenz yasasından jeneratöre kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce dinamo, manyetik akı ve Lenz yasasıyla sezgi, sonra Faraday yasası, hareketli çubuk ve jeneratör bağıntıları, ardından girdap akımları, karşı emk ve uygulamalar; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2148,15 +2368,20 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Manyetik akı</button>
-        <button type="button" data-goto="k2">Faraday yasası</button>
-        <button type="button" data-goto="k3">Lenz yasası</button>
-        <button type="button" data-goto="k4">Akımın yönü</button>
-        <button type="button" data-goto="k5">Hareketli çubuk</button>
-        <button type="button" data-goto="k6">Jeneratör</button>
-        <button type="button" data-goto="k7">Uygulamalar</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Manyetik akı</button>
+        <button type="button" data-goto="k3" data-basamak="1">Faraday'ın keşfi</button>
+        <button type="button" data-goto="k4" data-basamak="1">Lenz yasası</button>
+        <button type="button" data-goto="k5" data-basamak="2">Faraday yasası</button>
+        <button type="button" data-goto="k6" data-basamak="2">Akımın yönü</button>
+        <button type="button" data-goto="k7" data-basamak="2">Hareketli çubuk</button>
+        <button type="button" data-goto="k8" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k9" data-basamak="2">Jeneratör</button>
+        <button type="button" data-goto="k10" data-basamak="3">Girdap akımları</button>
+        <button type="button" data-goto="k11" data-basamak="3">İnce durumlar</button>
+        <button type="button" data-goto="k12" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k13" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k14" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2177,17 +2402,89 @@
         </svg>
 
         <p class="lead-in">
-          Evindeki prizden gelen elektriğin neredeyse tamamı tek bir fikirden doğuyor: bir bobinin
-          içinden geçen manyetik alan <b>değişirse</b>, o bobinde akım doğar. Faraday bunu 1831'de
-          bir mıknatısı bobinin içinde ileri geri oynatarak buldu. Bugün barajlar, rüzgâr türbinleri,
-          termik santraller ve arabaların alternatörleri hep aynı şeyi yapıyor —
-          <b>hareketi, akı değişimine çevirmek.</b>
+          Pil yok, priz yok, yalnızca dönen bir tekerlek: bisiklet farı nasıl yanıyor? Evindeki prizden
+          gelen elektriğin büyük bölümü de aynı fikirden doğuyor: bir bobinin içinden geçen manyetik
+          alan <b>değişirse</b>, o bobinde akım doğar. Faraday bunu 1831'de bir mıknatısı bobinin içinde
+          ileri geri oynatarak buldu. Bugün barajlar, rüzgâr türbinleri, termik santraller ve arabaların
+          alternatörleri hep aynı şeyi yapıyor — <b>hareketi, akı değişimine çevirmek.</b> Bu anlatım
+          dört basamakta ilerliyor: önce akıyı ve değişimin gücünü sezgiyle tanıyacağız; sonra Faraday
+          yasasını, akımın yönünü, kayan çubuğu ve jeneratörü bağıntılarıyla çıkaracağız; ardından
+          girdap akımlarına ve ince durumlara geçeceğiz. En sonda kolaydan zora sıralanmış örneklerle
+          hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Manyetik akı</h3>
+        <figure class="foto">
+          <img src="gorsel/induksiyon-akimi-giris.webp?v=2" srcset="gorsel/induksiyon-akimi-giris-800.webp?v=2 800w, gorsel/induksiyon-akimi-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Gün batımında yeşil, dalgalı tepelerin üzerinde sıra hâlinde dizilmiş beyaz rüzgâr türbinleri; öndeki büyük türbinden ufka doğru gittikçe küçülerek uzanıyorlar. Güneş ufka yakın ve turuncuya boyanmış bulutlar gökyüzünü kaplıyor.">
+          <figcaption>
+            <b>Rüzgâr türbinleri</b> indüksiyonun en görünür yüzü. Rüzgâr kanatları çevirir; kanatların mili gövdedeki jeneratörde mıknatısları ve bobinleri birbirine göre döndürür, böylece bobinlerden geçen akı sürekli değişir. Faraday yasası bu değişimi gerilime çevirir: hareket durursa elektrik de durur.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: akım nereden doğuyor, akı ne demek ve doğa değişime neden karşı koyuyor? Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: bisiklet farı nasıl yanar?</h3>
         <p>
-          Bir yüzeyden geçen manyetik alan çizgilerinin sayısına <strong>manyetik akı (Φ)</strong>
-          denir. Birimi <strong>weber (Wb)</strong>'dir.
+          Birçok bisiklette farın pili yoktur. Ön tekerleğin yanına küçük bir
+          <strong>dinamo</strong> takılır; dinamonun başlığı tekerleğe değer ve tekerlek döndükçe o da
+          döner. Dinamonun içinde temelde iki parça vardır: dönen bir mıknatıs ve onun çevresinde duran
+          bir tel bobini. Aralarında hiçbir kablo bağlantısı yoktur, ama bobinin uçlarına bağlı far yanar.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/induksiyon-akimi-gunluk.webp?v=2" srcset="gorsel/induksiyon-akimi-gunluk-800.webp?v=2 800w, gorsel/induksiyon-akimi-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Gece, kırsal bir yolda giden bir bisikletin ön tekerleği yakından: ön çatala bağlı küçük, silindir biçimli dinamonun tırtıklı başlığı lastiğin yanağına bastırıyor, ince bir kablo dinamodan fara uzanıyor ve far yola parlak beyaz bir huzme düşürüyor. Uzakta bir kasabanın ışıkları seçiliyor.">
+          <figcaption>
+            Birçok bisiklet farı pille değil, tekerleğin hareketiyle çalışan küçük bir <b>dinamoyla</b> yanar. Bu
+    bisiklette ön çataldaki dinamonun tırtıklı başlığı lastiğe bastırıyor: tekerlek döndükçe başlık da
+    döner ve dinamonun içindeki mıknatısı çevirir. Bobinden geçen manyetik alan sürekli değiştiği için
+    bobinde akım doğar ve kablo bu akımı fara taşır. Bisiklet hızlandıkça değişim hızlanır, far daha
+    parlak yanar; bisiklet durunca far da söner.
+          </figcaption>
+        </figure>
+
+        <p>Dinamolu bir bisikletle yola çıkan herkes aynı dört şeyi fark eder:</p>
+        <ul>
+          <li><strong>Dönerse yanar:</strong> tekerlek döndükçe far yanar, bisiklet durunca söner.</li>
+          <li><strong>Hızlandıkça parlar:</strong> pedalı hızlı çevirdiğinde far daha parlak yanar.</li>
+          <li><strong>Pedal ağırlaşır:</strong> dinamo çalışırken pedal çevirmek biraz daha zor gelir.</li>
+          <li><strong>Pil harcanmaz:</strong> farın enerjisi tükenmez, çünkü enerji senin bacaklarından gelir.</li>
+        </ul>
+        <p>
+          Demek ki akımı doğuran şey mıknatısın kendisi değil, mıknatısın <strong>hareketidir</strong>.
+          Güçlü bir mıknatıs bobinin yanında kıpırdamadan dursaydı hiçbir şey olmazdı. Bu anlatımın
+          bütün hikâyesi bu küçük gözlemden çıkıyor: <strong>değişen</strong> bir manyetik alan akım
+          doğurur ve bunun bedelini hareketi sağlayan öder.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Dinamolu farı olan bisikletçi kırmızı ışıkta durunca farı neden söner?</summary>
+          <p>
+            Tekerlek durunca dinamodaki mıknatıs da durur. Bobinden geçen alan artık değişmediği için
+            bobinde akım doğmaz ve far söner. Bazı modern farlarda bu yüzden, hareket sırasında dolan
+            ve durunca bir süre ışık veren küçük bir enerji deposu bulunur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Dinamoda dönen mıknatıs bobinde akım doğurur; mıknatıs hızlandıkça akım artar,
+          durunca akım kesilir. Akımı doğuran mıknatısın kendisi değil, hareketinin yarattığı değişimdir.
+        </p>
+
+        <h3 id="k2">Manyetik akı</h3>
+        <p>
+          “Bobinden geçen alan değişir” sözünü ölçülebilir kılmak için yeni bir büyüklük gerekir. Bir
+          yüzeyden geçen manyetik alan çizgilerinin sayısına <strong>manyetik akı (Φ)</strong> denir.
+          Birimi <strong>weber (Wb)</strong>'dir.
+        </p>
+        <p>
+          Yağmurun altında bir çember tuttuğunu düşün. Çemberin içinden geçen damla sayısı üç şeye
+          bağlıdır: yağmurun şiddetine, çemberin büyüklüğüne ve çemberi nasıl tuttuğuna. Çemberi yere
+          paralel tutarsan en çok damla geçer; yan çevirirsen hiçbiri geçmez. Akı da aynıdır: alanın
+          şiddeti (B), yüzeyin alanı (A) ve aradaki açı.
         </p>
         <div class="formula">
           <code>Φ = B · A · cosα</code>
@@ -2243,19 +2540,17 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Faraday indüksiyon yasası</h3>
-        <p>
-          <strong>Bir devreden geçen manyetik akı değiştiğinde devrede bir elektromotor kuvvet
-          (emk) indüklenir.</strong> Bu emk'nin büyüklüğü, akının <em>değişim hızıyla</em>
-          orantılıdır:
+        <p class="kisaca">
+          <b>Kısaca:</b> Manyetik akı, bir yüzeyden geçen alan çizgisi miktarıdır: Φ = B·A·cosα, birimi
+          weber. Alan yüzeye dikken akı en büyük, paralelken sıfırdır.
         </p>
-        <div class="formula">
-          <code>ε = −N · ΔΦ / Δt</code>
-          <code>I = ε / R</code>
-        </div>
+
+        <h3 id="k3">Faraday'ın keşfi: değişim akım doğurur</h3>
         <p>
-          N sarım sayısıdır: aynı akı değişimi N kez sayıldığı için emk sarımla doğru orantılı
-          büyür. Baştaki eksi işareti yönü anlatır (Lenz yasası).
+          Oersted 1820'de akımın manyetik alan ürettiğini göstermişti. Faraday tersini merak etti:
+          manyetik alan akım üretebilir mi? Uzun süre sonuç alamadı; bobinin yanında duran mıknatıs,
+          galvanometreyi (küçük akımları ölçen alet) kıpırdatmıyordu. 1831'de sırrı buldu: mıknatıs
+          <strong>hareket ettiği anda</strong> iğne sapıyor, mıknatıs durunca sıfıra dönüyordu.
         </p>
         <div class="callout">
           <p>
@@ -2264,6 +2559,17 @@
             başladığı anda sapar.
           </p>
         </div>
+        <p>
+          Akı değiştiğinde devrede bir <strong>elektromotor kuvvet (emk)</strong> doğar; emk, devrede
+          akımı süren gerilimdir ve pilin gerilimi gibi volt ile ölçülür. Bu olaya
+          <strong>elektromanyetik indüksiyon</strong>, doğan akıma <strong>indüksiyon akımı</strong>
+          denir. Akıyı değiştirmenin üç yolu vardır:
+        </p>
+        <ul>
+          <li><strong>Alanı değiştir:</strong> mıknatısı yaklaştır ya da uzaklaştır, yakındaki bir bobinin akımını değiştir.</li>
+          <li><strong>Yüzeyi değiştir:</strong> devrenin bir kenarını kaydırarak çevrelenen alanı büyüt ya da küçült.</li>
+          <li><strong>Açıyı değiştir:</strong> bobini alanın içinde döndür; jeneratörler böyle çalışır.</li>
+        </ul>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Mıknatıs bobine yaklaşırken bobinde akım doğması ve galvanometre iğnesinin sapması.">
@@ -2298,10 +2604,21 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Lenz yasası</h3>
+        <p>
+          Sayfanın 01 numaralı deneyindeki hazır düğmelerle üç kuralı kendin sınayabilirsin: “Hızlı
+          geçiş” galvanometreyi “Yavaş geçiş”ten çok saptırır, “Sarım 3 katı” emk'yi büyütür, “Duran
+          mıknatıs” ise hiçbir şey üretmez.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Akı değiştiğinde devrede emk ve indüksiyon akımı doğar; sabit alan ne kadar güçlü
+          olursa olsun akım üretmez. Değişim hızlandıkça ve sarım sayısı arttıkça emk büyür.
+        </p>
+
+        <h3 id="k4">Lenz yasası: doğa değişime direnir</h3>
         <p>
           <strong>İndüksiyon akımı, kendisini doğuran akı değişimine karşı koyacak yönde akar.</strong>
-          Bu, enerjinin korunumunun doğrudan bir sonucudur.
+          Bu kuralı 1834'te Heinrich Lenz ortaya koydu ve kural, enerjinin korunumunun doğrudan bir
+          sonucudur.
         </p>
         <ul>
           <li>Akı <strong>artıyorsa</strong>: indüksiyon akımı, artışı azaltacak yönde alan üretir.</li>
@@ -2310,12 +2627,13 @@
         <p>
           Bu yüzden mıknatısı bobine yaklaştırırken bir <strong>itme</strong>, uzaklaştırırken bir
           <strong>çekme</strong> hissedersin. Mıknatısı hareket ettirmek için yaptığın iş, devrede
-          üretilen elektrik enerjisine dönüşür.
+          üretilen elektrik enerjisine dönüşür. Bisiklette pedalın ağırlaşması da budur: dinamodaki
+          akım, mıknatısın dönüşünü frenleyen bir etki yaratır.
         </p>
         <div class="callout warn">
           <p>
             <b>Lenz olmasaydı ne olurdu?</b> Akım değişimi desteklerdi; sistem kendi kendini
-            hızlandırır, bedava enerji üretirdi. Eksi işareti, enerji korunumunun bekçisidir.
+            hızlandırır, bedava enerji üretirdi. Faraday yasasında birazdan göreceğin eksi işareti, enerji korunumunun bekçisidir.
           </p>
         </div>
 
@@ -2367,18 +2685,73 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">İndüksiyon akımının yönü</h3>
+        <details class="dusun">
+          <summary>Düşün: Bobinin uçları birbirine bağlı değilse, mıknatısı yaklaştırırken yine itme hisseder misin?</summary>
+          <p>
+            Hayır. Devre açık olduğu için bobinin uçları arasında emk doğar ama akım akamaz. Akım yoksa
+            bobin mıknatıs gibi davranmaz ve mıknatısı itmez. Uçları birleştirdiğin anda akım akar,
+            itme de başlar.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> İndüksiyon akımı, kendisini doğuran değişime karşı koyar: yaklaşan mıknatısı iter,
+          uzaklaşanı çeker. Bu karşı koyma, enerjinin korunumunun gereğidir.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: Faraday yasasını kullan, akımın yönünü bul, kayan çubuğun ve dönen çerçevenin emk'sini adım adım çıkar.</span>
+        </div>
+
+        <h3 id="k5">Faraday indüksiyon yasası</h3>
+        <p>
+          <strong>Bir devreden geçen manyetik akı değiştiğinde devrede bir elektromotor kuvvet
+          (emk) indüklenir.</strong> Bu emk'nin büyüklüğü, akının <em>değişim hızıyla</em>
+          orantılıdır:
+        </p>
+        <div class="formula">
+          <code>ε = −N · ΔΦ / Δt</code>
+          <code>I = ε / R</code>
+        </div>
+        <p>
+          N sarım sayısıdır: aynı akı değişimi N kez sayıldığı için emk sarımla doğru orantılı
+          büyür. Her sarım küçük bir pil gibidir ve sarımlar seri bağlı piller gibi gerilimlerini
+          toplar. Baştaki eksi işareti yönü anlatır (Lenz yasası). Bir soruda yasayı beş adımda uygula:
+        </p>
+        <ol>
+          <li><strong>İlk akı:</strong> Φ₁ = B₁·A₁·cosα₁</li>
+          <li><strong>Son akı:</strong> Φ₂ = B₂·A₂·cosα₂</li>
+          <li><strong>Değişim:</strong> ΔΦ = Φ₂ − Φ₁ (artıyor mu, azalıyor mu?)</li>
+          <li><strong>emk:</strong> |ε| = N·|ΔΦ| / Δt; Δt sonlu bir süreyse bu, o süredeki <em>ortalama</em> emk'dir.</li>
+          <li><strong>Akım:</strong> I = ε / R; yönünü Lenz yasası verir.</li>
+        </ol>
+        <div class="callout">
+          <p>
+            <b>Birim kontrolü:</b> Wb/s = T·m²/s. 1 T = 1 N/(A·m) olduğundan T·m²/s = N·m/(A·s) = J/C = V ✓.
+            Akının değişim hızı gerçekten bir gerilimdir.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: Φ–t grafiğinde akının tepe yaptığı anda emk neden sıfırdır?</summary>
+          <p>
+            Emk, akının değişim hızıdır, yani Φ–t eğrisinin <b>eğimidir</b>. Tepe noktasında eğri bir an
+            için yatay olur; akı büyük ama o an değişmiyordur. Sayfanın 01 numaralı deneyinde mıknatıs
+            bobinin ortasına geldiğinde ε–t eğrisinin sıfırdan geçmesi bu yüzdendir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> İndüklenen emk, akının değişim hızıyla ve sarım sayısıyla orantılıdır:
+          ε = −N·ΔΦ/Δt. Wb/s birimi volta eşittir; emk, Φ–t grafiğinin eğimidir.
+        </p>
+
+        <h3 id="k6">İndüksiyon akımının yönü</h3>
         <p>Yönü bulmanın pratik yolu üç adımdır:</p>
-        <ol class="steps">
+        <ol>
           <li>Devreden geçen akının yönünü ve <strong>artıyor mu azalıyor mu</strong> olduğunu belirle.</li>
           <li>Lenz'e göre indüksiyon akımının <strong>hangi yönde alan üretmesi gerektiğini</strong> bul
             (artışa karşı zıt, azalmaya karşı aynı yönde).</li>
           <li>Sağ el kuralıyla, bu alanı üretecek <strong>akım yönünü</strong> belirle.</li>
         </ol>
-        <p>
-          Sayfadaki <b>01</b> numaralı deneyde mıknatıs yaklaşırken akım bir yöne, uzaklaşırken
-          <strong>ters yöne</strong> akar; galvanometre iki kez, zıt yönlerde sapar.
-        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Akı artarken indüklenen alanın zıt, azalırken aynı yönde olacağını gösteren karar şeması.">
@@ -2409,7 +2782,29 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Hareketli iletken çubuk</h3>
+        <p>
+          Bobine hangi kutbun, hangi yönde geldiğine göre dört durum vardır. Hepsinde bobinin mıknatısa
+          bakan yüzü, hareketi zorlaştıracak kutbu alır:
+        </p>
+        <table class="tbl">
+          <tr><th>Mıknatıs</th><th>Akı</th><th>İndüklenen alan</th><th>Bobinin yüzü</th></tr>
+          <tr><td>N kutbu yaklaşıyor</td><td>artıyor</td><td>zıt yönde</td><td>N (iter)</td></tr>
+          <tr><td>N kutbu uzaklaşıyor</td><td>azalıyor</td><td>aynı yönde</td><td>S (çeker)</td></tr>
+          <tr><td>S kutbu yaklaşıyor</td><td>artıyor</td><td>zıt yönde</td><td>S (iter)</td></tr>
+          <tr><td>S kutbu uzaklaşıyor</td><td>azalıyor</td><td>aynı yönde</td><td>N (çeker)</td></tr>
+        </table>
+        <p>
+          Yüzün kutbunu bulduktan sonra akım yönü kolaydır: mıknatıstan bakıldığında N gibi davranan
+          yüzde akım <strong>saatin tersi</strong> yönde, S gibi davranan yüzde <strong>saat
+          yönünde</strong> döner. Sayfadaki <b>01</b> numaralı deneyde mıknatıs yaklaşırken akım bir yöne,
+          uzaklaşırken <strong>ters yöne</strong> akar; galvanometre iki kez, zıt yönlerde sapar.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Önce akının artıp azaldığına bak: artıyorsa indüklenen alan zıt, azalıyorsa aynı
+          yöndedir. Sonra bu alanı üretecek akım yönünü sağ el kuralıyla bul.
+        </p>
+
+        <h3 id="k7">Hareketli iletken çubuk</h3>
         <p>
           Manyetik alan içinde, raylar üzerinde v hızıyla kayan L uzunluğundaki çubuk için
           akı değişimi ΔΦ = B·L·v·Δt olur ve emk:
@@ -2419,10 +2814,18 @@
           <code>I = B·L·v / R</code>
           <code>F = B·I·L = B²L²v / R</code>
         </div>
+        <ol>
+          <li><strong>Alan büyür:</strong> Çubuk Δt sürede v·Δt kadar kayar; devrenin çevrelediği yüzey ΔA = L·v·Δt kadar büyür.</li>
+          <li><strong>Akı artar:</strong> Alan yüzeye dik olduğundan ΔΦ = B·ΔA = B·L·v·Δt.</li>
+          <li><strong>Faraday:</strong> ε = ΔΦ/Δt = B·L·v; Δt sadeleşir.</li>
+          <li><strong>İkinci bakış:</strong> Çubuktaki yükler v hızıyla alanda hareket eder; çubuk boyunca q·v·B kuvveti görür ve bir uca itilir. Çubuk bir pil gibi davranır.</li>
+        </ol>
         <p>
           Bu kuvvet <strong>harekete zıt</strong> yöndedir: çubuğu sabit hızla sürmek için dışarıdan
           bir kuvvet uygulanmalıdır. Harcanan mekanik güç (F·v), devrede açığa çıkan elektriksel
-          güce (I²R) eşittir — <strong>enerji korunur</strong>.
+          güce (I²R) eşittir — <strong>enerji korunur</strong>. Sayfanın 03 numaralı deneyindeki başlangıç
+          değerleriyle (B = 0,5 T, L = 0,5 m, v = 4 m/s, R = 2 Ω): ε = 1 V, I = 0,5 A, F = 0,125 N ve
+          F·v = I²R = 0,5 W.
         </p>
 
         <figure class="fig">
@@ -2461,27 +2864,62 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Jeneratör ve alternatif akım</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Alanda kayan çubuk ε = B·L·v emk'si üretir; doğan akım çubuğa harekete zıt
+          F = B²L²v/R kuvveti uygular. Çubuğu itmek için harcanan güç, dirençte ısıya dönüşen güce eşittir.
+        </p>
+
+        <h3 id="k8">Sayılarla hisset: ne kadar emk?</h3>
+        <p>
+          Faraday yasasının verdiği gerilimler durumdan duruma çok değişir. Tanıdık düzeneklerde ne
+          kadar emk doğduğuna bakalım:
+        </p>
+        <table class="tbl">
+          <tr><th>Durum</th><th>Değerler</th><th>emk</th></tr>
+          <tr><td>Mıknatısı elle bobine sokmak</td><td>200 sarım, ΔΦ = 3·10⁻⁵ Wb, 0,2 s</td><td>0,03 V</td></tr>
+          <tr><td>Uçan yolcu uçağının kanatları</td><td>B = 40 µT, L = 60 m, v = 250 m/s</td><td>0,6 V</td></tr>
+          <tr><td>Sayfadaki 03 çubuğu</td><td>B = 0,5 T, L = 0,5 m, v = 4 m/s</td><td>1 V</td></tr>
+          <tr><td>Sayfadaki 02 jeneratörü</td><td>100 sarım, 0,02 m², 0,5 T, 2 tur/s</td><td>12,6 V (tepe)</td></tr>
+          <tr><td>Aynı jeneratör, 50 tur/s</td><td>100 sarım, 0,02 m², 0,5 T</td><td>314 V (tepe)</td></tr>
+        </table>
+        <p>
+          Tablodan okunan düzen: emk'yi alanın büyüklüğünden çok <strong>değişimin hızı</strong>
+          belirler. Aynı jeneratör 25 kat hızlı dönünce 25 kat büyük gerilim üretir; saniyede 50 tur,
+          şebekenin gerilimine yaklaşan bir değer verir. Elle oynatılan bir mıknatıs ise yalnızca
+          birkaç on milivolt üretir; Faraday'ın hassas bir galvanometreye ihtiyaç duyması bu yüzdendir.
+          Uçak örneğinde alan, Dünya'nın zayıf alanının düşey bileşenidir; buna rağmen kanatların
+          uzunluğu ve uçağın hızı yarım voltu aşan bir emk doğurur.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Elle oynatılan mıknatıs birkaç on milivolt, sayfadaki çubuk 1 V, saniyede 50 tur
+          atan küçük bir jeneratör yüzlerce volt üretir. Emk'yi belirleyen, değişimin hızıdır.
+        </p>
+
+        <h3 id="k9">Jeneratör ve alternatif akım</h3>
         <p>
           Düzgün alan içinde sabit hızla dönen bir çerçevede akı sürekli değişir:
         </p>
         <div class="formula">
           <code>Φ = B·A·cos(ω·t)</code>
-          <code>ε = B·A·ω·sin(ω·t)</code>
+          <code>ε = N·B·A·ω·sin(ω·t)</code>
           <code>ε(maks) = B·A·ω·N</code>
         </div>
+        <p>
+          Burada ω, çerçevenin açısal hızıdır (ω = 2π·f). Tepe değer, hareketli çubuk bağıntısından
+          adım adım çıkar:
+        </p>
+        <ol>
+          <li>Çerçevenin eksene paralel iki kenarı a uzunluğunda, eksenden b/2 uzaktadır; ikisi de v = ω·b/2 hızıyla döner.</li>
+          <li>Çerçeve alana paralelken bu kenarlar alana dik hareket eder; her biri ε = B·a·v emk'si üretir.</li>
+          <li>İki kenar seri bağlıdır: ε = 2·B·a·ω·b/2 = B·A·ω (A = a·b). N sarımda N·B·A·ω.</li>
+          <li>Başka konumlarda hızın yalnızca alana dik bileşeni sayılır; bu da sin(ω·t) çarpanını getirir.</li>
+        </ol>
         <p>
           Üretilen emk <strong>sinüs biçiminde</strong> değişir ve yön değiştirir: buna
           <strong>alternatif akım (AC)</strong> denir. Çerçeve alana dik olduğunda akı en büyüktür
           ama <em>değişim hızı sıfırdır</em>, dolayısıyla emk sıfırdır; çerçeve alana paralel
           olduğunda ise akı sıfır, emk en büyüktür.
         </p>
-        <div class="callout">
-          <p>
-            <b>Türkiye'de şebeke:</b> 230 V, 50 Hz. Yani jeneratör çerçevesi saniyede 50 tam tur
-            atar ve gerilim saniyede 50 kez tam çevrim yapar.
-          </p>
-        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 212" role="img" aria-label="Manyetik alanda dönen çerçeve ve ürettiği akı ile emk eğrilerinin çeyrek periyotluk faz farkı.">
@@ -2519,18 +2957,36 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Uygulamalar</h3>
-        <table class="tbl">
-          <thead><tr><th>Uygulama</th><th>Nasıl çalışır</th></tr></thead>
-          <tbody>
-            <tr><td>Jeneratör / dinamo</td><td>Dönen çerçevede akı değişimi</td></tr>
-            <tr><td>Transformatör</td><td>Değişen akımın ikinci bobinde akı değişimi yaratması</td></tr>
-            <tr><td>Kablosuz şarj</td><td>Bobinden bobine akı aktarımı</td></tr>
-            <tr><td>Metal dedektör</td><td>Metalde doğan girdap akımlarının alanı bozması</td></tr>
-            <tr><td>İndüksiyonlu ocak</td><td>Tencere tabanında doğan girdap akımlarının ısıtması</td></tr>
-            <tr><td>Girdap akımı freni</td><td>Lenz kuvvetiyle temassız frenleme</td></tr>
-          </tbody>
-        </table>
+        <div class="callout">
+          <p>
+            <b>Türkiye'de şebeke:</b> 230 V, 50 Hz. Yani iki kutuplu bir jeneratörün çerçevesi saniyede
+            50 tam tur atar ve gerilim saniyede 50 kez tam çevrim yapar. 230 V, gerilimin etkin değeridir;
+            tepe değeri 230·√2 ≈ 325 V'tur.
+          </p>
+        </div>
+        <p class="kisaca">
+          <b>Kısaca:</b> Dönen çerçevede akı kosinüs, emk sinüs gibi değişir ve tepe emk N·B·A·ω'dır. Akı
+          en büyükken emk sıfır, akı sıfırken emk en büyüktür; sonuç alternatif akımdır.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: akım bir telde değil de bütün bir metal parçada dolaşınca, devre açıkken ya da motor dönerken ne olur?</span>
+        </div>
+
+        <h3 id="k10">Girdap akımları: bakır boru deneyi</h3>
+        <p>
+          Faraday yasası yalnızca bobinler için geçerli değildir. Değişen bir alanın içindeki her
+          iletken parçada, metalin içinde kapalı halkalar çizen akımlar doğar: <strong>girdap
+          akımları</strong>. Lenz yasası gereği bu akımlar da değişime karşı koyar ve hareketi frenler.
+        </p>
+        <p>
+          Sayfanın 04 numaralı deneyinde aynı mıknatıs 1,2 m'lik iki borudan bırakılıyor. Plastik
+          boruda serbest düşerek yaklaşık 0,49 saniyede iner. Bakır boruda ise mıknatısın altındaki
+          bölgede akı artar, üstündeki bölgede azalır; boru çeperinde doğan girdap akımları mıknatısı
+          yukarı iter. Mıknatıs neredeyse hemen sabit ve küçük bir hıza ulaşır ve boruyu yaklaşık 5,5
+          saniyede, on kattan da yavaş geçer. Kaybolan potansiyel enerji boruda ısıya dönüşür.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 224" role="img" aria-label="Aynı mıknatısın plastik boruda hızla, bakır boruda çok yavaş düşmesi ve bakırda doğan girdap akımları.">
@@ -2568,38 +3024,106 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
-
-        <details>
-          <summary>Örnek 1 — Akı değişiminden emk</summary>
+        <ul>
+          <li><strong>Girdap akımı freni:</strong> Lenz kuvvetiyle temassız frenleme; ağır vasıtalarda ve trenlerde balatayı aşındırmadan yavaşlatır.</li>
+          <li><strong>Metal dedektörü:</strong> değişen alan metalde girdap akımları doğurur; bu akımların alanı dedektörün bobinince algılanır.</li>
+          <li><strong>İnce levhalı çekirdek:</strong> transformatör çekirdekleri yalıtılmış ince levhalardan yapılır; girdap akımlarının yolu kesilir, ısı kaybı azalır.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Bakır boruyu boylamasına kesip ince bir yarık açarsan mıknatıs daha hızlı mı düşer?</summary>
           <p>
-            200 sarımlı bir bobinden geçen manyetik akı 0,1 saniyede 4·10⁻³ Wb'den 1·10⁻³ Wb'ye
-            düşüyor. İndüklenen emk'nin büyüklüğü nedir?
+            Evet. Girdap akımları borunun çevresinde halka biçiminde dolaşır; yarık bu halkaları keser.
+            Akımlar zayıflayınca frenleyen kuvvet de zayıflar ve mıknatıs belirgin biçimde daha hızlı
+            düşer. Transformatör çekirdeğini ince levhalara bölmek de aynı fikre dayanır.
           </p>
-          <ol class="steps">
-            <li>ΔΦ = 1·10⁻³ − 4·10⁻³ = −3·10⁻³ Wb</li>
-            <li>|ε| = N·|ΔΦ|/Δt = 200 · 3·10⁻³ / 0,1</li>
-            <li>|ε| = 200 · 0,03 = <strong>6 V</strong></li>
-            <li>Akı azaldığı için indüksiyon akımı, akıyı sürdürecek yönde akar (Lenz).</li>
-          </ol>
         </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Değişen alanın içindeki iletkenlerde girdap akımları doğar ve Lenz yasası gereği
+          hareketi frenler. Bakır boruda mıknatıs, plastik borudakinden on kattan fazla uzun sürede düşer.
+        </p>
 
-        <details>
-          <summary>Örnek 2 — Hareketli çubuk</summary>
+        <h3 id="k11">İnce durumlar: açık devre, karşı emk, öz-indüksiyon</h3>
+        <p>
+          Faraday yasasını doğru kullanmak için dört ince noktayı bilmek gerekir. Hepsi aynı ilkeye
+          dayanır, ama ilk bakışta şaşırtır:
+        </p>
+        <ul>
+          <li><strong>Açık devre:</strong> emk doğar ama akım akmaz. Uçağın kanat uçları arasında 0,6 V vardır, ama uçakla birlikte hareket eden bir devrenin akısı değişmediği için akım dolaşmaz.</li>
+          <li><strong>Karşı emk:</strong> dönen her motor aynı zamanda bir jeneratördür ve beslemeye karşı bir emk üretir. Motorun çektiği akım bu yüzden dönerken azalır.</li>
+          <li><strong>Öz-indüksiyon:</strong> bobinin kendi akımı değişince kendi akısı da değişir; bobin bu değişime direnir. Anahtar açılınca kıvılcım çıkması bundandır.</li>
+          <li><strong>Doğru akım:</strong> sabit akım sabit akı demektir; transformatör yalnızca akım açılıp kapanırken, yani akı değişirken emk üretir.</li>
+        </ul>
+        <div class="formula">
+          <code>I = (V − ε<sub>karşı</sub>) / R</code>
+        </div>
+        <p>
+          Karşı emk'nin etkisini sayılarla görelim: 12 V'luk bir motorun sargı direnci 1 Ω olsun.
+          Motor ilk çalıştığı an henüz dönmediği için karşı emk sıfırdır ve akım 12 A'dir. Motor hızlanıp
+          10 V'luk karşı emk ürettiğinde akım (12 − 10)/1 = 2 A'e iner. Arabaların çalıştırma anında
+          farların bir an sönükleşmesi, bu büyük ilk akım yüzündendir. İndüksiyon arabaların ateşleme
+          bobininde de işe koşulur: birincil bobindeki akım aniden kesilince hızla çöken manyetik alan,
+          çok sarımlı ikincil bobinde on binlerce voltluk bir emk doğurur ve bujide kıvılcım çakar.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Bir elektrik motorunun mili sıkışıp dönemezse motor neden ısınıp yanabilir?</summary>
           <p>
-            0,5 T'lık alanda, 40 cm uzunluğundaki çubuk raylar üzerinde 5 m/s hızla kayıyor.
-            Devrenin direnci 2 Ω'dur. emk, akım ve çubuğa etki eden karşı kuvveti bulunuz.
+            Mil dönmezse karşı emk doğmaz ve motor sürekli ilk anın büyük akımını çeker. Sargılarda
+            açığa çıkan ısı akımın karesiyle büyür (I²R); 2 A yerine 12 A akması ısıyı 36 kat artırır.
+            Sargıların yalıtımı bu ısıya dayanamaz ve motor yanar.
           </p>
-          <ol class="steps">
-            <li>ε = B·L·v = 0,5 · 0,4 · 5 = <strong>1 V</strong></li>
-            <li>I = ε/R = 1/2 = <strong>0,5 A</strong></li>
-            <li>F = B·I·L = 0,5 · 0,5 · 0,4 = <strong>0,1 N</strong> (harekete zıt)</li>
-            <li>Kontrol: mekanik güç F·v = 0,5 W; elektriksel güç I²R = 0,25·2 = 0,5 W ✓</li>
-          </ol>
         </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Açık devrede emk vardır ama akım yoktur. Dönen motor karşı emk üretir ve akımını
+          azaltır; bobin kendi akımındaki değişime de direnir (öz-indüksiyon).
+        </p>
+
+        <h3 id="k12">İndüksiyon gerçek dünyada</h3>
+        <p>
+          Evine gelen elektrikten cebindeki temassız karta kadar indüksiyon her yerde çalışıyor. Ortak
+          nokta hep aynı: bir yerde akı değiştirilir, başka bir yerde akım doğar.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/induksiyon-akimi-uygulama.webp?v=2" srcset="gorsel/induksiyon-akimi-uygulama-800.webp?v=2 800w, gorsel/induksiyon-akimi-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir mutfakta siyah cam yüzeyli indüksiyonlu ocağın üzerinde çelik bir tencere var; içindeki su köpürerek kaynıyor ve buhar yükseliyor. Tencerenin hemen yanında, aynı cam yüzeyin üzerinde bir buz küpü erimeden duruyor.">
+          <figcaption>
+            <b>İndüksiyonlu ocakta</b> ısı camdan değil, tencerenin kendisinden doğar. Camın altındaki bobinin hızla değişen alanı çelik tabanda girdap akımları oluşturur ve tabanı ısıtır; cam yalnızca sıcak tencereye değdiği yerde ısınır. Yanındaki buz küpünün erimeden durabilmesi bundandır.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Santral jeneratörü:</strong> iki kutuplu bir jeneratör 50 Hz üretmek için dakikada 3000 tur atar; barajlardaki çok kutuplu jeneratörler daha yavaş döner.</li>
+          <li><strong>Rüzgâr türbini:</strong> büyük kanatlar dakikada yalnızca 10–20 tur atar; dişli kutuları ya da elektronik dönüştürücüler bunu şebekeye uydurur.</li>
+          <li><strong>İndüksiyonlu ocak:</strong> bobinin akımı saniyede on binlerce kez yön değiştirir; ısı doğrudan tencerenin demir içeren tabanında doğar.</li>
+          <li><strong>Bisiklet dinamosu:</strong> tipik bir dinamo yaklaşık 6 V ve 3 W verir; bu, bir bisiklet farını yakmaya yeter.</li>
+          <li><strong>Temassız kart:</strong> okuyucunun 13,56 MHz'lik alanı karttaki anten bobininde akım doğurur; kartın pili yoktur.</li>
+        </ul>
+        <table class="tbl">
+          <thead><tr><th>Uygulama</th><th>Nasıl çalışır</th></tr></thead>
+          <tbody>
+            <tr><td>Jeneratör / dinamo</td><td>Dönen çerçevede akı değişimi</td></tr>
+            <tr><td>Transformatör</td><td>Değişen akımın ikinci bobinde akı değişimi yaratması</td></tr>
+            <tr><td>Kablosuz şarj</td><td>Bobinden bobine akı aktarımı</td></tr>
+            <tr><td>Metal dedektör</td><td>Metalde doğan girdap akımlarının alanı bozması</td></tr>
+            <tr><td>İndüksiyonlu ocak</td><td>Tencere tabanında doğan girdap akımlarının ısıtması</td></tr>
+          </tbody>
+        </table>
+        <p class="kisaca">
+          <b>Kısaca:</b> Santraller, rüzgâr türbinleri, dinamolar, indüksiyonlu ocaklar, transformatörler ve
+          temassız kartlar aynı ilkeyle çalışır: bir yerde akı değiştirilir, başka bir yerde akım doğar.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k13">Çözümlü örnekler</h3>
+        <p>Aşağıdaki çözümlerde emk'nin büyüklüğü hesaplanmış, yönü Lenz yasasıyla ayrıca bulunmuştur.</p>
 
         <details>
-          <summary>Örnek 3 — Akının açıya bağlılığı</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Akının açıya bağlılığı</summary>
           <p>
             Alanı 0,2 m² olan bir çerçeve, 0,4 T'lık düzgün alan içinde duruyor. Çerçevenin normali
             alanla (a) 0°, (b) 60°, (c) 90° açı yaptığında akı kaç Wb olur?
@@ -2613,7 +3137,21 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — Lenz yasasıyla yön</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Akı değişiminden emk</summary>
+          <p>
+            200 sarımlı bir bobinden geçen manyetik akı 0,1 saniyede 4·10⁻³ Wb'den 1·10⁻³ Wb'e
+            düşüyor. İndüklenen emk'nin büyüklüğü nedir?
+          </p>
+          <ol class="steps">
+            <li>ΔΦ = 1·10⁻³ − 4·10⁻³ = −3·10⁻³ Wb</li>
+            <li>|ε| = N·|ΔΦ|/Δt = 200 · 3·10⁻³ / 0,1</li>
+            <li>|ε| = 200 · 0,03 = <strong>6 V</strong></li>
+            <li>Akı azaldığı için indüksiyon akımı, akıyı sürdürecek yönde akar (Lenz).</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 3 — Lenz yasasıyla yön</summary>
           <p>
             Bir mıknatısın <strong>N kutbu</strong> bobine yaklaştırılıyor. Bobinin mıknatısa bakan
             yüzü hangi kutup gibi davranır ve neden?
@@ -2628,13 +3166,61 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — Hareketli çubuk</summary>
+          <p>
+            0,5 T'lık alanda, 40 cm uzunluğundaki çubuk raylar üzerinde 5 m/s hızla kayıyor.
+            Devrenin direnci 2 Ω'dur. emk, akım ve çubuğa etki eden karşı kuvveti bulunuz.
+          </p>
+          <ol class="steps">
+            <li>ε = B·L·v = 0,5 · 0,4 · 5 = <strong>1 V</strong></li>
+            <li>I = ε/R = 1/2 = <strong>0,5 A</strong></li>
+            <li>F = B·I·L = 0,5 · 0,5 · 0,4 = <strong>0,1 N</strong> (harekete zıt)</li>
+            <li>Kontrol: mekanik güç F·v = 0,5 W; elektriksel güç I²R = 0,25·2 = 0,5 W ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 5 — Jeneratörün tepe emk'si</summary>
+          <p>
+            100 sarımlı, 0,02 m² alanlı bir çerçeve 0,5 T'lık düzgün alanda dönüyor. (a) Saniyede 2 tur
+            atarken, (b) saniyede 50 tur atarken tepe emk nedir? (c) 50 tur/s'de tepe emk'nin şebekenin
+            325 V'luk tepe değerine ulaşması için en az kaç sarım gerekir? (π ≈ 3,14)
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> ω = 2π·f = 2 · 3,14 · 2 ≈ 12,6 rad/s → ε<sub>maks</sub> = N·B·A·ω = 100 · 0,5 · 0,02 · 12,6 ≈ <strong>12,6 V</strong></li>
+            <li><strong>(b)</strong> ω = 2 · 3,14 · 50 = 314 rad/s → ε<sub>maks</sub> = 100 · 0,5 · 0,02 · 314 = <strong>314 V</strong></li>
+            <li><strong>(c)</strong> Bir sarımın payı 0,5 · 0,02 · 314 = 3,14 V; N = 325 / 3,14 ≈ 103,5 → en az <strong>104 sarım</strong></li>
+            <li>Çerçeve alana dik konumdan geçtiği her an emk sıfırdır; tepe değer, çerçeve alana paralelken görülür.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Sabit kuvvetle çekilen çubuk</summary>
+          <p>
+            0,5 T'lık alanda raylar üzerindeki 0,5 m'lik çubuk, 0,5 N'luk sabit bir kuvvetle çekiliyor.
+            Devrenin direnci 2 Ω'dur; sürtünme yoktur. Çubuğun ulaşacağı en büyük hızı, bu hızdaki emk'yi,
+            akımı ve dirençteki gücü bulunuz.
+          </p>
+          <ol class="steps">
+            <li>Çubuk hızlandıkça karşı kuvvet B²L²v/R büyür; çekme kuvvetine eşitlendiğinde ivme biter.</li>
+            <li>F = B²L²v/R → v = F·R/(B²L²) = 0,5 · 2 / (0,25 · 0,25) = <strong>16 m/s</strong></li>
+            <li>ε = B·L·v = 0,5 · 0,5 · 16 = <strong>4 V</strong>; I = ε/R = <strong>2 A</strong></li>
+            <li>P = I²R = 4 · 2 = <strong>8 W</strong>. Kontrol: F·v = 0,5 · 16 = 8 W ✓</li>
+          </ol>
+          <p>
+            Bu durum, havada düşen cismin limit hıza ulaşmasına benzer: sürükleyen kuvvet sabit, frenleyen
+            kuvvet hızla büyür ve ikisi eşitlenince hız sabitlenir.
+          </p>
+        </details>
+
+        <h3 id="k14">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Manyetik alan varsa akım vardır.”</strong> Akım için alanın değil,
             <em>akının değişmesi</em> gerekir.</li>
           <li><strong>“Güçlü mıknatıs her zaman daha çok akım üretir.”</strong> Belirleyici olan
-            ΔΦ/Δt'dir; yavaş hareket ettirilen güçlü mıknatıs, hızlı hareket ettirilen zayıf
-            mıknatıstan daha az emk üretebilir.</li>
+            ΔΦ/Δt'dir; yavaş oynatılan güçlü mıknatıs, hızlı oynatılan zayıf mıknatıstan daha az
+            emk üretebilir.</li>
           <li><strong>Lenz'in eksi işaretini büyüklük sanmak.</strong> Eksi işareti yalnızca
             <em>yönü</em> anlatır.</li>
           <li><strong>“İndüksiyon akımı hareketi destekler.”</strong> Daima <em>karşı koyar</em>;
@@ -2645,6 +3231,8 @@
             kendine dik hareket ettiği özel durum içindir.</li>
           <li><strong>Jeneratörde emk ile akıyı aynı anda en büyük sanmak.</strong> Φ en büyükken
             ε sıfır, Φ sıfırken ε en büyüktür.</li>
+          <li><strong>“Devre açıksa emk de yoktur.”</strong> Açık devrede de emk doğar; yalnızca akım
+            akmaz. Uçları bir voltmetreye bağlarsan gerilimi ölçersin.</li>
         </ul>
 
         <div class="callout">

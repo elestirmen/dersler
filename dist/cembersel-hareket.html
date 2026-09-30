@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1872,7 +2092,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Düzgün çembersel hareket</h3>
-          <p>Periyot ve frekanstan merkezcil kuvvete, merkezkaç yanılgısından viraj problemlerine kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce sezgi, periyot ve frekans, sonra hız, merkezcil ivme ve kuvvet bağıntıları, ardından merkezkaç yanılgısı, virajlar, düşey çember ve uydular; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2151,15 +2371,20 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Tanım</button>
-        <button type="button" data-goto="k2">Periyot ve frekans</button>
-        <button type="button" data-goto="k3">Çizgisel ve açısal hız</button>
-        <button type="button" data-goto="k4">Merkezcil ivme</button>
-        <button type="button" data-goto="k5">Merkezcil kuvvet</button>
-        <button type="button" data-goto="k6">Merkezkaç yanılgısı</button>
-        <button type="button" data-goto="k7">Uygulamalar</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Tanım</button>
+        <button type="button" data-goto="k3" data-basamak="1">Periyot ve frekans</button>
+        <button type="button" data-goto="k4" data-basamak="1">Neden kuvvet gerekir</button>
+        <button type="button" data-goto="k5" data-basamak="2">Çizgisel ve açısal hız</button>
+        <button type="button" data-goto="k6" data-basamak="2">Merkezcil ivme</button>
+        <button type="button" data-goto="k7" data-basamak="2">Merkezcil kuvvet</button>
+        <button type="button" data-goto="k8" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k9" data-basamak="3">Merkezkaç yanılgısı</button>
+        <button type="button" data-goto="k10" data-basamak="3">Viraj ve dever</button>
+        <button type="button" data-goto="k11" data-basamak="3">Düşey çember</button>
+        <button type="button" data-goto="k12" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k13" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k14" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2183,19 +2408,87 @@
           Sabit süratle dönen bir cismin <b>hızı değişiyor mu?</b> Evet — ve bu, konunun en kritik
           cümlesi. Hız bir vektördür; büyüklüğü hiç değişmese bile <b>yönü her an değiştiği için</b>
           cisim ivmelidir. Bu ivmeyi üreten bir kuvvet olmasaydı, ipi kesilen taş gibi teğet
-          doğrultuda kaçıp giderdi. Aşağıda önce bu ivmeyi bulacağız, sonra onu üreten kuvvetin
-          her seferinde nereden geldiğini.
+          doğrultuda kaçıp giderdi. Bu anlatım dört basamakta ilerliyor: önce virajı dönen bir arabayı
+          gözleyip hareketi tanımlayacağız, sonra hızı, ivmeyi ve kuvveti veren bağıntıları adım adım
+          çıkaracağız, ardından merkezkaç yanılgısına, virajlara, düşey çembere ve uydulara geçeceğiz.
+          En sonda kolaydan zora sıralanmış örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Düzgün çembersel hareket nedir?</h3>
+        <figure class="foto">
+          <img src="gorsel/cembersel-hareket-giris.webp?v=2" srcset="gorsel/cembersel-hareket-giris-800.webp?v=2 800w, gorsel/cembersel-hareket-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Gece bir lunaparkta ışıklarla süslü zincirli salıncak alttan görülüyor: şemsiye biçimli geniş tavanın kenarından sarkan zincirler dışa doğru açılmış, koltuklardaki insanlar çemberin dışına savrulmuş gibi görünüyor. Arkada ışıklı bir dönme dolap, çadırlar ve kalabalık var.">
+          <figcaption>
+            <b>Zincirli salıncak</b> dönmeye başlayınca zincirler düşeyden ayrılır ve dışa doğru açılır. Koltuklar sabit süratle dönse bile her an yön değiştirir; onları çemberde tutan şey zincirin <b>içeri doğru</b> çeken kuvvetidir. Zincirin neden eğildiğini ve bu açının neye bağlı olduğunu üçüncü basamakta hesaplayacağız.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: dönen bir cisme bak, neyin sabit kalıp neyin değiştiğini gör ve adını koy. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: virajı dönen bir arabada ne olur?</h3>
+        <p>
+          Bir dağ yolunda arabayla ilerlediğini düşün. Sürücü gaza da frene de dokunmuyor;
+          gösterge hep 50 km/h'yi gösterirken keskin bir virajı dönüyor. Göstergeye bakan biri “hiçbir şey
+          değişmiyor” der; oysa sen kapıya doğru kaydığını, arka koltuktaki çantanın devrildiğini
+          hissedersin. Hareketin bir şeyi değişiyor olmalı — ama ne?
+        </p>
+        <p>
+          Değişen şey arabanın <strong>gittiği yöndür</strong>. Virajın başında burnu bir yöne bakan
+          araba, sonunda bambaşka bir yöne bakar. Fizik günlük dildeki “hız”ı ikiye ayırır: ne kadar
+          hızlı gittiğin ve hangi yöne gittiğin. Virajda birincisi sabit kalabilir, ikincisi asla.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/cembersel-hareket-gunluk.webp?v=2" srcset="gorsel/cembersel-hareket-gunluk-800.webp?v=2 800w, gorsel/cembersel-hareket-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Dağ yolunda keskin bir virajı dönen gri bir otomobil, arkadan ve yukarıdan görülüyor. Asfalttaki koyu lastik izleri virajın eğrisini izliyor; virajın dış kenarında bir bariyer, iç kenarında kayalık bir yamaç var, aşağıda çamlarla kaplı vadide bir nehir kıvrılıyor.">
+          <figcaption>
+            Virajı dönen bir otomobil, çembersel hareketin en tanıdık hâlidir. Asfalttaki lastik izleri yolun eğrisini izliyor: araba her an <b>yön değiştiriyor</b>. Bunu sağlayan, lastiklerle yol arasındaki tutunmadır. Bariyerin virajın <b>dış</b> kenarında durması da tutunma kaybolursa aracın nereye gideceğini söylüyor: düz ileri, eğrinin dışına.
+          </figcaption>
+        </figure>
+
+        <p>Virajı dönen her araçta, sürat sabit kalsa bile, aynı üç şey gözlenir:</p>
+        <ul>
+          <li><strong>Yön sürekli değişir:</strong> arabanın burnu virajın her noktasında başka bir yöne bakar.</li>
+          <li><strong>Bir tutunma gerekir:</strong> lastikler yolu kavramazsa araba virajı dönemez, düz gider.</li>
+          <li><strong>İçerideki her şey dışa kayar gibi olur:</strong> yolcu kapıya, çanta yana yaslanır.</li>
+        </ul>
+        <p>
+          Üçüncü madde en aldatıcı olanıdır: sanki bir el seni dışarı itiyor gibi gelir. İleride
+          göreceğiz ki seni dışarı iten bir şey yoktur; araba seni içeri doğru çevirmektedir.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Buzlu bir virajda direksiyonu çevirsen de araba neden dümdüz kaymaya devam eder?</summary>
+          <p>
+            Arabayı virajda döndüren, lastiklerle yol arasındaki tutunmadır. Buz bu tutunmayı neredeyse
+            yok eder; yana doğru bir kuvvet kalmayınca araba <b>o andaki doğrultusunda</b> gitmeyi
+            sürdürür. Tekerlekleri çevirmek yetmez, yolun arabayı yana itebilmesi gerekir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Virajı dönen araba sürati sabit kalsa bile sürekli yön değiştirir. Yön
+          değiştirmek için yolun arabayı yana doğru tutması gerekir; tutunma kaybolursa araba düz gider.
+        </p>
+
+        <h3 id="k2">Düzgün çembersel hareket nedir?</h3>
         <p>
           Bir cisim <strong>sabit süratle çembersel bir yörüngede</strong> dolanıyorsa bu harekete
           düzgün çembersel hareket denir. "Düzgün" kelimesi süratin sabitliğini anlatır —
           <strong>hızın</strong> sabitliğini değil.
         </p>
         <p>
+          Bu ayrım konunun kalbidir. <strong>Sürat</strong>, birim zamanda alınan yoldur ve yalnızca bir
+          büyüklüğü vardır (örneğin 5 m/s). <strong>Hız</strong> ise bir <strong>vektördür</strong>:
+          büyüklüğünün yanında bir de yönü vardır. İki hızın eşit sayılması için hem büyüklüklerinin hem
+          yönlerinin aynı olması gerekir.
+        </p>
+        <p>
           Hız bir vektördür ve çembersel harekette yönü her an değişir: hız daima yörüngeye
-          <strong>teğettir</strong>. Yönü değişen bir vektör, büyüklüğü sabit olsa bile
+          <strong>teğettir</strong>. (<strong>Teğet</strong>, çembere tek noktada dokunan ve o noktadaki
+          yarıçapa dik olan doğrudur.) Yönü değişen bir vektör, büyüklüğü sabit olsa bile
           <strong>değişiyor</strong> demektir. Değişen hız ise ivme demektir.
         </p>
         <div class="callout">
@@ -2234,7 +2527,17 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Periyot ve frekans</h3>
+        <p>
+          Düzenli dönen saat ibresinin ucu, sabit süratle dönen atlıkarınca ve çembere yakın yörüngedeki
+          bir uydu bu harekete iyi örneklerdir. Virajda gaza basan ya da fren yapan araba ise düzgün
+          çembersel hareket yapmaz; onun hem yönü hem sürati değişir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düzgün çembersel harekette sürat sabittir, ama hız yörüngeye teğet olduğu için
+          yönü her an değişir. Yönü değişen hız, ivmeli hareket demektir.
+        </p>
+
+        <h3 id="k3">Periyot ve frekans: dönmeyi saymak</h3>
         <p>
           <strong>Periyot (T)</strong>, cismin bir tam turu tamamlama süresidir; birimi saniyedir.
           <strong>Frekans (f)</strong> ise birim zamandaki tur sayısıdır; birimi hertz (1/s).
@@ -2244,8 +2547,22 @@
           <code>f = 1 / T</code>
         </div>
         <p>
+          İkisi aynı bilginin iki okunuşudur. Saniyede 4 tur atan cisim (f = 4 Hz) her turu 0,25 saniyede
+          tamamlar; bir turu 2 saniyede atan cisim saniyede yarım tur atar (f = 0,5 Hz). Makinelerde
+          dönme çoğunlukla <strong>devir/dakika</strong> ile verilir; hertz'e çevirmek için 60'a bölmek
+          yeter.
+        </p>
+        <table class="tbl">
+          <tr><th>Dönen şey</th><th>Periyot</th><th>Frekans</th></tr>
+          <tr><td>Saatin saniye ibresi</td><td>60 s</td><td>1/60 ≈ 0,017 Hz</td></tr>
+          <tr><td>Atlıkarınca</td><td>yaklaşık 10 s</td><td>0,1 Hz</td></tr>
+          <tr><td>Çamaşır tamburu (1200 devir/dk)</td><td>0,05 s</td><td>20 Hz</td></tr>
+          <tr><td>Dünya'nın kendi ekseni çevresinde</td><td>yaklaşık 1 gün</td><td>günde 1 tur</td></tr>
+        </table>
+        <p>
           Katı bir cisim (disk, tekerlek, atlıkarınca) döndüğünde üzerindeki <strong>bütün
-          noktaların periyodu aynıdır</strong> — merkeze yakın da olsalar, uzak da.
+          noktaların periyodu aynıdır</strong> — merkeze yakın da olsalar, uzak da. Atlıkarıncanın iç
+          sırasındaki at da dış sırasındaki at da turu aynı anda tamamlar.
         </p>
 
         <figure class="fig">
@@ -2276,7 +2593,80 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Çizgisel hız ve açısal hız</h3>
+        <details class="dusun">
+          <summary>Düşün: Dakikada 120 tur atan bir tekerlek bir turu kaç saniyede tamamlar?</summary>
+          <p>
+            Önce hertz'e çevir: 120 / 60 = saniyede 2 tur, yani f = 2 Hz. Periyot bunun tersidir:
+            T = 1/2 = <b>0,5 s</b>. Kontrol: her tur 0,5 saniye sürüyorsa 60 saniyede 120 tur atılır ✓.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Periyot bir turun süresi, frekans bir saniyedeki tur sayısıdır ve T = 1/f.
+          Dönen katı bir cismin bütün noktaları aynı periyotla döner.
+        </p>
+
+        <h3 id="k4">Çemberde kalmak için neden kuvvet gerekir?</h3>
+        <p>
+          Newton'un birinci yasasına göre net kuvvet etki etmeyen bir cisim ya durgun kalır ya da düz bir
+          çizgide sabit hızla gider. Cisimlerin hareket durumunu koruma eğilimine
+          <strong>eylemsizlik</strong> denir. Yön değiştirmek de bir hareket değişikliğidir; bu yüzden
+          çembersel hareket kendiliğinden olmaz, cismi her an düz yolundan saptıran bir kuvvet gerekir.
+        </p>
+        <p>
+          İpin ucuna bağladığın bir silgiyi başının üstünde döndür. Elin ipi hep <strong>merkeze
+          doğru</strong> çeker; silgi ise her an teğet doğrultuda gitmek ister ve ip onu durmadan içeri
+          büker. Kuvvet hıza dik kaldığı için süratini değiştirmez, yalnızca yönünü çevirir. İpi
+          bıraktığın an silgi o anki hız doğrultusunda, yani <strong>teğet boyunca</strong> gider.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Test:</b> İpi kesersen cisim dışarı doğru mu fırlar? Hayır —
+            <b>teğet doğrultuda</b> gider. Dışarı iten bir kuvvet olsaydı yörünge merkezden
+            uzaklaşan bir doğru olurdu. Sayfadaki <b>02</b> numaralı deney bunu gösteriyor.
+          </p>
+        </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 230" role="img" aria-label="İpi kesilen cismin teğet doğrultuda gitmesi doğru, merkezden dışarı doğru fırlaması yanlış olarak gösteriliyor.">
+            <circle class="st sl hair dash fn" cx="150" cy="115" r="80" />
+            <path class="st sd hair" d="M100 58A80 80 0 0 0 70 115" marker-end="url(#ah-d)" />
+            <path class="st sk hair" d="M150 115h80" />
+            <circle class="fd" cx="150" cy="115" r="4" />
+            <path class="st sr" d="M187 107l16 16M203 107l-16 16" />
+            <text class="tt fr" x="195" y="142" text-anchor="middle">ip kesildi</text>
+            <path class="st sg bold" d="M230 104V30" marker-end="url(#ah-g)" />
+            <text class="tl fg" x="240" y="44">doğru: teğet</text>
+            <path class="st sr bold dash" d="M242 115h150" marker-end="url(#ah-r)" />
+            <path class="st sr" d="M322 107l16 16M338 107l-16 16" />
+            <text class="tt fr" x="330" y="94" text-anchor="middle">yanlış</text>
+            <circle class="fb" cx="230" cy="115" r="11" />
+            <text class="tt fr" x="318" y="146" text-anchor="middle">merkezden dışarı</text>
+            <text class="tt" x="240" y="214" text-anchor="middle">merkezkaç kuvveti diye bir kuvvet yoktur</text>
+          </svg>
+          <figcaption>
+            İp kesildiği anda cisme etki eden kuvvet kalmaz; 1. yasa gereği <b>o anki hız
+            doğrultusunda</b>, yani teğet boyunca düz bir çizgide gider. "Dışarı doğru fırlama"
+            hissi, dönen sistemin içinde bulunan gözlemcinin eylemsizliği kuvvet sanmasından
+            doğar. Gerçek kuvvet, cismi <b>içeri</b> çeken merkezcil kuvvettir.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Çekiç atma:</strong> atlet dönerken teli içeri çeker; bıraktığı an çekiç teğet doğrultuda uçar.</li>
+          <li><strong>Islak şemsiye:</strong> döndürülen şemsiyenin kenarından kopan damlalar teğet doğrultuda saçılır.</li>
+          <li><strong>Taşlama makinesi:</strong> dönen taştan kopan kıvılcımlar teğet boyunca düz çizgiler hâlinde fışkırır.</li>
+        </ul>
+        <p class="kisaca">
+          <b>Kısaca:</b> Eylemsizlik yüzünden cisim hep düz gitmek ister; onu çemberde tutmak için her an
+          merkeze doğru bir kuvvet gerekir. Bu kuvvet kalkarsa cisim teğet doğrultuda gider.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: hızı, ivmeyi ve kuvveti adım adım türet, sonra gerçek sayılarla hisset.</span>
+        </div>
+
+        <h3 id="k5">Çizgisel hız ve açısal hız</h3>
         <p>
           Cisim bir turda 2πr uzunluğunda yol alır ve bunu T sürede yapar. Buradan
           <strong>çizgisel hız</strong>:
@@ -2291,6 +2681,20 @@
           Aynı disk üzerindeki noktaların ω'sı ortaktır, ama v = ω·r olduğu için
           <strong>yarıçapı büyük olanın çizgisel hızı büyüktür</strong>. Sayfadaki <b>03</b>
           numaralı bölüm tam olarak bunu gösteriyor.
+        </p>
+        <p>
+          Açıyı <strong>radyanla</strong> ölçmek hesabı sadeleştirir: açı = yay / yarıçap. Yay yarıçapa
+          eşitse açı 1 radyandır; çevre 2πr olduğundan bir tam tur 2π rad (≈ 6,28 rad, yani 360°) eder.
+          Üç bağıntı da bu tanımlardan çıkar:
+        </p>
+        <ol>
+          <li><strong>Çizgisel hız:</strong> bir turda alınan yol çevre kadardır (2πr), süresi T'dir: <strong>v = 2πr/T</strong>.</li>
+          <li><strong>Açısal hız:</strong> bir turda taranan açı 2π radyandır: <strong>ω = 2π/T</strong>; T = 1/f olduğundan ω = 2π·f.</li>
+          <li><strong>İkisini bağlamak:</strong> v = (2π/T)·r diye yazarsan parantezin içi ω'dır: <strong>v = ω·r</strong>.</li>
+        </ol>
+        <p>
+          Birim kontrolü: radyan iki uzunluğun oranı olduğu için birimsizdir; ω·r için (rad/s)·m = m/s
+          çıkar, bu bir hızdır ✓.
         </p>
 
         <figure class="fig">
@@ -2326,7 +2730,20 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Merkezcil ivme</h3>
+        <details class="dusun">
+          <summary>Düşün: Atlıkarıncada dış sıradaki at iç sıradakinden merkeze iki kat uzaksa, hangisi kaç kat hızlıdır?</summary>
+          <p>
+            İkisinin periyodu ve açısal hızı aynıdır. Ama dış at aynı sürede <b>iki kat uzun</b> bir
+            çember çizer, bu yüzden çizgisel hızı iki kat büyüktür. v = ω·r de aynı sonucu verir: ω ortak,
+            r iki kat, v iki kat.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Çizgisel hız v = 2πr/T, açısal hız ω = 2π/T'dir ve v = ω·r. Dönen bir diskte
+          ω her noktada aynıdır; çizgisel hız ise merkezden uzaklıkla doğru orantılı artar.
+        </p>
+
+        <h3 id="k6">Merkezcil ivme: v²/r nereden geliyor?</h3>
         <p>
           Hızın yönünü çeviren ivmenin yönü, hız vektörüne <strong>diktir</strong> ve daima
           <strong>çemberin merkezine</strong> doğrudur. Bu yüzden adına merkezcil (merkeze doğru)
@@ -2337,11 +2754,6 @@
           <code>a = ω² · r</code>
           <code>a = 4π²r / T²</code>
         </div>
-        <p>
-          Bağıntıya iki yönden bakmak gerekir: <strong>yarıçap sabitken</strong> hız iki katına
-          çıkarsa ivme dört katına çıkar (v²). <strong>Hız sabitken</strong> yarıçap büyüdükçe
-          ivme azalır (1/r): geniş viraj, yumuşak dönüş demektir.
-        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 220" role="img" aria-label="Solda çember üzerinde birbirine yakın iki andaki hız vektörleri, sağda bu iki vektörün farkının merkeze doğru baktığını gösteren vektör üçgeni.">
@@ -2376,7 +2788,31 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Merkezcil kuvvet</h3>
+        <p>
+          Cisim çok kısa bir Δt süresinde çember üzerinde Δs kadar yol alsın. Bu sürede yarıçap küçük
+          bir açı kadar döner; hız vektörü yarıçapa hep dik olduğu için o da <strong>aynı açı</strong>
+          kadar döner. Gerisi iki üçgeni karşılaştırmaktır:
+        </p>
+        <ol>
+          <li><strong>İki üçgen:</strong> iki yakın konumu merkeze bağlayan yarıçaplar (r, r) ile iki hız vektörü (v₁, v₂) aynı açıyı yapar.</li>
+          <li><strong>Benzerlik:</strong> ikisi de ikizkenar ve tepe açıları eşit, yani benzer üçgenler: Δv / v = Δs / r.</li>
+          <li><strong>Hız değişimi:</strong> kısa sürede alınan yol Δs = v·Δt olduğundan Δv = v·(v·Δt)/r = v²·Δt/r.</li>
+          <li><strong>İvme:</strong> a = Δv/Δt = <strong>v²/r</strong>. Δt küçüldükçe Δv tam olarak merkeze bakar.</li>
+          <li><strong>Öteki biçimler:</strong> v = ω·r koyarsan a = ω²·r; v = 2πr/T koyarsan a = 4π²r/T².</li>
+        </ol>
+        <p>
+          Birim kontrolü: (m/s)² / m = m/s² ✓; “a = v/r” yazsaydın 1/s çıkardı, hatanı birim yakalar.
+          Bağıntıya iki yönden bakmak gerekir: <strong>yarıçap sabitken</strong> hız iki katına
+          çıkarsa ivme dört katına çıkar (v²). <strong>Hız sabitken</strong> yarıçap büyüdükçe
+          ivme azalır (1/r): geniş viraj, yumuşak dönüş demektir. Sayfanın 01 numaralı
+          laboratuvarındaki iki grafik bu iki bakışı çiziyor.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Merkezcil ivme hıza dik ve merkeze doğrudur; büyüklüğü a = v²/r = ω²·r'dir.
+          Sürat iki katına çıkarsa ivme dört katına çıkar; aynı süratte geniş yarıçap küçük ivme demektir.
+        </p>
+
+        <h3 id="k7">Merkezcil kuvvet: bu görevi kim üstleniyor?</h3>
         <p>
           Newton'un 2. yasası gereği ivme varsa net kuvvet de vardır. Çembersel harekette net
           kuvvet merkeze doğrudur ve büyüklüğü:
@@ -2385,6 +2821,11 @@
           <code>F = m·a = m·v² / r</code>
           <code>F = m·ω²·r</code>
         </div>
+        <p>
+          Laboratuvarın başlangıç ayarında (r = 1 m, T = 4 s, m = 2 kg) ekranda v ≈ 1,57 m/s,
+          a ≈ 2,47 m/s² ve F ≈ 4,9 N okunur; bunları kendin hesaplayıp karşılaştırabilirsin.
+          <b>Kütle 3 katı</b> düğmesine bastığında ivme değişmez, kuvvet üç katına çıkar.
+        </p>
         <div class="callout warn">
           <p>
             <b>Merkezcil kuvvet yeni bir kuvvet türü değildir.</b> O, mevcut kuvvetlerden birinin
@@ -2434,51 +2875,6 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Merkezkaç kuvveti yanılgısı</h3>
-        <p>
-          Virajı hızlı alan bir araçta kendini kapıya doğru itiliyor hissedersin. Aslında seni
-          dışarı iten bir kuvvet yoktur: sen <strong>eylemsizliğin</strong> gereği doğrusal gitmek
-          istersin, araç ise altından dönerek yön değiştirir. Kapı sana çarpar ve seni çembere
-          sokan <strong>merkeze doğru</strong> kuvveti uygular.
-        </p>
-        <p>
-          "Merkezkaç kuvveti" yalnızca <strong>dönen bir referans sisteminde</strong> tanımlanan
-          bir hayalî (eylemsizlik) kuvvettir. Yerdeki bir gözlemci için böyle bir kuvvet yoktur.
-        </p>
-        <div class="callout">
-          <p>
-            <b>Test:</b> İpi kesersen cisim dışarı doğru mu fırlar? Hayır —
-            <b>teğet doğrultuda</b> gider. Dışarı iten bir kuvvet olsaydı yörünge merkezden
-            uzaklaşan bir doğru olurdu. Sayfadaki <b>02</b> numaralı deney bunu gösteriyor.
-          </p>
-        </div>
-
-        <figure class="fig">
-          <svg class="fx" viewBox="0 0 480 230" role="img" aria-label="İpi kesilen cismin teğet doğrultuda gitmesi doğru, merkezden dışarı doğru fırlaması yanlış olarak gösteriliyor.">
-            <circle class="st sl hair dash fn" cx="150" cy="115" r="80" />
-            <path class="st sd hair" d="M100 58A80 80 0 0 0 70 115" marker-end="url(#ah-d)" />
-            <path class="st sk hair" d="M150 115h80" />
-            <circle class="fd" cx="150" cy="115" r="4" />
-            <path class="st sr" d="M187 107l16 16M203 107l-16 16" />
-            <text class="tt fr" x="195" y="142" text-anchor="middle">ip kesildi</text>
-            <path class="st sg bold" d="M230 104V30" marker-end="url(#ah-g)" />
-            <text class="tl fg" x="240" y="44">doğru: teğet</text>
-            <path class="st sr bold dash" d="M242 115h150" marker-end="url(#ah-r)" />
-            <path class="st sr" d="M322 107l16 16M338 107l-16 16" />
-            <text class="tt fr" x="330" y="94" text-anchor="middle">yanlış</text>
-            <circle class="fb" cx="230" cy="115" r="11" />
-            <text class="tt fr" x="318" y="146" text-anchor="middle">merkezden dışarı</text>
-            <text class="tt" x="240" y="214" text-anchor="middle">merkezkaç kuvveti diye bir kuvvet yoktur</text>
-          </svg>
-          <figcaption>
-            İp kesildiği anda cisme etki eden kuvvet kalmaz; 1. yasa gereği <b>o anki hız
-            doğrultusunda</b>, yani teğet boyunca düz bir çizgide gider. "Dışarı doğru fırlama"
-            hissi, dönen sistemin içinde bulunan gözlemcinin eylemsizliği kuvvet sanmasından
-            doğar. Gerçek kuvvet, cismi <b>içeri</b> çeken merkezcil kuvvettir.
-          </figcaption>
-        </figure>
-
-        <h3 id="k7">Uygulamalar</h3>
         <table class="tbl">
           <thead><tr><th>Durum</th><th>Merkezcil kuvveti sağlayan</th><th>Bağıntı</th></tr></thead>
           <tbody>
@@ -2489,8 +2885,99 @@
           </tbody>
         </table>
         <p>
-          <strong>Virajda savrulma:</strong> Gereken kuvvet mv²/r, yolun sağlayabildiği en büyük
-          sürtünme ise μmg'dir. Kütle sadeleşir ve sınır hız ortaya çıkar:
+          Tablodaki T ipteki gerilme kuvvetidir; periyotla karıştırma. Soruları hep aynı sırayla çöz:
+          önce gerçek kuvvetleri çiz (ayrıca “merkezcil kuvvet” oku ekleme), sonra merkeze bakanları
+          artı, dışa bakanları eksi alarak topla, en sonda bu toplamı m·v²/r'ye eşitle.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Çembersel harekette net kuvvet merkeze doğrudur ve F = m·v²/r. Bu yeni bir kuvvet
+          değildir; ip gerilmesi, sürtünme, yerçekimi ya da normal kuvvet bu görevi üstlenir.
+        </p>
+
+        <h3 id="k8">Sayılarla hisset: ne kadar hızlı, ne kadar ivme?</h3>
+        <p>
+          Formüller soyut kalmasın; tanıdık dönen sistemlerin hızına ve merkezcil ivmesine bakalım
+          (değerler yuvarlatılmış, parantezde g'nin kaç katı olduğu yazılı):
+        </p>
+        <table class="tbl">
+          <tr><th>Dönen (yarıçap, periyot)</th><th>Çizgisel hız</th><th>Merkezcil ivme</th></tr>
+          <tr><td>Atlıkarınca, dış sıra (5 m, 10 s)</td><td>3,1 m/s</td><td>2,0 m/s² (0,2 g)</td></tr>
+          <tr><td>Çamaşır tamburu (0,25 m, 0,05 s)</td><td>31 m/s</td><td>3 900 m/s² (400 g)</td></tr>
+          <tr><td>Uzay istasyonu (6 770 km, 92 dk)</td><td>7,7 km/s</td><td>8,7 m/s² (0,9 g)</td></tr>
+          <tr><td>Ay (384 000 km, 27,3 gün)</td><td>1,0 km/s</td><td>0,0027 m/s²</td></tr>
+          <tr><td>Dünya, Güneş çevresinde (150 milyon km, 1 yıl)</td><td>30 km/s</td><td>0,006 m/s²</td></tr>
+        </table>
+        <p>
+          İlk düzen: <strong>en hızlı olan en ivmeli değildir.</strong> Çamaşır tamburu saniyede ancak
+          31 m yol alır, ama yarıçapı çok küçük olduğu için ivmesi yerçekiminin yaklaşık 400 katıdır. Ay
+          saniyede 1 km gider, ama öyle geniş bir çember çizer ki yönü çok ağır değişir. Belirleyici olan
+          v tek başına değil, <strong>v²/r oranıdır</strong>.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Uzay istasyonu Ay'dan yaklaşık 7,5 kat hızlı gidiyor; ivmesi neden binlerce kat büyük?</summary>
+          <p>
+            Çünkü ivme hızın <b>karesiyle</b> büyür, yarıçapla küçülür. Hız 7,5 kat olunca v² yaklaşık
+            56 kat büyür; istasyonun yörünge yarıçapı ise Ay'ınkinden yaklaşık 57 kat küçüktür. İkisi
+            çarpılınca 56 · 57 ≈ 3 200 kat çıkar: 0,0027 m/s² yerine 8,7 m/s².
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Merkezcil ivmeyi sürat tek başına belirlemez, v²/r oranı belirler. Küçük
+          yarıçaplı çamaşır tamburu yaklaşık 400 g'ye ulaşırken saniyede 1 km giden Ay'ın ivmesi yalnızca
+          0,0027 m/s²'dir.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: dönen sistemin içinden bakınca, eğimli virajlarda, düşey çemberde ve yörüngede ne olur?</span>
+        </div>
+
+        <h3 id="k9">Merkezkaç kuvveti yanılgısı</h3>
+        <p>
+          Virajı hızlı alan bir araçta kendini kapıya doğru itiliyor hissedersin. Aslında seni
+          dışarı iten bir kuvvet yoktur: sen <strong>eylemsizliğin</strong> gereği doğrusal gitmek
+          istersin, araç ise altından dönerek yön değiştirir. Kapı sana çarpar ve seni çembere
+          sokan <strong>merkeze doğru</strong> kuvveti uygular.
+        </p>
+        <p>
+          "Merkezkaç kuvveti" yalnızca <strong>dönen bir referans sisteminde</strong> tanımlanan
+          bir hayalî (eylemsizlik) kuvvettir. Yerdeki bir gözlemci için böyle bir kuvvet yoktur.
+          (<strong>Referans sistemi</strong>, hareketi ölçtüğün bakış yeridir.) Arabadaki yolcu kendini
+          hareketsiz sayar ve kapının itişini dengeleyecek dışa doğru bir kuvvet varsayar; ama bu
+          kuvveti uygulayan bir ip, yüzey ya da cisim gösterilemez.
+        </p>
+        <table class="tbl">
+          <tr><th>Soru</th><th>Yerdeki gözlemci</th><th>Arabadaki yolcu</th></tr>
+          <tr><td>Yolcu ne yapıyor?</td><td>Araçla birlikte çember çiziyor</td><td>Yerinde duruyor, kapıya bastırılıyor</td></tr>
+          <tr><td>Kapının kuvveti</td><td>Merkeze doğru; yolcuyu döndürüyor</td><td>“Dışa iten kuvveti” dengeliyor</td></tr>
+          <tr><td>Dışa doğru kuvvet</td><td>Yok; yalnızca eylemsizlik</td><td>Var gibi görünüyor (hayalî)</td></tr>
+        </table>
+        <p>
+          Girişteki zincirli salıncağa da böyle bak: yerden bakınca eğik zincirin çekişinin bir parçası
+          <strong>merkeze doğrudur</strong> ve koltuğu çemberde tutar; koltuktaki kişi ise kendini dışarı
+          savruluyor hisseder.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Dönen bir platformun kenarında tuttuğun topu bırakırsan, yerdeki biri topu nasıl bir yolda görür?</summary>
+          <p>
+            Yerdeki gözlemci topun bırakıldığı andaki hız doğrultusunda, yani <b>teğet boyunca düz</b>
+            gittiğini görür. Platformdaki sen ise dönmeye devam ettiğin için topu eğri bir yol çizerek
+            uzaklaşıyor görürsün. Hareket iki referans sisteminde farklı görünür, ama topa yatay bir
+            kuvvet etki etmez.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Merkezkaç kuvveti yalnızca dönen sistemin içindeki gözlemcinin kullandığı hayalî
+          bir kuvvettir; uygulayıcısı yoktur. Yerden bakınca yalnızca merkeze doğru gerçek bir kuvvet ve
+          eylemsizlik vardır.
+        </p>
+
+        <h3 id="k10">Virajda savrulma sınırı ve eğimli yollar</h3>
+        <p>
+          Düz bir virajda arabayı çemberde tutan tek yatay kuvvet sürtünmedir. Gereken kuvvet mv²/r,
+          yolun sağlayabildiği en büyük sürtünme ise μmg'dir (μ: lastik–yol sürtünme katsayısı).
+          Araç yol tutuyorsa m·v²/r ≤ μ·m·g olmalıdır; kütle iki yanda da bulunduğu için sadeleşir ve
+          sınır hız ortaya çıkar:
         </p>
         <div class="formula">
           <code>v<sub>maks</sub> = √(μ·g·r)</code>
@@ -2498,7 +2985,8 @@
         <p>
           Yol ıslanınca μ yarıya inerse sınır hız √2 kat (yaklaşık %30) düşer. Virajın yarıçapı
           dört katına çıkarsa sınır hız iki katına çıkar. Bu yüzden otoyol virajları geniş
-          yarıçaplı yapılır ve yol yüzeyi dışa doğru eğimlendirilir.
+          yarıçaplı yapılır ve yol yüzeyi eğimlendirilir. Sayfanın 04 numaralı bölümünde yol durumunu
+          değiştirip sınırın nasıl düştüğünü izleyebilirsin.
         </p>
 
         <figure class="fig">
@@ -2536,11 +3024,120 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <p>50 m yarıçaplı bir virajda (g = 10 m/s²) yol durumu sınır hızı şöyle değiştirir:</p>
+        <table class="tbl">
+          <tr><th>Yol durumu</th><th>Sürtünme katsayısı</th><th>Sınır hız</th></tr>
+          <tr><td>Kuru asfalt</td><td>0,8</td><td>20 m/s (72 km/h)</td></tr>
+          <tr><td>Islak asfalt</td><td>0,5</td><td>15,8 m/s (57 km/h)</td></tr>
+          <tr><td>Kar</td><td>0,2</td><td>10 m/s (36 km/h)</td></tr>
+          <tr><td>Buz</td><td>≈ 0,1</td><td>7,1 m/s (25 km/h)</td></tr>
+        </table>
+        <p>
+          Eğimlendirme, virajın dış kenarını iç kenarından biraz yüksek yapmaktır; buna
+          <strong>dever</strong> denir. Eğimli yolda normal kuvvet biraz merkeze doğru yatar ve yatay
+          bileşeni aracı çevirmeye yardım eder. Düşeyde N·cos θ = m·g, yatayda N·sin θ = m·v²/r yazıp
+          taraf tarafa bölersen sürtünmesiz ideal hızı veren bağıntı çıkar:
+        </p>
+        <div class="formula">
+          <code>tan θ = v² / (g · r)</code>
+        </div>
+        <p>
+          100 m yarıçaplı virajda 20 m/s (72 km/h) için tan θ = 0,4, yani θ ≈ 22° gerekir; gerçek
+          yollarda dever birkaç derecedir, gerisini sürtünme karşılar. Zincirli salıncakta zincirin
+          düşeyle yaptığı açı da aynı bağıntıya uyar ve kütleye bağlı değildir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düz virajda sınır hız v<sub>maks</sub> = √(μ·g·r)'dir ve kütleden bağımsızdır.
+          Eğimli yolda normal kuvvetin yatay bileşeni de yardım eder; sürtünmesiz ideal hız
+          tan θ = v²/(g·r) ile bulunur.
+        </p>
+
+        <h3 id="k11">Düşey çember: kova neden dökülmez?</h3>
+        <p>
+          Su dolu bir kovayı düşey bir çemberde hızla döndürürsen, kovanın baş aşağı durduğu tepe
+          noktasında bile su dökülmez; yavaş döndürürsen başından aşağı boşalır. Neden?
+        </p>
+        <p>
+          Tepe noktada suya etki eden iki kuvvet de aşağı, yani <strong>merkeze doğrudur</strong>:
+          ağırlık (m·g) ve kovanın dibinin uyguladığı normal kuvvet (N). İkisi birlikte merkezcil kuvvet
+          görevini üstlenir. Kovanın dibi suyu itebilir ama çekemez; N en az sıfır olabilir. Hız
+          √(g·r)'nin altına düşerse ağırlık gerekenden büyük kalır, su çemberin içine doğru sapar ve
+          kovadan ayrılır.
+        </p>
+        <div class="formula">
+          <code>Tepe: N + m·g = m·v²/r</code>
+          <code>Alt: N − m·g = m·v²/r</code>
+          <code>v<sub>min</sub> = √(g·r)</code>
+        </div>
+        <p>
+          Kol boyu yaklaşık 1 m ise en küçük hız √10 ≈ 3,2 m/s'dir; bir tur en fazla yaklaşık 2 saniye
+          sürmelidir. 10 m yarıçaplı bir lunapark döngüsünde yolcuların emniyet barına asılı kalmaması
+          için vagon tepe noktadan en az 10 m/s (36 km/h) hızla geçmelidir. En alt noktada ise ağırlık
+          dışa bakar; ip ya da ray en çok orada zorlanır.
+        </p>
+        <div class="callout warn">
+          <p>
+            <b>Modelin sınırı:</b> Yerçekimi düşey çemberde cismi inerken hızlandırır, çıkarken
+            yavaşlatır; sürat kendiliğinden sabit kalmaz ve hareket artık <b>düzgün</b> değildir. Yine de
+            merkeze doğru bileşen için a = v²/r her an geçerlidir; v yerine o andaki sürat konur.
+          </p>
+        </div>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düşey çemberin tepesinde ağırlık ve normal kuvvet birlikte merkeze bakar; cismin
+          çemberde kalması için orada v ≥ √(g·r) olmalıdır. İp ya da ray en çok en alt noktada zorlanır.
+        </p>
+
+        <h3 id="k12">Çembersel hareket gerçek dünyada</h3>
+        <p>
+          Çembersel hareket lunaparktan uzaya kadar her yerde karşına çıkar. Her durumda sorulacak soru
+          aynıdır: <strong>merkezcil kuvvet görevini kim üstleniyor</strong> ve ne kadar büyük olmalı?
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/cembersel-hareket-uygulama.webp?v=2" srcset="gorsel/cembersel-hareket-uygulama-800.webp?v=2 800w, gorsel/cembersel-hareket-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Kutu biçimli gövdesinin iki yanına güneş panelleri açılmış bir uydu, Dünya&#x27;nın kavisli ufkunun üzerinde süzülüyor. Aşağıda yer yer bulutlarla örtülü mavi okyanus, ufukta ince mavi atmosfer katmanı ve sağda ufka yakın parlayıp ışığını denize yansıtan Güneş görünüyor; siyah gökyüzünde yıldızlar seçiliyor.">
+          <figcaption>
+            Yörüngedeki bir uyduyu çemberde tutan ne ip ne raydır: merkezcil kuvvet görevini <b>yerçekimi</b> üstlenir. Uzay istasyonunun bulunduğu yaklaşık 400 km yükseklikte dolanan bir araç saniyede yaklaşık 7,7 km yol alır ve Dünya'nın çevresini yaklaşık 92 dakikada bir dolanır.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Uydular:</strong> m·g = m·v²/r eşitliğinden v = √(g·r) çıkar; 400 km'de (r ≈ 6 770 km) g ≈ 8,7 m/s² olduğundan hız ≈ 7,7 km/s olur.</li>
+          <li><strong>Yerdurağan uydular:</strong> yaklaşık 36 000 km yükseklikte bir tur, Dünya'nın kendi dönüşü kadar sürer; uydu gökte hep aynı yerde durur.</li>
+          <li><strong>Santrifüj:</strong> binlerce devir/dakika ile dönen tüplerde kanın yoğun bileşenleri tüpün dibinde toplanır.</li>
+          <li><strong>Çamaşır makinesi:</strong> sıkmada tambur çamaşırı yaklaşık 400 g'lik ivmeyle döndürür; deliklere gelen su teğet doğrultuda kaçar.</li>
+          <li><strong>Dünya'nın dönüşü:</strong> ekvatordaki bir nokta 465 m/s ile döner; bu dönme ekvatorda tartıların yaklaşık binde 3,5 az göstermesine yol açar.</li>
+        </ul>
+        <p>
+          Uydu bağıntısında kütle yine sadeleşir: küçük bir uydu ile dev uzay istasyonu aynı yükseklikte
+          aynı hızla dolanır. Daha yavaş giden bir uydu için yerçekimi gerekenden büyük kalır ve uydu
+          alçalır; daha hızlı giden uydu ise yükselir. Yerdurağan uydular gökte kıpırdamadığı için çanak
+          antenler bir kez ayarlanıp sabit bırakılabilir.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Uzay istasyonundaki astronotlar süzülüyorsa, üzerlerinde yerçekimi yok mu?</summary>
+          <p>
+            Var: 400 km yükseklikte yerçekimi ivmesi yaklaşık 8,7 m/s², yani yerdekinin %89'u kadardır.
+            Yerçekimi astronotu da istasyonu da aynı ivmeyle çemberde tutar; ikisi <b>birlikte düşer</b>,
+            bu yüzden istasyonun tabanı astronota bastırmaz.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Uydularda yerçekimi, santrifüjde ve çamaşır makinesinde tambur duvarı merkezcil
+          kuvvet görevini üstlenir. Uydunun hızı v = √(g·r) ile bulunur ve kütlesine bağlı değildir.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve çembersel harekette puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k13">Çözümlü örnekler</h3>
         <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>
 
         <details>
-          <summary>Örnek 1 — Temel büyüklükler</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Temel büyüklükler</summary>
           <p>
             2 m yarıçaplı çember üzerinde dolanan 0,5 kg'lık bir cisim, 4 saniyede bir tur atıyor.
             Frekansını, çizgisel hızını, merkezcil ivmesini ve merkezcil kuvveti bulunuz. (π ≈ 3)
@@ -2554,7 +3151,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Aynı diskte iki nokta</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Aynı diskte iki nokta</summary>
           <p>
             Dönen bir diskin merkezinden 20 cm ve 60 cm uzaklıktaki iki noktası için periyot,
             çizgisel hız ve merkezcil ivme oranlarını karşılaştırınız.
@@ -2568,21 +3165,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Virajda sınır hız</summary>
-          <p>
-            Yarıçapı 50 m olan bir virajda lastik–yol sürtünme katsayısı 0,5'tir. Aracın
-            savrulmadan alabileceği en büyük hız nedir? Yol ıslanıp μ 0,2'ye düşerse bu hız ne olur?
-          </p>
-          <ol class="steps">
-            <li>Gereken kuvvet mv²/r, sağlanabilen en büyük kuvvet μmg → v<sub>maks</sub> = √(μgr)</li>
-            <li>Kuru: v = √(0,5 · 10 · 50) = √250 ≈ <strong>15,8 m/s ≈ 57 km/h</strong></li>
-            <li>Islak: v = √(0,2 · 10 · 50) = √100 = <strong>10 m/s = 36 km/h</strong></li>
-            <li>Kütle hiçbir adımda kullanılmadı: kamyon da otomobil de aynı sınır hıza sahiptir.</li>
-          </ol>
-        </details>
-
-        <details>
-          <summary>Örnek 4 — Periyot değişirse</summary>
+          <summary data-zorluk="orta">Örnek 3 — Periyot değişirse</summary>
           <p>
             Sabit yarıçaplı bir çemberde dolanan cismin periyodu yarıya indirilirse çizgisel hızı
             ve merkezcil ivmesi nasıl değişir?
@@ -2596,7 +3179,73 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — Virajda sınır hız</summary>
+          <p>
+            Yarıçapı 50 m olan bir virajda lastik–yol sürtünme katsayısı 0,5'tir. Aracın
+            savrulmadan alabileceği en büyük hız nedir? Yol karla kaplanıp μ 0,2'ye düşerse bu hız ne olur?
+          </p>
+          <ol class="steps">
+            <li>Gereken kuvvet mv²/r, sağlanabilen en büyük kuvvet μmg → v<sub>maks</sub> = √(μgr)</li>
+            <li>μ = 0,5: v = √(0,5 · 10 · 50) = √250 ≈ <strong>15,8 m/s ≈ 57 km/h</strong></li>
+            <li>Karlı yol, μ = 0,2: v = √(0,2 · 10 · 50) = √100 = <strong>10 m/s = 36 km/h</strong></li>
+            <li>Kütle hiçbir adımda kullanılmadı: kamyon da otomobil de aynı sınır hıza sahiptir.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 5 — Çamaşır makinesinin sıkma programı</summary>
+          <p>
+            Bir çamaşır makinesinin tamburu sıkmada dakikada 1200 devir yapıyor; tamburun yarıçapı
+            0,25 m. (a) Frekansı ve periyodu, (b) çepere yapışan çamaşırın çizgisel hızını,
+            (c) merkezcil ivmesini, (d) 0,1 kg'lık ıslak bir çorabı çemberde tutan kuvveti bulunuz. (π ≈ 3)
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> f = 1200 / 60 = <strong>20 Hz</strong>, T = 1/20 = <strong>0,05 s</strong></li>
+            <li><strong>(b)</strong> v = 2πr/T = (2 · 3 · 0,25) / 0,05 = <strong>30 m/s</strong></li>
+            <li><strong>(c)</strong> a = v²/r = 900 / 0,25 = <strong>3 600 m/s²</strong>, yani g'nin 360 katı</li>
+            <li><strong>(d)</strong> F = m·a = 0,1 · 3 600 = <strong>360 N</strong>; bu kuvveti tambur duvarı (normal kuvvet) uygular.</li>
+          </ol>
+          <p>Deliğe gelen su damlasını içeri itecek duvar yoktur; damla teğet doğrultuda kaçar.</p>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Zincirli salıncakta zincirin açısı</summary>
+          <p>
+            Zincirli bir salıncakta koltuk, yatay bir çember üzerinde 7,5 m yarıçapla dönüyor ve zincir
+            düşeyle 37° açı yapıyor. Koltuk ve yolcunun toplam kütlesi 60 kg'dır. (a) Koltuğun süratini,
+            (b) bir turun süresini, (c) zincirdeki kuvveti bulunuz. (tan 37° = 0,75, cos 37° = 0,8, π ≈ 3)
+          </p>
+          <ol class="steps">
+            <li>Kuvvetler: ağırlık (aşağı) ve zincir kuvveti F (zincir boyunca). Düşey: F·cos 37° = m·g; merkeze doğru: F·sin 37° = m·v²/r.</li>
+            <li><strong>(a)</strong> Taraf tarafa bölersen tan 37° = v²/(g·r) → v² = 10 · 7,5 · 0,75 = 56,25 → <strong>v = 7,5 m/s</strong></li>
+            <li><strong>(b)</strong> Bir tur: 2πr/v = (2 · 3 · 7,5) / 7,5 = <strong>6 s</strong></li>
+            <li><strong>(c)</strong> F = m·g / cos 37° = 600 / 0,8 = <strong>750 N</strong></li>
+          </ol>
+          <p>
+            (a) ve (b) şıklarında kütle sadeleşti: hafif çocuk da ağır yetişkin de aynı açıyla açılır.
+            Kütleyle büyüyen tek şey zincirdeki kuvvettir.
+          </p>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Düşey çemberde ip gerilmesi</summary>
+          <p>
+            0,5 kg'lık bir taş 0,8 m uzunluğundaki ipin ucunda düşey bir çemberde döndürülüyor.
+            (a) İpin tepe noktada gevşememesi için taş orada en az hangi hızla geçmelidir?
+            (b) El taşı her noktada 4 m/s süratte tutarsa ipteki gerilme (T) tepe noktada ve en alt
+            noktada kaç N olur?
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> Tepe: T + m·g = m·v²/r. En küçük hızda ip gevşemek üzeredir, T = 0 → v = √(g·r) = √8 ≈ <strong>2,8 m/s</strong></li>
+            <li><strong>(b)</strong> Gereken merkezcil kuvvet her noktada aynıdır: m·v²/r = 0,5 · 16 / 0,8 = 10 N. Ağırlık m·g = 5 N.</li>
+            <li>Tepe: ağırlık da merkeze bakar → T = 10 − 5 = <strong>5 N</strong></li>
+            <li>Alt: ağırlık dışa bakar → T = 10 + 5 = <strong>15 N</strong></li>
+          </ol>
+          <p>İp en alt noktada tepe noktadakinin üç katı gerilir; ip koparsa en olası yer orasıdır.</p>
+        </details>
+
+        <h3 id="k14">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Sürat sabitse ivme yoktur.”</strong> Hızın <em>yönü</em> değişiyorsa ivme vardır;
             çembersel harekette ivme merkeze doğrudur.</li>
@@ -2612,6 +3261,8 @@
             hızdır; çizgisel hız yarıçapla artar.</li>
           <li><strong>“Ağır araç virajda daha kolay savrulur.”</strong> Sınır hız √(μgr)'dir;
             kütleden bağımsızdır.</li>
+          <li><strong>“Uydu, yerçekimi olmadığı için düşmez.”</strong> Yerçekimi oradadır ve tam da
+            merkezcil kuvvet görevini üstlenir; uydu yana doğru o kadar hızlı gider ki çemberde kalır.</li>
         </ul>
 
         <div class="callout">

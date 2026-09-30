@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1872,7 +2092,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Transformatörler</h3>
-          <p>Yapısından sarım oranına, güç korunumundan enerji iletimine kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce yapısı ve neden yalnızca değişen akımla çalıştığı, sonra sarım–gerilim ve akım–güç bağıntıları, ardından verim, kayıplar ve enerji iletimi; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2136,15 +2356,18 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Yapısı</button>
-        <button type="button" data-goto="k2">Çalışma ilkesi</button>
-        <button type="button" data-goto="k3">Sarım ve gerilim</button>
-        <button type="button" data-goto="k4">Akım ve güç</button>
-        <button type="button" data-goto="k5">Yükseltici · düşürücü</button>
-        <button type="button" data-goto="k6">Verim ve kayıplar</button>
-        <button type="button" data-goto="k7">Enerji iletimi</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Yapısı</button>
+        <button type="button" data-goto="k3" data-basamak="1">Çalışma ilkesi</button>
+        <button type="button" data-goto="k4" data-basamak="1">Sarım sayısı</button>
+        <button type="button" data-goto="k5" data-basamak="2">Sarım ve gerilim</button>
+        <button type="button" data-goto="k6" data-basamak="2">Akım ve güç</button>
+        <button type="button" data-goto="k7" data-basamak="2">Sayılarla: iletim</button>
+        <button type="button" data-goto="k8" data-basamak="3">Verim ve kayıplar</button>
+        <button type="button" data-goto="k9" data-basamak="3">Modelin sınırları</button>
+        <button type="button" data-goto="k10" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k11" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k12" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2169,13 +2392,81 @@
           önce 400 000 volta çıkarılır, sonra kademe kademe 220 volta indirilir. Bu dönüşümü yapan
           şeyin hareketli hiçbir parçası yoktur — iki bobin ve bir demir çekirdek. Neden bu kadar
           zahmete girildiğini anlamak için tek bir bağıntıya bakmak yeter:
-          <b>P(kayıp) = I²·R</b>. Gerilimi yükseltmek, akımı düşürmenin tek yoludur.
+          <b>P(kayıp) = I²·R</b>. Gerilimi yükseltmek, akımı düşürmenin tek yoludur. Bu anlatım dört
+          basamakta ilerliyor: önce transformatörün neden var olduğunu, nelerden yapıldığını ve neden
+          yalnızca değişen akımla çalıştığını göreceğiz. Sonra sarım sayısı, gerilim, akım ve güç
+          arasındaki bağıntıları Faraday yasasından çıkaracağız. Ardından gerçek transformatörün
+          kayıplarına ve santralden prize uzanan zincire geçeceğiz. En sonda kolaydan zora sıralanmış
+          örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Transformatörün yapısı</h3>
+        <figure class="foto">
+          <img src="gorsel/transformatorler-giris.webp?v=2" srcset="gorsel/transformatorler-giris-800.webp?v=2 800w, gorsel/transformatorler-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Gün batımında kuru otlu tepelerin üzerinden uzaktaki bir şehre doğru sıralanan çelik kafes yüksek gerilim direkleri; direklerin kollarındaki izolatörlerden sarkan uzun kablolar son ışıkta parlıyor. Sağda, geniş bir su kıyısındaki şehrin gökdelenleri ve ışıkları görünüyor.">
+          <figcaption>
+            <b>Şehre giden yol.</b> Bu kablolar santralde üretilen elektriği yüz binlerce voltluk gerilimle taşır; aynı gücü düşük gerilimle taşımaya kalksaydık teller ısınır, enerjinin büyük kısmı yolda kaybolurdu. Hattın iki ucunda da işi aynı araç yapar: gerilimi önce yükselten, sonra kademe kademe düşüren <b>transformatör</b>.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: transformatörün neden gerektiğini, nelerden yapıldığını ve neden yalnızca değişen akımla çalıştığını formülsüz kavra.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: prizden telefona</h3>
         <p>
-          Transformatör, alternatif gerilimin değerini değiştirmeye yarayan bir araçtır. Üç
-          parçadan oluşur:
+          Telefonunu şarj ederken aslında iki ayrı dünyayı birbirine bağlıyorsun. Duvardaki prizde
+          yaklaşık <strong>220 V</strong> alternatif gerilim var; telefonun pili ise yalnızca birkaç
+          voltla şarj olur. Prizdeki gerilimi doğrudan telefona verseydin telefon anında bozulurdu.
+          Arada bu farkı kapatan küçük bir kutu durur: şarj adaptörü.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/transformatorler-gunluk.webp?v=2" srcset="gorsel/transformatorler-gunluk-800.webp?v=2 800w, gorsel/transformatorler-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Akşam, yatağın yanındaki ahşap komodin: duvardaki prize takılı beyaz şarj adaptöründen çıkan kablo, komodinin üzerinde ekranı kapalı duran akıllı telefona uzanıyor ve fişin yanında küçük mavi bir ışık yanıyor. Komodinin üzerinde ayrıca ışığı açık bir abajur, saksıda bir bitki ve bir kitap var.">
+          <figcaption>
+            Prize takılı bu küçük kutu, 220 voltluk şebeke gerilimini telefonun kaldırabileceği <b>birkaç volta</b> indirir. İçinde küçük bir düşürücü transformatör ve akımı tek yöne çeviren bir doğrultucu bulunur. Aynı işi mahalle trafosu çok daha büyük ölçekte, bütün bir sokak için yapar.
+          </figcaption>
+        </figure>
+
+        <p>
+          Etrafına bu gözle bakınca gerilimi değiştiren cihazları her yerde görürsün. Hepsinin ortak
+          birkaç özelliği var:
+        </p>
+        <ul>
+          <li><strong>Gerilim her yerde aynı değil:</strong> prizde 220 V, telefon girişinde yaklaşık 5 V,
+            dizüstü bilgisayar adaptöründe 20 V civarı, yüksek gerilim hatlarında yüz binlerce volt.</li>
+          <li><strong>Dönüştürücüler her yerde:</strong> mahalle aralarındaki küçük trafo binaları,
+            direklerin tepesindeki kutular, eski oyuncakların ve radyoların ağır adaptörleri.</li>
+          <li><strong>Hareketli parça yok:</strong> bu cihazlarda dönen ya da kayan hiçbir şey yoktur;
+            yalnızca hafif bir uğultu duyulur ve biraz ısınırlar.</li>
+          <li><strong>Hepsi alternatif akımla beslenir:</strong> prizdeki gerilim sabit değildir, saniyede
+            50 kez ileri geri salınır.</li>
+        </ul>
+        <p>
+          Son madde bir rastlantı değil, transformatörün sırrıdır. Önce içini açıp nelerden yapıldığına
+          bakalım.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Telefon şarj olurken adaptör neden hafifçe ısınır?</summary>
+          <p>
+            Dönüşüm kusursuz değildir. Prizden çekilen enerjinin küçük bir kısmı telefona ulaşmadan
+            adaptörün tellerinde ve çekirdeğinde <b>ısıya</b> dönüşür. Bu kayıpların nereden geldiğini
+            üçüncü basamakta göreceğiz; büyük güç transformatörlerinde bu pay yüzde birkaçın altına
+            iner.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Prizden telefona, santralden eve gerilimi değiştirmek gerekir. Bu işi hareketli
+          parçası olmayan, alternatif akımla çalışan transformatörler yapar.
+        </p>
+
+        <h3 id="k2">Transformatörün yapısı</h3>
+        <p>
+          <strong>Transformatör</strong>, alternatif gerilimin değerini değiştirmeye yarayan bir araçtır.
+          Üç parçadan oluşur:
         </p>
         <ul>
           <li><strong>Primer (birincil) sarım:</strong> kaynağa bağlanan, N₁ sarımlı bobin.</li>
@@ -2186,7 +2477,11 @@
         <p>
           İki bobin arasında <strong>elektriksel bağlantı yoktur</strong>; aralarındaki tek köprü
           nüvedeki <strong>manyetik akıdır</strong>. Bu yüzden transformatör aynı zamanda bir
-          yalıtım aracıdır.
+          yalıtım aracıdır. Nüveyi iki bobin arasında uzanan manyetik bir köprü gibi düşünebilirsin:
+          primerin ürettiği alan çizgileri havaya dağılmak yerine demirin içinde kalır ve sekonderin
+          içinden geçmek zorunda kalır. Demir, alan çizgilerini havadan yüzlerce, hatta binlerce kat daha kolay taşır.
+          “Yumuşak” demir ise kolay mıknatıslanıp mıknatıslığını kolayca bırakan demir demektir; alan
+          saniyede defalarca yön değiştireceği için bu özellik önemlidir.
         </p>
         <div class="callout">
           <p>
@@ -2235,20 +2530,41 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Çalışma ilkesi: karşılıklı indüksiyon</h3>
-        <p>
-          Primere <strong>alternatif</strong> gerilim uygulanınca bobinden sürekli yön ve şiddet
-          değiştiren bir akım geçer. Bu akım nüvede <strong>değişen bir manyetik akı</strong>
-          oluşturur. Akı nüve boyunca ilerleyip sekonder sarımdan geçer ve Faraday yasası gereği
-          sekonderde bir emk indükler.
+        <details class="dusun">
+          <summary>Düşün: Transformatörün hiç hareketli parçası yoksa, çalışırken duyulan o hafif uğultu nereden gelir?</summary>
+          <p>
+            Nüvenin sacları her mıknatıslanışta boyca çok az uzayıp kısalır. 50 Hz'lik şebekede nüve
+            saniyede 100 kez en güçlü mıknatıslanmasına ulaşır (yarısında bir yönde, yarısında öteki
+            yönde); bu yüzden titreşim alçak, sürekli bir <b>uğultu</b> olarak duyulur. Parça dönmez; titreyen, demirin kendisidir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Transformatör primer ve sekonder adlı iki bobinle bunları bağlayan ince
+          levhalı demir nüveden oluşur. Bobinler arasında tel bağlantısı yoktur; enerjiyi nüvedeki
+          manyetik akı taşır.
         </p>
-        <div class="formula">
-          <code>V₁ = N₁ · ΔΦ/Δt</code>
-          <code>V₂ = N₂ · ΔΦ/Δt</code>
-        </div>
+
+        <h3 id="k3">Çalışma ilkesi: değişim şart</h3>
         <p>
-          Her iki sarımdan <strong>aynı akı</strong> geçtiği için ΔΦ/Δt ortaktır. İki bağıntıyı
-          taraf tarafa bölünce transformatörün temel eşitliği çıkar.
+          Bobinler birbirine değmiyorsa enerji sekondere nasıl geçiyor? Cevap, bir önceki konunun
+          temel kuralı olan <strong>Faraday yasasında</strong>: bir bobinin içinden geçen manyetik akı
+          <em>değiştiğinde</em> bobinde bir gerilim (emk) doğar. Transformatör bu kuralı arka arkaya
+          iki kez kullanır. Bir bobindeki akım değişiminin öteki bobinde emk doğurmasına
+          <strong>karşılıklı indüksiyon</strong> denir. Zincir şöyle işler:
+        </p>
+        <ol>
+          <li><strong>Primere alternatif gerilim uygulanır;</strong> bobinden sürekli yön ve şiddet
+            değiştiren bir akım geçer.</li>
+          <li><strong>Bu akım nüvede değişen bir manyetik akı</strong> oluşturur; akı da akımla birlikte
+            büyür, küçülür, yön değiştirir.</li>
+          <li><strong>Akı nüve boyunca ilerleyip sekonderin içinden geçer.</strong></li>
+          <li><strong>Sekonderdeki akı değiştiği için</strong> Faraday yasası gereği sekonderde bir emk
+            indüklenir; uçlarına bir lamba bağlarsan yanar.</li>
+        </ol>
+        <p>
+          Zincirin her halkasında anahtar sözcük aynıdır: <strong>değişim</strong>. Akım durursa akı
+          durur, akı durursa sekonder susar. Evlerimize gelen akımın saniyede 50 tam salınım yapması, yani
+          saniyede 100 kez yön değiştirmesi tam da bu yüzden işe yarar: nüvedeki akı hiç durmadan değişir.
         </p>
         <div class="callout warn">
           <p>
@@ -2289,19 +2605,48 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Sarım sayısı ve gerilim</h3>
-        <p>
-          Gerilim, sarım sayısıyla <strong>doğru orantılıdır</strong>. Sekonderde daha çok sarım
-          varsa daha yüksek gerilim elde edilir:
+        <details class="dusun">
+          <summary>Düşün: Primere pil bağlıyken anahtarı kapattığın anda sekonderdeki lamba neden bir an yanıp söner?</summary>
+          <p>
+            Anahtar kapandığı anda primer akımı sıfırdan son değerine çıkar; bu kısa sürede nüvedeki
+            akı da <b>değişir</b> ve sekonderde kısa bir emk doğar. Akım sabitlenince akı da sabitlenir,
+            emk kaybolur, lamba söner. Anahtarı açtığında akı bu kez azalırken lamba bir kez daha yanıp
+            söner.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Primerdeki alternatif akım nüvede değişen bir akı oluşturur; bu akı sekonderde
+          emk indükler. Akı değişmezse gerilim de doğmaz, bu yüzden transformatör doğru akımla çalışmaz.
         </p>
-        <div class="formula">
-          <code>V₁ / V₂ = N₁ / N₂</code>
-          <code>V₂ = V₁ · N₂ / N₁</code>
-        </div>
+
+        <h3 id="k4">Sarım sayısı neyi değiştirir?</h3>
         <p>
-          Her sarıma düşen gerilim iki bobinde de aynıdır: örneğin 220 V'luk gerilim 500 sarıma
-          uygulanıyorsa sarım başına 0,44 V düşer. 1000 sarımlı sekonderde 1000 · 0,44 = 440 V
-          elde edilir.
+          Nüvedeki akı iki bobinin <strong>her sarımından aynen</strong> geçer. Bu yüzden her sarım,
+          hangi bobinde olursa olsun, aynı küçük gerilimi üretir. Sarımlar bobin boyunca arka arkaya
+          bağlıdır; tıpkı seri bağlı piller gibi gerilimleri toplanır. Sarım çoksa toplam gerilim büyük,
+          sarım azsa küçük olur.
+        </p>
+        <p>
+          Basit bir hesap bunu somutlaştırır: 220 V'luk gerilim 500 sarımlı primere uygulanırsa
+          <strong>sarım başına 0,44 V</strong> düşer. Sekonderde 1000 sarım varsa 1000 · 0,44 = 440 V,
+          100 sarım varsa 100 · 0,44 = 44 V elde edilir. Gerilimi yükseltmek ya da düşürmek için yalnızca
+          sarım sayılarını seçmek yeter:
+        </p>
+        <ul>
+          <li><strong>Yükseltici (N₂ &gt; N₁):</strong> gerilimi büyütür, akımı küçültür.
+            Santral çıkışında, iletim hattına girerken kullanılır.</li>
+          <li><strong>Düşürücü (N₂ &lt; N₁):</strong> gerilimi küçültür, akımı büyütür.
+            Şehir girişinde, mahalle trafosunda, telefon şarj adaptöründe kullanılır.</li>
+          <li><strong>1 : 1 (N₂ = N₁):</strong> gerilimi değiştirmez; yalnızca devreyi şebekeden
+            <strong>yalıtmak</strong> için kullanılır.</li>
+        </ul>
+        <p>
+          Kaynak hangi bobine bağlanırsa orası primerdir. Aynı transformatör ters bağlanarak
+          yükselticiden düşürücüye çevrilebilir. Peki gerilim bedavaya mı büyüyor? Hayır. Bisikletin
+          vitesini düşün: vites, pedala uyguladığın gücü artırmaz, yalnızca hız ile kuvvet arasında takas
+          yapar. Transformatör de <strong>gerilim ile akım arasında takas</strong> yapar: gerilimi
+          büyütürken akımı küçültür. Sayfanın 01 numaralı laboratuvarındaki “Yükseltici 1:2” ve
+          “Düşürücü 4:1” düğmeleriyle bu takası canlı izleyebilirsin.
         </p>
 
         <figure class="fig">
@@ -2340,7 +2685,101 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Akım ve güç korunumu</h3>
+        <details class="dusun">
+          <summary>Düşün: 100 ve 400 sarımlı bir transformatörde kaynağı 400 sarımlı bobine bağlarsan ne olur?</summary>
+          <p>
+            Kaynağa bağlanan bobin primer olur; artık primer 400, sekonder 100 sarımlıdır. Sekonderde
+            sarım dörtte bir olduğu için gerilim de <b>dörtte birine</b> iner: 220 V girerse 55 V çıkar.
+            Aynı araç, bağlandığı yöne göre yükseltici ya da düşürücüdür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Her sarım aynı gerilimi ürettiği için gerilim sarım sayısıyla büyür. Sekonderde
+          sarım çoksa transformatör yükseltici, azsa düşürücüdür; gerilim büyürken akım küçülür.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: sarım–gerilim ve akım–güç oranlarını Faraday yasasından çıkar, iletim kaybını sayılarla hisset.</span>
+        </div>
+
+        <h3 id="k5">Sarım sayısı ve gerilim: bağıntı nereden geliyor?</h3>
+        <p>
+          Temel basamaktaki “her sarım aynı gerilimi üretir” sezgisini şimdi bağıntıya dökelim. Faraday
+          yasasına göre tek bir sarımda doğan emk, içinden geçen akının değişim hızına (ΔΦ/Δt) eşittir.
+          N sarımlı bir bobinde bu emk N kez toplanır:
+        </p>
+        <div class="formula">
+          <code>V₁ = N₁ · ΔΦ/Δt</code>
+          <code>V₂ = N₂ · ΔΦ/Δt</code>
+        </div>
+        <ol>
+          <li><strong>Sekonder:</strong> her sarımda ΔΦ/Δt kadar emk doğar; N₂ sarım seri bağlı olduğu
+            için toplam <strong>V₂ = N₂·ΔΦ/Δt</strong> olur.</li>
+          <li><strong>Primer:</strong> değişen akı primerin kendi sarımlarında da emk indükler. İdeal
+            transformatörde bu emk kaynağın gerilimini tam dengeler: <strong>V₁ = N₁·ΔΦ/Δt</strong>.</li>
+          <li><strong>Ortak akı:</strong> her iki sarımdan <strong>aynı akı</strong> geçtiği için
+            ΔΦ/Δt ikisinde de aynıdır.</li>
+          <li><strong>Oran:</strong> iki bağıntıyı taraf tarafa bölünce ΔΦ/Δt sadeleşir ve
+            transformatörün temel eşitliği çıkar.</li>
+        </ol>
+        <div class="formula">
+          <code>V₁ / V₂ = N₁ / N₂</code>
+          <code>V₂ = V₁ · N₂ / N₁</code>
+          <code>N₂ = N₁ · V₂ / V₁</code>
+        </div>
+        <p>
+          Gerilim, sarım sayısıyla <strong>doğru orantılıdır</strong>. Her sarıma düşen gerilim iki
+          bobinde de aynıdır: örneğin 220 V'luk gerilim 500 sarıma uygulanıyorsa sarım başına 0,44 V
+          düşer. 1000 sarımlı sekonderde 1000 · 0,44 = 440 V elde edilir. Sayfanın 04 numaralı
+          bölümündeki “Hedef gerilim” oyununda istenen çıkışı tutturmak için son bağıntıyı kullanırsın.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Birim kontrolü:</b> Akının birimi weberdir ve 1 Wb = 1 V·s'dir. Bu yüzden ΔΦ/Δt'nin birimi
+            Wb/s = V olur, yani gerçekten bir gerilimdir ✓. Sarım sayısı birimsizdir; V₁/V₂ ve N₁/N₂
+            oranları da birimsizdir ✓.
+          </p>
+        </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 184" role="img" aria-label="Sekonder gerilimin sekonder sarım sayısıyla doğru, primer sarım sayısıyla ters orantılı değişimi iki grafikte.">
+            <path class="st sd hair" d="M60 30v120h160" />
+            <path class="st sb bold" d="M60 150 212 44" />
+            <text class="tt fb" x="100" y="58">V₂ ∝ N₂</text>
+            <text class="tt fd" x="54" y="26" text-anchor="end">V₂</text>
+            <text class="tt fd" x="216" y="168" text-anchor="end">N₂</text>
+            <text class="tt" x="140" y="168" text-anchor="middle">doğru orantı</text>
+            <path class="st sl hair dots" d="M250 18v150" />
+            <path class="st sd hair" d="M290 30v120h160" />
+            <path class="st sv bold" d="M296 44C340 110 380 134 445 142" />
+            <text class="tt fv" x="340" y="62">V₂ ∝ 1 / N₁</text>
+            <text class="tt fd" x="284" y="26" text-anchor="end">V₂</text>
+            <text class="tt fd" x="446" y="168" text-anchor="end">N₁</text>
+            <text class="tt" x="360" y="168" text-anchor="middle">ters orantı</text>
+          </svg>
+          <figcaption>
+            Aynı bağıntının iki yüzü. Primeri sabit tutup <b>sekonder sarımı artırırsan</b> çıkış
+            gerilimi doğru orantılı büyür — grafik orijinden geçen bir doğrudur. Sekonderi sabit
+            tutup <b>primer sarımı artırırsan</b> çıkış gerilimi ters orantılı küçülür. Sayfadaki
+            laboratuvarda iki grafiği de kaydırıcıları oynatarak canlı görebilirsin.
+          </figcaption>
+        </figure>
+
+        <details class="dusun">
+          <summary>Düşün: Primer sarımını iki katına çıkarıp sekonderi aynı bırakırsan çıkış gerilimi nasıl değişir?</summary>
+          <p>
+            Yarıya iner. Kaynağın gerilimi artık iki kat fazla sarıma paylaşılır, sarım başına gerilim
+            yarıya düşer; sekonderdeki sarımların her biri de yarım gerilim üretir. V₂ = V₁·N₂/N₁
+            bağıntısında N₁ paydadadır: çıkış, primer sarımıyla <b>ters</b> orantılıdır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Her iki sarımdan aynı akı geçtiği için sarım başına gerilim ortaktır ve
+          V₁/V₂ = N₁/N₂ olur. Çıkış gerilimi sekonder sarımıyla doğru, primer sarımıyla ters orantılıdır.
+        </p>
+
+        <h3 id="k6">Akım ve güç korunumu</h3>
         <p>
           Transformatör enerji üretmez, yalnızca <strong>dönüştürür</strong>. İdeal bir
           transformatörde giren güç çıkan güce eşittir:
@@ -2350,10 +2789,25 @@
           <code>V₁·I₁ = V₂·I₂</code>
           <code>I₁ / I₂ = N₂ / N₁</code>
         </div>
+        <ol>
+          <li><strong>Enerji korunumu:</strong> ideal transformatörde ısıya giden bir şey yoksa primerden
+            giren güç sekonderden çıkar: P₁ = P₂.</li>
+          <li><strong>Güç = gerilim × akım:</strong> P = V·I olduğundan V₁·I₁ = V₂·I₂ yazılır.</li>
+          <li><strong>Akım oranı:</strong> düzenlenince I₁/I₂ = V₂/V₁ çıkar; gerilim oranının tersidir.</li>
+          <li><strong>Sarımla bağla:</strong> V₂/V₁ = N₂/N₁ olduğundan I₁/I₂ = N₂/N₁ bulunur.</li>
+        </ol>
         <p>
           Bu yüzden gerilim kaç kat büyütülürse <strong>akım o kadar küçülür</strong>. Gerilimi 10
           katına çıkaran bir transformatörün sekonderinden, primerdekinin onda biri kadar akım
           geçebilir.
+        </p>
+        <h4>Akımı kim belirler?</h4>
+        <p>
+          Sekonder akımını transformatör değil, ona bağlanan <strong>yük</strong> belirler: I₂ = V₂/R.
+          Primer akımı da buna göre kendiliğinden ayarlanır. Sayfanın 01 numaralı laboratuvarındaki
+          başlangıç değerlerini kontrol et: 220 V, N₁ = 500, N₂ = 1000 ve 100 Ω'luk yük için
+          V₂ = 440 V, I₂ = 440/100 = 4,4 A ve P₂ = 440 · 4,4 = 1936 W olur. Primer aynı gücü
+          220 V'la taşımak için I₁ = 1936/220 = 8,8 A çeker.
         </p>
         <table class="tbl">
           <tr><th>Büyüklük</th><th>Sarımla ilişkisi</th><th>N₂ &gt; N₁ ise</th></tr>
@@ -2394,103 +2848,46 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Yükseltici ve düşürücü transformatör</h3>
-        <ul>
-          <li><strong>Yükseltici (N₂ &gt; N₁):</strong> gerilimi büyütür, akımı küçültür.
-            Santral çıkışında, iletim hattına girerken kullanılır.</li>
-          <li><strong>Düşürücü (N₂ &lt; N₁):</strong> gerilimi küçültür, akımı büyütür.
-            Şehir girişinde, mahalle trafosunda, telefon şarj adaptöründe kullanılır.</li>
-          <li><strong>1 : 1 (N₂ = N₁):</strong> gerilimi değiştirmez; yalnızca devreyi şebekeden
-            <strong>yalıtmak</strong> için kullanılır.</li>
-        </ul>
-        <p>
-          Kaynak hangi bobine bağlanırsa orası primerdir. Aynı transformatör ters bağlanarak
-          yükselticiden düşürücüye çevrilebilir.
+        <p class="kisaca">
+          <b>Kısaca:</b> İdeal transformatörde P₁ = P₂, yani V₁·I₁ = V₂·I₂'dir; akım sarım sayısıyla ters
+          orantılıdır. Sekonder akımını yük belirler, frekans hiç değişmez.
         </p>
 
-        <figure class="fig">
-          <svg class="fx" viewBox="0 0 480 184" role="img" aria-label="Sekonder gerilimin sekonder sarım sayısıyla doğru, primer sarım sayısıyla ters orantılı değişimi iki grafikte.">
-            <path class="st sd hair" d="M60 30v120h160" />
-            <path class="st sb bold" d="M60 150 212 44" />
-            <text class="tt fb" x="100" y="58">V₂ ∝ N₂</text>
-            <text class="tt fd" x="54" y="26" text-anchor="end">V₂</text>
-            <text class="tt fd" x="216" y="168" text-anchor="end">N₂</text>
-            <text class="tt" x="140" y="168" text-anchor="middle">doğru orantı</text>
-            <path class="st sl hair dots" d="M250 18v150" />
-            <path class="st sd hair" d="M290 30v120h160" />
-            <path class="st sv bold" d="M296 44C340 110 380 134 445 142" />
-            <text class="tt fv" x="340" y="62">V₂ ∝ 1 / N₁</text>
-            <text class="tt fd" x="284" y="26" text-anchor="end">V₂</text>
-            <text class="tt fd" x="446" y="168" text-anchor="end">N₁</text>
-            <text class="tt" x="360" y="168" text-anchor="middle">ters orantı</text>
-          </svg>
-          <figcaption>
-            Aynı bağıntının iki yüzü. Primeri sabit tutup <b>sekonder sarımı artırırsan</b> çıkış
-            gerilimi doğru orantılı büyür — grafik orijinden geçen bir doğrudur. Sekonderi sabit
-            tutup <b>primer sarımı artırırsan</b> çıkış gerilimi ters orantılı küçülür. Sayfadaki
-            laboratuvarda iki grafiği de kaydırıcıları oynatarak canlı görebilirsin.
-          </figcaption>
-        </figure>
-
-        <h3 id="k6">Verim ve kayıplar</h3>
+        <h3 id="k7">Sayılarla hisset: aynı güç, farklı gerilim</h3>
         <p>
-          Gerçek transformatörde çıkan güç, giren güçten biraz küçüktür. Oranlarına
-          <strong>verim</strong> denir:
+          Transformatörün en önemli işi enerji iletimidir. Santralden şehre giden hat da bir dirençtir
+          ve içinden akım geçtikçe ısınır. Hatta kaybedilen güç:
         </p>
         <div class="formula">
-          <code>verim = P₂ / P₁</code>
-          <code>% verim = (P₂ / P₁) · 100</code>
-        </div>
-        <ul>
-          <li><strong>Bakır kaybı:</strong> sarım tellerinin direncinde harcanan I²R gücü.</li>
-          <li><strong>Girdap akımı kaybı:</strong> nüvede dolanan akımların ısıtması.</li>
-          <li><strong>Histerezis kaybı:</strong> demirin mıknatıslanma yönünü sürekli değiştirmesi
-            için harcanan enerji.</li>
-        </ul>
-        <p>
-          Kayıpların tamamı sonunda <strong>ısıya</strong> dönüşür. Büyük güç transformatörleri bu
-          yüzden yağla doldurulur ve radyatörlerle soğutulur. Verimleri %98–99 civarındadır.
-        </p>
-
-        <figure class="fig">
-          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Giren gücün büyük kısmının çıkışa geçmesi, küçük bir kısmının bakır, girdap ve histerezis kayıplarına gitmesi.">
-            <text class="tt fd" x="60" y="48">giren güç P₁</text>
-            <text class="tt fr" x="420" y="48" text-anchor="middle">kayıp</text>
-            <rect class="st sg wg hair" x="60" y="58" width="342" height="34" rx="4" />
-            <rect class="st sr wr hair" x="402" y="58" width="18" height="34" rx="2" />
-            <text class="tl fk" x="231" y="81" text-anchor="middle">çıkan güç P₂ · %95</text>
-            <path class="st sl hair dash" d="M402 92 200 118M420 92 420 118" />
-            <rect class="st sr wr hair" x="200" y="118" width="110" height="22" rx="3" />
-            <rect class="st sa wa hair" x="310" y="118" width="66" height="22" rx="3" />
-            <rect class="st sv wv hair" x="376" y="118" width="44" height="22" rx="3" />
-            <text class="tt fr" x="255" y="160" text-anchor="middle">bakır I²R</text>
-            <text class="tt fa" x="343" y="160" text-anchor="middle">girdap</text>
-            <text class="tt fv" x="410" y="178" text-anchor="middle">histerezis</text>
-            <text class="tl fb" x="120" y="164" text-anchor="middle">verim = P₂ / P₁</text>
-          </svg>
-          <figcaption>
-            Gerçek bir transformatörde giren gücün küçük bir kısmı ısıya gider. <b>Bakır kaybı</b>
-            sarım tellerinin direncinde harcanır (I²R), <b>girdap akımı kaybı</b> nüvede dolanan
-            akımlardan, <b>histerezis kaybı</b> ise demirin mıknatıslanma yönünü saniyede yüz kez
-            çevirmesinden doğar. Büyük güç transformatörlerinde verim %98'in üzerine çıkar — bu,
-            insanın yaptığı en verimli makinelerden biridir.
-          </figcaption>
-        </figure>
-
-        <h3 id="k7">Enerji iletimi: neden yüksek gerilim?</h3>
-        <p>
-          Santralden şehre giden hat da bir dirençtir. Hatta kaybedilen güç:
-        </p>
-        <div class="formula">
-          <code>P_kayıp = I² · R_hat</code>
+          <code>P<sub>kayıp</sub> = I² · R<sub>hat</sub></code>
           <code>I = P / V</code>
+          <code>P<sub>kayıp</sub> = (P / V)² · R<sub>hat</sub></code>
         </div>
         <p>
-          Taşınacak güç P belliyken, gerilimi yükseltmek akımı aynı oranda küçültür; kayıp ise
-          akımın <strong>karesiyle</strong> azalır. Gerilimi 10 katına çıkarmak kaybı
-          <strong>100'de bire</strong> indirir. Bu yüzden elektrik, santral çıkışında yükseltici
-          transformatörle 154 kV – 400 kV'a çıkarılır, şehirde düşürücülerle kademe kademe 220 V'a
-          indirilir.
+          Son bağıntı ilk ikisinden çıkar: taşınacak güç P belliyken akım I = P/V'dir, bunu kayıp
+          bağıntısına koyarsın. Şimdi aynı <strong>1 MW</strong> gücü toplam direnci <strong>5 Ω</strong>
+          olan bir hattan farklı gerilimlerle gönderelim:
+        </p>
+        <table class="tbl">
+          <tr><th>İletim gerilimi</th><th>Hat akımı</th><th>Hattaki kayıp</th><th>Kayıp oranı</th></tr>
+          <tr><td>10 kV</td><td>100 A</td><td>50 kW</td><td>%5</td></tr>
+          <tr><td>20 kV</td><td>50 A</td><td>12,5 kW</td><td>%1,25</td></tr>
+          <tr><td>100 kV</td><td>10 A</td><td>500 W</td><td>%0,05</td></tr>
+          <tr><td>154 kV</td><td>≈ 6,5 A</td><td>≈ 211 W</td><td>≈ %0,02</td></tr>
+          <tr><td>400 kV</td><td>2,5 A</td><td>≈ 31 W</td><td>≈ %0,003</td></tr>
+        </table>
+        <p>
+          Tablodan hemen okunan düzen şu: gerilim <strong>2 katına</strong> çıkınca kayıp
+          <strong>4'te bire</strong>, gerilim <strong>10 katına</strong> çıkınca kayıp
+          <strong>100'de bire</strong> iniyor. Taşınacak güç P belliyken, gerilimi yükseltmek akımı aynı
+          oranda küçültür; kayıp ise akımın <strong>karesiyle</strong> azalır. Bu yüzden elektrik,
+          santral çıkışında yükseltici transformatörle 154 kV – 400 kV'a çıkarılır, şehirde düşürücülerle
+          kademe kademe 220 V'a indirilir.
+        </p>
+        <p>
+          Aşağıdaki çizimdeki hat daha uzundur, direnci yaklaşık 25 Ω'dur; bu yüzden 10 kV'ta kayıp %25'e
+          çıkıyor. Gerilim 40 katına çıkınca kayıp 40² = 1600 kat azalıyor. Sayfanın 03 numaralı
+          bölümünde gerilim ve direnç kaydırıcılarıyla aynı hesabı kendin yapabilirsin.
         </p>
         <div class="callout">
           <p>
@@ -2526,10 +2923,203 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <details class="dusun">
+          <summary>Düşün: Hattın direncini yarıya indirmek mi, gerilimi iki katına çıkarmak mı kaybı daha çok azaltır?</summary>
+          <p>
+            Gerilimi iki katına çıkarmak. Direnci yarıya indirmek kaybı yalnızca <b>yarıya</b> indirir,
+            çünkü kayıp R ile doğru orantılıdır. Gerilimi iki katına çıkarmak akımı yarıya, kaybı ise
+            akımın karesiyle <b>dörtte bire</b> indirir. Üstelik direnci yarıya indirmek için kesiti iki
+            kat büyük, dolayısıyla iki kat ağır tel gerekir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Aynı güç için hat akımı I = P/V, kayıp I²·R'dir. Gerilimi 10 katına çıkarmak
+          kaybı 100'de bire indirir; yüksek gerilim hatlarının tek sebebi budur.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: gerçek transformatörün kayıpları, ideal modelin sınırları ve santralden prize uzanan zincir.</span>
+        </div>
+
+        <h3 id="k8">Verim ve kayıplar</h3>
+        <p>
+          Gerçek transformatörde çıkan güç, giren güçten biraz küçüktür. Oranlarına
+          <strong>verim</strong> denir:
+        </p>
+        <div class="formula">
+          <code>verim = P₂ / P₁</code>
+          <code>% verim = (P₂ / P₁) · 100</code>
+          <code>P<sub>kayıp</sub> = P₁ − P₂</code>
+        </div>
+        <p>Aradaki fark üç ana yoldan kaybolur; her birine karşı ayrı bir önlem alınır:</p>
+        <ul>
+          <li><strong>Bakır kaybı:</strong> sarım tellerinin direncinde harcanan I²R gücü. Önlem: kalın,
+            düşük dirençli tel.</li>
+          <li><strong>Girdap akımı kaybı:</strong> nüvede dolanan akımların ısıtması. Önlem: nüveyi
+            yalıtılmış ince saclardan yapmak.</li>
+          <li><strong>Histerezis kaybı:</strong> demirin mıknatıslanma yönünü sürekli değiştirmesi
+            için harcanan enerji. Önlem: kolay mıknatıslanıp kolay bırakan yumuşak demir.</li>
+        </ul>
+        <p>
+          Kayıpların tamamı sonunda <strong>ısıya</strong> dönüşür. Büyük güç transformatörleri bu
+          yüzden yağla doldurulur ve radyatörlerle soğutulur. Verimleri %98–99 civarındadır. Bu oran küçük
+          bir kayıp gibi görünür, ama taşınan güçle birlikte düşünmek gerekir: 100 MW taşıyan %99 verimli
+          bir transformatör bile 1 MW'ı ısıya çevirir. Bu, aynı anda çalışan yaklaşık 500 tane 2 kW'lık
+          elektrikli ısıtıcının ürettiği ısı kadardır. Sayfanın 02 numaralı bölümünde verimi azaltarak
+          kaybın nasıl büyüdüğünü izleyebilirsin.
+        </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Giren gücün büyük kısmının çıkışa geçmesi, küçük bir kısmının bakır, girdap ve histerezis kayıplarına gitmesi.">
+            <text class="tt fd" x="60" y="48">giren güç P₁</text>
+            <text class="tt fr" x="420" y="48" text-anchor="middle">kayıp</text>
+            <rect class="st sg wg hair" x="60" y="58" width="342" height="34" rx="4" />
+            <rect class="st sr wr hair" x="402" y="58" width="18" height="34" rx="2" />
+            <text class="tl fk" x="231" y="81" text-anchor="middle">çıkan güç P₂ · %95</text>
+            <path class="st sl hair dash" d="M402 92 200 118M420 92 420 118" />
+            <rect class="st sr wr hair" x="200" y="118" width="110" height="22" rx="3" />
+            <rect class="st sa wa hair" x="310" y="118" width="66" height="22" rx="3" />
+            <rect class="st sv wv hair" x="376" y="118" width="44" height="22" rx="3" />
+            <text class="tt fr" x="255" y="160" text-anchor="middle">bakır I²R</text>
+            <text class="tt fa" x="343" y="160" text-anchor="middle">girdap</text>
+            <text class="tt fv" x="410" y="178" text-anchor="middle">histerezis</text>
+            <text class="tl fb" x="120" y="164" text-anchor="middle">verim = P₂ / P₁</text>
+          </svg>
+          <figcaption>
+            Gerçek bir transformatörde giren gücün küçük bir kısmı ısıya gider. <b>Bakır kaybı</b>
+            sarım tellerinin direncinde harcanır (I²R), <b>girdap akımı kaybı</b> nüvede dolanan
+            akımlardan, <b>histerezis kaybı</b> ise demirin mıknatıslanma yönünü saniyede yüz kez
+            çevirmesinden doğar. Büyük güç transformatörlerinde verim %98'in üzerine çıkar — bu,
+            insanın yaptığı en verimli makinelerden biridir.
+          </figcaption>
+        </figure>
+
+        <details class="dusun">
+          <summary>Düşün: Düşürücü bir transformatörde sekonder sarımın teli neden primerinkinden kalındır?</summary>
+          <p>
+            Düşürücüde sekonder akımı primer akımından büyüktür. Bakır kaybı I²R olduğu için büyük akım
+            taşıyan sarımın direncinin küçük olması gerekir; bu da <b>kalın tel</b> demektir. Az sarımlı,
+            kalın telli sekonder ile çok sarımlı, ince telli primer düşürücü transformatörün tipik
+            görünüşüdür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Verim P₂/P₁'dir; aradaki fark bakır, girdap akımı ve histerezis kayıpları olarak
+          ısıya dönüşür. Büyük transformatörlerde verim %98–99'dur, ama büyük güçlerde bu küçük pay bile
+          soğutma gerektirir.
+        </p>
+
+        <h3 id="k9">İdeal modelin sınırları</h3>
+        <p>
+          Şimdiye kadar kullandığımız bağıntılar <strong>ideal transformatör</strong> içindir: sarımların
+          direnci yok, akının tamamı iki bobinden de geçiyor, nüve hiç ısınmıyor. Gerçek transformatör buna
+          çok yaklaşır, ama bazı durumlarda modelin nerede durduğunu bilmek gerekir:
+        </p>
+        <ul>
+          <li><strong>Gücü yük belirler:</strong> sekonder boştayken primerden yalnızca nüveyi
+            mıknatıslayan küçük bir akım geçer. Yük bağlandıkça primer akımı kendiliğinden büyür.</li>
+          <li><strong>Doğru akım primeri yakabilir:</strong> değişim olmayınca primerde kaynağa karşı koyan
+            emk doğmaz; akımı yalnızca telin küçük direnci sınırlar, bobin aşırı ısınır.</li>
+          <li><strong>Kısa devre tehlikelidir:</strong> sekonder uçları birleşirse I₂ çok büyür, I₁ de
+            onunla birlikte büyür; bu yüzden transformatörler sigortayla korunur.</li>
+          <li><strong>Çıkış gerilimi yükle biraz düşer:</strong> sarım direnci ve nüveden kaçan akı
+            yüzünden gerçek V₂, N₂/N₁ oranının verdiğinden biraz küçüktür.</li>
+          <li><strong>Frekans boyutu belirler:</strong> frekans büyüdükçe aynı gerilim için daha küçük
+            nüve yeter; yeni şarj cihazlarının hafif olmasının sebebi budur.</li>
+        </ul>
+        <p>
+          Son madde günlük hayattan bir bilmeceyi çözer. Eski tip adaptörler şebekenin 50 Hz'i ile
+          çalışan, demir nüveli, ağır kutulardı. Bugünkü şarj cihazları ise gerilimi önce doğrultur, sonra
+          saniyede on binlerce kez açıp kapatarak çok yüksek frekanslı bir değişim üretir ve bunu küçük bir
+          transformatöre verir. Akı çok hızlı değiştiği için aynı gerilimi çok daha az demir ve sarımla elde
+          eder. İlke yine aynıdır: <strong>değişen akı</strong>.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Telefon bağlı değilken prizde takılı duran adaptör neden neredeyse hiç enerji harcamaz?</summary>
+          <p>
+            Sekondere yük bağlı değilse sekonder akımı sıfırdır; enerji çıkmadığı için primer de yalnızca
+            nüveyi mıknatıslamaya yetecek küçük bir akım çeker. Transformatör enerjiyi kendiliğinden
+            itmez; yük <b>ne kadar çekerse o kadar</b> aktarır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> İdeal model yük altında da iyi çalışır, ama gücü yükün belirlediğini, doğru akımın
+          ve kısa devrenin tehlikeli olduğunu unutma. Frekans arttıkça aynı iş daha küçük bir nüveyle görülür.
+        </p>
+
+        <h3 id="k10">Transformatörler gerçek dünyada</h3>
+        <p>
+          Evine ulaşan elektrik yolda birkaç transformatörden geçer; her kademe, gerilimi o mesafeye ve o
+          ortama en uygun değere getirir. Uzun yolda yüksek gerilim kaybı küçültür, şehrin içinde ise
+          düşük gerilim güvenlik ve yalıtım kolaylığı sağlar.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/transformatorler-uygulama.webp?v=2" srcset="gorsel/transformatorler-uygulama-800.webp?v=2 800w, gorsel/transformatorler-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Tel çitle çevrili açık hava trafo merkezi: önde gri gövdeli büyük bir güç transformatörü, yanında dikey soğutma kanatçıklı radyatörler, üstünde yatık silindir biçimli bir tank ve kahverengi porselen izolatörler; arkada çelik taşıyıcılar arasında iletkenler ve ikinci bir transformatör görünüyor.">
+          <figcaption>
+            <b>Bir trafo merkezi.</b> Gri gövdenin içinde nüve ve sarımlar yağa gömülüdür; yağ, kayıplardan doğan ısıyı yandaki <b>radyatör kanatçıklarına</b> taşır. Üstteki silindir, ısınınca genleşen yağın taşmaması için bir genleşme deposudur; uzun porselen izolatörler ise yüksek gerilimli iletkenleri gövdeden yalıtarak içeri alır.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>İletim zinciri:</strong> santralde on bin volt mertebesinde üretilen gerilim 154 ya da
+            400 kV'a yükseltilir; şehirde orta gerilime (örneğin 34,5 kV), mahallede 220 V'a düşürülür.</li>
+          <li><strong>Şarj adaptörleri:</strong> 220 V'u telefon için yaklaşık 5 V'a, dizüstü bilgisayar
+            için 20 V civarına düşürür; ardından bir doğrultucu akımı tek yöne çevirir.</li>
+          <li><strong>Kaynak makinesi:</strong> gerilimi birkaç on volta düşürüp akımı yüzlerce ampere
+            çıkarır; metali eritecek ısıyı bu büyük akım üretir.</li>
+          <li><strong>Mikrodalga fırın:</strong> içindeki yükseltici, şebeke gerilimini birkaç bin volta
+            çıkararak mikrodalgaları üreten tüpü besler.</li>
+          <li><strong>Yalıtım transformatörü (1 : 1):</strong> hastane ve laboratuvarlarda cihazı şebekeden
+            elektriksel olarak ayırır; iki bobin arasında tel bağlantısı olmaması burada güvenlik sağlar.</li>
+        </ul>
+        <p>
+          Bütün bu uygulamaların ortak noktası aynı iki kuraldır: gerilim sarım sayısıyla orantılı değişir
+          ve güç (kayıplar dışında) korunur. Yüksek gerilim hattı ile kaynak makinesi aynı takasın iki ucudur:
+          birinde gerilim çok büyük, akım görece küçük; ötekinde gerilim küçük, akım çok büyüktür.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Santral ile ev arasında tek bir büyük düşürücü yerine neden birkaç kademe kullanılır?</summary>
+          <p>
+            Her gerilim düzeyi bir mesafeye uygundur. 400 kV uzun yolda kaybı küçültür ama çok büyük
+            direkler ve izolatörler ister; şehrin içine sokulamaz. Orta gerilim mahallelere kadar makul
+            kayıpla ulaşır, 220 V ise evin içinde güvenlidir. Düşük gerilimde akım büyük olduğundan 220 V
+            uzun yol gidemez; bu yüzden son düşürücü tüketiciye olabildiğince yakın kurulur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Elektrik santralden prize kadar birkaç transformatörden geçer: uzun yolda yüksek
+          gerilim, şehirde düşük gerilim. Şarj adaptöründen kaynak makinesine kadar hepsi gerilim–akım
+          takasıyla çalışır.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve transformatör sorularında puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k11">Çözümlü örnekler</h3>
+        <p>Aşağıdaki çözümlerde aksi söylenmedikçe transformatörler ideal kabul edilmiştir.</p>
 
         <details>
-          <summary>Örnek 1 — Çıkış gerilimi ve akımı</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Sarım sayısını bulma</summary>
+          <p>
+            220 V'luk şebekeden 12 V elde etmek isteyen bir adaptörün primeri 1100 sarımlıdır.
+            Sekonder kaç sarım olmalıdır?
+          </p>
+          <ol class="steps">
+            <li>N₂ = N₁ · V₂/V₁</li>
+            <li>N₂ = 1100 · 12/220 = 1100 · 0,0545…</li>
+            <li>N₂ = <strong>60 sarım</strong></li>
+            <li>Sarım başına gerilim: 220/1100 = 0,2 V; 60 · 0,2 = 12 V ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="kolay">Örnek 2 — Çıkış gerilimi ve akımı</summary>
           <p>
             Primeri 500, sekonderi 100 sarımlı ideal bir transformatörün primerine 220 V
             uygulanıyor. Sekonderden 3 A akım çekiliyor. V₂, I₁ ve güçleri bulunuz.
@@ -2544,21 +3134,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Sarım sayısını bulma</summary>
-          <p>
-            220 V'luk şebekeden 12 V elde etmek isteyen bir adaptörün primeri 1100 sarımlıdır.
-            Sekonder kaç sarım olmalıdır?
-          </p>
-          <ol class="steps">
-            <li>N₂ = N₁ · V₂/V₁</li>
-            <li>N₂ = 1100 · 12/220 = 1100 · 0,0545…</li>
-            <li>N₂ = <strong>60 sarım</strong></li>
-            <li>Sarım başına gerilim: 220/1100 = 0,2 V; 60 · 0,2 = 12 V ✓</li>
-          </ol>
-        </details>
-
-        <details>
-          <summary>Örnek 3 — Verim</summary>
+          <summary data-zorluk="orta">Örnek 3 — Verim</summary>
           <p>
             Bir transformatörün primerinden 4 A akım geçerken uçlarındaki gerilim 220 V'tur.
             Sekonderde 44 V altında 17 A akım ölçülmüştür. Verimi bulunuz.
@@ -2572,19 +3148,74 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — İletim kaybı</summary>
+          <summary data-zorluk="orta">Örnek 4 — İletim kaybı</summary>
           <p>
             Bir santral 1 MW gücü, toplam direnci 5 Ω olan bir hatla taşıyor. İletim gerilimi
             (a) 10 kV (b) 100 kV ise hatta kaybedilen güçleri karşılaştırınız.
           </p>
           <ol class="steps">
-            <li>(a) I = P/V = 10⁶/10⁴ = 100 A → P_kayıp = 100² · 5 = <strong>50 kW</strong> (%5)</li>
-            <li>(b) I = 10⁶/10⁵ = 10 A → P_kayıp = 10² · 5 = <strong>500 W</strong> (%0,05)</li>
+            <li>(a) I = P/V = 10⁶/10⁴ = 100 A → P<sub>kayıp</sub> = 100² · 5 = <strong>50 kW</strong> (%5)</li>
+            <li>(b) I = 10⁶/10⁵ = 10 A → P<sub>kayıp</sub> = 10² · 5 = <strong>500 W</strong> (%0,05)</li>
             <li>Gerilim 10 katına çıkınca kayıp 100'de bire indi.</li>
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="orta">Örnek 5 — Gerçek transformatörde primer akımı</summary>
+          <p>
+            Primeri 1000, sekonderi 200 sarımlı bir transformatör 220 V'luk şebekeye bağlıdır.
+            Sekondere 11 Ω'luk bir direnç bağlanıyor. Verim %80 ise (a) sekonder akımını,
+            (b) primer akımını, (c) ısıya dönüşen gücü bulunuz.
+          </p>
+          <ol class="steps">
+            <li>V₂ = 220 · 200/1000 = 44 V → <strong>(a)</strong> I₂ = V₂/R = 44/11 = <strong>4 A</strong></li>
+            <li>P₂ = 44 · 4 = 176 W</li>
+            <li>P₁ = P₂ / verim = 176 / 0,80 = 220 W</li>
+            <li><strong>(b)</strong> I₁ = P₁/V₁ = 220/220 = <strong>1 A</strong></li>
+            <li><strong>(c)</strong> Kayıp = 220 − 176 = <strong>44 W</strong></li>
+          </ol>
+          <p>
+            Transformatör ideal olsaydı I₁ = 176/220 = 0,8 A olurdu. Kayıplar, primerin fazladan
+            0,2 A çekmesine yol açıyor.
+          </p>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Yükseltici trafo ne kazandırır?</summary>
+          <p>
+            Bir santral 2 MW gücü 10 kV gerilimle üretiyor. Güç, toplam direnci 10 Ω olan bir hatla
+            şehre taşınacak. (a) Güç doğrudan 10 kV ile gönderilirse, (b) önce sarım oranı
+            N₁ : N₂ = 1 : 20 olan bir yükseltici kullanılırsa hattaki kayıp ne olur?
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> I = 2·10⁶ / 10⁴ = 200 A → P<sub>kayıp</sub> = 200² · 10 = <strong>400 kW</strong> (%20)</li>
+            <li><strong>(b)</strong> Yükseltici çıkışı: V₂ = 10 kV · 20 = 200 kV</li>
+            <li>I = 2·10⁶ / 2·10⁵ = 10 A → P<sub>kayıp</sub> = 10² · 10 = <strong>1 kW</strong> (%0,05)</li>
+            <li>Oran: 400 kW / 1 kW = 400 = 20². Gerilim 20 kat → kayıp 400'de bir.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Kaybı sınırlamak için gereken gerilim</summary>
+          <p>
+            10 MW gücü, toplam direnci 5 Ω olan bir hatla taşımak istiyoruz ve hattaki kaybın gücün
+            %0,5'ini geçmemesi gerekiyor. (a) Hat akımı en fazla kaç amper olabilir? (b) En az kaç
+            kV'luk iletim gerilimi gerekir? (c) Santral 10 kV ürettiğine göre yükselticinin sarım oranı
+            ne olmalıdır?
+          </p>
+          <ol class="steps">
+            <li>İzin verilen kayıp: 0,005 · 10⁷ W = 5·10⁴ W = 50 kW</li>
+            <li><strong>(a)</strong> I² · 5 = 5·10⁴ → I² = 10⁴ → <strong>I = 100 A</strong></li>
+            <li><strong>(b)</strong> V = P / I = 10⁷ / 100 = 10⁵ V = <strong>100 kV</strong></li>
+            <li><strong>(c)</strong> N₂/N₁ = V₂/V₁ = 100 kV / 10 kV → <strong>N₁ : N₂ = 1 : 10</strong></li>
+          </ol>
+          <p>
+            Kontrol: 100 kV'ta I = 100 A, kayıp 100² · 5 = 50 kW = %0,5 ✓. Gerilim bundan yüksek
+            seçilirse kayıp daha da küçülür.
+          </p>
+        </details>
+
+        <h3 id="k12">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Transformatör gücü artırır.”</strong> Artırmaz. Gerilimi artırırken akımı
             azaltır; ideal durumda güç sabit, gerçekte biraz <em>azalmıştır</em>.</li>
@@ -2597,6 +3228,10 @@
             çıkarsa kayıp 4 katına çıkar.</li>
           <li><strong>Primer–sekonder karıştırmak.</strong> Kaynağın bağlı olduğu sarım her zaman
             primerdir.</li>
+          <li><strong>“Yüksek gerilim hattından büyük akım geçer.”</strong> Tersine: aynı gücü taşırken
+            gerilim yüksekse akım <em>küçüktür</em>; kaybın küçük olmasının sebebi de budur.</li>
+          <li><strong>Sekonder akımını transformatörün belirlediğini sanmak.</strong> Akımı yük belirler
+            (I₂ = V₂/R); primer akımı da ona göre ayarlanır.</li>
         </ul>
 
         <div class="callout">

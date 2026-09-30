@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Küresel aynalar</h3>
-          <p>Asal ışınlardan ayna denklemine, beş cisim konumundan günlük hayattaki kullanımlara.</p>
+          <p>Dört basamakta: önce kaşıktaki görüntü, odak ve merkez, sonra asal ışınlar, beş cisim konumu, ayna denklemi ve büyütme, ardından yan aynanın hesabı, küresel sapma ve gerçek uygulamalar; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2137,15 +2357,20 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Temel kavramlar</button>
-        <button type="button" data-goto="k2">Asal ışınlar</button>
-        <button type="button" data-goto="k3">Çukur aynada beş durum</button>
-        <button type="button" data-goto="k4">Tümsek ayna</button>
-        <button type="button" data-goto="k5">Ayna denklemi</button>
-        <button type="button" data-goto="k6">Büyütme</button>
-        <button type="button" data-goto="k7">Nerede kullanılır</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Temel kavramlar</button>
+        <button type="button" data-goto="k3" data-basamak="1">Odak</button>
+        <button type="button" data-goto="k4" data-basamak="2">Asal ışınlar</button>
+        <button type="button" data-goto="k5" data-basamak="2">Beş durum</button>
+        <button type="button" data-goto="k6" data-basamak="2">Tümsek ayna</button>
+        <button type="button" data-goto="k7" data-basamak="2">Ayna denklemi</button>
+        <button type="button" data-goto="k8" data-basamak="2">Büyütme</button>
+        <button type="button" data-goto="k9" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k10" data-basamak="3">Yan ayna hesabı</button>
+        <button type="button" data-goto="k11" data-basamak="3">Modelin sınırları</button>
+        <button type="button" data-goto="k12" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k13" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k14" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2166,18 +2391,80 @@
         </svg>
 
         <p class="lead-in">
-          Kaşığın iç yüzüne bakınca başın <b>ters</b>, dış yüzüne bakınca <b>düz ve küçük</b> görünür.
-          Aynı metal, aynı ışık — değişen tek şey yüzeyin hangi yöne büküldüğü. Küresel aynalar
-          düzlem aynadan tek bir noktada ayrılır: <b>paralel gelen ışınları bir noktada toplarlar</b>
-          (ya da tek bir noktadan geliyormuş gibi dağıtırlar). Odak dediğimiz o nokta, bu konunun
-          tamamının anahtarıdır.
+          Bir kaşık seni neden baş aşağı gösterir de ters çevirince düzeltir? Kaşığın iç yüzüne bakınca
+          başın <b>ters</b>, dış yüzüne bakınca <b>düz ve küçük</b> görünür. Aynı metal, aynı ışık —
+          değişen tek şey yüzeyin hangi yöne büküldüğü. Küresel aynalar düzlem aynadan tek bir noktada
+          ayrılır: <b>paralel gelen ışınları bir noktada toplarlar</b> (ya da tek bir noktadan geliyormuş
+          gibi dağıtırlar). Odak dediğimiz o nokta, bu konunun tamamının anahtarıdır. Anlatım dört
+          basamakta ilerliyor: önce kaşığa ve trafik aynasına bakıp çukur ile tümsek aynayı, odağı ve
+          merkezi tanıyacaksın; sonra asal ışınlarla görüntü çizip beş cisim konumunu, ayna denklemini ve
+          büyütmeyi türeteceksin; ardından yan aynadaki uyarının hesabına, küresel aynanın sınırlarına ve
+          teleskoptan güneş fırınına uzanan uygulamalara geçeceksin. En sonda kolaydan zora sıralanmış
+          örnekler var.
         </p>
 
-        <h3 id="k1">Temel kavramlar</h3>
+        <figure class="foto">
+          <img src="gorsel/kuresel-aynalar-giris.webp?v=2" srcset="gorsel/kuresel-aynalar-giris-800.webp?v=2 800w, gorsel/kuresel-aynalar-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Taş duvarın önündeki metal direğe kelepçeyle bağlı, üstü siperlikli, koyu çerçeveli yuvarlak bir trafik aynası. Şişkin yüzeyinde, kenarlara doğru bükülen geniş bir sokak manzarasının içinde gri bir araba ile bir bisikletli küçülmüş olarak görünüyor.">
+          <figcaption>
+            <b>Köşenin arkasını görmek.</b> Kör virajlardaki trafik aynası tümsektir: görüntüyü küçültür ama çok geniş bir alanı tek bakışa sığdırır. Aynadaki araba ve bisikletli gerçekte göründüklerinden daha yakındır. Küçültme ile geniş görüş aynı sebepten doğar: yüzeyin dışa doğru bükülmüş olması.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: kaşığa ve aynalara bak, çukur ile tümseği ayır, odak ile merkezin ne olduğunu kavra. Hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: kaşıkta neden baş aşağısın?</h3>
+        <p>
+          Parlak bir çorba kaşığını kolunu uzatarak tut ve iç yüzüne bak. Yüzün küçülmüş ve
+          <strong>baş aşağı</strong> görünür. Kaşığı yavaşça gözüne yaklaştır: ters görüntü büyür, bir noktadan
+          sonra bulanıklaşıp dağılır. Şimdi kaşığı çevir ve dış yüzüne bak: yüzün <strong>düz</strong> ve
+          küçüktür, arkandaki odanın neredeyse tamamı da o küçük yüzeye sığmıştır. Kaşığı ne kadar
+          yaklaştırıp uzaklaştırırsan uzaklaştır, dış yüzdeki görüntü hiç ters dönmez.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/kuresel-aynalar-gunluk.webp?v=2" srcset="gorsel/kuresel-aynalar-gunluk-800.webp?v=2 800w, gorsel/kuresel-aynalar-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Bir elin tuttuğu parlak metal kaşığın iç, çukur yüzünde gülümseyen bir yüzün küçük ve baş aşağı görüntüsü; arka planda bulanık bir mutfak, meyve kâsesi ve pencere görünüyor.">
+          <figcaption>
+            <b>Kaşığın çukur yüzü</b> bir küresel ayna gibi davranır. Yüz kaşıktan oldukça uzakta olduğu için görüntü <b>ters ve küçük</b> oluşur: ışınlar yansıdıktan sonra gerçekten kesişir. Kaşığı ters çevirip tümsek yüzüne baksaydın görüntü düz ve yine küçük olurdu; aradaki farkı ikinci basamakta ışın çizerek açıklayacağız.
+          </figcaption>
+        </figure>
+
+        <p>
+          Aynı ikilik başka aynalarda da vardır. Banyodaki makyaj ya da tıraş aynasına yakından bakınca yüzün
+          büyük ve düz görünür, odanın öbür ucundan bakınca ters döner. Arabaların yan aynaları ve market
+          köşelerindeki aynalar ise her şeyi düz ve küçük gösterir. Gözlemlerini şöyle toplayabilirsin:
+        </p>
+        <ul>
+          <li><strong>İçe bükük yüzeye uzaktan bakınca:</strong> görüntü ters ve çoğu zaman küçüktür.</li>
+          <li><strong>İçe bükük yüzeye çok yakından bakınca:</strong> görüntü düz ve büyüktür (makyaj aynası).</li>
+          <li><strong>Dışa bükük yüzeyde:</strong> görüntü her uzaklıkta düz ve küçüktür, ama çok geniş bir alan görünür.</li>
+          <li><strong>Kenarlara doğru:</strong> görüntü çarpılır; düz çizgiler eğri görünür.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Kaşığın iç yüzünde baş aşağı görünüyorsun. Kaşığı ters çevirip dış yüzüne bakarsan ne değişir?</summary>
+          <p>
+            Görüntü <b>düzelir</b> ve küçük kalır. Dış yüz dışa doğru bükülmüştür; ışınları toplamak yerine
+            dağıtır ve bu yüzden görüntü hiçbir uzaklıkta ters dönmez. Aynı metal parçasının iki yüzü, bu
+            konunun iki ayna türünü, çukur ve tümsek aynayı temsil eder.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> İçe bükük bir yüzey uzaktaki cismi ters, çok yakındakini düz ve büyük gösterir; dışa
+          bükük bir yüzey ise her şeyi düz ve küçük ama geniş bir alanla gösterir.
+        </p>
+
+        <h3 id="k2">Temel kavramlar: çukur ve tümsek ayna</h3>
         <p>
           Küresel ayna, bir kürenin parçası biçimindeki aynadır. İç yüzeyi yansıtıcıysa
           <strong>çukur (konkav)</strong>, dış yüzeyi yansıtıcıysa <strong>tümsek (konveks)</strong>
-          ayna denir.
+          ayna denir. İçi boş parlak bir top düşün ve ondan bir kapak kes: kapağın içi çukur, dışı
+          tümsek aynadır.
         </p>
         <ul>
           <li><strong>Tepe noktası (T):</strong> aynanın orta noktası.</li>
@@ -2190,10 +2477,10 @@
           <code>f = r / 2</code>
         </div>
         <p>
-          Çukur aynada asal eksene paralel gelen ışınlar yansıdıktan sonra <strong>odakta
-          toplanır</strong>. Tümsek aynada ise ışınlar dağılır; uzantıları aynanın arkasındaki
-          odakta kesişir. Bu yüzden çukur ayna <strong>toplayıcı</strong>, tümsek ayna
-          <strong>dağıtıcı</strong>dır.
+          Küresel aynayı çok küçük düzlem ayna parçalarından yapılmış gibi düşünebilirsin. Her parçada
+          yansıma yasası (gelme açısı = yansıma açısı) aynen geçerlidir; yalnızca her parçanın normali farklı yöne bakar. Kürenin
+          yarıçapı yüzeyine her noktada dik olduğu için <strong>her noktanın normali merkezden geçer</strong>.
+          Eğrilik yarıçapı büyüdükçe ayna düzleşir; r çok büyük olunca küresel ayna düzlem aynaya dönüşür.
         </p>
 
         <figure class="fig">
@@ -2222,13 +2509,66 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Asal ışınlar</h3>
-        <p>Görüntüyü çizmek için üç ışından ikisi yeter:</p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Küresel ayna bir küre parçasıdır: içi yansıtıcıysa çukur, dışı yansıtıcıysa tümsek.
+          Her noktanın normali merkezden geçer ve odak, tepe ile merkezin tam ortasındadır: f = r/2.
+        </p>
+
+        <h3 id="k3">Odak: ışınları toplayan nokta</h3>
+        <p>
+          Çukur aynada asal eksene paralel gelen ışınlar yansıdıktan sonra <strong>odakta
+          toplanır</strong>. Tümsek aynada ise ışınlar dağılır; uzantıları aynanın arkasındaki
+          odakta kesişir. Bu yüzden çukur ayna <strong>toplayıcı</strong>, tümsek ayna
+          <strong>dağıtıcı</strong>dır. Uzaktaki bir cisimden, örneğin Güneş'ten gelen ışınlar birbirine
+          paralel sayılır; bu yüzden çukur ayna güneş ışığını odağında küçük, parlak bir lekeye toplar.
+        </p>
+        <p>
+          Işığın yolu <strong>tersinirdir</strong>: bir ışın bir yolu izleyebiliyorsa, ters yönde gönderilen
+          ışın aynı yolu geri izler. Paralel ışınlar odakta toplanıyorsa, odağa konan bir ampulün ışınları
+          da yansıdıktan sonra paralel bir demet olur. El fenerleri ve araba farları böyle çalışır.
+        </p>
+        <ul>
+          <li><strong>Çukur aynada odak gerçektir:</strong> ışınlar oradan gerçekten geçer; odağa kâğıt tutarsan ışık lekesi oluşur.</li>
+          <li><strong>Tümsek aynada odak sanaldır:</strong> ışınlar oradan geçmez, yalnızca oradan geliyormuş gibi dağılır.</li>
+          <li><strong>Tersinirlik:</strong> odaktan çıkan ışınlar paralel yansır; paralel gelenler odakta toplanır.</li>
+        </ul>
+        <div class="callout warn">
+          <p>
+            <b>Güneş'e tutulan çukur ayna tehlikelidir.</b> Odakta toplanan güneş ışığı kâğıdı tutuşturacak
+            kadar yoğunlaşabilir. Aynanın yansıttığı güneş ışığına ve odaktaki parlak lekeye doğrudan bakma;
+            deney yapacaksan ışığı bir kartona düşür.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: El fenerinin ampulü odaktan biraz aynaya doğru kaydırılırsa ışık demeti nasıl değişir?</summary>
+          <p>
+            Yansıyan ışınlar artık paralel olmaz, <b>dağılır</b>. Demet geniş bir alanı aydınlatır ama uzağa
+            ulaşan ışık azalır. Ayarlanabilir fenerler ampul ile yansıtıcı arasındaki uzaklığı değiştirerek
+            dar ya da geniş demet elde eder.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Çukur ayna paralel ışınları gerçek bir odakta toplar, tümsek ayna ise sanal bir odaktan
+          geliyormuş gibi dağıtır. Işığın yolu tersinir olduğu için odaktaki kaynak paralel bir demet verir.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Işın çiziminden denkleme: görüntünün yerini, türünü ve boyunu önce çizerek, sonra hesaplayarak bul.</span>
+        </div>
+
+        <h3 id="k4">Asal ışınlar ve görüntü çizimi</h3>
+        <p>
+          Cismin bir noktasından sayısız ışın çıkar, ama bunlardan bazılarının yansıdıktan sonra nereye
+          gideceğini hesapsız biliriz. Bunlara <strong>asal ışınlar</strong> denir. Görüntüyü çizmek için
+          ikisi yeter:
+        </p>
         <ol class="steps">
           <li><strong>Asal eksene paralel</strong> gelen ışın, yansıdıktan sonra
             <strong>odaktan</strong> geçer (tümsekte odaktan geliyormuş gibi görünür).</li>
           <li><strong>Odaktan geçerek</strong> gelen ışın, yansıdıktan sonra asal eksene
             <strong>paralel</strong> gider.</li>
+          <li><strong>Tepe noktasına</strong> gelen ışın, asal eksene göre <strong>simetrik</strong> yansır.</li>
           <li><strong>Merkezden geçen</strong> ışın, aynaya dik geldiği için
             <strong>kendi üzerinden</strong> geri döner.</li>
         </ol>
@@ -2238,6 +2578,13 @@
             perdeye düşürülebilir. Yalnızca <b>uzantıları</b> kesişiyorsa görüntü sanaldır.
           </p>
         </div>
+        <h4>Odak neden tam ortada?</h4>
+        <ol>
+          <li><strong>Normal:</strong> Eksene paralel bir ışın aynaya A noktasında çarpsın. AM doğrusu yarıçaptır, yani A'daki normaldir.</li>
+          <li><strong>Açılar:</strong> Gelen ışın normalle i açısı yapar; ışın eksene paralel olduğundan normal de eksenle i açısı yapar.</li>
+          <li><strong>İkizkenar üçgen:</strong> Yansıyan ışın ekseni F'de kessin. AFM üçgeninin A ve M köşelerindeki açılar i'dir; demek ki FA = FM.</li>
+          <li><strong>Sonuç:</strong> Işın eksene yakınsa FA ile FT hemen hemen eşittir; F, T ile M'nin tam ortasına düşer: f = r/2.</li>
+        </ol>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 212" role="img" aria-label="Çukur aynada üç asal ışının çizimi ve görüntünün oluşumu.">
@@ -2273,7 +2620,20 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Çukur aynada beş durum</h3>
+        <p>
+          Sayfanın 01 numaralı bölümündeki ışın çizimi laboratuvarında ayna türünü, yarıçapı ve cismin
+          yerini değiştirerek asal ışınların görüntüyü nasıl bulduğunu izleyebilirsin.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Paralel gelen ışın odaktan, odaktan gelen paralel, tepeye gelen simetrik, merkezden
+          gelen kendi üzerinden yansır; ikisinin kesiştiği yer görüntüdür. Işınlar kesişirse görüntü gerçek, uzantılar kesişirse sanaldır.
+        </p>
+
+        <h3 id="k5">Çukur aynada beş durum</h3>
+        <p>
+          Asal ışınları cismin farklı konumları için çizersen yalnızca beş farklı sonuç çıkar. Bunları bir
+          tabloda toplamak, çukur ayna sorularının çoğunu çizim yapmadan cevaplamanı sağlar:
+        </p>
         <table class="tbl">
           <tr><th>Cismin yeri</th><th>Görüntünün yeri</th><th>Özellikleri</th></tr>
           <tr><td>Merkezin ötesinde</td><td>odak – merkez arası</td><td>gerçek, ters, küçük</td></tr>
@@ -2284,7 +2644,10 @@
         </table>
         <p>
           Sıradaki düzen kolay hatırlanır: cisim aynaya <strong>yaklaştıkça görüntü uzaklaşır ve
-          büyür</strong>. Cisim odağa geldiğinde yansıyan ışınlar paralel olur, görüntü oluşmaz.
+          büyür</strong>. Cisim odağa geldiğinde yansıyan ışınlar paralel olur, görüntü oluşmaz. Tablonun
+          ilk ve üçüncü satırları birbirinin tersidir: cisim merkezin ötesindeyken görüntü odak ile merkez
+          arasına düşüyorsa, cismi o noktaya koyduğunda görüntü eski yerine gider. Bu, ışığın tersinirliğinin
+          sonucudur. Merkez bu yüzden bir <strong>simetri noktasıdır</strong>.
         </p>
 
         <figure class="fig">
@@ -2328,10 +2691,30 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Tümsek ayna</h3>
         <p>
-          Tümsek aynada odak ve merkez <strong>aynanın arkasındadır</strong>. Cisim nerede olursa
-          olsun görüntü her zaman:
+          Sayfanın 02 numaralı bölümünde “Sırayla göster” düğmesine basarak cismin bu beş konumdan geçişini
+          ve görüntünün nasıl koştuğunu izleyebilirsin.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Cisim merkezin çok ötesinden odağa doğru yürürken görüntü nereye gider, boyu nasıl değişir?</summary>
+          <p>
+            Görüntü odağın hemen yanından yola çıkar, aynadan <b>uzaklaşarak</b> merkezi geçer ve cisim odağa
+            varınca sonsuza kaçar. Bu sırada boyu küçükten eşite, eşitten büyüğe doğru artar. Görüntü baştan
+            sona gerçek ve terstir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Çukur aynada cisim odağın dışındayken görüntü gerçek ve terstir, cisim yaklaştıkça
+          uzaklaşır ve büyür. Cisim odaktayken görüntü oluşmaz, odağın içindeyken sanal, düz ve büyüktür.
+        </p>
+
+        <h3 id="k6">Tümsek ayna: her zaman düz ve küçük</h3>
+        <p>
+          Tümsek aynada odak ve merkez <strong>aynanın arkasındadır</strong>. Asal ışınlar burada da
+          kullanılır, ama yönleri uzantılarla tanımlanır: eksene paralel gelen ışın, arkadaki odaktan
+          geliyormuş gibi yansır; arkadaki odağa doğru gelen ışın eksene paralel yansır; merkeze doğru gelen
+          ışın kendi üzerinden döner. Yansıyan ışınlar hep dağıldığı için hiçbir zaman kesişmez; yalnızca
+          uzantıları aynanın arkasında kesişir. Cisim nerede olursa olsun görüntü her zaman:
         </p>
         <ul>
           <li><strong>sanaldır</strong> (aynanın arkasında),</li>
@@ -2343,7 +2726,8 @@
           Görüntü küçüldüğü için aynı aynaya çok daha geniş bir alan sığar. Market ve otopark
           aynaları, araç yan aynaları bu yüzden tümsektir. Yan aynalardaki
           <strong>“cisimler göründüğünden daha yakındır”</strong> uyarısı da bu küçültmenin
-          sonucudur.
+          sonucudur. Sayfanın 03 numaralı bölümünde tümsek aynanın görüş alanını aynı boydaki düzlem
+          aynanınkiyle karşılaştırabilirsin.
         </p>
 
         <figure class="fig">
@@ -2376,11 +2760,40 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Ayna denklemi</h3>
+        <details class="dusun">
+          <summary>Düşün: Tümsek aynada cismi aynaya iyice yaklaştırırsan görüntü ters döner ya da cisimden büyük olur mu?</summary>
+          <p>
+            <b>Hayır.</b> Görüntü yaklaştıkça büyür ve boyu cismin boyuna yaklaşır, ama hiçbir zaman onu
+            geçmez; hep sanal ve düz kalır. Tümsek ayna ışınları her durumda dağıttığı için gerçek, ters ya
+            da büyütülmüş bir görüntü veremez.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Tümsek aynada odak ve merkez aynanın arkasındadır; yansıyan ışınlar dağıldığı için
+          görüntü her zaman sanal, düz, küçüktür ve tepe ile odak arasında oluşur.
+        </p>
+
+        <h3 id="k7">Ayna denklemi ve işaret kuralı</h3>
+        <p>
+          Çizim görüntünün yerini gösterir, ama tam uzaklığı söylemek için bir denkleme ihtiyaç var. Cismin
+          aynaya uzaklığı a, görüntünün aynaya uzaklığı b, odak uzaklığı f olmak üzere:
+        </p>
         <div class="formula">
           <code>1/f = 1/a + 1/b</code>
           <code>f = r/2</code>
         </div>
+        <h4>Denklem nereden geliyor?</h4>
+        <ol>
+          <li><strong>Tepe ışını:</strong> Tepeye gelen ışın simetrik yansır; cisim, görüntü ve tepe iki benzer üçgen kurar: h′/h = b/a.</li>
+          <li><strong>Paralel ışın:</strong> Eksene paralel gelen ışın odaktan geçer; odakta birleşen iki benzer üçgenden h′/h = (b − f)/f.</li>
+          <li><strong>Eşitle:</strong> b/a = (b − f)/f, yani b·f = a·b − a·f.</li>
+          <li><strong>Böl:</strong> Her terimi a·b·f'ye bölünce 1/a = 1/f − 1/b, yani 1/f = 1/a + 1/b.</li>
+        </ol>
+        <p>
+          Burada h cismin, h′ görüntünün boyudur ve ayna, eksene yakın ışınlar için tepe noktasında düz bir
+          çizgi gibi alınmıştır. Denklemi sınamanın kolay bir yolu var: cisim merkezdeyse (a = 2f) görüntü de
+          merkezde olmalı. Gerçekten 1/(2f) + 1/(2f) = 1/f çıkar ✓.
+        </p>
         <p>İşaret kuralı (bu sayfada kullanılan):</p>
         <ul>
           <li><strong>Çukur ayna:</strong> f pozitif. <strong>Tümsek ayna:</strong> f negatif.</li>
@@ -2411,10 +2824,19 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Büyütme</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> 1/f = 1/a + 1/b, benzer üçgenlerden çıkar ve çukur, tümsek, gerçek, sanal bütün
+          durumlarda aynıdır. İşaret kuralı sonucu yorumlar: çukurda f &gt; 0, tümsekte f &lt; 0; b &lt; 0 ise görüntü sanaldır.
+        </p>
+
+        <h3 id="k8">Büyütme</h3>
+        <p>
+          Denklemin türetilmesindeki ilk adım bize bedava bir sonuç daha verdi: görüntü boyunun cisim boyuna
+          oranı, uzaklıkların oranına eşittir. Bu orana <strong>büyütme</strong> denir:
+        </p>
         <div class="formula">
           <code>m = |b / a|</code>
-          <code>m = boy(görüntü) / boy(cisim)</code>
+          <code>m = boy(görüntü)/boy(cisim)</code>
         </div>
         <ul>
           <li><strong>m &gt; 1:</strong> görüntü cisimden büyük.</li>
@@ -2423,8 +2845,19 @@
         </ul>
         <p>
           Gerçek görüntüler daima <strong>ters</strong>, sanal görüntüler daima
-          <strong>düzdür</strong>. Bu iki cümle, çizim yapmadan da yönü söyler.
+          <strong>düzdür</strong>. Bu iki cümle, çizim yapmadan da yönü söyler. Sayfanın 01 numaralı
+          bölümü açıldığında gördüğün durum bir örnektir: r = 60 cm, a = 90 cm için b = 45 cm çıkar;
+          m = 45/90 = 0,5 olduğundan 24 cm'lik cismin görüntüsü 12 cm'dir.
         </p>
+        <h4>İstenen büyütme için cisim nereye?</h4>
+        <p>
+          Gerçek görüntüde b = m·a, sanal görüntüde b = −m·a yazıp denklemde yerine koyarsan cismin konması
+          gereken yeri doğrudan bulursun. Sayfanın 04 numaralı bölümündeki hedef büyütme oyunu bu ipucunu verir:
+        </p>
+        <div class="formula">
+          <code>gerçek: a = f·(m + 1)/m</code>
+          <code>sanal: a = f·(m − 1)/m</code>
+        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 186" role="img" aria-label="Büyütmenin görüntü ile cisim boyunun oranı olarak iki örnekte gösterimi.">
@@ -2451,17 +2884,139 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Nerede kullanılır?</h3>
-        <ul>
-          <li><strong>Çukur ayna:</strong> diş hekimi aynası, makyaj aynası, el feneri ve far
-            yansıtıcısı, teleskop, güneş fırını.</li>
-          <li><strong>Tümsek ayna:</strong> araç yan aynası, market ve otopark güvenlik aynası,
-            ATM aynaları.</li>
-        </ul>
+        <details class="dusun">
+          <summary>Düşün: Gerçek görüntü neden hep ters, sanal görüntü neden hep düzdür?</summary>
+          <p>
+            Gerçek görüntüde cismin tepesinden çıkan ışınlar yansıdıktan sonra asal ekseni <b>keserek</b>
+            öbür tarafta buluşur; bu yüzden tepe aşağıya düşer. Sanal görüntüde ise yansıyan ışınların
+            uzantıları aynanın arkasında, ekseni kesmeden buluşur; tepe yukarıda kalır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Büyütme görüntü boyunun cisim boyuna oranıdır ve m = |b/a| ile hesaplanır. Gerçek
+          görüntü hep ters, sanal görüntü hep düzdür.
+        </p>
+
+        <h3 id="k9">Sayılarla hisset: cisim yaklaşırken görüntü nereye kaçar?</h3>
         <p>
-          El fenerinde ampul odağa yerleştirilir: odaktan çıkan ışınlar yansıdıktan sonra
-          asal eksene paralel gider ve ışık uzağa taşınır. Güneş fırını bunun tersidir:
-          paralel gelen güneş ışınları odakta toplanır.
+          Beş durum tablosunu gerçek sayılarla dolduralım. Eğrilik yarıçapı 40 cm olan (f = 20 cm) bir çukur
+          aynanın önünde cismi adım adım yaklaştıralım ve her konumda ayna denklemini çözelim:
+        </p>
+        <table class="tbl">
+          <tr><th>Cisim (a)</th><th>Görüntü (b)</th><th>Büyütme</th><th>Görüntü</th></tr>
+          <tr><td>100 cm</td><td>25 cm</td><td>0,25</td><td>gerçek, ters, küçük</td></tr>
+          <tr><td>40 cm</td><td>40 cm</td><td>1</td><td>gerçek, ters, eşit</td></tr>
+          <tr><td>25 cm</td><td>100 cm</td><td>4</td><td>gerçek, ters, büyük</td></tr>
+          <tr><td>20 cm</td><td>—</td><td>—</td><td>oluşmaz (sonsuzda)</td></tr>
+          <tr><td>10 cm</td><td>−20 cm</td><td>2</td><td>sanal, düz, büyük</td></tr>
+        </table>
+        <p>
+          Tablodan üç düzen okunur. Birincisi, <strong>a ile b yer değiştirebilir</strong>: 100 cm'deki cisim
+          25 cm'de, 25 cm'deki cisim 100 cm'de görüntü verir; denklem a ile b'ye göre simetriktir. İkincisi,
+          <strong>odağın yakınında görüntü uçup gider</strong>: cisim 25 cm'den 22 cm'ye gelince görüntü 100 cm'den
+          220 cm'ye, 21 cm'ye gelince 420 cm'ye fırlar ve büyütme 20 kata çıkar. Üçüncüsü, işaretin değiştiği
+          tek yer odaktır: odağın içinde b negatif, görüntü sanaldır.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: f = 20 cm için a = 30 cm'de b = 60 cm çıkıyor. Cisim 60 cm'ye konursa görüntü nerede oluşur?</summary>
+          <p>
+            <b>30 cm'de</b>, hesap yapmadan. Ayna denklemi a ile b'ye göre simetrik olduğu için ikisi yer
+            değiştirebilir. Kontrol: 1/b = 1/20 − 1/60 = 2/60, b = 30 cm ✓. Bu kez büyütme 0,5'tir: görüntü küçük.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Cisim uzaktan odağa yaklaşırken görüntü odaktan sonsuza kaçar ve büyür; odağın içinde
+          sanal olur. Ayna denklemi simetrik olduğu için cisim ile görüntünün yerleri değiştirilebilir.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: yan aynadaki uyarının hesabı, küresel aynanın sınırları ve küresel aynaların iş başında olduğu yerler.</span>
+        </div>
+
+        <h3 id="k10">Yan aynadaki uyarının hesabı</h3>
+        <p>
+          Yan aynalardaki “cisimler göründüğünden daha yakındır” yazısını sayılarla sınayalım. Eğrilik
+          yarıçapı 2 m olan (f = −1 m) bir tümsek ayna düşün ve arkadan gelen bir arabanın farklı
+          uzaklıklardaki görüntüsünü ayna denklemiyle bulalım:
+        </p>
+        <table class="tbl">
+          <tr><th>Araba (a)</th><th>Görüntü (b)</th><th>Büyütme</th></tr>
+          <tr><td>5 m</td><td>−0,83 m</td><td>0,17</td></tr>
+          <tr><td>10 m</td><td>−0,91 m</td><td>0,091</td></tr>
+          <tr><td>20 m</td><td>−0,95 m</td><td>0,048</td></tr>
+          <tr><td>40 m</td><td>−0,98 m</td><td>0,024</td></tr>
+        </table>
+        <p>
+          Görüntü hep aynanın 1 m gerisindeki odak ile tepe arasında kalır; araba uzaklaştıkça yalnızca odağa
+          biraz yaklaşır. Büyütme ise hızla küçülür. Sürücünün gözü aynadan 1 m uzaktaysa, 20 m gerideki
+          arabanın görüntüsü gözüne, düzlem aynada 40 m gerideki bir arabanın görüneceği kadar küçük görünür.
+          Beyin uzaklığı büyük ölçüde görünen boydan tahmin ettiği için arabayı olduğundan yaklaşık
+          <strong>iki kat uzakta</strong> sanar. Uyarı yazısı tam olarak bu yanılgı içindir.
+        </p>
+        <p>
+          Bedeli bilinerek ödenir: aynı boydaki düzlem ayna yalnızca dar bir şeridi gösterirken tümsek ayna
+          yan şeridi, kör noktaya yakın bölgeyi ve kaldırımı birlikte gösterir. Güvenlik için geniş görüş,
+          küçük görüntüden daha değerlidir.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Yan aynalar tümsek olduğu hâlde arabanın iç dikiz aynası neden genellikle düzdür?</summary>
+          <p>
+            İç ayna zaten arka camın çerçevesinden görünen alanı gösterir; geniş görüşe o kadar ihtiyaç yoktur.
+            Düzlem aynada arkadaki araç gözüne gerçekte olduğu kadar uzakta ve o uzaklığa uygun boyda görünür;
+            sürücü uzaklığı doğru tahmin eder. Yan ayna geniş alanı, iç ayna doğru uzaklığı sağlar.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Tümsek yan ayna uzaktaki arabanın görüntüsünü çok küçültür; beyin boydan uzaklık
+          tahmin ettiği için arabayı olduğundan uzak sanır. Geniş görüş alanı bu yanılgıya değer.
+        </p>
+
+        <h3 id="k11">Modelin sınırları: küresel sapma ve parabolik ayna</h3>
+        <p>
+          f = r/2 ve ayna denklemi, <strong>asal eksene yakın</strong> ışınlar için doğrudur. Odak türetmesinin
+          son adımında FA ile FT'yi eşit saymıştık; bu yalnızca ışın eksene yakınken geçerlidir. Eksenden uzak
+          gelen ışınlar ekseni aynaya daha yakın bir noktada keser. Eğrilik yarıçapı 60 cm (f = 30 cm) olan
+          bir çukur aynada, eksene paralel gelen ışınların ekseni kestiği noktanın tepeye uzaklığı:
+        </p>
+        <table class="tbl">
+          <tr><th>Işının eksenden yüksekliği</th><th>Ekseni kestiği yer (T'den)</th></tr>
+          <tr><td>3 cm</td><td>29,96 cm</td></tr>
+          <tr><td>15 cm</td><td>29,02 cm</td></tr>
+          <tr><td>30 cm</td><td>25,36 cm</td></tr>
+          <tr><td>45 cm</td><td>14,64 cm</td></tr>
+        </table>
+        <p>
+          Eksene yakın ışınlar neredeyse tam 30 cm'de buluşurken kenardan gelenler çok daha önde kesişir.
+          Sonuçta odak bir nokta değil, bulanık bir leke olur. Bu kusura <strong>küresel sapma</strong> denir.
+          Çözüm, aynayı küre yerine <strong>paraboloit</strong> biçiminde yapmaktır: parabolik ayna eksene
+          paralel gelen bütün ışınları, eksenden ne kadar uzak olursa olsun, tek bir noktada toplar. Küçük ve
+          sığ aynalarda küre ile parabol neredeyse aynıdır; fark büyük ve derin aynalarda önem kazanır.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Hubble'ın gözlüğü:</b> Hubble Uzay Teleskobu 1990'da fırlatıldığında görüntüleri bulanık çıktı:
+            2,4 m'lik ana aynası kenarlarda, bir saç telinin kalınlığından çok daha az (yaklaşık 2 mikrometre)
+            yanlış biçimlendirilmişti. Küresel sapma 1993'te astronotların taktığı düzeltici optikle giderildi.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: Çukur aynanın kenarlarını kartonla kapatıp yalnızca ortasını açık bırakırsan odaktaki leke nasıl değişir?</summary>
+          <p>
+            Leke <b>daha keskin</b> olur, çünkü odaktan en çok sapan kenar ışınları kesilmiştir. Buna karşılık
+            ayna daha az ışık toplar ve odağa ulaşan toplam ışık azalır. Keskinlik ile toplanan ışık arasındaki
+            bu takas optik aletlerin tasarımında hep karşına çıkar.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Ayna denklemi eksene yakın ışınlar için geçerlidir; kenardan gelen ışınlar aynaya daha
+          yakın kesişir ve odak bulanıklaşır (küresel sapma). Parabolik aynalar bütün paralel ışınları tek noktada toplar.
+        </p>
+
+        <h3 id="k12">Küresel aynalar gerçek dünyada</h3>
+        <p>
+          Çukur ve tümsek aynanın bütün kullanım alanları, bu konudaki üç fikre dayanır: odak içindeki cismin
+          büyütülmüş sanal görüntüsü, odaktaki kaynağın paralel demeti ve tümsek aynanın geniş görüşü.
         </p>
 
         <figure class="fig">
@@ -2500,10 +3055,81 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <figure class="foto">
+          <img src="gorsel/kuresel-aynalar-uygulama.webp?v=2" srcset="gorsel/kuresel-aynalar-uygulama-800.webp?v=2 800w, gorsel/kuresel-aynalar-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Çölde, çok sayıda küçük ayna parçasından yapılmış dev bir çanak, sağda ufka yakın Güneş&#x27;e dönük duruyor. Çanağın kenarından uzanan ince kolların tuttuğu alıcı, çanakla Güneş arasında, odakta beyaz bir ışıkla parlıyor; yansıyan ışınlar alıcıda birleşiyor.">
+          <figcaption>
+            <b>Güneşi bir noktaya toplamak.</b> Parabolik güneş yoğunlaştırıcısı, Güneş'ten paralel gelen ışınları odağındaki küçük alıcıda toplar. Çanak tek parça değil, birçok ayna parçasından yapılmıştır; her parça ışığı aynı odağa yollayacak biçimde eğilmiştir. Alıcıda biriken ısı elektrik üretmek ya da bir maddeyi ısıtmak için kullanılır.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Çukur ayna:</strong> diş hekimi aynası, makyaj aynası, el feneri ve far
+            yansıtıcısı, teleskop, güneş fırını.</li>
+          <li><strong>Tümsek ayna:</strong> araç yan aynası, market ve otopark güvenlik aynası,
+            ATM aynaları.</li>
+          <li><strong>Güneş'in görüntüsü:</strong> Güneş gökte yaklaşık 0,53° genişliktedir; odak uzaklığı 5 m
+            olan bir çanak onun yaklaşık 4,6 cm çapında gerçek bir görüntüsünü oluşturur.</li>
+          <li><strong>Teleskoplar:</strong> Newton 1668'de ilk kullanışlı yansıtmalı teleskoplardan birini yaptı. Hubble'ın aynası
+            2,4 m, James Webb'inki 18 altıgen parçadan oluşan 6,5 m'lik bir aynadır.</li>
+          <li><strong>Güneş fırınları:</strong> dev parabolik aynalar ışığı öyle yoğunlaştırır ki odakta
+            3000 °C'yi aşan sıcaklıklara ulaşılabilir.</li>
+          <li><strong>Uydu çanakları:</strong> radyo dalgalarını da ayna gibi yansıtır ve odaktaki alıcıda toplar.</li>
+        </ul>
+        <p>
+          El fenerinde ampul odağa yerleştirilir: odaktan çıkan ışınlar yansıdıktan sonra
+          asal eksene paralel gider ve ışık uzağa taşınır. Güneş fırını bunun tersidir:
+          paralel gelen güneş ışınları odakta toplanır. Teleskopta ise çukur ayna uzaktaki bir yıldızın
+          zayıf ışığını geniş bir yüzeyden toplayıp odakta birleştirir; ayna ne kadar büyükse o kadar sönük
+          cisimler görülebilir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Çukur aynalar ışığı toplar (teleskop, güneş fırını) ya da odaktaki kaynağı paralel demete
+          çevirir (far); tümsek aynalar geniş görüş için kullanılır (yan ayna, güvenlik aynası).
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k13">Çözümlü örnekler</h3>
+        <p>
+          Aşağıdaki çözümlerde işaret kuralı sayfadaki gibidir: çukur aynada f &gt; 0, tümsek aynada f &lt; 0;
+          b &gt; 0 gerçek, b &lt; 0 sanal görüntü demektir.
+        </p>
 
         <details>
-          <summary>Örnek 1 — Çukur aynada gerçek görüntü</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Merkezdeki cisim</summary>
+          <p>
+            Eğrilik yarıçapı 40 cm olan çukur aynanın 40 cm önüne bir cisim konuyor. Görüntünün yeri,
+            türü ve boyu nedir?
+          </p>
+          <ol class="steps">
+            <li>f = r/2 = 40/2 = 20 cm; cisim 2f = 40 cm'de, yani <strong>merkezde</strong>.</li>
+            <li>1/20 = 1/40 + 1/b → 1/b = 1/20 − 1/40 = 1/40 → b = <strong>40 cm</strong></li>
+            <li>m = 40/40 = <strong>1</strong>: görüntü gerçek, ters ve cisimle <strong>eşit</strong> boyda.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="kolay">Örnek 2 — Çizmeden tanı</summary>
+          <p>
+            Odak uzaklığı 15 cm olan çukur aynanın önüne bir cisim sırayla 50 cm, 22 cm ve 8 cm uzaklığa
+            konuyor. Her durumda görüntünün türünü denklem çözmeden söyleyiniz.
+          </p>
+          <ol class="steps">
+            <li>Sınırlar: f = 15 cm, merkez 2f = 30 cm.</li>
+            <li>50 cm &gt; 30 cm (merkezin ötesi) → <strong>gerçek, ters, küçük</strong></li>
+            <li>15 cm &lt; 22 cm &lt; 30 cm (merkez–odak arası) → <strong>gerçek, ters, büyük</strong></li>
+            <li>8 cm &lt; 15 cm (odağın içi) → <strong>sanal, düz, büyük</strong></li>
+            <li>Kontrol: denklem sırasıyla b ≈ 21,4 cm, 47,1 cm ve −17,1 cm verir ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 3 — Çukur aynada gerçek görüntü</summary>
           <p>
             Eğrilik yarıçapı 60 cm olan çukur aynanın önüne, 45 cm uzaklığa bir cisim
             konuyor. Görüntünün yerini ve büyütmesini bulunuz.
@@ -2517,7 +3143,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Odağın içinde: büyüteç etkisi</summary>
+          <summary data-zorluk="orta">Örnek 4 — Odağın içinde: büyüteç etkisi</summary>
           <p>
             Odak uzaklığı 20 cm olan çukur aynanın önüne 10 cm uzaklığa bir cisim konuyor.
             Görüntü nerede oluşur?
@@ -2532,7 +3158,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Tümsek ayna</summary>
+          <summary data-zorluk="orta">Örnek 5 — Tümsek ayna</summary>
           <p>
             Eğrilik yarıçapı 40 cm olan tümsek aynanın 60 cm önünde bir cisim vardır.
             Görüntünün yeri ve büyütmesi nedir?
@@ -2546,7 +3172,7 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — İstenen büyütmeyi sağlamak</summary>
+          <summary data-zorluk="zor">Örnek 6 — İstenen büyütmeyi sağlamak</summary>
           <p>
             Odak uzaklığı 15 cm olan çukur aynada, cismin 3 katı büyüklükte <strong>gerçek</strong>
             bir görüntü isteniyor. Cisim aynadan kaç cm uzağa konmalıdır?
@@ -2560,11 +3186,44 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Makyaj aynası tasarlamak</summary>
+          <p>
+            Yüzünü aynadan 15 cm uzakta tutan biri, yüzünün <strong>3 kat büyük ve düz</strong> görüntüsünü
+            görmek istiyor. Çukur aynanın eğrilik yarıçapı ne olmalıdır?
+          </p>
+          <ol class="steps">
+            <li>Düz ve büyük görüntü sanaldır: b = −m·a = −3 · 15 = −45 cm</li>
+            <li>1/f = 1/15 + 1/(−45) = (3 − 1)/45 = 2/45</li>
+            <li>f = 45/2 = <strong>22,5 cm</strong> → r = 2f = <strong>45 cm</strong></li>
+            <li>Kontrol: a = 15 cm &lt; f = 22,5 cm, yani yüz odağın içinde ✓. Sanal formülüyle de
+              a = f·(m − 1)/m = 22,5 · 2/3 = 15 cm ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 8 — Perdeye düşen görüntü</summary>
+          <p>
+            Çukur bir aynanın önündeki mumun 2 kat büyük görüntüsü, aynaya mumdan 30 cm daha uzak olan bir
+            perdede net olarak oluşuyor. Aynanın odak uzaklığı kaç cm'dir?
+          </p>
+          <ol class="steps">
+            <li>Görüntü perdeye düştüğüne göre gerçektir: b = 2a</li>
+            <li>Perde mumdan 30 cm uzakta: b − a = 30 → 2a − a = 30 → a = 30 cm, b = 60 cm</li>
+            <li>1/f = 1/30 + 1/60 = (2 + 1)/60 = 3/60 → f = <strong>20 cm</strong></li>
+            <li>Kontrol: a = 30 cm, f = 20 ile 2f = 40 cm arasında; görüntü gerçek, ters ve büyük olmalı ✓</li>
+          </ol>
+        </details>
+
+        <h3 id="k14">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>f = r sanmak.</strong> Odak uzaklığı yarıçapın <em>yarısıdır</em>.</li>
           <li><strong>Tümsek aynada gerçek görüntü aramak.</strong> Tümsek aynada görüntü
             her zaman sanal, düz ve küçüktür.</li>
+          <li><strong>Tümsek aynada f'yi pozitif yazmak.</strong> Tümsek aynanın odağı arkadadır:
+            f = −r/2 alınmazsa sonuç yanlış çıkar.</li>
+          <li><strong>Çukur aynanın her zaman ters görüntü verdiğini sanmak.</strong> Cisim odağın
+            içindeyse görüntü sanal, düz ve büyüktür.</li>
           <li><strong>Sanal görüntüyü perdeye düşürmeye çalışmak.</strong> Sanal görüntü
             perdede oluşmaz; yalnızca aynaya bakarak görülür.</li>
           <li><strong>İşaretleri karıştırmak.</strong> b'nin negatif çıkması hata değildir;

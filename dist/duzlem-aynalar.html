@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Düzlem aynalar</h3>
-          <p>Yansıma yasasından görüntü çizimine, aynanın dönmesinden iki aynaya kadar konunun tamamı.</p>
+          <p>Dört basamakta: önce gözlem ve yansıma yasası, sonra görüntü çizimi, boy aynası, dönen ayna ve iki ayna, ardından sağ–sol bilmecesi, paralel aynalar ve gerçek uygulamalar; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2134,15 +2354,20 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Yansıma yasası</button>
-        <button type="button" data-goto="k2">Düzgün · dağınık</button>
-        <button type="button" data-goto="k3">Görüntünün özellikleri</button>
-        <button type="button" data-goto="k4">Görüntü çizimi</button>
-        <button type="button" data-goto="k5">Hareket ve hız</button>
-        <button type="button" data-goto="k6">Aynanın dönmesi</button>
-        <button type="button" data-goto="k7">İki ayna</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Yansıma yasası</button>
+        <button type="button" data-goto="k3" data-basamak="1">Düzgün ve dağınık</button>
+        <button type="button" data-goto="k4" data-basamak="1">Görüntünün özellikleri</button>
+        <button type="button" data-goto="k5" data-basamak="2">Görüntü çizimi</button>
+        <button type="button" data-goto="k6" data-basamak="2">Boy aynası</button>
+        <button type="button" data-goto="k7" data-basamak="2">Hareket</button>
+        <button type="button" data-goto="k8" data-basamak="2">Aynanın dönmesi</button>
+        <button type="button" data-goto="k9" data-basamak="2">Sayılarla: iki ayna</button>
+        <button type="button" data-goto="k10" data-basamak="3">Sağ mı, ön mü?</button>
+        <button type="button" data-goto="k11" data-basamak="3">İnce durumlar</button>
+        <button type="button" data-goto="k12" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k13" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k14" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2163,26 +2388,101 @@
         </svg>
 
         <p class="lead-in">
-          Aynada gördüğün yüz senin yüzün değil: sağı solu yer değiştirmiş bir kopyası. Üstelik o
-          kopya, aynanın <b>arkasında hiç var olmayan bir yerde</b> duruyor — oraya perde koysan
-          hiçbir şey düşmez. Bütün bunlar tek bir kuraldan çıkıyor: <b>gelme açısı yansıma açısına
-          eşittir.</b> Aşağıda bu tek kuraldan görüntünün yerini, boyunu, hızını ve iki ayna
-          arasında kaç görüntü oluştuğunu tek tek türeteceğiz.
+          Kendini tepeden tırnağa görmek için boyun kadar bir ayna mı gerekir? Hayır: <b>yarısı yeter</b>,
+          üstelik aynadan ne kadar uzakta durduğunun hiçbir önemi yok. Aynadaki yüzün de senin yüzün değil,
+          sağı solu yer değiştirmiş gibi görünen bir kopyası; o kopya aynanın <b>arkasında hiç var olmayan
+          bir yerde</b> duruyor — oraya perde koysan hiçbir şey düşmez. Bütün bunlar tek bir kuraldan
+          çıkıyor: <b>gelme açısı yansıma açısına eşittir.</b> Anlatım dört basamakta ilerliyor: önce
+          aynada gördüklerine ad koyup bu kuralı tanıyacaksın; sonra görüntünün yerini, boyunu, hızını,
+          dönen aynayı ve iki ayna arasındaki görüntü sayısını ondan türeteceksin; ardından aynanın gerçekte
+          neyi ters çevirdiğini ve periskoptan Ay'a uzanan uygulamaları göreceksin. En sonda kolaydan zora
+          sıralanmış örnekler var.
         </p>
 
-        <h3 id="k1">Yansıma yasası</h3>
+        <figure class="foto">
+          <img src="gorsel/duzlem-aynalar-giris.webp?v=2" srcset="gorsel/duzlem-aynalar-giris-800.webp?v=2 800w, gorsel/duzlem-aynalar-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Ahşap bir masanın üzerinde, dikey kenarları birleşik ve birbirine dik duran iki düzlem ayna; birleştikleri köşenin önünde kırmızı bir elma var. Sol aynada bir, sağ aynada bir ve iki aynanın birleşim çizgisinin üzerinde, bu çizgiyle ikiye bölünmüş bir tane olmak üzere elmanın üç görüntüsü görünüyor.">
+          <figcaption>
+            <b>İki ayna, bir elma, üç kopya.</b> Aynalar burada dik açıyla birleşiyor ve elmanın tam <b>üç</b> görüntüsü oluşuyor: her aynada birer tane ve köşede, birleşim çizgisinin ikiye böldüğü üçüncüsü. Köşedeki kopya, ışığın iki aynadan art arda yansımasıyla oluşan bir görüntünün görüntüsüdür; bu yüzden yandaki iki görüntüden daha uzakta ve biraz daha küçük görünür. Kaç kopya oluşacağını aynalar arasındaki açı belirler, açı daraldıkça kopya sayısı artar; bu sayıyı ikinci basamakta tek bir bağıntıyla bulacağız.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: aynaya bak, gördüğünü adlandır ve ışığın aynadan nasıl döndüğünü tanı. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: aynada ne görürsün?</h3>
         <p>
-          Bir yüzeye çarpan ışık geri döner; buna <strong>yansıma</strong> denir. Yansımanın
-          iki kuralı vardır:
+          Sabah aynanın karşısına geçtiğinde gördüğün şeyi hiç dikkatle inceledin mi? Görüntün aynanın
+          yüzeyine yapışık değildir; aynanın <strong>içinde</strong>, arkada bir yerde duruyor gibidir.
+          Aynaya bir adım yaklaş: görüntün de sana doğru bir adım gelir. Sağ elini kaldır: görüntü tam
+          karşındaki elini kaldırır. Yazılı bir kâğıdı aynaya tut: harfler ters dönmüş görünür.
+        </p>
+        <p>
+          Bir de şunu dene: aynanın önünde yavaşça yana kay. Görüntün de seninle birlikte kayar ve
+          aynanın kenarına gelince yarım kalır. Ayna sanki bir <strong>pencere</strong> gibidir: arkasında
+          seninkine benzeyen bir oda ve o odada senin bir kopyan varmış gibi.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/duzlem-aynalar-gunluk.webp?v=2" srcset="gorsel/duzlem-aynalar-gunluk-800.webp?v=2 800w, gorsel/duzlem-aynalar-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Aydınlık bir yatak odasında, bize sırtı dönük, mavi kazaklı ve kot pantolonlu bir genç kız boy aynasının karşısında sağ elini kaldırmış; aynadaki görüntüsü başından ayaklarına kadar görünüyor ve görüntünün kalkık eli, kızın kalkık elinin tam karşısında duruyor.">
+          <figcaption>
+            <b>Boy aynasının karşısında.</b> Kız sağ elini kaldırınca görüntü de tam karşısındaki eli kaldırıyor; görüntünün kendisine göre bu onun sol elidir. Görüntü, kız aynadan ne kadar öndeyse aynanın o kadar arkasında duruyor ve boyu kızınkiyle aynı; görselde küçük görünmesi yalnızca daha uzakta olmasındandır. Bütün boyunu görmek için bu kadar büyük bir aynaya gerek olmadığını ikinci basamakta göreceğiz.
+          </figcaption>
+        </figure>
+
+        <p>Sıradan bir düzlem aynaya her baktığında aynı dört şey gözlenir:</p>
+        <ul>
+          <li><strong>Görüntü aynanın arkasındadır:</strong> sen aynadan ne kadar öndeysen o kadar geride görünür.</li>
+          <li><strong>Boy aynıdır:</strong> görüntü ne büyür ne küçülür; uzaktan küçük görünmesi yalnızca uzaklıktandır.</li>
+          <li><strong>Görüntü düzdür:</strong> başın yukarıda, ayakların aşağıda kalır.</li>
+          <li><strong>Yazılar ters okunur:</strong> aynadaki harfler soldan sağa değil, sağdan sola dizilir.</li>
+        </ul>
+        <p>
+          Bu dört gözlemin hepsinin tek bir sebebi var: ışığın aynaya çarpıp nasıl geri döndüğü. Önce o
+          kuralı tanıyalım, sonra her gözlemi tek tek ondan çıkaralım.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Aynaya 1 m uzaklıkta duruyorsan görüntün senden kaç metre uzakta görünür?</summary>
+          <p>
+            <b>2 metre.</b> Görüntü aynanın yüzeyinde değil, aynanın 1 m arkasındadır. Sen aynanın 1 m
+            önünde, görüntün 1 m arkasında olduğuna göre aradaki uzaklık 1 + 1 = 2 m eder. Göz de aynaya
+            bakarken 2 m uzağa odaklanır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düzlem aynadaki görüntü aynanın arkasında, cisimle aynı uzaklıkta, aynı boyda ve
+          düz durur; yazılar ise ters okunur. Ayna, arkasında bir oda varmış gibi görünen bir pencereye benzer.
+        </p>
+
+        <h3 id="k2">Yansıma yasası: ışık aynadan nasıl döner?</h3>
+        <p>
+          Bir yüzeye çarpan ışık geri döner; buna <strong>yansıma</strong> denir. Yansımayı anlatmak için
+          ışının çarptığı noktada yüzeye dik bir çizgi hayal ederiz; bu çizgiye <strong>normal</strong>
+          denir. Gelen ışının normalle yaptığı açıya <strong>gelme açısı (i)</strong>, yansıyan ışının
+          normalle yaptığı açıya <strong>yansıma açısı (r)</strong> denir. Bilardo topunu düşün: banda eğik
+          vuran top, vurduğu kadar eğik geri seker. Işık da aynadan böyle döner. Yansımanın iki kuralı
+          vardır:
         </p>
         <ol class="steps">
           <li><strong>Gelme açısı, yansıma açısına eşittir:</strong> i = r.</li>
           <li><strong>Gelen ışın, yansıyan ışın ve normal aynı düzlemdedir.</strong></li>
         </ol>
+        <p>
+          İkinci kural, ışığın aynaya çarpınca yana doğru “kaçmadığını” söyler: gelen ışın ve normal hangi
+          kâğıt yaprağının üzerindeyse yansıyan ışın da o yaprakta kalır. Bu yüzden her yansımayı düz bir
+          kâğıda çizebiliriz. Işık aynaya dik gelirse (i = 0) geldiği yoldan geri döner. Sayfanın 01
+          numaralı bölümündeki yansıma laboratuvarında gelme açısını değiştirip yansıma açısının onu
+          nasıl izlediğini görebilirsin.
+        </p>
         <div class="callout">
           <p>
-            <b>Açılar normalle ölçülür.</b> Normal, yüzeye dik doğrultudur. “Işın yüzeyle 30°
-            açı yapıyor” denirse gelme açısı 30° değil, <b>60°</b>'dir.
+            <b>Açılar normalle ölçülür.</b> Normal, yüzeye dik doğrultudur. “Işın yüzeyle 30° açı
+            yapıyor” denirse gelme açısı 30° değil, <b>60°</b>'dir.
           </p>
         </div>
 
@@ -2210,7 +2510,23 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Düzgün ve dağınık yansıma</h3>
+        <details class="dusun">
+          <summary>Düşün: Gelen ışın ile yansıyan ışın arasındaki açı 90° ise gelme açısı kaç derecedir?</summary>
+          <p>
+            <b>45°.</b> İki ışın arasındaki açı, gelme ve yansıma açılarının toplamıdır: i + r. Bu iki açı
+            eşit olduğuna göre her biri 90°'nin yarısı, yani 45°'dir. Bu durumda ışın yüzeyle de 45° açı yapar.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Işık aynadan gelme açısına eşit bir açıyla yansır (i = r); gelen ışın, yansıyan
+          ışın ve normal aynı düzlemde kalır. Açılar yüzeyden değil, normalden ölçülür.
+        </p>
+
+        <h3 id="k3">Düzgün ve dağınık yansıma: duvarda neden kendini göremezsin?</h3>
+        <p>
+          Beyaz bir kâğıt üzerine düşen ışığın çoğunu geri yollar; yine de ona bakınca kendini göremezsin.
+          Fark, yansıyan ışığın <strong>miktarında</strong> değil <strong>düzenindedir</strong>:
+        </p>
         <ul>
           <li><strong>Düzgün (aynasal) yansıma:</strong> pürüzsüz yüzeyde paralel ışınlar
             paralel olarak yansır; görüntü oluşur. Ayna, durgun su, cilalı metal.</li>
@@ -2218,8 +2534,16 @@
             görüntü oluşmaz ama cisim her yönden görülebilir. Kâğıt, duvar, kumaş.</li>
         </ul>
         <p>
-          Her iki durumda da yansıma yasası <strong>her ışın için ayrı ayrı</strong> geçerlidir.
-          Fark, yüzeyin normallerinin farklı yönlere bakmasıdır.
+          Kâğıdı büyüteçle incelesen küçük tepecikler ve çukurlar görürsün. Her tepeciğin eğimi farklı
+          olduğu için normalleri de farklı yönlere bakar. Her iki durumda da yansıma yasası
+          <strong>her ışın için ayrı ayrı</strong> geçerlidir; fark, yüzeyin normallerinin farklı yönlere
+          bakmasıdır. Dağınıklık kötü bir şey de değildir: tahtayı, kitabın sayfasını, karşıdaki binayı
+          sınıfın her yerinden görebilmeni sağlayan odur.
+        </p>
+        <p>
+          Yağmurlu bir gecede asfaltın ayna gibi parlaması da bu yüzdendir: su, yolun pürüzlerini doldurup
+          yüzeyi düzleştirir. Karşıdan gelen farların ışığı artık dağılmaz, düzgün yansıyarak doğrudan
+          gözüne gelir ve seni kamaştırır.
         </p>
 
         <figure class="fig">
@@ -2256,7 +2580,24 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Düzlem aynada görüntünün özellikleri</h3>
+        <details class="dusun">
+          <summary>Düşün: Durgun bir göl ağaçları ayna gibi yansıtır. Rüzgârlı bir günde görüntü neden kaybolur?</summary>
+          <p>
+            Dalgalar suyun yüzeyini pürüzlü hâle getirir. Her noktada ışın yine i = r kuralıyla yansır, ama
+            dalgalı yüzeyin normalleri farklı yönlere baktığı için yansıyan ışınlar dağılır. Göz, bir
+            ağacın bir noktasından gelen ışınları artık düzenli bir demet olarak alamaz ve görüntü parçalanır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Pürüzsüz yüzeyde normaller aynı yöne baktığı için ışınlar düzenli yansır ve görüntü
+          oluşur; pürüzlü yüzeyde normaller dağınık olduğu için görüntü oluşmaz. İki durumda da her ışın i = r kuralına uyar.
+        </p>
+
+        <h3 id="k4">Düzlem aynada görüntünün özellikleri</h3>
+        <p>
+          İlk bölümdeki dört gözlemi artık bir tabloda toplayabiliriz. Bu tablo, düzlem aynayla ilgili
+          hemen her sorunun cevabını içinde taşır:
+        </p>
         <table class="tbl">
           <tr><th>Özellik</th><th>Düzlem aynada</th></tr>
           <tr><td>Türü</td><td>sanal (perdeye düşmez)</td></tr>
@@ -2267,7 +2608,15 @@
         </table>
         <p>
           Görüntü <strong>sanaldır</strong>: ışınlar gerçekte aynanın arkasına geçmez, yalnızca
-          uzantıları orada kesişir. Bu yüzden aynanın arkasına perde koyarsanız hiçbir şey düşmez.
+          uzantıları orada kesişir. Bu yüzden aynanın arkasına perde koysan hiçbir şey düşmez. Bunun
+          tersine bir <strong>gerçek görüntü</strong>, ışınların kendilerinin buluştuğu yerde oluşur ve
+          perdeye düşürülebilir; sinema perdesindeki görüntü böyledir. Düzlem ayna hiçbir zaman gerçek
+          görüntü vermez; gerçek görüntüyü bir sonraki konuda, çukur aynalarda göreceksin.
+        </p>
+        <p>
+          Tablonun son satırı günlük hayatta işe yarar: ambulansların önündeki yazı ters yazılır. Öndeki
+          sürücü onu dikiz aynasında gördüğünde yazı düzelir ve hemen okunur. Aynanın “sağı solu
+          değiştirmesinin” gerçekte ne anlama geldiğini üçüncü basamakta ayrıca ele alacağız.
         </p>
 
         <figure class="fig">
@@ -2293,7 +2642,26 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Görüntü nasıl çizilir?</h3>
+        <details class="dusun">
+          <summary>Düşün: Duvardaki akrepli saat tam 3'ü gösteriyor. Karşıdaki aynada saat kaçı gösteriyor gibi görünür?</summary>
+          <p>
+            <b>9'u.</b> Ayna sağ ile solu yer değiştirmiş gösterdiği için akrep 3'ün yerine 9'un üzerinde
+            görünür; yelkovan 12'de kaldığı için değişmez. Genel olarak aynada görünen saat, 12:00'den gerçek
+            saatin çıkarılmasıyla bulunur: 12:00 − 3:00 = 9:00.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düzlem aynada görüntü sanal, düz, cisimle aynı boyda ve aynaya cisimle aynı
+          uzaklıktadır; sağ ile sol yer değiştirmiş görünür. Işınların yalnızca uzantıları kesiştiği için görüntü perdeye düşmez.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Tek kuraldan hesaba: görüntünün yerini, boy aynasını, hareket eden ve dönen aynayı, iki aynayı i = r'den türet.</span>
+        </div>
+
+        <h3 id="k5">Görüntü nasıl çizilir ve neden simetriktir?</h3>
+        <p>Bir noktanın görüntüsünü bulmak için dört adım yeter:</p>
         <ol class="steps">
           <li>Cisimden aynaya <strong>iki ışın</strong> gönder.</li>
           <li>Her birini yansıma yasasına göre yansıt (i = r).</li>
@@ -2303,7 +2671,26 @@
         <p>
           Kısayol: cismin aynaya dik uzaklığını ölç, aynanın arkasına aynı uzaklıkta işaretle.
           Sonuç aynıdır çünkü düzlem ayna, cismin <strong>ayna düzlemine göre simetriğini</strong>
-          oluşturur.
+          oluşturur. Bu kısayol ezber değil, geometriyle kanıtlanabilir.
+        </p>
+        <h4>Simetri nereden geliyor?</h4>
+        <ol>
+          <li><strong>Kur:</strong> Cisim A noktasında olsun; A'dan aynaya bir dik indir, ayağına H de. A'dan
+            çıkan bir ışın aynaya O noktasında çarpsın.</li>
+          <li><strong>Uzat:</strong> Yansıyan ışını aynanın arkasına, AH dikmesini de aynı yöne uzat; ikisi
+            A′ noktasında kesişsin.</li>
+          <li><strong>Açıları karşılaştır:</strong> i = r olduğundan gelen ve yansıyan ışının yüzeyle yaptığı
+            açılar eşittir; uzantı da ters açı olarak aynı açıyı yapar.</li>
+          <li><strong>Eş üçgenler:</strong> AHO ile A′HO üçgenlerinde H'deki açılar 90°, O'daki açılar eşit
+            ve HO kenarı ortaktır. Üçgenler eştir, yani AH = A′H.</li>
+        </ol>
+        <p>
+          O noktasını nereye koyarsan koy aynı A′ çıkar; bu yüzden bütün yansıyan ışınların uzantıları
+          tek bir noktada buluşur ve net bir görüntü görürüz. Aynı çizim eski bir gerçeği de açıklar:
+          İskenderiyeli Heron yaklaşık iki bin yıl önce, yansıyan ışığın bir noktadan aynaya, oradan
+          başka bir B noktasına giden yolların <strong>en kısasını</strong> izlediğini göstermişti. Aynaya
+          uğrayan her yol, A′'dan B'ye giden bir yol kadar uzundur; bunların en kısası A′ ile B'yi birleştiren
+          düz çizgidir ve i = r'yi sağlayan yol tam olarak odur.
         </p>
 
         <figure class="fig">
@@ -2333,7 +2720,66 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Cismin ve görüntünün hareketi</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Görüntüyü bulmak için iki ışını i = r ile yansıtıp uzantılarını kesiştirmek ya da
+          cismin aynaya göre simetriğini almak yeter; eş üçgenler ikisinin aynı noktayı verdiğini kanıtlar.
+        </p>
+
+        <h3 id="k6">Boy aynası: yarısı yeter</h3>
+        <p>
+          Sayfanın 04 numaralı bölümü şaşırtıcı bir iddiayla başlıyor: kendini tepeden tırnağa görmek için
+          boyunun yarısı kadar bir ayna yeter ve aynaya uzaklığın bir önemi yoktur. Bunu simetriden adım
+          adım çıkarabiliriz. Kişinin boyu h, gözünün yerden yüksekliği y olsun.
+        </p>
+        <ol>
+          <li><strong>Ayak:</strong> Göz, ayağın görüntüsüne düz bir çizgiyle bakar. Ayna bu çizginin yatayda
+            tam ortasında durduğu için çizgiyi yüksekliklerin ortasında, y/2'de keser.</li>
+          <li><strong>Baş:</strong> Aynı akıl yürütmeyle başın tepesinden gelen ışın (h + y)/2 yüksekliğinde yansır.</li>
+          <li><strong>Fark:</strong> Ayna en az bu iki nokta arası kadar olmalı: (h + y)/2 − y/2 = h/2.</li>
+          <li><strong>Uzaklık:</strong> Hesabın hiçbir adımında aynaya uzaklık geçmedi; sonuç uzaklıktan bağımsızdır.</li>
+        </ol>
+        <div class="formula">
+          <code>L = h / 2</code>
+          <code>alt kenar = y / 2</code>
+        </div>
+        <table class="tbl">
+          <tr><th>Boy (h)</th><th>Göz yüksekliği (y)</th><th>Ayna boyu</th><th>Alt kenar</th></tr>
+          <tr><td>120 cm</td><td>110 cm</td><td>60 cm</td><td>55 cm</td></tr>
+          <tr><td>160 cm</td><td>150 cm</td><td>80 cm</td><td>75 cm</td></tr>
+          <tr><td>180 cm</td><td>170 cm</td><td>90 cm</td><td>85 cm</td></tr>
+          <tr><td>200 cm</td><td>188 cm</td><td>100 cm</td><td>94 cm</td></tr>
+        </table>
+        <p>
+          Bütün aile aynı aynayı kullanacaksa alt kenar en kısanın ihtiyacına (55 cm), üst kenar en uzunun
+          ihtiyacına göre, (200 + 188)/2 = 194 cm'ye konur: 139 cm'lik bir ayna herkese yeter.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Aynadan geri geri uzaklaşırsan aynada kendinin daha büyük bir bölümünü görür müsün?</summary>
+          <p>
+            <b>Hayır.</b> Uzaklaştıkça görüntün de aynanın arkasında aynı ölçüde uzaklaşır; ayak ve baştan
+            gelen ışınların aynaya çarptığı yükseklikler (y/2 ve (h + y)/2) hiç değişmez. Görüntün gözüne
+            küçük görünür, ama aynada bedeninin gördüğün bölümü aynı kalır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kendini tepeden tırnağa görmek için boyunun yarısı kadar bir ayna yeter (L = h/2);
+          alt kenarı göz yüksekliğinin yarısında olmalıdır. Aynaya olan uzaklık bu sonucu değiştirmez.
+        </p>
+
+        <h3 id="k7">Cismin ve görüntünün hareketi</h3>
+        <p>
+          Görüntü her an cismin aynaya göre simetriği olduğuna göre cisim nereye giderse görüntü de ona
+          “ayna gibi” eşlik eder. Hareketi aynaya dik ve aynaya paralel iki parçaya ayırmak işi kolaylaştırır.
+          Dik parçayı adım adım inceleyelim:
+        </p>
+        <ol>
+          <li><strong>Cisim yaklaşıyor:</strong> Cisim 1 s'de aynaya v kadar yaklaşırsa aynaya uzaklığı v
+            azalır; görüntünün uzaklığı da v azalır. Görüntü de v hızıyla aynaya yaklaşır.</li>
+          <li><strong>Zıt yönler:</strong> İkisi zıt yönlerde hareket ettiği için aralarındaki uzaklık (aynaya
+            uzaklığın iki katı) her saniye 2v kısalır: birbirlerine göre hızları 2v'dir.</li>
+          <li><strong>Ayna yaklaşıyor:</strong> Cisim dururken ayna 1 s'de v yaklaşırsa cisim–ayna uzaklığı v,
+            cisim–görüntü uzaklığı 2v kısalır. Görüntü yere göre 2v hızıyla gelir.</li>
+        </ol>
         <ul>
           <li>Cisim aynaya <strong>v</strong> hızıyla yaklaşırsa görüntü de <strong>v</strong>
             hızıyla yaklaşır; <strong>birbirlerine göre hızları 2v</strong> olur.</li>
@@ -2341,6 +2787,11 @@
           <li><strong>Ayna</strong> cisme doğru v hızıyla hareket ederse görüntü <strong>2v</strong>
             hızıyla yaklaşır.</li>
         </ul>
+        <p>
+          Sayfanın 02 numaralı bölümünde “Aynaya yaklaştır” düğmesine bastığında cismin, görüntünün ve
+          ikisinin birbirine göre hızını ayrı ayrı okuyabilirsin. Soru çözerken her seferinde “kimin hızı,
+          kime göre?” diye sor.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 180" role="img" aria-label="Cisim aynaya v hızıyla yaklaşırken görüntü de v hızıyla yaklaşır; birbirlerine göre hızları iki v olur.">
@@ -2366,18 +2817,33 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Aynanın dönmesi</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Cisim aynaya v ile yaklaşırsa görüntü de v ile yaklaşır ve ikisi birbirine 2v ile
+          yaklaşır. Cisim dururken ayna v ile hareket ederse görüntü 2v ile hareket eder.
+        </p>
+
+        <h3 id="k8">Aynanın dönmesi: ışın neden iki kat döner?</h3>
         <p>
           Gelen ışın sabitken ayna <strong>α</strong> kadar döndürülürse, normal de α kadar döner;
           gelme açısı α değişir, yansıma açısı da α değişir. Sonuçta yansıyan ışın
-          <strong>2α</strong> kadar döner.
+          <strong>2α</strong> kadar döner. Bunu da adım adım gösterelim:
         </p>
+        <ol>
+          <li><strong>Başlangıç:</strong> Gelme açısı i ise yansıma açısı da i'dir; gelen ile yansıyan ışın
+            arasındaki açı 2i olur.</li>
+          <li><strong>Dönme:</strong> Ayna α dönünce normali de α döner; gelme açısı i + α olur.</li>
+          <li><strong>Yansıma:</strong> Yansıma açısı da i + α olur; ışınlar arası açı 2i + 2α'ya çıkar.</li>
+          <li><strong>Sonuç:</strong> Gelen ışın hiç kıpırdamadığına göre 2α'lık artışın tamamı yansıyan ışına aittir.</li>
+        </ol>
         <div class="formula">
           <code>Δ(yansıyan ışın) = 2 · α</code>
         </div>
         <p>
           Bu özellik hassas ölçüm aletlerinde kullanılır: küçük bir dönmeyi iki katına
-          büyütüp ölçmeyi kolaylaştırır.
+          büyütüp ölçmeyi kolaylaştırır. Aynadan 2 m uzaktaki bir cetvele düşen ışık lekesini düşün: ayna
+          yalnızca 1° dönerse ışın 2° döner ve leke cetvel üzerinde yaklaşık 7 cm kayar. Gözle fark
+          edilemeyecek bir dönme böylece kolayca okunur. Sayfanın 01 numaralı bölümündeki “Ayna 20° dönük”
+          deneyi ve altındaki grafik bu doğrusal 2α ilişkisini gösterir.
         </p>
 
         <figure class="fig">
@@ -2404,27 +2870,46 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">İki ayna arasındaki görüntüler</h3>
+        <details class="dusun">
+          <summary>Düşün: Işın aynaya dik geliyor. Ayna 10° döndürülürse gelen ile yansıyan ışın arasındaki açı kaç olur?</summary>
+          <p>
+            <b>20°.</b> Başta gelme açısı 0'dır ve ışın geldiği yoldan döner. Ayna 10° dönünce normal de 10°
+            döner, gelme açısı 10°, yansıma açısı da 10° olur. İki ışın arasındaki açı 10 + 10 = 20° eder:
+            tam olarak 2α.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Gelen ışın sabitken ayna α kadar dönerse normal de α döner; gelme ve yansıma
+          açılarının ikisi birden α değiştiği için yansıyan ışın 2α döner.
+        </p>
+
+        <h3 id="k9">Sayılarla hisset: iki ayna, kaç görüntü?</h3>
         <p>
           Aralarında α açısı bulunan iki düzlem ayna arasına konan cismin görüntüleri, aynaların
-          kesişme noktası merkez olmak üzere bir çember üzerinde dizilir.
+          kesişme noktası merkez olmak üzere bir çember üzerinde dizilir. Her ayna cismin bir görüntüsünü
+          oluşturur; bu görüntüler öbür ayna için birer cisim olur ve yeni görüntüler doğar. Hiçbir yansıma
+          kesişme çizgisine olan uzaklığı değiştirmediği için hepsi aynı çemberin üzerindedir. Cisim
+          açıortaydayken kopyalar çemberde tam α aralıklarla, saatin rakamları gibi eşit dizilir; 360°'lik
+          çembere 360/α kopya sığar. Biri cismin kendisi olduğuna göre:
         </p>
         <div class="formula">
           <code>n = 360 / α − 1</code>
         </div>
-        <ul>
-          <li><strong>α = 90°</strong> → n = 3 görüntü.</li>
-          <li><strong>α = 60°</strong> → n = 5 görüntü.</li>
-          <li><strong>α = 45°</strong> → n = 7 görüntü.</li>
-          <li><strong>α = 0° (paralel aynalar)</strong> → sonsuz görüntü.</li>
-        </ul>
-        <div class="callout warn">
-          <p>
-            <b>360/α tam bölünmezse</b> görüntü sayısı, bölümün tam kısmı kadardır. 360/α tek
-            sayı çıkarsa, cisim açıortay üzerindeyken bir görüntü eksilir; bu ayrıntı ileri
-            düzey sorularda karşımıza çıkar.
-          </p>
-        </div>
+        <table class="tbl">
+          <tr><th>Aynalar arası açı</th><th>360 / α</th><th>Görüntü sayısı</th></tr>
+          <tr><td>180° (tek düz ayna)</td><td>2</td><td>1</td></tr>
+          <tr><td>90°</td><td>4</td><td>3</td></tr>
+          <tr><td>60°</td><td>6</td><td>5</td></tr>
+          <tr><td>45°</td><td>8</td><td>7</td></tr>
+          <tr><td>30°</td><td>12</td><td>11</td></tr>
+        </table>
+        <p>
+          Tablodan hemen okunan düzen: <strong>açı yarıya inince kopya sayısı iki katına çıkar</strong>
+          (90°'de 4, 45°'de 8; 60°'de 6, 30°'de 12); görüntü sayısı her seferinde bunun bir eksiğidir. İlk
+          satır bağıntının sağlamasıdır: iki ayna düz bir çizgi oluşturunca tek bir görüntü kalır. 90°'deki
+          üç görüntünün ikisi tek yansımayla, köşedeki üçüncüsü iki yansımayla oluşur. Sayfanın 03
+          numaralı bölümünde açıyı 20°'ye kadar indirip görüntülerin çemberde nasıl sıklaştığını izleyebilirsin.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 256" role="img" aria-label="Aralarında 60 derece açı bulunan iki ayna arasındaki cismin beş görüntüsünün çember üzerinde eşit aralıklarla dizilmesi.">
@@ -2460,10 +2945,161 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <details class="dusun">
+          <summary>Düşün: İki ayna arasındaki bir cismin 11 görüntüsünü görmek için aynalar arasındaki açı kaç derece olmalı?</summary>
+          <p>
+            <b>30°.</b> n = 360/α − 1 = 11 ise 360/α = 12, yani α = 360/12 = 30°. Kopya sayısı 12'dir: cismin
+            kendisi ve 11 görüntüsü. Açı 60° olsaydı kopya sayısı yarıya, 6'ya inerdi.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Aralarında α açısı olan iki aynada, 360/α tam sayı ve cisim açıortaydayken n = 360/α − 1 görüntü oluşur
+          ve görüntüler cisimle birlikte bir çember üzerinde dizilir. Açı yarıya inince kopya sayısı iki katına çıkar.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>İnce noktalar: ayna gerçekte neyi ters çevirir, paralel ve garip açılı aynalarda ne olur, düzlem aynalar nerede iş görür?</span>
+        </div>
+
+        <h3 id="k10">Ayna gerçekten sağı solu mu değiştirir?</h3>
+        <p>
+          Aynada sağ elin görüntünün sol eli gibi görünür. Ama bir bilmece var: ayna sağı solu
+          değiştiriyorsa neden altı üstü değiştirmiyor? Aynanın yatayı düşeyden ayırması için hiçbir sebep
+          yoktur; ikisi de aynanın yüzeyine paraleldir.
+        </p>
+        <p>
+          Cevap şu: ayna aslında <strong>önü arkayı</strong>, yani yalnızca aynaya dik doğrultuyu ters
+          çevirir. Burnun aynaya doğru bakıyorsa görüntünün burnu sana doğru bakar; başın yukarıda, kalkık
+          elin aynı tarafta kalır. “Sağ–sol ters” izlenimi, görüntüyü bize dönmüş başka bir insan gibi
+          yorumlamamızdan doğar: kendini onun yerine koyup yarım tur döndüğünü hayal ettiğinde sağ ile sol
+          yer değiştirmiş olur.
+        </p>
+        <ul>
+          <li><strong>Aynaya dik doğrultu ters döner:</strong> aynaya bakan yüzün görüntüsü sana bakar.</li>
+          <li><strong>Aynaya paralel doğrultular değişmez:</strong> yukarı yukarıda, sağ taraf sağda kalır.</li>
+          <li><strong>Yatay ayna düşeyi çevirir:</strong> durgun gölde ağaçların baş aşağı görünmesi bundandır.</li>
+        </ul>
+        <h4>Ters çevirmeyen ayna</h4>
+        <p>
+          Birbirine dik iki aynanın köşesine bak: köşedeki görüntü iki yansımayla oluşur. Her yansıma bir kez
+          ters çevirdiği için ikinci yansıma birincisinin yaptığını geri alır. Bu görüntüde sağ elini
+          kaldırdığında görüntü de kendi sağ elini kaldırır; kendini başkalarının seni gördüğü gibi görürsün.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Birbirine dik iki aynanın köşesine bakıp sağ gözünü kırparsan görüntü hangi gözünü kırpar?</summary>
+          <p>
+            <b>Kendi sağ gözünü.</b> İki yansıma terslemeyi geri aldığı için görüntü, karşında duran biri
+            gibidir; onun sağ gözü senin görüş alanında sol tarafta kalır. Tek bir düz aynada ise görüntü
+            kendi sol gözünü kırpar ve bu göz senin kırptığın gözün tam karşısındadır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düzlem ayna yalnızca aynaya dik doğrultuyu, yani önü ile arkayı ters çevirir;
+          sağ–sol izlenimi bunun sonucudur. İki yansıma bu terslemeyi geri alır.
+        </p>
+
+        <h3 id="k11">İnce durumlar: paralel aynalar ve tam bölünmeyen açılar</h3>
+        <p>
+          Açı küçüldükçe görüntü sayısı artar; aynalar paralel olduğunda (α = 0) 360/α sonsuza gider ve
+          görüntü sayısı da sonsuz olur. Berber dükkânlarındaki karşılıklı aynalarda gördüğün, giderek
+          uzaklaşan koridor budur. Gerçekte sonsuz görüntünün hepsini göremezsin: her yansımada ışığın bir
+          bölümü aynada soğurulur. Işığın %90'ını yansıtan bir aynada 10 yansımadan sonra ışığın yalnızca
+          yaklaşık üçte biri (0,9¹⁰ ≈ 0,35) kalır; uzaktaki görüntüler bu yüzden giderek kararır.
+        </p>
+        <p>
+          n = 360/α − 1 bağıntısı, 360/α tam sayı olduğunda kullanılır; ama tek ve çift sayılar arasında da
+          ince bir fark vardır. Görüntüler iki zincir hâlinde oluşur: biri önce birinci aynadan, öteki önce
+          ikinci aynadan başlar. 360/α çiftse zincirlerin sonunda iki görüntü, cisim nerede olursa olsun, aynı
+          noktaya düşer ve tek görüntü gibi görünür. Tekse iki görüntü yalnızca cisim açıortaydayken üst üste biner:
+        </p>
+        <table class="tbl">
+          <tr><th>360 / α</th><th>Cismin yeri</th><th>Görüntü sayısı</th></tr>
+          <tr><td>Çift sayı (4, 6, 8…)</td><td>her yerde</td><td>360/α − 1</td></tr>
+          <tr><td>Tek sayı (3, 5, 9…)</td><td>açıortayda</td><td>360/α − 1</td></tr>
+          <tr><td>Tek sayı</td><td>açıortay dışında</td><td>360/α</td></tr>
+          <tr><td>Tam sayı değil</td><td>yerine bağlı</td><td>tam kısmı ya da bir fazlası</td></tr>
+        </table>
+        <div class="callout warn">
+          <p>
+            <b>360/α tam bölünmezse</b> görüntü sayısı, cismin aynalara göre yerine bağlı olarak
+            bölümün tam kısmı ya da bir fazlası kadardır. 360/α tek sayı çıkarsa, cisim
+            açıortay üzerindeyken bir görüntü eksilir. Bu ayrıntılar ileri düzey sorularda karşımıza çıkar.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: Aralarında 72° bulunan iki ayna arasında, açıortaydaki bir cismin kaç görüntüsü oluşur?</summary>
+          <p>
+            <b>4.</b> 360/72 = 5 tek sayıdır ve cisim açıortaydadır; iki görüntü üst üste biner ve
+            360/α − 1 = 4 görüntü görünür. Cisim açıortaydan kaydırılırsa üst üste binen görüntüler ayrılır ve
+            5 görüntü olur. Sayfadaki 03 numaralı laboratuvar cismi açıortaya koyduğu için 72°'de 4 gösterir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Paralel aynalarda görüntü sayısı kuramsal olarak sonsuzdur, ama her yansımada ışık
+          zayıfladığı için uzaktakiler kararır. 360/α tek sayıysa açıortaydaki cisim için bir görüntü eksilir;
+          tam bölünmüyorsa sayı cismin yerine bağlıdır.
+        </p>
+
+        <h3 id="k12">Düzlem aynalar gerçek dünyada</h3>
+        <p>
+          Düzlem ayna yalnızca banyoda değil, bir şeyi görünmeden görmek, ışığı geri yollamak ya da küçük bir
+          dönmeyi ölçmek gereken her yerde kullanılır. Hepsinin arkasında iki basit kural var: i = r ve
+          art arda yansımalarda ışının dönmesi.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/duzlem-aynalar-uygulama.webp?v=2" srcset="gorsel/duzlem-aynalar-uygulama-800.webp?v=2 800w, gorsel/duzlem-aynalar-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneş ufka yakınken dalgalı denizden yükselen, tepesi yana dirsek yapan ıslak, metal bir periskop borusu; dirsekteki yuvarlak cam, ufukta güneşin yanında silueti seçilen bir gemiye dönük.">
+          <figcaption>
+            <b>Görünmeden görmek.</b> Periskop, ışığı iki kez 90° çevirerek su yüzeyinin üstündeki manzarayı aşağıdaki gözcüye indirir. Borunun iki ucundaki yansıtıcılar birbirine paraleldir; ışın iki yansımadan sonra ilk yönüne paralel çıkar ve ufuktaki gemi düz görünür.
+          </figcaption>
+        </figure>
+
+        <div class="callout">
+          <p>
+            <b>İki yansımanın kuralı:</b> Aralarında α açısı olan iki aynadan art arda yansıyan ışın, ilk
+            yönüne göre <b>2α</b> döner. Paralel aynalarda (α = 0) ışın ilk yönünde çıkar; dik aynalarda
+            (α = 90°) 180° döner, yani geldiği yöne geri gider.
+          </p>
+        </div>
+        <ul>
+          <li><strong>Periskop:</strong> 45° eğik iki paralel ayna ışını önce aşağı, sonra ileri çevirir.
+            Denizaltılarda aynaların yerini çoğu kez prizma ve mercekler alır.</li>
+          <li><strong>Ay'daki köşe yansıtıcılar:</strong> Apollo astronotlarının bıraktığı yansıtıcılara
+            gönderilen lazer ışığı, 384 400 km'yi gidip dönerek yaklaşık 2,6 s sonra geri gelir.</li>
+          <li><strong>Bisiklet reflektörü:</strong> İçindeki küçük köşe yansıtıcılar arabanın farından
+            gelen ışığı arabanın sürücüsüne geri yollar; reflektör bu yüzden gece parlar.</li>
+          <li><strong>Kaleydoskop:</strong> Aralarında 60° olan aynalar her deseni 6 kez (cisim ve 5
+            görüntüsü) tekrarlar.</li>
+          <li><strong>Lazer tarayıcı:</strong> Dönen ayna 15° dönünce ışını 30° süpürür; barkod okuyucular
+            bu 2α kuralını kullanır.</li>
+          <li><strong>Ambulans yazısı:</strong> Ters yazılır ki öndeki sürücü onu dikiz aynasında düz okusun.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Periskobun iki aynası paralel değil de birbirine dik olsaydı ışın nereye giderdi?</summary>
+          <p>
+            Dik aynalarda α = 90° olduğundan ışın 2α = 180° döner: ilk doğrultusuna paralel ama ters yönde
+            çıkar. Gözcü, manzaraya sırtını dönmüş olarak aynaya bakmak zorunda kalırdı. Bu düzenek artık bir periskop
+            değil, ışığı geldiği yöne geri yollayan bir köşe yansıtıcıdır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Periskop, köşe yansıtıcı, kaleydoskop ve lazer tarayıcı aynı birkaç kuralı kullanır:
+          i = r, iki aynada ışının 2α dönmesi ve iki ayna arasında çoğalan görüntüler.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k13">Çözümlü örnekler</h3>
+        <p>Aşağıdaki örneklerde açılar derece, uzunluklar santimetre ya da metre cinsindendir.</p>
 
         <details>
-          <summary>Örnek 1 — Yüzeyle yapılan açı</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Yüzeyle yapılan açı</summary>
           <p>
             Bir ışın düzlem aynanın yüzeyiyle 25° açı yapacak şekilde geliyor. Gelme açısı,
             yansıma açısı ve iki ışın arasındaki açı kaç derecedir?
@@ -2476,7 +3112,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Aynanın dönmesi</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Aynanın dönmesi</summary>
           <p>
             Sabit bir ışın demeti düzlem aynaya düşerken ayna 12° döndürülüyor. Yansıyan ışın
             kaç derece döner?
@@ -2489,7 +3125,38 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Boy aynası</summary>
+          <summary data-zorluk="kolay">Örnek 3 — Görüntüne ne kadar uzaksın?</summary>
+          <p>
+            Bir öğrenci düzlem aynanın 1,5 m önünde duruyor. (a) Görüntüsü kendisinden kaç m uzaktadır?
+            (b) Aynaya 0,5 m yaklaşırsa görüntüsüne uzaklığı ne olur?
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> Görüntü aynanın 1,5 m arkasındadır: 1,5 + 1,5 = <strong>3 m</strong></li>
+            <li><strong>(b)</strong> Aynaya uzaklık 1,5 − 0,5 = 1 m olur; görüntüye uzaklık 2 · 1 = <strong>2 m</strong></li>
+            <li>Kontrol: öğrenci 0,5 m yürüdü, görüntüsüne uzaklığı ise 1 m kısaldı. İki kat fark, birbirlerine
+              göre hızın 2v olmasının sebebidir.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — İki ayna</summary>
+          <p>
+            Aralarında 40° açı bulunan iki düzlem ayna arasına, açıortay üzerine bir cisim konuyor.
+            Kaç görüntü oluşur?
+          </p>
+          <ol class="steps">
+            <li>360 / α = 360 / 40 = 9</li>
+            <li>n = 9 − 1 = <strong>8 görüntü</strong></li>
+            <li>Açı 90° olsaydı 360/90 − 1 = 3 görüntü oluşurdu.</li>
+          </ol>
+          <p>
+            Not: 9 tek sayıdır. Cisim açıortaydan kaydırılırsa açıortayda üst üste binen iki görüntü
+            birbirinden ayrılır ve 9 görüntü oluşur.
+          </p>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 5 — Boy aynası</summary>
           <p>
             Boyu 180 cm, göz yüksekliği 170 cm olan bir kişi kendini tepeden tırnağa görmek
             istiyor. Aynanın boyu ve alt kenarının yerden yüksekliği ne olmalıdır?
@@ -2503,24 +3170,69 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — İki ayna</summary>
+          <summary data-zorluk="orta">Örnek 6 — Hem ayna hem cisim hareket ediyor</summary>
           <p>
-            Aralarında 40° açı bulunan iki düzlem ayna arasına bir cisim konuyor. Kaç görüntü
-            oluşur?
+            Bir oyuncak araba bir düzlem aynaya doğru 2 m/s hızla gidiyor; ayna da tekerlekli bir sehpa
+            üzerinde arabaya doğru 1 m/s hızla itiliyor (hızlar yere göre). (a) Görüntünün yere göre hızı
+            nedir? (b) Araba ile görüntüsü birbirine hangi hızla yaklaşır?
           </p>
           <ol class="steps">
-            <li>360 / α = 360 / 40 = 9</li>
-            <li>n = 9 − 1 = <strong>8 görüntü</strong></li>
-            <li>Açı 90° olsaydı 360/90 − 1 = 3 görüntü oluşurdu.</li>
+            <li>Arabadan aynaya doğru yönü pozitif al: v<sub>araba</sub> = +2 m/s, v<sub>ayna</sub> = −1 m/s.</li>
+            <li>Görüntü her an aynanın, araba kadar arkasındadır: x<sub>g</sub> = 2·x<sub>ayna</sub> − x<sub>araba</sub>.
+              Hızlar için de aynısı geçerlidir: v<sub>g</sub> = 2·v<sub>ayna</sub> − v<sub>araba</sub>.</li>
+            <li><strong>(a)</strong> v<sub>g</sub> = 2·(−1) − 2 = −4 m/s: görüntü yere göre <strong>4 m/s</strong> hızla arabaya doğru gelir.</li>
+            <li><strong>(b)</strong> Birbirlerine göre: 2 − (−4) = <strong>6 m/s</strong></li>
+            <li>Kontrol: araba–ayna uzaklığı saniyede 2 + 1 = 3 m kısalır; araba–görüntü uzaklığı bunun iki
+              katıdır: 6 m/s ✓</li>
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Yanlış yere asılmış ayna</summary>
+          <p>
+            Boyu 170 cm, göz yüksekliği 160 cm olan bir kişi, alt kenarı yerden 100 cm, üst kenarı 190 cm
+            yüksekte olan bir aynanın karşısında duruyor. (a) Başının tepesini görebilir mi? (b) Bedeninin
+            yerden kaç cm'ye kadarki bölümünü göremez? (c) Kendini tepeden tırnağa görmesi için ne yapılmalı?
+          </p>
+          <ol class="steps">
+            <li>Yerden y yüksekliğindeki bir noktadan gelen ışın, (y + 160)/2 yüksekliğinde yansır.</li>
+            <li><strong>(a)</strong> Baş için (170 + 160)/2 = 165 cm; bu nokta üst kenarın (190 cm) altında: <strong>görür</strong>.</li>
+            <li><strong>(b)</strong> Alt kenar 100 cm: (y + 160)/2 = 100 → y = <strong>40 cm</strong>. Yerden 40 cm'ye kadarki bölüm görünmez.</li>
+            <li>Aynanın boyu (90 cm) gereken h/2 = 85 cm'den uzundur; sorun boyda değil, yükseklikte.</li>
+            <li><strong>(c)</strong> Alt kenar 160/2 = 80 cm olmalı: ayna <strong>20 cm aşağı</strong> indirilir (üst kenar 170 cm ≥ 165 cm ✓).
+              Aynaya yaklaşmak ya da uzaklaşmak hiçbir şeyi değiştirmez.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 8 — Birbirine dik iki ayna</summary>
+          <p>
+            Birbirine dik iki düzlem aynadan birincisine bir ışın 35° gelme açısıyla geliyor, yansıyıp
+            ikinci aynaya çarpıyor. (a) İkinci aynadaki gelme açısı kaç derecedir? (b) İkinci aynadan çıkan
+            ışın ilk gelen ışına göre hangi doğrultuda ilerler?
+          </p>
+          <ol class="steps">
+            <li>Birinci aynadan yansıyan ışın, yüzeyle 90° − 35° = 55° açı yapar.</li>
+            <li>İki ayna ve ışın bir üçgen oluşturur; köşedeki açı 90° olduğundan ışının ikinci ayna
+              yüzeyiyle yaptığı açı 180° − 90° − 55° = 35°'dir.</li>
+            <li><strong>(a)</strong> Gelme açısı normalle ölçülür: 90° − 35° = <strong>55°</strong>; yansıma açısı da 55°.</li>
+            <li>Her yansıma ışını 180° − 2i kadar çevirir: 180 − 70 = 110° ve 180 − 110 = 70°; toplam 180°.</li>
+            <li><strong>(b)</strong> Işın <strong>gelen ışına paralel ve ters yönde</strong> geri döner. İki yansımanın kuralı da aynısını söyler: 2α = 2 · 90° = 180°.</li>
+          </ol>
+          <p>
+            Bu sonuç gelme açısından bağımsızdır: dik aynalarda iki gelme açısının toplamı her zaman 90°'dir.
+            Köşe yansıtıcıların, bisiklet reflektörlerinin ve Ay'daki yansıtıcıların çalışma ilkesi budur.
+          </p>
+        </details>
+
+        <h3 id="k14">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>Açıyı yüzeyle ölçmek.</strong> Gelme ve yansıma açıları her zaman
             <em>normalle</em> ölçülür.</li>
           <li><strong>Görüntüyü gerçek sanmak.</strong> Düzlem aynada görüntü sanaldır;
             perdeye düşmez.</li>
+          <li><strong>Görüntünün aynanın yüzeyinde olduğunu sanmak.</strong> Görüntü aynanın arkasında,
+            cisimle aynı uzaklıktadır; aynaya 1 m uzaktaysan görüntün senden 2 m uzaktadır.</li>
           <li><strong>“Ayna sağı solu değiştirir, peki neden altı üstü değiştirmiyor?”</strong>
             Ayna aslında <em>önü arkayı</em> ters çevirir; sağ–sol izlenimi bunun sonucudur.</li>
           <li><strong>Ayna α dönünce ışın da α döner sanmak.</strong> Işın <em>2α</em> döner.</li>
@@ -2528,6 +3240,8 @@
             h/2'dir ve uzaklıktan bağımsızdır.</li>
           <li><strong>İki aynada 360/α'yı doğrudan görüntü sayısı sanmak.</strong> Bu sayı
             cismi de içerir; görüntü sayısı bir eksiktir.</li>
+          <li><strong>Dağınık yansımada i = r kuralının bozulduğunu sanmak.</strong> Kural her ışın için
+            geçerlidir; dağılmanın sebebi pürüzlü yüzeyde normallerin farklı yönlere bakmasıdır.</li>
         </ul>
 
         <div class="callout">

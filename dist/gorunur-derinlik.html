@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Görünür derinlik</h3>
-          <p>Bağıntının nereden geldiğinden günlük hayattaki sonuçlarına, çözümlü örneklerle.</p>
+          <p>Dört basamakta: önce havuz, balık ve bozuk parayla sezgi, sonra h′ = h/n bağıntısının türetilmesi, sudan havaya bakış ve cam levha, ardından üst üste katmanlar ve eğik bakış; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2122,15 +2342,19 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Neden sığ görünür</button>
-        <button type="button" data-goto="k2">Bağıntı</button>
-        <button type="button" data-goto="k3">Yükselme miktarı</button>
-        <button type="button" data-goto="k4">Sudan havaya bakış</button>
-        <button type="button" data-goto="k5">Cam levha</button>
-        <button type="button" data-goto="k6">Geçerlilik sınırı</button>
-        <button type="button" data-goto="k7">Günlük hayatta</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Neden yukarıda</button>
+        <button type="button" data-goto="k3" data-basamak="1">Dörtte bir kuralı</button>
+        <button type="button" data-goto="k4" data-basamak="2">Bağıntı</button>
+        <button type="button" data-goto="k5" data-basamak="2">Yükselme miktarı</button>
+        <button type="button" data-goto="k6" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k7" data-basamak="2">Sudan havaya bakış</button>
+        <button type="button" data-goto="k8" data-basamak="2">Cam levha</button>
+        <button type="button" data-goto="k9" data-basamak="3">Üst üste katmanlar</button>
+        <button type="button" data-goto="k10" data-basamak="3">Eğik bakış</button>
+        <button type="button" data-goto="k11" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k12" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k13" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2151,23 +2375,90 @@
         </svg>
 
         <p class="lead-in">
-          Havuzun dibindeki fayansları görüyorsun ama <b>gerçekte olduğundan 25 cm daha yukarıda</b>.
-          Aynı yanılgı, bardağın dibindeki bozuk parayı, sudaki balığı ve cam altındaki yazıyı da
-          yerinden oynatır. Sebebi tek: sudan çıkan ışınlar yüzeyde kırılır, gözün ise onları
-          <b>hep düz geldi</b> sanır. Bu konuda o kaymanın ne kadar olduğunu hesaplamayı öğreneceğiz.
+          Havuzun dibindeki fayansları görüyorsun ama <b>gerçekte olduğundan daha yukarıda</b>: bir
+          metre derinlikteki bir havuzda tam 25 cm. Aynı yanılgı, bardağın dibindeki bozuk parayı,
+          sudaki balığı ve cam altındaki yazıyı da yerinden oynatır. Sebebi tek: sudan çıkan ışınlar
+          yüzeyde kırılır, gözün ise onları <b>hep düz geldi</b> sanır. Bu konuda o kaymanın ne kadar
+          olduğunu hesaplamayı öğreneceğiz. Anlatım dört basamakta ilerliyor: önce havuza, balığa ve
+          bardaktaki paraya bakıp yanılgının nedenini sezeceğiz; sonra h′ = h/n bağıntısını kırılma
+          yasasından adım adım çıkarıp sudan havaya bakışa ve cam levhaya genişleteceğiz; ardından üst
+          üste katmanlara ve eğik bakışın sınırlarına geçeceğiz. En sonda kolaydan zora sıralanmış
+          örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Neden daha sığ görünür?</h3>
+        <figure class="foto">
+          <img src="gorsel/gorunur-derinlik-giris.webp?v=2" srcset="gorsel/gorunur-derinlik-giris-800.webp?v=2 800w, gorsel/gorunur-derinlik-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir havuzun taş kenarından berrak suya yukarıdan bakış: yüzeyde sarı bir oyuncak ördek yüzüyor, gölgesi mavi karolarla kaplı dibe düşüyor. Dipte parlak, ağ gibi ışık desenleri var; sağda koyu mavi karolardan bir şerit uzanıyor.">
+          <figcaption>
+            <b>Havuzun kenarından bakış.</b> Ördek yüzeyde yüzüyor, gölgesi ise dipteki karolara düşüyor; ikisinin arasında suyun bütün derinliği var. Yine de karolar da gölge de uzanıp dokunabileceğin kadar yakın görünür: havuz göründüğünden yaklaşık üçte bir daha derindir. Tabandaki parlak ağ desenleri de kırılmanın eseridir: dalgalı yüzey güneş ışınlarını kırarak bazı çizgilerde toplar.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: suyun altındaki cisimlerin neden olduğundan yukarıda göründüğünü formülsüz kavra ve yanılgının büyüklüğünü basit bir kuralla hisset.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: su neden sığ görünür?</h3>
+        <p>
+          Bir havuzun kenarına eğilip dibe bak. Fayanslar, elini uzatsan dokunabileceğin kadar yakın
+          durur; içine girince su beklediğinden derin çıkar. Bu yanılgı yalnızca havuza özgü değildir;
+          suyla ya da camla örtülmüş her şeyde aynı şeyi görürsün:
+        </p>
+        <ul>
+          <li><strong>Havuz sığ görünür:</strong> dipteki fayanslar, ayağını basınca şaşıracağın kadar yakın durur.</li>
+          <li><strong>Bacaklar kısa görünür:</strong> havuzda ayakta duran birinin suyun içindeki bacakları kısalmış gibi durur.</li>
+          <li><strong>Kaşık kırık görünür:</strong> kaşığın su altındaki kısmı yükselmiş görünür, bu da kırılmış izlenimi verir.</li>
+          <li><strong>Balık yukarıda görünür:</strong> sudaki balığa zıpkın atan avcı, gördüğü yere nişan alırsa ıskalar.</li>
+          <li><strong>Bozuk para ortaya çıkar:</strong> bardağın kenarının arkasında kalan para, bardağa su dökülünce görünür hâle gelir.</li>
+          <li><strong>Cam altındaki yazı yükselir:</strong> kalın bir camın altındaki harfler camın içinde yüzüyormuş gibi durur.</li>
+        </ul>
+
+        <figure class="foto">
+          <img src="gorsel/gorunur-derinlik-gunluk.webp?v=2" srcset="gorsel/gorunur-derinlik-gunluk-800.webp?v=2 800w, gorsel/gorunur-derinlik-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Berrak bir nehrin içinde duran şapkalı bir balıkçı, elindeki zıpkını suya doğru tutuyor. Görüntünün alt kısmı suyun altını gösteriyor: yuvarlak taşların üzerinde benekli bir balık yüzüyor.">
+          <figcaption>
+            <b>Balıkçının gördüğü balık</b>, gerçek yerinden biraz yukarıdadır. Balıktan çıkan ışınlar yüzeyde kırılıp normalden uzaklaştığı için göz onları olduğundan sığ bir noktadan gelmiş sanır. Zıpkın gördüğü noktaya fırlatılırsa balığın üstünden geçer; deneyimli balıkçılar bu yüzden biraz aşağıya nişan alır.
+          </figcaption>
+        </figure>
+
+        <p>
+          Bütün bu gözlemlerde cisim yerinden kıpırdamıyor; değişen, ondan gözüne gelen ışının yolu.
+          Işık sudan havaya çıkarken yüzeyde kırılır. Göz ise ışının sınırda yön değiştirdiğini bilmez ve
+          cismi, ışının son doğrultusunun gerisinde bir yerde arar.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Havuzda ayakta duran arkadaşının suyun içindeki bacakları neden kısa görünür?</summary>
+          <p>
+            Bacaklarının her noktası olduğundan yukarıda görünür, ama derindeki noktalar <b>daha çok</b>
+            yükselir. Ayak tabanı en çok, yüzeye yakın kısımlar en az yükselir. Suyun içindeki kısım bir
+            akordeon gibi sıkışır ve bacaklar kısa görünür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Suyun ya da camın altındaki cisimler yerinden kıpırdamadan olduğundan yukarıda
+          görünür. Değişen cisim değil, ondan gözüne gelen ışının yoludur.
+        </p>
+
+        <h3 id="k2">Gözün yanılgısı: görüntü neden yukarıda?</h3>
         <p>
           Suyun dibindeki bir cisimden çıkan ışınlar su–hava sınırında kırılır ve
           <strong>normalden uzaklaşır</strong>. Göz, kendisine ulaşan ışınların
           <strong>geldiği doğrultuyu</strong> uzattığı için cismi, bu uzantıların kesiştiği
-          noktada — yani <strong>gerçek yerinden daha yukarıda</strong> — görür.
+          noktada — yani <strong>gerçek yerinden daha yukarıda</strong> — görür. Olayı adım adım izle:
         </p>
+        <ol>
+          <li><strong>Işık çıkar:</strong> dipteki cisimden her yöne ışınlar yayılır; bunların ince bir demeti yüzeye doğru ilerler.</li>
+          <li><strong>Yüzeyde kırılır:</strong> sudan havaya geçen ışınlar hızlanır, normalden uzaklaşır; demet biraz daha açılarak göze gelir.</li>
+          <li><strong>Göz geriye uzatır:</strong> beyin ışınların düz geldiğini varsayar ve onları geriye doğru uzatır.</li>
+          <li><strong>Uzantılar kesişir:</strong> uzantılar gerçek yerin üstündeki bir noktada buluşur; göz cismi orada görür.</li>
+        </ol>
         <div class="callout">
           <p>
             <b>Görüntü sanaldır.</b> Suyun içinde gerçekten bir görüntü oluşmaz; ışınların
-            uzantıları orada kesişir. Bu yüzden görünen derinliğe perde koyamazsınız.
+            uzantıları orada kesişir. Bu yüzden görünen derinliğe perde koyamazsın.
           </p>
         </div>
 
@@ -2201,20 +2492,23 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Bağıntı</h3>
-        <p>Havadan, suya <strong>dik doğrultuda</strong> bakan bir gözlemci için:</p>
-        <div class="formula">
-          <code>h′ = h / n</code>
-          <code>n = h / h′</code>
-        </div>
-        <ul>
-          <li><strong>h:</strong> cismin gerçek derinliği.</li>
-          <li><strong>h′:</strong> görünen derinlik (her zaman daha küçük).</li>
-          <li><strong>n:</strong> sıvının kırılma indisi.</li>
-        </ul>
         <p>
-          Su için n = 4/3 olduğundan h′ = 3h/4: <strong>her cisim gerçek derinliğinin dörtte
-          üçünde görünür.</strong> 2 metrelik havuzun dibi 1,5 metredeymiş gibi görünür.
+          Işınların kendisi değil de uzantıları kesiştiği için böyle bir görüntüye <strong>sanal
+          görüntü</strong> denir. Düzlem aynadaki görüntün de sanaldır: aynanın arkasına geçip onu elinle
+          tutamazsın. Havuzdaki “yükselmiş taban” da böyledir; oraya uzanırsan elin boşluğa değer.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Sudan çıkan ışınlar normalden uzaklaşır; göz onları geriye uzatır ve uzantıların
+          kesiştiği, gerçek yerin üstündeki noktayı cismin yeri sanır. Oluşan görüntü sanaldır.
+        </p>
+
+        <h3 id="k3">Dörtte bir kuralı: su ne kadar kandırır?</h3>
+        <p>
+          Yanılgının büyüklüğü rastgele değildir. Yukarıdan dike yakın bakıldığında suyun içindeki her
+          cisim, gerçek derinliğinin <strong>dörtte üçünde</strong> görünür; başka bir deyişle derinliğin
+          dörtte biri “kaybolur”. 2 metrelik havuzun dibi 1,5 metrede, 40 cm'lik akvaryumun tabanı
+          30 cm'de görünür. Bu oranın kaynağı suyun kırılma indisidir (4/3 ≈ 1,33); nereden geldiğini
+          ikinci basamakta göreceğiz. İndisi daha büyük sıvılarda yanılgı da büyür:
         </p>
 
         <figure class="fig">
@@ -2245,7 +2539,74 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Yükselme miktarı</h3>
+        <ul>
+          <li><strong>Oran sabittir:</strong> suda 1 m de 4 m de aynı oranda, dörtte bir kısalır.</li>
+          <li><strong>Fark derinlikle büyür:</strong> bardakta birkaç santimetre, derin havuzda bir metreden fazla.</li>
+          <li><strong>İndis büyüdükçe yanılgı artar:</strong> karbon sülfürde derinliğin neredeyse %40'ı kaybolur.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Bardağın kenarının arkasında kalan bozuk para, bardağa su dökülünce neden görünür hâle gelir?</summary>
+          <p>
+            Su yokken paradan gözüne giden düz yol bardağın kenarına takılır. Su dökülünce paradan çıkan
+            ışınlar yüzeyde kırılıp normalden uzaklaşır ve kenarın üstünden aşarak gözüne ulaşır. Göz
+            parayı olduğundan yukarıda, kenarın üstünden görülebilen bir yerde görür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Dike yakın bakışta suyun altındaki her cisim gerçek derinliğinin dörtte üçünde
+          görünür. Oran derinlikten bağımsızdır; fark ise derinlikle ve sıvının indisiyle büyür.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: dörtte bir kuralını Snell yasasından çıkar, yükselmeyi hesapla, sonra bakış yönünü ters çevir ve cam levhaya uygula.</span>
+        </div>
+
+        <h3 id="k4">Bağıntı nereden geliyor?</h3>
+        <p>Havadan, suya <strong>dik doğrultuda</strong> bakan bir gözlemci için:</p>
+        <div class="formula">
+          <code>h′ = h / n</code>
+          <code>n = h / h′</code>
+        </div>
+        <ul>
+          <li><strong>h:</strong> cismin gerçek derinliği.</li>
+          <li><strong>h′:</strong> görünen derinlik (her zaman daha küçük).</li>
+          <li><strong>n:</strong> sıvının kırılma indisi.</li>
+        </ul>
+        <h4>Adım adım türetme</h4>
+        <p>
+          Bağıntı, kırılma konusundaki Snell yasasından ve biraz üçgen bilgisinden çıkar. Havanın indisini
+          1 al ve cisimden çıkıp göze ulaşan tek bir ışını izle:
+        </p>
+        <ol>
+          <li><strong>Yüzeye varış:</strong> ışın, cismin tam üstündeki noktadan x kadar ötede yüzeye i açısıyla varır: x = h·tan i.</li>
+          <li><strong>Kırılma:</strong> ışın havaya r açısıyla çıkar: n·sin i = sin r.</li>
+          <li><strong>Gözün uzantısı:</strong> uzantı, cismin üstündeki düşey çizgiyi h′ derinliğinde keser: x = h′·tan r.</li>
+          <li><strong>Eşitle:</strong> h·tan i = h′·tan r → h′ = h·tan i / tan r.</li>
+          <li><strong>Dik bakış:</strong> küçük açılarda tan ≈ sin olduğundan h′ ≈ h·sin i / sin r = h/n.</li>
+        </ol>
+        <p>
+          Su için n = 4/3 olduğundan h′ = 3h/4: <strong>her cisim gerçek derinliğinin dörtte
+          üçünde görünür.</strong> 2 metrelik havuzun dibi 1,5 metredeymiş gibi görünür. Dördüncü adımdaki
+          tam ifadeyi bir kenara yaz; üçüncü basamakta eğik bakışı incelerken ona döneceğiz.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Akıl kontrolü:</b> n birimsiz olduğu için h′ ile h aynı birimdedir. Su yoksa (n = 1)
+            h′ = h çıkmalı; çıkıyor. İndis büyüdükçe h′ küçülmeli; küçülüyor. Bir bağıntı bu sınamalardan
+            geçmiyorsa yanlış hatırlanmıştır.
+          </p>
+        </div>
+        <p class="kisaca">
+          <b>Kısaca:</b> Snell yasası ve dik bakışta tan ≈ sin yaklaşımı h′ = h/n bağıntısını verir. Su
+          için h′ = 3h/4: her cisim gerçek derinliğinin dörtte üçünde görünür.
+        </p>
+
+        <h3 id="k5">Yükselme miktarı</h3>
+        <p>
+          Cismin ne kadar “yükseldiğini”, yani gerçek derinlikle görünen derinlik arasındaki farkı
+          doğrudan veren bir bağıntı da yazılabilir:
+        </p>
         <div class="formula">
           <code>Δh = h − h′ = h (1 − 1/n)</code>
         </div>
@@ -2285,7 +2646,53 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Sudan havaya bakış</h3>
+        <p>
+          Tablodaki son sütun sıvının türüne bağlıdır ama derinliğe bağlı değildir: yükselme
+          <strong>oranı</strong> her derinlikte aynıdır. Yükselme <strong>miktarı</strong> ise derinlikle
+          doğru orantılıdır. Soruda hangisinin istendiğine dikkat et: “yüzde kaç sığ görünür” oranı,
+          “kaç cm yukarıda görünür” miktarı sorar. Tabloyu tersinden de kullanabilirsin: görünen
+          derinliği ölçersen sıvının indisini n = h/h′ ile bulursun.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Yükselme miktarı Δh = h(1 − 1/n)'dir; suda derinliğin dörtte biri. Yükselme
+          oranı yalnızca sıvıya, yükselme miktarı ise derinliğe de bağlıdır.
+        </p>
+
+        <h3 id="k6">Sayılarla hisset: tanıdık derinlikler</h3>
+        <p>
+          Suyun (n = 4/3) tanıdık derinliklerde ne kadar yanılttığına bakalım. Sayfanın 01 numaralı
+          bölümündeki havuz laboratuvarında aynı hesabı istediğin derinlik ve sıvı için yapabilirsin;
+          varsayılan 200 cm'lik havuz 150 cm'de görünür.
+        </p>
+        <table class="tbl">
+          <tr><th>Nerede</th><th>Gerçek derinlik</th><th>Görünen derinlik</th><th>Yükselme</th></tr>
+          <tr><td>Su bardağının dibi</td><td>12 cm</td><td>9 cm</td><td>3 cm</td></tr>
+          <tr><td>Akvaryum</td><td>40 cm</td><td>30 cm</td><td>10 cm</td></tr>
+          <tr><td>Çocuk havuzu</td><td>1 m</td><td>75 cm</td><td>25 cm</td></tr>
+          <tr><td>Yetişkin havuzu</td><td>2 m</td><td>1,5 m</td><td>50 cm</td></tr>
+          <tr><td>Atlama havuzu</td><td>5 m</td><td>3,75 m</td><td>1,25 m</td></tr>
+        </table>
+        <p>
+          Tablodan okunan düzen: görünen derinlik her satırda gerçek derinliğin tam 0,75 katı, yükselme
+          0,25 katı. Ama aynı oran çok farklı hissedilir. Bardaktaki 3 cm'lik yanılgıyı fark etmezsin
+          bile; atlama havuzundaki 1,25 metrelik yanılgı ise tehlikelidir. Dördüncü satıra dikkat:
+          1,5 metre derinliğinde görünen havuz aslında 2 metredir; boyu 1,6 m olan biri orada ayağı yere
+          değerken başını sudan çıkaramaz.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Havuza su doldurulurken dipteki fayansın görünen derinliği nasıl değişir?</summary>
+          <p>
+            Su yükseldikçe görünen derinlik de <b>düzgün olarak</b> artar, ama her an su yüksekliğinin
+            dörtte üçü kadardır: su 40 cm iken fayans 30 cm'de, 1 m iken 75 cm'de görünür. Görünen
+            derinliğin su yüksekliğine göre grafiği, orijinden geçen ve eğimi 3/4 olan bir doğrudur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Suda görünen derinlik her zaman gerçeğin 0,75 katıdır: 1 m 75 cm, 2 m 1,5 m,
+          5 m 3,75 m görünür. Oran aynı kalır, fark derinlikle büyür.
+        </p>
+
+        <h3 id="k7">Sudan havaya bakış</h3>
         <p>
           Gözlemci suyun içindeyse durum tersine döner: havadaki cisimden gelen ışınlar suya
           girerken normale yaklaşır ve uzantıları cismi <strong>daha yüksekte</strong> gösterir.
@@ -2296,8 +2703,18 @@
         <p>
           Su altındaki bir dalgıç için, yüzeyden 1,5 m yukarıdaki bir kuş yaklaşık 2 m yükseklikte
           görünür. Genel kural: <strong>gözlemcinin bulunduğu ortamın indisi büyükse cisim
-          uzaklaşmış görünür.</strong>
+          uzaklaşmış görünür.</strong> Sayfanın 03 numaralı bölümünde aynı sonucu izleyebilirsin: 150 cm
+          yukarıdaki cisim su altından 200 cm'de görünür. İki durum tek bir bağıntıda birleşir: cisim ile
+          yüzey arasındaki uzaklık, gözlemcinin ortamının indisiyle çarpılır ve cismin ortamının indisine
+          bölünür.
         </p>
+        <div class="formula">
+          <code>h′ = h · n<sub>gözlemci</sub> / n<sub>cisim</sub></code>
+        </div>
+        <ul>
+          <li><strong>Havadan suya bakış:</strong> n<sub>gözlemci</sub> = 1, n<sub>cisim</sub> = n → h′ = h/n; cisim yaklaşmış görünür.</li>
+          <li><strong>Sudan havaya bakış:</strong> n<sub>gözlemci</sub> = n, n<sub>cisim</sub> = 1 → h′ = n·h; cisim uzaklaşmış görünür.</li>
+        </ul>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Su altındaki gözlemci için havadaki cismin olduğundan daha yüksekte görünmesi.">
@@ -2331,17 +2748,30 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Cam levhanın altındaki yazı</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Gözlemci suyun içindeyse havadaki cisim h′ = n·h yüksekliğinde, yani olduğundan
+          uzakta görünür. Genel kural: h′ = h·n(gözlemci)/n(cisim).
+        </p>
+
+        <h3 id="k8">Cam levhanın altındaki yazı</h3>
         <p>
           Kalınlığı t, indisi n olan bir cam levha, altındaki yazıyı yukarı taşımış gibi gösterir:
         </p>
         <div class="formula">
           <code>Δ = t (1 − 1/n)</code>
         </div>
+        <h4>Bağıntı nereden geliyor?</h4>
+        <ol>
+          <li><strong>Levha yokken:</strong> yazı, levhanın üst yüzü hizasından t + a derinde görünür (a: levha ile yazı arasındaki hava aralığı).</li>
+          <li><strong>Levha varken:</strong> cam katman kendi kalınlığını t/n gibi gösterir, hava aralığı olduğu gibi kalır: görünen derinlik t/n + a.</li>
+          <li><strong>Fark:</strong> (t + a) − (t/n + a) = t − t/n = t(1 − 1/n). Hava aralığı a sadeleşir.</li>
+        </ol>
         <p>
           Cam için (n = 1,5) Δ = t/3'tür: 6 cm'lik cam levha yazıyı <strong>2 cm</strong>
           yükseltir. Yazının levhaya olan uzaklığı sonucu değiştirmez; önemli olan ışığın cam
-          içinde katettiği kalınlıktır.
+          içinde kat ettiği kalınlıktır. Sayfanın 04 numaralı bölümünde varsayılan 6 cm'lik levhanın
+          içinden bakınca camın kendisi 4 cm kalınlığındaymış gibi görünür; aradaki 2 cm, yazının
+          yükselme miktarıdır.
         </p>
 
         <figure class="fig">
@@ -2367,7 +2797,50 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Bağıntının geçerlilik sınırı</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Cam levha, altındaki yazıyı Δ = t(1 − 1/n) kadar yükseltir; camda bu, kalınlığın
+          üçte biridir. Yazı ile levha arasındaki hava aralığı sonucu değiştirmez.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: ışık birden çok katmandan geçince, bakış yatıklaşınca ve yanılgı gerçek hayatta bir ölçüm aracına dönüşünce ne olur?</span>
+        </div>
+
+        <h3 id="k9">Üst üste katmanlar</h3>
+        <p>
+          Bir bardakta suyun üstünde bir yağ tabakası, bir akvaryumda suyun altında kalın bir cam taban
+          olabilir. Işığın yolunda birden fazla saydam katman varsa her katman kendi kalınlığını
+          <strong>kendi indisine göre</strong> kısaltır ve görünen kalınlıklar toplanır:
+        </p>
+        <div class="formula">
+          <code>h′ = h₁/n₁ + h₂/n₂ + …</code>
+        </div>
+        <p>
+          Cam levhadaki bağıntı bunun özel bir durumudur: cam katmanı t/n, hava aralığı ise olduğu gibi
+          a görünür. Örneğin bir bardakta 8 cm su (n = 4/3) üstünde 3 cm yağ (n = 1,5) varsa dipteki
+          para 3/1,5 + 8·3/4 = 2 + 6 = <strong>8 cm</strong> derinde görünür; gerçek derinlik 11 cm'dir.
+          Toplam 11 cm'yi tek bir indise bölseydin ikisinden birini yanlış kullanmış olurdun.
+        </p>
+        <ul>
+          <li><strong>Her katman ayrı hesaplanır:</strong> toplam derinlik tek bir indise bölünmez.</li>
+          <li><strong>Sıra önemli değildir:</strong> dik bakışta toplam, katmanların hangi sırayla dizildiğinden bağımsızdır.</li>
+          <li><strong>Hava katmanı olduğu gibi kalır:</strong> indisi 1 olduğu için kısalmaz.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Suyun içine yatay bir cam levha konuyor. Levhanın dibe ya da yüzeye yakın durması, dipteki paranın görünen derinliğini değiştirir mi?</summary>
+          <p>
+            <b>Değiştirmez.</b> Dik bakışta görünen derinlik, suyun toplam kalınlığının 4/3'e bölümü ile
+            levha kalınlığının 1,5'e bölümünün toplamıdır. Bu toplamda levhanın nerede durduğu geçmez;
+            levha yalnızca suyun bir kısmının yerini alır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Üst üste katmanlarda her katman kendi indisine bölünür ve görünen kalınlıklar
+          toplanır: h′ = h₁/n₁ + h₂/n₂. Katmanların sırası sonucu değiştirmez.
+        </p>
+
+        <h3 id="k10">Bağıntının geçerlilik sınırı: eğik bakış</h3>
         <div class="callout warn">
           <p>
             <b>h′ = h/n yalnızca dik (dike yakın) bakış içindir.</b> Yüzeye çok eğik bakıldığında
@@ -2375,6 +2848,26 @@
             yükselir. Bu yüzden havuza yandan bakıldığında dip daha da yakın görünür.
           </p>
         </div>
+        <p>
+          Neden? Türetmenin dördüncü adımında h′ = h·tan i / tan r bulmuştuk; tan ≈ sin yaklaşımı yalnızca
+          küçük açılarda doğrudur. Açılar büyüyünce tam ifadeyi kullanmak gerekir. Göze gelen ışının
+          uzantısı, cismin tam üstündeki düşey çizgiyi hangi derinlikte keser? Su (n = 4/3) için:
+        </p>
+        <table class="tbl">
+          <tr><th>Bakış açısı (havada)</th><th>Sudaki açı</th><th>h′ / h</th><th>2 m havuzda</th></tr>
+          <tr><td>0° (dik)</td><td>0°</td><td>0,75</td><td>1,50 m</td></tr>
+          <tr><td>30°</td><td>22,0°</td><td>0,70</td><td>1,40 m</td></tr>
+          <tr><td>45°</td><td>32,0°</td><td>0,63</td><td>1,25 m</td></tr>
+          <tr><td>60°</td><td>40,5°</td><td>0,49</td><td>0,99 m</td></tr>
+          <tr><td>75°</td><td>46,4°</td><td>0,28</td><td>0,56 m</td></tr>
+        </table>
+        <p>
+          Tablo iki şey söylüyor. Birincisi, 30°'ye kadar h′/h oranı 0,75'ten pek sapmaz; “dike yakın”
+          bakışın sınırı sanıldığından geniştir. İkincisi, 60°'nin ötesinde görünen derinlik hızla
+          küçülür: yatık bakışta 2 metrelik havuz yarım metre derinliğindeymiş gibi görünebilir. Bu
+          sayılar tek bir ışının uzantısı içindir; eğik bakışta komşu ışınlar artık aynı noktada
+          kesişmez ve görüntü bulanıklaşır.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Dik bakışta bağıntının geçerli olması, çok eğik bakışta görüntünün bozulması.">
@@ -2409,13 +2902,43 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Günlük hayatta</h3>
+        <details class="dusun">
+          <summary>Düşün: Havuzun kenarında dururken uzaktaki dip neden ayağının dibindeki dipten de sığ görünür?</summary>
+          <p>
+            Uzaktaki dibe daha yatık bir açıyla bakarsın. Tablodaki gibi bakış açısı büyüdükçe h′/h oranı
+            0,75'in altına düşer: 60°'de yaklaşık 0,5'e, 75°'de 0,3'e yaklaşır. Aynı derinlikteki taban,
+            uzaklaştıkça yükseliyormuş gibi görünür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> h′ = h/n yalnızca dike yakın bakışta geçerlidir. Bakış yatıklaştıkça görünen
+          derinlik daha da azalır ve görüntü bozulur; suda 60°'lik bakışta derinlik yaklaşık yarısı kadar
+          görünür.
+        </p>
+
+        <h3 id="k11">Görünür derinlik gerçek dünyada</h3>
+        <p>
+          Görünür derinlik bir göz yanılgısı olarak başlar, ama doğru hesaplandığında güvenliği sağlayan
+          ve ölçüm yapmaya yarayan bir araca dönüşür. Aşağıdaki örneklerin hepsi bu konunun bağıntılarını
+          kullanır.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/gorunur-derinlik-uygulama.webp?v=2" srcset="gorsel/gorunur-derinlik-uygulama-800.webp?v=2 800w, gorsel/gorunur-derinlik-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Mavi-beyaz kareli bir masa örtüsünün üzerinde duran kalın, dikdörtgen, saydam bir cam blok; örtünün kareleri bloğun üst yüzünden görünüyor. Bloğun kenarlarında, cam içinden görülen kareler dışarıdaki karelerle aynı hizada devam etmiyor.">
+          <figcaption>
+            <b>Kalın bir cam blok</b>, altındaki kareli örtüyü kalınlığının yaklaşık üçte biri kadar yukarı taşınmış gösterir: 3 cm'lik bir blokta kareler 1 cm yükselmiş görünür. Bloğun kenarlarına bak: cam içinden görülen kare çizgileri, bloğun dışındakilerle tam aynı hizada devam etmez. Eğik bakışta yükselmeye yandan kayma da eklenir.
+          </figcaption>
+        </figure>
+
         <ul>
-          <li><strong>Havuz sığ görünür:</strong> derinliği olduğundan az sanıp atlamak tehlikelidir.</li>
-          <li><strong>Suya batan cisim kırık görünür:</strong> kaşığın su altındaki kısmı yükselmiş
-            görünür, bu da kırılmış izlenimi verir.</li>
-          <li><strong>Zıpkınla balık avı:</strong> avcılar hep gördüklerinin biraz altına nişan alır.</li>
-          <li><strong>Bardaktaki bozuk para:</strong> su eklenince görünmeyen para görünür hâle gelir.</li>
+          <li><strong>Havuz güvenliği:</strong> 1,4 m derinliğindeki havuz yukarıdan yaklaşık 1,05 m görünür; derinlik yazıları bu yüzden kenara yazılır.</li>
+          <li><strong>Zıpkınla balık avı:</strong> 90 cm derindeki balık yaklaşık 68 cm'de görünür; avcı gördüğünün altına nişan alır.</li>
+          <li><strong>Okçu balığı:</strong> sudan dallardaki böceklere su tükürerek avlanır; kırılmanın yarattığı sapmayı hesaba katarak nişan alır.</li>
+          <li><strong>Dalış maskesi:</strong> maske gözün önünde hava tutar; sudaki cisimler yaklaşık 3/4 uzaklıkta ve 4/3 kat büyük görünür.</li>
+          <li><strong>İndis ölçümü:</strong> mikroskop bir işarete, sonra üstüne konan levhanın içinden aynı işarete odaklanır; odak kayması n'yi verir.</li>
+          <li><strong>Cam bloklar:</strong> 3 cm'lik cam blok, altındaki yazıyı 1 cm yükselmiş gösterir; kalın vitrin camlarında da aynısı olur.</li>
         </ul>
 
         <figure class="fig">
@@ -2444,10 +2967,34 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <p>
+          Sayfanın 02 numaralı bölümünde balığa nişan almayı kendin deneyebilirsin: varsayılan balık
+          90 cm derinde durur ama 68 cm'de görünür. Gözün de bu düzeltmeyi zamanla öğrenir; suya uzanıp
+          bir şey almaya çalışırken elin kendiliğinden biraz daha derine gider.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Dalış maskesiyle su altına bakınca balıklar neden olduğundan büyük görünür?</summary>
+          <p>
+            Maskenin camı düzdür ve gözün önünde hava vardır; yani sen havadan suya bakan bir gözlemcisin.
+            Sudaki cisimler gerçek uzaklığın yaklaşık <b>dörtte üçünde</b> görünür. Aynı boydaki bir cisim
+            daha yakında göründüğü için gözde daha büyük bir açı kaplar: yaklaşık 4/3 kat büyük görünür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Havuz güvenliği, zıpkınla avcılık, dalış maskesi ve indis ölçümü görünür
+          derinliğin sonuçlarıdır. Doğru hesaplanan yanılgı bir ölçüm aracına dönüşür.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve görünür derinlik sorularında puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k12">Çözümlü örnekler</h3>
+        <p>Aşağıdaki çözümlerde havanın indisi 1, bakış doğrultusu dike yakın alınmıştır.</p>
 
         <details>
-          <summary>Örnek 1 — Havuzun derinliği</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Havuzun derinliği</summary>
           <p>
             Derinliği 2 m olan bir havuzun dibi, yukarıdan bakan biri için kaç metre derinlikte
             görünür? (n(su) = 4/3)
@@ -2460,7 +3007,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — İndisi bulmak</summary>
+          <summary data-zorluk="kolay">Örnek 2 — İndisi bulmak</summary>
           <p>
             Bir kaptaki sıvının 60 cm derinliğindeki cisim, 40 cm derinlikte görünüyor.
             Sıvının kırılma indisi nedir?
@@ -2473,7 +3020,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Sudan havaya bakış</summary>
+          <summary data-zorluk="orta">Örnek 3 — Sudan havaya bakış</summary>
           <p>
             Su altındaki bir dalgıç, yüzeyden 120 cm yukarıdaki bir lambaya bakıyor.
             Lamba kaç cm yükseklikte görünür? (n = 4/3)
@@ -2486,7 +3033,7 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — Cam levha</summary>
+          <summary data-zorluk="orta">Örnek 4 — Cam levha</summary>
           <p>
             Kalınlığı 9 cm, indisi 1,5 olan cam levha bir yazının üzerine konuyor.
             Yazı ne kadar yükselmiş görünür?
@@ -2499,7 +3046,60 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="orta">Örnek 5 — Yükselmeden gerçek derinliğe</summary>
+          <p>
+            Suyla dolu bir kabın dibindeki taş, yukarıdan bakınca gerçek yerinden 30 cm yukarıda
+            görünüyor. Kabın derinliği ve taşın görünen derinliği nedir? (n = 4/3)
+          </p>
+          <ol class="steps">
+            <li>Yükselme: Δh = h (1 − 1/n) = h (1 − 3/4) = h/4.</li>
+            <li>h/4 = 30 cm → h = <strong>120 cm</strong>.</li>
+            <li>Görünen derinlik: h′ = h/n = 120 · 3/4 = <strong>90 cm</strong>.</li>
+            <li>Kontrol: 120 − 90 = 30 cm ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Üst üste iki sıvı</summary>
+          <p>
+            Bir kapta 20 cm su (n = 4/3) ve suyun üstünde 15 cm yağ (n = 1,5) var. Kabın dibindeki
+            para, yukarıdan bakan birine kaç cm derinde görünür? Para kaç cm yükselmiş görünür?
+          </p>
+          <ol class="steps">
+            <li>Her katman kendi indisine bölünür: h′ = h₁/n₁ + h₂/n₂.</li>
+            <li>Yağ katmanı: 15 / 1,5 = 10 cm.</li>
+            <li>Su katmanı: 20 / (4/3) = 20 · 3/4 = 15 cm.</li>
+            <li>Görünen derinlik: 10 + 15 = <strong>25 cm</strong>; gerçek derinlik 35 cm.</li>
+            <li>Yükselme: 35 − 25 = <strong>10 cm</strong>.</li>
+          </ol>
+          <p>
+            Tuzak: 35 cm'yi tek bir indise bölmek. 35/(4/3) = 26,25 cm, 35/1,5 ≈ 23,3 cm verir; ikisi de
+            yanlıştır.
+          </p>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Dalgıç ve martı</summary>
+          <p>
+            Bir dalgıcın gözü su yüzeyinin 1,2 m altında, bir martı da tam onun üstünde, yüzeyin 0,9 m
+            yukarısında duruyor. (a) Dalgıç martıyı kaç metre uzakta görür? (b) Martı dalgıcı kaç metre
+            uzakta görür? (n = 4/3)
+          </p>
+          <ol class="steps">
+            <li>Gerçek uzaklık: 1,2 + 0,9 = 2,1 m.</li>
+            <li><strong>(a)</strong> Dalgıç suda: martının yüksekliği n kat görünür: 0,9 · 4/3 = 1,2 m.</li>
+            <li>Dalgıcın gördüğü uzaklık: 1,2 + 1,2 = <strong>2,4 m</strong>.</li>
+            <li><strong>(b)</strong> Martı havada: dalgıcın derinliği n'ye bölünür: 1,2 · 3/4 = 0,9 m.</li>
+            <li>Martının gördüğü uzaklık: 0,9 + 0,9 = <strong>1,8 m</strong>.</li>
+          </ol>
+          <p>
+            İkisi birbirini farklı uzaklıkta görür: dalgıç için martı uzaklaşmış, martı için dalgıç
+            yaklaşmıştır. Oran 2,4 / 1,8 = 4/3, yani tam suyun indisidir.
+          </p>
+        </details>
+
+        <h3 id="k13">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>h′ = h·n yazmak.</strong> Havadan bakışta bölme yapılır: h′ = h/n.</li>
           <li><strong>Görünen derinliği gerçek sanmak.</strong> Görüntü sanaldır; su içinde
@@ -2511,6 +3111,10 @@
           <li><strong>Cam levhada yükselmeyi t kadar sanmak.</strong> Yükselme t değil,
             t(1 − 1/n)'dir.</li>
           <li><strong>Eğik bakışta aynı formülü kullanmak.</strong> Bağıntı dik bakış içindir.</li>
+          <li><strong>Katmanlı kapta toplam derinliği tek indise bölmek.</strong> Her katman kendi
+            indisine bölünür: h′ = h₁/n₁ + h₂/n₂.</li>
+          <li><strong>Yükselme ile görünen derinliği karıştırmak.</strong> 2 m'lik havuzun görünen
+            derinliği 1,5 m, yükselmesi 0,5 m'dir; soru hangisini istiyor, önce onu oku.</li>
         </ul>
 
         <div class="callout">

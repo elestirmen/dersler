@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Mercekler</h3>
-          <p>Asal ışınlardan mercek denklemine, göz kusurlarından optik aletlere.</p>
+          <p>Dört basamakta: önce mercek türleri, asal ışınlar ve beş durum, sonra mercek denklemi, diyoptri ve göz, ardından iki mercekli aletler ve modelin sınırları; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2132,15 +2352,20 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Mercek türleri</button>
-        <button type="button" data-goto="k2">Asal ışınlar</button>
-        <button type="button" data-goto="k3">Beş durum</button>
-        <button type="button" data-goto="k4">Mercek denklemi</button>
-        <button type="button" data-goto="k5">Mercek gücü</button>
-        <button type="button" data-goto="k6">Göz ve kusurları</button>
-        <button type="button" data-goto="k7">Optik aletler</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Mercek türleri</button>
+        <button type="button" data-goto="k3" data-basamak="1">Asal ışınlar</button>
+        <button type="button" data-goto="k4" data-basamak="1">Beş durum</button>
+        <button type="button" data-goto="k5" data-basamak="2">Mercek denklemi</button>
+        <button type="button" data-goto="k6" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k7" data-basamak="2">Mercek gücü</button>
+        <button type="button" data-goto="k8" data-basamak="2">Göz ve gözlük</button>
+        <button type="button" data-goto="k9" data-basamak="3">İki net konum</button>
+        <button type="button" data-goto="k10" data-basamak="3">İki mercekli aletler</button>
+        <button type="button" data-goto="k11" data-basamak="3">Modelin sınırları</button>
+        <button type="button" data-goto="k12" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k13" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k14" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2161,16 +2386,83 @@
         </svg>
 
         <p class="lead-in">
-          Gözünün içindeki mercek, bu satırı okuyabilmen için şekil değiştiriyor. Telefonunun
-          kamerası, gözlüğün, mikroskop ve teleskop — hepsi aynı iki bağıntıyla çalışır. Mercek
-          aslında <b>arka arkaya dizilmiş sonsuz sayıda küçük prizmadan</b> başka bir şey değildir:
-          her biri ışığı biraz büker, hepsi birlikte ışığı tek bir noktada toplar. Bu konuda o
-          noktayı nerede aramak gerektiğini öğreneceğiz.
+          Aynı büyüteç bir uğur böceğini dev gibi gösterir, güneşe tutulunca bir kâğıdı tutuşturabilir.
+          Tek bir cam parçası bunu nasıl yapıyor? Gözünün içindeki mercek de bu satırı okuyabilmen için
+          şekil değiştiriyor. Telefonunun kamerası, gözlüğün, mikroskop ve teleskop — hepsi aynı iki
+          bağıntıyla çalışır. Mercek aslında <b>arka arkaya dizilmiş sonsuz sayıda küçük prizmadan</b>
+          başka bir şey değildir: her biri ışığı biraz büker, hepsi birlikte ışığı tek bir noktada toplar.
+          Optik ünitesinin bu son konusu kırılmayı, prizmaları ve aynaları tek bir alette buluşturuyor.
+          Önce mercekleri gözleyip ışınlarla görüntü çizeceğiz, sonra mercek denklemini, diyoptriyi ve gözü
+          sayılarla inceleyeceğiz, ardından iki mercekli aletlere ve modelin sınırlarına geçeceğiz. En
+          sonda kolaydan zora sıralanmış örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Mercek türleri</h3>
+        <figure class="foto">
+          <img src="gorsel/mercekler-giris.webp?v=2" srcset="gorsel/mercekler-giris-800.webp?v=2 800w, gorsel/mercekler-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir bahçede bir el, yeşil bir yaprağın üzerine büyüteç tutuyor; büyütecin içinde kırmızı, siyah benekli bir uğur böceği ve yaprağın damarları iri ve net görünüyor. Arka planda bulanık yeşillikler ve pembe, beyaz çiçekler var.">
+          <figcaption>
+            <b>Büyütecin içinde başka bir dünya.</b> Merceğin çerçevesine bak: içeriden görülen yaprak damarları, hemen dışarıda kalan damarlardan belirgin biçimde iridir; uğur böceği de aynı biçimde büyütülmüş görünür. Bu fark bir <b>sanal, düz ve büyütülmüş</b> görüntünün işidir: yaprak ve böcek merceğin odak uzaklığından daha yakında olduğu için mercek onları olduğundan büyük gösterir. Aynı merceğin güneş ışığını bir noktada toplayabilmesini de bu anlatımda aynı kurala bağlayacağız.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: merceğin ışığı nasıl büktüğünü gör, üç ışınla görüntüyü çiz ve cismin yeri değişince neyin değiştiğini fark et.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: bir büyüteç ne yapar?</h3>
         <p>
-          Mercek, en az bir yüzeyi küresel olan saydam cisimdir. İki temel türü vardır:
+          Bir büyüteci gazete yazısının hemen üstünde tut ve yavaşça yukarı kaldır. Harfler önce büyür,
+          sonra birden bulanıklaşır. Şimdi kolunu uzatıp aynı büyüteçle karşıdaki pencereye bak: pencere
+          bu kez <strong>küçük ve baş aşağı</strong> görünür. Aynı cam, yalnızca uzaklık değişti diye hem
+          büyütüyor hem küçültüyor, hem düz hem ters gösteriyor.
+        </p>
+        <p>
+          Güneşli bir günde büyüteci bir kâğıdın üzerinde tutarsan ışık parlak bir beneğe toplanır; doğru
+          yükseklikte benek en küçük hâlini alır ve kâğıt ısınıp kararmaya başlar. Güneş ışığı merceğin öbür
+          tarafında belirli bir noktada toplanmıştır; o noktanın mercekten uzaklığı bu büyütecin kimliğidir.
+          Gözlük camları da birer mercektir.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/mercekler-gunluk.webp?v=2" srcset="gorsel/mercekler-gunluk-800.webp?v=2 800w, gorsel/mercekler-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Masa lambasının sıcak ışığında açık duran bir defter; sayfalarda kurşun kalemle çizilmiş yıldız, Ay, daire ve yaprak desenleri var. Defterin üzerinde kaplumbağa kabuğu desenli çerçeveli bir gözlük duruyor, camlarının ardında da çizimler görünüyor; yanda bir kalem, bir kupa ve saksıda bir bitki var.">
+          <figcaption>
+            <b>Gözlük de bir mercektir.</b> Kâğıda bu kadar yakın duran bir gözlük camı arkasındaki çizimleri pek değiştirmez; gözlüğü kâğıttan yavaşça kaldırdıkça çizimler camın içinde büyür ya da küçülür. Yazıyı ya da çizimi büyüten bir gözlük camı ortası kalın bir camdır ve ışığı toplar; küçülten bir cam ise ortası incedir ve ışığı dağıtır. Hangisinin hangi göze yardım ettiğini ikinci basamakta hesaplayacağız.
+          </figcaption>
+        </figure>
+
+        <p>Hangi mercek olursa olsun, dikkatle bakınca aynı üç şey gözlenir:</p>
+        <ul>
+          <li><strong>Işık bükülür:</strong> mercekten geçen ışık doğrultusunu değiştirir; bu, ünitenin
+            kırılma konusundan tanıdığın kırılmadır.</li>
+          <li><strong>Bazı mercekler toplar, bazıları dağıtır:</strong> ortası kalın cam ışığı bir noktada
+            toplar, ortası ince cam dağıtır.</li>
+          <li><strong>Görüntü uzaklığa bağlıdır:</strong> aynı mercek cisim yakınken büyük ve düz, uzaktayken
+            küçük ve ters bir görüntü verir.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Bir gözlük camının ortası kalın mı ince mi, camı ölçmeden nasıl anlarsın?</summary>
+          <p>
+            Camı bir yazının birkaç santimetre üstünde tutup yazıya bak. Yazı <b>büyüyorsa</b> cam ortası
+            kalın, ışığı toplayan bir mercektir; <b>küçülüyorsa</b> ortası ince, ışığı dağıtan bir mercektir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Aynı mercek cismin uzaklığına göre büyük ve düz ya da küçük ve ters görüntü verir.
+          Ortası kalın mercekler ışığı bir noktada toplar, ortası ince mercekler dağıtır.
+        </p>
+
+        <h3 id="k2">Mercek nedir, hangi türleri vardır?</h3>
+        <p>
+          <strong>Mercek</strong>, en az bir yüzeyi küresel olan saydam cisimdir; ışığı kırarak toplar ya da
+          dağıtır. Nasıl yaptığını ünitenin bir önceki konusu açıklar: havadaki bir cam prizma ışığı her
+          zaman <strong>kalın tabanına doğru</strong> büker. Bir merceği ince dilimlere ayırdığını düşün; her
+          dilim küçük bir prizmadır. Eksenden uzaklaştıkça dilimin iki yüzü birbirine daha eğik olur, yani dilim
+          tepe açısı daha büyük bir prizmaya dönüşür ve ışığı daha çok büker; bu yüzden bütün ışınlar tek bir noktada buluşabilir. Prizmaların tabanı merkeze
+          bakıyorsa mercek toplar, dışa bakıyorsa dağıtır:
         </p>
         <ul>
           <li><strong>İnce kenarlı (yakınsak) mercek:</strong> ortası kalın, kenarları incedir.
@@ -2179,9 +2471,19 @@
             Işınları <strong>dağıtır</strong>; uzantıları odakta kesişir. f &lt; 0.</li>
         </ul>
         <p>
-          Merceğin iki tarafında da birer odak noktası vardır ve ikisi merkeze eşit uzaklıktadır.
-          Odak uzaklığı; yüzeylerin eğrilik yarıçaplarına ve merceğin indisine bağlıdır.
+          Merceğin ortasından yüzeylerine dik geçen doğruya <strong>asal eksen</strong>, merceğin tam
+          ortasındaki noktaya <strong>optik merkez</strong> denir. Eksene paralel gelen ışınların toplandığı
+          ya da uzantılarının buluştuğu noktaya <strong>odak noktası</strong> (F), bu noktanın merkeze
+          uzaklığına <strong>odak uzaklığı</strong> (f) denir. Merceğin iki tarafında da birer odak noktası
+          vardır ve ikisi merkeze eşit uzaklıktadır; merkezden 2f uzaktaki noktalar <strong>2F</strong>
+          ile gösterilir. Odak uzaklığı; yüzeylerin eğrilik yarıçaplarına ve merceğin indisine bağlıdır.
         </p>
+        <div class="callout warn">
+          <p>
+            <b>İsim tuzağı:</b> “İnce kenarlı” adı merceğin kenarından gelir; ortası kalındır ve ışığı
+            toplar. Kalın kenarlı merceğin ortası incedir ve ışığı dağıtır.
+          </p>
+        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 206" role="img" aria-label="İnce kenarlı merceğin paralel ışınları odakta toplaması, kalın kenarlı merceğin ise dağıtması.">
@@ -2221,8 +2523,18 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Asal ışınlar</h3>
-        <p>İnce kenarlı mercekte görüntüyü çizmek için üç ışından ikisi yeter:</p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Mercek, ışığı kırarak toplayan ya da dağıtan saydam bir cisimdir ve küçük prizmalar
+          dizisi gibi davranır. İnce kenarlı mercek ışığı odakta toplar (f &gt; 0), kalın kenarlı mercek
+          dağıtır (f &lt; 0).
+        </p>
+
+        <h3 id="k3">Asal ışınlar: üç kuralla görüntü çizmek</h3>
+        <p>
+          Bir cismin her noktasından sayısız ışın çıkar ve mercekten geçenlerin hepsi görüntüde yine tek bir
+          noktada buluşur. Bu yüzden davranışını kesin bildiğimiz özel ışınlar, yani <strong>asal
+          ışınlar</strong> yeter. İnce kenarlı mercekte görüntüyü çizmek için üç ışından ikisi yeter:
+        </p>
         <ol class="steps">
           <li><strong>Asal eksene paralel</strong> gelen ışın, kırıldıktan sonra
             <strong>odaktan</strong> geçer.</li>
@@ -2231,8 +2543,18 @@
             <strong>paralel</strong> gider.</li>
         </ol>
         <p>
-          Kalın kenarlı mercekte paralel gelen ışın, <em>merceğin önündeki</em> odaktan geliyormuş
-          gibi dağılır; görüntü bu uzantıların kesişmesiyle oluşur ve her zaman sanaldır.
+          Bu kurallar ezber değildir. Birincisi odağın tanımıdır. İkincisi, merceğin ortasının iki yüzü
+          paralel ince bir cam levha gibi olmasından gelir; ince mercekte ışının küçük kayması ihmal edilir.
+          Üçüncüsü ışığın <strong>tersinirliğinden</strong> çıkar: ışık bir yolu tersine de izleyebilir, bu
+          yüzden birinci kuralı tersten okursan odaktan gelen ışın paralel çıkar. İki ışın görüntüyü
+          belirlemeye yeter; üçüncüsü çizimi denetler.
+        </p>
+        <p>
+          Kalın kenarlı mercekte paralel gelen ışın, <em>merceğin önündeki</em> odaktan geliyormuş gibi
+          dağılır; görüntü bu uzantıların kesişmesiyle oluşur ve her zaman sanaldır. Genel kural şudur:
+          ışınların <strong>kendisi</strong> kesişiyorsa görüntü <strong>gerçektir</strong> ve perdeye düşer;
+          yalnızca <strong>uzantıları</strong> kesişiyorsa görüntü <strong>sanaldır</strong>. Sanal görüntü
+          perdeye düşmez ama mercekten bakan göz onu görür, tıpkı düzlem aynadaki görüntün gibi.
         </p>
 
         <figure class="fig">
@@ -2270,15 +2592,40 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">İnce kenarlı mercekte beş durum</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Paralel gelen ışın odaktan geçer, merkezden geçen sapmaz, odaktan gelen paralel
+          çıkar; ikisinin kesiştiği yer görüntüdür. Işınlar gerçekten kesişirse görüntü gerçek, yalnızca
+          uzantıları kesişirse sanaldır.
+        </p>
+
+        <h3 id="k4">Cismi yaklaştır: ince kenarlı mercekte beş durum</h3>
+        <p>
+          Cismi uzaktan merceğe doğru adım adım yaklaştırıp her adımda asal ışınları çizelim; sayfanın 02
+          numaralı bölümündeki “Sırayla göster” düğmesi tam olarak bunu yapar. Beş durumun her biri bir optik
+          aletin çalışma ilkesidir:
+        </p>
         <table class="tbl">
-          <tr><th>Cismin yeri</th><th>Görüntünün yeri</th><th>Özellikleri</th><th>Kullanım</th></tr>
+          <tr><th>Cisim</th><th>Görüntü</th><th>Tür</th><th>Alet</th></tr>
           <tr><td>2f dışında</td><td>f – 2f arası</td><td>gerçek, ters, küçük</td><td>fotoğraf makinesi</td></tr>
           <tr><td>2f'de</td><td>2f'de</td><td>gerçek, ters, eşit</td><td>fotokopi</td></tr>
           <tr><td>f – 2f arası</td><td>2f dışında</td><td>gerçek, ters, büyük</td><td>projeksiyon</td></tr>
           <tr><td>Odakta</td><td>sonsuzda</td><td>görüntü oluşmaz</td><td>projektör</td></tr>
           <tr><td>Odak içinde</td><td>cisim tarafında</td><td>sanal, düz, büyük</td><td>büyüteç</td></tr>
         </table>
+        <p>
+          Cisim merceğe yaklaştıkça görüntü <strong>uzaklaşır ve büyür</strong>; ikisi bir tahterevallinin
+          iki ucu gibidir. Cisim çok uzaktan 2F'ye gelirken görüntü F'den 2F'ye gider; 2F'de ikisi eşit
+          uzaklıkta ve eşit boydadır; cisim 2F'den F'ye gelirken görüntü sonsuza kaçar. Gerçek görüntüler
+          hep terstir, çünkü ışınlar mercekte çaprazlanır: cismin üst ucundan çıkan ışınlar eksenin altına
+          iner.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Kalın kenarlı mercekte beş durum yoktur.</b> Havadaki kalın kenarlı mercekte cisim nerede
+            olursa olsun görüntü sanal, düz ve küçüktür; odak ile mercek arasında, cisimle aynı tarafta
+            oluşur.
+          </p>
+        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 262" role="img" aria-label="İnce kenarlı mercekte cismin beş konumu, oluşan görüntü ve her duruma karşılık gelen optik alet.">
@@ -2321,11 +2668,38 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Mercek denklemi</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Cisim ince kenarlı merceğe yaklaştıkça görüntü uzaklaşır ve büyür: 2F'de eşit boyda,
+          odakta yok, odak içinde sanal ve büyük olur. Kalın kenarlı mercekte görüntü her zaman sanal, düz
+          ve küçüktür.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: görüntünün yerini ve boyunu mercek denklemiyle hesapla, gücü diyoptriyle ölç ve gözün kusurlarını sayılarla düzelt.</span>
+        </div>
+
+        <h3 id="k5">Mercek denklemi: görüntüyü hesapla bul</h3>
+        <p>
+          Işın çizimi görüntünün kabaca yerini gösterir; kesin yerini tek bir bağıntı verir. Cismin merceğe
+          uzaklığı <strong>a</strong>, görüntününki <strong>b</strong>, görüntü boyunun cisim boyuna oranı
+          <strong>büyütme</strong> (m) olsun:
+        </p>
         <div class="formula">
           <code>1/f = 1/a + 1/b</code>
           <code>m = |b / a|</code>
         </div>
+        <h4>Denklem nereden geliyor?</h4>
+        <p>Üç asal ışın çiziminde cismin tepesinden çıkan iki ışını izle; gerisi benzer üçgenlerdir:</p>
+        <ol>
+          <li><strong>Merkezden geçen ışın</strong> sapmaz. Cisim ve görüntü tarafındaki iki üçgen benzerdir:
+            boy(görüntü) / boy(cisim) = b / a.</li>
+          <li><strong>Paralel gelen ışın</strong> odaktan geçer; odağın iki yanında iki benzer üçgen kurar:
+            boy(görüntü) / boy(cisim) = (b − f) / f.</li>
+          <li><strong>İki oranı eşitle:</strong> b / a = (b − f) / f → b·f = a·b − a·f.</li>
+          <li><strong>Her terimi a·b·f'ye böl:</strong> 1/a = 1/f − 1/b, yani <strong>1/f = 1/a + 1/b</strong>.
+            Büyütme de ilk adımdan gelir: m = |b / a|.</li>
+        </ol>
         <ul>
           <li><strong>İnce kenarlı:</strong> f pozitif. <strong>Kalın kenarlı:</strong> f negatif.</li>
           <li><strong>b pozitif:</strong> görüntü merceğin öbür tarafında, <strong>gerçek</strong>
@@ -2338,6 +2712,10 @@
             görüntünün oluştuğu taraftadır: aynada yansıma, mercekte kırılma vardır.
           </p>
         </div>
+        <p>
+          <strong>Birim kontrolü:</strong> her terim “1 bölü uzunluk” birimindedir; a, b ve f aynı birimle
+          yazılmalıdır. Büyütme iki uzunluğun oranı olduğu için birimsizdir.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 192" role="img" aria-label="Mercek denkleminde işaret kuralı: cisim tarafı ve görüntü tarafı.">
@@ -2361,7 +2739,56 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Mercek gücü: diyoptri</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Görüntünün yeri 1/f = 1/a + 1/b, büyütmesi m = |b/a| ile bulunur; ikisi de benzer
+          üçgenlerden çıkar. b pozitifse görüntü gerçek, negatifse sanaldır.
+        </p>
+
+        <h3 id="k6">Sayılarla hisset: cisim yaklaşınca görüntü nereye kaçar?</h3>
+        <p>
+          Sayfanın 01 numaralı laboratuvarındaki hazır deneyler odak uzaklığı 30 cm olan ince kenarlı bir
+          mercek kullanır. Sonuçlarını mercek denklemiyle önceden hesaplayalım:
+        </p>
+        <table class="tbl">
+          <tr><th>Cisim uzaklığı</th><th>Görüntü uzaklığı</th><th>Büyütme ve tür</th></tr>
+          <tr><td>120 cm · fotoğraf</td><td>40 cm</td><td>0,33 · gerçek, ters, küçük</td></tr>
+          <tr><td>60 cm · fotokopi</td><td>60 cm</td><td>1 · gerçek, ters, eşit</td></tr>
+          <tr><td>40 cm · projeksiyon</td><td>120 cm</td><td>3 · gerçek, ters, büyük</td></tr>
+          <tr><td>30 cm · odakta</td><td>sonsuz</td><td>görüntü oluşmaz</td></tr>
+          <tr><td>18 cm · büyüteç</td><td>−45 cm</td><td>2,5 · sanal, düz, büyük</td></tr>
+        </table>
+        <p>
+          Tablodan iki düzen okunur. Birincisi: ilk ve üçüncü satırda a ile b <strong>yer değiştirmiş</strong>
+          (120 ↔ 40); ışığın tersinirliği bunu gerektirir. İkincisi: odağa yaklaştıkça görüntü çok hızlı
+          kaçar. Cisim 33 cm'deyken, odağa yalnızca 3 cm kala, görüntü 330 cm'ye çıkar ve 10 kat büyür.
+        </p>
+        <p>
+          Mercek denklemini a·b·f ile çarpıp düzenlersen kaçışın nedeni görünür: cismin odağa uzaklığı ile
+          görüntünün odağa uzaklığının çarpımı sabittir.
+        </p>
+        <div class="formula">
+          <code>(a − f) · (b − f) = f²</code>
+        </div>
+        <p>
+          120 cm için 90 · 10, 33 cm için 3 · 300; ikisi de 900 = 30² eder. Biri küçülünce öbürü aynı oranda
+          büyümek zorundadır. 120 ile 40 çiftini aklında tut; sayfanın 04 numaralı bölümünde yeniden karşına
+          çıkacak.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: f = 30 cm'lik mercekte cisim 60 cm'den 40 cm'ye, 20 cm yaklaşıyor. Görüntü de 20 cm mi uzaklaşır?</summary>
+          <p>
+            Hayır, <b>60 cm</b> uzaklaşır: görüntü 60 cm'den 120 cm'ye çıkar. Odağa yaklaştıkça cismin küçük
+            bir kayması görüntüyü çok uzağa taşır; ilişki doğrusal değil, (a − f)·(b − f) = f² gibi bir ters
+            orantıdır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> f = 30 cm'lik mercekte cisim 120, 60 ve 40 cm'deyken görüntü 40, 60 ve 120 cm'de
+          oluşur; a ile b yer değiştirebilir. Odağa yaklaştıkça görüntü hızla kaçar, çünkü (a − f)(b − f) = f²
+          sabittir.
+        </p>
+
+        <h3 id="k7">Mercek gücü: diyoptri</h3>
         <div class="formula">
           <code>P = 1 / f</code>
           <code>f metre cinsinden</code>
@@ -2372,13 +2799,20 @@
           1/0,5 = <strong>+2 diyoptri</strong>dir. Kalın kenarlı merceklerde güç negatiftir.
           Gözlük camlarının “numarası” bu değerdir.
         </p>
+        <p>
+          Neden odak uzaklığının tersi? Işığı güçlü kıran mercek paralel ışınları çok yakında toplar, yani
+          kısa odaklıdır; odak yarıya inince güç iki katına çıkar. Diyoptri “1 bölü metre” biriminin özel
+          adıdır; f bu yüzden metreyle yazılır.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 192" role="img" aria-label="Odak uzaklığı küçüldükçe mercek gücünün diyoptri cinsinden büyümesi.">
             <text class="tl fb" x="240" y="30" text-anchor="middle">P = 1 / f   (f metre cinsinden)</text>
             <path class="st sb wb" d="M90 62C98 74 98 114 90 126 82 114 82 74 90 62z" />
             <path class="st sa" d="M40 78h44M40 94h44M40 110h44" />
-            <path class="st sa" d="M96 78 170 94M96 94h74M96 110 170 94" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M96 78 170 94" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M96 94h74" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M96 110 170 94" marker-end="url(#ah-a)" />
             <circle class="fb" cx="170" cy="94" r="4" />
             <path class="st sd hair" d="M90 142h80M90 137v10M170 137v10" />
             <text class="tt fd" x="130" y="162" text-anchor="middle">f = 0,50 m</text>
@@ -2386,7 +2820,9 @@
             <path class="st sl hair dots" d="M248 44v130" />
             <path class="st sb wb" d="M310 56C324 72 324 116 310 132 296 116 296 72 310 56z" />
             <path class="st sa" d="M268 78h34M268 94h34M268 110h34" />
-            <path class="st sa" d="M318 78 350 94M318 94h32M318 110 350 94" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M318 78 350 94" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M318 94h32" marker-end="url(#ah-a)" />
+            <path class="st sa" d="M318 110 350 94" marker-end="url(#ah-a)" />
             <circle class="fb" cx="350" cy="94" r="4" />
             <path class="st sd hair" d="M310 142h40M310 137v10M350 137v10" />
             <text class="tt fd" x="330" y="162" text-anchor="middle">f = 0,20 m</text>
@@ -2401,37 +2837,65 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Göz ve göz kusurları</h3>
+        <table class="tbl">
+          <tr><th>Mercek</th><th>Odak uzaklığı</th><th>Güç</th></tr>
+          <tr><td>Hafif okuma gözlüğü</td><td>+100 cm</td><td>+1 D</td></tr>
+          <tr><td>Hipermetrop gözlüğü</td><td>+50 cm</td><td>+2 D</td></tr>
+          <tr><td>Miyop gözlüğü</td><td>−40 cm</td><td>−2,5 D</td></tr>
+          <tr><td>Büyüteç</td><td>+10 cm</td><td>+10 D</td></tr>
+          <tr><td>İnsan gözünün tamamı</td><td>yaklaşık 1,7 cm</td><td>yaklaşık +60 D</td></tr>
+        </table>
+        <p>
+          İki ince mercek birbirine bitiştirilirse ışığı art arda büker ve güçleri <strong>toplanır</strong>:
+          +3 D'lik bir camın önüne −1 D'lik bir cam koyarsan ikisi +2 D'lik tek bir mercek gibi davranır.
+        </p>
+        <div class="formula">
+          <code>P = P₁ + P₂</code>
+          <code>(bitişik ince mercekler)</code>
+        </div>
+        <p class="kisaca">
+          <b>Kısaca:</b> Mercek gücü odak uzaklığının tersidir: P = 1/f, f metre cinsinden, birimi diyoptri.
+          İnce kenarlıda artı, kalın kenarlıda eksidir; bitişik merceklerin güçleri toplanır.
+        </p>
+
+        <h3 id="k8">Göz: odağını kendisi ayarlayan mercek</h3>
         <p>
           Göz, ince kenarlı bir mercek gibi çalışır ve görüntüyü <strong>retina</strong> üzerine
-          düşürür. Göz merceği kaslarla şekil değiştirerek odak uzaklığını ayarlar; buna
-          <strong>uyum (akomodasyon)</strong> denir.
+          düşürür. Işık önce saydam ön yüzey <strong>kornea</strong>dan, sonra göz merceğinden geçer; ikisi
+          birlikte yaklaşık +60 D'lik bir mercek gibidir. Göz merceği kaslarla şekil değiştirerek odak
+          uzaklığını ayarlar; buna <strong>uyum (akomodasyon)</strong> denir. Sağlıklı göz sonsuzdaki cismi
+          de yaklaşık 25 cm'deki cismi de net görür; bu sınırlara <strong>uzak nokta</strong> ve
+          <strong>yakın nokta</strong> denir.
         </p>
         <ul>
-          <li><strong>Miyop:</strong> Göz çok kırıcıdır ya da göz küresi uzundur; görüntü
-            retinanın <strong>önünde</strong> oluşur. Uzak cisimler bulanık görünür.
-            <strong>Kalın kenarlı</strong> (ıraksak, eksi numaralı) mercekle düzeltilir.</li>
+          <li><strong>Miyop:</strong> Göz çok kırıcıdır ya da göz küresi uzundur; görüntü retinanın
+            <strong>önünde</strong> oluşur, uzak cisimler bulanık görünür. Kalın kenarlı (eksi numaralı) camla düzeltilir.</li>
           <li><strong>Hipermetrop:</strong> Göz yeterince kırıcı değildir; görüntü retinanın
-            <strong>arkasına</strong> düşer. Yakın cisimler bulanık görünür.
-            <strong>İnce kenarlı</strong> (yakınsak, artı numaralı) mercekle düzeltilir.</li>
+            <strong>arkasına</strong> düşer, yakın cisimler bulanık görünür. İnce kenarlı (artı numaralı) camla düzeltilir.</li>
           <li><strong>Astigmat:</strong> Kornea küresel değildir; silindirik camla düzeltilir.</li>
           <li><strong>Presbiyopi:</strong> Yaşla birlikte uyum yeteneğinin azalmasıdır.</li>
         </ul>
+        <h4>Gözlük numarası nasıl hesaplanır?</h4>
+        <p>
+          Gözlük, cismin sanal görüntüsünü gözün net görebildiği bir yere taşır. d, uzak ya da yakın
+          noktanın metre cinsinden uzaklığıdır:
+        </p>
+        <ol>
+          <li><strong>Miyop:</strong> Sonsuzdaki cismin (1/a = 0) görüntüsü uzak noktaya, cisim tarafına
+            düşmeli: b = −d. O hâlde 1/f = 1/(−d), yani P = −1/d.</li>
+          <li><strong>Hipermetrop:</strong> 25 cm'deki yazının görüntüsü yakın noktaya düşmeli: a = 0,25 m,
+            b = −d. O hâlde P = 1/0,25 − 1/d = 4 − 1/d.</li>
+          <li><strong>İşaret:</strong> Miyopta P hep eksi çıkar (kalın kenarlı); hipermetropta d, 0,25 m'den
+            büyük olduğu için P artı çıkar (ince kenarlı).</li>
+        </ol>
         <div class="formula">
-          <code>miyop: P = −1 / d(uzak nokta)</code>
-          <code>hipermetrop: P = 1/0,25 − 1/d(yakın nokta)</code>
+          <code>P<sub>miyop</sub> = −1 / d<sub>uzak</sub></code>
+          <code>P<sub>hipermetrop</sub> = 4 − 1/d<sub>yakın</sub></code>
         </div>
-
-        <h3 id="k7">Optik aletler</h3>
-        <ul>
-          <li><strong>Büyüteç:</strong> cisim odak içindedir; sanal, düz ve büyük görüntü.</li>
-          <li><strong>Fotoğraf makinesi:</strong> cisim 2f dışındadır; sensöre gerçek, ters ve
-            küçük görüntü düşer.</li>
-          <li><strong>Projeksiyon:</strong> cisim f ile 2f arasındadır; perdeye gerçek, ters ve
-            büyük görüntü düşer (bu yüzden slayt ters yerleştirilir).</li>
-          <li><strong>Mikroskop ve teleskop:</strong> iki mercekli sistemlerdir; birinin
-            görüntüsü diğerine cisim olur.</li>
-        </ul>
+        <p>
+          Sayfanın 03 numaralı bölümünde uzak ya da yakın noktayı kaydırıp “Gözlüğü tak” düğmesiyle sonucu
+          görebilirsin.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 232" role="img" aria-label="Miyop gözde görüntünün retinanın önüne, hipermetropta arkasına düşmesi ve uygun merceklerle düzeltilmesi.">
@@ -2467,10 +2931,192 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <details class="dusun">
+          <summary>Düşün: Uzak noktası 2 m olan miyobun gözlüğü, uzak noktası 50 cm olanınkinden daha mı güçlüdür?</summary>
+          <p>
+            Hayır, daha <b>zayıftır</b>. P = −1/d ile 2 m için −0,5 D, 50 cm için −2 D bulunur. Uzak nokta ne
+            kadar yakındaysa kusur o kadar ağır, gereken cam o kadar güçlüdür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Göz, görüntüyü retinaya düşüren ve odağını ayarlayabilen bir mercektir. Miyop
+          kalın kenarlı camla (P = −1/d), hipermetrop ince kenarlı camla (P = 4 − 1/d) düzeltilir; d metre
+          cinsindendir.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: perdede iki net konum, art arda iki mercek, ortamın ve rengin etkisi, en sonda da optik ünitesinin gerçek dünyadaki kapanışı.</span>
+        </div>
+
+        <h3 id="k9">Perdeye net görüntü: neden iki konum var?</h3>
+        <p>
+          Sayfanın 04 numaralı bölümünde cisim ile perde sabittir, yalnızca mercek kayar. Şaşırtıcı biçimde
+          merceğin iki ayrı konumunda net görüntü oluşur: biri büyük, biri küçük. İpucunu sayılarla hisset
+          tablosu vermişti: 40 cm ile 120 cm yer değiştirebiliyordu. Cisim–perde uzaklığı <strong>D</strong>
+          olsun:
+        </p>
+        <ol>
+          <li><strong>İki koşul:</strong> görüntü perdeye düşmeli, a + b = D; mercek denklemi de sağlanmalı,
+            1/a + 1/b = 1/f.</li>
+          <li><strong>Tersinirlik:</strong> denklemde a ile b yer değiştirse de bir şey değişmez; a = x bir
+            çözümse a = D − x de çözümdür.</li>
+          <li><strong>İkinci derece denklem:</strong> b = D − a yazıp düzenlersen a² − D·a + D·f = 0 çıkar.</li>
+          <li><strong>Var olma şartı:</strong> gerçek kök için D² − 4·D·f ≥ 0, yani D ≥ 4f. D = 4f'de tek
+            konum vardır: a = b = 2f.</li>
+          <li><strong>Büyütmeler:</strong> m₁ = b/a ve m₂ = a/b; çarpımları 1'dir. Biri 3 kat büyütüyorsa
+            öbürü 3 kat küçültür.</li>
+        </ol>
+        <p>
+          Deneydeki değerlerle (f = 30 cm, D = 160 cm) denklem a² − 160·a + 4800 = 0 olur; kökleri 40 cm ile
+          120 cm, büyütmeler 3 ve 1/3'tür. D = 100 cm seçersen 4f = 120 cm sınırının altında kalırsın ve hiçbir
+          konumda net görüntü alamazsın.
+        </p>
+        <div class="formula">
+          <code>D ≥ 4f</code>
+          <code>f = (D² − d²) / (4D)</code>
+        </div>
+        <div class="callout">
+          <p>
+            <b>Odak uzaklığını ölçmenin akıllı yolu:</b> İki net konum arasındaki uzaklık d ölçülürse f
+            bulunur: deneyde d = 80 cm ve f = (160² − 80²) / 640 = 30 cm. Bessel yöntemi denen bu ölçümde
+            merceğin merkezinin tam yerini bilmek gerekmez.
+          </p>
+        </div>
+        <p class="kisaca">
+          <b>Kısaca:</b> Cisim–perde uzaklığı D &gt; 4f ise merceğin iki konumunda net görüntü oluşur; a ile b
+          yer değiştirir ve büyütmelerin çarpımı 1'dir. D = 4f'de tek konum vardır, D &lt; 4f'de hiç yoktur.
+        </p>
+
+        <h3 id="k10">Art arda iki mercek: mikroskop ve teleskop</h3>
+        <p>
+          Tek bir mercekle ancak belli bir büyütmeye kadar çıkılabilir. Daha fazlası için mercekler art arda
+          dizilir ve kural basittir: <strong>birinci merceğin görüntüsü, ikinci merceğe cisim olur</strong>.
+          Toplam büyütme iki büyütmenin çarpımıdır. Mikroskop ve teleskop böyle iki mercekli sistemlerdir.
+        </p>
+        <div class="formula">
+          <code>m<sub>toplam</sub> = m₁ · m₂</code>
+          <code>M<sub>teleskop</sub> = f<sub>ob</sub> / f<sub>göz</sub></code>
+        </div>
+        <ul>
+          <li><strong>Mikroskop:</strong> kısa odaklı <b>objektif</b>, odağının hemen dışındaki küçük cismin
+            büyük, gerçek ve ters görüntüsünü oluşturur; <b>göz merceği</b> onu büyüteç gibi yeniden büyütür.</li>
+          <li><strong>Okul mikroskobu:</strong> 40 kat büyüten bir objektif ile 10 kat büyüten bir göz
+            merceği birlikte 40 · 10 = 400 kat büyütür.</li>
+          <li><strong>Teleskop:</strong> uzun odaklı objektif, uzaktaki cismin küçük ve gerçek görüntüsünü
+            kendi odağında oluşturur; kısa odaklı göz merceği bu görüntüye yakından bakar.</li>
+          <li><strong>Teleskop büyütmesi:</strong> f<sub>ob</sub> = 90 cm, f<sub>göz</sub> = 1 cm ise cisim 90 kat
+            daha geniş bir açıyla görünür; tüp boyu yaklaşık 90 + 1 = 91 cm olur.</li>
+        </ul>
+        <p>
+          Teleskop uzaktaki cismin boyunu değil, gözde <strong>kapladığı açıyı</strong> büyütür; bu
+          <strong>açısal büyütme</strong> (M) iki odak uzaklığının oranıdır. Galileo 1609'da Hollanda'daki ilk dürbünlerin haberini alınca
+          kendi teleskobunu yaptı; Ay'daki dağları ve Jüpiter'in çevresinde dönen dört uyduyu gözledi.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Teleskobun objektifi neden büyük çaplı yapılır; büyütmeyi artırmak için mi?</summary>
+          <p>
+            Hayır; büyütmeyi odak uzaklıklarının oranı belirler. Büyük çap daha çok <b>ışık toplar</b>: çap
+            iki katına çıkınca merceğin alanı ve topladığı ışık dört katına çıkar. Böylece çıplak gözle
+            görülemeyecek kadar sönük yıldızlar da görünür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> İki mercekli sistemlerde birinci merceğin görüntüsü ikinciye cisim olur ve
+          büyütmeler çarpılır. Mikroskop yakındaki küçük cismi, teleskop uzaktaki cismin gözde kapladığı
+          açıyı büyütür.
+        </p>
+
+        <h3 id="k11">Modelin sınırları: ortam, renk ve kalınlık</h3>
+        <p>
+          Şimdiye kadar merceğin havada durduğunu, ince olduğunu ve ışığın tek renkli olduğunu varsaydık;
+          gerçek mercekler bunların her birinden biraz sapar. Işık, iki ortam arasındaki kırıcılık indisi
+          <strong>farkı</strong> yüzünden kırılır. Mercek suya daldırılınca bu fark küçülür ve mercek ışığı
+          daha az büker. Yüzey eğrilikleri aynı kaldıkça merceğin gücü şu oranla değişir:
+        </p>
+        <div class="formula">
+          <code>1/f ∝ n<sub>mercek</sub> / n<sub>ortam</sub> − 1</code>
+        </div>
+        <ul>
+          <li><strong>Suda odak uzar:</strong> indisi 1,5 olan cam mercekte bu çarpan havada 0,5, suda
+            (n ≈ 1,33) yaklaşık 0,13'tür; odak uzaklığı yaklaşık 4 katına çıkar.</li>
+          <li><strong>Tür tersine dönebilir:</strong> ortamın indisi merceğinkinden büyükse ince kenarlı
+            mercek dağıtır, kalın kenarlı toplar. Su içindeki hava kabarcığı ıraksak mercek gibidir.</li>
+          <li><strong>Renk sapması:</strong> prizmalarda gördüğün gibi cam moru kırmızıdan çok kırar; mor
+            ışık merceğe daha yakında odaklanır ve görüntünün kenarları renklenir.</li>
+          <li><strong>Küresel sapma:</strong> kenardan geçen ışınlar biraz daha yakında odaklanır;
+            1/f = 1/a + 1/b ince mercek ve eksene yakın ışınlar için kesindir.</li>
+        </ul>
+        <p>
+          Kamera ve mikroskop objektifleri bu yüzden farklı camlardan yapılmış birkaç mercek içerir; bir ince
+          kenarlı ile bir kalın kenarlı merceği birleştirmek renk sapmasını büyük ölçüde giderir.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Yüzerken gözlerini açınca her şey neden bulanık görünür; deniz gözlüğü bunu nasıl düzeltir?</summary>
+          <p>
+            Gözün kırıcılığının büyük bölümü hava ile kornea arasındaki indis farkından gelir. Suyun indisi
+            korneanınkine çok yakın olduğu için su içinde kornea ışığı neredeyse hiç kırmaz; göz güçlü bir
+            hipermetrop gibi olur. Deniz gözlüğü gözün önünde bir <b>hava tabakası</b> tutar.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Mercek denklemi havadaki ince bir mercek ve eksene yakın ışınlar için kurulmuştur.
+          Ortam değişince odak uzaklığı değişir; renk ve küresel sapma görüntüyü bozar, çok mercekli
+          objektifler bunları düzeltir.
+        </p>
+
+        <h3 id="k12">Mercekler gerçek dünyada</h3>
+        <p>
+          Optik ünitesinin son konusundayız ve ünitede öğrendiklerin bir mercekte buluşuyor: kırılma yasası,
+          prizmanın ışığı tabanına doğru bükmesi, küresel aynalardan tanıdığın 1/f = 1/a + 1/b ve ışık
+          şiddeti. Aşağıdaki örneklerin her biri mercek denklemini gerçek sayılarla kullanır.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/mercekler-uygulama.webp?v=2" srcset="gorsel/mercekler-uygulama-800.webp?v=2 800w, gorsel/mercekler-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Gece, kayalık bir tepede taşa oturmuş bir kişi, üç ayaklı sehpaya takılı beyaz bir teleskobun göz merceğinden bakıyor; teleskop sağ üstte parlayan dolunaya doğru yönelmiş. Gökyüzünde seyrek yıldızlar var; aşağıda bir göl kıyısındaki yerleşimin ışıkları ve karanlık dağlar görünüyor.">
+          <figcaption>
+            <b>İki mercek, bir gökyüzü.</b> Mercekli bir teleskopta uzun odaklı objektif, uzaktaki cismin küçük ve gerçek bir görüntüsünü tüpün içinde oluşturur; göz merceği bu görüntüye büyüteç gibi bakar. 90 kat büyüten bir teleskopta, gökyüzünde yaklaşık yarım derecelik yer kaplayan dolunay 45 derece civarında bir alanı dolduruyormuş gibi görünür.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Telefon kamerası:</strong> 5 mm odaklı mercek, 2 m ötedeki 1,70 m boyundaki birinin
+            yaklaşık 4,3 mm'lik ters görüntüsünü sensöre, odağın yaklaşık 0,01 mm gerisine düşürür.</li>
+          <li><strong>Projeksiyon:</strong> 10 cm odaklı mercekle 3 m'deki perdeye net görüntü için cisim
+            yaklaşık 10,3 cm'ye, odağın hemen dışına konur; görüntü 29 kat büyük ve terstir.</li>
+          <li><strong>Büyüteç:</strong> 10 cm odaklı büyüteç 8 cm'deki bir pula tutulunca 40 cm geride 5 kat
+            büyük, düz ve sanal bir görüntü oluşur.</li>
+          <li><strong>Gözlük ve kontakt lens:</strong> numara diyoptridir; “−2,5 numara” odak uzaklığı
+            −40 cm olan kalın kenarlı cam demektir. Kontakt lens aynı işi korneanın üstünde yapar.</li>
+        </ul>
+        <p>
+          Telefon örneği önemli bir şey gösteriyor: uzaktaki cisimlerin görüntüsü neredeyse tam odakta
+          oluşur, bu yüzden kameranın odaklaması merceği milimetrenin yüzde biri kadar kaydırmaktır. Ünite
+          ışığın yayılmasıyla başladı, yansıma ve kırılmayla ışığın yolunu değiştirmeyi öğretti. Mercek bu
+          yolu yönetmenin en esnek aracıdır: gözünden teleskoba kadar her optik alet, ışığı büküp görüntüyü
+          istenen yere taşıyan bir düzenektir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kamera, projeksiyon, büyüteç, gözlük ve teleskop aynı denklemi farklı cisim
+          konumlarında kullanır. Optik ünitesinin kırılma, prizma ve ayna bilgileri mercekli aletlerde
+          birleşir.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k13">Çözümlü örnekler</h3>
+        <p>
+          Aşağıdaki çözümlerde ince kenarlı mercekte f pozitif, kalın kenarlı mercekte f negatif alınmıştır;
+          mercek gücü hesaplanırken uzunluklar metreye çevrilmiştir.
+        </p>
 
         <details>
-          <summary>Örnek 1 — Gerçek görüntü</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Gerçek görüntü</summary>
           <p>
             Odak uzaklığı 20 cm olan ince kenarlı merceğin 30 cm önüne bir cisim konuyor.
             Görüntünün yeri ve büyütmesi nedir?
@@ -2484,7 +3130,20 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Büyüteç</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Gözlük numarası</summary>
+          <p>
+            Uzak noktası 50 cm olan miyop bir göz için gereken gözlük numarası kaç diyoptridir?
+          </p>
+          <ol class="steps">
+            <li>Gözlük, sonsuzdaki cismin görüntüsünü uzak noktaya düşürmelidir.</li>
+            <li>f = −50 cm = −0,5 m</li>
+            <li>P = 1/f = 1/(−0,5) = <strong>−2 diyoptri</strong></li>
+            <li>Eksi numara, kalın kenarlı (ıraksak) mercek demektir.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 3 — Büyüteç</summary>
           <p>
             Odak uzaklığı 15 cm olan merceğin 10 cm önündeki cismin görüntüsü nasıldır?
           </p>
@@ -2498,7 +3157,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Kalın kenarlı mercek</summary>
+          <summary data-zorluk="orta">Örnek 4 — Kalın kenarlı mercek</summary>
           <p>
             Odak uzaklığı 20 cm olan kalın kenarlı merceğin 30 cm önündeki cismin görüntüsü
             nerededir?
@@ -2512,32 +3171,71 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — Gözlük numarası</summary>
+          <summary data-zorluk="orta">Örnek 5 — Hipermetrop için okuma gözlüğü</summary>
           <p>
-            Uzak noktası 50 cm olan miyop bir göz için gereken gözlük numarası kaç diyoptridir?
+            Yakın noktası 50 cm olan hipermetrop bir kişi, kitabı 25 cm'den okuyabilmek için kaç
+            diyoptrilik gözlük takmalıdır? Camın odak uzaklığı kaç cm'dir?
           </p>
           <ol class="steps">
-            <li>Gözlük, sonsuzdaki cismin görüntüsünü uzak noktaya düşürmelidir.</li>
-            <li>f = −50 cm = −0,5 m</li>
-            <li>P = 1/f = 1/(−0,5) = <strong>−2 diyoptri</strong></li>
-            <li>Eksi numara, kalın kenarlı (ıraksak) mercek demektir.</li>
+            <li>Gözlük, 25 cm'deki yazının sanal görüntüsünü yakın noktaya düşürmeli: a = 0,25 m, b = −0,5 m.</li>
+            <li>P = 1/a + 1/b = 1/0,25 + 1/(−0,5) = 4 − 2 = <strong>+2 diyoptri</strong></li>
+            <li>f = 1/P = 0,5 m = <strong>50 cm</strong>; artı işaret ince kenarlı (yakınsak) cam demektir.</li>
+            <li>Kontrol: m = |b/a| = 50/25 = 2; gözlük yazıyı iki kat büyütüp yakın noktaya taşır.</li>
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Perdede iki net görüntü</summary>
+          <p>
+            Bir mum ile perde arasındaki uzaklık 90 cm'dir. Odak uzaklığı 20 cm olan ince kenarlı mercek,
+            perdede net görüntü oluşması için mumdan kaç cm uzağa konmalıdır? Her konumda büyütme nedir?
+          </p>
+          <ol class="steps">
+            <li>İki koşul: a + b = 90 ve 1/a + 1/b = 1/20.</li>
+            <li>b = 90 − a yazılırsa a² − 90·a + 1800 = 0 olur.</li>
+            <li>a = (90 ± √(8100 − 7200)) / 2 = (90 ± 30) / 2 → <strong>a = 30 cm</strong> ya da
+              <strong>a = 60 cm</strong></li>
+            <li>a = 30 cm → b = 60 cm, m = <strong>2</strong> (büyük, ters); a = 60 cm → b = 30 cm,
+              m = <strong>0,5</strong> (küçük, ters).</li>
+            <li>Kontrol: D = 90 cm ≥ 4f = 80 cm ✓; büyütmelerin çarpımı 2 · 0,5 = 1 ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — İki mercekli mikroskop</summary>
+          <p>
+            Odak uzaklığı 10 cm olan ince kenarlı bir merceğin 15 cm önüne 1 mm boyunda bir cisim konuyor.
+            Bu mercekten 34 cm uzakta, odak uzaklığı 5 cm olan ikinci bir ince kenarlı mercek var. Son
+            görüntünün türünü ve boyunu bulunuz.
+          </p>
+          <ol class="steps">
+            <li>Birinci mercek: 1/b₁ = 1/10 − 1/15 = (3 − 2)/30 → b₁ = 30 cm, m₁ = 30/15 = 2 (gerçek, ters).</li>
+            <li>Bu görüntü ikinci mercekten 34 − 30 = 4 cm öndedir ve ona cisim olur: a₂ = 4 cm, odağın içinde.</li>
+            <li>İkinci mercek: 1/b₂ = 1/5 − 1/4 = (4 − 5)/20 = −1/20 → b₂ = −20 cm, sanal.</li>
+            <li>m₂ = 20/4 = 5; toplam m = m₁ · m₂ = 2 · 5 = 10 → görüntü boyu <strong>10 mm</strong>.</li>
+            <li>Birinci mercek görüntüyü ters çevirdi, ikinci mercek büyüteç gibi düz bıraktı: son görüntü
+              <strong>sanal, ters ve 10 kat büyüktür</strong>. Mikroskop böyle çalışır.</li>
+          </ol>
+        </details>
+
+        <h3 id="k14">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>İnce kenarlıyı “ince mercek” sanmak.</strong> Adı kenarının inceliğinden
             gelir; ortası kalındır ve ışığı toplar.</li>
-          <li><strong>Kalın kenarlı mercekte gerçek görüntü aramak.</strong> Görüntü her zaman
-            sanal, düz ve küçüktür.</li>
+          <li><strong>Kalın kenarlı mercekte gerçek görüntü aramak.</strong> Havadaki kalın kenarlı
+            mercekte görüntü her zaman sanal, düz ve küçüktür.</li>
           <li><strong>Miyopa ince kenarlı cam vermek.</strong> Miyop kalın kenarlı (eksi
             numaralı) camla düzeltilir.</li>
           <li><strong>Diyoptriyi santimetreyle hesaplamak.</strong> P = 1/f bağıntısında f
-            <em>metre</em> cinsinden olmalıdır.</li>
+            <em>metre</em> cinsinden olmalıdır: f = 50 cm için P = 1/0,5 = 2 D, 1/50 değil.</li>
           <li><strong>Sanal görüntüyü perdeye düşürmeye çalışmak.</strong> Yalnızca gerçek
             görüntüler perdeye düşer.</li>
           <li><strong>Cisim odaktayken görüntü oluştuğunu sanmak.</strong> Işınlar paralel çıkar;
             görüntü sonsuzdadır.</li>
+          <li><strong>“Merceğin yarısı kapatılırsa görüntünün yarısı kaybolur.”</strong> Cismin her
+            noktasından çıkan ışınlar merceğin her yerinden geçer; görüntü tam kalır, yalnızca sönükleşir.</li>
+          <li><strong>“Mercek her ortamda aynı davranır.”</strong> Odak uzaklığı mercek ile ortamın indis
+            farkına bağlıdır; suda odak uzar, ortam mercekten kırıcıysa mercek türü tersine döner.</li>
         </ul>
 
         <div class="callout">

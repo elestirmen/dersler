@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1872,7 +2092,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Limit hız</h3>
-          <p>Hava direncinin nereden geldiğinden kuvvet dengesine, v–t eğrisinin doymasından paraşüte kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce yağmur ve paraşütle sezgi, sonra hava direnci ve limit hız bağıntıları ile doyan v–t eğrisi, ardından serbest düşme modelinin sınırları ve paraşütün çalışması; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2144,15 +2364,18 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Hava direnci</button>
-        <button type="button" data-goto="k2">Neden bir sınır var</button>
-        <button type="button" data-goto="k3">Limit hız bağıntısı</button>
-        <button type="button" data-goto="k4">v–t grafiği</button>
-        <button type="button" data-goto="k5">Serbest düşmeden farkı</button>
-        <button type="button" data-goto="k6">Paraşüt ve ölçek</button>
-        <button type="button" data-goto="k7">Tipik değerler</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Hava direnci</button>
+        <button type="button" data-goto="k3" data-basamak="1">Neden bir sınır var</button>
+        <button type="button" data-goto="k4" data-basamak="2">F = k·v²</button>
+        <button type="button" data-goto="k5" data-basamak="2">Limit hız bağıntısı</button>
+        <button type="button" data-goto="k6" data-basamak="2">v–t grafiği</button>
+        <button type="button" data-goto="k7" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k8" data-basamak="3">Serbest düşmeden farkı</button>
+        <button type="button" data-goto="k9" data-basamak="3">Paraşüt ve ölçek</button>
+        <button type="button" data-goto="k10" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k11" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k12" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2174,30 +2397,97 @@
 
         <p class="lead-in">
           Bir paraşütçü 4 km yüksekten atlar; hava direnci olmasaydı yere 280 m/s ile çarpardı.
-          Oysa açık paraşütle <b>yürüme hızında</b> iner. Yağmur damlası 2 km düşer, yine de canımızı
-          yakmaz. İkisinin de sebebi aynı: <b>hava direnci hızla birlikte büyür</b> ve bir noktada
-          ağırlığı tam olarak dengeler. O andan sonra hız artmaz — her cismin bir hız sınırı vardır.
+          Oysa açık paraşütle yaklaşık 5 m/s ile, <b>bir bisikletlinin hızıyla</b> iner. Yağmur damlası
+          2 km düşer, yine de canımızı yakmaz. İkisinin de sebebi aynı: <b>hava direnci hızla birlikte
+          büyür</b> ve bir noktada ağırlığı tam olarak dengeler. O andan sonra hız artmaz — her cismin bir
+          hız sınırı vardır. Anlatım dört basamakta ilerliyor: önce bu sınırı yağmurda ve paraşütte gözleyip
+          nedenini kuvvetlerle anlayacağız, sonra hava direncinin ve limit hızın bağıntılarını çıkarıp
+          v–t grafiğini okuyacağız, ardından serbest düşme modelinin nerede yetersiz kaldığına ve paraşütün
+          nasıl çalıştığına geçeceğiz. En sonda kolaydan zora sıralanmış örneklerle hepsini birlikte
+          kullanacağız.
         </p>
 
-        <h3 id="k1">Hava direnci: hıza bağlı bir kuvvet</h3>
+        <figure class="foto">
+          <img src="gorsel/limit-hiz-giris.webp?v=2" srcset="gorsel/limit-hiz-giris-800.webp?v=2 800w, gorsel/limit-hiz-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Bulut denizinin üzerinde, renkli tulumlar ve kasklar giymiş dört paraşütçü karınları aşağıya dönük, kolları ve bacakları açık biçimde el ele tutuşarak bir halka oluşturmuş; yukarıda küçük bir uçak görünüyor.">
+          <figcaption>
+            <b>El ele düşmek için aynı hızda düşmek gerekir.</b> Serbest düşüşteki paraşütçüler, atladıktan yaklaşık on saniye sonra 55 m/s civarındaki limit hızlarına oturur. Limit hızları eşit olan dört kişi birbirine göre neredeyse hareketsiz kalır ve halka kurabilir; biri kollarını toplayıp alanını küçültse hemen aşağı doğru ayrılırdı.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: hava direncini yağmurda, bisiklette ve paraşütte gözle; neden bir hız sınırı olduğunu kuvvetlerle anla. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: yağmur neden canımızı yakmaz?</h3>
+        <p>
+          Yağmur damlaları bulutlardan, yani yaklaşık 2 km yüksekten düşer. Serbest düşme konusundaki hesap,
+          hava olmasaydı bu damlaların yere saatte 700 kilometreyi aşan bir hızla çarpacağını söyler. Oysa yağmurun
+          altında yürümek zararsızdır; damlalar yüzüne hafifçe dokunur. Demek ki düşerken bir şey onları
+          frenliyor ve bu frenleme, hızları belli bir değere ulaştıktan sonra daha fazla hızlanmalarına izin
+          vermiyor.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/limit-hiz-gunluk.webp?v=2" srcset="gorsel/limit-hiz-gunluk-800.webp?v=2 800w, gorsel/limit-hiz-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Alacakaranlıkta yağmurlu bir şehir caddesi: önde şemsiyeli bir kadın ıslak kaldırımda yürüyor, arkasında şemsiyeli başka yayalar var; ince yağmur çizgileri düşüyor, su birikintilerinde halkalar oluşuyor, vitrin ve fener ışıkları ıslak zeminde parlıyor.">
+          <figcaption>
+            <b>Yağmur damlaları kilometrelerce yüksekten düşer</b>, ama yere saniyede birkaç metrelik bir hızla değer. Hava direnci olmasaydı yaklaşık 200 m/s ile çarparlardı. Su birikintilerindeki küçük halkalar bu yumuşak inişin izidir: her damla düşüşünün neredeyse tamamını sabit bir hızla, limit hızıyla tamamlar.
+          </figcaption>
+        </figure>
+
+        <p>Hava direncini gündelik hayatta kendin de hissedebilirsin:</p>
+        <ul>
+          <li><strong>Bisiklette:</strong> hızlandıkça yüzüne çarpan rüzgâr sertleşir; düz yolda bile hızı artırmak giderek zorlaşır.</li>
+          <li><strong>Şemsiyeyle:</strong> rüzgârlı havada açık şemsiye seni geriye çeker; kapatınca bu etki hemen küçülür.</li>
+          <li><strong>Kâğıtla:</strong> açık bir kâğıt yaprağı salınarak yavaşça iner; aynı kâğıdı buruşturunca çok daha hızlı düşer.</li>
+          <li><strong>Tüyle:</strong> kuş tüyü neredeyse süzülür; havası boşaltılmış bir tüpte ise bilyeyle aynı anda düşer.</li>
+          <li><strong>Paraşütle:</strong> kapalıyken hızla düşen paraşütçü, paraşüt açılınca yavaşça süzülür.</li>
+        </ul>
+        <p>
+          Bu gözlemlerin hepsinde aynı iki düzen var: frenleyen etki <strong>hız arttıkça büyüyor</strong>
+          ve cismin <strong>şekline, genişliğine</strong> bağlı. Kütlesi değişmeyen kâğıdın buruşturulunca
+          hızlanması, işin sırrının ağırlıktan çok biçimde olduğunu söylüyor.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Düz bir yolda pedal çevirirken, hızlandıkça neden aynı hızı korumak bile giderek zorlaşır?</summary>
+          <p>
+            Çünkü seni geriye iten hava direnci hızınla birlikte büyür. Yavaş giderken hafif bir esinti
+            kadardır; hızlandıkça pedallarla yenmen gereken büyük bir kuvvete dönüşür. Aynı hızı korumak için
+            bu direnci her an karşılayacak kadar kuvvet uygulaman gerekir ve hız arttıkça bu kuvvet de artar.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Havada hareket eden her cisim, hızı arttıkça büyüyen bir frenleyici etkiyle
+          karşılaşır. Bu etki cismin şekline ve genişliğine bağlıdır; yağmur damlasını da paraşütçüyü de bu
+          etki frenler.
+        </p>
+
+        <h3 id="k2">Hava direnci: hıza bağlı bir kuvvet</h3>
         <p>
           Bir cisim havada ilerlerken önündeki hava moleküllerini itmek zorundadır. Bu itmenin
           tepkisi, harekete <strong>zıt yönde</strong> bir kuvvet olarak cisme geri döner:
           <strong>hava direnci</strong> (sürükleme kuvveti).
         </p>
         <p>
-          Sürtünmeden en önemli farkı şudur: kinetik sürtünme kuvveti hızdan (yaklaşık olarak)
-          bağımsızken, hava direnci <strong>hız büyüdükçe hızla büyür</strong>. Günlük hızlarda
-          iyi çalışan model:
+          Bunu kalabalık bir koridorda koşmaya benzetebilirsin. Ne kadar hızlı koşarsan her saniye o kadar
+          çok kişiye çarparsın ve her çarpma da o kadar sert olur; iki etki birlikte büyür. Hava için de
+          aynısı geçerlidir: hız iki katına çıkınca cisim saniyede iki kat daha çok havayı iter ve bu havayı
+          iki kat daha hızlı iter. Sonuç <strong>dört kat</strong> dirençtir.
         </p>
-        <div class="formula">
-          <code>F<sub>d</sub> = k · v²</code>
-          <code>k = ½ · ρ · C · A</code>
-        </div>
+        <p>
+          Sürtünmeden en önemli farkı şudur: kinetik sürtünme kuvveti hızdan (yaklaşık olarak)
+          bağımsızken, hava direnci <strong>hız büyüdükçe hızla büyür</strong>. Hava direncini
+          belirleyen dört etken vardır:
+        </p>
         <ul>
-          <li><strong>ρ</strong>: havanın yoğunluğu (deniz seviyesinde ≈ 1,2 kg/m³)</li>
-          <li><strong>C</strong>: sürükleme katsayısı — cismin <em>şekline</em> bağlı (küre ≈ 0,5; düz levha ≈ 1,2)</li>
-          <li><strong>A</strong>: harekete dik kesit alanı</li>
+          <li><strong>Hız:</strong> hız 2 katına çıkınca direnç yaklaşık 4, 3 katına çıkınca 9 katına çıkar.</li>
+          <li><strong>Kesit alanı:</strong> harekete dik yüzey genişledikçe itilen hava artar.</li>
+          <li><strong>Şekil:</strong> sivri ve akıcı biçimli cisimler havayı kolay yarar, düz bir levha zor yarar.</li>
+          <li><strong>Havanın yoğunluğu:</strong> yükseğe çıkıldıkça hava seyrelir ve direnç azalır.</li>
         </ul>
         <div class="callout">
           <p>
@@ -2240,29 +2530,39 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Neden bir hız sınırı var?</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Hava direnci, cismin önündeki havayı itmesinin tepkisidir ve harekete zıt yöndedir.
+          Hızla, alanla, şekille ve havanın yoğunluğuyla büyür, kütleye bağlı değildir; hız 2 katına çıkınca
+          direnç 4 katına çıkar.
+        </p>
+
+        <h3 id="k3">Neden bir hız sınırı var?</h3>
         <p>
           Cisim bırakıldığı anda hızı sıfırdır, dolayısıyla direnç de sıfırdır: tek kuvvet
           ağırlıktır ve ivme <strong>g</strong>'dir. Hız büyüdükçe direnç büyür, net kuvvet küçülür,
-          ivme azalır. Bir noktada direnç ağırlığa <strong>tam olarak eşitlenir</strong>:
-        </p>
-        <div class="formula">
-          <code>ΣF = m·g − k·v² </code>
-          <code>m·g = k·v<sub>l</sub>² → a = 0</code>
-        </div>
-        <p>
-          O andan itibaren net kuvvet sıfırdır. Newton'un 1. yasası gereği cisim
-          <strong>sabit hızla</strong> düşmeye devam eder. Bu sabit hıza <strong>limit hız</strong>
-          (terminal hız) denir.
+          ivme azalır. Bir noktada direnç ağırlığa <strong>tam olarak eşitlenir</strong>. O andan itibaren
+          net kuvvet sıfırdır. Newton'un 1. yasası gereği cisim <strong>sabit hızla</strong> düşmeye devam
+          eder. Bu sabit hıza <strong>limit hız</strong> (terminal hız) denir.
         </p>
         <table class="tbl">
-          <thead><tr><th>An</th><th>Direnç</th><th>Net kuvvet</th><th>İvme</th><th>Hız</th></tr></thead>
+          <thead><tr><th>An</th><th>Direnç</th><th>Net kuvvet ve ivme</th><th>Hız</th></tr></thead>
           <tbody>
-            <tr><td>Bırakma anı</td><td>0</td><td>m·g</td><td>g</td><td>0</td></tr>
-            <tr><td>Ara evre</td><td>0 &lt; F<sub>d</sub> &lt; m·g</td><td>azalıyor</td><td>azalıyor</td><td>artıyor</td></tr>
-            <tr><td>Limit hız</td><td>m·g</td><td>0</td><td>0</td><td>sabit</td></tr>
+            <tr><td>Bırakma anı</td><td>0</td><td>Net kuvvet m·g, ivme g</td><td>0</td></tr>
+            <tr><td>Ara evre</td><td>0 &lt; F<sub>d</sub> &lt; m·g</td><td>İkisi de azalıyor</td><td>Artıyor</td></tr>
+            <tr><td>Limit hız</td><td>m·g</td><td>İkisi de sıfır</td><td>Sabit</td></tr>
           </tbody>
         </table>
+        <p>
+          Aynı şeyi düz yolda gaza sabit basan bir arabada da görürsün. Motorun itmesi değişmez, ama araba
+          hızlandıkça hava direnci büyür. Bir hızda direnç itmeye eşitlenir ve araba o hızda sabitlenir;
+          motor itmeye devam eder, ama itme artık direnci ancak karşılar. Düşen cisimde motorun yerini
+          ağırlık alır. Önemli olan şu: dengeye ulaşmak için cismin hiçbir şey yapması gerekmez. Direnç hızla
+          büyüdüğü için, yeterince uzun düşen her cisim er geç bu dengeye kendiliğinden gelir.
+        </p>
+        <p>
+          Sayfanın <b>01</b> numaralı laboratuvarında kuvvet oklarını açıp cismi bıraktığında direnç okunun
+          büyüyüp ağırlık okuna eşitlendiğini, ivme göstergesinin de sıfıra indiğini görürsün.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 206" role="img" aria-label="Dört anda ağırlık ve hava direnci çubuklarının karşılaştırması: ağırlık sabit kalırken direnç büyüyor ve sonunda eşitleniyor, ivme sıfırlanıyor.">
@@ -2294,8 +2594,80 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Limit hız bağıntısı</h3>
-        <p>Denge koşulundan limit hızı çekelim:</p>
+        <details class="dusun">
+          <summary>Düşün: Limit hıza ulaşan bir cismin ivmesi sıfırsa, cisim neden durmuyor da düşmeye devam ediyor?</summary>
+          <p>
+            İvmenin sıfır olması hızın <b>değişmediği</b> anlamına gelir, hızın sıfır olduğu anlamına değil.
+            Cisim dengeye ulaştığında zaten büyük bir hızla düşmektedir; net kuvvet sıfır olduğu için bu hız
+            ne artar ne azalır. Newton'un birinci yasası tam olarak bunu söyler: net kuvvet sıfırsa cisim
+            hareket durumunu korur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düşen cisimde ağırlık sabittir, direnç hızla büyür. Direnç ağırlığa eşitlenince
+          net kuvvet ve ivme sıfırlanır; cisim durmaz, limit hız denen sabit hızla düşmeye devam eder.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: direnci ve limit hızı formüle dök, doyan v–t eğrisini oku, gerçek cisimlerin sayılarıyla karşılaştır.</span>
+        </div>
+
+        <h3 id="k4">Hava direncinin bağıntısı: F = k·v²</h3>
+        <p>Günlük hızlarda iyi çalışan model şudur:</p>
+        <div class="formula">
+          <code>F<sub>d</sub> = k · v²</code>
+          <code>k = ½ · ρ · C · A</code>
+        </div>
+        <ul>
+          <li><strong>ρ</strong>: havanın yoğunluğu (deniz seviyesinde ≈ 1,2 kg/m³)</li>
+          <li><strong>C</strong>: sürükleme katsayısı — cismin <em>şekline</em> bağlı (küre ≈ 0,5; düz levha ≈ 1,2)</li>
+          <li><strong>A</strong>: harekete dik kesit alanı</li>
+        </ul>
+        <h4>v² nereden geliyor?</h4>
+        <ol>
+          <li><strong>Süpürülen hava:</strong> cisim Δt sürede v·Δt yol alır ve önündeki A·v·Δt hacmindeki havayı iter.</li>
+          <li><strong>Bu havanın kütlesi:</strong> ρ·A·v·Δt; hız iki katına çıkınca iki kat hava itilir.</li>
+          <li><strong>Havaya verilen hız:</strong> itilen hava yaklaşık v mertebesinde hızlanır; hız iki katına çıkınca bu da iki katına çıkar.</li>
+          <li><strong>Newton'un ikinci yasası:</strong> her saniye ρ·A·v kütlesindeki hava yaklaşık v kadar hızlandırılıyorsa gereken kuvvet ρ·A·v² mertebesindedir.</li>
+        </ol>
+        <p>
+          İki çarpanın ikisi de v'den geldiği için direnç v² ile büyür. ½ ve C çarpanları, havanın cismin
+          çevresinden nasıl aktığını hesaba katar; bu akışı cismin biçimi belirlediği için C'ye şekil
+          katsayısı da denebilir.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Birim kontrolü:</b> k = ½·ρ·C·A için (kg/m³)·m² = kg/m çıkar. k·v² için
+            (kg/m)·(m²/s²) = kg·m/s² = N ✓. Çözümlü örneklerdeki k değerleri bu yüzden kg/m ile yazılır.
+          </p>
+        </div>
+        <p>
+          Bu bağıntı bir <strong>modeldir</strong>: yağmur damlasından paraşütçüye kadar gündelik boyuttaki
+          cisimlerde çok iyi çalışır. Sınırlarına üçüncü basamakta döneceğiz.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Günlük hızlarda hava direnci F<sub>d</sub> = k·v²'dir; k = ½·ρ·C·A havanın
+          yoğunluğunu, cismin şeklini ve kesit alanını bir araya toplar. v² çarpanı, hem itilen hava
+          miktarının hem de ona verilen hızın v ile büyümesinden gelir.
+        </p>
+
+        <h3 id="k5">Limit hız bağıntısı</h3>
+        <p>
+          Aşağı yönü pozitif alalım. Düşen cisme iki kuvvet etki eder: aşağı yönlü ağırlık ve yukarı yönlü
+          direnç. Net kuvvet ve denge koşulu şöyle yazılır:
+        </p>
+        <div class="formula">
+          <code>ΣF = m·g − k·v²</code>
+          <code>m·g = k·v<sub>l</sub>² → a = 0</code>
+        </div>
+        <p>Denge koşulundan limit hızı adım adım çekelim:</p>
+        <ol>
+          <li><strong>Denge:</strong> limit hızda a = 0, yani m·g − k·v<sub>l</sub>² = 0.</li>
+          <li><strong>Düzenle:</strong> k·v<sub>l</sub>² = m·g, buradan v<sub>l</sub>² = m·g / k.</li>
+          <li><strong>Karekök al:</strong> v<sub>l</sub> = √(m·g / k).</li>
+          <li><strong>k'yi aç:</strong> k = ½·ρ·C·A yazınca v<sub>l</sub> = √(2·m·g / (ρ·C·A)).</li>
+        </ol>
         <div class="formula">
           <code>v<sub>l</sub> = √(m·g / k)</code>
           <code>v<sub>l</sub> = √(2·m·g / (ρ·C·A))</code>
@@ -2338,19 +2710,56 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">v – t grafiği: doyan eğri</h3>
+        <p>
+          Sayfanın <b>04</b> numaralı bölümünde kütleyi ve alanı ayrı ayrı değiştirerek bu iki karekök
+          eğrisinin üzerinde gezinebilirsin. <b>03</b> numaralı bölümdeki kâğıt deneyi ise kütleye hiç
+          dokunmadan yalnızca alanı değiştirir: buruşturulan kâğıdın limit hızı açık kâğıdınkinin yaklaşık
+          7 katına çıkar.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Aynı boyda bir tahta bilye ile bir demir bilyeden hangisinin limit hızı daha büyüktür?</summary>
+          <p>
+            <b>Demir bilyenin.</b> Şekil ve alan aynı olduğu için k de aynıdır; fark yalnızca kütlededir.
+            Demir bilye tahtadan 10 kat ağırsa limit hızı √10 ≈ 3 kat büyüktür. Kütle limit hızı artırır,
+            ama karekökle.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Limit hız, m·g = k·v<sub>l</sub>² dengesinden v<sub>l</sub> = √(m·g/k) olarak
+          çıkar. Kütle 4 katına çıkınca limit hız 2 katına çıkar, alan 4 katına çıkınca yarıya iner;
+          belirleyici olan m/A oranıdır.
+        </p>
+
+        <h3 id="k6">v – t grafiği: doyan eğri</h3>
         <p>
           Hava direnci yokken v – t grafiği <strong>eğimi g olan bir doğrudur</strong>. Hava direnci
           varken eğri başlangıçta bu doğruya teğettir, sonra eğimi azalır ve limit hıza
-          <strong>asimptotik</strong> olarak yaklaşır.
+          <strong>asimptotik</strong> olarak, yani giderek yaklaşıp hiç tam ulaşmadan yaklaşır. Bu eğrinin
+          bağıntısı şudur:
         </p>
         <div class="formula">
           <code>v(t) = v<sub>l</sub> · tanh(g·t / v<sub>l</sub>)</code>
         </div>
         <p>
-          Cisim limit hıza matematiksel olarak hiçbir zaman tam ulaşmaz; ama pratikte birkaç
-          saniyede %95'ine oturur. a – t grafiği ise g'den başlayıp <strong>sıfıra</strong> iner:
-          ivmenin sıfırlanması, hızın sabitlenmesi demektir.
+          Buradaki tanh (hiperbolik tanjant) fonksiyonunu ayrıntılı tanıman gerekmez; grafiği okumak için
+          üç özelliğini bilmen yeter:
+        </p>
+        <ul>
+          <li><strong>Sıfırda sıfırdır:</strong> t = 0'da v = 0; cisim durgun bırakılmıştır.</li>
+          <li><strong>Başta doğru gibi davranır:</strong> küçük t için v ≈ g·t; ilk anlarda cisim neredeyse serbest düşer.</li>
+          <li><strong>1'e yaklaşır ama ulaşmaz:</strong> tanh(1,83) ≈ 0,95 ve tanh(2,65) ≈ 0,99; v, v<sub>l</sub>'ye hiç tam ulaşmaz.</li>
+        </ul>
+        <p>
+          Cisim limit hıza matematiksel olarak hiçbir zaman tam ulaşmaz; ama pratikte kısa sürede %95'ine
+          oturur. Bu süre üçüncü maddeden çıkar: g·t/v<sub>l</sub> = 1,83 olduğunda v = 0,95·v<sub>l</sub>'dir.
+        </p>
+        <div class="formula">
+          <code>t<sub>%95</sub> ≈ 1,83 · v<sub>l</sub> / g</code>
+        </div>
+        <p>
+          Limit hızı küçük olan cisim dengeye çabuk, büyük olan geç oturur: yağmur damlası 2 saniyeden kısa,
+          kolları açık paraşütçü yaklaşık 10 saniyede. a – t grafiği ise g'den başlayıp <strong>sıfıra</strong>
+          iner: ivmenin sıfırlanması, hızın sabitlenmesi demektir.
         </p>
         <div class="callout warn">
           <p>
@@ -2381,99 +2790,31 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Serbest düşmeden farkı</h3>
-        <table class="tbl">
-          <thead><tr><th>&nbsp;</th><th>Serbest düşme (ideal)</th><th>Gerçek düşüş</th></tr></thead>
-          <tbody>
-            <tr><td>Etkiyen kuvvet</td><td>Yalnızca ağırlık</td><td>Ağırlık + hava direnci</td></tr>
-            <tr><td>İvme</td><td>Sabit, g</td><td>g'den başlar, sıfıra iner</td></tr>
-            <tr><td>Hız</td><td>Sınırsız artar</td><td>Limit hızda sabitlenir</td></tr>
-            <tr><td>Kütlenin rolü</td><td>Yok</td><td>Var (m/A oranı)</td></tr>
-          </tbody>
-        </table>
-        <p>
-          Serbest düşme, hava direncinin <strong>ihmal edilebildiği</strong> durumların modelidir:
-          kısa mesafe, yoğun ve küçük cisim, düşük hız. Uzun süreli düşüşlerde ya da hafif ve
-          geniş cisimlerde bu model geçersizleşir.
+        <details class="dusun">
+          <summary>Düşün: Doyan v – t eğrisinde eğim hangi anda en büyüktür ve o anki değeri nedir?</summary>
+          <p>
+            <b>Bırakma anında</b> en büyüktür ve tam olarak g'dir. O anda hız sıfır olduğu için direnç de
+            sıfırdır; cisim yalnızca ağırlığın etkisindedir. Sonra direnç büyüdükçe eğim, yani ivme, azalır ve
+            limit hızda sıfıra iner.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Havada düşen cismin v – t eğrisi eğimi g olan bir doğru gibi başlar, sonra doyarak
+          limit hıza yaklaşır: v = v<sub>l</sub>·tanh(g·t/v<sub>l</sub>). Limitin %95'ine varma süresi
+          yaklaşık 1,83·v<sub>l</sub>/g'dir.
         </p>
 
-        <figure class="fig">
-          <svg class="fx" viewBox="0 0 480 186" role="img" aria-label="Vakumda ve havada düşen cisim için hız-zaman ve ivme-zaman grafiklerinin karşılaştırması.">
-            <text class="tl" x="50" y="20">v – t</text>
-            <path class="st sd hair" d="M50 30v120h180" />
-            <path class="st sv hair dash" d="M50 150 215 36" />
-            <path class="st sd hair dash" opacity="0.7" d="M50 66h178" />
-            <path class="st sb bold" d="M50 150C82 116 116 84 165 74 200 68 225 67 228 67" />
-            <text class="tt fv" x="88" y="50">vakumda</text>
-            <text class="tt fb" x="228" y="98" text-anchor="end">havada</text>
-            <text class="tt fd" x="226" y="168" text-anchor="end">t</text>
-            <path class="st sl hair dots" d="M252 18v150" />
-            <text class="tl" x="280" y="20">a – t</text>
-            <path class="st sd hair" d="M280 30v120h175" />
-            <path class="st sv hair dash" d="M280 50h170" />
-            <path class="st sb bold" d="M280 50C316 96 360 130 450 146" />
-            <text class="tt fv" x="286" y="44">vakumda a = g</text>
-            <text class="tt fb" x="452" y="112" text-anchor="end">havada a → 0</text>
-            <text class="tt fd" x="452" y="168" text-anchor="end">t</text>
-          </svg>
-          <figcaption>
-            Vakumda ivme <b>hiç değişmez</b>, hız sınırsız artar ve kütlenin hiçbir rolü yoktur.
-            Havada ise ivme g'den başlayıp sıfıra iner, hız bir değerde sabitlenir ve artık
-            <b>kütle ile alan işin içine girer</b>. Serbest düşme, hava direncinin ihmal edilebildiği
-            özel bir durumdur — kısa mesafelerde ve ağır cisimlerde iyi bir yaklaşımdır.
-          </figcaption>
-        </figure>
-
-        <h3 id="k6">Paraşüt ve ölçek etkisi</h3>
+        <h3 id="k7">Sayılarla hisset: kim, hangi hızla, ne kadar sürede?</h3>
         <p>
-          Paraşüt, kütleyi değil <strong>alanı</strong> değiştirir. Açıldığı anda A onlarca katına
-          çıkar, k büyür ve yeni limit hız çok küçülür:
+          Aynı yerçekimi, aynı hava; ama en yavaşla en hızlı arasında yaklaşık on bin kat fark var. Tipik değerler:
         </p>
-        <div class="formula">
-          <code>A → 25A ⇒ v<sub>l</sub> → v<sub>l</sub> / 5</code>
-        </div>
-        <p>
-          Açılma anında hız hâlâ eski limit hızdadır; direnç birden ağırlığın çok üstüne çıkar ve
-          cisim <strong>yukarı yönlü net kuvvetle</strong> hızla yavaşlar. Paraşütçünün hissettiği
-          sarsıntı budur. Birkaç saniye içinde yeni dengeye oturulur.
-        </p>
-        <p>
-          Aynı mantık canlılar için de geçerlidir: boyut küçüldükçe kütle <strong>uzunluğun
-          küpüyle</strong>, alan ise <strong>karesiyle</strong> küçülür. Bu yüzden küçük bir böceğin
-          m/A oranı çok düşüktür; limit hızı o kadar küçüktür ki yüksekten düşmesi onu incitmez.
-        </p>
-
-        <figure class="fig">
-          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Paraşütçünün hız-zaman grafiği: önce 55 metre bölü saniyede sabitlenir, paraşüt açılınca hız hızla düşüp 5 metre bölü saniyede yeni bir platoya oturur.">
-            <path class="st sd hair" d="M75 26v134h380" />
-            <path class="st sl hair dash" d="M75 59h171M75 151h380" />
-            <path class="st sr hair dash" d="M246 40v120" />
-            <path class="st sb bold" d="M75 160C103 112 140 70 192 62 218 58 234 59 246 59 266 60 280 140 302 149 340 153 400 151 455 151" />
-            <text class="tt" x="68" y="63" text-anchor="end">≈ 55 m/s</text>
-            <text class="tt" x="68" y="155" text-anchor="end">≈ 5 m/s</text>
-            <text class="tt fr" x="252" y="36">paraşüt açılıyor</text>
-            <text class="tt fd" x="70" y="22" text-anchor="end">v</text>
-            <text class="tt fd" x="452" y="180" text-anchor="end">t</text>
-            <text class="tt" x="268" y="182" text-anchor="middle">alan ≈ 25 kat → hız ≈ 1/5</text>
-          </svg>
-          <figcaption>
-            Paraşüt açıldığı anda kütle değişmez ama <b>alan onlarca kat büyür</b>. Direnç bir anda
-            ağırlığın çok üstüne çıkar, net kuvvet yukarı döner ve atlayıcı <b>yavaşlar</b> — bu
-            ani frenlemeyi vücudunda hissettiği an budur. Yavaşladıkça direnç küçülür ve hız yeni,
-            çok daha düşük bir limitte dengelenir. Alan 25 kat büyüyünce hız karekökle, yani
-            yaklaşık beşte birine iner.
-          </figcaption>
-        </figure>
-
-        <h3 id="k7">Tipik limit hızlar</h3>
         <table class="tbl">
           <thead><tr><th>Cisim</th><th>Limit hız</th><th>Neden</th></tr></thead>
           <tbody>
             <tr><td>Sis damlacığı</td><td>≈ 0,01 m/s</td><td>çok küçük m/A</td></tr>
             <tr><td>Yağmur damlası</td><td>≈ 9 m/s</td><td>küçük kütle, küresel</td></tr>
             <tr><td>Tenis topu</td><td>≈ 25 m/s</td><td>orta m/A</td></tr>
-            <tr><td>Paraşütçü (kol-bacak açık)</td><td>≈ 55 m/s</td><td>büyük kütle, orta alan</td></tr>
-            <tr><td>Paraşütçü (dalış pozisyonu)</td><td>≈ 90 m/s</td><td>alan iyice küçülür</td></tr>
+            <tr><td>Paraşütçü: kol-bacak açık / dalış pozisyonu</td><td>≈ 55 / ≈ 90 m/s</td><td>büyük kütle, orta alan / alan iyice küçülür</td></tr>
             <tr><td>Açık paraşüt</td><td>≈ 5 m/s</td><td>alan onlarca kat büyür</td></tr>
           </tbody>
         </table>
@@ -2507,11 +2848,231 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <p>
+          Limit hıza ne kadar sürede ve ne kadar yol düştükten sonra oturulur? Sayfanın <b>01</b> numaralı
+          laboratuvarı bunu "Limitin %95'ine" ve "O ana kadar düşülen" satırlarında gösterir. Aynı modelle
+          (g = 9,81 m/s², durgun bırakılan cisim) yuvarlanmış değerler:
+        </p>
+        <table class="tbl">
+          <tr><th>Cisim</th><th>Limit hız</th><th>%95'ine varma süresi</th><th>O ana kadar düşülen yol</th></tr>
+          <tr><td>Yağmur damlası</td><td>9 m/s</td><td>1,7 s</td><td>10 m</td></tr>
+          <tr><td>Tenis topu</td><td>25 m/s</td><td>4,7 s</td><td>74 m</td></tr>
+          <tr><td>Paraşütçü (kol-bacak açık)</td><td>55 m/s</td><td>10,3 s</td><td>360 m</td></tr>
+          <tr><td>Paraşütçü (dalış)</td><td>90 m/s</td><td>16,8 s</td><td>960 m</td></tr>
+        </table>
+        <p>Tablolardan okunan düzen:</p>
+        <ul>
+          <li><strong>Süre limit hızla doğru orantılıdır:</strong> limit hızı 10 kat büyük olan dalıştaki paraşütçü, dengeye yağmur damlasından 10 kat geç oturur.</li>
+          <li><strong>Yol limit hızın karesiyle büyür:</strong> yağmur damlası ilk 10 m'de, paraşütçü ancak ilk 360 m'de limitine oturur.</li>
+          <li><strong>Yağmur damlası neredeyse hep sabit hızlıdır:</strong> 2 km'lik düşüşün yalnızca ilk 10 metresi hızlanmayla geçer.</li>
+        </ul>
+        <p>
+          Bir karşılaştırma: hava direnci olmasaydı 2 km'den düşen damla yere yaklaşık 198 m/s ile çarpardı.
+          Gerçek hızı bunun yaklaşık yirmide biridir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Limit hızlar sis damlacığında 0,01 m/s'den dalıştaki paraşütçüde 90 m/s'ye kadar
+          uzanır. Limite oturma süresi v<sub>l</sub> ile, bu sırada düşülen yol v<sub>l</sub>² ile büyür:
+          yağmur damlası ilk 10 m'de dengeye gelir.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: serbest düşme modeli nerede yetmez, paraşüt nasıl çalışır ve limit hız gerçek hayatta nerede karşımıza çıkar?</span>
+        </div>
+
+        <h3 id="k8">Serbest düşmeden farkı: model ne zaman yeter?</h3>
+        <table class="tbl">
+          <thead><tr><th>&nbsp;</th><th>Serbest düşme (ideal)</th><th>Gerçek düşüş</th></tr></thead>
+          <tbody>
+            <tr><td>Etkiyen kuvvet</td><td>Yalnızca ağırlık</td><td>Ağırlık + hava direnci</td></tr>
+            <tr><td>İvme</td><td>Sabit, g</td><td>g'den başlar, sıfıra iner</td></tr>
+            <tr><td>Hız</td><td>Sınırsız artar</td><td>Limit hızda sabitlenir</td></tr>
+            <tr><td>Kütlenin rolü</td><td>Yok</td><td>Var (m/A oranı)</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Serbest düşme, hava direncinin <strong>ihmal edilebildiği</strong> durumların modelidir:
+          kısa mesafe, yoğun ve küçük cisim, düşük hız. Uzun süreli düşüşlerde ya da hafif ve
+          geniş cisimlerde bu model geçersizleşir. Önceki bölümdeki tablo bunun için kaba bir ölçüt de verir:
+          cisim limitine, v<sub>l</sub>²/g mertebesinde bir yol düştükten sonra oturur.
+        </p>
+        <div class="formula">
+          <code>h ≪ v<sub>l</sub>²/g → serbest düşme</code>
+          <code>h ≫ v<sub>l</sub>²/g → limit hız</code>
+        </div>
+        <ul>
+          <li><strong>Bilye:</strong> sayfanın 03 numaralı bölümündeki bilyenin v<sub>l</sub> ≈ 44 m/s, v<sub>l</sub>²/g ≈ 200 m; 1 m'lik düşüşte direnç ihmal edilebilir.</li>
+          <li><strong>Yağmur damlası:</strong> v<sub>l</sub>²/g ≈ 8 m; 2 km'lik düşüşte serbest düşme tamamen yanlış sonuç verir.</li>
+          <li><strong>Paraşütçü:</strong> v<sub>l</sub>²/g ≈ 300 m; ilk birkaç saniye serbest düşmeye yakındır, sonrası limit hızdır.</li>
+        </ul>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 186" role="img" aria-label="Vakumda ve havada düşen cisim için hız-zaman ve ivme-zaman grafiklerinin karşılaştırması.">
+            <text class="tl" x="50" y="20">v – t</text>
+            <path class="st sd hair" d="M50 30v120h180" />
+            <path class="st sv hair dash" d="M50 150 215 36" />
+            <path class="st sd hair dash" opacity="0.7" d="M50 66h178" />
+            <path class="st sb bold" d="M50 150C82 116 116 84 165 74 200 68 225 67 228 67" />
+            <text class="tt fv" x="88" y="50">vakumda</text>
+            <text class="tt fb" x="228" y="98" text-anchor="end">havada</text>
+            <text class="tt fd" x="226" y="168" text-anchor="end">t</text>
+            <path class="st sl hair dots" d="M252 18v150" />
+            <text class="tl" x="280" y="20">a – t</text>
+            <path class="st sd hair" d="M280 30v120h175" />
+            <path class="st sv hair dash" d="M280 50h170" />
+            <path class="st sb bold" d="M280 50C316 96 360 130 450 146" />
+            <text class="tt fv" x="286" y="44">vakumda a = g</text>
+            <text class="tt fb" x="452" y="112" text-anchor="end">havada a → 0</text>
+            <text class="tt fd" x="452" y="168" text-anchor="end">t</text>
+          </svg>
+          <figcaption>
+            Vakumda ivme <b>hiç değişmez</b>, hız sınırsız artar ve kütlenin hiçbir rolü yoktur.
+            Havada ise ivme g'den başlayıp sıfıra iner, hız bir değerde sabitlenir ve artık
+            <b>kütle ile alan işin içine girer</b>. Serbest düşme, hava direncinin ihmal edilebildiği
+            özel bir durumdur — kısa mesafelerde ve ağır cisimlerde iyi bir yaklaşımdır.
+          </figcaption>
+        </figure>
+
+        <h4>Yukarı atılan top</h4>
+        <p>
+          Hava direnci atıştaki simetriyi de bozar. Yukarı çıkan topta direnç aşağı yönlüdür ve ağırlığa
+          eklenir; top g'den <strong>büyük</strong> bir ivmeyle yavaşlar. İnerken direnç yukarı yönlüdür ve
+          ağırlıktan çıkar; top g'den <strong>küçük</strong> bir ivmeyle hızlanır. Sonuç: top havasız
+          ortamdakinden daha alçağa çıkar, inişi çıkışından uzun sürer ve atıldığı noktaya v₀'dan küçük bir
+          hızla döner. Son bir incelik: çok küçük ve yavaş cisimlerde (sis damlacığı, toz, polen) direnç
+          hızın karesiyle değil, hızın kendisiyle orantılı büyür; F = k·v² modelinin bir sınırı da budur.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Havada yukarı atılan bir topun tepe noktasındaki ivmesi g'den büyük mü, g'ye eşit mi, g'den küçük mü?</summary>
+          <p>
+            <b>Tam g'ye eşittir.</b> Tepe noktada hız sıfırdır, dolayısıyla hava direnci de sıfırdır; o an
+            topa yalnızca ağırlık etki eder. Çıkarken ivme g'den büyük, inerken g'den küçüktür; tam tepede,
+            bu iki evrenin arasındaki geçiş anında direnç ortadan kalkar.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Serbest düşme, düşme yüksekliği v<sub>l</sub>²/g'nin yanında küçük kaldığında iyi bir
+          yaklaşımdır. Havada yukarı atılan cisimde simetri bozulur: çıkış inişten kısa sürer ve cisim
+          atıldığından küçük bir hızla döner.
+        </p>
+
+        <h3 id="k9">Paraşüt ve ölçek etkisi</h3>
+        <p>
+          Paraşüt, kütleyi değil <strong>alanı</strong> değiştirir. Açıldığı anda A onlarca katına
+          çıkar, k büyür ve yeni limit hız çok küçülür:
+        </p>
+        <div class="formula">
+          <code>A → 25A ⇒ v<sub>l</sub> → v<sub>l</sub> / 5</code>
+        </div>
+        <p>
+          Açılma anında hız hâlâ eski limit hızdadır; direnç birden ağırlığın çok üstüne çıkar ve
+          cisim <strong>yukarı yönlü net kuvvetle</strong> hızla yavaşlar. Paraşütçünün hissettiği
+          sarsıntı budur. Birkaç saniye içinde yeni dengeye oturulur.
+        </p>
+        <p>
+          Yalnızca alan hesaba katılırsa 25 katlık büyüme 55 m/s'lik limit hızı 11 m/s'ye indirir. Gerçek
+          kubbede şekil de değiştiği için sürükleme katsayısı C büyür ve hız 5 m/s civarına kadar düşer; bu,
+          k'nin toplamda yaklaşık 120 katına çıkması demektir. Sayfanın <b>02</b> numaralı bölümünde bu
+          iki basamaklı inişi, iki platolu bir v – t grafiği olarak görebilirsin.
+        </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Paraşütçünün hız-zaman grafiği: önce 55 metre bölü saniyede sabitlenir, paraşüt açılınca hız hızla düşüp 5 metre bölü saniyede yeni bir platoya oturur.">
+            <path class="st sd hair" d="M75 26v134h380" />
+            <path class="st sl hair dash" d="M75 59h171M75 151h380" />
+            <path class="st sr hair dash" d="M246 40v120" />
+            <path class="st sb bold" d="M75 160C103 112 140 70 192 62 218 58 234 59 246 59 266 60 280 140 302 149 340 153 400 151 455 151" />
+            <text class="tt" x="68" y="63" text-anchor="end">≈ 55 m/s</text>
+            <text class="tt" x="68" y="155" text-anchor="end">≈ 5 m/s</text>
+            <text class="tt fr" x="252" y="36">paraşüt açılıyor</text>
+            <text class="tt fd" x="70" y="22" text-anchor="end">v</text>
+            <text class="tt fd" x="452" y="180" text-anchor="end">t</text>
+            <text class="tt" x="268" y="182" text-anchor="middle">alan ≈ 25 kat → hız ≈ 1/5</text>
+          </svg>
+          <figcaption>
+            Paraşüt açıldığı anda kütle değişmez ama <b>alan onlarca kat büyür</b>. Direnç bir anda
+            ağırlığın çok üstüne çıkar, net kuvvet yukarı döner ve atlayıcı <b>yavaşlar</b> — bu
+            ani frenlemeyi vücudunda hissettiği an budur. Yavaşladıkça direnç küçülür ve hız yeni,
+            çok daha düşük bir limitte dengelenir. Alan 25 kat büyüyünce hız karekökle, yani
+            yaklaşık beşte birine iner.
+          </figcaption>
+        </figure>
+
+        <p>
+          Aynı mantık canlılar için de geçerlidir: boyut küçüldükçe kütle <strong>uzunluğun
+          küpüyle</strong>, alan ise <strong>karesiyle</strong> küçülür. Bu yüzden küçük bir böceğin
+          m/A oranı çok düşüktür; limit hızı o kadar küçüktür ki yüksekten düşmesi onu incitmez.
+        </p>
+        <div class="formula">
+          <code>m ∝ L³</code>
+          <code>A ∝ L²</code>
+          <code>m/A ∝ L ⇒ v<sub>l</sub> ∝ √L</code>
+        </div>
+        <p>
+          Boyutları 10 kat küçük bir canlının kütlesi 1000 kat, alanı 100 kat küçüktür; m/A oranı 10 kat
+          düşer, limit hızı √10 ≈ 3 kat küçülür. Çarpmadaki kinetik enerji ½·m·v² olduğundan hem kütle hem
+          hız yüzünden yaklaşık on bin kat azalır.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Paraşüt açılınca, yanında düşen arkadaşının kamerasında paraşütçü neden yukarı fırlıyor gibi görünür?</summary>
+          <p>
+            Çünkü paraşütçü birden <b>yavaşlar</b>, kameralı arkadaşı ise hâlâ 55 m/s ile düşmeye devam
+            eder. Arkadaşına göre paraşütçü yukarı gidiyormuş gibi görünür; yere göre ise hâlâ aşağı iner,
+            yalnızca çok daha yavaş. Yukarı yönlü net kuvvet yukarı hareket değil, yavaşlama demektir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Paraşüt kütleyi değil k'yi büyütür: açıldığı anda direnç ağırlığı aşar, net kuvvet
+          yukarı döner ve paraşütçü yavaşlayarak yeni, küçük limit hıza oturur. Küçük canlıların m/A oranı
+          küçük olduğundan limit hızları da küçüktür.
+        </p>
+
+        <h3 id="k10">Limit hız gerçek dünyada</h3>
+        <p>
+          Limit hız, havada düşen her şeyin kaderidir. Mühendisler onu kimi zaman küçültmeye, kimi zaman
+          büyütmeye çalışır; paraşüt bunun en bilinen örneğidir.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/limit-hiz-uygulama.webp?v=2" srcset="gorsel/limit-hiz-uygulama-800.webp?v=2 800w, gorsel/limit-hiz-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneş ufka yakınken mavi-beyaz dikdörtgen bir paraşüt kubbesinin altında asılı, arkadan görülen bir paraşütçü yönlendirme iplerini tutarak yeşil tarlaların ortasındaki kırmızı-beyaz yuvarlak iniş hedefine doğru alçalıyor; arkada tepeler ve bir göl görünüyor.">
+          <figcaption>
+            <b>Açık paraşütle limit hız saniyede birkaç metreye iner.</b> 5 m/s ile yere değmek, yaklaşık 1,25 m yükseklikten atlamaya denktir; bacaklar bu darbeyi rahatça karşılar. Dikdörtgen kubbeler üstelik bir kanat gibi ileri doğru süzülür; paraşütçü iplerle yön verir ve yere değmeden hemen önce kubbeyi frenleyerek daha da yavaşlar.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Bulutlar neden düşmez?</strong> 0,01 m/s ile düşen bir bulut damlacığı 1 km'yi ancak yaklaşık 28 saatte iner; hafif yukarı hava akımları onu kolayca taşır.</li>
+          <li><strong>Yağmur damlası:</strong> 2 mm çaplı bir damla yaklaşık 6,5 m/s ile düşer; yaklaşık 5 mm'den iri damlalar düşerken çoğunlukla parçalanır.</li>
+          <li><strong>Dolu:</strong> 5 cm çaplı bir dolu tanesi için basit model yaklaşık 30 m/s (110 km/h) verir; iri dolunun cam kırması bundandır.</li>
+          <li><strong>Formasyon atlayışı:</strong> el ele düşmek için limit hızlar eşit olmalı; hafif atlayıcılar ağırlık kemeri, ağır olanlar bol tulum kullanabilir.</li>
+          <li><strong>Stratosfer atlayışları:</strong> 30 km'de hava deniz seviyesindekinden yaklaşık 65 kat seyrektir; limit hız yaklaşık 8 kat büyür ve ses hızı aşılabilir.</li>
+          <li><strong>Otoyolda yakıt:</strong> 90 yerine 120 km/h ile gitmek hava direncini (120/90)² ≈ 1,8 katına çıkarır; yüksek hızda motorun yaptığı işin büyük kısmı bu direnci yenmeye harcanır.</li>
+        </ul>
+        <p>
+          Bütün bu örneklerde aynı iki kural iş başındadır: direnç hızın karesiyle büyür ve limit hızı m/A
+          oranı belirler. Kayakçılar ve bisikletçiler gövdelerini toplayıp akıcı kasklar takarak A ile C'yi
+          küçültür ve hızlanır; paraşüt, uçuşan tohumlar ve bulut damlacıkları ise tam tersini yaparak
+          yavaş iner.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Limit hız, yağmurun zararsızlığını, bulutların asılı kalmasını ve paraşütle güvenli
+          inişi açıklar. A ile C'yi küçültmek hız kazandırır, büyütmek yavaşlatır; seyrek hava limit hızı
+          büyütür.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve limit hız sorularında puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k11">Çözümlü örnekler</h3>
         <p>Aşağıdaki çözümlerde g = 10 m/s² alınmıştır.</p>
 
         <details>
-          <summary>Örnek 1 — Limit hızda kuvvetler</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Limit hızda kuvvetler</summary>
           <p>
             80 kg kütleli bir paraşütçü, paraşütü kapalıyken 50 m/s'lik limit hızıyla düşmektedir.
             (a) Bu anda hava direnci kaç N'dur? (b) İvmesi nedir?
@@ -2524,7 +3085,34 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Direnç katsayısını bulma</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Hızlanan bisikletli</summary>
+          <p>
+            Bir bisikletli 5 m/s hızla giderken 8 N'luk hava direnciyle karşılaşıyor. (a) Direnç katsayısı
+            k kaçtır? Hızını (b) 10 m/s'ye, (c) 15 m/s'ye çıkarırsa hava direnci kaç N olur?
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> F<sub>d</sub> = k·v² → k = 8 / 5² = 8 / 25 = <strong>0,32 kg/m</strong></li>
+            <li><strong>(b)</strong> Hız 2 katı → direnç 2² = 4 katı: 4 · 8 = <strong>32 N</strong> (kontrol: 0,32 · 100 = 32 N ✓)</li>
+            <li><strong>(c)</strong> Hız 3 katı → direnç 3² = 9 katı: 9 · 8 = <strong>72 N</strong></li>
+            <li>Hızı üç katına çıkarmak dokuz kat direnç demektir; yarış bisikletçileri gövdelerini öne eğip A'yı bu yüzden küçültür.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 3 — Aynı kütle, farklı alan</summary>
+          <p>
+            Aynı kâğıttan yapılmış açık bir levha ile buruşturulmuş bir top düşünelim.
+            Buruşturunca kesit alanı dokuzda birine iniyorsa limit hız nasıl değişir?
+          </p>
+          <ol class="steps">
+            <li>Kütle değişmedi; yalnızca A küçüldü: A → A/9</li>
+            <li>v<sub>l</sub> = √(2mg / (ρCA)) ∝ 1/√A → A dokuzda birine inince v<sub>l</sub> <strong>3 katına</strong> çıkar.</li>
+            <li>Bu yüzden buruşturulmuş kâğıt, açık kâğıttan çok daha hızlı düşer — kütleleri aynı olmasına rağmen.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — Direnç katsayısını bulma</summary>
           <p>
             Bir cismin kütlesi 2 kg, limit hızı 20 m/s ölçülüyor. Direnç F<sub>d</sub> = k·v²
             modeliyle veriliyorsa k kaçtır? Hız 10 m/s iken ivme ne olur?
@@ -2538,7 +3126,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Paraşüt açılınca</summary>
+          <summary data-zorluk="zor">Örnek 5 — Paraşüt açılınca</summary>
           <p>
             Limit hızı 50 m/s olan paraşütçü, paraşütünü açtığında yüzey alanı 25 katına çıkıyor.
             (a) Yeni limit hız nedir? (b) Açılma anında ivmesi ne olur?
@@ -2553,19 +3141,26 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — Aynı kütle, farklı alan</summary>
+          <summary data-zorluk="zor">Örnek 6 — Bir yağmur damlasının limit hızı</summary>
           <p>
-            Aynı kâğıttan yapılmış açık bir levha ile buruşturulmuş bir top düşünelim.
-            Buruşturunca kesit alanı 9 katına küçülüyorsa limit hız nasıl değişir?
+            Çapı 2 mm (yarıçapı r = 1 mm) olan küresel bir yağmur damlasının limit hızını bulunuz.
+            (ρ<sub>su</sub> = 1000 kg/m³, ρ<sub>hava</sub> = 1,2 kg/m³, C = 0,5; kürenin hacmi
+            (4/3)·π·r³, kesit alanı π·r²)
           </p>
           <ol class="steps">
-            <li>Kütle değişmedi; yalnızca A küçüldü: A → A/9</li>
-            <li>v<sub>l</sub> = √(2mg / (ρCA)) ∝ 1/√A → A dokuzda birine inince v<sub>l</sub> <strong>3 katına</strong> çıkar.</li>
-            <li>Bu yüzden buruşturulmuş kâğıt, açık kâğıttan çok daha hızlı düşer — kütleleri aynı olmasına rağmen.</li>
+            <li>Belirleyici olan m/A oranıdır: m/A = ρ<sub>su</sub>·(4/3)·π·r³ / (π·r²) = (4/3)·ρ<sub>su</sub>·r; π sadeleşir.</li>
+            <li>m/A = (4/3) · 1000 · 0,001 ≈ 1,33 kg/m²</li>
+            <li>v<sub>l</sub> = √(2·(m/A)·g / (ρ<sub>hava</sub>·C)) = √(2 · 1,33 · 10 / (1,2 · 0,5))</li>
+            <li>v<sub>l</sub> = √(26,7 / 0,6) = √44,4 ≈ <strong>6,7 m/s</strong></li>
+            <li>m/A yarıçapla doğru orantılı olduğu için v<sub>l</sub> ∝ √r: yarıçapı 2 katı olan damlanın limit hızı √2 ≈ 1,4 katı, yani ≈ 9,4 m/s olur.</li>
           </ol>
+          <p>
+            Ölçülen değer 2 mm çaplı damla için yaklaşık 6,5 m/s'dir; bu basit model gerçeğe oldukça yakın
+            sonuç verir. İri damlaların 9 m/s civarında düşmesi de bu karekök ilişkisinden gelir.
+          </p>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <h3 id="k12">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Limit hızda hız sıfırdır.”</strong> Sıfır olan ivmedir; hız sabit ve genellikle büyüktür.</li>
           <li><strong>“Limit hızda cisme kuvvet etki etmez.”</strong> İki büyük kuvvet vardır (ağırlık ve direnç); <em>net</em> kuvvet sıfırdır.</li>
@@ -2574,6 +3169,7 @@
           <li><strong>“Paraşüt kütleyi azaltır.”</strong> Paraşüt yalnızca alanı büyütür; kütle aynıdır.</li>
           <li><strong>“Limit hıza ulaşınca cisim durur.”</strong> Durmaz; sabit hızla düşmeye devam eder ve yere o hızla çarpar.</li>
           <li><strong>“Serbest düşme her zaman geçerlidir.”</strong> Serbest düşme, direncin ihmal edildiği bir modeldir.</li>
+          <li><strong>“Paraşüt açılınca paraşütçü yukarı çıkar.”</strong> Net kuvvet yukarı döner, ama hız hâlâ aşağı yönlüdür; paraşütçü yalnızca yavaşlar.</li>
         </ul>
 
         <div class="callout">

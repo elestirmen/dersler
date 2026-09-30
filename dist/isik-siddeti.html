@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Işık şiddeti, akı ve aydınlanma</h3>
-          <p>Kandeladan lükse birimler, ters kare yasası, eğik yüzeyler ve çözümlü örnekler. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce ışığın yayılışı ve akı, şiddet, aydınlanma farkı, sonra lümenden lükse bağıntılar, ters kare yasası ve cosθ, ardından fotometre ve modelin sınırları; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2156,15 +2376,20 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Işık kaynakları</button>
-        <button type="button" data-goto="k2">Işık akısı</button>
-        <button type="button" data-goto="k3">Işık şiddeti</button>
-        <button type="button" data-goto="k4">Aydınlanma şiddeti</button>
-        <button type="button" data-goto="k5">Ters kare yasası</button>
-        <button type="button" data-goto="k6">Eğik yüzey</button>
-        <button type="button" data-goto="k7">Günlük değerler</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Işık kaynakları</button>
+        <button type="button" data-goto="k3" data-basamak="1">Üç büyüklük</button>
+        <button type="button" data-goto="k4" data-basamak="2">Işık akısı</button>
+        <button type="button" data-goto="k5" data-basamak="2">Işık şiddeti</button>
+        <button type="button" data-goto="k6" data-basamak="2">Aydınlanma şiddeti</button>
+        <button type="button" data-goto="k7" data-basamak="2">Ters kare yasası</button>
+        <button type="button" data-goto="k8" data-basamak="2">Eğik yüzey</button>
+        <button type="button" data-goto="k9" data-basamak="2">Sayılarla: kaç lüks?</button>
+        <button type="button" data-goto="k10" data-basamak="3">Fotometre</button>
+        <button type="button" data-goto="k11" data-basamak="3">Modelin sınırları</button>
+        <button type="button" data-goto="k12" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k13" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k14" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2189,20 +2414,91 @@
           aydınlık mı, nasıl ölçersin? Bu konunun tamamı, birbirine çok benzeyen üç büyüklüğü
           ayırmakla ilgili: <b>akı</b> kaynağın ürettiği toplam ışıktır, <b>şiddet</b> bunun belli
           bir yöndeki yoğunluğu, <b>aydınlanma</b> ise yüzeye düşen paydır. Üçünü karıştırmayı
-          bıraktığın an konu biter.
+          bıraktığın an konu biter. Bu anlatım dört basamakta ilerliyor: önce ışığın nasıl yayıldığını
+          gözleyip üç büyüklüğü formülsüz ayıracağız. Sonra lümen, kandela ve lüks arasındaki
+          bağıntıları, ters kare yasasını ve eğik yüzeylerin cosθ çarpanını nereden geldikleriyle
+          çıkaracağız. Ardından iki lambayı karşılaştırmaya ve modelin sınırlarına geçeceğiz. En sonda
+          kolaydan zora sıralanmış örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Işık kaynakları ve doğrusal yayılma</h3>
+        <figure class="foto">
+          <img src="gorsel/isik-siddeti-giris.webp?v=2" srcset="gorsel/isik-siddeti-giris-800.webp?v=2 800w, gorsel/isik-siddeti-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir odada kalın örgü kazaklı, kıvırcık saçlı bir genç kız, sağdaki eklemli masa lambasının altında ahşap masada kitap okuyor; ışık lambanın altındaki kitapta ve masanın o bölümünde en parlak, masanın sol ve ön kenarlarına doğru giderek sönükleşiyor. Arkada karanlıkta bir yatak, bir gitar ve raflar seçiliyor.">
+          <figcaption>
+            <b>Tek lamba, bir ışık havuzu.</b> Masanın lambaya en yakın yeri en aydınlık; kenarlara doğru hem lambaya uzaklık artıyor hem de ışık masaya daha eğik geliyor. Bu anlatımın iki kuralı, <b>ters kare yasası</b> ve <b>cosθ çarpanı</b>, bu sahnedeki parlaklık geçişinin büyük kısmını açıklar; kalanı, ışığı masaya doğru toplayan lamba başlığından gelir.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: ışığın nasıl yayıldığını gör ve birbirine çok benzeyen üç büyüklüğü formülsüz ayırt et.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: sokak lambalarının altı</h3>
         <p>
-          Işığı kendisi üreten cisimlere <strong>ışık kaynağı</strong> denir. Işık, saydam ve
-          türdeş bir ortamda <strong>doğrular boyunca</strong> yayılır; gölge ve yarı gölgenin
-          oluşması bunun doğrudan kanıtıdır.
+          Gece, lambalarla aydınlatılmış bir sokakta yürüdüğünü düşün. Bir direğin dibine geldiğinde
+          kaldırım parlak, yüzün ve ellerin aydınlıktır. Birkaç adım uzaklaştığında ışık hızla zayıflar;
+          iki direğin arasında kaldırım belirgin biçimde kararır, sonra bir sonraki direğe yaklaştıkça
+          yeniden aydınlanır. Lambalar aynı, ışıkları aynı; değişen yalnızca senin lambaya göre yerin.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/isik-siddeti-gunluk.webp?v=2" srcset="gorsel/isik-siddeti-gunluk-800.webp?v=2 800w, gorsel/isik-siddeti-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Gece, taş duvarlı ve ağaçlı bir sokağın sol kenarı boyunca uzağa doğru sıralanmış kavisli direkli sokak lambaları; her lambanın ışığı aşağı doğru bir koni gibi iniyor ve altındaki kaldırımda ve yolda parlak bir alan bırakıyor. Uzakta, koyu tepelerin önünde bir su kıyısındaki yerleşimin ışıkları görünüyor.">
+          <figcaption>
+            Her sokak lambası kaldırımda kendi <b>ışık havuzunu</b> oluşturur: direğin dibi en aydınlık yerdir, lambadan uzaklaştıkça parlaklık hızla azalır. Lambaların arasında kalan sönük bölgeler, aydınlanmanın uzaklıkla ne kadar çabuk düştüğünü gösterir; bu düşüşün kuralını ikinci basamakta sayılarla bulacağız.
+          </figcaption>
+        </figure>
+
+        <p>Bu kısa yürüyüşte, bu konunun bütün temel gözlemleri saklı:</p>
+        <ul>
+          <li><strong>Işık doğrular boyunca gider:</strong> gölgen hep lambanın tam ters yönüne düşer ve
+            sen yürüdükçe lambaya göre konumunla birlikte döner.</li>
+          <li><strong>Uzaklaştıkça sönükleşir, hem de hızla:</strong> direkten birkaç adım uzaklaşmak
+            kaldırımı gözle görülür biçimde karartır.</li>
+          <li><strong>Eğik gelen ışık daha az aydınlatır:</strong> direkten uzaklaştıkça ışık kaldırıma
+            daha yatık gelir ve aynı ışık daha geniş bir alana yayılır.</li>
+          <li><strong>Kaynak ile yüzey ayrı şeylerdir:</strong> lamba her yerde aynı ışığı saçar, ama
+            kaldırımın her yeri aynı aydınlanmaz.</li>
+        </ul>
+        <p>
+          Son madde konunun kalbidir: “lamba ne kadar ışık veriyor?” ile “bu nokta ne kadar aydınlık?”
+          iki ayrı sorudur. Önce ışığın nasıl yayıldığına, sonra bu iki soruyu ayıran büyüklüklere bakalım.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: İki sokak lambasının tam ortasında dururken neden iki gölgen olur?</summary>
+          <p>
+            Her lambanın ışığı sana doğru düz bir çizgi boyunca gelir ve bedenin her birini ayrı bir
+            doğrultuda keser. Bu yüzden kaldırımda, lambaların ters yönlerine düşen <b>iki ayrı gölge</b>
+            oluşur. Gölgeler tam karanlık değildir, çünkü birinin gölgesi ötekinin ışığıyla aydınlanır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Işık doğrular boyunca gider ve kaynaktan uzaklaştıkça hızla zayıflar. Lambanın
+          verdiği ışık ile bir noktanın ne kadar aydınlandığı ayrı şeylerdir.
+        </p>
+
+        <h3 id="k2">Işık kaynakları ve doğrusal yayılma</h3>
+        <p>
+          Işığı kendisi üreten cisimlere <strong>ışık kaynağı</strong> denir: Güneş, ampul, mum alevi,
+          telefon ekranı. Ay ya da bir kitap sayfası ise kaynak değildir; üzerlerine düşen ışığı yansıtarak
+          görünürler. Işık, saydam ve türdeş bir ortamda <strong>doğrular boyunca</strong> yayılır;
+          gölge ve yarı gölgenin oluşması bunun doğrudan kanıtıdır.
         </p>
         <ul>
           <li><strong>Noktasal kaynak:</strong> boyutları, uzaklığın yanında ihmal edilebilen
             kaynak. Bu konudaki bağıntılar noktasal kaynaklar içindir.</li>
           <li><strong>Yaygın kaynak:</strong> boyutu ihmal edilemeyen kaynak; yarı gölge oluşturur.</li>
         </ul>
+        <p>
+          Noktasal bir kaynağın önüne bir cisim koyduğunda perdede keskin kenarlı bir <strong>tam
+          gölge</strong> oluşur: perdenin her noktası kaynağı ya görür ya görmez. Kaynak büyüdüğünde
+          perdenin bazı noktaları kaynağın yalnızca bir kısmını görür; bu ara bölgeye <strong>yarı
+          gölge</strong> denir. Bir kaynağın noktasal sayılıp sayılmaması boyutuna değil, boyutunun
+          uzaklığa oranına bağlıdır.
+        </p>
         <div class="callout">
           <p>
             <b>Neden noktasal kabul ediyoruz?</b> Bir lambaya 10 metreden bakarken 10 cm'lik
@@ -2240,19 +2536,88 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Işık akısı (Φ)</h3>
+        <details class="dusun">
+          <summary>Düşün: Güneş dev bir kaynak olduğu hâlde gölgemizin kenarı neden oldukça keskindir?</summary>
+          <p>
+            Güneş çok büyüktür ama çok da uzaktır; gökyüzünde yalnızca yarım derece kadar yer kaplar.
+            Boyutunun uzaklığa oranı küçük olduğu için neredeyse noktasal davranır. Yerden 1 m yüksekteki
+            bir cismin gölgesinde yarı gölge şeridi yalnızca <b>1 cm</b> kadardır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Işık türdeş ortamda doğrular boyunca yayılır; gölgeler bunun kanıtıdır. Boyutu
+          uzaklığın yanında önemsiz olan kaynak noktasaldır ve bu konunun bağıntıları onun içindir.
+        </p>
+
+        <h3 id="k3">Üç büyüklük, üç soru</h3>
         <p>
-          Kaynağın <strong>birim zamanda yaydığı görünür ışık enerjisi</strong>dir. Birimi
-          <strong>lümen (lm)</strong>'dir. Ampul kutusunda yazan değer budur; watt ise ampulün
-          çektiği elektrik gücüdür, yaydığı ışık değil.
+          Bir lambaya üç farklı soru sorabilirsin ve her birinin cevabı ayrı bir büyüklüktür. Bunları
+          bir bahçe fıskiyesiyle düşünmek kolaylaştırır. Fıskiye saniyede belli bir miktar su püskürtür;
+          suyun bir kısmı bir yöne, bir kısmı başka yöne gider; çimin her metrekaresi de bundan kendi
+          payını alır. Işıkta da durum tam olarak böyledir:
+        </p>
+        <ul>
+          <li><strong>Toplam ne kadar ışık?</strong> Kaynağın her yöne birden saçtığı ışığın tamamı:
+            <strong>ışık akısı</strong>. Fıskiyenin saniyede püskürttüğü toplam su gibi.</li>
+          <li><strong>Bu yöne ne kadar ışık?</strong> Akının belli bir doğrultudaki yoğunluğu:
+            <strong>ışık şiddeti</strong>. Fıskiyenin tek bir yöne gönderdiği su gibi.</li>
+          <li><strong>Buraya ne kadar ışık düşüyor?</strong> Bir yüzeyin birim alanına düşen pay:
+            <strong>aydınlanma şiddeti</strong>. Çimin bir metrekaresinin ıslanması gibi.</li>
+        </ul>
+        <p>
+          İlk ikisi kaynağın, üçüncüsü yüzeyin özelliğidir. Lambayı masaya yaklaştırınca lambanın akısı da
+          şiddeti de değişmez; değişen, masanın aydınlanmasıdır. Ampul kutusunda yazan “watt” ise bu üçünden
+          hiçbiri değildir: ampulün <em>çektiği</em> elektrik gücüdür, <em>verdiği</em> ışık değil.
+        </p>
+        <table class="tbl">
+          <tr><th>Büyüklük</th><th>Simge</th><th>Birim</th><th>Neyin özelliği</th></tr>
+          <tr><td>Işık akısı</td><td>Φ</td><td>lümen (lm)</td><td>kaynağın</td></tr>
+          <tr><td>Işık şiddeti</td><td>I</td><td>kandela (cd)</td><td>kaynağın, bir yönde</td></tr>
+          <tr><td>Aydınlanma şiddeti</td><td>E</td><td>lüks (lx)</td><td>yüzeyin</td></tr>
+        </table>
+        <details class="dusun">
+          <summary>Düşün: Aynı lamba masanı aydınlatıyor ama odanın köşesi loş kalıyorsa hangi büyüklük değişmiştir?</summary>
+          <p>
+            Yalnızca <b>aydınlanma</b>. Lambanın akısı ve şiddeti her yer için aynıdır, çünkü ikisi de
+            lambanın özelliğidir. Köşe hem daha uzakta olduğu hem de ışığı daha eğik aldığı için
+            metrekaresine daha az ışık düşer.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Akı kaynağın saçtığı toplam ışık, şiddet bunun bir yöndeki yoğunluğu, aydınlanma
+          ise yüzeyin birim alanına düşen paydır. İlk ikisi kaynağın, üçüncüsü yüzeyin özelliğidir.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: lümen, kandela ve lüks arasındaki bağlar; ters kare yasası ve cosθ çarpanı nereden geliyor, gerçek sayılarla.</span>
+        </div>
+
+        <h3 id="k4">Işık akısı (Φ)</h3>
+        <p>
+          <strong>Işık akısı</strong>, kaynağın <strong>birim zamanda yaydığı görünür ışık
+          enerjisi</strong>dir. Birimi <strong>lümen (lm)</strong>'dir. Ampul kutusunda yazan değer
+          budur; watt ise ampulün çektiği elektrik gücüdür, yaydığı ışık değil. İkisini birbirine
+          bağlayan büyüklüğe <strong>ışık verimliliği</strong> denir: her watt elektrik başına kaç lümen
+          ışık elde edildiği.
         </p>
         <div class="formula">
-          <code>Φ = I · ω</code>
-          <code>Φ(toplam) = 4π · I</code>
+          <code>verimlilik = Φ / P</code>
+          <code>birim: lm / W</code>
         </div>
+        <table class="tbl">
+          <tr><th>Ampul</th><th>Çektiği güç</th><th>Işık akısı</th><th>Verimlilik</th></tr>
+          <tr><td>Akkor</td><td>60 W</td><td>≈ 800 lm</td><td>≈ 13 lm/W</td></tr>
+          <tr><td>Akkor</td><td>100 W</td><td>≈ 1400 lm</td><td>≈ 14 lm/W</td></tr>
+          <tr><td>LED</td><td>10 W</td><td>≈ 800 lm</td><td>≈ 80 lm/W</td></tr>
+          <tr><td>LED</td><td>9 W</td><td>≈ 800 lm</td><td>≈ 89 lm/W</td></tr>
+        </table>
         <p>
-          Noktasal bir kaynak ışığı her yöne eşit yayarsa, çevresindeki tüm uzay
-          <strong>4π steradyan</strong> olduğu için toplam akı 4π·I olur.
+          Tablo, anlatımın başındaki sorunun cevabıdır. Akkor ampuller varken “60 watt” demek “yaklaşık 800
+          lümen” demekle aynı şeydi, çünkü bütün akkor ampuller kabaca aynı verimlilikteydi. LED'ler aynı
+          ışığı altı kat daha az elektrikle verince watt artık ışığı anlatmaz oldu; kutulara lümen yazılmaya
+          başlandı. Sayfanın 04 numaralı bölümündeki oda tasarımında da ampul başına değer lümen olarak
+          seçilir.
         </p>
 
         <figure class="fig">
@@ -2293,19 +2658,48 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Işık şiddeti (I)</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Işık akısı kaynağın her yöne saçtığı toplam görünür ışıktır ve lümenle ölçülür.
+          Watt çekilen elektrik gücüdür; LED aynı lümeni akkor ampulün altıda biri kadar wattla verir.
+        </p>
+
+        <h3 id="k5">Işık şiddeti (I) ve katı açı</h3>
         <p>
-          Kaynağın <strong>belli bir doğrultuda, birim katı açıya gönderdiği akı</strong>dır.
-          Birimi <strong>kandela (cd)</strong>'dır ve SI'nın yedi temel biriminden biridir.
+          <strong>Işık şiddeti</strong>, kaynağın <strong>belli bir doğrultuda, birim katı açıya
+          gönderdiği akı</strong>dır. Birimi <strong>kandela (cd)</strong>'dır ve SI'nın yedi temel
+          biriminden biridir. Tanımı anlamak için önce “katı açıyı” tanımak gerekir.
+        </p>
+        <p>
+          Düzlemde açıyı radyanla ölçersin: yay uzunluğu bölü yarıçap. Uzayda aynı fikir bir
+          <strong>koni</strong> için kullanılır. <strong>Katı açı</strong> ω, kürenin merkezinden
+          bakıldığında bir yüzeyin kapladığı açıdır ve <strong>ω = A / r²</strong> ile hesaplanır; birimi
+          <strong>steradyan (sr)</strong>'dır. 1 m yarıçaplı bir kürenin yüzeyindeki 1 m²'lik bir parça 1 sr kaplar. Tüm küre
+          4π ≈ 12,57 sr'dır.
         </p>
         <div class="formula">
+          <code>ω = A / r²</code>
           <code>I = Φ / ω</code>
           <code>1 cd = 1 lm / sr</code>
         </div>
+        <h4>Toplam akı nereden geliyor?</h4>
+        <ol>
+          <li><strong>Tanımı çevir:</strong> I = Φ/ω ise bir koninin içindeki akı <strong>Φ = I·ω</strong>'dır.</li>
+          <li><strong>Eşit yayan kaynak:</strong> ışığı her yöne eşit yayan noktasal kaynakta I her
+            doğrultuda aynıdır.</li>
+          <li><strong>Bütün uzay:</strong> kaynağı saran kürenin tamamı için ω = 4πr²/r² = 4π sr.</li>
+          <li><strong>Sonuç:</strong> toplam akı <strong>Φ(toplam) = 4π·I</strong> olur; yani akı,
+            şiddetin yaklaşık 12,6 katıdır.</li>
+        </ol>
+        <div class="formula">
+          <code>Φ = I · ω</code>
+          <code>Φ(toplam) = 4π · I</code>
+        </div>
         <p>
-          Katı açı ω, kürenin merkezinden bakıldığında bir yüzeyin kapladığı açıdır ve
-          <strong>ω = A / r²</strong> ile hesaplanır; birimi <strong>steradyan (sr)</strong>'dır.
-          Tüm küre 4π ≈ 12,57 sr'dir.
+          Noktasal bir kaynak ışığı her yöne eşit yayarsa, çevresindeki tüm uzay
+          <strong>4π steradyan</strong> olduğu için toplam akı 4π·I olur. Bir mum yaklaşık 1 cd
+          şiddetindedir; toplam akısı 4π · 1 ≈ 12,6 lm eder. Bir el feneri ise aynı akıyı dar bir koniye
+          sıkıştırır: 100 lümeni 0,1 sr'lık bir koniye toplayan fenerin şiddeti 100/0,1 = 1000 cd'dır.
+          Aynı 100 lümeni her yöne eşit saçan bir ampulün şiddeti yalnızca 100/12,57 ≈ 8 cd'dır.
         </p>
 
         <figure class="fig">
@@ -2330,22 +2724,44 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Aydınlanma şiddeti (E)</h3>
+        <details class="dusun">
+          <summary>Düşün: El fenerinin önündeki parlak yansıtıcıyı çıkarırsan ışık akısı mı, ışık şiddeti mi değişir?</summary>
+          <p>
+            Akı hemen hemen aynı kalır; aynı LED aynı elektrikle aynı miktarda ışık üretir. Değişen,
+            ileri doğrultudaki <b>şiddettir</b>: yansıtıcı ışığı dar bir koniye topluyordu, o gidince
+            ışık geniş bir açıya dağılır ve karşıdaki duvardaki leke hem büyür hem sönükleşir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Işık şiddeti birim katı açıya düşen akıdır: I = Φ/ω, birimi kandela. Her yöne
+          eşit yayan noktasal kaynakta toplam akı Φ = 4π·I'dır.
+        </p>
+
+        <h3 id="k6">Aydınlanma şiddeti (E)</h3>
         <p>
-          Bir yüzeyin <strong>birim alanına düşen ışık akısı</strong>dır. Birimi
-          <strong>lüks (lx)</strong>'tür. Kaynağın değil, <strong>yüzeyin</strong> özelliğidir.
+          <strong>Aydınlanma şiddeti</strong>, bir yüzeyin <strong>birim alanına düşen ışık
+          akısı</strong>dır. Birimi <strong>lüks (lx)</strong>'tür. Kaynağın değil,
+          <strong>yüzeyin</strong> özelliğidir.
         </p>
         <div class="formula">
           <code>E = Φ / A</code>
           <code>1 lx = 1 lm / m²</code>
           <code>E = I / d²</code>
         </div>
-        <table class="tbl">
-          <tr><th>Büyüklük</th><th>Simge</th><th>Birim</th><th>Neyin özelliği</th></tr>
-          <tr><td>Işık akısı</td><td>Φ</td><td>lümen (lm)</td><td>kaynağın</td></tr>
-          <tr><td>Işık şiddeti</td><td>I</td><td>kandela (cd)</td><td>kaynağın, bir yönde</td></tr>
-          <tr><td>Aydınlanma şiddeti</td><td>E</td><td>lüks (lx)</td><td>yüzeyin</td></tr>
-        </table>
+        <p>
+          Aynı 100 lümen 1 m²'lik bir yüzeye düşerse aydınlanma 100 lx, 4 m²'lik bir yüzeye yayılırsa
+          25 lx olur. Işığın toplam miktarı değişmemiştir, yalnızca daha çok metrekareye bölünmüştür.
+          Son bağıntı, E = I/d², bir sonraki bölümün konusu; aydınlanmayı doğrudan kaynağın şiddetine ve
+          uzaklığa bağlar.
+        </p>
+        <p>
+          İlk bağıntıyı tersine çevirmek, aydınlatma tasarımının temelidir: bir yüzeyin tamamını E
+          düzeyinde aydınlatmak için gereken akı <strong>Φ = E·A</strong>'dır. Sayfanın 04 numaralı
+          bölümündeki başlangıç değerleriyle 16 m²'lik bir çalışma odasını 500 lx'e getirmek için
+          16 · 500 = 8000 lm gerekir; bu da 800 lümenlik <strong>10 ampul</strong> eder. Aydınlanmayı
+          ölçen cihaza <strong>lüksmetre</strong> denir; birçok telefonun ön yüzünde de bu işi yapan küçük
+          bir ışık algılayıcısı bulunur.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Aynı ışık akısı küçük bir yüzeye düşerse aydınlanma büyük, dört kat geniş bir yüzeye yayılırsa dörtte bir olur.">
@@ -2376,11 +2792,23 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Ters kare yasası</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Aydınlanma, birim alana düşen akıdır: E = Φ/A, birimi lüks. Bir yüzeyi E
+          düzeyinde aydınlatmak için Φ = E·A kadar akı gerekir.
+        </p>
+
+        <h3 id="k7">Ters kare yasası</h3>
         <p>
           Noktasal kaynaktan çıkan akı, uzaklaştıkça <strong>yarıçapın karesiyle büyüyen</strong>
           bir küre yüzeyine yayılır. Küre yüzeyi 4πd² olduğundan:
         </p>
+        <ol>
+          <li><strong>Akı korunur:</strong> kaynağın her yöne saçtığı akı Φ, yolda kaybolmadan
+            kaynağı saran her küre yüzeyinden geçer.</li>
+          <li><strong>Alan büyür:</strong> d uzaklıktaki kürenin yüzeyi A = 4πd²'dir.</li>
+          <li><strong>Aydınlanma:</strong> E = Φ/A = Φ/(4πd²).</li>
+          <li><strong>Şiddetle yaz:</strong> Φ = 4π·I koyunca 4π sadeleşir: <strong>E = I/d²</strong>.</li>
+        </ol>
         <div class="formula">
           <code>E = Φ / (4π·d²) = I / d²</code>
         </div>
@@ -2389,6 +2817,13 @@
           <li>Uzaklık <strong>3 katına</strong> çıkarsa aydınlanma <strong>9'da bire</strong> iner.</li>
           <li>Aydınlanmayı 2 katına çıkarmak için uzaklığı <strong>√2 kat</strong> azaltmak gerekir.</li>
         </ul>
+        <p>
+          Işık şiddeti 100 cd olan bir lamba için bu düzen sayılarda şöyle görünür: 0,5 m'de 400 lx,
+          1 m'de 100 lx, 2 m'de 25 lx, 3 m'de yaklaşık 11 lx, 4 m'de 6,25 lx. Lambadan 0,5 m'den 4 m'ye
+          gitmek, yani 8 kat uzaklaşmak aydınlanmayı 64 kat azaltır. Birimleri de sına: cd/m² = (lm/sr)/m²;
+          steradyan birimsiz bir oran olduğu için sonuç lm/m² = lx olur ✓. Sayfanın 02 numaralı bölümünde
+          perdeyi uzaklaştırarak 1, 4, 9 karelik yayılmayı izleyebilirsin.
+        </p>
         <div class="callout warn">
           <p>
             <b>Yasa yalnızca noktasal kaynak içindir.</b> Uzun bir flüoresan tüpün ya da
@@ -2420,18 +2855,46 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Eğik yüzeyler: cosθ çarpanı</h3>
+        <details class="dusun">
+          <summary>Düşün: Işık şiddeti 4 kat büyük bir lambayı masadan 2 kat uzağa asarsan aydınlanma nasıl değişir?</summary>
+          <p>
+            Hiç değişmez. Şiddet 4 kat artınca aydınlanma 4 katına çıkar, uzaklık 2 kat artınca 2² = 4'te
+            birine iner; iki etki birbirini götürür. E = I/d² bağıntısında 4I/(2d)² = I/d²'dir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Noktasal kaynağın akısı 4πd²'lik küre yüzeyine yayıldığı için E = I/d²'dir. Uzaklık
+          2 kat artarsa aydınlanma 4'te bire, 3 kat artarsa 9'da bire iner.
+        </p>
+
+        <h3 id="k8">Eğik yüzeyler: cosθ çarpanı</h3>
         <p>
           Işık yüzeye dik gelmiyorsa, aynı akı <strong>daha büyük bir alana</strong> yayılır.
           Yüzeyin normali ile ışığın doğrultusu arasındaki açı θ ise:
         </p>
+        <ol>
+          <li><strong>Dik geliş:</strong> demet, kendi kesitine eşit A₀ alanlı bir bölgeyi aydınlatır.</li>
+          <li><strong>Eğik geliş:</strong> yüzey θ kadar eğilince aynı demet A₀/cosθ'lık daha geniş bir
+            alana yayılır.</li>
+          <li><strong>Akı aynı:</strong> E = Φ/A = (Φ/A₀)·cosθ, yani dik gelişteki değerin cosθ katı.</li>
+        </ol>
         <div class="formula">
           <code>E = I · cosθ / d²</code>
         </div>
+        <table class="tbl">
+          <tr><th>Geliş açısı θ</th><th>cosθ</th><th>Aydınlanmanın payı</th></tr>
+          <tr><td>0° (dik)</td><td>1</td><td>%100</td></tr>
+          <tr><td>37°</td><td>0,8</td><td>%80</td></tr>
+          <tr><td>53°</td><td>0,6</td><td>%60</td></tr>
+          <tr><td>60°</td><td>0,5</td><td>%50</td></tr>
+          <tr><td>90° (teğet)</td><td>0</td><td>%0</td></tr>
+        </table>
         <p>
           θ = 0'da (dik geliş) aydınlanma en büyüktür; θ = 60°'de yarıya iner; θ = 90°'de
           (ışık yüzeye teğet) sıfırdır. Mevsimlerin oluş sebebi de budur: kışın Güneş ışınları
-          yere daha eğik gelir.
+          yere daha eğik gelir. Yaklaşık 40° enlemde öğle Güneşi yaz ortasında yerle yaklaşık 73°,
+          kış ortasında yaklaşık 27° açı yapar; aynı metrekareye kışın yazın düşenin yarısından az ışık düşer. Sayfanın
+          01 numaralı laboratuvarındaki “Eğik yüzey 60°” düğmesi aydınlanmanın yarıya indiğini gösterir.
         </p>
 
         <figure class="fig">
@@ -2464,7 +2927,23 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Günlük hayattan değerler</h3>
+        <details class="dusun">
+          <summary>Düşün: Lambanın tam altından yana doğru kaydıkça masadaki aydınlanma neden iki sebeple birden azalır?</summary>
+          <p>
+            Birincisi, lambaya <b>uzaklık</b> artar ve E, 1/d² ile düşer. İkincisi, ışık masaya giderek
+            daha <b>eğik</b> gelir, θ büyür ve cosθ küçülür. İki etki çarpılarak birleşir; bu yüzden
+            lambanın ışık havuzu kenarlara doğru hızla kararır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Işık eğik gelince aynı akı daha geniş alana yayılır ve aydınlanma cosθ kadar
+          azalır: E = I·cosθ/d². θ, yüzeyin normaliyle ışın arasındaki açıdır.
+        </p>
+
+        <h3 id="k9">Sayılarla hisset: kaç lüks?</h3>
+        <p>
+          Lüks sayıları soyut kalmasın; tanıdık ortamlarda ölçülen tipik değerlere bakalım:
+        </p>
         <table class="tbl">
           <tr><th>Ortam</th><th>Aydınlanma</th></tr>
           <tr><td>Dolunaylı gece</td><td>≈ 0,25 lx</td></tr>
@@ -2472,11 +2951,26 @@
           <tr><td>Ev oturma odası</td><td>100 – 200 lx</td></tr>
           <tr><td>Sınıf, ofis, okuma masası</td><td>300 – 500 lx</td></tr>
           <tr><td>Bulutlu gün, dış ortam</td><td>≈ 1000 lx</td></tr>
-          <tr><td>Doğrudan güneş ışığı</td><td>≈ 100 000 lx</td></tr>
         </table>
         <p>
-          Bir mum yaklaşık <strong>1 cd</strong> şiddetindedir; 100 W'lık akkor ampul
-          ≈ 1400 lm, 10 W'lık LED ampul ≈ 800 lm akı yayar.
+          Doğrudan güneş ışığı ise yaklaşık <strong>100 000 lx</strong> verir. Bir mum yaklaşık
+          <strong>1 cd</strong> şiddetindedir; 100 W'lık akkor ampul ≈ 1400 lm, 10 W'lık LED ampul
+          ≈ 800 lm akı yayar. Şimdi sayfanın 01 numaralı laboratuvarındaki hazır sahneleri E = I/d² ile
+          hesaplayalım:
+        </p>
+        <table class="tbl">
+          <tr><th>Sahne</th><th>Şiddet</th><th>Uzaklık</th><th>Aydınlanma</th></tr>
+          <tr><td>Masa lambası</td><td>50 cd</td><td>0,5 m</td><td>200 lx</td></tr>
+          <tr><td>Tavan lambası</td><td>400 cd</td><td>2,5 m</td><td>64 lx</td></tr>
+          <tr><td>Sokak lambası</td><td>2000 cd</td><td>6 m</td><td>≈ 56 lx</td></tr>
+          <tr><td>Eğik yüzey 60°</td><td>400 cd</td><td>2,5 m</td><td>32 lx</td></tr>
+        </table>
+        <p>
+          Tablodan okunan düzen şaşırtıcıdır: 50 cd'lık küçük masa lambası, şiddeti 40 kat büyük sokak lambasından
+          <strong>daha çok</strong> aydınlatıyor. Sokak lambası 12 kat uzakta olduğu için ışığı 144 kat
+          geniş bir alana yayılıyor; 40 kat şiddet bunu karşılamaya yetmiyor. Aydınlanmada uzaklık,
+          şiddetten çok daha etkilidir. Dolunaylı gece ile doğrudan güneş arasında ise
+          <strong>dört yüz bin kat</strong> fark var; gözümüz bu farkı kendini uyarlayarak gizler.
         </p>
 
         <figure class="fig">
@@ -2511,10 +3005,150 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Aydınlanma dolunaylı gecede 0,25 lx'ten doğrudan güneşte 100 000 lx'e kadar
+          uzanır; okuma için 300–500 lx gerekir. Uzaklığın karesi, şiddetten çok daha belirleyicidir.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: iki kaynağı karşılaştırmak, noktasal kaynak modelinin sınırları ve aydınlatma tasarımı.</span>
+        </div>
+
+        <h3 id="k10">Fotometre: iki kaynağı karşılaştırmak</h3>
+        <p>
+          Bilinmeyen bir lambanın şiddetini nasıl ölçersin? En eski yol, onu şiddeti bilinen bir lambayla
+          <strong>karşılaştırmaktır</strong>. İki lamba arasına, iki yüzü ayrı ayrı aydınlanan bir ekran
+          konur ve ekran iki yüzü eşit parlak görünene kadar kaydırılır. Bu düzeneğe
+          <strong>fotometre</strong> denir. Eski fotometrelerde ekran, ortasında yağ lekesi olan bir
+          kâğıttı: iki yüz eşit aydınlandığında leke neredeyse kaybolur. Lambalar arası uzaklık L, ekranın
+          birinci lambaya uzaklığı x ise:
+        </p>
+        <ol>
+          <li><strong>Eşitlik:</strong> iki yüzün aydınlanması eşit: I₁/x² = I₂/(L−x)².</li>
+          <li><strong>Karekök al:</strong> √I₁/x = √I₂/(L−x).</li>
+          <li><strong>Düzenle:</strong> x/(L−x) = √(I₁/I₂); uzaklıkların oranı şiddetlerin karekökünün oranıdır.</li>
+          <li><strong>Ölçüm:</strong> I₁ biliniyorsa bilinmeyen şiddet I₂ = I₁·((L−x)/x)² ile bulunur.</li>
+        </ol>
+        <div class="formula">
+          <code>I₁ / x² = I₂ / (L − x)²</code>
+          <code>x / (L − x) = √(I₁ / I₂)</code>
+        </div>
+        <p>
+          Sayfanın 03 numaralı bölümündeki başlangıç değerlerini dene: 400 cd ve 100 cd'lık lambalar
+          200 cm arayla duruyor. √(400/100) = 2 olduğu için ekranın güçlü lambaya uzaklığı, zayıf lambaya
+          uzaklığının iki katı olmalı: x = 2·200/3 ≈ 133 cm. Ölçüm için de bir örnek: 100 cd'lık lamba
+          ekrandan 1 m, bilinmeyen lamba 1,5 m uzakta dengeye geliyorsa I₂ = 100 · 1,5² = 225 cd'dır.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Fotometrede denge noktası neden her zaman zayıf lambaya daha yakındır?</summary>
+          <p>
+            Aydınlanma şiddetle doğru, uzaklığın karesiyle ters orantılıdır. Zayıf lamba, eksik şiddetini
+            ancak ekrana <b>daha yakın</b> durarak telafi edebilir. Şiddetler eşitse denge tam ortadadır;
+            birinin şiddeti 4 kat büyükse ekran ondan 2 kat uzakta dengeye gelir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Fotometrede iki yüzün eşit aydınlandığı noktada I₁/x² = I₂/(L−x)²'dir. Uzaklıkların
+          oranı şiddetlerin karekökünün oranıdır; denge noktası zayıf lambaya yakındır.
+        </p>
+
+        <h3 id="k11">Noktasal kaynak modelinin sınırları</h3>
+        <p>
+          E = I·cosθ/d² bağıntısı güçlü ama bir model üzerine kurulu: ışığı her yöne eşit saçan, noktasal,
+          tek bir kaynak ve ışığı yutan ya da yansıtan hiçbir şey. Gerçek aydınlatmada bu varsayımların
+          her biri biraz esner:
+        </p>
+        <ul>
+          <li><strong>Kaynak büyükse:</strong> uzun flüoresan tüpün yakınında E yaklaşık 1/d ile, geniş
+            aydınlık tavanın altında neredeyse hiç azalmaz.</li>
+          <li><strong>Beş kat kuralı:</strong> uzaklık kaynağın boyunun en az beş katıysa ters kare
+            yasasının hatası yaklaşık %1'dir; daha yakında hata hızla büyür.</li>
+          <li><strong>Işık her yöne eşit gitmeyebilir:</strong> spot lamba, far ya da el feneri ışığı bir
+            koniye toplar; I yöne bağlıdır ve Φ = 4π·I kullanılamaz.</li>
+          <li><strong>Yansıyan ışık:</strong> odada duvar ve tavandan yansıyan ışık aydınlanmayı artırır;
+            beyaz duvarlı oda aynı lambayla daha aydınlık olur.</li>
+          <li><strong>Birden çok kaynak:</strong> bir noktadaki aydınlanmalar toplanır: E = E₁ + E₂.
+            Her lamba kendi uzaklığı ve açısıyla ayrı hesaplanır.</li>
+          <li><strong>Lümen gözle tartılır:</strong> göz sarı-yeşile en duyarlıdır; 1 W'lık bu ışık
+            yaklaşık 683 lm eder, kızılötesi ise hiç lümen vermez.</li>
+        </ul>
+        <p>
+          Son madde, lümenin neden sıradan bir enerji birimi olmadığını açıklar. Işık akısı, yayılan
+          gücün <strong>gözün duyarlılığına göre tartılmış</strong> hâlidir. Akkor ampul enerjisinin büyük
+          kısmını gözün göremediği kızılötesi ışınım olarak saçar; bu enerji ısıtır ama hiç lümen vermez.
+          LED'in üstünlüğü, enerjisini gözün en iyi gördüğü renklere yoğunlaştırmasıdır.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Akkor ampul aynı ışığı vermek için neden LED'den yaklaşık altı kat fazla elektrik harcar?</summary>
+          <p>
+            Akkor ampul ışığı bir teli akkor hâline gelene kadar ısıtarak üretir. Telin saçtığı enerjinin
+            çoğu <b>kızılötesidir</b>; göz onu görmez, lümen hesabına da girmez. 60 W'lık akkor ampul ile
+            9–10 W'lık LED aynı 800 lümeni verir; aradaki fark çoğunlukla ısı olarak kaybolur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Ters kare yasası noktasal, her yöne eşit yayan kaynak içindir; büyük ve
+          yönlendirilmiş kaynaklarda ve yansımalı ortamlarda sapma olur. Birden çok kaynağın aydınlanmaları
+          toplanır.
+        </p>
+
+        <h3 id="k12">Aydınlatma gerçek dünyada</h3>
+        <p>
+          Aydınlatma tasarımcılarının işi, bu konunun bağıntılarını tersine kullanmaktır: istenen
+          aydınlanmadan yola çıkıp kaç lamba, ne kadar yükseklik, hangi açı gerektiğini bulmak. Amaç
+          çoğunlukla yalnızca “yeterince aydınlık” değil, aynı zamanda <strong>her yerde yaklaşık
+          eşit</strong> aydınlıktır.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/isik-siddeti-uygulama.webp?v=2" srcset="gorsel/isik-siddeti-uygulama-800.webp?v=2 800w, gorsel/isik-siddeti-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Gece, yukarıdan görülen bir futbol stadyumu: dört köşedeki yüksek kafes kulelerin tepesindeki projektör grupları yeşil sahayı aydınlatıyor, sahada küçük oyuncular görünüyor. Sahayı saran tribünler seyircilerle dolu ve karanlıkta kalıyor; arkada şehrin ışıkları uzanıyor.">
+          <figcaption>
+            <b>Işık tasarımı bir hesap işidir.</b> Projektörler yüksek kulelere yerleştirilir ve her biri sahanın farklı bir bölgesine yönlendirilir; böylece uzaklığın ve eğik gelişin getirdiği azalmalar birbirini dengeler, saha her yerde yaklaşık eşit aydınlanır. Dolunayın verdiği çeyrek lüksün yanında projektörlerin sağladığı aydınlanma <b>binlerce kat</b> büyüktür.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Stadyumlar:</strong> televizyon yayını yapılan maçlarda sahadaki aydınlanma çoğunlukla
+            bin lüksün üzerindedir; çok sayıda projektör yüzünden oyuncuların birkaç gölgesi olur.</li>
+          <li><strong>Sınıf ve oda tasarımı:</strong> Φ = E·A ile gereken toplam lümen bulunur; 16 m²'lik
+            odayı 500 lx'e getirmek için 8000 lm, yani 800 lümenlik 10 ampul gerekir.</li>
+          <li><strong>Sokak aydınlatması:</strong> direk yüksekliği ve aralığı, direk dibi ile iki direğin
+            ortası arasındaki farkı küçültecek biçimde seçilir; hedef 10–20 lx civarıdır.</li>
+          <li><strong>Telefon ekranı:</strong> ön yüzdeki ışık algılayıcısı ortamın aydınlanmasını ölçer;
+            ekran güneşte parlaklaşır, karanlık odada kısılır.</li>
+          <li><strong>Güneş panelleri:</strong> öğle Güneşine olabildiğince dik bakacak eğimle kurulur;
+            cosθ küçüldükçe metrekare başına düşen enerji azalır.</li>
+          <li><strong>Fotoğraf flaşı:</strong> iki kat uzaktaki bir konuyu aynı parlaklıkta çekmek için
+            dört kat ışık gerekir; ters kare yasası fotoğrafçının günlük hesabıdır.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Stadyum projektörleri neden sahanın hemen üstüne değil de yüksek kulelere yerleştirilir?</summary>
+          <p>
+            Lamba sahanın bir noktasına çok yakın olsaydı orası çok parlak, uzak noktalar çok sönük kalırdı;
+            çünkü aydınlanma uzaklığın karesiyle düşer. Yüksek ve uzak bir kuleden bakıldığında sahanın yakın
+            ve uzak noktalarının uzaklıkları <b>birbirine daha yakın</b> olur, aydınlanma daha eşit dağılır.
+            Üstelik oyun alanının üstü de boş kalır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Aydınlatma tasarımı E = I·cosθ/d² ve Φ = E·A bağıntılarını tersine kullanır:
+          istenen lüksten kaç lümen, ne yükseklik ve hangi açı gerektiği bulunur. Amaç yeterli ve eşit
+          aydınlanmadır.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve ışık sorularında puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k13">Çözümlü örnekler</h3>
+        <p>Aşağıdaki çözümlerde kaynaklar noktasal kabul edilmiş, π ≈ 3,14 alınmıştır.</p>
 
         <details>
-          <summary>Örnek 1 — Aydınlanma ve uzaklık</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Aydınlanma ve uzaklık</summary>
           <p>
             Işık şiddeti 200 cd olan noktasal bir lamba, masanın 2 m üzerindedir.
             (a) Masadaki aydınlanma nedir? (b) Lamba 4 m'ye çıkarılırsa ne olur?
@@ -2528,10 +3162,10 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Toplam akı ve katı açı</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Toplam akı ve katı açı</summary>
           <p>
             Her yöne eşit ışık yayan bir kaynağın ışık şiddeti 100 cd'dır.
-            (a) Toplam akısı nedir? (b) 0,5 sr'lik bir koniye gönderdiği akı nedir?
+            (a) Toplam akısı nedir? (b) 0,5 sr'lık bir koniye gönderdiği akı nedir?
           </p>
           <ol class="steps">
             <li>(a) Φ = 4π·I = 4 · 3,14 · 100 ≈ <strong>1256 lm</strong></li>
@@ -2541,7 +3175,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Eğik yüzey</summary>
+          <summary data-zorluk="orta">Örnek 3 — Eğik yüzey</summary>
           <p>
             500 cd'lık lamba, yüzeyin 2 m üzerindedir. Yüzey 60° eğildiğinde aydınlanma
             nasıl değişir?
@@ -2555,7 +3189,40 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — Fotometre</summary>
+          <summary data-zorluk="orta">Örnek 4 — Okuma lambası ne kadar yükseğe asılmalı?</summary>
+          <p>
+            Rahat okumak için kitabın üzerinde en az 400 lx gerekiyor. Işık şiddeti 100 cd olan bir
+            lamba kitabın tam üstüne en fazla kaç metre yükseğe konabilir? Lamba 1 m'ye çıkarılırsa
+            aydınlanma kaç lüks olur?
+          </p>
+          <ol class="steps">
+            <li>E = I/d² → d² = I/E = 100/400 = 0,25 m²</li>
+            <li>d = √0,25 = <strong>0,5 m</strong>; lamba bundan yükseğe konmamalı.</li>
+            <li>d = 1 m'de: E = 100/1² = <strong>100 lx</strong></li>
+            <li>Uzaklık 2 katına çıktı, aydınlanma 4'te bire indi: 400/4 = 100 lx ✓</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 5 — Sınıf için kaç armatür?</summary>
+          <p>
+            8 m × 6 m boyutlarındaki bir sınıfın zemininde ortalama 500 lx aydınlanma isteniyor. Her
+            armatür 3000 lm akı veriyor. Işığın tamamının zemine ulaştığı varsayılırsa kaç armatür gerekir?
+          </p>
+          <ol class="steps">
+            <li>Alan: A = 8 · 6 = 48 m²</li>
+            <li>Gereken akı: Φ = E·A = 500 · 48 = <strong>24 000 lm</strong></li>
+            <li>Armatür sayısı: 24 000 / 3000 = <strong>8 armatür</strong></li>
+          </ol>
+          <p>
+            Gerçekte ışığın bir kısmı duvarlarda ve tavanda soğurulur; tasarımcılar bu yüzden hesaplanan
+            sayının üzerine pay ekler. Sayfanın 04 numaralı bölümünde aynı hesabı farklı odalar için
+            deneyebilirsin.
+          </p>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Fotometre</summary>
           <p>
             Aralarında 3 m olan iki lambadan biri 400 cd, diğeri 100 cd'dır. İkisinin
             ortasındaki bir ekranın iki yüzü nerede eşit aydınlanır?
@@ -2568,7 +3235,42 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Masanın kenarındaki aydınlanma</summary>
+          <p>
+            Işık şiddeti 64 cd olan bir lamba masanın 0,8 m üzerindedir. (a) Lambanın tam altındaki
+            noktada, (b) bu noktadan 0,6 m yana kaymış masa kenarında aydınlanma kaç lükstür?
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> Tam altta ışık dik gelir: E = 64 / 0,8² = 64 / 0,64 = <strong>100 lx</strong></li>
+            <li><strong>(b)</strong> Lambaya uzaklık: d = √(0,8² + 0,6²) = √1 = 1 m</li>
+            <li>Geliş açısı: cosθ = 0,8 / 1 = 0,8 (ışın ile masanın normali arasındaki açı)</li>
+            <li>E = I·cosθ / d² = 64 · 0,8 / 1² = <strong>51,2 lx</strong></li>
+            <li>Yalnızca 0,6 m yana kaymak aydınlanmayı neredeyse yarıya indirdi: uzaklık ve eğim birlikte etkiler.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 8 — İki sokak lambasının arasında</summary>
+          <p>
+            Işık şiddetleri 500'er cd olan iki sokak lambası 3 m yükseklikte ve aralarında 8 m olacak
+            biçimde dikilmiştir. (a) İki direğin tam ortasındaki noktada, (b) bir direğin dibinde yerdeki
+            aydınlanmayı bulunuz.
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> Orta noktanın her lambaya uzaklığı: d = √(3² + 4²) = 5 m; cosθ = 3/5 = 0,6</li>
+            <li>Her lambadan: E = 500 · 0,6 / 5² = 12 lx → iki lamba birlikte <strong>24 lx</strong></li>
+            <li><strong>(b)</strong> Kendi lambasından (dik geliş): E = 500 / 3² ≈ 55,6 lx</li>
+            <li>Öteki lambaya uzaklık √(3² + 8²) = √73 ≈ 8,54 m; cosθ ≈ 0,35 → E ≈ 500 · 0,35 / 73 ≈ 2,4 lx</li>
+            <li>Toplam ≈ 55,6 + 2,4 ≈ <strong>58 lx</strong>; direk dibi, orta noktanın yaklaşık 2,4 katı aydınlık.</li>
+          </ol>
+          <p>
+            Kaldırımdaki ışık havuzları ve aralarındaki sönük bölgeler bu hesabın sonucudur. Direkleri
+            sıklaştırmak ya da yükseltmek iki değeri birbirine yaklaştırır.
+          </p>
+        </details>
+
+        <h3 id="k14">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>Watt ile lümeni karıştırmak.</strong> Watt çekilen elektrik gücü, lümen
             yayılan ışık akısıdır. LED ampul aynı lümeni çok daha az wattla verir.</li>
@@ -2577,8 +3279,12 @@
           <li><strong>Uzaklıkla ters orantı kurmak.</strong> Bağıntı 1/d değil
             <strong>1/d²</strong>'dir.</li>
           <li><strong>cosθ'yı unutmak.</strong> Yüzey eğikse aydınlanma cosθ kadar azalır.</li>
+          <li><strong>θ'yı ışınla yüzey arasındaki açı sanmak.</strong> θ, ışın ile yüzeyin
+            <em>normali</em> arasındadır; ışın yüzeyle 30° yapıyorsa θ = 60°'dir.</li>
           <li><strong>Toplam akıyı I'ya eşitlemek.</strong> Noktasal kaynakta Φ = 4π·I'dır;
             aradaki çarpan yaklaşık 12,6'dır.</li>
+          <li><strong>Fotometrede uzaklık oranını şiddet oranına eşitlemek.</strong> Uzaklıkların oranı
+            şiddetlerin <em>karekökünün</em> oranıdır: 4 kat şiddet, 2 kat uzaklık demektir.</li>
           <li><strong>Ters kare yasasını her kaynağa uygulamak.</strong> Yasa yalnızca
             noktasal kaynaklar için geçerlidir.</li>
         </ul>

@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Fiber optik</h3>
-          <p>Yapısından kabul açısına, sinyal gecikmesinden kullanım alanlarına.</p>
+          <p>Dört basamakta: önce ışık çeşmesi ve tam yansıma sezgisi, sonra sınır açı, kabul açısı ve sinyal süresi bağıntıları, ardından bükülme, kayıplar ve gerçek dünya; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2126,15 +2346,18 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Fiber nedir</button>
-        <button type="button" data-goto="k2">Çalışma ilkesi</button>
-        <button type="button" data-goto="k3">Kabul açısı</button>
-        <button type="button" data-goto="k4">Sinyal ve hız</button>
-        <button type="button" data-goto="k5">Bükülme ve kayıplar</button>
-        <button type="button" data-goto="k6">Avantajları</button>
-        <button type="button" data-goto="k7">Kullanım alanları</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Fiber nedir</button>
+        <button type="button" data-goto="k3" data-basamak="1">Tam yansıma</button>
+        <button type="button" data-goto="k4" data-basamak="2">Sınır açı</button>
+        <button type="button" data-goto="k5" data-basamak="2">Kabul açısı ve NA</button>
+        <button type="button" data-goto="k6" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k7" data-basamak="2">Hız ve mod dağılımı</button>
+        <button type="button" data-goto="k8" data-basamak="3">Bükülme</button>
+        <button type="button" data-goto="k9" data-basamak="3">Kayıplar ve desibel</button>
+        <button type="button" data-goto="k10" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k11" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k12" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2155,17 +2378,75 @@
         </svg>
 
         <p class="lead-in">
-          Kıtalar arası internetin <b>%99'undan fazlası</b> okyanus tabanına döşenmiş, saç teli
+          Işık düz gider. Öyleyse kıvrılarak köşeleri dönen bir kablonun içindeki ışık öbür uca nasıl
+          ulaşır? Kıtalar arası internetin <b>%99'undan fazlası</b> okyanus tabanına döşenmiş, saç teli
           inceliğindeki cam liflerin içinden geçiyor. Bu liflerde ışık kilometrelerce yol alır ve
           neredeyse hiç zayıflamaz. Sırrı yeni bir fizik değil, kırılma konusunda öğrendiğin tek bir
-          olay: <b>tam yansıma</b>. Işık, bir kez içeri girdikten sonra dışarı çıkamaz —
-          duvara her çarptığında eksiksiz geri döner.
+          olay: <b>tam yansıma</b>. Işık, bir kez içeri girdikten sonra dışarı çıkamaz — duvara her
+          çarptığında eksiksiz geri döner. Bu anlatım dört basamakta ilerliyor: önce bir su akıntısına
+          hapsolan ışığı gözleyip fiberin yapısını tanıyacağız, sonra sınır açı, kabul açısı ve sinyal
+          süresi bağıntılarını çıkaracağız, ardından bükülmeye, kayıplara ve fiberin gerçek dünyadaki
+          işine geçeceğiz. En sonda kolaydan zora sıralanmış örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Fiber optik kablo nedir?</h3>
+        <figure class="foto">
+          <img src="gorsel/fiber-optik-giris.webp?v=2" srcset="gorsel/fiber-optik-giris-800.webp?v=2 800w, gorsel/fiber-optik-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Simsiyah bir arka planın önünde, koyu renkli silindir biçimli bir tabandan yüzlerce ince lif buket gibi yukarı ve yanlara açılıyor; liflerin uçları mavi, mor ve yeşil parlak noktalar hâlinde ışıldıyor.">
+          <figcaption>
+            <b>Fiber lamba.</b> Işık tabandaki kaynaktan liflere girer, lifler boyunca taşınır ve en çok uçlardan çıkar; bu yüzden uçlar lif gövdelerinden çok daha parlak görünür. Lifler kıvrılsa da ışık içeride kalır. Bu anlatımın bütün hikâyesi burada: ışığı bir lifin içinde tutan şey <b>tam yansımadır</b>.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: ışığın bir su akıntısında ve cam lifte nasıl tutulduğunu gör, fiberin parçalarını tanı. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: ışık bir su akıntısını izleyebilir mi?</h3>
         <p>
-          Işığı taşımak için üretilmiş, saç teli inceliğinde cam ya da plastik ipliktir.
-          İki katmandan oluşur:
+          Karanlık bir odada saydam bir kabın yan duvarına küçük bir delik aç; su dışarı, eğri bir yay
+          çizerek fışkırsın. Şimdi kabın öbür yanından deliğe doğru bir lazer tut. Beklentin şudur:
+          ışık düz gider, delikten çıkıp karşıdaki duvarda bir nokta yapar. Oysa olan başkadır. Işık su
+          akıntısının içine girer, akıntıyla birlikte kıvrılır ve akıntı baştan sona parlar; suyun
+          leğene düştüğü yerde parlak bir leke oluşur. Bu gösteri 1840'larda Cenevre'de Daniel Colladon
+          tarafından derste yapıldı ve <strong>ışık çeşmesi</strong> adıyla ünlendi.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/fiber-optik-gunluk.webp?v=2" srcset="gorsel/fiber-optik-gunluk-800.webp?v=2 800w, gorsel/fiber-optik-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir laboratuvarda, ayaklı bir tutucuya takılı lazerden çıkan kırmızı ışın, su dolu saydam bir kabın içinden geçip karşı duvardaki delikten fışkıran suya giriyor. Kavis çizen su akıntısı baştan sona kırmızı parlıyor; akıntının metal leğene düştüğü yerde parlak kırmızı bir leke oluşuyor.">
+          <figcaption>
+            <b>Işık çeşmesi.</b> Lazer ışığı deliğe girip su akıntısına geçince akıntının dışına çıkamıyor; akıntının kavisini izleyerek leğene kadar iniyor. Işık su–hava yüzeyine her varışında çok yatık bir açıyla çarpıp içeri geri dönüyor. Fiber optik kablo aynı fikrin camdan yapılmış, saç teli inceliğindeki hâlidir.
+          </figcaption>
+        </figure>
+
+        <p>Bu deneyde üç şey dikkat çeker:</p>
+        <ul>
+          <li><strong>Işık akıntıdan çıkmaz:</strong> akıntı, ışığı yolu boyunca taşıyan bir boru gibi davranır.</li>
+          <li><strong>Işık kavisi izler:</strong> düz giden ışık, su yüzeyine her varışında içeri geri döner.</li>
+          <li><strong>Akıntı parlar:</strong> sudaki kabarcık ve pürüzler ışığın küçük bir kısmını her yöne saçar; onu görmemizi sağlayan budur.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Işık düz çizgide gidiyorsa, kıvrılan su akıntısının içinde nasıl yol alabiliyor?</summary>
+          <p>
+            Işık aslında hiç kıvrılmaz; iki yüzey arasında hep düz gider. Su yüzeyine her varışında
+            oraya çok yatık bir açıyla çarptığı için dışarı çıkamaz ve <b>tamamen geri yansır</b>.
+            Kısa düz parçaların art arda eklenmesiyle ortaya çıkan zikzak yol, akıntının kavisini izler.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Kavis çizen bir su akıntısına giren ışık akıntıdan çıkmaz; yüzeye her
+          varışında geri dönerek akıntının yolunu izler. Fiber optik kablo bu gözlemin incecik camdan
+          yapılmış hâlidir.
+        </p>
+
+        <h3 id="k2">Fiber optik kablo nedir?</h3>
+        <p>
+          <strong>Fiber optik kablo</strong>, ışığı taşımak için üretilmiş, saç teli inceliğinde cam ya
+          da plastik ipliktir. Telekom fiberlerinde kılıfla birlikte çap 125 µm, yani milimetrenin sekizde
+          biri kadardır. İki katmandan oluşur; dıştaki kaplama yalnızca korur:
         </p>
         <ul>
           <li><strong>Çekirdek (core):</strong> ışığın taşındığı iç kısım, kırılma indisi
@@ -2174,6 +2455,19 @@
             (<strong>n₂ &lt; n₁</strong>).</li>
           <li><strong>Koruyucu kaplama:</strong> mekanik dayanım sağlar, optik görevi yoktur.</li>
         </ul>
+        <p>
+          Çekirdek çapı ışığın içeride kaç farklı yolla ilerleyebileceğini belirler.
+          <strong>Tek modlu</strong> fiberin çekirdeği o kadar incedir ki ışık neredeyse tek bir yoldan
+          gider; <strong>çok modlu</strong> fiberin kalın çekirdeğinde ışık birçok farklı açıyla zikzak
+          çizebilir. Plastik fiberler ise yaklaşık 1 mm kalınlığındadır, ucuzdur ve kısa mesafelerde ya da
+          süs lambalarında kullanılır.
+        </p>
+        <p>
+          Peki neden yalnızca çıplak bir cam iplik yetmez? Çünkü yansıma yüzeyi korunmalıdır. Çıplak camın
+          üstündeki bir parmak izi, toz ya da çizik ışığın o noktadan kaçmasına yol açar; yan yana duran iki
+          çıplak lif birbirine ışık sızdırır. Kılıf sayesinde yansıma camın <strong>içinde</strong>, temiz
+          ve korunmuş bir sınırda olur.
+        </p>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 200" role="img" aria-label="Fiber optik kablonun kesiti: çekirdek, kılıf ve koruyucu kaplama katmanları.">
@@ -2198,14 +2492,32 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Çalışma ilkesi: tam yansıma</h3>
-        <p>
-          Işık çekirdekten kılıfa doğru, <strong>sınır açıdan büyük</strong> bir açıyla çarparsa
-          dışarı çıkamaz; tamamı geri yansır. Bu olay fiber boyunca binlerce kez tekrarlanır.
+        <p class="kisaca">
+          <b>Kısaca:</b> Fiber, indisi büyük bir cam çekirdek ile onu saran, indisi biraz daha küçük bir
+          kılıftan oluşur. Işık çekirdekte taşınır; dıştaki kaplama yalnızca lifi korur.
         </p>
-        <div class="formula">
-          <code>sin θ(sınır) = n₂ / n₁</code>
-        </div>
+
+        <h3 id="k3">Tam yansıma: ışık neden dışarı çıkamaz?</h3>
+        <p>
+          Kırılma konusundan hatırla: ışık indisi büyük bir ortamdan indisi küçük bir ortama geçerken
+          <strong>normalden uzaklaşarak</strong> kırılır. Geliş açısını büyüttükçe kırılan ışın sınıra
+          giderek yaklaşır. Bir açıda kırılan ışın sınırı yalayarak gider; bu geliş açısına
+          <strong>sınır açı</strong> denir. Geliş açısı sınır açıyı aşınca ışığın öbür ortamda gidebileceği
+          bir yön kalmaz ve ışığın tamamı geri döner. Bu olaya <strong>tam yansıma</strong> denir.
+        </p>
+        <table class="tbl">
+          <tr><th>Duvara geliş açısı</th><th>Ne olur?</th></tr>
+          <tr><td>Küçük (duvara dike yakın)</td><td>Işığın çoğu kılıfa geçer, azı yansır</td></tr>
+          <tr><td>Sınır açıya eşit</td><td>Kırılan ışın sınırı yalayarak gider</td></tr>
+          <tr><td>Sınır açıdan büyük</td><td>Işığın tamamı yansır: tam yansıma</td></tr>
+        </table>
+        <p>
+          Fiberde bu olay binlerce kez tekrarlanır. Tam yansımayı değerli kılan şey kayıpsız olmasıdır.
+          Işığın %99'unu yansıtan çok iyi bir ayna bile yüz yansımadan sonra ışığın ancak üçte biri
+          kadarını bırakırdı; oysa bir metrelik fiberde binlerce yansıma olur. Fiber inceliğinde, içi
+          aynayla kaplı bir boru ışığı bir metre bile taşıyamazdı; tam yansıma ise hiçbir şey eksiltmeden
+          geri gönderir.
+        </p>
         <div class="callout">
           <p>
             <b>Açı nereden ölçülür?</b> Duvara çarpma açısı, duvarın <b>normaline</b> göre
@@ -2241,19 +2553,87 @@
           </figcaption>
         </figure>
 
-        <h3 id="k3">Kabul açısı ve sayısal açıklık</h3>
+        <details class="dusun">
+          <summary>Düşün: Havuzun dibindeki bir dalgıç su yüzeyine çok yatık bakarsa ne görür?</summary>
+          <p>
+            Gökyüzünü değil, havuzun dibinin <b>yansımasını</b> görür. Sudan havaya geçişte sınır açı
+            yaklaşık 49°'dir; bakış doğrultusu yüzeyin normaliyle bundan büyük açı yapıyorsa o doğrultudan
+            dışarının ışığı gelemez ve yüzey ayna gibi davranır. Dalgıç dışarıyı ancak tam tepesindeki
+            dairesel bir pencereden görebilir.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Işık çekirdekten kılıfa sınır açıdan büyük bir açıyla çarparsa dışarı çıkamaz
+          ve tamamı yansır. Aynadaki yansımanın aksine tam yansıma kayıpsızdır; fiber boyunca binlerce
+          kez tekrarlanabilir.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: sınır açıyı, kabul konisini ve sinyal süresini Snell yasasından adım adım çıkar, sayılarla karşılaştır.</span>
+        </div>
+
+        <h3 id="k4">Sınır açı: bağıntı nereden geliyor?</h3>
+        <p>
+          Işık çekirdekten kılıfa doğru, <strong>sınır açıdan büyük</strong> bir açıyla çarparsa
+          dışarı çıkamaz; tamamı geri yansır. Sınır açının değeri, kırılma konusundaki Snell yasasından
+          tek adımda çıkar:
+        </p>
+        <ol>
+          <li><strong>Snell yasası:</strong> çekirdekten (n₁) kılıfa (n₂) geçen ışın için
+            n₁·sin θ₁ = n₂·sin θ₂ yazılır.</li>
+          <li><strong>Sınır durumu:</strong> geliş açısı sınır açıya eşitken kırılan ışın sınırı yalar,
+            yani θ₂ = 90° ve sin 90° = 1 olur.</li>
+          <li><strong>Sonuç:</strong> n₁·sin θ(sınır) = n₂, buradan <strong>sin θ(sınır) = n₂ / n₁</strong>.</li>
+        </ol>
+        <div class="formula">
+          <code>n₁·sin θ₁ = n₂·sin θ₂</code>
+          <code>sin θ(sınır) = n₂ / n₁</code>
+          <code>α(maks) = 90° − θ(sınır)</code>
+        </div>
+        <p>
+          Sağ taraf iki indisin oranıdır ve birimsizdir, tıpkı bir sinüs gibi. Bu oran 1'den küçük olmak
+          zorundadır; n₂ &gt; n₁ olsaydı sinüs 1'i aşardı ve sınır açı hiç olmazdı. Tam yansımanın
+          yalnızca indisi büyük ortamdan küçük ortama geçerken görülmesinin nedeni budur.
+        </p>
+        <p>
+          Duvara geliş açısı θ ile ışının fiber ekseniyle yaptığı açı α birbirini 90°'ye tamamlar.
+          n₁ = 1,50 ve n₂ = 1,46 için sin θ(sınır) = 0,973 ve θ(sınır) ≈ 76,7° olur; demek ki ışın
+          eksenle en çok 90° − 76,7° = 13,3° açı yaparsa taşınır. Sayfanın 01 numaralı laboratuvarında
+          indisleri değiştirip bu sınırı canlı izleyebilirsin.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Snell yasasında kırılma açısı 90° alınınca sin θ(sınır) = n₂/n₁ çıkar. Işın
+          duvara bundan büyük açıyla çarpmalı, yani fiber ekseniyle 90° − θ(sınır)'dan küçük açı yapmalıdır.
+        </p>
+
+        <h3 id="k5">Kabul açısı ve sayısal açıklık</h3>
         <p>
           Fiberin ucuna her açıyla giren ışık taşınmaz. Taşınabilecek ışınların oluşturduğu
-          koninin yarı açısına <strong>kabul açısı</strong> denir:
+          koninin yarı açısına <strong>kabul açısı</strong> denir. Işık havadan çekirdeğin düz ucuna
+          girerken bir kez kırılır; kabul açısını bu kırılma ile duvardaki sınır açı birlikte belirler:
         </p>
+        <ol>
+          <li><strong>Uçtaki kırılma:</strong> havadan (n = 1) gelen ışın için sin θ = n₁·sin α; burada α
+            ışının çekirdekte eksenle yaptığı açıdır.</li>
+          <li><strong>Taşınma şartı:</strong> α en çok 90° − θ(sınır) olabilir, bu yüzden
+            sin α(maks) = cos θ(sınır).</li>
+          <li><strong>Kosinüsü yaz:</strong> cos θ(sınır) = √(1 − sin²θ(sınır)) = √(1 − n₂²/n₁²).</li>
+          <li><strong>Birleştir:</strong> sin θ(kabul) = n₁·√(1 − n₂²/n₁²) = <strong>√(n₁² − n₂²)</strong>.</li>
+        </ol>
         <div class="formula">
           <code>NA = √(n₁² − n₂²)</code>
           <code>sin θ(kabul) = NA</code>
         </div>
+        <p>
+          √(n₁² − n₂²) niceliğine <strong>sayısal açıklık (NA)</strong> denir; fiberin ışık toplama
+          yeteneğini tek bir sayıyla anlatır. Sayfanın 02 numaralı bölümünde kılıf indisini değiştirerek
+          koninin nasıl açılıp daraldığını görebilirsin.
+        </p>
         <ul>
           <li>NA büyükse fiber daha geniş açıdan ışık toplar.</li>
           <li>n₁ ile n₂ birbirine yaklaştıkça NA küçülür, koni daralır.</li>
-          <li>Tipik değerler: NA ≈ 0,2 – 0,3; kabul açısı ≈ 12° – 17°.</li>
+          <li>Tipik değerler (çok modlu cam fiber): NA ≈ 0,2 – 0,3; kabul açısı ≈ 12° – 17°.</li>
         </ul>
 
         <figure class="fig">
@@ -2279,16 +2659,76 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Sinyalin hızı ve mod dağılımı</h3>
+        <p class="kisaca">
+          <b>Kısaca:</b> Fiberin ucunda yalnızca kabul konisinin içinden gelen ışık taşınır. Koninin yarı
+          açısı sin θ(kabul) = NA = √(n₁² − n₂²) ile bulunur; indisler birbirine yaklaştıkça koni daralır.
+        </p>
+
+        <h3 id="k6">Sayılarla hisset: hangi ışık kılavuzu ne kadar ışık toplar?</h3>
+        <p>
+          Aynı iki bağıntıyı farklı ışık kılavuzlarına uygulayalım (kılavuz havada, uca giren ışık
+          havadan geliyor):
+        </p>
+        <table class="tbl">
+          <tr><th>Kılavuz (n₁ / n₂)</th><th>Sınır açı</th><th>NA</th><th>Kabul açısı</th></tr>
+          <tr><td>Kılıfsız cam çubuk (1,50 / 1,00)</td><td>41,8°</td><td>1,12</td><td>her açı</td></tr>
+          <tr><td>Örnek 1'deki fiber (1,50 / 1,20)</td><td>53,1°</td><td>0,90</td><td>64,2°</td></tr>
+          <tr><td>Plastik fiber (1,49 / 1,40)</td><td>70,0°</td><td>0,51</td><td>30,7°</td></tr>
+          <tr><td>Cam fiber (1,50 / 1,46)</td><td>76,7°</td><td>0,34</td><td>20,1°</td></tr>
+          <tr><td>Telekom fiberi (1,450 / 1,444)</td><td>84,8°</td><td>0,13</td><td>7,6°</td></tr>
+        </table>
+        <p>
+          Tablodan bir düzen okunuyor: <strong>indis farkı küçüldükçe sınır açı 90°'ye yaklaşıyor</strong>,
+          NA ve kabul açısı küçülüyor. Telekom fiberinde iki indis arasındaki fark yalnızca 0,006,
+          yani indisin binde dördü kadardır; buna rağmen tam yansıma çalışır, çünkü tek şart n₁'in n₂'den büyük olmasıdır.
+          Farkın büyüklüğü yalnızca kabul konisinin genişliğini belirler; küçük farkın bedeli dar bir
+          konidir.
+        </p>
+        <p>
+          İlk satır ilginç bir uç durum: NA 1'i aşınca sin θ(kabul) = NA denklemi çözümsüz kalır. Bu,
+          havadan uca gelen <strong>her</strong> ışının taşındığı anlamına gelir: en yatık ışın bile
+          camda eksenle en çok 41,8° yapar ve duvara 48,2° ile, yani sınır açıdan büyük bir açıyla çarpar.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Telekom fiberinin kabul konisi bu kadar darsa, ışık onun içine nasıl sokulur?</summary>
+          <p>
+            Işık kaynağı olarak neredeyse paralel ve ince bir demet veren <b>lazer</b> kullanılır ve fiberin
+            ucu kaynağa mikrometre duyarlılığıyla hizalanır. Her yöne ışık saçan bir ampulün ışığının ise
+            çok küçük bir bölümü 7,6°'lik koniye girer; geri kalanı daha ilk santimetrede kılıfa kaçar.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> İndis farkı küçüldükçe sınır açı 90°'ye yaklaşır, NA ve kabul konisi küçülür.
+          Telekom fiberinde fark binde birkaç olduğu için koni yalnızca birkaç derecedir; ışık lazerle ve
+          dikkatle hizalanarak verilir.
+        </p>
+
+        <h3 id="k7">Sinyalin hızı ve mod dağılımı</h3>
+        <p>
+          Işık camda boşluktakinden yavaş gider. n₁ = 1,5 için fiberdeki hız 2·10⁸ m/s'dir: ışık
+          boşluktakinin üçte iki hızıyla ilerler. Ama asıl sorun hızın kendisi değil, her ışının aynı
+          yolu izlememesidir:
+        </p>
         <div class="formula">
           <code>v = c / n₁</code>
           <code>t = L / v = n₁·L / c</code>
+          <code>Δt = (n₁L/c)·(n₁/n₂ − 1)</code>
         </div>
+        <ol>
+          <li><strong>En hızlı ışın:</strong> eksen boyunca giden ışın L yolunu alır: t(min) = n₁·L / c.</li>
+          <li><strong>En yatık ışın:</strong> eksenle α(maks) açısı yapan ışın her eksen metresi için
+            1/cos α(maks) metre yol alır.</li>
+          <li><strong>Açıyı indislere bağla:</strong> α(maks) = 90° − θ(sınır) olduğundan
+            cos α(maks) = sin θ(sınır) = n₂/n₁; yol L·n₁/n₂ olur.</li>
+          <li><strong>Fark:</strong> t(maks) = t(min)·n₁/n₂, buradan Δt = t(min)·(n₁/n₂ − 1).</li>
+        </ol>
         <p>
-          n₁ = 1,5 için fiberdeki hız 2·10⁸ m/s'dir: ışık boşluktakinin üçte iki hızıyla ilerler.
           Eksene yakın giden ışınlar kısa, yatık açılı ışınlar uzun yol alır; bu fark sinyal
-          darbesini genişletir ve veri hızını sınırlar. Tek modlu fiberlerde çekirdek çok ince
-          olduğu için bu sorun ortadan kalkar.
+          darbesini genişletir ve veri hızını sınırlar. 10 km'lik bir fiberde (1,50 / 1,46) en hızlı
+          ışın 50 µs'de, en yavaşı yaklaşık 51,4 µs'de varır; sayfanın 03 numaralı bölümündeki kaydırıcı
+          bu sayıları verir. Tek modlu fiberlerde çekirdek çok ince olduğu için bu sorun ortadan kalkar.
+          Bir başka çözüm <strong>dereceli indisli</strong> fiberdir: çekirdeğin indisi merkezden dışa doğru
+          azalır, dış bölgelerden geçen uzun yollu ışınlar orada daha hızlı gider ve gecikmeyi büyük ölçüde kapatır.
         </p>
 
         <figure class="fig">
@@ -2314,20 +2754,49 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Bükülme ve kayıplar</h3>
+        <details class="dusun">
+          <summary>Düşün: Fiberde ışık boşluktakinden yavaşsa, neden “ışık hızında internet” deniyor?</summary>
+          <p>
+            Çünkü 2·10⁸ m/s de akıl almaz bir hızdır: sinyal 1000 km'yi 5 milisaniyede alır. Bakır kablodaki
+            elektrik sinyali de benzer hızlarda ilerler; fiberin asıl üstünlüğü hız değil, saniyede
+            taşıyabildiği <b>darbe sayısı</b> ve darbelerin yolda neredeyse hiç zayıflamamasıdır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Fiberde ışık c/n₁ hızıyla, yani boşluktakinin yaklaşık üçte ikisi hızla gider.
+          Farklı açılarla giden ışınlar farklı uzunlukta yollar aldığı için darbe yayılır; bu mod
+          dağılımı veri hızını sınırlar.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: fiber bükülünce, ışık yüzlerce kilometre yol alınca ve fiber gerçek dünyaya çıkınca ne olur?</span>
+        </div>
+
+        <h3 id="k8">Bükülme: tam yansıma ne zaman bozulur?</h3>
         <p>
           Fiber büküldüğünde ışın dış duvara daha dik çarpar. Geliş açısı sınır açının altına
           düşerse tam yansıma bozulur ve ışık kılıfa sızar. Her kablonun bir
-          <strong>en küçük bükülme yarıçapı</strong> vardır; kurulum sırasında buna uyulmalıdır.
+          <strong>en küçük bükülme yarıçapı</strong> vardır; kurulum sırasında buna uyulmalıdır. Basit
+          bir ışın modeliyle bu yarıçapı hesaplayabilirsin (a: çekirdek yarıçapı, R: bükülme yarıçapı):
         </p>
-        <ul>
-          <li><strong>Bükülme kaybı:</strong> keskin kıvrımlarda ışık kaçar.</li>
-          <li><strong>Soğurma:</strong> camın kendi kusurları ışığı yutar.</li>
-          <li><strong>Saçılma:</strong> malzemedeki küçük düzensizlikler ışığı dağıtır.</li>
-        </ul>
+        <ol>
+          <li><strong>Model ışın:</strong> eksene paralel ışınların en zorlusu, iç duvarı sıyırarak gelen
+            ışındır; kıvrımda merkezden R − a uzaklıktan geçen bir doğru boyunca ilerler.</li>
+          <li><strong>Dış duvara varış:</strong> bu doğru R + a yarıçaplı dış duvara çarpar; geometriden
+            geliş açısı için sin θ = (R − a)/(R + a) çıkar.</li>
+          <li><strong>Şart:</strong> sin θ ≥ n₂/n₁ olmalı. Düzenlenirse R ≥ a·(n₁ + n₂)/(n₁ − n₂).</li>
+        </ol>
+        <div class="formula">
+          <code>sin θ = (R − a) / (R + a)</code>
+          <code>R(min) = a(n₁+n₂)/(n₁−n₂)</code>
+        </div>
         <p>
-          Bütün bunlara rağmen modern fiberlerde kayıp <strong>km başına 0,2 dB</strong>
-          düzeyindedir: ışık kilometrelerce yol aldıktan sonra bile büyük ölçüde ayaktadır.
+          a = 25 µm, n₁ = 1,50 ve n₂ = 1,46 için R(min) = 1,85 mm çıkar; sayfanın 04 numaralı bölümü
+          aynı modeli kullanır. Gerçek kablolarda önerilen en küçük yarıçap genellikle birkaç
+          santimetredir, çünkü bu basit modelin hesaba katmadığı sızıntılar ve camın kırılma riski için pay
+          bırakılır. Bağıntının paydasına dikkat et: indis farkı küçüldükçe fiber bükülmeye karşı çok daha
+          hassaslaşır.
         </p>
 
         <figure class="fig">
@@ -2352,7 +2821,71 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Neden bakır yerine fiber?</h3>
+        <details class="dusun">
+          <summary>Düşün: Bükülen bir fiberde ışık neden iç duvardan değil de dış duvardan kaçar?</summary>
+          <p>
+            Kıvrımın dış duvarı, ışının önüne çıkan bir “virajdır”: düz giden ışın ona daha dik, yani
+            daha küçük bir geliş açısıyla çarpar. İç duvar ise ışının yolundan uzaklaşır; ona çarpan
+            ışınlar hep yatık kalır. Bu yüzden sızıntı hep kıvrımın <b>dış</b> tarafından başlar.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Bükülen fiberde ışın dış duvara daha dik çarpar; açı sınır açının altına inerse
+          ışık sızar. Basit ışın modelinde en küçük yarıçap R(min) = a·(n₁ + n₂)/(n₁ − n₂)'dir.
+        </p>
+
+        <h3 id="k9">Kayıplar ve desibel</h3>
+        <p>
+          Tam yansıma kayıpsızsa ışık neden sonsuza kadar gitmiyor? Çünkü ışık camın içinden geçerken de
+          zayıflar. Kaybın başlıca üç kaynağı vardır:
+        </p>
+        <ul>
+          <li><strong>Bükülme kaybı:</strong> keskin kıvrımlarda ışık kaçar.</li>
+          <li><strong>Soğurma:</strong> camın kendi kusurları ışığı yutar.</li>
+          <li><strong>Saçılma:</strong> malzemedeki küçük düzensizlikler ışığı dağıtır.</li>
+        </ul>
+        <p>
+          Mühendisler kaybı <strong>desibel (dB)</strong> ile ölçer. Desibel logaritmik bir ölçektir:
+          her 10 dB gücü onda birine, her 3 dB yaklaşık yarısına indirir. Modern fiberlerde kayıp
+          <strong>km başına 0,2 dB</strong> düzeyindedir:
+        </p>
+        <table class="tbl">
+          <tr><th>Mesafe</th><th>Toplam kayıp</th><th>Kalan güç</th></tr>
+          <tr><td>1 km</td><td>0,2 dB</td><td>%95,5</td></tr>
+          <tr><td>15 km</td><td>3 dB</td><td>≈ %50</td></tr>
+          <tr><td>50 km</td><td>10 dB</td><td>%10</td></tr>
+          <tr><td>100 km</td><td>20 dB</td><td>%1</td></tr>
+        </table>
+        <p>
+          1966'da Charles Kao, camdaki safsızlıklar temizlenirse kaybın kilometrede 20 dB'nin altına
+          inebileceğini ve bunun iletişim için yeteceğini ileri sürdü; bu çalışma ona 2009 Nobel Fizik
+          Ödülü'nü getirdi. Bugünkü 0,2 dB/km o hedefin yüz kat altındadır. En az kayıp kızılötesinde,
+          1550 nm civarındadır; bu yüzden internet fiberlerindeki ışık gözle görülmez. Işık kilometrelerce
+          yol aldıktan sonra bile büyük ölçüde ayaktadır; yüzlerce kilometrelik hatlarda ise belli
+          aralıklarla yükseltilir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Modern fiberde kayıp kilometrede yaklaşık 0,2 dB'dir: 50 km sonra ışığın onda
+          biri, 100 km sonra yüzde biri kalır. Kayıpların kaynağı tam yansıma değil; soğurma, saçılma ve
+          bükülmedir.
+        </p>
+
+        <h3 id="k10">Fiber optik gerçek dünyada</h3>
+        <p>
+          Bir web sayfası açtığında isteğin büyük olasılıkla birkaç kez fiberden geçer: evden santrale,
+          şehirler arası omurgaya, gerekirse okyanusun dibindeki kabloya. Fiberin bakırın yerini almasının
+          nedeni aşağıdaki tabloda özetleniyor.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/fiber-optik-uygulama.webp?v=2" srcset="gorsel/fiber-optik-uygulama-800.webp?v=2 800w, gorsel/fiber-optik-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Uzun, aydınlık bir veri merkezi koridorunun iki yanında sunucu dolapları diziliyor; öndeki dolapta mavi ve yeşil kablo demetleri kavis çizerek aşağı iniyor. Tavandaki kablo kanalları da koridor boyunca uzanıyor.">
+          <figcaption>
+            <b>Veri merkezi.</b> Sunucular birbirine ve dış dünyaya ışık taşıyan kablolarla bağlanır. Kablo demetleri keskin köşelerle değil <b>geniş kavislerle</b> yönlendirilir; çünkü keskin bir kıvrım tam yansımayı bozar ve ışığı kaçırır.
+          </figcaption>
+        </figure>
+
         <table class="tbl">
           <tr><th>Özellik</th><th>Fiber optik</th><th>Bakır kablo</th></tr>
           <tr><td>Bant genişliği</td><td>çok yüksek</td><td>sınırlı</td></tr>
@@ -2361,15 +2894,6 @@
           <tr><td>Ağırlık</td><td>hafif</td><td>ağır</td></tr>
           <tr><td>Güvenlik</td><td>dinlemesi çok zor</td><td>daha kolay</td></tr>
         </table>
-
-        <h3 id="k7">Kullanım alanları</h3>
-        <ul>
-          <li><strong>İletişim:</strong> internet omurgası, denizaltı kabloları, telefon ağları.</li>
-          <li><strong>Tıp:</strong> endoskop — vücudun içini görüntülemek ve aydınlatmak.</li>
-          <li><strong>Sanayi:</strong> ulaşılması zor yerlerin görüntülenmesi, lazer taşıma.</li>
-          <li><strong>Sensörler:</strong> sıcaklık, gerilme ve titreşim ölçümü.</li>
-          <li><strong>Aydınlatma ve süs:</strong> ışığı noktadan noktaya taşıyan lifler.</li>
-        </ul>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 196" role="img" aria-label="Fiber optik ile bakır kablonun bant genişliği, sinyal kaybı, ağırlık ve elektriksel girişim bakımından karşılaştırması.">
@@ -2398,10 +2922,36 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <ul>
+          <li><strong>İletişim:</strong> internet omurgası, denizaltı kabloları, telefon ağları. 6000 km'lik
+            bir okyanus kablosunda sinyal tek yönde yaklaşık 30 ms'de karşıya varır.</li>
+          <li><strong>Tıp:</strong> endoskop — vücudun içini görüntülemek ve aydınlatmak. Görüntü taşıyan
+            demette on binlerce lif vardır; her lif görüntünün bir noktasını taşır.</li>
+          <li><strong>Sanayi:</strong> ulaşılması zor yerlerin görüntülenmesi, lazer taşıma.</li>
+          <li><strong>Sensörler:</strong> sıcaklık, gerilme ve titreşim ölçümü; köprülerde ve boru
+            hatlarında kilometrelerce uzunluk boyunca.</li>
+          <li><strong>Aydınlatma ve süs:</strong> ışığı noktadan noktaya taşıyan lifler.</li>
+        </ul>
+        <p>
+          Kıtalar arasındaki gecikmenin alt sınırını da fiberin fiziği koyar: 6000 km'yi 2·10⁸ m/s ile
+          gitmek 30 ms sürer, gidip dönmek en az 60 ms. Hiçbir yazılım bu süreyi kısaltamaz; ancak daha
+          kısa bir güzergâh ya da daha küçük indisli bir ortam kısaltabilir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Fiber geniş bant, düşük kayıp ve elektromanyetik girişime bağışıklık sayesinde
+          iletişimin omurgası oldu; tıpta, sanayide ve ölçümde de ışığı ulaşılmaz yerlere taşır.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k11">Çözümlü örnekler</h3>
+        <p>Aşağıdaki çözümlerde c = 3·10⁸ m/s alınmış, fiberin ucundaki dış ortam hava (n = 1) kabul edilmiştir.</p>
 
         <details>
-          <summary>Örnek 1 — Sınır açı</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Sınır açı</summary>
           <p>
             Çekirdek indisi 1,50, kılıf indisi 1,20 olan bir fiberde çekirdek–kılıf sınır açısı
             kaç derecedir?
@@ -2414,20 +2964,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Sayısal açıklık</summary>
-          <p>
-            n₁ = 1,50 ve n₂ = 1,46 olan fiberin sayısal açıklığı ve kabul açısı nedir?
-          </p>
-          <ol class="steps">
-            <li>NA = √(n₁² − n₂²) = √(2,25 − 2,1316) = √0,1184</li>
-            <li>NA ≈ <strong>0,344</strong></li>
-            <li>sin θ(kabul) = 0,344 → θ ≈ <strong>20°</strong></li>
-            <li>Fiberin ucuna eksenle 20°'den büyük açı yapan ışınlar taşınamaz.</li>
-          </ol>
-        </details>
-
-        <details>
-          <summary>Örnek 3 — Sinyal süresi</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Sinyal süresi</summary>
           <p>
             Kırılma indisi 1,5 olan 30 km'lik fiber kabloda ışık ne kadar sürede yol alır?
           </p>
@@ -2440,7 +2977,35 @@
         </details>
 
         <details>
-          <summary>Örnek 4 — Yansıma sayısı</summary>
+          <summary data-zorluk="orta">Örnek 3 — Sayısal açıklık</summary>
+          <p>
+            n₁ = 1,50 ve n₂ = 1,46 olan fiberin sayısal açıklığı ve kabul açısı nedir?
+          </p>
+          <ol class="steps">
+            <li>NA = √(n₁² − n₂²) = √(2,25 − 2,1316) = √0,1184</li>
+            <li>NA ≈ <strong>0,344</strong></li>
+            <li>sin θ(kabul) = 0,344 → θ ≈ <strong>20°</strong></li>
+            <li>Fiberin ucuna eksenle 20°'den büyük açı yapan ışınlar taşınamaz.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — Taşınır mı, kaçar mı?</summary>
+          <p>
+            n₁ = 1,50 ve n₂ = 1,46 olan fiberin ucuna havadan gelen iki ışın, eksenle (a) 14° ve
+            (b) 32° açı yaparak giriyor. Hangisi taşınır? (sin14° ≈ 0,242 · sin32° ≈ 0,530)
+          </p>
+          <ol class="steps">
+            <li>Sınır açı: sin θ = 1,46/1,50 ≈ 0,973 → θ(sınır) ≈ 76,7°</li>
+            <li><strong>(a)</strong> sin α = 0,242/1,50 ≈ 0,161 → α ≈ 9,3°; duvara geliş 90° − 9,3° = 80,7°</li>
+            <li>80,7° &gt; 76,7° → tam yansıma, ışın <strong>taşınır</strong>.</li>
+            <li><strong>(b)</strong> sin α = 0,530/1,50 ≈ 0,353 → α ≈ 20,7°; duvara geliş 69,3° &lt; 76,7° → ışın <strong>kaçar</strong>.</li>
+            <li>Kısa yol: kabul açısı ≈ 20° (Örnek 3); 14° koninin içinde, 32° dışında.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 5 — Yansıma sayısı</summary>
           <p>
             Çekirdek çapı 50 µm olan fiberde, eksenle 10° açı yapan ışın 1 metrede kabaca kaç
             kez yansır?
@@ -2453,7 +3018,38 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Mod dağılımı ve veri hızı</summary>
+          <p>
+            n₁ = 1,50 ve n₂ = 1,46 olan 10 km'lik çok modlu bir fiberde (a) eksen boyunca giden ışının,
+            (b) en yatık taşınan ışının varış süresini, (c) saniyede en fazla kaç ayrı darbe
+            gönderilebileceğini bulunuz.
+          </p>
+          <ol class="steps">
+            <li><strong>(a)</strong> t(min) = n₁·L/c = 1,5 · 10⁴ / 3·10⁸ = 5·10⁻⁵ s = <strong>50 µs</strong></li>
+            <li><strong>(b)</strong> En yatık ışının yolu L·n₁/n₂ = 10 km · 1,50/1,46 ≈ 10,27 km</li>
+            <li>t(maks) = 50 µs · 1,50/1,46 ≈ <strong>51,4 µs</strong></li>
+            <li><strong>(c)</strong> Δt ≈ 1,37 µs; darbeler karışmasın diye en az bu kadar aralıklı olmalı.</li>
+            <li>Saniyede en fazla 1 / 1,37·10⁻⁶ ≈ <strong>7,3·10⁵ darbe</strong>; tek modlu fiber bu sınırı ortadan kaldırır.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — En küçük bükülme yarıçapı</summary>
+          <p>
+            Çekirdek yarıçapı 25 µm, çekirdek indisi 1,50 olan bir fiber için ışın modeline göre en küçük
+            bükülme yarıçapını (a) n₂ = 1,46 ve (b) n₂ = 1,40 için bulunuz. (c) Sonucu yorumlayınız.
+          </p>
+          <ol class="steps">
+            <li>R(min) = a·(n₁ + n₂)/(n₁ − n₂)</li>
+            <li><strong>(a)</strong> R(min) = 25 µm · 2,96/0,04 = 1850 µm = <strong>1,85 mm</strong></li>
+            <li><strong>(b)</strong> R(min) = 25 µm · 2,90/0,10 = 725 µm ≈ <strong>0,73 mm</strong></li>
+            <li><strong>(c)</strong> İndis farkı büyüdükçe sınır açı küçülür ve fiber daha keskin bükülebilir;
+              küçük indis farklı fiberler bükülmeye karşı daha hassastır.</li>
+          </ol>
+        </details>
+
+        <h3 id="k12">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>Kılıfın indisini büyük sanmak.</strong> Tam yansıma için çekirdeğin indisi
             <em>büyük</em> olmalıdır: n₁ &gt; n₂.</li>
@@ -2466,6 +3062,10 @@
           <li><strong>Fiberde ışığın c hızıyla gittiğini düşünmek.</strong> Hız c/n₁'dir.</li>
           <li><strong>Kabloyu istediği gibi kıvırmak.</strong> Bükülme yarıçapı çok küçülürse
             ışık kaçar.</li>
+          <li><strong>Duvara çarpma açısını fiber eksenine göre ölçmek.</strong> Açı duvarın normaline göre
+            ölçülür; eksenle 10° yapan ışın duvara 80° ile çarpar.</li>
+          <li><strong>0,2 dB/km'yi “kilometrede %0,2 kayıp” diye okumak.</strong> Desibel logaritmiktir:
+            0,2 dB yaklaşık %4,5 güç kaybıdır, 10 dB ise gücü onda birine indirir.</li>
         </ul>
 
         <div class="callout">

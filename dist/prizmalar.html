@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1873,7 +2093,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Prizmalar</h3>
-          <p>Sapma açısından dispersiyona, tam yansımalı prizmalardan gökkuşağına.</p>
+          <p>Dört basamakta: önce gökkuşağı, prizma ve Newton'un deneyiyle sezgi, sonra sapma açısı, en küçük sapma ve dispersiyon bağıntıları, ardından tam yansımalı prizmalar, gökkuşağı ve gerçek dünya; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2139,15 +2359,18 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Prizma nedir</button>
-        <button type="button" data-goto="k2">Sapma açısı</button>
-        <button type="button" data-goto="k3">En küçük sapma</button>
-        <button type="button" data-goto="k4">Dispersiyon</button>
-        <button type="button" data-goto="k5">Tam yansımalı prizma</button>
-        <button type="button" data-goto="k6">Gökkuşağı</button>
-        <button type="button" data-goto="k7">Kullanım alanları</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Prizma nedir</button>
+        <button type="button" data-goto="k3" data-basamak="1">Newton'un deneyi</button>
+        <button type="button" data-goto="k4" data-basamak="2">Sapma açısı</button>
+        <button type="button" data-goto="k5" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k6" data-basamak="2">En küçük sapma</button>
+        <button type="button" data-goto="k7" data-basamak="2">Dispersiyon</button>
+        <button type="button" data-goto="k8" data-basamak="3">Tam yansımalı prizma</button>
+        <button type="button" data-goto="k9" data-basamak="3">Gökkuşağı</button>
+        <button type="button" data-goto="k10" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k11" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k12" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2168,14 +2391,72 @@
         </svg>
 
         <p class="lead-in">
-          Newton, 1666'da karanlık odasına giren güneş ışığını bir prizmadan geçirdi ve duvarda
-          bir gökkuşağı gördü. O güne kadar herkes rengin camdan geldiğini sanıyordu; Newton
-          <b>ikinci bir prizmayla renkleri yeniden birleştirip</b> beyaz ışığı geri elde etti ve
-          rengin ışığın kendisinde olduğunu kanıtladı. Bu konuda hem o deneyi hem de prizmanın
-          ışığı nasıl büktüğünü hesaplamayı göreceğiz.
+          Beyaz ışığın içinde bir gökkuşağı saklı olabilir mi? Newton, 1666'da karanlık odasına giren
+          güneş ışığını bir prizmadan geçirdi ve duvarda bir gökkuşağı gördü. O güne kadar herkes rengin
+          camdan geldiğini sanıyordu; Newton <b>ikinci bir prizmayla renkleri yeniden birleştirip</b>
+          beyaz ışığı geri elde etti ve rengin ışığın kendisinde olduğunu kanıtladı. Bu anlatım dört
+          basamakta ilerliyor: önce gökkuşağını ve bir cam prizmayı gözleyip Newton'un deneyini sezgiyle
+          kuracağız, sonra prizmanın ışığı ne kadar büktüğünü hesaplayan bağıntıları çıkaracağız, ardından
+          tam yansımalı prizmalara ve gökkuşağının fiziğine geçeceğiz. En sonda kolaydan zora sıralanmış
+          örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Prizma nedir?</h3>
+        <figure class="foto">
+          <img src="gorsel/prizmalar-giris.webp?v=2" srcset="gorsel/prizmalar-giris-800.webp?v=2 800w, gorsel/prizmalar-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir masada tepesi yukarıda duran üçgen bir cam prizma; soldaki el fenerinden gelen beyaz ışık demeti prizmadan geçip sağdaki beyaz kartın üzerine, üstte kırmızı, altta mor olan renkli bir yelpaze olarak düşüyor.">
+          <figcaption>
+            <b>Işığı açan cam.</b> Beyaz ışık demeti prizmaya girerken ve çıkarken iki kez kırılır, tabana doğru sapar ve renklerine ayrılarak karta bir tayf düşürür. Kırmızı en az saparak şeridin üstünde, mor en çok saparak altında kalır. Renkler camdan gelmez; beyaz ışığın içinde zaten vardır.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: gökkuşağına ve bir cam prizmaya bak, ışığın neden büküldüğünü ve renklerin nereden geldiğini gör. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: yağmurdan sonra gökyüzündeki renkler nereden gelir?</h3>
+        <p>
+          Yağmur yeni dinmiş, güneş alçakta ve arkanda. Önündeki karanlık bulutların üstünde renkli bir
+          yay beliriyor. Bu sahneye dikkatle bakınca birkaç düzen fark edersin. Renkler hiç karışık
+          sıralanmaz; her gökkuşağında aynı sırayla dizilir. Gökkuşağı hep güneşin karşı tarafında
+          görünür; güneşe dönersen onu asla göremezsin. Bazen ana yayın üstünde ikinci, daha soluk bir
+          yay çıkar.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/prizmalar-gunluk.webp?v=2" srcset="gorsel/prizmalar-gunluk-800.webp?v=2 800w, gorsel/prizmalar-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Yağmur sonrası yeşil tarlalar üzerinde, koyu bulutların önünde parlak bir gökkuşağı; gölgeler gökkuşağına doğru uzanıyor; ana yayın dışında kırmızı, içinde mor var, üstünde daha soluk ikinci bir yay görünüyor.">
+          <figcaption>
+            <b>Yağmurdan sonra.</b> Ana yayda kırmızı dışta, mor içte; üstteki soluk ikinci yayda renkler <b>ters sırada</b>. İki yayın arasındaki gökyüzü, ana yayın içinden biraz daha koyu görünür. Güneş görünmüyor, çünkü gözlemcinin <b>arkasında</b>: gölgeler gökkuşağına doğru uzanıyor. Her yağmur damlası güneş ışığını küçük bir prizma gibi renklerine ayırır; nasıl olduğunu İleri basamakta göreceğiz.
+          </figcaption>
+        </figure>
+
+        <p>Aynı renk şeridini evde de yakalayabilirsin:</p>
+        <ul>
+          <li><strong>Bir bardak su:</strong> güneşli bir pencerenin önüne konan su dolu bardak, masaya küçük renkli bir şerit düşürür.</li>
+          <li><strong>Kesik cam kenarı:</strong> pahlı bir aynanın ya da cam masanın kenarından geçen ışık duvarda renklere ayrılır.</li>
+          <li><strong>Avize kristali:</strong> cam bir kristal, güneş ışığını odaya renkli lekeler hâlinde saçar.</li>
+        </ul>
+        <p>
+          Hepsinde ortak olan şey, ışığın <strong>eğik yüzeyli saydam bir cisimden</strong> geçmesidir.
+          Böyle bir cisme prizma denir; bu anlatım onun fiziğidir.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Gökkuşağını görmek için neden güneşe sırtını dönmen gerekir?</summary>
+          <p>
+            Gökkuşağının ışığı, damlalara girip içlerinde yansıdıktan sonra kabaca <b>geldiği yöne doğru</b>
+            geri dönen güneş ışığıdır. Bu ışığın gözüne ulaşması için damlaların önünde, güneşin arkanda
+            olması gerekir. Güneşe dönük bakarsan damlalardan geri dönen ışık sırtına gider.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Gökkuşağının renkleri hep aynı sırada ve hep güneşin karşısında görünür. Aynı
+          renk şeridi, güneş ışığı eğik yüzeyli bir cam ya da sudan geçtiğinde de ortaya çıkar.
+        </p>
+
+        <h3 id="k2">Prizma nedir?</h3>
         <p>
           İki yüzü birbirine paralel <strong>olmayan</strong> saydam cisme <strong>prizma</strong>
           denir. Paralel kenarlı levhada ışık doğrultusunu korurken, prizmada
@@ -2186,6 +2467,17 @@
           <li><strong>Taban:</strong> tepe açısının karşısındaki yüzey.</li>
           <li>Işık her zaman <strong>tabana doğru</strong> sapar.</li>
         </ul>
+        <p>
+          Neden tabana doğru? Işık camda havadakinden yavaş gider. Geniş bir ışık demetinin tabana yakın
+          kenarı daha kalın camdan geçer, bu yüzden daha çok gecikir; tepeye yakın kenarı ise ince camdan
+          geçip öne kaçar. Bir yürüyüş kolunun bir ucu çamurlu tarlaya girip yavaşlarsa bütün kol o yana
+          döner. Işık demeti de yavaşlayan tarafa, yani kalın tabana doğru döner.
+        </p>
+        <table class="tbl">
+          <tr><th>Saydam cisim</th><th>Yüzeyler</th><th>Işık ne yapar?</th></tr>
+          <tr><td>Paralel kenarlı levha</td><td>paralel</td><td>yana kayar, doğrultusu değişmez</td></tr>
+          <tr><td>Prizma</td><td>eğik (A açısıyla)</td><td>tabana doğru sapar</td></tr>
+        </table>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 204" role="img" aria-label="Prizmanın tepe açısı, tabanı ve içinden geçen ışının tabana doğru sapması.">
@@ -2213,112 +2505,29 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Sapma açısı</h3>
-        <p>
-          Işık prizmaya girerken ve çıkarken iki kez kırılır. Gelen ışının doğrultusu ile çıkan
-          ışının doğrultusu arasındaki açıya <strong>sapma açısı (δ)</strong> denir.
-        </p>
-        <div class="formula">
-          <code>r₁ + r₂ = A</code>
-          <code>δ = i₁ + i₂ − A</code>
-        </div>
-        <ul>
-          <li><strong>i₁:</strong> birinci yüzeye geliş açısı, <strong>r₁:</strong> içerideki kırılma açısı.</li>
-          <li><strong>r₂:</strong> ikinci yüzeye geliş açısı, <strong>i₂:</strong> çıkış açısı.</li>
-          <li>Tepe açısı ve indis büyüdükçe sapma artar.</li>
-        </ul>
-        <div class="callout warn">
-          <p>
-            <b>Işık her zaman çıkamaz.</b> r₂ sınır açıdan büyükse ışık ikinci yüzeyden çıkamaz,
-            içeride tam yansımaya uğrar. Tam yansımalı prizmalar bunu bilerek kullanır.
-          </p>
-        </div>
-
-        <figure class="fig">
-          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Prizmada giriş açısı, iç kırılma açıları ve çıkış açısının gösterimi.">
-            <path class="st sb wb" d="M240 40 320 160 160 160z" />
-            <path class="st sa bold" d="M110 88 200 105" marker-end="url(#ah-a)" />
-            <path class="st sa bold" d="M200 105 285 125" />
-            <path class="st sa bold" d="M285 125 386 169" marker-end="url(#ah-a)" />
-            <path class="st sd hair dash" d="M200 105 262 64M285 125 226 158" />
-            <text class="tt fd" x="266" y="58">normal</text>
-            <text class="tt fd" x="220" y="170" text-anchor="end">normal</text>
-            <text class="tl fa" x="176" y="86">i₁</text>
-            <text class="tl fb" x="224" y="104">r₁</text>
-            <text class="tl fb" x="266" y="140">r₂</text>
-            <text class="tl fa" x="300" y="150">i₂</text>
-            <text class="tl fb" x="72" y="180">r₁ + r₂ = A</text>
-            <text class="tl fg" x="404" y="180" text-anchor="end">δ = i₁ + i₂ − A</text>
-          </svg>
-          <figcaption>
-            Dört açı vardır: ışının birinci yüzeye <b>geliş</b> açısı i₁, içerideki <b>kırılma</b>
-            açısı r₁, ikinci yüzeye <b>varış</b> açısı r₂ ve dışarı <b>çıkış</b> açısı i₂. Geometriden
-            r₁ + r₂ = A çıkar; sapma ise δ = i₁ + i₂ − A'dır. Bu iki bağıntı, prizma sorularının
-            neredeyse tamamını çözer.
-          </figcaption>
-        </figure>
-
-        <h3 id="k3">En küçük sapma</h3>
-        <p>
-          Gelme açısı artırıldıkça sapma açısı önce azalır, bir <strong>en küçük değere</strong>
-          iner, sonra tekrar artar. En küçük sapmada ışın prizmadan <strong>simetrik</strong>
-          geçer:
-        </p>
-        <div class="formula">
-          <code>i₁ = i₂ ve r₁ = r₂ = A/2</code>
-          <code>n = sin((A + δ(min))/2) / sin(A/2)</code>
-        </div>
-        <p>
-          Bu bağıntı, bir prizmanın kırılma indisini <strong>ölçmenin</strong> klasik yöntemidir:
-          en küçük sapma açısı ölçülür, formülden n bulunur.
+        <p class="kisaca">
+          <b>Kısaca:</b> Prizma, iki yüzü birbirine paralel olmayan saydam bir cisimdir. İçinden geçen
+          ışın iki kez kırılır ve bu iki kırılma toplanarak ışını tabana doğru saptırır.
         </p>
 
-        <figure class="fig">
-          <svg class="fx" viewBox="0 0 480 194" role="img" aria-label="Sapma açısının geliş açısına göre değişim eğrisi ve en küçük sapmadaki simetrik ışın yolu.">
-            <path class="st sd hair" d="M60 30v120h240" />
-            <path class="st sg bold" d="M70 58C110 108 150 128 180 128 210 128 250 110 292 62" />
-            <path class="st sl hair dash" d="M60 128h120M180 128v22" />
-            <circle class="fg" cx="180" cy="128" r="5" />
-            <text class="tt fg" x="54" y="132" text-anchor="end">δ min</text>
-            <text class="tt fd" x="180" y="168" text-anchor="middle">i₁ = i₂</text>
-            <text class="tt fd" x="54" y="26" text-anchor="end">δ</text>
-            <text class="tt fd" x="298" y="168" text-anchor="end">i₁</text>
-            <path class="st sl hair dots" d="M320 24v150" />
-            <path class="st sb wb" d="M392 52 428 130 356 130z" />
-            <path class="st sa bold" d="M330 82 374 96" />
-            <path class="st sa bold" d="M374 96h36" />
-            <path class="st sa bold" d="M410 96 454 82" marker-end="url(#ah-a)" />
-            <text class="tt fg" x="392" y="166" text-anchor="middle">simetrik yol</text>
-            <text class="tt" x="392" y="184" text-anchor="middle">ışın tabana paralel</text>
-          </svg>
-          <figcaption>
-            Geliş açısını büyüttükçe sapma önce azalır, bir en küçük değere iner, sonra tekrar
-            artar. O en küçük noktada ışın prizmadan <b>simetrik geçer</b>: giriş açısı çıkış
-            açısına eşittir ve içerideki ışın tabana paraleldir. Bu özel durum, bir maddenin
-            kırılma indisini <b>çok duyarlı biçimde ölçmeye</b> yarar — refraktometrelerin
-            çalışma ilkesi budur.
-          </figcaption>
-        </figure>
-
-        <h3 id="k4">Dispersiyon: renklere ayrılma</h3>
+        <h3 id="k3">Beyaz ışık: Newton'un iki prizması</h3>
         <p>
-          Bir ortamın kırılma indisi, ışığın <strong>dalga boyuna</strong> bağlıdır. Kısa dalga
-          boylu mor ışık için indis büyük, uzun dalga boylu kırmızı için küçüktür:
+          Newton'dan önce yaygın görüş, beyaz ışığın saf olduğu ve renklerin cam tarafından “üretildiği”
+          yönündeydi. Newton bu fikri sınamak için karanlık bir odada panjurdaki küçük bir delikten giren
+          güneş ışığıyla adım adım deneyler yaptı:
         </p>
-        <div class="formula">
-          <code>n(mor) &gt; n(mavi) &gt; ... &gt; n(kırmızı)</code>
-        </div>
-        <table class="tbl">
-          <tr><th>Renk</th><th>Dalga boyu</th><th>Camda n</th><th>Sapma</th></tr>
-          <tr><td>Kırmızı</td><td>≈ 700 nm</td><td>1,513</td><td>en az</td></tr>
-          <tr><td>Sarı</td><td>≈ 580 nm</td><td>1,520</td><td>orta</td></tr>
-          <tr><td>Mavi</td><td>≈ 470 nm</td><td>1,531</td><td>çok</td></tr>
-          <tr><td>Mor</td><td>≈ 400 nm</td><td>1,538</td><td>en çok</td></tr>
-        </table>
+        <ol>
+          <li><strong>Ayırma:</strong> birinci prizma ışığı duvarda uzun bir renk şeridine açtı.</li>
+          <li><strong>Tek renk:</strong> şeritten yalnızca bir rengi bir delikten geçirip ikinci bir prizmaya
+            gönderdi; ışık yine büküldü ama <strong>rengi değişmedi</strong>.</li>
+          <li><strong>Birleştirme:</strong> ters çevrilmiş ikinci bir prizmayla bütün renkleri üst üste
+            getirince yeniden beyaz ışık elde etti.</li>
+        </ol>
         <p>
           Beyaz ışık bütün renklerin karışımıdır; prizmada her renk farklı saptığı için ayrışır.
           Bu olaya <strong>dispersiyon (dağılma)</strong>, oluşan renk şeridine
-          <strong>tayf (spektrum)</strong> denir.
+          <strong>tayf (spektrum)</strong> denir. Her renk camda biraz farklı hızla ilerler: mor en yavaş
+          gider ve en çok kırılır, kırmızı en hızlı gider ve en az kırılır.
         </p>
         <div class="callout">
           <p>
@@ -2356,7 +2565,233 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Tam yansımalı prizma</h3>
+        <details class="dusun">
+          <summary>Düşün: Prizmadan çıkan kırmızı ışığı ikinci bir prizmadan geçirirsen yeni renkler çıkar mı?</summary>
+          <p>
+            Hayır. Kırmızı ışık ikinci prizmada yine kırılır ve sapar, ama <b>kırmızı kalır</b>; içinde
+            ayrılacak başka renk yoktur. Newton'un kilit gözlemi buydu: renk camın ışığa yaptığı bir
+            değişiklik olsaydı, ikinci prizma kırmızıyı da başka renklere dönüştürürdü.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Beyaz ışık bütün renklerin karışımıdır. Prizma renkleri üretmez, her rengi biraz
+          farklı saptırarak ayırır; buna dispersiyon, oluşan renk şeridine tayf denir.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: prizmanın ışığı ne kadar saptırdığını adım adım hesapla, en küçük sapmayı ve renklerin açılmasını sayılarla gör.</span>
+        </div>
+
+        <h3 id="k4">Sapma açısı: iki kırılmanın toplamı</h3>
+        <p>
+          Işık prizmaya girerken ve çıkarken iki kez kırılır. Gelen ışının doğrultusu ile çıkan
+          ışının doğrultusu arasındaki açıya <strong>sapma açısı (δ)</strong> denir. Her iki yüzeyde de
+          Snell yasası geçerlidir (prizmanın indisi n, dışarısı hava):
+        </p>
+        <div class="formula">
+          <code>sin i₁ = n · sin r₁</code>
+          <code>n · sin r₂ = sin i₂</code>
+          <code>r₁ + r₂ = A</code>
+          <code>δ = i₁ + i₂ − A</code>
+        </div>
+        <ul>
+          <li><strong>i₁:</strong> birinci yüzeye geliş açısı, <strong>r₁:</strong> içerideki kırılma açısı.</li>
+          <li><strong>r₂:</strong> ikinci yüzeye geliş açısı, <strong>i₂:</strong> çıkış açısı.</li>
+          <li>Tepe açısı ve indis büyüdükçe sapma artar.</li>
+        </ul>
+        <h4>Bağıntılar nereden geliyor?</h4>
+        <ol>
+          <li><strong>Birinci dönüş:</strong> birinci yüzeyde ışın normale yaklaşır ve doğrultusu
+            i₁ − r₁ kadar döner.</li>
+          <li><strong>İkinci dönüş:</strong> ikinci yüzeyde normalden uzaklaşır ve yine aynı yöne,
+            i₂ − r₂ kadar döner.</li>
+          <li><strong>Geometri:</strong> iki yüzeyin normalleri birbiriyle 180° − A açısı yapar; içerideki
+            ışın ve iki normalin oluşturduğu üçgende r₁ + r₂ + (180° − A) = 180°, yani r₁ + r₂ = A.</li>
+          <li><strong>Toplam:</strong> δ = (i₁ − r₁) + (i₂ − r₂) = i₁ + i₂ − A.</li>
+        </ol>
+        <p>
+          Sayfanın 01 numaralı bölümündeki başlangıç ayarı (A = 60°, i₁ = 45°, n = 1,50) için:
+          r₁ ≈ 28,1°, r₂ ≈ 31,9°, i₂ ≈ 52,4° ve δ ≈ 37,4° çıkar.
+        </p>
+        <div class="callout warn">
+          <p>
+            <b>Işık her zaman çıkamaz.</b> r₂ sınır açıdan büyükse ışık ikinci yüzeyden çıkamaz,
+            içeride tam yansımaya uğrar. Tam yansımalı prizmalar bunu bilerek kullanır.
+          </p>
+        </div>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 208" role="img" aria-label="Prizmada giriş açısı, iç kırılma açıları ve çıkış açısının gösterimi.">
+            <path class="st sb wb" d="M240 40 320 160 160 160z" />
+            <path class="st sa bold" d="M110 88 200 105" marker-end="url(#ah-a)" />
+            <path class="st sa bold" d="M200 105 285 125" />
+            <path class="st sa bold" d="M285 125 386 169" marker-end="url(#ah-a)" />
+            <path class="st sd hair dash" d="M200 105 262 64M285 125 226 158" />
+            <text class="tt fd" x="266" y="58">normal</text>
+            <text class="tt fd" x="220" y="170" text-anchor="end">normal</text>
+            <text class="tl fa" x="176" y="86">i₁</text>
+            <text class="tl fb" x="224" y="104">r₁</text>
+            <text class="tl fb" x="266" y="140">r₂</text>
+            <text class="tl fa" x="300" y="150">i₂</text>
+            <text class="tl fb" x="72" y="180">r₁ + r₂ = A</text>
+            <text class="tl fg" x="404" y="180" text-anchor="end">δ = i₁ + i₂ − A</text>
+          </svg>
+          <figcaption>
+            Dört açı vardır: ışının birinci yüzeye <b>geliş</b> açısı i₁, içerideki <b>kırılma</b>
+            açısı r₁, ikinci yüzeye <b>varış</b> açısı r₂ ve dışarı <b>çıkış</b> açısı i₂. Geometriden
+            r₁ + r₂ = A çıkar; sapma ise δ = i₁ + i₂ − A'dır. Bu iki bağıntı, prizma sorularının
+            neredeyse tamamını çözer.
+          </figcaption>
+        </figure>
+
+        <p class="kisaca">
+          <b>Kısaca:</b> Işın prizmada iki kez kırılır ve iki dönüş aynı yöne toplanır. Geometriden
+          r₁ + r₂ = A, toplam sapma için δ = i₁ + i₂ − A bulunur.
+        </p>
+
+        <h3 id="k5">Sayılarla hisset: sapma, gelme açısına nasıl bağlı?</h3>
+        <p>
+          Tepe açısı 60°, indisi 1,50 olan bir cam prizmayı alalım ve gelme açısını değiştirelim. Her
+          satır iki kez Snell yasası ve bir kez r₁ + r₂ = A ile hesaplandı:
+        </p>
+        <table class="tbl">
+          <tr><th>Gelme i₁</th><th>İçeride r₂</th><th>Çıkış i₂</th><th>Sapma δ</th></tr>
+          <tr><td>20°</td><td>46,8°</td><td>çıkamaz</td><td>—</td></tr>
+          <tr><td>30°</td><td>40,5°</td><td>77,1°</td><td>47,1°</td></tr>
+          <tr><td>40°</td><td>34,6°</td><td>58,5°</td><td>38,5°</td></tr>
+          <tr><td>48,6°</td><td>30,0°</td><td>48,6°</td><td>37,2°</td></tr>
+          <tr><td>77,1°</td><td>19,5°</td><td>30,0°</td><td>47,1°</td></tr>
+        </table>
+        <p>Tablodan dört düzen okunuyor:</p>
+        <ul>
+          <li><strong>Önce azalır, sonra artar:</strong> sapma 47,1°'den 37,2°'ye iner, sonra yeniden yükselir.</li>
+          <li><strong>En küçük değer simetride:</strong> i₁ = i₂ = 48,6° olduğunda sapma en küçüktür, 37,2°.</li>
+          <li><strong>Işık yolu tersinirdir:</strong> 30° ile giren ışın 77,1° ile çıkar; 77,1° ile giren 30° ile çıkar. Sapma ikisinde de 47,1°'dir.</li>
+          <li><strong>Küçük gelme açısında çıkış yok:</strong> 20°'de r₂ = 46,8° sınır açıyı (41,8°) aşar, ışık içeride tam yansır.</li>
+        </ul>
+        <p>
+          Bir düzen daha gözden kaçmasın: en küçük değerin çevresinde sapma çok yavaş değişir. Gelme açısı
+          40°'den 48,6°'ye çıkınca sapma yalnızca 1,3° değişiyor. Sayfanın 01 numaralı bölümünde gelme
+          açısını kaydırıp bu “dip” noktasını kendin bulabilirsin.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> 60°'lik, 1,50 indisli prizmada sapma önce azalır, gelme açısı 48,6° iken en küçük
+          değerine (37,2°) iner, sonra yeniden artar. Gelme açısı yaklaşık 28°'nin altındaysa ışık ikinci
+          yüzeyden çıkamaz.
+        </p>
+
+        <h3 id="k6">En küçük sapma ve indis ölçümü</h3>
+        <p>
+          Gelme açısı artırıldıkça sapma açısı önce azalır, bir <strong>en küçük değere</strong>
+          iner, sonra tekrar artar. En küçük sapmada ışın prizmadan <strong>simetrik</strong>
+          geçer:
+        </p>
+        <div class="formula">
+          <code>i₁ = i₂ ve r₁ = r₂ = A/2</code>
+          <code>i = (A + δ(min)) / 2</code>
+          <code>n = sin i / sin(A/2)</code>
+        </div>
+        <p>İndis bağıntısı, simetri koşulundan dört adımda çıkar:</p>
+        <ol>
+          <li><strong>Simetri:</strong> r₁ = r₂ ve r₁ + r₂ = A olduğundan r = A/2.</li>
+          <li><strong>Eşit açılar:</strong> i₁ = i₂ = i olduğundan δ(min) = 2i − A.</li>
+          <li><strong>Gelme açısını çek:</strong> i = (A + δ(min))/2.</li>
+          <li><strong>Snell yasası:</strong> sin i = n·sin r, buradan n = sin((A + δ(min))/2) / sin(A/2).</li>
+        </ol>
+        <p>
+          Bu bağıntı, bir prizmanın kırılma indisini <strong>ölçmenin</strong> klasik yöntemidir:
+          en küçük sapma açısı ölçülür, formülden n bulunur. Yöntemin gücü, önceki bölümde gördüğün
+          yayvan dipten gelir: en küçük sapmanın çevresinde gelme açısındaki küçük bir hata sapmayı neredeyse
+          hiç değiştirmez, bu yüzden δ(min) çok duyarlı ölçülebilir.
+        </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 194" role="img" aria-label="Sapma açısının geliş açısına göre değişim eğrisi ve en küçük sapmadaki simetrik ışın yolu.">
+            <path class="st sd hair" d="M60 30v120h240" />
+            <path class="st sg bold" d="M70 58C110 108 150 128 180 128 210 128 250 110 292 62" />
+            <path class="st sl hair dash" d="M60 128h120M180 128v22" />
+            <circle class="fg" cx="180" cy="128" r="5" />
+            <text class="tt fg" x="54" y="132" text-anchor="end">δ min</text>
+            <text class="tt fd" x="180" y="168" text-anchor="middle">i₁ = i₂</text>
+            <text class="tt fd" x="54" y="26" text-anchor="end">δ</text>
+            <text class="tt fd" x="298" y="168" text-anchor="end">i₁</text>
+            <path class="st sl hair dots" d="M320 24v150" />
+            <path class="st sb wb" d="M392 52 428 130 356 130z" />
+            <path class="st sa bold" d="M330 82 374 96" />
+            <path class="st sa bold" d="M374 96h36" />
+            <path class="st sa bold" d="M410 96 454 82" marker-end="url(#ah-a)" />
+            <text class="tt fg" x="392" y="166" text-anchor="middle">simetrik yol</text>
+            <text class="tt" x="392" y="184" text-anchor="middle">ışın tabana paralel</text>
+          </svg>
+          <figcaption>
+            Geliş açısını büyüttükçe sapma önce azalır, bir en küçük değere iner, sonra tekrar
+            artar. O en küçük noktada ışın prizmadan <b>simetrik geçer</b>: giriş açısı çıkış
+            açısına eşittir ve içerideki ışın tabana paraleldir. Bu özel durum, bir maddenin
+            kırılma indisini <b>çok duyarlı biçimde ölçmeye</b> yarar — refraktometrelerin
+            çalışma ilkesi budur.
+          </figcaption>
+        </figure>
+
+        <details class="dusun">
+          <summary>Düşün: En küçük sapmada ışın, eşkenar bir prizmanın içinde neden tabana paralel gider?</summary>
+          <p>
+            Çünkü ışın iki yan yüzeye <b>aynı açıyla</b> (r₁ = r₂) çarpar. Eşkenar ya da ikizkenar bir
+            prizmada iki yan yüzeyle aynı açıyı yapan tek doğrultu tabana paralel olandır. Işık yolu
+            tepe noktasından geçen simetri eksenine göre ayna görüntüsü gibi iki eş yarıya ayrılır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Sapma, ışın prizmadan simetrik geçtiğinde en küçüktür: r₁ = r₂ = A/2 ve i₁ = i₂.
+          Bu durumda n = sin((A + δmin)/2) / sin(A/2) olur; indis ölçmenin klasik yolu budur.
+        </p>
+
+        <h3 id="k7">Dispersiyon: her rengin kendi indisi</h3>
+        <p>
+          Bir ortamın kırılma indisi, ışığın <strong>dalga boyuna</strong> bağlıdır. Kısa dalga
+          boylu mor ışık için indis büyük, uzun dalga boylu kırmızı için küçüktür:
+        </p>
+        <div class="formula">
+          <code>n(mor) &gt; … &gt; n(kırmızı)</code>
+        </div>
+        <table class="tbl">
+          <tr><th>Renk</th><th>Dalga boyu</th><th>Camda n</th><th>Sapma (A = 60°, i₁ = 50°)</th></tr>
+          <tr><td>Kırmızı</td><td>≈ 700 nm</td><td>1,513</td><td>38,3° · en az</td></tr>
+          <tr><td>Sarı</td><td>≈ 580 nm</td><td>1,520</td><td>38,9° · orta</td></tr>
+          <tr><td>Mavi</td><td>≈ 470 nm</td><td>1,531</td><td>39,9° · çok</td></tr>
+          <tr><td>Mor</td><td>≈ 400 nm</td><td>1,538</td><td>40,5° · en çok</td></tr>
+        </table>
+        <p>
+          Kırmızıyla morun indisleri arasındaki fark yalnızca %1,7 kadar; ama bu küçük fark iki renk
+          arasında yaklaşık 2,2°'lik bir açı açıyor. Prizmadan 1 m uzaktaki bir perdede bu, yaklaşık 4 cm genişliğinde
+          bir tayf demektir. Sayfanın 02 numaralı bölümünde gelme açısını ve tepe açısını değiştirerek
+          tayfın nasıl açılıp kapandığını izleyebilirsin.
+        </p>
+        <h4>İnce prizmada kısa yol</h4>
+        <p>
+          Tepe açısı birkaç derece olan <strong>ince prizmada</strong>, ışık yüzeye neredeyse dik
+          geldiğinde bütün açılar küçüktür ve sin x ≈ x alınabilir. O zaman i₁ ≈ n·r₁, i₂ ≈ n·r₂ ve
+          δ = n·(r₁ + r₂) − A olur:
+        </p>
+        <div class="formula">
+          <code>δ ≈ (n − 1) · A</code>
+          <code>Δδ ≈ (n(mor)−n(kırmızı))·A</code>
+        </div>
+        <p>
+          10°'lik ince bir cam prizma kırmızıyı yaklaşık 5,13°, moru 5,38° saptırır; renkler arasındaki
+          açı yalnızca 0,25°'dir.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Camın indisi mordan kırmızıya doğru biraz azalır; bu yüzden mor en çok, kırmızı en
+          az sapar. 60°'lik prizmada fark yaklaşık 2°, ince prizmada Δδ ≈ (n(mor) − n(kırmızı))·A kadardır.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: ışık prizmadan çıkamayınca, prizma başka bir ortama girince ve prizma bir yağmur damlasına dönüşünce ne olur?</span>
+        </div>
+
+        <h3 id="k8">Tam yansımalı prizmalar ve çevre ortam</h3>
         <p>
           Cam için sınır açı ≈ 41,8°'dir. 45° – 45° – 90° biçimindeki bir prizmada ışık hipotenüse
           45° ile çarpar; bu açı sınır açıdan büyük olduğu için <strong>tamamı yansır</strong>.
@@ -2395,7 +2830,33 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Gökkuşağı</h3>
+        <p>
+          Bu düzen camın indisine bağlıdır. İndis 1,3 olsaydı sınır açı 50,3° olurdu; 45° ile çarpan ışık
+          yansımak yerine dışarı çıkardı. Daha ince bir nokta da <strong>çevre ortamdır</strong>: bütün
+          bağıntılarda n yerine prizmanın çevresine göre indisi, n(prizma)/n(ortam) geçer. Cam prizma suya
+          batırılınca (n = 1,33) bu oran 1,13'e iner; 60°'lik prizmanın en küçük sapması 37,2°'den
+          yaklaşık 8,7°'ye düşer ve 45°'lik prizmada tam yansıma kaybolur.
+        </p>
+        <p>
+          Temel basamakta “ışık her zaman tabana doğru sapar” dedik; bu, prizma çevresinden yoğun olduğu
+          sürece doğrudur. Suyun içine konmuş, içi hava dolu ince duvarlı bir prizma ışığı tepeye doğru
+          saptırır.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Tam yansımalı bir prizmanın hipotenüsüne parmağını bastırıp prizmanın içinden bakarsan ne görürsün?</summary>
+          <p>
+            Parmak izinin çizgilerini <b>koyu</b>, aralarını parlak görürsün. Derinin cama değdiği
+            çıkıntılarda ışık hava yerine deriye geçer, tam yansıma bozulur; aradaki hava dolu oluklarda ise
+            tam yansıma sürer. Optik parmak izi okuyucuları bu ilkeyle çalışır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> 45°'lik cam prizmada ışık iç yüzeye sınır açıdan büyük açıyla çarpar ve kayıpsız
+          yansır: bir yansımayla 90°, ikisiyle 180° döner. Bütün bağıntılarda n yerine prizmanın çevresine
+          göre indisi geçer.
+        </p>
+
+        <h3 id="k9">Gökkuşağı: her damla küçük bir prizma</h3>
         <p>
           Yağmur damlası küçük bir prizma gibi davranır. Damlaya giren ışık:
         </p>
@@ -2408,22 +2869,17 @@
           Toplam sapma en az <strong>138°</strong> olur; yani ışık geldiği yönle
           <strong>42°</strong>'lik açı yaparak geri döner. Bu açıda ışınlar yığıldığı için
           gökkuşağı, güneşin tam karşısında 42°'lik bir <strong>koni</strong> üzerinde görünür.
+          Buradaki fikir prizmadaki en küçük sapmanın aynısıdır: damlaya farklı yüksekliklerden giren
+          ışınlar farklı sapar, ama en küçük sapmanın çevresinde sapma çok yavaş değiştiği için pek çok
+          ışın aynı doğrultuda toplanır ve orası parlak görünür.
         </p>
         <ul>
           <li>Kırmızı dışta (42°), mor içte (40°) kalır.</li>
           <li>İkinci gökkuşağı (daha soluk) iki iç yansımadan doğar; renkleri terstir ve
             ≈ 51°'de görünür.</li>
           <li>Gökkuşağını görmek için güneş arkanızda, yağmur karşınızda olmalıdır.</li>
-        </ul>
-
-        <h3 id="k7">Kullanım alanları</h3>
-        <ul>
-          <li><strong>Spektroskop:</strong> yıldızların ve maddelerin ışığını tayfa ayırıp
-            bileşimini belirler.</li>
-          <li><strong>Dürbün ve periskop:</strong> tam yansımalı prizmalarla ışık yolunu katlar.</li>
-          <li><strong>Fotoğraf makinesi vizörü:</strong> pentaprizma görüntüyü düzeltir.</li>
-          <li><strong>Reflektör:</strong> araç ve bisiklet reflektörleri ışığı geldiği yöne döndürür.</li>
-          <li><strong>Optik ölçüm:</strong> refraktometrelerle sıvıların indisi ölçülür.</li>
+          <li><strong>Güneş yüksekse görünmez:</strong> güneş ufkun 42°'den yukarısındaysa yayın tamamı
+            ufkun altında kalır.</li>
         </ul>
 
         <figure class="fig">
@@ -2453,10 +2909,69 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <details class="dusun">
+          <summary>Düşün: Gökkuşağının ucuna yürüyerek neden hiçbir zaman ulaşamazsın?</summary>
+          <p>
+            Çünkü gökkuşağı belli bir yerde duran bir cisim değil, bir <b>doğrultular kümesidir</b>: gözüne
+            güneşin tam karşısındaki noktadan 42° açıyla gelen ışınlar. Sen yürüdükçe o ışığı gönderen
+            damlalar da değişir ve yay seninle birlikte yer değiştirir. Yanındaki arkadaşın bile başka
+            damlaların ışığını görür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Güneş ışığı damlada kırılır, içeride yansır ve yeniden kırılır; ışınlar en küçük
+          sapma olan 138° civarında yığılır. Bu yüzden gökkuşağı güneşin karşısında 42°'lik bir koni
+          üzerinde, kırmızı dışta görünür.
+        </p>
+
+        <h3 id="k10">Prizmalar gerçek dünyada</h3>
+        <p>
+          Prizmanın iki yeteneği, yani ışığı renklerine ayırmak ve ışığı kayıpsız döndürmek, laboratuvardan
+          uzaya kadar pek çok aygıtın temelidir. Bazen de yalnızca bir odayı süsler.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/prizmalar-uygulama.webp?v=2" srcset="gorsel/prizmalar-uygulama-800.webp?v=2 800w, gorsel/prizmalar-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir pencerenin önünde, küçük kristal boncuklardan bir zincire asılı çok yüzlü bir kristal küre; odanın duvarlarına ve tavanına onlarca küçük, gökkuşağı renkli ışık lekesi saçılmış. Sağda bir kitaplık, çerçeveli bir resim ve bir yatağın köşesi görünüyor.">
+          <figcaption>
+            <b>Pencerede bir kristal.</b> Çok yüzlü kristalin her yüz çifti küçük bir prizma gibi davranır: güneş ışığını kırar, saptırır ve renklerine ayırır. Duvara ve tavana düşen her renkli leke ayrı bir küçük tayftır; lekeler farklı yüz çiftlerinden geldiği için odaya dağılır.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Spektroskop:</strong> yıldızların ve maddelerin ışığını tayfa ayırıp
+            bileşimini belirler. Helyum, Dünya'da bulunmadan önce 1868'de Güneş'in tayfında fark edildi.</li>
+          <li><strong>Dürbün ve periskop:</strong> tam yansımalı prizmalarla ışık yolunu katlar; dürbün
+            kısa kalır ama görüntü düz görünür.</li>
+          <li><strong>Fotoğraf makinesi vizörü:</strong> pentaprizma görüntüyü düzeltir.</li>
+          <li><strong>Reflektör:</strong> araç ve bisiklet reflektörleri ışığı geldiği yöne döndürür.
+            Ay'a bırakılan köşe küpü prizmalar, Ay'ın uzaklığını lazerle santimetre duyarlılığında ölçtürür.</li>
+          <li><strong>Optik ölçüm:</strong> refraktometrelerle sıvıların indisi ölçülür; meyve suyundaki
+            şeker oranı böyle denetlenir.</li>
+          <li><strong>Parmak izi okuyucu:</strong> tam yansımanın parmağın değdiği yerlerde bozulmasıyla
+            izin görüntüsünü çıkarır.</li>
+        </ul>
+        <p>
+          Köşe küpü, birbirine dik üç yüzü olan bir prizmadır; geniş bir açı aralığında, ışık nereden
+          gelirse gelsin üç iç yansımadan sonra geldiği doğrultuya geri döner. Bu yüzden bisiklet
+          reflektörü, arkadan gelen aracın far ışığını farın hemen yanındaki sürücünün gözüne geri yollar.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Prizmalar ışığı renklerine ayırarak maddelerin bileşimini okumaya, ışığı kayıpsız
+          döndürerek dürbünlerde, reflektörlerde ve ölçüm aygıtlarında ışık yolunu yönetmeye yarar.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k11">Çözümlü örnekler</h3>
+        <p>Aşağıdaki çözümlerde aksi söylenmedikçe prizmanın çevresi havadır (n = 1).</p>
 
         <details>
-          <summary>Örnek 1 — Sapma açısı</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Sapma açısı</summary>
           <p>
             Tepe açısı 60° olan prizmaya 45° ile giren ışın, ikinci yüzeyden 52° ile çıkıyor.
             Sapma açısı kaçtır?
@@ -2469,35 +2984,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — En küçük sapmadan indis</summary>
-          <p>
-            Tepe açısı 60° olan bir prizmada en küçük sapma açısı 30° ölçülüyor. Prizmanın
-            kırılma indisi nedir? (sin45° = 0,707 · sin30° = 0,5)
-          </p>
-          <ol class="steps">
-            <li>n = sin((A + δ)/2) / sin(A/2)</li>
-            <li>n = sin((60 + 30)/2) / sin30° = sin45° / sin30°</li>
-            <li>n = 0,707 / 0,5 = <strong>1,41</strong></li>
-            <li>Bu, yaklaşık √2 değeridir.</li>
-          </ol>
-        </details>
-
-        <details>
-          <summary>Örnek 3 — Prizma içindeki açılar</summary>
-          <p>
-            Tepe açısı 60°, indisi 1,5 olan prizmaya 30° ile giren ışın için r₁, r₂ ve
-            çıkabilme durumunu inceleyiniz. (sin30° = 0,5)
-          </p>
-          <ol class="steps">
-            <li>sin r₁ = sin30°/1,5 = 0,333 → r₁ ≈ 19,5°</li>
-            <li>r₂ = A − r₁ = 60 − 19,5 = <strong>40,5°</strong></li>
-            <li>Sınır açı: sin θ = 1/1,5 = 0,667 → θ ≈ 41,8°</li>
-            <li>r₂ &lt; θ olduğu için ışın <strong>çıkabilir</strong> (ama sınıra çok yakındır).</li>
-          </ol>
-        </details>
-
-        <details>
-          <summary>Örnek 4 — Tam yansımalı prizma</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Tam yansımalı prizma</summary>
           <p>
             45° – 45° – 90° prizmada ışık hipotenüse 45° ile çarpıyor. Prizmanın indisi 1,5 ise
             ışık ne yapar?
@@ -2511,7 +2998,82 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="orta">Örnek 3 — En küçük sapmadan indis</summary>
+          <p>
+            Tepe açısı 60° olan bir prizmada en küçük sapma açısı 30° ölçülüyor. Prizmanın
+            kırılma indisi nedir? (sin45° = 0,707 · sin30° = 0,5)
+          </p>
+          <ol class="steps">
+            <li>n = sin((A + δ)/2) / sin(A/2)</li>
+            <li>n = sin((60 + 30)/2) / sin30° = sin45° / sin30°</li>
+            <li>n = 0,707 / 0,5 = <strong>1,41</strong></li>
+            <li>Bu, yaklaşık √2 değeridir.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — Prizma içindeki açılar</summary>
+          <p>
+            Tepe açısı 60°, indisi 1,5 olan prizmaya 30° ile giren ışın için r₁, r₂ ve
+            çıkabilme durumunu inceleyiniz. (sin30° = 0,5)
+          </p>
+          <ol class="steps">
+            <li>sin r₁ = sin30°/1,5 = 0,333 → r₁ ≈ 19,5°</li>
+            <li>r₂ = A − r₁ = 60 − 19,5 = <strong>40,5°</strong></li>
+            <li>Sınır açı: sin θ = 1/1,5 = 0,667 → θ ≈ 41,8°</li>
+            <li>r₂ &lt; θ olduğu için ışın <strong>çıkabilir</strong> (ama sınıra çok yakındır).</li>
+            <li>Çıkış: sin i₂ = 1,5 · sin40,5° ≈ 0,975 → i₂ ≈ 77°; sapma δ ≈ 30 + 77 − 60 = 47°.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="orta">Örnek 5 — İnce prizmada renk ayrılması</summary>
+          <p>
+            Tepe açısı 8° olan ince bir cam prizmada kırmızı için n = 1,513, mor için n = 1,538'dir.
+            Işık prizmaya neredeyse dik geliyor. (a) Her rengin sapmasını, (b) iki renk arasındaki açıyı,
+            (c) 2 m uzaktaki perdede tayfın genişliğini bulunuz.
+          </p>
+          <ol class="steps">
+            <li>İnce prizma: δ ≈ (n − 1)·A</li>
+            <li><strong>(a)</strong> Kırmızı: 0,513 · 8° ≈ <strong>4,10°</strong>; mor: 0,538 · 8° ≈ <strong>4,30°</strong></li>
+            <li><strong>(b)</strong> Δδ ≈ 0,025 · 8° = <strong>0,20°</strong></li>
+            <li><strong>(c)</strong> Genişlik ≈ 2 m · tan0,20° ≈ 2 m · 0,0035 ≈ <strong>7 mm</strong></li>
+          </ol>
+          <p>60°'lik prizmada aynı iki renk arasındaki açı 2,2° kadardı; ince prizma renkleri çok daha az açar.</p>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Işığın çıkabileceği en küçük gelme açısı</summary>
+          <p>
+            Tepe açısı 60°, indisi 1,50 olan bir prizmada ışığın ikinci yüzeyden çıkabilmesi için
+            birinci yüzeye en az hangi açıyla gelmesi gerekir? (sin18,2° ≈ 0,312)
+          </p>
+          <ol class="steps">
+            <li>Sınır açı: sin θ = 1/1,50 ≈ 0,667 → θ ≈ 41,8°</li>
+            <li>Çıkabilmesi için r₂ ≤ 41,8° olmalı → r₁ = A − r₂ ≥ 60° − 41,8° = 18,2°</li>
+            <li>sin i₁ = n·sin r₁ = 1,50 · 0,312 ≈ 0,468</li>
+            <li>i₁ ≈ <strong>27,9°</strong>; bundan küçük açıyla gelen ışın ikinci yüzeyde tam yansır.</li>
+            <li>Tam sınırda i₂ = 90° olur: ışın yüzeyi yalayarak çıkar, δ ≈ 27,9 + 90 − 60 ≈ 57,9°.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 7 — Suya batırılan prizma</summary>
+          <p>
+            İndisi 1,50 olan 45° – 45° – 90° bir prizma tamamen suya (n = 1,33) batırılıyor. Hipotenüse
+            içeriden 45° ile çarpan ışık ne yapar? Çıkıyorsa suya hangi açıyla geçer? (sin45° = 0,707)
+          </p>
+          <ol class="steps">
+            <li>Havada: θ(sınır) = 41,8° &lt; 45° → tam yansıma olurdu (Örnek 2).</li>
+            <li>Suda sınır açı: sin θ = 1,33/1,50 ≈ 0,887 → θ ≈ 62,5°</li>
+            <li>45° &lt; 62,5° → tam yansıma <strong>olmaz</strong>, ışık hipotenüsten suya geçer.</li>
+            <li>1,50 · sin45° = 1,33 · sin x → sin x ≈ 1,061/1,33 ≈ 0,797 → x ≈ <strong>52,9°</strong></li>
+            <li>Suyun içinde bu prizma ayna gibi çalışmaz; ışığın büyük kısmı suya kaçar.</li>
+          </ol>
+        </details>
+
+        <h3 id="k12">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>Prizmanın renk ürettiğini sanmak.</strong> Prizma renkleri ayırır,
             üretmez.</li>
@@ -2519,11 +3081,15 @@
             <em>mordur</em>; indisi en büyüktür.</li>
           <li><strong>δ = i₁ + i₂ + A yazmak.</strong> Doğrusu δ = i₁ + i₂ − A'dır.</li>
           <li><strong>Işığın tepeye doğru saptığını sanmak.</strong> Sapma her zaman
-            <em>tabana</em> doğrudur.</li>
+            <em>tabana</em> doğrudur (prizma çevresinden yoğun olduğu sürece).</li>
           <li><strong>Işığın her durumda prizmadan çıkacağını varsaymak.</strong> r₂ sınır açıyı
             aşarsa ışık içeride tam yansır.</li>
           <li><strong>Paralel kenarlı levhayla prizmayı karıştırmak.</strong> Levhada doğrultu
             korunur, prizmada değişir.</li>
+          <li><strong>Sapmanın gelme açısıyla hep arttığını sanmak.</strong> Sapma önce azalır, en küçük
+            değerden sonra artar; aynı sapma iki farklı gelme açısıyla elde edilebilir.</li>
+          <li><strong>Gökkuşağını belli bir yerde duran bir cisim sanmak.</strong> Gökkuşağı, güneşin tam
+            karşısındaki noktadan 42° açıyla gelen ışınların kümesidir; sen yürüdükçe o da yer değiştirir.</li>
         </ul>
 
         <div class="callout">

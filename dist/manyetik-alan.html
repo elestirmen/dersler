@@ -1560,6 +1560,226 @@
 
       @keyframes figflow { to { stroke-dashoffset: -26; } }
 
+      /* ================= konu anlatımı basamakları ================= */
+      /* Anlatım dört basamakta ilerler: temel → orta → ileri → pekiştir. Bandın rengi
+         kendinden sonraki her öğeye --ton olarak geçer; bir sonraki band onu ezer. */
+      .basamak[data-basamak="1"], .basamak[data-basamak="1"] ~ * { --ton: var(--lime); }
+      .basamak[data-basamak="2"], .basamak[data-basamak="2"] ~ * { --ton: var(--blue); }
+      .basamak[data-basamak="3"], .basamak[data-basamak="3"] ~ * { --ton: var(--violet); }
+      .basamak[data-basamak="4"], .basamak[data-basamak="4"] ~ * { --ton: var(--amber); }
+
+      .basamak {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+        margin: 46px 0 2px;
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--ton) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background:
+          linear-gradient(100deg, color-mix(in srgb, var(--ton) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .basamak::before {
+        grid-row: span 2;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--ton);
+        color: var(--surface);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        content: attr(data-basamak);
+        box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--ton) 70%, transparent);
+      }
+
+      .basamak b {
+        display: block;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.22rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .basamak b::before {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ton);
+        font-family: var(--font-sans);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        content: "BASAMAK";
+      }
+
+      .basamak[data-basamak="1"] b::before { content: "BASAMAK 1 / 4"; }
+      .basamak[data-basamak="2"] b::before { content: "BASAMAK 2 / 4"; }
+      .basamak[data-basamak="3"] b::before { content: "BASAMAK 3 / 4"; }
+      .basamak[data-basamak="4"] b::before { content: "BASAMAK 4 / 4"; }
+
+      .basamak span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .modal-body .basamak + h3 { margin-top: 26px; }
+
+      .modal-body h3::before {
+        border-color: color-mix(in srgb, var(--ton, var(--violet)) 32%, transparent);
+        background: color-mix(in srgb, var(--ton, var(--violet)) 10%, transparent);
+        color: var(--ton, var(--violet));
+      }
+
+      .chips button[data-basamak="1"] { --ton: var(--lime); }
+      .chips button[data-basamak="2"] { --ton: var(--blue); }
+      .chips button[data-basamak="3"] { --ton: var(--violet); }
+      .chips button[data-basamak="4"] { --ton: var(--amber); }
+
+      .chips button[data-basamak] { display: inline-flex; align-items: center; gap: 7px; }
+
+      .chips button[data-basamak]::before {
+        width: 7px;
+        height: 7px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--ton);
+        content: "";
+      }
+
+      /* bölüm sonu özeti */
+      .modal-body .kisaca {
+        margin: 18px 0 8px;
+        padding: 13px 18px;
+        border: 1px solid color-mix(in srgb, var(--ton, var(--lime)) 26%, var(--line));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 7%, var(--surface));
+        color: var(--ink);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .modal-body .kisaca > b:first-child {
+        margin-right: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* düşün: cevabı gizli soru */
+      details.dusun {
+        border-color: color-mix(in srgb, var(--violet) 28%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--violet) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.dusun summary { font-weight: 600; line-height: 1.5; }
+
+      details.dusun summary::before {
+        border-color: color-mix(in srgb, var(--violet) 40%, var(--line));
+        background: color-mix(in srgb, var(--violet) 12%, var(--surface));
+        color: var(--violet);
+        content: "?";
+      }
+
+      details.dusun[open] summary::before { content: "!"; background: color-mix(in srgb, var(--violet) 18%, var(--surface)); }
+
+      details.dusun > p:first-of-type { margin-top: 12px; }
+
+      details.dusun > :last-child { margin-bottom: 0; }
+
+      /* çözümlü örneklerde zorluk */
+      details summary[data-zorluk]::after {
+        flex: none;
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        content: attr(data-zorluk);
+        text-transform: uppercase;
+      }
+
+      summary[data-zorluk="kolay"]::after { background: color-mix(in srgb, var(--lime) 13%, transparent); color: var(--lime); }
+      summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+      summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
+
+      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      .foto {
+        position: relative;
+        margin: 20px 0 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .foto img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        background: var(--surface-3);
+      }
+
+      .foto::before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(10, 14, 27, 0.58);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.66rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        content: "Yapay zekâ ile üretildi";
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .foto figcaption {
+        padding: 13px 20px 15px;
+        color: var(--dim);
+        font-size: 0.84rem;
+        line-height: 1.58;
+      }
+
+      .foto figcaption b { color: var(--muted); font-weight: 650; }
+
+      @media (max-width: 760px) {
+        /* on iki çip telefonda tek sıra, yatay kaydırılır; metne yer kalsın */
+        #konu .chips {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+        }
+        #konu .chips::-webkit-scrollbar { display: none; }
+        #konu .chips button { flex: none; }
+        /* dört sütunlu tablolar 390 px'e sığsın: dar dolgu, küçük punto, gerekirse hücre içinde kır */
+        .modal-body .tbl { font-size: 0.8rem; }
+        .modal-body .tbl th, .modal-body .tbl td { padding: 8px 7px; overflow-wrap: anywhere; }
+        .modal-body .tbl th { font-size: 0.6rem; letter-spacing: 0.05em; }
+        .basamak { column-gap: 12px; padding: 13px 14px; }
+        .basamak::before { width: 38px; height: 38px; border-radius: 11px; font-size: 1.1rem; }
+        .foto figcaption { padding: 11px 14px 13px; }
+        details summary[data-zorluk]::after { padding: 2px 8px; }
+      }
+
       /* ================= belirme ================= */
       .js .reveal {
         opacity: 0;
@@ -1872,7 +2092,7 @@
         </span>
         <span>
           <h3>Konu anlatımı: Manyetik alan ve kuvvet</h3>
-          <p>Mıknatıstan akımın alanına, sağ el kuralından dairesel harekete kadar konunun tamamı. Tıkla, açılsın.</p>
+          <p>Dört basamakta: önce demir tozu, pusula ve sağ el kuralıyla sezgi, sonra telin alanı ve manyetik kuvvet bağıntıları, ardından paralel teller, sarmal yörünge ve uygulamalar; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
         </span>
         <span class="go" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2158,15 +2378,20 @@
       </div>
 
       <div class="chips">
-        <button type="button" data-goto="k1">Manyetik alan</button>
-        <button type="button" data-goto="k2">Akımın alanı</button>
-        <button type="button" data-goto="k3">Sağ el kuralı</button>
-        <button type="button" data-goto="k4">Tele etki eden kuvvet</button>
-        <button type="button" data-goto="k5">Yüke etki eden kuvvet</button>
-        <button type="button" data-goto="k6">Dairesel hareket</button>
-        <button type="button" data-goto="k7">Uygulamalar</button>
-        <button type="button" data-goto="k8">Çözümlü örnekler</button>
-        <button type="button" data-goto="k9">Sık yapılan hatalar</button>
+        <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
+        <button type="button" data-goto="k2" data-basamak="1">Manyetik alan</button>
+        <button type="button" data-goto="k3" data-basamak="1">Oersted'in keşfi</button>
+        <button type="button" data-goto="k4" data-basamak="1">Sağ el kuralı</button>
+        <button type="button" data-goto="k5" data-basamak="2">Telin alanı</button>
+        <button type="button" data-goto="k6" data-basamak="2">Sayılarla</button>
+        <button type="button" data-goto="k7" data-basamak="2">Tele etki eden kuvvet</button>
+        <button type="button" data-goto="k8" data-basamak="2">Yüke etki eden kuvvet</button>
+        <button type="button" data-goto="k9" data-basamak="2">Dairesel hareket</button>
+        <button type="button" data-goto="k10" data-basamak="3">Paralel teller</button>
+        <button type="button" data-goto="k11" data-basamak="3">Sarmal ve siklotron</button>
+        <button type="button" data-goto="k12" data-basamak="3">Gerçek dünyada</button>
+        <button type="button" data-goto="k13" data-basamak="4">Çözümlü örnekler</button>
+        <button type="button" data-goto="k14" data-basamak="4">Sık yapılan hatalar</button>
       </div>
 
       <div class="modal-body" id="konu-body">
@@ -2187,30 +2412,89 @@
         </svg>
 
         <p class="lead-in">
-          Pusula iğnesini kuzeye çeviren şey, elektrik motorunu döndüren, hoparlörü titreten ve
-          kutup ışıklarını yakan şeyle aynı. Üstelik manyetizmanın kaynağı mıknatıslar değil,
-          <b>hareket hâlindeki yüklerdir</b>: bir telden akım geçirdiğin anda çevresinde bir
-          manyetik alan doğar. Bu konuda önce alanın nereden geldiğini, sonra o alanın içine giren
-          bir akıma ya da yüke <b>ne yaptığını</b> öğreneceğiz.
+          Güneş'ten 150 milyon kilometre yol gelen yüklü parçacıklar neden ekvatorun değil de kutupların
+          göğünü aydınlatır? Cevap, pusula iğnesini kuzeye çeviren, elektrik motorunu döndüren ve
+          hoparlörü titreten şeyle aynı: <b>manyetik alan</b>. Üstelik manyetizmanın kaynağı mıknatıslar
+          değil, <b>hareket hâlindeki yüklerdir</b>: bir telden akım geçirdiğin anda çevresinde bir
+          manyetik alan doğar. Bu anlatım dört basamakta ilerliyor: önce alanı demir tozuyla görünür
+          kılıp adını koyacağız ve yönleri sağ elinle bulmayı öğreneceğiz; sonra alanın nereden
+          geldiğini ve içine giren bir akıma ya da yüke <b>ne yaptığını</b> bağıntılarıyla çıkaracağız;
+          ardından paralel tellere, sarmal yörüngelere ve gerçek dünyadaki uygulamalara geçeceğiz. En
+          sonda kolaydan zora sıralanmış örneklerle hepsini birlikte kullanacağız.
         </p>
 
-        <h3 id="k1">Manyetik alan nedir?</h3>
+        <figure class="foto">
+          <img src="gorsel/manyetik-alan-giris.webp?v=2" srcset="gorsel/manyetik-alan-giris-800.webp?v=2 800w, gorsel/manyetik-alan-giris.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Yıldızlı gece göğünde dalgalanan yeşil ve mor kutup ışığı perdeleri; altında karlı dağlar ve ışıkları yansıtan donmuş bir göl, kıyıda penceresi aydınlık küçük bir kulübe görülüyor.">
+          <figcaption>
+            <b>Kutup ışıkları</b>, Dünya'nın manyetik alanının gökyüzüne çizdiği bir resimdir. Güneş'ten gelen yüklü parçacıklar alan çizgilerine sarılarak kutuplara yakın bölgelerde atmosfere dalar, oradaki atomlara çarpıp onları ışıldatır; yeşil ışığın büyük kısmı oksijenden gelir. Bu parçacıkların yolunu çizen kuvveti ikinci ve üçüncü basamakta adım adım hesaplayacağız.
+          </figcaption>
+        </figure>
+
+        <div class="basamak" data-basamak="1">
+          <b>Temel</b>
+          <span>Önce sezgi: alanı demir tozuyla görünür kıl, kaynağını tanı ve yönleri sağ elinle bulmayı öğren. Bu basamakta hesap yok denecek kadar az.</span>
+        </div>
+
+        <h3 id="k1">Önce gözlemle: demir tozu neyi gösterir?</h3>
         <p>
-          Mıknatısların ve akım taşıyan iletkenlerin çevresinde, başka mıknatıslara ve hareketli
-          yüklere kuvvet uygulayan bir etki bölgesi oluşur: <strong>manyetik alan (B)</strong>.
-          Vektörel bir büyüklüktür ve birimi <strong>tesla (T)</strong>'dır.
+          Bir çubuk mıknatısın üstüne beyaz bir kâğıt koy, üzerine demir tozu serp ve kâğıda parmağınla
+          hafifçe vur. Dağınık tozlar birkaç saniyede düzenli eğriler çizerek sıraya girer: mıknatısın
+          bir ucundan çıkıp geniş yaylarla öbür ucuna dolanan çizgiler. Tozlar mıknatısa değmediği hâlde
+          onun etkisini hisseder; demek ki mıknatısın çevresindeki uzay “boş” değildir.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/manyetik-alan-gunluk.webp?v=2" srcset="gorsel/manyetik-alan-gunluk-800.webp?v=2 800w, gorsel/manyetik-alan-gunluk.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Ahşap bir masadaki beyaz kâğıda serpilmiş demir tozları iki noktada koyu yığınlar oluşturmuş; tozlar bu iki uç arasında düz çizgiler, çevrelerinde ise bir uçtan öbürüne dolanan yaylar ve dışa açılan çizgiler çiziyor. Kâğıdın sağında, masanın üzerinde küçük bir pusula duruyor.">
+          <figcaption>
+            Kâğıdın altındaki mıknatıs görünmüyor, tozlar da ona değmiyor; yine de <b>demir tozları</b> onun etkisini haritalıyor. Her toz tanesi küçük bir pusula iğnesi gibi o noktadaki etkinin yönüne diziliyor; tozların iki uçta sıklaşması etkinin en güçlü orada olduğunu gösteriyor. Tozların çizdiği bu eğrilere bir sonraki bölümde <b>manyetik alan çizgileri</b> adını vereceğiz.
+          </figcaption>
+        </figure>
+
+        <p>
+          Kâğıdın üzerinde gerçek bir pusulayı gezdirirsen iğnesinin her yerde tozların çizdiği eğriye
+          teğet durduğunu görürsün. İki mıknatısı yaklaştırınca da bir yönde çekiştiklerini, birini ters
+          çevirince itiştiklerini hissedersin. Tozların görüntüsünden dört gözlem çıkar:
+        </p>
+        <ul>
+          <li><strong>Uçlarda yoğunlaşma:</strong> tozlar mıknatısın iki ucunda en sıktır; etki en güçlü orada. Bu uçlara <strong>kutup</strong> denir.</li>
+          <li><strong>Kapalı yaylar:</strong> çizgiler bir kutuptan çıkar, mıknatısın çevresinden dolanıp öbür kutba döner.</li>
+          <li><strong>Uzakta seyrelme:</strong> mıknatıstan uzaklaştıkça çizgiler aralanır, etki zayıflar.</li>
+          <li><strong>Kesişme yok:</strong> iki çizgi hiçbir yerde birbirini kesmez; her noktada tek bir yön vardır.</li>
+        </ul>
+        <details class="dusun">
+          <summary>Düşün: Buzdolabı mıknatısı çelik kapıya yapışıyor da alüminyum tencereye neden yapışmıyor?</summary>
+          <p>
+            Mıknatıs yalnızca <b>demir, nikel ve kobalt</b> gibi birkaç maddeyi güçlü biçimde çeker. Bu
+            maddelerde atomların minik mıknatısları, mıknatısın yanında aynı yöne dizilir ve madde geçici
+            bir mıknatısa dönüşür. Alüminyum, bakır, plastik ve cam bunu yapamaz; üzerlerindeki
+            etki gözle fark edilemeyecek kadar küçüktür.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Mıknatısın çevresinde demir tozunu ve pusula iğnesini belli bir yöne çeviren bir
+          etki bölgesi vardır. Tozların çizdiği eğriler kutuplarda sıklaşır, uzakta seyrelir ve birbirini
+          kesmez.
+        </p>
+
+        <h3 id="k2">Manyetik alan nedir?</h3>
+        <p>
+          Mıknatısların ve akım taşıyan iletkenlerin çevresinde, başka mıknatıslara ve hareketli yüklere
+          kuvvet uygulayan bir etki bölgesi oluşur: <strong>manyetik alan (B)</strong>. Vektörel bir
+          büyüklüktür, yani her noktada hem bir büyüklüğü hem bir yönü vardır. Birimi
+          <strong>tesla (T)</strong>'dır. Demir tozlarının çizdiği eğrilere
+          <strong>manyetik alan çizgileri</strong> denir; bir noktadaki alanın yönü, oraya konan pusula
+          iğnesinin N ucunun gösterdiği yöndür.
         </p>
         <ul>
           <li>Alan çizgileri mıknatısın <strong>N kutbundan çıkar, S kutbunda son bulur</strong>; mıknatısın içinde S'ten N'e devam eder, yani <strong>kapalı eğrilerdir</strong>.</li>
           <li>Çizgiler asla kesişmez; sıklıkları alanın şiddetini gösterir.</li>
           <li><strong>Tek kutup yoktur:</strong> bir mıknatıs ikiye bölünürse iki yeni mıknatıs oluşur.</li>
+          <li><strong>Aynı kutuplar iter, zıt kutuplar çeker:</strong> N ile N, S ile S birbirini iter; N ile S birbirini çeker.</li>
         </ul>
-        <div class="callout">
-          <p>
-            <b>Ölçek duygusu:</b> Dünya'nın manyetik alanı ≈ 50 µT, buzdolabı mıknatısı ≈ 5 mT,
-            hoparlör mıknatısı ≈ 1 T, MR cihazı 1,5–3 T.
-          </p>
-        </div>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 214" role="img" aria-label="Çubuk mıknatısın kuzeyden güneye giden alan çizgileri ve mıknatıs ikiye bölününce iki yeni mıknatıs oluşması.">
@@ -2254,60 +2538,73 @@
           </figcaption>
         </figure>
 
-        <h3 id="k2">Akımın oluşturduğu alan</h3>
+        <h4>Dünya da bir mıknatıs</h4>
         <p>
-          1820'de Oersted, akım taşıyan telin yanındaki pusula iğnesinin saptığını gördü:
-          <strong>elektrik akımı manyetik alan oluşturur</strong>. Düz bir tel için alan çizgileri,
-          teli çevreleyen <strong>iç içe çemberlerdir</strong>.
+          Pusula işe yarar, çünkü Dünya'nın kendisi dev bir mıknatıs gibi davranır; iğnenin kuzeyi
+          gösteren ucuna <strong>N kutbu</strong> denir. Manyetik kutuplar coğrafi kutuplarla tam
+          çakışmaz ve yıllar içinde yavaş yavaş yer değiştirir.
         </p>
-        <div class="formula">
-          <code>B = μ₀·I / (2π·r)</code>
-          <code>μ₀ / 2π = 2·10⁻⁷ T·m/A</code>
+        <div class="callout">
+          <p>
+            <b>Ölçek duygusu:</b> Dünya'nın manyetik alanı ≈ 50 µT, buzdolabı mıknatısı ≈ 5 mT,
+            hoparlör mıknatısı ≈ 1 T, MR cihazı 1,5–3 T. Mikrotesla (µT) teslanın milyonda biri,
+            militesla (mT) binde biridir; MR cihazının alanı Dünya'nınkinin 30 000 ile 60 000 katıdır.
+          </p>
         </div>
-        <p>
-          Alan akımla <strong>doğru</strong>, uzaklıkla <strong>ters</strong> orantılıdır. Dikkat:
-          burada <strong>1/r</strong> vardır, elektrik alandaki gibi 1/r² değil.
+        <details class="dusun">
+          <summary>Düşün: Pusulanın N ucu kuzeyi gösteriyorsa, coğrafi kuzey kutbunun yakınındaki manyetik kutup N mi, S mi?</summary>
+          <p>
+            <b>S kutbu.</b> Zıt kutuplar birbirini çeker; pusulanın N ucu kuzeye çekildiğine göre orada
+            bir S kutbu olmalıdır. Bu yüzden Dünya'nın alan çizgileri güney yarım kürede çıkıp kuzey
+            yarım kürede yeniden Dünya'ya girer.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Manyetik alan (B), mıknatısların ve akımların çevresinde hareketli yüklere kuvvet
+          uygulayan vektörel bir etkidir; birimi tesladır. Alan çizgileri N'den çıkıp S'ye giren kapalı
+          eğrilerdir ve tek kutup yoktur.
         </p>
-        <table class="tbl">
-          <thead><tr><th>Kaynak</th><th>Alan bağıntısı</th><th>Özellik</th></tr></thead>
-          <tbody>
-            <tr><td>Düz tel</td><td>B = μ₀I / (2πr)</td><td>çembersel çizgiler</td></tr>
-            <tr><td>Çembersel halka (merkezde)</td><td>B = μ₀I / (2r)</td><td>halkaya dik</td></tr>
-            <tr><td>Bobin / solenoid (içinde)</td><td>B = μ₀·n·I</td><td>düzgün alan</td></tr>
-          </tbody>
-        </table>
 
-        <figure class="fig">
-          <svg class="fx" viewBox="0 0 480 210" role="img" aria-label="Akım taşıyan düz telin çevresinde oluşan çembersel manyetik alan çizgileri ve alanın uzaklıkla azalması.">
-            <path class="st sb bold" d="M120 190V26" marker-end="url(#ah-b)" />
-            <text class="tl fb" x="128" y="36">I</text>
-            <circle class="st sa hair fn" cx="120" cy="110" r="34" />
-            <circle class="st sa hair fn" cx="120" cy="110" r="60" />
-            <circle class="st sa hair fn" cx="120" cy="110" r="86" />
-            <path class="st sa" d="M150 96 154 110" marker-end="url(#ah-sa)" />
-            <path class="st sa" d="M176 92 180 110" marker-end="url(#ah-sa)" />
-            <path class="st sa" d="M202 88 206 110" marker-end="url(#ah-sa)" />
-            <circle class="fd" cx="120" cy="110" r="5" />
-            <text class="tt fd" x="120" y="206" text-anchor="middle">tel (akım yukarı)</text>
-            <path class="st sl hair dots" d="M250 20v176" />
-            <path class="st sd hair" d="M290 34v120h160" />
-            <path class="st sa bold" d="M298 44C330 104 370 130 448 140" />
-            <text class="tt fa" x="330" y="60">B ∝ 1 / r</text>
-            <text class="tt fd" x="284" y="30" text-anchor="end">B</text>
-            <text class="tt fd" x="448" y="172" text-anchor="end">r</text>
-            <text class="tl fb" x="370" y="196" text-anchor="middle">B = 2·10⁻⁷ · I / r</text>
-          </svg>
-          <figcaption>
-            Düz bir telden akım geçtiğinde çevresinde <b>tel merkezli çemberler</b> hâlinde bir
-            manyetik alan doğar. Alanın yönünü sağ el kuralı verir: başparmak akım yönünü
-            gösterecek şekilde teli kavrarsan, <b>parmakların alan çizgilerini izler</b>. Büyüklüğü
-            akımla doğru, uzaklıkla ters orantılıdır — ters kare değil, <b>ters birinci kuvvet</b>.
-          </figcaption>
-        </figure>
-
-        <h3 id="k3">Sağ el kuralı</h3>
+        <h3 id="k3">Akım da mıknatıs gibidir: Oersted'in keşfi</h3>
         <p>
-          Manyetik olaylarda yön bulmanın anahtarı sağ el kurallarıdır:
+          1820'de Danimarkalı fizikçi Hans Christian Oersted, akım taşıyan bir telin yanındaki pusula
+          iğnesinin saptığını gördü. Akımı kesince iğne yeniden kuzeye döndü; akımın yönünü çevirince
+          ters yöne saptı. Bu basit gözlem, o güne kadar ayrı sanılan elektrik ile manyetizmanın aynı
+          olayın iki yüzü olduğunu gösterdi: <strong>elektrik akımı manyetik alan oluşturur</strong>.
+        </p>
+        <ul>
+          <li><strong>Akım varken sapar:</strong> akım geçince iğne döner, akım kesilince kuzeye geri döner.</li>
+          <li><strong>Yön akıma bağlıdır:</strong> akımın yönü ters çevrilince iğne de ters yöne sapar.</li>
+          <li><strong>Etki akıma ve uzaklığa bağlıdır:</strong> akım büyüdükçe sapma artar, pusula telden uzaklaştıkça azalır.</li>
+          <li><strong>Çizgiler çemberdir:</strong> düz bir telin alan çizgileri teli çevreleyen <strong>iç içe çemberlerdir</strong>; bu çizgilerin ne başı ne sonu vardır, telin de kutbu yoktur.</li>
+        </ul>
+        <p>
+          Aynı teli bir halka biçiminde bükersen halkanın her parçasının alanı merkezde üst üste biner
+          ve alan güçlenir. Teli yay gibi çok sayıda halka hâlinde sararsan bir <strong>bobin</strong>
+          elde edersin; içinde alan güçlü ve hemen her yerde aynıdır, dışarıdan ise bobin bir çubuk
+          mıknatıs gibi davranır: bir ucu N, öbür ucu S. İçine demir çekirdek konan bobine
+          <strong>elektromıknatıs</strong> denir; hurda vinçleri ve elektrikli kilitler, alanı akımla
+          birlikte açılıp kapanabildiği için bunu kullanır.
+        </p>
+        <p>
+          Peki çubuk mıknatısın alanı nereden geliyor? Onun içinde de yükler var: atomlardaki
+          elektronlar. Her elektron minicik bir mıknatıs gibi davranır; demirde bu minik mıknatısların
+          çoğu aynı yöne dizilince etkileri toplanır.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Akım taşıyan tel çevresinde manyetik alan oluşturur; düz telde alan çizgileri teli
+          çevreleyen çemberlerdir. Teli bobin hâlinde sarınca alan güçlenir ve bobin bir mıknatıs gibi
+          davranır.
+        </p>
+
+        <h3 id="k4">Yönleri bulmak: sağ el kuralı</h3>
+        <p>
+          Manyetizmada yönler üç boyutludur ve çoğu zaman sezgiye ters düşer; bu yüzden fizikçiler yön
+          bulmak için ellerini kullanır. İki kural bilmen yeter, ikisi de <strong>sağ el</strong> ile
+          uygulanır. Birincisi telin çevresindeki alanın yönünü, ikincisi alanın içinde hareket eden yüke
+          ya da akıma etki eden <strong>manyetik kuvvetin</strong> yönünü verir. Bu kuvvetin şaşırtıcı
+          yanı, yükü alan boyunca itip çekmemesi, ona <em>yandan</em> etki etmesidir: kuvvet hem hıza hem
+          alana diktir. Büyüklüğünü ikinci basamakta hesaplayacağız.
         </p>
         <ul>
           <li><strong>Telin alanı için:</strong> Sağ elin <em>başparmağı akım yönünü</em> gösterecek
@@ -2319,7 +2616,7 @@
         <div class="callout warn">
           <p>
             <b>Sayfa düzlemi gösterimi:</b> <b>⊗</b> sayfaya doğru (içeri), <b>⊙</b> sayfadan dışarı
-            anlamına gelir. Okun ucu ve tüyü gibi düşünülebilir.
+            anlamına gelir. Uzaklaşan okun tüyü (⊗) ve sana yaklaşan okun ucu (⊙) gibi düşünülebilir.
           </p>
         </div>
 
@@ -2355,24 +2652,168 @@
           </figcaption>
         </figure>
 
-        <h3 id="k4">Akım taşıyan tele etki eden kuvvet</h3>
+        <p>
+          Hemen dene: sayfaya doğru (⊗) akım taşıyan bir teli sağ elinle kavra. Başparmağın sayfanın
+          içini gösterirken parmakların <strong>saat yönünde</strong> kıvrılır; sayfanın 01 numaralı
+          deneyinde de akım sayfaya doğruyken pusula saat yönünde dizilir. Kuvvet kuralını 04 numaralı
+          <b>sağ el kuralı alıştırmasında</b> istediğin kadar deneyebilirsin.
+        </p>
+        <details class="dusun">
+          <summary>Düşün: Sayfadan dışarı (⊙) akım taşıyan bir telin alan çizgileri, sayfaya bakan birine göre hangi yönde döner?</summary>
+          <p>
+            Başparmağını sana doğru, sayfadan dışarı çevir: parmakların <b>saat yönünün tersine</b>
+            kıvrılır. Akımın yönü ters dönünce alan çizgilerinin dönme yönü de ters döner. Kısaca ⊗
+            akımda saat yönü, ⊙ akımda saatin tersi yönü.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Telin alanında başparmak akımı, kıvrılan parmaklar alanı gösterir; kuvvette
+          parmaklar hızdan alana dönerken başparmak kuvveti verir. Negatif yükte kuvvet ters döner; ⊗
+          içeri, ⊙ dışarı demektir.
+        </p>
+
+        <div class="basamak" data-basamak="2">
+          <b>Orta</b>
+          <span>Bağıntılar: telin alanını, tele ve yüke etki eden kuvveti ve çembersel yörüngeyi adım adım çıkar, sayılarla hisset.</span>
+        </div>
+
+        <h3 id="k5">Akımın oluşturduğu alan: bağıntılar</h3>
+        <p>
+          Oersted'in nitel gözlemini şimdi sayıya dökelim. Düz ve çok uzun bir telden I akımı
+          geçiyorsa, telden r uzaklıktaki manyetik alanın büyüklüğü şudur:
+        </p>
+        <div class="formula">
+          <code>B = μ₀·I / (2π·r)</code>
+          <code>μ₀ / 2π = 2·10⁻⁷ T·m/A</code>
+          <code>B = 2·10⁻⁷ · I / r</code>
+        </div>
+        <h4>Bağıntı nereden geliyor?</h4>
+        <ol>
+          <li><strong>Akımla orantı:</strong> Akımı iki katına çıkarınca ölçülen alan da iki katına çıkar: B ∝ I.</li>
+          <li><strong>Simetri:</strong> Düz tel her yönden aynı görünür; bu yüzden telden aynı uzaklıktaki her noktada alan aynıdır ve çizgiler tel merkezli çemberlerdir.</li>
+          <li><strong>Çevreye yayılma:</strong> Akımın etkisi r yarıçaplı çemberin 2π·r uzunluğuna yayılır. <strong>Ampère yasası</strong> bunu B·2π·r = μ₀·I diye yazar; çevre r ile büyüdükçe alan küçülür.</li>
+          <li><strong>Sabit:</strong> Boşluğun manyetik geçirgenliği μ₀ = 4π·10⁻⁷ T·m/A'dir; 2π'ye bölünce 2·10⁻⁷ kalır.</li>
+        </ol>
+        <p>
+          Alan akımla <strong>doğru</strong>, uzaklıkla <strong>ters</strong> orantılıdır. Dikkat:
+          burada <strong>1/r</strong> vardır, elektrik alandaki gibi 1/r² değil. Nokta yükün etkisi bir
+          küre yüzeyine (4π·r²), telin etkisi ise yalnızca bir çember çevresine (2π·r) yayılır.
+        </p>
+
+        <figure class="fig">
+          <svg class="fx" viewBox="0 0 480 210" role="img" aria-label="Akım taşıyan düz telin çevresinde oluşan çembersel manyetik alan çizgileri ve alanın uzaklıkla azalması.">
+            <path class="st sb bold" d="M120 190V26" marker-end="url(#ah-b)" />
+            <text class="tl fb" x="128" y="36">I</text>
+            <circle class="st sa hair fn" cx="120" cy="110" r="34" />
+            <circle class="st sa hair fn" cx="120" cy="110" r="60" />
+            <circle class="st sa hair fn" cx="120" cy="110" r="86" />
+            <path class="st sa" d="M150 96 154 110" marker-end="url(#ah-sa)" />
+            <path class="st sa" d="M176 92 180 110" marker-end="url(#ah-sa)" />
+            <path class="st sa" d="M202 88 206 110" marker-end="url(#ah-sa)" />
+            <circle class="fd" cx="120" cy="110" r="5" />
+            <text class="tt fd" x="120" y="206" text-anchor="middle">tel (akım yukarı)</text>
+            <path class="st sl hair dots" d="M250 20v176" />
+            <path class="st sd hair" d="M290 34v120h160" />
+            <path class="st sa bold" d="M298 44C330 104 370 130 448 140" />
+            <text class="tt fa" x="330" y="60">B ∝ 1 / r</text>
+            <text class="tt fd" x="284" y="30" text-anchor="end">B</text>
+            <text class="tt fd" x="448" y="172" text-anchor="end">r</text>
+            <text class="tl fb" x="370" y="196" text-anchor="middle">B = 2·10⁻⁷ · I / r</text>
+          </svg>
+          <figcaption>
+            Düz bir telden akım geçtiğinde çevresinde <b>tel merkezli çemberler</b> hâlinde bir
+            manyetik alan doğar. Alanın yönünü sağ el kuralı verir: başparmak akım yönünü
+            gösterecek şekilde teli kavrarsan, <b>parmakların alan çizgilerini izler</b>. Büyüklüğü
+            akımla doğru, uzaklıkla ters orantılıdır — ters kare değil, <b>ters birinci kuvvet</b>.
+          </figcaption>
+        </figure>
+
+        <table class="tbl">
+          <thead><tr><th>Kaynak</th><th>Alan bağıntısı</th><th>Özellik</th></tr></thead>
+          <tbody>
+            <tr><td>Düz tel</td><td>B = μ₀I / (2πr)</td><td>çembersel çizgiler</td></tr>
+            <tr><td>Çembersel halka (merkezde)</td><td>B = μ₀I / (2r)</td><td>halkaya dik</td></tr>
+            <tr><td>Bobin / solenoid (içinde)</td><td>B = μ₀·n·I</td><td>düzgün alan</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Bobin bağıntısındaki n, <strong>birim uzunluktaki sarım sayısıdır</strong> (n = N/ℓ). 20 cm'lik,
+          200 sarımlı bir bobinde n = 1000 sarım/m olur; 2 A akımla içindeki alan
+          4π·10⁻⁷ · 1000 · 2 ≈ 2,5 mT'dır, Dünya'nınkinin yaklaşık elli katı.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Birim kontrolü:</b> (T·m/A) · A / m = T ✓. Bağıntıda r'yi santimetre olarak yazarsan sonuç
+            yüz kat küçük çıkar; uzaklığı her zaman metreye çevir (5 cm = 0,05 m).
+          </p>
+        </div>
+        <p class="kisaca">
+          <b>Kısaca:</b> Düz telin alanı B = 2·10⁻⁷·I/r'dir: akımla doğru, uzaklıkla ters orantılı (1/r,
+          1/r² değil). Halkanın merkezinde B = μ₀I/(2r), bobinin içinde B = μ₀·n·I olur.
+        </p>
+
+        <h3 id="k6">Sayılarla hisset: bir tel ne kadar güçlü bir mıknatıstır?</h3>
+        <p>
+          Sayıları tanıdık bir ölçüyle, Dünya'nın yaklaşık 50 µT'lık alanıyla karşılaştıralım; pusula,
+          telin alanı buna yaklaştığında belirgin sapar. Tabloda tel tek başına düşünülmüştür
+          (B = 2·10⁻⁷·I/r):
+        </p>
+        <table class="tbl">
+          <tr><th>Durum</th><th>Akım</th><th>Uzaklık</th><th>Alan</th></tr>
+          <tr><td>Pil devresindeki ince tel</td><td>1 A</td><td>1 cm</td><td>20 µT</td></tr>
+          <tr><td>Sayfadaki 01 deneyi (başlangıç)</td><td>10 A</td><td>5 cm</td><td>40 µT</td></tr>
+          <tr><td>Kalın bir akü kablosu</td><td>100 A</td><td>10 cm</td><td>200 µT</td></tr>
+          <tr><td>Yüksek gerilim hattının bir iletkeni</td><td>1000 A</td><td>20 m</td><td>10 µT</td></tr>
+          <tr><td>Yıldırım kanalı (tipik tepe akımı)</td><td>30 000 A</td><td>100 m</td><td>60 µT</td></tr>
+        </table>
+        <p>
+          Tablodan okunan düzen şu: alan akımın kendisine değil, <strong>akımın uzaklığa oranına</strong>
+          bağlıdır. Akım on katına, uzaklık da on katına çıkarsa alan değişmez; 1 A ile 1 cm ve 10 A ile
+          10 cm aynı 20 µT'yı verir. Bin amperlik bir hattın 20 m altındaki alan Dünya'nınkinin beşte biri
+          kadarken yıldırımın on binlerce amperi 100 m öteden bile Dünya'nın alanını aşar; ama yalnızca
+          çok kısa bir an için.
+        </p>
+        <div class="callout">
+          <p>
+            <b>Deneyde dene:</b> Sayfanın 01 numaralı bölümünde “Akım 2 katı” düğmesi alanı 40 µT'dan
+            80 µT'ya çıkarır, “Uzaklık 2 katı” ise 20 µT'ya indirir. “Tele çok yakın” düğmesi 4 A'i
+            2 cm'ye getirir ve yine 40 µT verir: oran aynı, alan aynı.
+          </p>
+        </div>
+        <p class="kisaca">
+          <b>Kısaca:</b> Telin alanı I/r oranına bağlıdır: 1 A'lik bir tel 1 cm'de 20 µT, 1000 A'lik bir hat
+          20 m'de 10 µT üretir. Pusula ancak bu alan Dünya'nın 50 µT'lık alanıyla kıyaslanabilir olunca
+          belirgin sapar.
+        </p>
+
+        <h3 id="k7">Akım taşıyan tele etki eden kuvvet</h3>
         <p>
           Manyetik alan içindeki bir tel akım taşıyorsa, tele bir kuvvet etki eder:
         </p>
         <div class="formula">
           <code>F = B · I · L · sinα</code>
+          <code>1 T = 1 N / (A·m)</code>
         </div>
         <p>
           Burada α, <strong>akım yönü ile alan arasındaki açıdır</strong>. Kuvvet hem akıma hem
-          alana <strong>diktir</strong>.
+          alana <strong>diktir</strong>; yönünü sağ el kuralı verir. Bağıntının her parçası ayrı bir
+          deneyle sınanabilir:
         </p>
+        <ol>
+          <li><strong>Alan:</strong> Alan iki kat güçlüyse kuvvet de iki kat olur: F ∝ B.</li>
+          <li><strong>Akım:</strong> Akım iki katına çıkınca kuvvet iki katına çıkar: F ∝ I.</li>
+          <li><strong>Uzunluk:</strong> Alanın içinde kalan tel uzunluğu L iki katına çıkınca kuvvet de iki katına çıkar; her tel parçası kendi payını ekler.</li>
+          <li><strong>Açı:</strong> Telin alana dik izdüşümü L·sinα'dır; alana paralel kısım hiç kuvvet doğurmaz.</li>
+        </ol>
         <ul>
           <li>α = 90° (akım alana dik): kuvvet <strong>en büyük</strong>, F = B·I·L</li>
           <li>α = 0° veya 180° (akım alana paralel): kuvvet <strong>sıfır</strong></li>
         </ul>
         <p>
-          Elektrik motorlarının çalışma ilkesi budur: alan içindeki akım çerçevesine etki eden
-          kuvvet çifti, çerçeveyi döndürür.
+          Bu bağıntı teslanın tanımını da verir: <strong>1 T</strong>, alana dik duran, 1 m uzunluğunda
+          ve 1 A akım taşıyan bir tele 1 N kuvvet uygulayan alandır. Sayfanın 02 numaralı deneyinde
+          0,5 m'lik tel 5 A akım taşırken 0,4 T'lık alanda 0,4 · 5 · 0,5 = 1 N kuvvet görür; açıyı
+          30°'ye indirirsen kuvvet yarıya, 0,5 N'a düşer.
         </p>
 
         <figure class="fig">
@@ -2411,7 +2852,16 @@
           </figcaption>
         </figure>
 
-        <h3 id="k5">Hareketli yüke etki eden kuvvet</h3>
+        <p>
+          Elektrik motorlarının çalışma ilkesi budur: alan içindeki akım çerçevesine etki eden
+          kuvvet çifti, çerçeveyi döndürür.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Alan içindeki akım taşıyan tele F = B·I·L·sinα kuvveti etki eder; α akımla alan
+          arasındaki açıdır. Kuvvet akım alana dikken en büyük, paralelken sıfırdır ve 1 T = 1 N/(A·m)'dir.
+        </p>
+
+        <h3 id="k8">Hareketli yüke etki eden kuvvet</h3>
         <p>
           Akım aslında hareketli yüklerden ibarettir; dolayısıyla tek bir yük için de benzer bir
           bağıntı geçerlidir:
@@ -2419,6 +2869,13 @@
         <div class="formula">
           <code>F = q · v · B · sinα</code>
         </div>
+        <h4>Telden tek yüke</h4>
+        <ol>
+          <li><strong>Akımın tanımı:</strong> Telin bir kesitinden Δt sürede q yükü geçiyorsa akım I = q / Δt'dir.</li>
+          <li><strong>Yolun tanımı:</strong> Bu yük aynı sürede v hızıyla L = v·Δt kadar yol alır.</li>
+          <li><strong>Çarp:</strong> I·L = (q/Δt)·(v·Δt) = q·v; Δt sadeleşir.</li>
+          <li><strong>Yerine koy:</strong> F = B·I·L·sinα içinde I·L yerine q·v yazınca F = q·v·B·sinα çıkar. Burada α, hız ile alan arasındaki açıdır.</li>
+        </ol>
         <p>
           Kuvvet hem hıza hem alana diktir. Bunun üç önemli sonucu vardır:
         </p>
@@ -2466,7 +2923,19 @@
           </figcaption>
         </figure>
 
-        <h3 id="k6">Manyetik alanda dairesel hareket</h3>
+        <p>
+          Bu kuvvet küçük görünse de parçacığın kütlesine göre devasadır. Sayfanın 03 numaralı
+          deneyindeki elektron (v = 10⁷ m/s, B = 1 mT) 1,6·10⁻¹⁵ N kuvvet görür; ağırlığı ise yaklaşık
+          9·10⁻³⁰ N'dur. Manyetik kuvvet ağırlığın 10¹⁴ katından büyüktür; yüklü parçacık problemlerinde
+          yerçekimi bu yüzden hesaba katılmaz.
+        </p>
+        <p class="kisaca">
+          <b>Kısaca:</b> Alan içinde v hızıyla hareket eden q yüküne F = q·v·B·sinα kuvveti etki eder;
+          bağıntı I·L = q·v eşitliğinden çıkar. Kuvvet hıza dik olduğu için iş yapmaz: sürat değişmez,
+          yalnızca yön değişir.
+        </p>
+
+        <h3 id="k9">Manyetik alanda dairesel hareket</h3>
         <p>
           Alana dik giren bir yük için manyetik kuvvet, sabit büyüklükte ve daima hıza dik olur —
           yani <strong>merkezcil kuvvet rolünü üstlenir</strong>:
@@ -2476,18 +2945,25 @@
           <code>r = m·v / (q·B)</code>
           <code>T = 2π·m / (q·B)</code>
         </div>
+        <ol>
+          <li><strong>Kuvvet merkeze yönelir:</strong> Büyüklüğü sabit ve hep hıza dik bir kuvvet cismi düzgün çembersel harekete zorlar; bunun için gereken merkezcil kuvvet m·v²/r'dir.</li>
+          <li><strong>Eşitle:</strong> Bu kuvveti manyetik kuvvet sağlar: q·v·B = m·v²/r.</li>
+          <li><strong>Yarıçap:</strong> İki taraftaki v'lerden biri sadeleşir: r = m·v/(q·B).</li>
+          <li><strong>Periyot:</strong> Bir tur 2π·r yoldur, T = 2π·r/v. r'yi yerine koyunca v tamamen sadeleşir: T = 2π·m/(q·B).</li>
+        </ol>
         <p>
           Yarıçap hızla doğru, alanla ters orantılıdır. <strong>Periyot ise hızdan bağımsızdır</strong>:
           hız iki katına çıkarsa yarıçap da iki katına çıkar ve tur süresi değişmez. Siklotron
-          hızlandırıcılarının çalışma ilkesi tam olarak budur.
+          hızlandırıcılarının çalışma ilkesi tam olarak budur. Pozitif ve negatif yükler aynı alanda
+          <strong>zıt yönlerde</strong> döner; sayfanın 03 numaralı deneyinde yükün işaretini değiştirip
+          bunu görebilirsin. Aynı deneydeki elektron için:
         </p>
-        <div class="callout">
-          <p>
-            <b>Bir boyut daha:</b> Yük alana <em>eğik</em> girerse hız iki bileşene ayrılır: alana
-            paralel bileşen sabit kalır, dik bileşen çembersel harekete yol açar. Sonuç
-            <b>sarmal (helis)</b> bir yörüngedir.
-          </p>
-        </div>
+        <table class="tbl">
+          <tr><th>Hız</th><th>Alan</th><th>Yarıçap</th><th>Periyot</th></tr>
+          <tr><td>10·10⁶ m/s</td><td>1,0 mT</td><td>5,7 cm</td><td>3,6·10⁻⁸ s</td></tr>
+          <tr><td>20·10⁶ m/s</td><td>1,0 mT</td><td>11,4 cm</td><td>3,6·10⁻⁸ s</td></tr>
+          <tr><td>10·10⁶ m/s</td><td>2,0 mT</td><td>2,8 cm</td><td>1,8·10⁻⁸ s</td></tr>
+        </table>
 
         <figure class="fig">
           <svg class="fx" viewBox="0 0 480 220" role="img" aria-label="Alana dik giren yüklü parçacığın çember çizmesi ve hızı artınca yarıçapın büyümesi.">
@@ -2526,7 +3002,143 @@
           </figcaption>
         </figure>
 
-        <h3 id="k7">Uygulamalar</h3>
+        <details class="dusun">
+          <summary>Düşün: Hızı iki katına çıkan elektron iki kat büyük çember çiziyorsa, turunu neden aynı sürede tamamlar?</summary>
+          <p>
+            Çember iki kat büyüdüğü için bir turun yolu da iki kat uzar, ama elektron bu yolu iki kat
+            hızla alır. Yol ve hız aynı oranda arttığından süre değişmez. Tur süresini yalnızca kütle,
+            yük ve alan belirler: T = 2π·m/(q·B).
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Alana dik giren yük çember çizer: q·v·B = m·v²/r eşitliğinden r = m·v/(q·B) ve
+          T = 2π·m/(q·B) çıkar. Yarıçap hızla büyür, periyot hızdan bağımsızdır.
+        </p>
+
+        <div class="basamak" data-basamak="3">
+          <b>İleri</b>
+          <span>Derinleşme: alanlar üst üste binince, yük alana eğik girince ve manyetizma teknolojiye dönüşünce ne olur?</span>
+        </div>
+
+        <h3 id="k10">İki tel yan yana: alanların toplanması ve paralel teller</h3>
+        <p>
+          Birden çok akım varsa bir noktadaki toplam alan, her birinin alanının <strong>vektörel
+          toplamıdır</strong> (<strong>üst üste binme ilkesi</strong>): aynı yönlü alanlar toplanır, zıt
+          yönlüler birbirinden çıkarılır.
+        </p>
+        <ul>
+          <li><strong>Aynı yönde akım taşıyan iki tel:</strong> aralarındaki bölgede alanları zıt yönlüdür; bir noktada birbirini tam götürür.</li>
+          <li><strong>Zıt yönde akım taşıyan iki tel:</strong> aralarında alanlar aynı yönlüdür ve toplanır; uzakta ise büyük ölçüde birbirini götürür.</li>
+          <li><strong>Evdeki kablo:</strong> gidiş ve dönüş telleri milimetrelerle ayrılmış, zıt akımlı iki teldir; alanları kablodan uzaklaştıkça hızla birbirini siler.</li>
+        </ul>
+        <h4>Paralel teller birbirine kuvvet uygular</h4>
+        <p>
+          Bir telin alanı, yanındaki telin akımına kuvvet uygular. Tel 1'in d uzaklıktaki alanı
+          B₁ = 2·10⁻⁷·I₁/d'dir; bu alan tel 2'nin L uzunluğuna F = B₁·I₂·L kuvvetini uygular. Birim
+          uzunluk başına:
+        </p>
+        <div class="formula">
+          <code>F/L = 2·10⁻⁷ · I₁ · I₂ / d</code>
+        </div>
+        <p>
+          Sağ el kuralıyla bakınca şaşırtıcı bir sonuç çıkar: <strong>aynı yönde akım taşıyan teller
+          birbirini çeker, zıt yönde akım taşıyanlar iter</strong> — elektrikteki “benzer yükler iter”
+          kuralının tam tersi. 1948'den 2019'a kadar amper bu kuvvetle tanımlanıyordu: 1 m aralıklı iki
+          uzun paralel telde metre başına 2·10⁻⁷ N kuvvet doğuran akım 1 A'dir.
+        </p>
+        <div class="callout warn">
+          <p>
+            <b>Modelin sınırı:</b> B = 2·10⁻⁷·I/r çok uzun ve ince düz bir tel içindir; kısa tellerde ya
+            da telin uçlarına yakın noktalarda alan farklıdır. Bağıntılar boşluk ve hava içindir; demir
+            gibi maddeler alanı yüzlerce kat güçlendirebilir.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: Evdeki uzatma kablosundan 10 A geçerken yanına konan pusula neden neredeyse hiç sapmaz?</summary>
+          <p>
+            Kablonun içinde aynı akım bir telden gidip öbüründen döner. Birbirine çok yakın bu iki zıt
+            akımın alanları, kablodan biraz uzakta neredeyse eşit büyüklükte ve zıt yönlüdür; toplamları
+            sıfıra yakın çıkar. Teller ayrılsaydı pusula belirgin biçimde sapardı.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Birden çok akımın alanları vektörel olarak toplanır. Paralel teller birbirine
+          F/L = 2·10⁻⁷·I₁·I₂/d kuvveti uygular: aynı yönlü akımlar çeker, zıt yönlü akımlar iter.
+        </p>
+
+        <h3 id="k11">Eğik giriş, sarmal yörünge ve siklotron</h3>
+        <div class="callout">
+          <p>
+            <b>Bir boyut daha:</b> Yük alana <em>eğik</em> girerse hız iki bileşene ayrılır: alana
+            paralel bileşen sabit kalır, dik bileşen çembersel harekete yol açar. Sonuç
+            <b>sarmal (helis)</b> bir yörüngedir.
+          </p>
+        </div>
+        <div class="formula">
+          <code>v<sub>∥</sub> = v · cosα</code>
+          <code>v<sub>⊥</sub> = v · sinα</code>
+          <code>r = m·v<sub>⊥</sub> / (q·B)</code>
+          <code>adım = v<sub>∥</sub> · T</code>
+        </div>
+        <p>
+          Paralel bileşen kuvvet görmediği için yük alan boyunca sabit hızla ilerler, dik bileşen ise onu
+          alanın çevresinde döndürür; yük bir yay gibi alan çizgisine sarılır. Bir turda alan boyunca
+          alınan yola sarmalın <strong>adımı</strong> denir. Güneş'ten gelen parçacıklar da böyle sarılarak
+          kutup bölgelerine taşınır.
+        </p>
+        <h4>Siklotron: periyodun sabitliğinden yararlanmak</h4>
+        <p>
+          Manyetik kuvvet iş yapmadığı için parçacığı hızlandıramaz; siklotronda bu işi elektrik alan
+          yapar. Parçacık iki yarım daire biçimli metal kutunun arasındaki aralıktan her geçişinde bir
+          gerilimle itilir, manyetik alan onu çevirip aralığa geri getirir. Parçacık hızlandıkça çemberi
+          büyür, ama tur süresi değişmediği için gerilim <strong>sabit bir frekansla</strong> yön
+          değiştirebilir: 1 T'lık alanda bir proton için f = q·B/(2π·m) ≈ 15 MHz.
+        </p>
+        <div class="callout warn">
+          <p>
+            <b>Modelin sınırı:</b> Periyodun hızdan bağımsız olması, ışık hızından çok küçük hızlarda
+            geçerlidir. Parçacık ışık hızına yaklaştıkça tur süresi uzar ve basit siklotron uyumu
+            kaybeder; büyük hızlandırıcılar bu yüzden alanı ya da frekansı hıza göre ayarlar.
+          </p>
+        </div>
+        <details class="dusun">
+          <summary>Düşün: Kutup ışıkları neden ekvatorda değil de kutuplara yakın bölgelerde görülür?</summary>
+          <p>
+            Yüklü parçacıklar alan çizgilerine sarılarak onlar boyunca ilerler. Ekvatorun üzerinde alan
+            çizgileri yere neredeyse paraleldir; oraya gelen parçacıklar yana saptırılır ve atmosfere
+            inemez. Kutuplara yakın bölgelerde ise çizgiler atmosfere dalar; parçacıklar da onları
+            izleyerek havaya çarpar ve ışık saçtırır.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Alana eğik giren yük, paralel hız bileşeniyle ilerleyip dik bileşeniyle dönerek
+          sarmal çizer. Siklotron, periyodun hızdan bağımsız olmasını kullanarak parçacıkları sabit
+          frekanslı bir gerilimle hızlandırır.
+        </p>
+
+        <h3 id="k12">Manyetizma gerçek dünyada</h3>
+        <p>
+          Manyetik kuvvet günlük hayatın içinde, çoğu zaman görmediğimiz yerlerde çalışıyor. Ortak
+          nokta hep aynı üç ilke: akım alan üretir, alan akıma kuvvet uygular, yükler alanda çember ya
+          da sarmal çizer.
+        </p>
+
+        <figure class="foto">
+          <img src="gorsel/manyetik-alan-uygulama.webp?v=2" srcset="gorsel/manyetik-alan-uygulama-800.webp?v=2 800w, gorsel/manyetik-alan-uygulama.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir günde, su kıyısındaki ağaçlık arazinin üzerinde yükselen T biçimli beton kılavuz yolda ilerleyen gümüş rengi, mavi şeritli, uzun burunlu bir tren; trenin alt kısmı kılavuz yolun üst kenarını sarıyor, aralarında ince bir hava boşluğu seçiliyor. Arka planda karlı dağlar ve gökdelenli bir şehir, altta hızdan bulanıklaşmış ağaçlar var.">
+          <figcaption>
+            <b>Manyetik trenler (maglev)</b> raya hiç değmeden yol alır. Güçlü elektromıknatıslar treni raydan küçük bir boşlukla ayırıp havada tutar; raydaki mıknatısların alanı sırayla değiştirilerek tren ileri çekilir. Tekerlek sürtünmesi olmadığı için deneme sürüşlerinde 600 km/h'in üzerine çıkılmıştır.
+          </figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>MR cihazı:</strong> süperiletken bobinler 1,5–3 T'lık, Dünya'nınkinin 30 000–60 000 katı bir alan üretir.</li>
+          <li><strong>Maglev:</strong> raya değmeden, küçük bir boşlukla havada giden tren deneme sürüşlerinde 600 km/h'i aştı.</li>
+          <li><strong>Hoparlör:</strong> ≈ 1 T'lık alandaki bobinden geçen ses akımı zarı saniyede 20 ile 20 000 kez titretir.</li>
+          <li><strong>Siklotron:</strong> 1 T'da protonun tur frekansı ≈ 15 MHz; hastanelerde PET için radyoaktif madde üretir.</li>
+          <li><strong>Dünya'nın kalkanı:</strong> Güneş'ten gelen parçacıkların çoğu saptırılır; kutuplarda 100 km'nin üzerinde havaya çarpanlar kutup ışığı yakar.</li>
+        </ul>
         <table class="tbl">
           <thead><tr><th>Uygulama</th><th>Kullanılan ilke</th></tr></thead>
           <tbody>
@@ -2570,10 +3182,33 @@
           </figcaption>
         </figure>
 
-        <h3 id="k8">Çözümlü örnekler</h3>
+        <details class="dusun">
+          <summary>Düşün: Manyetik kuvvet iş yapmıyorsa elektrik motoru mekanik işi nereden alır?</summary>
+          <p>
+            Enerjiyi alan değil, motoru besleyen <b>pil ya da şebeke</b> verir. Çerçeve dönerken içindeki
+            yüklerin hızı yana doğru da eğilir ve manyetik kuvvetin bir bileşeni akıma ters döner. Kaynak
+            bu karşı etkiyi yenmek için iş yapar; alan yalnızca aracıdır. Bu karşı etki, sıradaki konu
+            olan indüksiyonun konusudur.
+          </p>
+        </details>
+        <p class="kisaca">
+          <b>Kısaca:</b> Motor, hoparlör, MR, maglev, siklotron ve kutup ışıkları aynı ilkelere dayanır: akım
+          alan üretir, alan akıma kuvvet uygular, yükler alanda çember ya da sarmal çizer.
+        </p>
+
+        <div class="basamak" data-basamak="4">
+          <b>Pekiştir</b>
+          <span>Kolaydan zora çözümlü örnekler ve sınavda puan kaybettiren klasik hatalar.</span>
+        </div>
+
+        <h3 id="k13">Çözümlü örnekler</h3>
+        <p>
+          Aşağıdaki çözümlerde μ₀/2π = 2·10⁻⁷ T·m/A alınmıştır; yüklü parçacıklarda
+          yerçekimi ihmal edilmiştir.
+        </p>
 
         <details>
-          <summary>Örnek 1 — Telin alanı</summary>
+          <summary data-zorluk="kolay">Örnek 1 — Telin alanı</summary>
           <p>
             20 A akım taşıyan düz bir telden 10 cm uzaklıktaki manyetik alanın büyüklüğü nedir?
             Uzaklık iki katına çıkarılırsa alan ne olur?
@@ -2586,7 +3221,7 @@
         </details>
 
         <details>
-          <summary>Örnek 2 — Tele etki eden kuvvet</summary>
+          <summary data-zorluk="kolay">Örnek 2 — Tele etki eden kuvvet</summary>
           <p>
             0,5 T'lık düzgün manyetik alana dik olarak yerleştirilmiş 40 cm uzunluğundaki telden
             6 A akım geçiyor. Tele etki eden kuvvet nedir? Tel alana 30° açı yapsaydı?
@@ -2599,21 +3234,7 @@
         </details>
 
         <details>
-          <summary>Örnek 3 — Dairesel yörünge</summary>
-          <p>
-            Kütlesi 9,1·10⁻³¹ kg, yükü 1,6·10⁻¹⁹ C olan bir elektron, 2·10⁷ m/s hızla 1 mT'lık
-            alana dik giriyor. Yörüngenin yarıçapı ve periyodu nedir?
-          </p>
-          <ol class="steps">
-            <li>r = m·v/(q·B) = (9,1·10⁻³¹ · 2·10⁷) / (1,6·10⁻¹⁹ · 10⁻³)</li>
-            <li>r = 1,82·10⁻²³ / 1,6·10⁻²² ≈ <strong>0,114 m ≈ 11,4 cm</strong></li>
-            <li>T = 2πm/(qB) = (6,28 · 9,1·10⁻³¹) / (1,6·10⁻¹⁹ · 10⁻³) ≈ <strong>3,6·10⁻⁸ s</strong></li>
-            <li>Hız iki katına çıksaydı yarıçap iki katına çıkardı, ama <strong>periyot değişmezdi</strong>.</li>
-          </ol>
-        </details>
-
-        <details>
-          <summary>Örnek 4 — Hangi yöne sapar?</summary>
+          <summary data-zorluk="orta">Örnek 3 — Hangi yöne sapar?</summary>
           <p>
             Sayfa düzleminde sağa doğru hareket eden bir elektron, sayfaya doğru (⊗) yönelmiş
             manyetik alana giriyor. Elektron hangi yöne sapar?
@@ -2627,10 +3248,65 @@
           </ol>
         </details>
 
-        <h3 id="k9">Sık yapılan hatalar</h3>
+        <details>
+          <summary data-zorluk="orta">Örnek 4 — Dairesel yörünge</summary>
+          <p>
+            Kütlesi 9,1·10⁻³¹ kg, yükü 1,6·10⁻¹⁹ C olan bir elektron, 2·10⁷ m/s hızla 1 mT'lık
+            alana dik giriyor. Yörüngenin yarıçapı ve periyodu nedir?
+          </p>
+          <ol class="steps">
+            <li>r = m·v/(q·B) = (9,1·10⁻³¹ · 2·10⁷) / (1,6·10⁻¹⁹ · 10⁻³)</li>
+            <li>r = 1,82·10⁻²³ / 1,6·10⁻²² ≈ <strong>0,114 m ≈ 11,4 cm</strong></li>
+            <li>T = 2πm/(qB) = (6,28 · 9,1·10⁻³¹) / (1,6·10⁻¹⁹ · 10⁻³) ≈ <strong>3,6·10⁻⁸ s</strong></li>
+            <li>Hız iki katına çıksaydı yarıçap iki katına çıkardı, ama <strong>periyot değişmezdi</strong>.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 5 — İki paralel tel</summary>
+          <p>
+            Aralarında 10 cm bulunan iki uzun paralel telden aynı yönde 10 A ve 30 A akım geçiyor.
+            (a) Tellerin tam ortasındaki net manyetik alanı, (b) net alanın sıfır olduğu noktayı,
+            (c) tellerin birbirine uyguladığı birim uzunluk başına kuvveti bulunuz.
+          </p>
+          <ol class="steps">
+            <li>Orta nokta her telden 5 cm uzaktadır: B₁ = 2·10⁻⁷ · 10 / 0,05 = 4·10⁻⁵ T,
+              B₂ = 2·10⁻⁷ · 30 / 0,05 = 1,2·10⁻⁴ T.</li>
+            <li><strong>(a)</strong> Akımlar aynı yönlü olduğu için teller arasında alanlar zıt yönlüdür:
+              B = 1,2·10⁻⁴ − 4·10⁻⁵ = 8·10⁻⁵ T = <strong>80 µT</strong>, 30 A'lik telin alanı yönünde.</li>
+            <li><strong>(b)</strong> Sıfır noktası teller arasında, zayıf akımlı tele daha yakındır. 10 A'lik telden
+              x uzaklıkta: 10 / x = 30 / (10 − x) → 100 − 10x = 30x → <strong>x = 2,5 cm</strong>.</li>
+            <li><strong>(c)</strong> F/L = 2·10⁻⁷ · 10 · 30 / 0,1 = <strong>6·10⁻⁴ N/m</strong>; akımlar
+              aynı yönlü olduğu için teller birbirini <strong>çeker</strong>.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary data-zorluk="zor">Örnek 6 — Kütle spektrometresinde izotoplar</summary>
+          <p>
+            Tek yüklü (q = 1,6·10⁻¹⁹ C) neon-20 ve neon-22 iyonları 1·10⁵ m/s hızla 0,5 T'lık alana dik
+            giriyor, yarım çember çizip giriş noktasıyla aynı hizadaki bir levhaya çarpıyor. Levhadaki
+            iki iz arasındaki uzaklık nedir? (1 u = 1,66·10⁻²⁷ kg; kütleler 20 u ve 22 u)
+          </p>
+          <ol class="steps">
+            <li>Yarıçap r = m·v/(q·B); hız, yük ve alan ikisi için de aynıdır, yalnızca kütle farklıdır.</li>
+            <li>r₂₀ = (20 · 1,66·10⁻²⁷ · 10⁵) / (1,6·10⁻¹⁹ · 0,5) = 3,32·10⁻²¹ / 8·10⁻²⁰ ≈ <strong>4,15 cm</strong></li>
+            <li>r₂₂ = r₂₀ · 22/20 ≈ <strong>4,565 cm</strong></li>
+            <li>Yarım çemberden sonra iyon giriş noktasından 2r uzağa düşer. İzler arası:
+              2 · (4,565 − 4,15) = <strong>0,83 cm</strong>.</li>
+          </ol>
+          <p>
+            Kütledeki %10'luk fark yarıçapta da %10'luk fark yaratır. Neonun iki farklı kütlede atomu
+            olduğu 20. yüzyılın başında bu tür sapma deneyleriyle anlaşıldı.
+          </p>
+        </details>
+
+        <h3 id="k14">Sık yapılan hatalar</h3>
         <ul>
           <li><strong>“Manyetik kuvvet hız yönündedir.”</strong> Kuvvet hıza <em>diktir</em>;
             bu yüzden sürati değil, yönü değiştirir.</li>
+          <li><strong>“Kuvvet alan çizgileri boyuncadır.”</strong> Elektrikteki F = q·E alışkanlığı burada
+            işe yaramaz: manyetik kuvvet alan çizgilerine de <em>diktir</em>.</li>
           <li><strong>“Duran yüke de manyetik kuvvet etki eder.”</strong> F = qvB·sinα; v = 0 ise F = 0.</li>
           <li><strong>“Manyetik kuvvet iş yapar.”</strong> Kuvvet yer değiştirmeye dik olduğu için
             yaptığı iş sıfırdır; kinetik enerji değişmez.</li>

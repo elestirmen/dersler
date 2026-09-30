@@ -1,0 +1,218 @@
+[
+ {
+  "id": "serbest-dusme-giris",
+  "sahne": "An astronaut standing on the grey lunar surface with both arms stretched forward at shoulder height, having just let go of a geologist's hammer from the right hand and a falcon feather from the left hand. The hammer and the feather hang in the air side by side at exactly the same height, a short distance below the open hands, both falling straight down together. Black starry sky, the Earth above the horizon, long soft shadows."
+ },
+ {
+  "id": "serbest-dusme-gunluk",
+  "sahne": "A stroboscopic multiple-exposure photograph in an orchard at golden hour: an apple falling from a tree branch, captured as exactly five sharp exposures on one vertical line below the branch, the top one still at the branch. The spacing between exposures grows strictly and regularly downward (the gaps grow like 1 : 3 : 5 : 7), close together near the branch and far apart near the grass; the upper exposures slightly fainter, the lowest one solid just above the grass. Dark, softly blurred orchard background so the exposures stand out."
+ },
+ {
+  "id": "serbest-dusme-uygulama",
+  "sahne": "An amusement park drop tower at dusk: a tall slender tower with a ring of seats plunging straight down, riders with arms raised and hair lifting upward, slight motion blur on the falling seat ring; a small crowd and warm lights at the base, deep blue evening sky."
+ },
+ {
+  "id": "iki-boyutta-hareket-giris",
+  "sahne": "A stroboscopic multiple-exposure photograph at an outdoor basketball court at sunset: a player has just released a jump shot and the ball appears as a sequence of sharp exposures taken at equal time intervals along a smooth parabolic arc toward the hoop, evenly spaced horizontally and bunched closer together vertically near the top of the arc."
+ },
+ {
+  "id": "iki-boyutta-hareket-gunluk",
+  "sahne": "A child in a sunny garden holding a hose nozzle perfectly horizontal at waist height; the water stream leaves the nozzle horizontally and curves smoothly downward in a clean half-parabola, droplets sparkling, landing on a flower bed some distance away."
+ },
+ {
+  "id": "iki-boyutta-hareket-uygulama",
+  "sahne": "A long jumper in mid-flight above a sand pit in an athletics stadium, body arched and legs swinging forward, the white take-off board behind and the sand ahead; evening stadium floodlights, softly blurred crowd, sharp action freeze."
+ },
+ {
+  "id": "newton-yasalari-giris",
+  "sahne": "Side view of two ice skaters on a frozen rink a split second AFTER pushing off each other palm to palm: a tall adult on the left and a small child on the right face each other with arms still stretched out, but their hands are already about a metre apart. Both lean slightly BACKWARD, weight on their heels, clearly gliding away from each other: the adult drifts left, the child glides right, faster. Short fresh skate marks on the ice lead away from the central spot where they stood together. Winter park, soft golden light."
+ },
+ {
+  "id": "newton-yasalari-gunluk",
+  "sahne": "Inside a city bus at the exact moment it brakes hard, seen from the side along the aisle: standing passengers pitch FORWARD toward the front of the bus (to the right of the frame), their bodies leaning forward while their hands grip the overhead straps; by inertia everything loose keeps moving forward: long hair swings FORWARD in front of the faces, a scarf swings forward, coffee sloshes out of a cup toward the front, a shopping bag slides forward on a seat. Nothing flies backward. Warm interior light, street visible through the windows."
+ },
+ {
+  "id": "newton-yasalari-uygulama",
+  "sahne": "A rocket lifting off from a launch pad at dawn: a bright exhaust plume blasting straight down, billowing clouds of steam spreading sideways at the base, the rocket rising straight up beside its launch tower. Wide view."
+ },
+ {
+  "id": "surtunme-kuvveti-giris",
+  "sahne": "A person leaning in and pushing hard with both hands against a heavy wooden crate on a rough wooden warehouse floor; the crate has not started to move yet, the person's shoes grip the floor, effort visible in the posture. Warm light through high windows."
+ },
+ {
+  "id": "surtunme-kuvveti-gunluk",
+  "sahne": "A child sliding down a straight playground slide on a sunny day, other children waiting on the ladder; the slope of the slide is clear and straight, trees in the background."
+ },
+ {
+  "id": "surtunme-kuvveti-uygulama",
+  "sahne": "A curling match: a polished granite curling stone gliding over a pebbled ice sheet while two sweepers vigorously brush the ice just in front of it; arena lights reflecting on the ice."
+ },
+ {
+  "id": "limit-hiz-giris",
+  "sahne": "Four skydivers in free fall holding hands in a flat belly-to-earth ring formation high above a sea of white clouds, jumpsuits fluttering upward in the airflow, a small plane far above. Bright blue high-altitude sky."
+ },
+ {
+  "id": "limit-hiz-gunluk",
+  "sahne": "Rain falling over a city street at dusk: pedestrians with umbrellas, raindrops falling steadily in straight parallel streaks and splashing gently in puddles, warm shop lights reflecting on the wet pavement."
+ },
+ {
+  "id": "limit-hiz-uygulama",
+  "sahne": "A parachutist hanging under a fully opened large rectangular parachute canopy, descending slowly and gently over green fields toward a small round landing target. Late afternoon light."
+ },
+ {
+  "id": "cembersel-hareket-giris",
+  "sahne": "A chain swing carousel at a night fair, spinning fast: riders in seats on long chains swung outward, all chains tilted outward at the same angle, faint circular motion blur along the path, festive lights."
+ },
+ {
+  "id": "cembersel-hareket-gunluk",
+  "sahne": "A car driving through a curved mountain road bend, seen from above at an angle, the tyre tracks following the curve, a guardrail along the outside of the bend, pine trees and a valley below."
+ },
+ {
+  "id": "cembersel-hareket-uygulama",
+  "sahne": "A small satellite with solar panels orbiting high above the Earth, seen from space: the curved planet fills the lower part of the frame, sunlight grazing the thin blue atmosphere on the limb, black space with a few stars; the satellite is sharp and clearly visible in the upper part of the frame."
+ },
+ {
+  "id": "elektriksel-kuvvet-giris",
+  "sahne": "A dramatic lightning bolt striking the lightning rod on top of a tall building over a city at night, branching bolts inside violet clouds, city lights below."
+ },
+ {
+  "id": "elektriksel-kuvvet-gunluk",
+  "sahne": "A child holding a rubber balloon just above their head after rubbing it on their hair; strands of hair rising and reaching up toward the balloon. Warm living-room light, playful mood."
+ },
+ {
+  "id": "elektriksel-kuvvet-uygulama",
+  "sahne": "An electrostatic paint booth in a car factory: a robotic spray bell sends a fine stream of charged paint droplets toward a car body; the droplets are drawn tightly onto the metal, curving around the edges and even coating the far side, so there is very little stray mist floating in the booth; clean industrial lighting."
+ },
+ {
+  "id": "manyetik-alan-giris",
+  "sahne": "Green and violet aurora curtains rippling in the night sky over snowy mountains and a frozen lake, stars visible, a small cabin with a lit window on the shore."
+ },
+ {
+  "id": "manyetik-alan-gunluk",
+  "sahne": "Top-down view of a light wooden desk: a bar magnet lying under a sheet of white paper, iron filings sprinkled on the paper forming the classic curved field-line pattern that loops from one end of the magnet to the other and bunches densely near both ends; a small compass next to the paper. Soft daylight."
+ },
+ {
+  "id": "manyetik-alan-uygulama",
+  "sahne": "A sleek maglev train speeding along an elevated concrete T-shaped guideway through a modern landscape: the underside of the train wraps around the top of the guideway, and a thin, clearly visible gap of air separates the train from the guideway along its whole length. No wheels, no rails, nothing touching; motion blur on the background."
+ },
+ {
+  "id": "induksiyon-akimi-giris",
+  "sahne": "Rows of tall white wind turbines on rolling green hills at sunset, blades turning, long shadows across the grass."
+ },
+ {
+  "id": "induksiyon-akimi-gunluk",
+  "sahne": "A cyclist riding at night on a quiet country road, side view close enough to see the front wheel: a small bottle dynamo mounted on the fork has its ribbed roller pressed firmly against the sidewall of the front tyre, a thin wire runs from it to the headlamp, and the headlamp casts a bright white beam onto the road ahead."
+ },
+ {
+  "id": "induksiyon-akimi-uygulama",
+  "sahne": "An induction cooktop in a modern kitchen: a steel pot of water boiling vigorously on the black glass surface, and an ice cube sitting on the same glass surface a short distance beside the pot, still unmelted; soft morning light."
+ },
+ {
+  "id": "transformatorler-giris",
+  "sahne": "High-voltage transmission towers with long sagging cables striding across hills toward a distant city at dusk, the cables glinting in the last light."
+ },
+ {
+  "id": "transformatorler-gunluk",
+  "sahne": "A small phone charger plugged into a wall socket beside a bedside table, its cable leading to a smartphone that is charging on the table; cozy evening lamp light."
+ },
+ {
+  "id": "transformatorler-uygulama",
+  "sahne": "An electrical substation with large oil-cooled power transformers, radiator cooling fins, tall stacked porcelain insulators and busbars, in a tidy fenced yard under a clear sky."
+ },
+ {
+  "id": "isik-siddeti-giris",
+  "sahne": "A student reading at a desk at night under a single desk lamp; the pool of light is brightest directly under the lamp and fades smoothly toward the edges of the desk; the rest of the cozy room is dim."
+ },
+ {
+  "id": "isik-siddeti-gunluk",
+  "sahne": "A quiet street at night lit by a row of street lamps; each lamp casts a bright circle on the pavement directly beneath it that fades with distance from the lamp, darker gaps between the lamps."
+ },
+ {
+  "id": "isik-siddeti-uygulama",
+  "sahne": "A football stadium at night with tall floodlight towers at the corners lighting the green pitch evenly, small players on the field, the stands in shadow."
+ },
+ {
+  "id": "duzlem-aynalar-giris",
+  "sahne": "Two tall flat rectangular mirrors standing upright on a wooden table, joined along one vertical edge at an exact RIGHT ANGLE (90 degrees, like the corner of a room), seen from the front so the open corner faces the viewer. One red apple sits on the table between them, in front of the corner. Exactly THREE reflected apples are visible and no more: one reflection in the left mirror, one in the right mirror, and a third reflection seen right in the corner where the two mirrors meet. Together with the real apple the four apples sit on a circle around the mirrors' shared edge."
+ },
+ {
+  "id": "duzlem-aynalar-gunluk",
+  "sahne": "A person standing upright in front of a tall wall mirror in a bright bedroom, seeing their whole body in it; the reflection stands exactly opposite them, the same size, correctly mirror-reversed (their raised right hand appears on the reflection's left side)."
+ },
+ {
+  "id": "duzlem-aynalar-uygulama",
+  "sahne": "A submarine periscope rising above calm ocean waves at dawn, the periscope head facing a distant ship on the horizon."
+ },
+ {
+  "id": "kuresel-aynalar-giris",
+  "sahne": "A round convex traffic safety mirror mounted on a pole at a blind street corner; its bulging surface shows a wide, shrunken, curved view of the crossing street with a small car and a cyclist."
+ },
+ {
+  "id": "kuresel-aynalar-gunluk",
+  "sahne": "Close-up of a hand holding a shiny metal spoon: in the hollow inner (concave) side of the spoon a small upside-down reflection of a smiling face, while the background is softly blurred."
+ },
+ {
+  "id": "kuresel-aynalar-uygulama",
+  "sahne": "A large parabolic solar concentrator dish made of many mirror segments standing in a desert, its axis pointing straight at the sun: the dish faces the sun head-on, and a small glowing receiver is held at the focus on the dish's axis, between the dish and the sun, by thin struts attached to the dish rim. Reflected sunlight converges on the receiver, which glows white-hot."
+ },
+ {
+  "id": "kirilma-giris",
+  "sahne": "Side view, camera exactly level with the water surface: a clear straight-sided drinking glass half filled with water on a wooden table, a metal teaspoon leaning diagonally inside it. The spoon is visibly BROKEN at the waterline, the textbook refraction illusion: the submerged part of the spoon is shifted sideways by about the width of the handle and looks slightly larger, so the part above the water and the part below the water clearly do not line up. Sunlight through a window behind."
+ },
+ {
+  "id": "kirilma-gunluk",
+  "sahne": "A hot, completely dry desert highway stretching to the horizon at midday with a classic inferior mirage: far ahead the asphalt seems to hold a shimmering silvery 'pool' that is really a mirrored image of the sky, and an approaching car appears together with its own upside-down image directly beneath it, the two touching at the tyres, both wavering in the heat haze. No real water anywhere: no splashes, no ripples, no wet road in the foreground."
+ },
+ {
+  "id": "kirilma-uygulama",
+  "sahne": "A brilliant-cut diamond resting on dark velvet, sparkling, sharp rays of light flashing from its facets with small flashes of rainbow colours."
+ },
+ {
+  "id": "gorunur-derinlik-giris",
+  "sahne": "Looking down into a clear outdoor swimming pool from its edge: the tiled bottom looks surprisingly close and wavy, a child's toy resting on the bottom, sunlight caustic patterns dancing on the tiles."
+ },
+ {
+  "id": "gorunur-derinlik-gunluk",
+  "sahne": "A fisherman standing knee-deep in a clear river holding a spear, looking at a fish visible below the rippling surface; side view, riverbank trees, morning light."
+ },
+ {
+  "id": "gorunur-derinlik-uygulama",
+  "sahne": "A thick rectangular glass block resting on a checkered tablecloth; seen from above at a slight angle, the checker pattern seen through the glass appears lifted up and slightly shifted compared with the pattern around it."
+ },
+ {
+  "id": "fiber-optik-giris",
+  "sahne": "A bundle of thin optical fibres fanning out like a glowing bouquet in a dark room; the tips shine as bright points of blue, violet and lime light while the strands themselves stay faint."
+ },
+ {
+  "id": "fiber-optik-gunluk",
+  "sahne": "A light fountain experiment in a dark lab: water pours from a small hole in the side of a clear container in a curved arc, and a laser beam shone into the hole is trapped inside the curving water stream, making the whole stream glow, with a bright spot where the stream lands in a basin."
+ },
+ {
+  "id": "fiber-optik-uygulama",
+  "sahne": "A modern data center aisle: neat server racks with bundles of glowing fibre optic patch cables in blue and lime, cool ambient light, long perspective."
+ },
+ {
+  "id": "prizmalar-giris",
+  "sahne": "A triangular glass prism standing with its apex pointing up on a dark table: a narrow beam of white light enters the left face, bends downward toward the prism's base, and leaves the right face spread into a fan of rainbow colours falling on a white card; red is bent least and lands at the top of the band, violet is bent most and lands at the bottom."
+ },
+ {
+  "id": "prizmalar-gunluk",
+  "sahne": "A vivid rainbow arching over green fields after a rain shower, seen by a viewer who has the low evening sun directly BEHIND them: the sun itself is NOT visible anywhere in the frame, warm sunlight falls on the fields from behind the viewer and long shadows of trees and fence posts point away from the viewer toward the rainbow. Dark grey rain clouds fill the sky behind the bow. The main bow has red on its outer edge and violet on its inner edge; a fainter secondary bow above it has the colours reversed; the sky inside the main bow is slightly brighter and the band between the two bows is darker."
+ },
+ {
+  "id": "prizmalar-uygulama",
+  "sahne": "A faceted crystal suncatcher hanging in a sunny window, casting many small rainbow-coloured light spots across the walls and ceiling of a calm room."
+ },
+ {
+  "id": "mercekler-giris",
+  "sahne": "A magnifying glass held over a green leaf with a ladybug; through the lens the ladybug and the leaf veins appear large and sharp, while outside the lens they look small."
+ },
+ {
+  "id": "mercekler-gunluk",
+  "sahne": "A pair of eyeglasses lying on an open sketchbook covered with small drawings of stars, circles and leaves; seen through the lenses the drawings look slightly magnified, soft desk-lamp light."
+ },
+ {
+  "id": "mercekler-uygulama",
+  "sahne": "A person on a hilltop at night looking through the eyepiece of a telescope pointed at a bright full moon, a starry sky and a distant town glowing below."
+ }
+]
