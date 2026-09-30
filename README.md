@@ -67,6 +67,15 @@ maddelerinin hepsi yerinde duruyor; üstüne kuruldu.
 | **3 · İleri** | İnce durumlar, modelin sınırları, birleşik durumlar; son başlık "… gerçek dünyada", uygulama görseliyle | mor |
 | **4 · Pekiştir** | Kolaydan zora 6–8 çözümlü örnek (her biri **Kolay / Orta / Zor** rozetli) ve 6–8 sık yapılan hata | turuncu |
 
+**Başarısı düşük öğrenciler için destek blokları** her konuda aynıdır:
+
+| Blok | Nerede | Ne yapar |
+|---|---|---|
+| **Önce hatırlayalım** (`div.hatirla`) | Temel bandının hemen ardında | Konuya girmeden önce bilinmesi gereken 3–5 kavram (hız, kuvvet, açı, karekök…), çok sade dille |
+| **Formüldeki harfler** (`table.tbl.semboller`) | Orta basamakta, ana formüllerin hemen ardında | Sembol · Anlamı · Birimi tablosu |
+| **Verilenler / İstenen** (`p.verilen`, `p.istenen`) | Her çözümlü örneğin sorusunun altında | Çözüme başlamadan soruyu parçalara ayırır; gizli verileri de yazar (“serbest bırakılıyor” → v₀ = 0) |
+| **Sıra sende** (`details.alistirma`) | Çözümlü örneklerden sonra | 4–5 yeni soru, kolaydan zora; cevap kapalıdır, açınca kısa çözüm görünür |
+
 Basamak 1–3'teki her başlık bir **Kısaca** kutusuyla biter: bölümü tek başına okunabilecek
 bir iki cümlede özetler; sunumda da o bölüm slaytının başlık cümlesi olur. Aralara cevabı
 kapalı **Düşün** soruları serpiştirilmiştir (konu başına 5–10); öğrenci tahmin eder, sonra
@@ -87,7 +96,11 @@ Anlatımda kullanılan bloklar: `p.lead-in`, `div.basamak` (`data-basamak="1–4
 `h4`, `ul`/`ol`, `table.tbl`, `div.formula`, `div.callout` (`warn`), `figure.fig` (SVG
 çizim), `figure.foto` (görsel), `p.kisaca` (`<b>Kısaca:</b>` ile başlar),
 `details.dusun` (`<summary>Düşün: …?</summary>` + cevap), `details` örnek
-(`<summary data-zorluk="kolay|orta|zor">Örnek n — …</summary>`, `ol.steps`). Sunum üreticisi
+(`<summary data-zorluk="kolay|orta|zor">Örnek n — …</summary>`, `p.verilen`, `p.istenen`,
+`ol.steps`), `div.hatirla` (`<b>Önce hatırlayalım</b>` + `ul`), `table.tbl.semboller`
+(Sembol · Anlamı · Birimi, önünde `h4`), `<h4>Sıra sende</h4>` ve `details.alistirma`
+(`<summary data-zorluk="…">Sıra sende n: …</summary>` + `<p><b>Cevap:</b> …</p>`). Ek görseller
+`gorsel/<konu>-ek1…ek3.webp` adını taşır ve basamak 1–3'teki çizimsiz bölümlerde durur. Sunum üreticisi
 bu blokları tanır; yeni bir blok türü eklenirse `sunum/uret.js` de güncellenmelidir.
 
 ## Konu anlatımı görselleri

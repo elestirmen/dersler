@@ -5,7 +5,8 @@ On sekiz konunun her biri için bir deste; **her deste, o konunun "Konu
 anlatımı" modalından üretilir** ve onun dört basamaklı yolunu izler (Temel →
 Orta → İleri → Pekiştir): aynı başlıklar, formüller, tablolar, çizimler ve
 görseller, aynı "Düşün" soruları, kolaydan zora aynı çözümlü örnekler.
-Slaytta az metin durur; anlatımın paragrafları konuşmacı notundadır.
+Anlatımın kendisi slaytlardadır, küçük parçalara bölünmüş olarak; deste
+başına 100'ü aşkın slayt.
 
 Çıktılar doğrudan yayınlanan köke, `dist/sunum/` altına yazılır; yani üretildiği
 anda `dersler.perinet.org/sunum/...` adresinden indirilebilir. Ders sayfalarındaki
@@ -14,24 +15,29 @@ anda `dersler.perinet.org/sunum/...` adresinden indirilebilir. Ders sayfalarınd
 
 ## Bir destenin yapısı
 
+Desteler başarısı düşük sınıflar düşünülerek **küçük adımlıdır**: her slaytta bir fikir, büyük
+punto (metin 22 pt), anlatımın kendisi slaytta.
+
 | Slayt | Kaynağı (konu sayfasında) |
 |---|---|
-| Kapak | Koyu zemin; solda künye, başlık, giriş paragrafı ve dört basamak şeridi, sağda konunun **giriş görseli** (kenarı zemine karışır) |
-| Başlarken | Konu anlatımının açılış sorusu (`.lead-in`'in harita cümlesinden önceki kısmı), büyük puntoyla |
+| Kapak | Koyu zemin; solda künye, başlık, giriş paragrafı ve dört basamak şeridi, sağda konunun **giriş görseli** |
+| Başlarken | Konu anlatımının açılış sorusu |
 | Bu derste | Dört sütun: her basamağın adı, açıklaması ve başlıkları |
-| Basamak ayracı | Koyu zemin, büyük numara, basamağın adı, açıklaması ve başlıkları; sağda 1'de günlük görsel, 2'de temel bağıntılar, 3'te uygulama görseli, 4'te zorluk rozetli örnek listesi |
-| Bölüm | Başlık, altında **Kısaca** bandı (bölümün özet cümlesi), gövdede listeler, formül kutuları, tablolar, uyarı kutuları; sağda bölümün çizimi. Gövde slaytın yarısını doldurmuyorsa anlatımın paragrafları bütün hâlinde eklenir; uzun bölüm dengeli biçimde iki slayta bölünür |
-| Düşün → Cevap | Soru slaytı (büyük soru işareti, "Cevap bir sonraki slaytta"), ardından cevap slaytı. Deste başına en çok altı çift: önce her basamaktan biri, sonra sırayla; kalanlar bölüm notunda |
-| Çözümlü örnek | Her örnek bir slayt: sağ üstte **Kolay / Orta / Zor** rozeti, soru solda, adımlar sağda numaralı kartlarda |
-| Sık yapılan hatalar | İki sütunlu ✗ / ✓ kartları; altıdan çok madde iki slayta bölünür |
-| Özetle | "Aklında kalsın" (sayfa künyesindeki dört gerçek), temel bağıntılar, sayfa bağlantısı ve sıradaki konu |
+| Önce hatırlayalım | `div.hatirla`: konudan önce bilinmesi gerekenler, slayt başına en çok üç kart |
+| Basamak ayracı | Koyu zemin, büyük numara, basamağın adı ve başlıkları; sağda günlük ya da uygulama görseli, temel bağıntılar ya da zorluk rozetli örnek listesi |
+| Anlatım | Bölümün paragrafları, listeleri, formülleri, tabloları ve uyarıları **sırasıyla**, slayta sığan parçalara bölünerek (paragraf cümle cümle, liste en çok dört madde, tablo en çok altı satır); sağ üstte "ADIM 2 / 5" sayacı |
+| Şekil | Her çizim ve görsel kendi slaytında, büyük, alt yazısıyla |
+| Kısaca | Bölümün özeti tek başına, büyük: "Bu bölümde öğrendik" |
+| Düşün → Cevap | Her Düşün sorusu için bir soru ve bir cevap slaytı |
+| Çözümlü örnek | Önce **soru** slaytı (soru + Verilenler / İstenen kartları, Kolay / Orta / Zor rozeti), sonra **çözüm** slaytları (slayt başına en çok üç adım) |
+| Sıra sende → Cevap | Her alıştırma için soru ve cevap slaytı |
+| Sık yapılan hatalar | Slayt başına dört ✗ / ✓ kartı |
+| Özetle | "Aklında kalsın", temel bağıntılar, sayfa bağlantısı ve sıradaki konu |
 
-Bir deste 38–47 slayttır. Başlık rengi basamağı söyler (yeşil, mavi, mor,
-turuncu), sağ üstte "2 / 4 ORTA" gibi bir etiket durur. Yazı boyutu içeriğe göre
-seçilir; uzun başlıklar tek satıra sığacak kadar küçülür. Çizimler konu
-anlatımındaki SVG'lerin açık temada 2× çözünürlükte alınmış PNG kopyalarıdır;
-görseller özgün PNG'lerden (`gorsel/ham/`, yoksa `dist/gorsel/*.webp`) ImageMagick ile
-slayt çerçevesinin oranına kırpılır.
+Başlık rengi basamağı söyler (yeşil, mavi, mor, turuncu). Konuşmacı notu her slaytta o slaytın
+metnini ve öğretmene kısa bir yönerge taşır. Çizimler konu anlatımındaki SVG'lerin açık temada 2×
+çözünürlükte alınmış PNG kopyalarıdır; görseller özgün PNG'lerden (`gorsel/ham/`, yoksa
+`dist/gorsel/*.webp`) ImageMagick ile slayt çerçevesinin oranına kırpılır.
 
 ## Yeniden üretmek
 

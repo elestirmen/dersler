@@ -78,7 +78,7 @@ function text(t, o) {
         const b = first.bullet === true ? {} : first.bullet;
         const indent = pt(b.indent || 27);
         let mark;
-        if (b.type === "number") { num++; mark = num + "."; } else mark = b.code ? String.fromCharCode(parseInt(b.code, 16)) : "•";
+        if (b.type === "number") { num++; mark = ((b.numberStartAt || 1) - 1 + num) + "."; } else mark = b.code ? String.fromCharCode(parseInt(b.code, 16)) : "•";
         return `<div class="li" style="padding-left:${indent}px;${after}"><span class="bu" style="width:${indent}px">${mark}</span>${spans}</div>`;
       }
       return `<div class="pp" style="${after}">${spans}</div>`;

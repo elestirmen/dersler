@@ -188,7 +188,7 @@ function blockH(b, w, size) {
     case "callout": return textH(b.text, w - 0.62, size - 1) + 0.44 + 0.12;
     case "table": {
       const colW = tableCols(b.rows, w);
-      return b.rows.reduce((h, r) => h + tableRowH(r, colW, 12), 0) + 0.14;
+      return b.rows.reduce((h, r) => h + tableRowH(r, colW, size), 0) + 0.14;
     }
     default: return 0;
   }
@@ -230,16 +230,16 @@ function drawBlock(s, b, x, y, w, tone, size) {
       color: C.muted, lineSpacingMultiple: 1.12, valign: "middle", isTextBox: true, margin: 0 });
   } else if (b.type === "table") {
     const colW = tableCols(b.rows, w);
-    const rowH = b.rows.map(r => tableRowH(r, colW, 12));
+    const rowH = b.rows.map(r => tableRowH(r, colW, size));
     const rows = b.rows.map((r, i) => r.map((c, j) => ({
       text: c.text,
       options: {
         bold: c.head || j === 0,
         color: c.head ? C.dim : (j === 0 ? C.ink : C.muted),
-        fontSize: c.head ? 10.5 : 12,
+        fontSize: c.head ? Math.max(10.5, size - 3) : size,
         fill: { color: c.head ? C.softer : (i % 2 ? C.white : "FBFCFE") },
         valign: "middle",
-        margin: [3, 6, 3, 6]
+        margin: size > 14 ? [5, 9, 5, 9] : [3, 6, 3, 6]
       }
     })));
     s.addTable(rows, { x, y, w, colW, rowH, fontFace: F.body, fontSize: 12, color: C.muted,
@@ -296,281 +296,435 @@ function fotoKart(s, foto, x, y, w, onDark) {
 const TOP = 1.62, BOTTOM = 6.72;
 const bolumNo = ch => String(ch.no).padStart(2, "0");
 
-/* başlık altındaki "Kısaca" bandı: yüksekliği döndürür */
-function manset(s, text, tone, y) {
-  const w = CW;
-  const size = fit(text, w - 0.55, 1.05, 19, 15.5, false, 1.12);
-  const h = Math.max(0.62, textH(text, w - 0.55, size, false, 1.12) + 0.26);
-  s.addShape("roundRect", { x: M, y, w, h, rectRadius: 0.12, fill: { color: C.softer }, line: { color: C.line, width: 0.75 } });
-  s.addShape("rect", { x: M + 0.02, y: y + 0.12, w: 0.06, h: h - 0.24, fill: { color: tone }, line: { type: "none" } });
-  s.addText(text, { x: M + 0.32, y: y + 0.05, w: w - 0.5, h: h - 0.1, fontFace: F.body, fontSize: size, color: C.ink,
-    lineSpacingMultiple: 1.12, valign: "middle", isTextBox: true, margin: 0 });
-  return h;
+/* Slaytlar küçük adımlıdır: başarısı düşük öğrenci için her slaytta bir fikir, büyük punto.
+ * Metin slaytında içerik alanın en çok DOLULUK kadarını kaplar; fazlası bir sonraki slayta geçer. */
+const METIN = 22, LISTE = 21, TABLO = 17, KUTU = 19;
+const DOLULUK = 0.78;
+const GOVDE_Y = 1.45;
+const GOVDE_H = BOTTOM - GOVDE_Y;
+
+/* sağ üstte küçük basamak etiketi ve (varsa) adım sayacı */
+function basamakEtiketi(s, bas, adim) {
+  if (!bas.no) return;
+  const tone = BASAMAK[bas.no].ton;
+  const runs = [{ text: bas.no + " / 4  ", options: { color: C.dim } }, { text: bas.ad.toLocaleUpperCase("tr-TR"), options: { color: tone } }];
+  if (adim) runs.push({ text: "   ·   ADIM " + adim[0] + " / " + adim[1], options: { color: C.dim } });
+  s.addText(runs, { x: W - M - 4.6, y: 0.12, w: 4.6, h: 0.28, align: "right", fontFace: F.body, fontSize: 9.5, bold: true, charSpacing: 2,
+    isTextBox: true, margin: 0, valign: "middle" });
 }
 
-/* bölümün slayt gövdesi: liste, formül, tablo, uyarı (başlıklarıyla). Paragraflar nota gider. */
-function slaytGovdesi(ch) {
-  const kinds = ["h4", "ul", "ol", "formula", "callout", "table"];
-  let body = ch.blocks.filter(b => kinds.includes(b.type) && !(b.type === "callout" && /^Kendini sına/.test(b.text)));
-  body = body.filter((b, i) => b.type !== "h4" || (body[i + 1] && body[i + 1].type !== "h4"));
-  if (!body.length) body = ch.blocks.filter(b => b.type === "p");
-  return body;
+/* bir bloğu slayta sığan parçalara böler; paragraf cümle cümle, liste madde madde, tablo satır satır */
+function parcala(b, w) {
+  const sinir = GOVDE_H * DOLULUK - 0.2;
+  if (b.type === "p") {
+    const items = paraItems(b) || [{ runs: b.runs, text: b.text }];
+    const out = []; let cur = [];
+    items.forEach(it => {
+      const dene = cur.concat([it]);
+      if (cur.length && listeH(dene, w, METIN) > sinir) { out.push({ type: "pp", items: cur }); cur = [it]; }
+      else cur = dene;
+    });
+    if (cur.length) out.push({ type: "pp", items: cur });
+    return out;
+  }
+  if (b.type === "ul" || b.type === "ol") {
+    const out = []; let cur = [], bas = 0;
+    b.items.forEach((it, i) => {
+      const dene = cur.concat([it]);
+      if (cur.length && (listeH(dene, w, LISTE) > sinir || cur.length >= 4)) { out.push({ type: b.type, items: cur, basla: bas }); cur = [it]; bas = i; }
+      else cur = dene;
+    });
+    if (cur.length) out.push({ type: b.type, items: cur, basla: bas });
+    return out;
+  }
+  if (b.type === "table") {
+    const bas = b.rows[0], govde = b.rows.slice(1);
+    if (!bas.every(c => c.head)) return [b];
+    const out = [];
+    for (let i = 0; i < govde.length; i += 6) out.push({ type: "table", rows: [bas].concat(govde.slice(i, i + 6)) });
+    return out.length ? out : [b];
+  }
+  if (b.type === "callout" && blockH(b, w, KUTU) > sinir) {
+    const items = paraItems(b) || [];
+    if (items.length > 1) {
+      const out = []; let cur = [];
+      items.forEach(it => {
+        const dene = cur.concat([it]);
+        if (cur.length && textH(dene.map(x => x.text).join(" "), w - 0.62, KUTU - 1) + 0.56 > sinir) { out.push({ type: "callout", warn: b.warn, runs: [].concat(...cur.map((x, k) => (k ? [{ t: " " }] : []).concat(x.runs))), text: cur.map(x => x.text).join(" ") }); cur = [it]; }
+        else cur = dene;
+      });
+      if (cur.length) out.push({ type: "callout", warn: b.warn, runs: [].concat(...cur.map((x, k) => (k ? [{ t: " " }] : []).concat(x.runs))), text: cur.map(x => x.text).join(" ") });
+      return out;
+    }
+  }
+  return [b];
+}
+/* 18 pt formül kutularını satırlara dizer (Courier New ≈ 0,15 inç/karakter) */
+function buyukFormulSatirlari(codes, w) {
+  const rows = [[]]; let x = 0;
+  codes.forEach(c => {
+    const bw = Math.min(w, c.length * 0.152 + 0.6);
+    if (x + bw > w && rows[rows.length - 1].length) { rows.push([]); x = 0; }
+    rows[rows.length - 1].push({ text: c, w: bw });
+    x += bw + 0.16;
+  });
+  return rows;
+}
+function listeH(items, w, size) { return items.reduce((h, it) => h + textH(it.text, w - 0.3, size) + 0.1, 0) + 0.12; }
+function parcaH(b, w) {
+  if (b.type === "pp") return listeH(b.items, w, METIN);
+  if (b.type === "ul" || b.type === "ol") return listeH(b.items, w, LISTE);
+  if (b.type === "h4") return 0.52;
+  if (b.type === "formula") return buyukFormulSatirlari(b.codes, w).length * 0.78 + 0.1;
+  if (b.type === "table") return blockH(b, w, TABLO) + 0.1;
+  if (b.type === "callout") return textH(b.text, w - 0.62, KUTU - 1) + 0.56;
+  return blockH(b, w, METIN);
 }
 
+/* metin slaytının parçasını çizer; kullandığı yüksekliği döndürür */
+function parcaCiz(s, b, x, y, w, tone) {
+  if (b.type === "pp" || b.type === "ul" || b.type === "ol") {
+    const size = b.type === "pp" ? METIN : LISTE;
+    const h = parcaH(b, w);
+    const runs = listRuns(b.items, b.type === "ol");
+    if (b.type === "ol" && b.basla) runs[0].options.bullet = { type: "number", indent: 22, numberStartAt: b.basla + 1 };
+    runs.forEach(r => { if (r.options.bullet) r.options.paraSpaceAfter = 8; });
+    s.addText(runs, { x, y, w, h: h - 0.12, fontFace: F.body, fontSize: size, color: C.ink, lineSpacingMultiple: 1.15,
+      valign: "top", isTextBox: true, margin: 0 });
+    return h + 0.1;
+  }
+  if (b.type === "h4") {
+    s.addShape("rect", { x, y: y + 0.08, w: 0.07, h: 0.34, fill: { color: tone }, line: { type: "none" } });
+    s.addText(b.text, { x: x + 0.2, y, w: w - 0.2, h: 0.5, fontFace: F.head, fontSize: 22, bold: true, color: C.ink,
+      valign: "middle", isTextBox: true, margin: 0 });
+    return 0.62;
+  }
+  if (b.type === "formula") {
+    let yy = y;
+    buyukFormulSatirlari(b.codes, w).forEach(row => {
+      let xx = x;
+      row.forEach(c => { T.formula(s, c.text, { x: xx, y: yy, w: c.w, h: 0.64, size: 18 }); xx += c.w + 0.16; });
+      yy += 0.78;
+    });
+    return yy - y + 0.12;
+  }
+  if (b.type === "table") return drawBlock(s, b, x, y, w, tone, TABLO) + 0.1;
+  if (b.type === "callout") {
+    const h = parcaH(b, w);
+    s.addShape("roundRect", { x, y, w, h: h - 0.12, rectRadius: 0.14, fill: { color: C.white }, line: { color: C.line, width: 0.75 }, shadow: T.shadow({}) });
+    s.addShape("rect", { x: x + 0.02, y: y + 0.18, w: 0.06, h: h - 0.48, fill: { color: b.warn ? C.amber : C.lime }, line: { type: "none" } });
+    s.addText(toRuns(b.runs), { x: x + 0.34, y: y + 0.14, w: w - 0.56, h: h - 0.4, fontFace: F.body, fontSize: KUTU - 1, color: C.ink,
+      lineSpacingMultiple: 1.14, valign: "middle", isTextBox: true, margin: 0 });
+    return h + 0.08;
+  }
+  return drawBlock(s, b, x, y, w, tone, METIN) + 0.1;
+}
+function parcaMetni(b) {
+  if (b.type === "pp" || b.type === "ul" || b.type === "ol") return b.items.map(it => "• " + it.text).join("\n");
+  if (b.type === "formula") return b.codes.join("   ");
+  if (b.type === "table") return b.rows.map(r => r.map(c => c.text).join(" | ")).join("\n");
+  return b.text || "";
+}
+
+/* bölüm: sırayla metin slaytları ve şekil slaytları, sonunda Kısaca ve Düşün soruları */
 function chapterSlides(p, ctx, ch, bas) {
   const tone = BASAMAK[bas.no].ton;
-  const kisaca = ch.blocks.find(b => b.type === "kisaca");
-  const figs = ch.blocks.filter(b => b.type === "fig");
-  const fotos = ch.blocks.filter(b => b.type === "foto" && !b.ayractaGosterildi);
-  let content = slaytGovdesi(ch);
-  const hasFig = figs.length > 0 || fotos.length > 0;
-
-  /* ilk sayfa: manşet yüksekliği kadar aşağıdan başlar */
-  const probe = { addShape() {}, addText() {} };
-  const mh = kisaca ? manset(probe, kisaca.text, tone, 1.3) : 0;
-  const top1 = kisaca ? 1.3 + mh + 0.24 : TOP;
-  const avail1 = BOTTOM - top1, availN = BOTTOM - TOP;
-
-  /* gövde slaytın yarısını doldurmuyorsa anlatımın paragrafları (sırasıyla, cümle cümle) eklenir */
-  const olcuW = hasFig ? 6.9 : CW;
-  const govdeH = content.reduce((h, b) => h + blockH(b, olcuW, 15), 0);
-  if (!content.some(b => b.type === "p") && govdeH < avail1 * 0.45) {
-    let butce = avail1 * 0.78 - govdeH;
-    const secili = new Set(content);
-    const yeni = [];
-    ch.blocks.forEach(b => {
-      if (secili.has(b)) { yeni.push(b); return; }
-      if (b.type !== "p" || butce <= 0.3) return;
-      /* paragraf ya bütünüyle girer ya hiç (yarım bırakılan bir akıl yürütme yanıltır); sığmayan atlanır */
-      const items = paraItems(b) || [{ runs: b.runs, text: b.text }];
-      const h = items.reduce((a, it) => a + textH(it.text, olcuW - 0.3, 15) + 0.07, 0) + 0.12;
-      if (h > butce) return;
-      butce -= h; yeni.push({ type: "ul", items });
+  const akis = []; let buf = [], dolu = 0;
+  const bosalt = () => { if (buf.length) akis.push({ tur: "metin", parcalar: buf }); buf = []; dolu = 0; };
+  ch.blocks.forEach(b => {
+    if (b.type === "kisaca" || b.type === "dusun") return;
+    if (b.type === "callout" && /^Kendini sına/.test(b.text)) return;
+    if (b.type === "fig" || (b.type === "foto" && !b.ayractaGosterildi)) { bosalt(); akis.push({ tur: "sekil", fig: b }); return; }
+    if (b.type === "foto") return;
+    if (b.type === "h4") { bosalt(); buf.push(b); dolu = parcaH(b, CW); return; }
+    parcala(b, CW).forEach(pc => {
+      const h = parcaH(pc, CW);
+      const yalnizBaslik = buf.length === 1 && buf[0].type === "h4";
+      const sigar = dolu + h <= GOVDE_H * DOLULUK;
+      const kisaKuyruk = h <= 0.95 && dolu + h <= GOVDE_H * 0.95;   /* bir iki satırlık parça yetim kalmasın */
+      if (buf.length && !yalnizBaslik && !sigar && !kisaKuyruk) {
+        /* ":" ile biten giriş cümlesi, tanıttığı tablo/formül/listeyle birlikte yeni slayta geçer */
+        let tasi = null;
+        const son = buf[buf.length - 1];
+        if (buf.length > 1 && son.type === "pp" && /:\s*$/.test(son.items[son.items.length - 1].text)) {
+          if (son.items.length > 1) { tasi = { type: "pp", items: [son.items.pop()] }; }
+          else tasi = buf.pop();
+        }
+        /* geride yalnızca alt başlık kalacaksa o da taşınır */
+        const baslik = tasi && buf.length === 1 && buf[0].type === "h4" ? buf.pop() : null;
+        bosalt();
+        if (baslik) { buf.push(baslik); dolu = parcaH(baslik, CW); }
+        if (tasi) { buf.push(tasi); dolu += parcaH(tasi, CW) + 0.1; }
+      }
+      buf.push(pc); dolu += h + 0.1;
     });
-    content = yeni;
-  }
+  });
+  bosalt();
 
-  const candidates = hasFig
-    ? [{ size: 16, colW: 6.0 }, { size: 15, colW: 6.4 }, { size: 14, colW: 6.9 }, { size: 13, colW: 7.3 },
-       { size: 12.5, colW: 7.6 }, { size: 12, colW: 7.9 }]
-    : [{ size: 17, colW: CW }, { size: 16, colW: CW }, { size: 15, colW: CW }, { size: 14, colW: CW },
-       { size: 13, colW: CW }, { size: 12.5, colW: CW }];
-  let pick = null;
-  for (const c of candidates) {
-    const total = content.reduce((h, b) => h + blockH(b, c.colW, c.size), 0);
-    if (total <= avail1 * (c.size >= 15 ? 0.92 : 1)) { pick = c; break; }
-  }
-
-  let pages;
-  if (pick) {
-    pages = [{ blocks: content, colW: pick.colW, size: pick.size, fig: hasFig }];
-  } else {
-    const size = 13, colFig = hasFig ? 7.3 : CW, colFull = CW;
-    let best = null;
-    for (let k = 1; k < content.length; k++) {
-      const h1 = content.slice(0, k).reduce((h, b) => h + blockH(b, colFig, size), 0);
-      const h2 = content.slice(k).reduce((h, b) => h + blockH(b, colFull, size), 0);
-      if (h1 <= avail1 && h2 <= availN) {
-        const score = Math.abs(h1 / avail1 - h2 / availN);
-        if (!best || score < best.score) best = { k, score };
-      }
-    }
-    if (best) {
-      pages = [{ blocks: content.slice(0, best.k), colW: colFig, size, fig: hasFig },
-               { blocks: content.slice(best.k), colW: colFull, size, fig: false }];
-    } else {
-      pages = [{ blocks: [], colW: colFig, size, fig: hasFig }]; let y = 0;
-      content.forEach(b => {
-        const cur = pages[pages.length - 1];
-        const h = blockH(b, cur.colW, size);
-        const lim = pages.length === 1 ? avail1 : availN;
-        if (y + h > lim && cur.blocks.length) { pages.push({ blocks: [], colW: colFull, size, fig: false }); y = 0; }
-        pages[pages.length - 1].blocks.push(b); y += h;
-      });
-    }
-  }
-
-  pages.forEach((pg, pi) => {
-    const { blocks, colW, size } = pg;
+  const n = akis.length;
+  akis.forEach((a, i) => {
     const s = T.light(p);
-    T.head(s, ch.no, ch.title + (pi ? " · devam" : ""), tone);
-    basamakEtiketi(s, bas);
-    const top = pi === 0 ? top1 : TOP;
-    if (pi === 0 && kisaca) manset(s, kisaca.text, tone, 1.3);
-    let yy = top;
-    blocks.forEach(b => { yy += drawBlock(s, b, M, yy, colW, tone, size); });
-    if (pg.fig) {
-      const figX = M + colW + 0.32, figW = W - M - figX;
-      let fy = top;
-      if (figs.length) {
-        figs.forEach((f, i) => {
-          if (i > 0 && fy > BOTTOM - 2.2) return; /* sığmayan ikinci çizim atlanır */
-          fy += drawFigure(s, f, figX, fy, figW, BOTTOM - fy) + 0.18;
-        });
-      } else {
-        const ih = fotoKart(s, fotos[0], figX + 0.06, fy + 0.06, figW - 0.12);
-        const cap = fotos[0].captionText;
-        const capSize = fit(cap, figW, BOTTOM - (fy + ih + 0.3), 11, 9, false, 1.12);
-        s.addText(toRuns(fotos[0].caption, { boldColor: C.muted }), { x: figX, y: fy + ih + 0.28, w: figW, h: BOTTOM - (fy + ih + 0.28),
-          fontFace: F.body, fontSize: capSize, color: C.dim, lineSpacingMultiple: 1.12, valign: "top", isTextBox: true, margin: 0 });
-      }
+    T.head(s, ch.no, ch.title, tone);
+    basamakEtiketi(s, bas, n > 1 ? [i + 1, n] : null);
+    if (a.tur === "metin") {
+      let y = GOVDE_Y;
+      a.parcalar.forEach(pc => { y += parcaCiz(s, pc, M, y, CW, tone); });
+      s.addNotes(ch.title + (n > 1 ? " — adım " + (i + 1) + "/" + n : "") + "\n\n" + a.parcalar.map(parcaMetni).filter(Boolean).join("\n\n"));
+    } else {
+      sekilSlayti(s, a.fig);
+      s.addNotes(ch.title + " — şekil\n\n" + a.fig.captionText);
     }
     ctx.page++;
     T.footer(s, ctx.foot, ctx.page);
-    if (pi === 0) s.addNotes(bolumNotu(ch));
-    else s.addNotes(ch.title + " (devam)");
   });
-}
 
-/* konuşmacı notu: bölümün bütün anlatımı, sırasıyla */
-function bolumNotu(ch) {
   const kisaca = ch.blocks.find(b => b.type === "kisaca");
-  const parts = [ch.title];
-  if (kisaca) parts.push("Kısaca: " + kisaca.text);
-  ch.blocks.forEach(b => {
-    if (b.type === "p" || b.type === "h4" || b.type === "callout") parts.push(b.text);
-    else if (b.type === "ul" || b.type === "ol") parts.push(b.items.map(it => "• " + it.text).join("\n"));
-    else if (b.type === "formula") parts.push(b.codes.join("   "));
-    else if (b.type === "table") parts.push(b.rows.map(r => r.map(c => c.text).join(" | ")).join("\n"));
-    else if (b.type === "fig" || b.type === "foto") parts.push("Görsel: " + b.captionText);
-    else if (b.type === "dusun") parts.push("Düşün: " + b.soru + "\nCevap: " + b.cevap.map(c => c.text).join(" "));
-  });
-  return parts.filter(Boolean).join("\n\n");
+  if (kisaca) kisacaSlide(p, ctx, ch, bas, kisaca);
+  ch.blocks.filter(x => x.type === "dusun").forEach(q => dusunSlides(p, ctx, ch, bas, q));
 }
 
-/* sağ üstte küçük basamak etiketi */
-function basamakEtiketi(s, bas) {
-  if (!bas.no) return;
+/* şekil ya da görsel tek başına, büyük, alt yazısıyla */
+function sekilSlayti(s, f) {
+  const capW = 10.6, capSize = 13.5;
+  const capH = f.captionText ? Math.min(1.5, textH(f.captionText, capW, capSize, false, 1.15) + 0.1) : 0;
+  const maxW = 10.6, maxH = BOTTOM - GOVDE_Y - capH - 0.35;
+  if (f.type === "foto") {
+    let w = maxW, h = w / 1.5;
+    if (h > maxH) { h = maxH; w = h * 1.5; }
+    const x = (W - w) / 2, img = kirp(f.file, f.slug + "-" + f.ad + "-genis", 1500, 1000);
+    s.addShape("roundRect", { x: x - 0.06, y: GOVDE_Y - 0.06, w: w + 0.12, h: h + 0.12, rectRadius: 0.14, fill: { color: C.white },
+      line: { color: C.line, width: 0.75 }, shadow: T.shadow({}) });
+    s.addImage({ path: img, x, y: GOVDE_Y, w, h });
+    var altY = GOVDE_Y + h + 0.26;
+  } else {
+    let w = maxW, h = w / f.ratio;
+    if (h > maxH) { h = maxH; w = h * f.ratio; }
+    const x = (W - w) / 2;
+    s.addShape("roundRect", { x: x - 0.25, y: GOVDE_Y - 0.1, w: w + 0.5, h: h + 0.2, rectRadius: 0.16, fill: { color: C.white },
+      line: { color: C.line, width: 0.75 }, shadow: T.shadow({}) });
+    s.addImage({ path: f.png, x, y: GOVDE_Y, w, h });
+    var altY = GOVDE_Y + h + 0.3;
+  }
+  if (capH) {
+    const size = fit(f.captionText, capW, BOTTOM - altY, capSize, 11, false, 1.15);
+    s.addText(toRuns(f.caption, { boldColor: C.ink }), { x: (W - capW) / 2, y: altY, w: capW, h: BOTTOM - altY, fontFace: F.body, fontSize: size,
+      color: C.muted, lineSpacingMultiple: 1.15, valign: "top", align: "center", isTextBox: true, margin: 0 });
+  }
+}
+
+/* bölümün özeti: tek cümle, büyük */
+function kisacaSlide(p, ctx, ch, bas, k) {
   const tone = BASAMAK[bas.no].ton;
-  s.addText([{ text: bas.no + " / 4  ", options: { color: C.dim } }, { text: bas.ad.toLocaleUpperCase("tr-TR"), options: { color: tone } }],
-    { x: W - M - 2.6, y: 0.12, w: 2.6, h: 0.28, align: "right", fontFace: F.body, fontSize: 9.5, bold: true, charSpacing: 2,
-      isTextBox: true, margin: 0, valign: "middle" });
+  const s = T.light(p);
+  T.head(s, ch.no, ch.title, tone);
+  basamakEtiketi(s, bas);
+  const x = M + 0.4, y = 1.85, w = CW - 0.8, h = 4.2;
+  s.addShape("roundRect", { x, y, w, h, rectRadius: 0.22, fill: { color: C.white }, line: { color: C.line, width: 0.75 }, shadow: T.shadow({}) });
+  s.addShape("rect", { x: x + 0.04, y: y + 0.5, w: 0.08, h: h - 1.0, fill: { color: tone }, line: { type: "none" } });
+  s.addText("KISACA  ·  BU BÖLÜMDE ÖĞRENDİK", { x: x + 0.6, y: y + 0.32, w: w - 1.2, h: 0.32, fontFace: F.body, fontSize: 12, bold: true,
+    color: tone, charSpacing: 3, isTextBox: true, margin: 0 });
+  const size = fit(k.text, w - 1.2, h - 1.3, 28, 18, false, 1.25);
+  s.addText(toRuns(k.runs, { boldColor: tone }), { x: x + 0.6, y: y + 0.8, w: w - 1.2, h: h - 1.2, fontFace: F.head, fontSize: size,
+    color: C.ink, lineSpacingMultiple: 1.25, valign: "middle", isTextBox: true, margin: 0 });
+  ctx.page++;
+  T.footer(s, ctx.foot, ctx.page);
+  s.addNotes("Kısaca: " + k.text + "\n\nSınıfa bu cümleyi kendi sözleriyle tekrar ettirin.");
+}
+
+/* önce hatırlayalım: konudan önce bilinmesi gerekenler, slayt başına en çok üç kart */
+function hatirlaSlides(p, ctx, d) {
+  if (!d.hatirla || !d.hatirla.length) return;
+  const items = d.hatirla, per = 3, sayfa = Math.ceil(items.length / per);
+  for (let k = 0; k < sayfa; k++) {
+    const grup = items.slice(k * per, k * per + per);
+    const s = T.light(p);
+    T.head(s, "↺", "Önce hatırlayalım" + (sayfa > 1 ? " · " + (k + 1) + " / " + sayfa : ""), C.lime);
+    T.lede(s, "Bu konuya başlamadan önce bilmen gereken birkaç şey.");
+    const top = 1.8, gap = 0.22, ch_ = (BOTTOM - top - gap * (per - 1)) / per;
+    grup.forEach((it, i) => {
+      const y = top + i * (ch_ + gap);
+      T.card(s, { x: M, y, w: CW, h: ch_, fill: C.white });
+      B.rozet(s, k * per + i + 1, M + 0.3, y + (ch_ - 0.5) / 2, 0.5, C.lime);
+      const size = fit(it.text, CW - 1.5, ch_ - 0.3, 20, 14, false, 1.15);
+      s.addText(toRuns(it.runs), { x: M + 1.1, y: y + 0.12, w: CW - 1.4, h: ch_ - 0.24, fontFace: F.body, fontSize: size, color: C.muted,
+        lineSpacingMultiple: 1.15, valign: "middle", isTextBox: true, margin: 0 });
+    });
+    ctx.page++;
+    T.footer(s, ctx.foot, ctx.page);
+    s.addNotes("Önce hatırlayalım:\n" + grup.map(it => "• " + it.text).join("\n") + "\n\nHer maddeyi sınıfa sorarak hatırlatın.");
+  }
 }
 
 /* düşün: soru slaytı + cevap slaytı */
 function dusunSlides(p, ctx, ch, bas, q) {
-  const tone = C.violet;
-  /* soru */
+  soruCevap(p, ctx, bas, {
+    etiket: "DÜŞÜN", renk: C.violet, zemin: "F7F6FE", simge: "?", soru: q.soru, cevap: q.cevap,
+    alt: bolumNo(ch) + " · " + ch.title, not: "Düşün: " + q.soru + "\n\nSınıfa sorun, birkaç tahmin alın; sonra cevap slaytına geçin."
+  });
+}
+
+/* sıra sende: alıştırma sorusu + cevabı */
+function alistirmaSlides(p, ctx, ch, bas, a, i, n, yonerge) {
+  soruCevap(p, ctx, bas, {
+    etiket: "SIRA SENDE " + (i + 1) + " / " + n, renk: C.amber, zemin: "FEF8EE", simge: "✎", soru: a.soru, cevap: a.cevap, zorluk: a.zorluk,
+    alt: yonerge || "Önce verilenleri ve isteneni yaz, sonra çöz.", not: "Sıra sende: " + a.soru + "\n\nÖğrencilere 2–3 dakika verin; sonra cevap slaytını açın."
+  });
+}
+
+function zorlukRozeti(s, z, x, y) {
+  const Z = ZORLUK[z]; if (!Z) return;
+  s.addShape("roundRect", { x, y, w: 1.25, h: 0.42, rectRadius: 0.21, fill: { color: Z.zemin }, line: { color: Z.ton, width: 0.75 } });
+  s.addText(Z.ad, { x, y, w: 1.25, h: 0.42, align: "center", valign: "middle", fontFace: F.body, fontSize: 11.5, bold: true,
+    color: Z.ton, charSpacing: 2, isTextBox: true, margin: 0 });
+}
+
+function soruCevap(p, ctx, bas, o) {
   let s = T.light(p);
-  s.background = { color: "F7F6FE" };
+  s.background = { color: o.zemin };
   basamakEtiketi(s, bas);
-  s.addShape("ellipse", { x: M + 0.2, y: 2.2, w: 1.7, h: 1.7, fill: { color: tone }, line: { type: "none" },
-    shadow: T.shadow({ blur: 14, offset: 4, color: tone, opacity: 0.3 }) });
-  s.addText("?", { x: M + 0.2, y: 2.2, w: 1.7, h: 1.7, align: "center", valign: "middle", fontFace: F.head, fontSize: 80,
+  s.addShape("ellipse", { x: M + 0.2, y: 2.2, w: 1.7, h: 1.7, fill: { color: o.renk }, line: { type: "none" },
+    shadow: T.shadow({ blur: 14, offset: 4, color: o.renk, opacity: 0.3 }) });
+  s.addText(o.simge, { x: M + 0.2, y: 2.2, w: 1.7, h: 1.7, align: "center", valign: "middle", fontFace: F.head, fontSize: o.simge === "?" ? 80 : 60,
     bold: true, color: C.white, isTextBox: true, margin: 0 });
-  s.addText("DÜŞÜN", { x: M + 2.5, y: 1.55, w: 6, h: 0.35, fontFace: F.body, fontSize: 13, bold: true, color: tone,
+  s.addText(o.etiket, { x: M + 2.5, y: 1.55, w: 6, h: 0.35, fontFace: F.body, fontSize: 13, bold: true, color: o.renk,
     charSpacing: 4, isTextBox: true, margin: 0 });
+  if (o.zorluk) zorlukRozeti(s, o.zorluk, W - M - 1.25, 1.5);
   const qw = CW - 2.6, qh = 3.4;
-  const qs = fit(q.soru, qw, qh, 32, 20, false, 1.2);
-  s.addText(q.soru, { x: M + 2.5, y: 2.0, w: qw, h: qh, fontFace: F.head, fontSize: qs, color: C.ink,
+  const qs = fit(o.soru, qw, qh, 32, 20, false, 1.2);
+  s.addText(o.soru, { x: M + 2.5, y: 2.0, w: qw, h: qh, fontFace: F.head, fontSize: qs, color: C.ink,
     lineSpacingMultiple: 1.2, valign: "middle", isTextBox: true, margin: 0 });
-  s.addText([{ text: bolumNo(ch) + " · " + ch.title, options: { color: C.dim } },
-    { text: "     Cevap bir sonraki slaytta", options: { color: tone, bold: true } }],
+  s.addText([{ text: o.alt, options: { color: C.dim } }, { text: "     Cevap bir sonraki slaytta", options: { color: o.renk, bold: true } }],
     { x: M + 2.5, y: 5.75, w: qw, h: 0.34, fontFace: F.body, fontSize: 12, isTextBox: true, margin: 0, valign: "middle" });
   ctx.page++;
   T.footer(s, ctx.foot, ctx.page);
-  s.addNotes("Düşün: " + q.soru + "\n\nSınıfa sorun, birkaç tahmin alın; sonra cevap slaytına geçin.\n\nCevap: " + q.cevap.map(b => b.text).join("\n"));
+  s.addNotes(o.not + "\n\nCevap: " + o.cevap.map(b => b.text).join("\n"));
 
-  /* cevap */
   s = T.light(p);
   basamakEtiketi(s, bas);
-  s.addShape("roundRect", { x: M, y: 0.5, w: 0.54, h: 0.54, rectRadius: 0.14, fill: { color: tone }, line: { type: "none" } });
+  s.addShape("roundRect", { x: M, y: 0.5, w: 0.54, h: 0.54, rectRadius: 0.14, fill: { color: o.renk }, line: { type: "none" } });
   s.addText("!", { x: M, y: 0.5, w: 0.54, h: 0.54, align: "center", valign: "middle", fontFace: F.head, fontSize: 22, bold: true,
     color: C.white, isTextBox: true, margin: 0 });
   s.addText("Cevap", { x: M + 0.78, y: 0.42, w: 6, h: 0.7, fontFace: F.head, fontSize: 32, bold: true, color: C.ink,
     isTextBox: true, margin: 0, valign: "middle" });
-  const sq = fit(q.soru, CW - 0.8, 0.8, 16, 12.5, false);
-  s.addText(q.soru, { x: M + 0.78, y: 1.2, w: CW - 0.8, h: 0.8, fontFace: F.body, fontSize: sq, italic: true, color: C.dim,
+  const sq = fit(o.soru, CW - 0.8, 0.8, 16, 12.5, false);
+  s.addText(o.soru, { x: M + 0.78, y: 1.2, w: CW - 0.8, h: 0.8, fontFace: F.body, fontSize: sq, italic: true, color: C.dim,
     valign: "top", isTextBox: true, margin: 0 });
   const ay = 2.2, ah = BOTTOM - ay;
-  const aText = q.cevap.map(b => b.text).join("\n");
-  const as = fit(aText, CW - 1.1, ah - 0.6, 22, 13, false, 1.25);
+  const aText = o.cevap.map(b => b.text).join("\n");
+  const as = fit(aText, CW - 1.1, ah - 0.6, 24, 13, false, 1.25);
   s.addShape("roundRect", { x: M, y: ay, w: CW, h: ah, rectRadius: 0.2, fill: { color: C.white },
-    line: { color: "CFC8F5", width: 0.75 }, shadow: T.shadow({}) });
-  s.addShape("rect", { x: M + 0.03, y: ay + 0.4, w: 0.07, h: ah - 0.8, fill: { color: tone }, line: { type: "none" } });
-  s.addText(joinParas(q.cevap, { boldColor: tone }), { x: M + 0.55, y: ay + 0.3, w: CW - 1.1, h: ah - 0.6, fontFace: F.body,
+    line: { color: C.line, width: 0.75 }, shadow: T.shadow({}) });
+  s.addShape("rect", { x: M + 0.03, y: ay + 0.4, w: 0.07, h: ah - 0.8, fill: { color: o.renk }, line: { type: "none" } });
+  s.addText(joinParas(o.cevap, { boldColor: o.renk }), { x: M + 0.55, y: ay + 0.3, w: CW - 1.1, h: ah - 0.6, fontFace: F.body,
     fontSize: as, color: C.ink, lineSpacingMultiple: 1.25, valign: "middle", isTextBox: true, margin: 0 });
   ctx.page++;
   T.footer(s, ctx.foot, ctx.page);
   s.addNotes("Cevap: " + aText);
 }
 
-function exampleSlide(p, ctx, ch, bas, ex, i, total, intro) {
+/* çözümlü örnek: önce soru + verilenler/istenen, sonra adımlar (slayt başına en çok üç) */
+function exampleSlides(p, ctx, ch, bas, ex, i, total) {
   const tone = BASAMAK[bas.no].ton;
-  const s = T.light(p);
-  T.head(s, ch.no, "Çözümlü örnek " + (i + 1) + " / " + total, tone);
-  const z = ZORLUK[ex.zorluk];
-  if (z) {
-    s.addShape("roundRect", { x: W - M - 1.25, y: 0.56, w: 1.25, h: 0.42, rectRadius: 0.21, fill: { color: z.zemin },
-      line: { color: z.ton, width: 0.75 } });
-    s.addText(z.ad, { x: W - M - 1.25, y: 0.56, w: 1.25, h: 0.42, align: "center", valign: "middle", fontFace: F.body,
-      fontSize: 11.5, bold: true, color: z.ton, charSpacing: 2, isTextBox: true, margin: 0 });
-  }
-  const sub = ex.title.replace(/^Örnek\s*\d+\s*[—–-]\s*/u, "");
-  /* bölümün giriş cümlesi tek satıra sığıyorsa başlığın altına, sığmıyorsa yalnızca nota */
-  const ledeTam = sub + (intro ? "  ·  " + intro : "");
-  T.lede(s, lines(ledeTam, W - M * 2 - 0.9, 14.5) <= 1 ? ledeTam : sub);
+  const alt = ex.title.replace(/^Örnek\s*\d+\s*[—–-]\s*/u, "");
+  const bol = t => t.split(/\s+·\s+/).map(x => x.trim()).filter(Boolean);
 
-  const top = 1.78, h = BOTTOM - top;
-  /* soru kartı */
-  const qw = 4.7;
-  T.card(s, { x: M, y: top, w: qw, h, fill: C.softer });
-  s.addText("SORU", { x: M + 0.32, y: top + 0.24, w: 3, h: 0.28, fontFace: F.body, fontSize: 10.5, bold: true,
-    color: tone, charSpacing: 2, isTextBox: true, margin: 0 });
+  /* 1) soru */
+  let s = T.light(p);
+  T.head(s, ch.no, "Örnek " + (i + 1) + " / " + total + " · Soru", tone);
+  zorlukRozeti(s, ex.zorluk, W - M - 1.25, 0.56);
+  T.lede(s, alt);
   const qText = ex.intro.map(b => b.text).join("\n");
-  let qSize = 16;
-  while (qSize > 11 && textH(qText, qw - 0.64, qSize) > h - 1.6) qSize -= 0.5;
-  const qh = textH(qText, qw - 0.64, qSize) + 0.1;
-  s.addText(joinParas(ex.intro), { x: M + 0.32, y: top + 0.6, w: qw - 0.64, h: qh, fontFace: F.body, fontSize: qSize, color: C.ink,
+  const kutuVar = ex.verilen || ex.istenen;
+  /* soru kartı ihtiyacı kadar yer alır (20 pt'den başlar), kalanı verilenler / istenen kartlarına */
+  let qs = 20;
+  while (qs > 14 && textH(qText, CW - 0.7, qs, false, 1.18) > 2.2) qs -= 0.5;
+  const qh = kutuVar ? Math.max(1.25, Math.min(2.6, textH(qText, CW - 0.7, qs, false, 1.18) + 0.75)) : BOTTOM - 1.85;
+  if (!kutuVar) qs = fit(qText, CW - 0.7, qh - 0.6, 20, 12.5, false, 1.18);
+  T.card(s, { x: M, y: 1.8, w: CW, h: qh, fill: C.softer });
+  s.addText("SORU", { x: M + 0.35, y: 1.98, w: 3, h: 0.28, fontFace: F.body, fontSize: 10.5, bold: true, color: tone, charSpacing: 2, isTextBox: true, margin: 0 });
+  s.addText(joinParas(ex.intro), { x: M + 0.35, y: 2.32, w: CW - 0.7, h: qh - 0.6, fontFace: F.body, fontSize: qs, color: C.ink,
     lineSpacingMultiple: 1.18, valign: "top", isTextBox: true, margin: 0 });
-  if (ex.outro.length) {
-    const oText = ex.outro.map(b => b.text).join("\n");
-    const oy = top + 0.7 + qh + 0.15;
-    const yer = h - (oy - top) - 0.3 - 0.3;                       /* NOT etiketi + alt pay */
-    const os = fit(oText, qw - 0.64, yer, 11.5, 9, false, 1.12);
-    const oh = textH(oText, qw - 0.64, os, false, 1.12) + 0.06;
-    if (yer > 0.4 && oh <= yer) {                                   /* sığmıyorsa yalnızca notta kalır */
-      s.addText("NOT", { x: M + 0.32, y: oy, w: 3, h: 0.24, fontFace: F.body, fontSize: 9.5, bold: true, color: C.dim,
-        charSpacing: 2, isTextBox: true, margin: 0 });
-      s.addText(joinParas(ex.outro, { boldColor: C.ink }), { x: M + 0.32, y: oy + 0.28, w: qw - 0.64, h: oh, fontFace: F.body,
-        fontSize: os, color: C.muted, lineSpacingMultiple: 1.12, valign: "top", isTextBox: true, margin: 0 });
-    }
+  if (kutuVar) {
+    const y = 1.8 + qh + 0.22, h = BOTTOM - y, cw = (CW - 0.3) / 2;
+    [["VERİLENLER", ex.verilen, C.blue], ["İSTENEN", ex.istenen, C.violet]].forEach(([ad, v, renk], k) => {
+      const x = M + k * (cw + 0.3);
+      T.card(s, { x, y, w: cw, h, fill: C.white });
+      s.addShape("rect", { x: x + 0.02, y: y + 0.18, w: 0.06, h: h - 0.36, fill: { color: renk }, line: { type: "none" } });
+      s.addText(ad, { x: x + 0.3, y: y + 0.16, w: cw - 0.5, h: 0.28, fontFace: F.body, fontSize: 10.5, bold: true, color: renk, charSpacing: 2, isTextBox: true, margin: 0 });
+      if (!v) return;
+      const items = bol(v.text.replace(/^(Verilenler|İstenen):\s*/, "")).map(t => ({ runs: [{ t }], text: t }));
+      const yer = h - 0.66;
+      /* madde aralığı dahil sığan punto; 11 pt'de de sığmıyorsa iki sütun */
+      const olc = (its, w, sz) => its.reduce((a, it) => a + textH(it.text, w - 0.3, sz, false, 1.1) + 5 / 72, 0);
+      let sutun = 1, size = 18;
+      while (size > 11 && olc(items, cw - 0.6, size) > yer) size -= 0.5;
+      if (olc(items, cw - 0.6, size) > yer && items.length > 3) {
+        sutun = 2; size = 16;
+        const yari = Math.ceil(items.length / 2);
+        while (size > 10 && Math.max(olc(items.slice(0, yari), (cw - 0.7) / 2, size), olc(items.slice(yari), (cw - 0.7) / 2, size)) > yer) size -= 0.5;
+      }
+      const parcalar = sutun === 1 ? [items] : [items.slice(0, Math.ceil(items.length / 2)), items.slice(Math.ceil(items.length / 2))];
+      const sw = sutun === 1 ? cw - 0.6 : (cw - 0.7) / 2;
+      parcalar.forEach((its, j) => {
+        s.addText(listRuns(its, false), { x: x + 0.34 + j * (sw + 0.1), y: y + 0.52, w: sw, h: yer, fontFace: F.body, fontSize: size, color: C.ink,
+          lineSpacingMultiple: 1.1, valign: "top", isTextBox: true, margin: 0 });
+      });
+    });
   }
-
-  /* çözüm adımları */
-  const sx = M + qw + 0.3, sw = W - M - sx;
-  const n = ex.steps.length, gap = 0.16;
-  const textW = sw - 1.05;
-  const budget = h - (n - 1) * gap;
-  let size = 16, need = [];
-  for (;;) {
-    need = ex.steps.map(st => Math.max(0.62, textH(st.text, textW, size, false, 1.12) + 0.34));
-    if (need.reduce((a, b) => a + b, 0) <= budget || size <= 10.5) break;
-    size -= 0.5;
-  }
-  const f = budget / need.reduce((a, b) => a + b, 0);
-  const hs = need.map(v => v * Math.min(f, 2.2));
-  const extra = (budget - hs.reduce((a, b) => a + b, 0)) / n;
-  let y = top;
-  ex.steps.forEach((st, k) => {
-    const sh = hs[k] + extra;
-    T.card(s, { x: sx, y, w: sw, h: sh });
-    B.rozet(s, k + 1, sx + 0.26, y + (sh - 0.42) / 2, 0.42, tone);
-    s.addText(toRuns(st.runs), { x: sx + 0.85, y: y + 0.06, w: textW, h: sh - 0.12, fontFace: F.body, fontSize: size,
-      color: C.muted, lineSpacingMultiple: 1.12, valign: "middle", isTextBox: true, margin: 0 });
-    y += sh + gap;
-  });
   ctx.page++;
   T.footer(s, ctx.foot, ctx.page);
-  s.addNotes([ex.title + (z ? " (" + z.ad.toLocaleLowerCase("tr-TR") + ")" : ""), intro ? "\n" + intro : "", qText, "",
-    ex.steps.map((st, k) => (k + 1) + ". " + st.text).join("\n")]
-    .concat(ex.outro.length ? ["", ex.outro.map(b => b.text).join("\n")] : []).join("\n"));
+  s.addNotes([ex.title, qText, ex.verilen ? ex.verilen.text : "", ex.istenen ? ex.istenen.text : "",
+    "Önce öğrencilere verilenleri ve isteneni söyletin; hangi bağıntının kullanılacağını sorun."].filter(Boolean).join("\n\n"));
+
+  /* 2) çözüm adımları */
+  /* slayt başına en çok üç adım, dengeli: 4 → 2+2, 5 → 3+2 */
+  const gs = Math.max(1, Math.ceil(ex.steps.length / 3)), per = Math.ceil(ex.steps.length / gs) || 3, gruplar = [];
+  for (let k = 0; k < ex.steps.length; k += per) gruplar.push(ex.steps.slice(k, k + per));
+  if (!gruplar.length) gruplar.push([]);
+  gruplar.forEach((g, gi) => {
+    s = T.light(p);
+    T.head(s, ch.no, "Örnek " + (i + 1) + " · Çözüm" + (gruplar.length > 1 ? " " + (gi + 1) + " / " + gruplar.length : ""), tone);
+    zorlukRozeti(s, ex.zorluk, W - M - 1.25, 0.56);
+    T.lede(s, alt);
+    const sonMu = gi === gruplar.length - 1;
+    const notText = sonMu && ex.outro.length ? ex.outro.map(b => b.text).join("\n") : "";
+    const notH = notText ? Math.min(1.5, textH(notText, CW - 0.9, 15, false, 1.12) + 0.5) : 0;
+    const top = 1.8, gap = 0.18, alan = BOTTOM - top - (notH ? notH + gap : 0);
+    const textW = CW - 1.15;
+    let size = 20, need = [];
+    for (;;) {
+      need = g.map(st => Math.max(0.7, textH(st.text, textW, size, false, 1.12) + 0.36));
+      if (need.reduce((a, b) => a + b, 0) + gap * (g.length - 1) <= alan || size <= 12) break;
+      size -= 0.5;
+    }
+    const f = (alan - gap * (g.length - 1)) / need.reduce((a, b) => a + b, 0);
+    let y = top;
+    g.forEach((st, k) => {
+      const sh = need[k] * Math.min(f, 1.6);
+      T.card(s, { x: M, y, w: CW, h: sh });
+      B.rozet(s, gi * per + k + 1, M + 0.3, y + (sh - 0.46) / 2, 0.46, tone);
+      s.addText(toRuns(st.runs), { x: M + 0.95, y: y + 0.06, w: textW, h: sh - 0.12, fontFace: F.body, fontSize: size,
+        color: C.ink, lineSpacingMultiple: 1.12, valign: "middle", isTextBox: true, margin: 0 });
+      y += sh + gap;
+    });
+    if (notH) {
+      const ny = BOTTOM - notH;
+      T.card(s, { x: M, y: ny, w: CW, h: notH, fill: C.softer });
+      s.addText("NOT", { x: M + 0.35, y: ny + 0.14, w: 2, h: 0.24, fontFace: F.body, fontSize: 10, bold: true, color: C.dim, charSpacing: 2, isTextBox: true, margin: 0 });
+      const ns = fit(notText, CW - 0.9, notH - 0.5, 15, 11, false, 1.12);
+      s.addText(joinParas(ex.outro, { boldColor: C.ink }), { x: M + 0.35, y: ny + 0.4, w: CW - 0.7, h: notH - 0.5, fontFace: F.body,
+        fontSize: ns, color: C.muted, lineSpacingMultiple: 1.12, valign: "top", isTextBox: true, margin: 0 });
+    }
+    ctx.page++;
+    T.footer(s, ctx.foot, ctx.page);
+    s.addNotes(ex.title + " — çözüm\n\n" + g.map((st, k) => (gi * per + k + 1) + ". " + st.text).join("\n") + (notText ? "\n\n" + notText : ""));
+  });
 }
 
 function mistakesSlides(p, ctx, ch, bas) {
   const list = ch.blocks.find(b => b.type === "ul");
   const all = list ? list.items : [];
-  const per = all.length > 6 ? Math.ceil(all.length / 2) : all.length;
+  const per = 4;
   const groups = [];
   for (let i = 0; i < all.length; i += per) groups.push(all.slice(i, i + per));
   const intro = ch.blocks.find(b => b.type === "p" && !/^Kendini sına/.test(b.text));
@@ -580,19 +734,18 @@ function mistakesSlides(p, ctx, ch, bas) {
     basamakEtiketi(s, bas);
     T.lede(s, intro ? intro.text : "Sınavda puan kaybettiren klasikler ve doğrusu.");
     const n = items.length, cols = 2, rows = Math.ceil(n / cols);
-    const top = 1.78, gap = 0.16, cw = (CW - 0.24) / 2;
+    const top = 1.78, gap = 0.18, cw = (CW - 0.24) / 2;
     const ch_ = (BOTTOM - top - (rows - 1) * gap) / rows;
     const split = it => {
-      /* baştaki kalın koşular iddia, kalanı açıklama */
       let k = 0; while (k < it.runs.length && (it.runs[k].b || !it.runs[k].t.trim())) k++;
       const claim = it.runs.slice(0, k), expl = it.runs.slice(k);
       if (!claim.length) { claim.push(it.runs[0]); expl.splice(0, 1); }
       return { claim, expl };
     };
-    let claimSize = 16, explSize = 15;
-    while (claimSize > 11.5 && items.some(it => {
+    let claimSize = 19, explSize = 17;
+    while (claimSize > 12 && items.some(it => {
       const { claim, expl } = split(it);
-      return 0.13 + textH(plain(claim), cw - 0.95, claimSize, true) + 0.12 + textH(plain(expl), cw - 0.86, explSize) + 0.16 > ch_;
+      return 0.16 + textH(plain(claim), cw - 0.95, claimSize, true) + 0.14 + textH(plain(expl), cw - 0.86, explSize) + 0.2 > ch_;
     })) { claimSize -= 0.5; explSize -= 0.5; }
     items.forEach((it, i) => {
       const { claim, expl } = split(it);
@@ -600,17 +753,17 @@ function mistakesSlides(p, ctx, ch, bas) {
       const x = M + col * (cw + 0.24), y = top + row * (ch_ + gap);
       T.card(s, { x, y, w: cw, h: ch_, fill: C.white });
       const claimText = plain(claim).replace(/^[“"]|[”"]$/g, "");
-      const claimH = textH(claimText, cw - 0.95, claimSize, true) + 0.06;
-      s.addShape("roundRect", { x: x + 0.22, y: y + 0.16, w: 0.3, h: 0.3, rectRadius: 0.08, fill: { color: "FBE9EE" }, line: { type: "none" } });
-      s.addText("✗", { x: x + 0.22, y: y + 0.16, w: 0.3, h: 0.3, align: "center", valign: "middle", fontFace: F.body,
-        fontSize: 12.5, bold: true, color: C.rose, isTextBox: true, margin: 0 });
-      s.addText(toRuns(claim.map(r => Object.assign({}, r, { b: true }))), { x: x + 0.64, y: y + 0.13, w: cw - 0.86, h: claimH,
+      const claimH = textH(claimText, cw - 0.95, claimSize, true) + 0.08;
+      s.addShape("roundRect", { x: x + 0.22, y: y + 0.18, w: 0.34, h: 0.34, rectRadius: 0.09, fill: { color: "FBE9EE" }, line: { type: "none" } });
+      s.addText("✗", { x: x + 0.22, y: y + 0.18, w: 0.34, h: 0.34, align: "center", valign: "middle", fontFace: F.body,
+        fontSize: 14, bold: true, color: C.rose, isTextBox: true, margin: 0 });
+      s.addText(toRuns(claim.map(r => Object.assign({}, r, { b: true }))), { x: x + 0.7, y: y + 0.14, w: cw - 0.9, h: claimH,
         fontFace: F.body, fontSize: claimSize, color: C.ink, lineSpacingMultiple: 1.08, valign: "top", isTextBox: true, margin: 0 });
-      const ey = y + 0.13 + claimH + 0.06;
-      s.addShape("roundRect", { x: x + 0.22, y: ey + 0.02, w: 0.3, h: 0.3, rectRadius: 0.08, fill: { color: "EAF7DC" }, line: { type: "none" } });
-      s.addText("✓", { x: x + 0.22, y: ey + 0.02, w: 0.3, h: 0.3, align: "center", valign: "middle", fontFace: F.body,
-        fontSize: 12.5, bold: true, color: C.lime, isTextBox: true, margin: 0 });
-      s.addText(toRuns(expl, { boldColor: C.ink }), { x: x + 0.64, y: ey, w: cw - 0.86, h: Math.max(0.3, ch_ - (ey - y) - 0.12),
+      const ey = y + 0.14 + claimH + 0.1;
+      s.addShape("roundRect", { x: x + 0.22, y: ey + 0.02, w: 0.34, h: 0.34, rectRadius: 0.09, fill: { color: "EAF7DC" }, line: { type: "none" } });
+      s.addText("✓", { x: x + 0.22, y: ey + 0.02, w: 0.34, h: 0.34, align: "center", valign: "middle", fontFace: F.body,
+        fontSize: 14, bold: true, color: C.lime, isTextBox: true, margin: 0 });
+      s.addText(toRuns(expl, { boldColor: C.ink }), { x: x + 0.7, y: ey, w: cw - 0.9, h: Math.max(0.3, ch_ - (ey - y) - 0.14),
         fontFace: F.body, fontSize: explSize, color: C.muted, lineSpacingMultiple: 1.08, valign: "top", isTextBox: true, margin: 0 });
     });
     ctx.page++;
@@ -857,26 +1010,22 @@ function buildDeck(d) {
   kapakSlide(p, ctx, d);
   openingSlide(p, ctx, d);
   yolHaritasi(p, ctx, d);
-
-  /* sınıfta soru–cevap çifti en çok altı: önce her basamaktan birer, sonra sırayla; kalanlar notta */
-  const tumDusun = [];
-  d.basamaklar.forEach(b => b.chapters.forEach(ch => ch.blocks.forEach(x => { if (x.type === "dusun") tumDusun.push({ x, b: b.no }); })));
-  const secDusun = new Set();
-  [...new Set(tumDusun.map(t => t.b))].forEach(bn => { const t = tumDusun.find(u => u.b === bn); if (t) secDusun.add(t.x); });
-  tumDusun.forEach(t => { if (secDusun.size < 6) secDusun.add(t.x); });
+  hatirlaSlides(p, ctx, d);
 
   d.basamaklar.forEach(b => {
     if (b.no) basamakSlide(p, ctx, d, b);
     b.chapters.forEach(ch => {
       const examples = ch.blocks.filter(x => x.type === "example");
       if (examples.length) {
-        const intro = (ch.blocks.find(x => x.type === "p") || {}).text || "";
-        examples.forEach((ex, k) => exampleSlide(p, ctx, ch, b, ex, k, examples.length, intro));
+        examples.forEach((ex, k) => exampleSlides(p, ctx, ch, b, ex, k, examples.length));
+        const al = ch.blocks.filter(x => x.type === "alistirma");
+        const hi = ch.blocks.findIndex(x => x.type === "h4" && x.text === "Sıra sende");
+        const yon = hi > -1 && ch.blocks[hi + 1] && ch.blocks[hi + 1].type === "p" ? ch.blocks[hi + 1].text : "";
+        al.forEach((a, k) => alistirmaSlides(p, ctx, ch, b, a, k, al.length, yon));
       } else if (/hata/i.test(ch.title) && ch.blocks.some(x => x.type === "ul")) {
         mistakesSlides(p, ctx, ch, b);
       } else {
         chapterSlides(p, ctx, ch, b);
-        ch.blocks.filter(x => x.type === "dusun" && secDusun.has(x)).forEach(q => dusunSlides(p, ctx, ch, b, q));
       }
     });
   });
@@ -937,7 +1086,7 @@ function extractInPage() {
   }
   const body = q("#konu-body");
   const chapters = []; let cur = null; const intro = []; let figIndex = 0;
-  const basamaklar = []; let bas = null;
+  const basamaklar = []; let bas = null; let hatirla = [];
   [...body.children].forEach(el => {
     const tag = el.tagName.toLowerCase(), cls = el.getAttribute("class") || "";
     if (tag === "div" && /\bbasamak\b/.test(cls)) {
@@ -952,6 +1101,7 @@ function extractInPage() {
       return;
     }
     if (tag === "svg") return;
+    if (tag === "div" && /\bhatirla\b/.test(cls)) { hatirla = [...el.querySelectorAll("li")].map(li => ({ runs: runs(li), text: txt(li) })); return; }
     const target = cur ? cur.blocks : intro;
     if (tag === "p" && /lead-in/.test(cls)) target.push({ type: "leadin", runs: runs(el), text: txt(el) });
     else if (tag === "p" && /kisaca/.test(cls)) {
@@ -970,6 +1120,11 @@ function extractInPage() {
       const cevap = [...el.children].filter(k => k.tagName !== "SUMMARY").map(k => ({ runs: runs(k), text: txt(k) }));
       target.push({ type: "dusun", soru: txt(el.querySelector("summary")).replace(/^Düşün:\s*/, ""), cevap });
     }
+    else if (tag === "details" && /alistirma/.test(cls)) {
+      const sm = el.querySelector("summary");
+      const cevap = [...el.children].filter(k => k.tagName !== "SUMMARY").map(k => ({ runs: runs(k), text: txt(k) }));
+      target.push({ type: "alistirma", soru: txt(sm).replace(/^Sıra sende\s*\d+:\s*/, ""), zorluk: (sm && sm.dataset.zorluk) || "", cevap });
+    }
     else if (tag === "details") {
       const sm = el.querySelector("summary");
       const ex = { type: "example", title: txt(sm), zorluk: (sm && sm.dataset.zorluk) || "", intro: [], steps: [], outro: [] };
@@ -977,6 +1132,9 @@ function extractInPage() {
       [...el.children].forEach(k => {
         const kt = k.tagName.toLowerCase();
         if (kt === "summary") return;
+        const kc = k.getAttribute("class") || "";
+        if (kt === "p" && /verilen/.test(kc)) { ex.verilen = { runs: runs(k), text: txt(k) }; return; }
+        if (kt === "p" && /istenen/.test(kc)) { ex.istenen = { runs: runs(k), text: txt(k) }; return; }
         if (kt === "ol" || kt === "ul") { seenList = true; ex.steps.push(...[...k.children].map(li => ({ runs: runs(li), text: txt(li) }))); }
         else if (kt === "div" && /formula/.test(k.getAttribute("class") || "")) { const t = [...k.querySelectorAll("code")].map(txt).join("   "); (seenList ? ex.outro : ex.intro).push({ runs: [{ t, mono: true }], text: t }); }
         else (seenList ? ex.outro : ex.intro).push({ runs: runs(k), text: txt(k) });
@@ -986,7 +1144,7 @@ function extractInPage() {
     else if (tag === "figure" && /\bfoto\b/.test(cls)) {
       const img = el.querySelector("img"), cap = el.querySelector("figcaption");
       const src = img ? img.getAttribute("src") : "";
-      target.push({ type: "foto", src, ad: (src.match(/-(giris|gunluk|uygulama)\.webp(?:\?.*)?$/) || [])[1] || "",
+      target.push({ type: "foto", src, ad: (src.match(/-(giris|gunluk|uygulama|ek\d)\.webp(?:\?.*)?$/) || [])[1] || "",
         alt: img ? img.getAttribute("alt") : "", caption: cap ? runs(cap) : [], captionText: txt(cap) });
     }
     else if (tag === "figure") {
@@ -1009,6 +1167,7 @@ function extractInPage() {
     leadIn: leadIn ? leadIn.text : "",
     leadInRuns: leadIn ? leadIn.runs : [],
     introFotos,
+    hatirla,
     next: txt(q(".topic-nav .next b")),
     chapters,
     basamaklar
