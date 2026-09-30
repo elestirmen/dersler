@@ -51,6 +51,95 @@ Ana sayfa her üniteyi bir blok olarak gösterir, konuları numaralandırır; ar
 kutusu ve ünite süzgeçleriyle daraltılır. Her konu sayfası künyesinde üniteye
 döner, altında önceki ve sonraki konuya geçiş şeridi taşır.
 
+## Konu anlatımı: dört basamak, kolaydan zora
+
+Her konu sayfasındaki **Konu anlatımı** penceresi (`<dialog id="konu">`) konunun yazılı
+anlatımıdır ve on sekiz konuda aynı yolu izler: önce sezgi, sonra bağıntılar, sonra
+derinleşme, en sonda pekiştirme. Konu başına 12–15 başlık ve yaklaşık 3 000–4 500 sözcük;
+eski dokuz başlıklık anlatımın 2,5–5 katı. Eski anlatımdaki bilgi, çizim, örnek ve hata
+maddelerinin hepsi yerinde duruyor; üstüne kuruldu.
+
+| Basamak | Ne var | Renk |
+|---|---|---|
+| Giriş | Merak uyandıran bir soru ve anlatımın haritası, altında konunun giriş görseli | mor |
+| **1 · Temel** | Günlük bir gözlemle açılır ("Önce gözlemle: …"), formül yok; tanım, temel kavramlar, sezgi ve benzetmeler. Günlük hayat görseli burada | yeşil |
+| **2 · Orta** | Bağıntılar ve nereden geldikleri (adım adım türetme), birim kontrolü, grafikler; "Sayılarla hisset" bölümünde tanıdık değerlerle bir tablo | mavi |
+| **3 · İleri** | İnce durumlar, modelin sınırları, birleşik durumlar; son başlık "… gerçek dünyada", uygulama görseliyle | mor |
+| **4 · Pekiştir** | Kolaydan zora 6–8 çözümlü örnek (her biri **Kolay / Orta / Zor** rozetli) ve 6–8 sık yapılan hata | turuncu |
+
+Basamak 1–3'teki her başlık bir **Kısaca** kutusuyla biter: bölümü tek başına okunabilecek
+bir iki cümlede özetler; sunumda da o bölüm slaytının başlık cümlesi olur. Aralara cevabı
+kapalı **Düşün** soruları serpiştirilmiştir (konu başına 5–10); öğrenci tahmin eder, sonra
+açıp nedenini okur. Başlık çipleri ait oldukları basamağın rengini taşır; telefonda tek
+satırda yatay kayar.
+
+Yapıyı `denetim/anlatim.js` denetler (basamak sırası ve sayıları, her bölümde bir Kısaca,
+her basamakta Düşün, örneklerin zorluk sırası, görsel dosyaları, çip–başlık eşleşmesi,
+çizim taşmaları ve modalın 390 px'te yatay taşmaması):
+
+```bash
+NODE_PATH=$(npm root -g) node denetim/anlatim.js              # 18 konu
+NODE_PATH=$(npm root -g) node denetim/anlatim.js kirilma
+```
+
+Anlatımda kullanılan bloklar: `p.lead-in`, `div.basamak` (`data-basamak="1–4"`, içinde
+`<b>Temel|Orta|İleri|Pekiştir</b>` ve `<span>` açıklama), `h3` (kimlikleri `k1…kN`), `p`,
+`h4`, `ul`/`ol`, `table.tbl`, `div.formula`, `div.callout` (`warn`), `figure.fig` (SVG
+çizim), `figure.foto` (görsel), `p.kisaca` (`<b>Kısaca:</b>` ile başlar),
+`details.dusun` (`<summary>Düşün: …?</summary>` + cevap), `details` örnek
+(`<summary data-zorluk="kolay|orta|zor">Örnek n — …</summary>`, `ol.steps`). Sunum üreticisi
+bu blokları tanır; yeni bir blok türü eklenirse `sunum/uret.js` de güncellenmelidir.
+
+## Konu anlatımı görselleri (yapay zekâ)
+
+Her konunun anlatımında üç görsel var, toplam 54: **giriş** (konunun simge sahnesi: Ay'da
+çekiç ve tüy, gökkuşağı, düşme kulesi…), **günlük** (Temel basamağın gözlemi) ve **uygulama**
+("gerçek dünyada" bölümü). Hepsi **Codex'in `$imagegen` becerisiyle**, `gpt-6-luna` modeli en
+yüksek akıl yürütme düzeyinde çalıştırılarak üretildi (yerleşik `image_gen` aracı, `gpt-image`;
+PNG'lerde OpenAI imzalı C2PA kaynak bilgisi var). Sitede ve slaytlarda köşelerinde "Yapay zekâ
+ile üretildi" etiketi taşırlar.
+
+Üslup **sinematik, gerçekçi**: aynı sahneler premium bir resimli üslupla da denendi, gerçekçi
+olan daha kaliteli ve daha uyumlu çıktı. Her görselde model önce istemi becerinin şablonuyla
+kurar, görseli üretir, sonra kendisi inceler (sahnedeki fizik şartları, yazı/harf olmaması,
+eller ve geometri, kompozisyon) ve kusur varsa istemi o kusura yönelik düzeltip yeniden üretir;
+en çok üç deneme, en iyisi seçilir. 54 görselin 45'i en az bir kez yeniden üretildi.
+
+Görseller atmosfer ve bağlam içindir, fiziğin kendisini SVG çizimler taşır. Yine de her görsel
+fizik açısından ayrıca gözle denetlendi: 90°'lik iki aynada tam üç görüntü, gökkuşağında güneşin
+gözlemcinin arkasında olması (gölgeler yaya doğru uzanır), prizmada ışığın tabana doğru kırılıp
+kırmızının en az sapması, itişen patencilerin zıt yönlere kayması, bardaktaki kaşığın su
+yüzeyinde kırık görünmesi. Görüntü modeli strobo aralıklarını tam tutturamadığı için serbest
+düşmenin elma görselinde elmaların konumları üretimden sonra **y = ½·g·t²'ye göre yeniden
+yerleştirildi** (aralıklar tam 1 : 3 : 5; arka plan OpenCV ile dolduruldu); alt yazısı bunu
+söyler.
+
+| Dosya | İş |
+|---|---|
+| `gorsel/istekler.json` | 54 sahne tarifi (İngilizce; fiziksel ayrıntılar açıkça yazılı) |
+| `gorsel/uret.sh` | Codex'i (`gpt-6-luna`) `$imagegen` ile çalıştırır; üret–incele–düzelt döngüsü ve üslup (`STIL=foto`, varsayılan; `STIL=illustrasyon` da var) istemin içinde |
+| `gorsel/donustur.sh` | `ham/*.png` → `dist/gorsel/<konu>-<ad>.webp` (1536 px) ve `-800.webp` |
+| `gorsel/ham/` | özgün PNG'ler (depoya girmez; sunucuda durur). Sunum üreticisi slayt görsellerini WebP'den değil bunlardan kırpar |
+
+```bash
+bash gorsel/uret.sh kirilma-giris      # tek görseli yeniden üret (≈2–5 dk, en çok 3 deneme)
+bash gorsel/donustur.sh                # WebP'ye çevir → dist/gorsel (anında yayında)
+```
+
+Codex görseli `$CODEX_HOME/generated_images/<oturum>/` altına yazar. Aynı anda çalışan
+oturumlar bu paylaşılan klasörde birbirinin görselini kopyalayabildiği için `uret.sh` dosyayı
+her zaman oturumun **kendi** klasöründen alır; 54'lük ilk üretimde bir görsel bu yüzden başka
+bir konunun görseliyle karışmıştı.
+
+Sayfada görseller `srcset` (800 / 1536 px), `loading="lazy"` ve sabit `width`/`height` ile
+gelir; modal açılmadan indirilmez. `dist/gorsel/` kapının arkasında değildir (7 gün önbellek).
+
+**Görsel değişince adresi de değiştir.** Cloudflare `.webp` dosyalarını kenarda, tarayıcılar
+kendi önbelleğinde 7 gün saklar; aynı adla yazılan yeni görsel günlerce eskisi olarak görünür
+(30 Eylül 2026'da tam olarak böyle oldu). Adresler bu yüzden `?v=N` taşır: bir görseli yeniden
+ürettiğinde o konunun sayfasındaki `src` ve `srcset` sürümünü artır. `denetim/anlatim.js`
+`src` ile `srcset`in aynı sürümü taşıdığını denetler.
+
 ### Konu 01 · Serbest düşme
 
 Dört etkileşimli deney, canlı grafikler ve konunun tamamını anlatan bir modal:
@@ -63,8 +152,9 @@ Dört etkileşimli deney, canlı grafikler ve konunun tamamını anlatan bir mod
 | 04 | Cetvelle tepki süresi | Cetvel habersizce bırakılır, boşluk tuşuyla yakalanır; düşme mesafesinden `t = √(2d/g)` hesaplanır. |
 | 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
 
-Konu anlatımı modalı tanımdan formül türetmelerine, grafik yorumundan çözümlü
-örneklere ve sık yapılan hatalara kadar dokuz başlık ve yedi çizim içerir.
+Konu anlatımı dört basamakta on iki başlık, yedi çizim ve üç görsel içerir: düşen
+elmanın strobo gözleminden formül türetmelerine, grafik yorumundan düşey atışa ve düşme
+kulelerine; kolaydan zora altı çözümlü örnek ve sekiz sık yapılan hata.
 
 ### Konu 02 · İki boyutta sabit ivmeli hareket
 
@@ -79,9 +169,9 @@ etkileşimli bölüm:
 | 04 | Hedefi vur | Rastgele uzaklık ve yükseklikteki hedefe açı + sürat ayarlanarak atış yapılır. İpucu düğmesi o açı için gereken sürati formülden hesaplar. |
 | 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
 
-Konu anlatımı modalı bağımsızlık ilkesinden vektörel bağıntılara, yatay ve
-eğik atıştan yörünge denklemine, çözümlü örneklerden sık yapılan hatalara
-kadar dokuz başlık ve yedi çizim içerir.
+Konu anlatımı dört basamakta on beş başlık, yedi çizim ve üç görsel içerir:
+bağımsızlık ilkesinden vektörel bağıntılara, yatay ve eğik atıştan yörünge denklemine,
+yüksekten atıştan düşen hedefe nişan almaya; kolaydan zora yedi çözümlü örnek.
 
 ### Konu 03 · Newton'un hareket yasaları
 
@@ -95,8 +185,9 @@ Kuvveti ve sonucunu ölçülebilir hâle getiren dört etkileşimli bölüm:
 | 04 | Asansörde görünen ağırlık | Kütle ve asansör durumu seçilir; `N = m(g + a)` ile tartının yazdığı değer değişir, serbest düşmede sıfırlanır. |
 | 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
 
-Konu anlatımı modalı net kuvvetten serbest cisim diyagramına, sürtünmeden
-asansör problemlerine kadar dokuz başlık, dört çözümlü örnek ve yedi çizim içerir.
+Konu anlatımı dört basamakta on beş başlık, yedi çizim ve üç görsel içerir: net
+kuvvetten serbest cisim diyagramına, sürtünmeden asansöre ve birlikte hareket eden
+cisimlere; kolaydan zora yedi çözümlü örnek.
 
 ### Konu 04 · Sürtünme kuvveti
 
@@ -280,10 +371,12 @@ Tam yansımanın mühendislik uygulaması, dört bölümde:
 
 ## Sunumlar
 
-On sekiz konunun her biri için, sitede indirilebilir 16–19 slaytlık PowerPoint
-dosyaları. Her deste o konunun **konu anlatımından üretilir** ve onunla birebir
-aynıdır: aynı dokuz başlık, aynı formüller, tablolar ve çizimler, aynı çözümlü
-örnekler ve sık yapılan hatalar; konuşmacı notu anlatım metninin kendisidir.
+On sekiz konunun her biri için, sitede indirilebilir 38–47 slaytlık PowerPoint
+dosyaları. Her deste o konunun **konu anlatımından üretilir** ve onun dört basamaklı
+yolunu izler: aynı başlıklar, formüller, tablolar, çizimler ve görseller, aynı
+"Düşün" soruları ve kolaydan zora aynı çözümlü örnekler. Slaytta az metin kalır:
+bölüm slaytının başlık cümlesi anlatımdaki "Kısaca" kutusudur; paragraflar
+konuşmacı notundadır.
 
 | # | Sunum | Bağlantı |
 |---|---|---|
@@ -316,9 +409,14 @@ Optik ünitesi:
 | 07 | Prizmalar | [dersler.perinet.org/sunum/prizmalar.pptx](https://dersler.perinet.org/sunum/prizmalar.pptx) |
 | 08 | Mercekler | [dersler.perinet.org/sunum/mercekler.pptx](https://dersler.perinet.org/sunum/mercekler.pptx) |
 
-Her deste kapak, açılış sorusu, "bu derste" ızgarası, bölüm slaytları (sağda
-ilgili çizim), örnek başına bir çözüm slaydı, iki sütunlu hata kartları ve
-özetle kapanır; tablolar PowerPoint'in kendi tablo nesneleridir. On sekiz dosya
+Her deste giriş görselli bir kapakla açılır; açılış sorusu ve dört sütunlu
+"bu derste" haritasından sonra her basamak koyu bir ayraç slaytıyla başlar (numara,
+açıklama, başlıklar; sağda günlük ya da uygulama görseli, temel bağıntılar ya da
+zorluk rozetli örnek listesi). Bölüm slaytlarında başlığın altında "Kısaca" bandı, sağda
+ilgili çizim durur; "Düşün" soruları soru ve cevap olarak iki slayta ayrılır (deste
+başına en çok altı çift). Örnek başına bir çözüm slaydı (Kolay / Orta / Zor rozetiyle),
+iki sütunlu hata kartları ve özetle kapanır; tablolar PowerPoint'in kendi tablo
+nesneleridir. On sekiz dosya
 tek seferde
 [dersler.perinet.org/sunum/dersler-sunumlar.zip](https://dersler.perinet.org/sunum/dersler-sunumlar.zip)
 adresinden de indirilebilir. Dosyalar `sunum/*.js` betikleriyle üretilir;
@@ -469,6 +567,7 @@ dist/                        yayınlanan kök (nginx bunu sunar)
   erisim.js                  erişim arayüzü: kilitler, indirme düğmeleri (her sayfada)
   favicon.svg, icon-*.png    site simgesi; apple-touch-icon.png ve maskable ikon
   og.png                     paylaşım kartı görseli (1200×630)
+  gorsel/*.webp              konu anlatımı görselleri (54 × 1536 px ve 800 px; kapısız)
   manifest.webmanifest       ana ekrana ekleme
   sitemap.xml, robots.txt    arama motorları (yalnızca ana sayfa bildirilir)
   sunum/*.pptx               indirilebilir ders sunumları
@@ -485,6 +584,12 @@ sunum/                       sunumların üreticisi (pptxgenjs + puppeteer)
   eski/                      önceki elle yazılmış konu betikleri (üretimde değil)
 denetim/                     deneylerin tarayıcıda denetimi (puppeteer)
   deney.js                   hata, boş tuval, taşma, sıfırlama, ekran dışı çizim, takılma
+  anlatim.js                 konu anlatımının yapısı: basamaklar, Kısaca, Düşün, örnekler, görseller, 390 px
+gorsel/                      görsellerin üreticisi (Codex $imagegen)
+  istekler.json              54 sahne tarifi
+  uret.sh                    codex exec ile tek görsel ya da hepsi (--hepsi)
+  donustur.sh                ham PNG → dist/gorsel/*.webp
+  ham/                       özgün PNG'ler (depoya girmez)
 sunucu/                      erişim kapısı (Node, bağımlılıksız)
   sunucu.js                  yetki kararı, giriş ve yönetim uçları
   kimlik.js                  imzalı çerez, scrypt parola, deneme sınırı
@@ -673,3 +778,9 @@ karşılık iki şey şarttır:
 Denetim aracı yeni sayfayı kendiliğinden bulur; tek başına denetlemek için
 `NODE_PATH=$(npm root -g) node denetim/deney.js --konu yeni-konu` (dosya adı,
 `.html` olmadan; bkz. "Deneyleri denetlemek").
+
+Konu anlatımı dört basamaklı yapıya uymalıdır (bkz. "Konu anlatımı: dört basamak"):
+üç görsel için `gorsel/istekler.json`'a `<konu>-giris`, `-gunluk`, `-uygulama`
+sahnelerini ekleyip `bash gorsel/uret.sh <id>` ve `bash gorsel/donustur.sh` çalıştır, sonra
+`NODE_PATH=$(npm root -g) node denetim/anlatim.js yeni-konu` ile yapıyı denetle. Sunum
+üreticisi yeni sayfayı da kendiliğinden bulur.
