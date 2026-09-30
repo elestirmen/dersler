@@ -1713,9 +1713,8 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
-      /* anlatım görselleri (yapay zekâ görseli; köşedeki etiket bunu söyler) */
+      /* anlatım görselleri */
       .foto {
-        position: relative;
         margin: 20px 0 22px;
         overflow: hidden;
         border: 1px solid var(--line);
@@ -1731,22 +1730,6 @@
         aspect-ratio: 3 / 2;
         object-fit: cover;
         background: var(--surface-3);
-      }
-
-      .foto::before {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 3px 9px;
-        border-radius: 999px;
-        background: rgba(10, 14, 27, 0.58);
-        color: rgba(255, 255, 255, 0.92);
-        font-size: 0.66rem;
-        font-weight: 650;
-        letter-spacing: 0.02em;
-        content: "Yapay zekâ ile üretildi";
-        pointer-events: none;
-        backdrop-filter: blur(4px);
       }
 
       .foto figcaption {
@@ -2445,8 +2428,8 @@
           <figcaption>
             Düşen bir elmanın eşit zaman aralıklarıyla çekilmiş görüntüleri. Elma her aralıkta bir öncekinden
     <b>daha uzun yol</b> alıyor; ilk görüntüler neredeyse üst üste binerken sonrakiler iyice açılıyor.
-    Bu görselde aralıklar tam olarak <b>1 : 3 : 5</b> oranında: elmanın konumları, sahne yapay zekâyla
-    üretildikten sonra y = ½·g·t² bağıntısına göre yerleştirildi. Bu kuralı ikinci basamakta kanıtlayacağız.
+    Bu görselde aralıklar tam olarak <b>1 : 3 : 5</b> oranında: elmaların konumları
+    y = ½·g·t² bağıntısına göre yerleştirildi. Bu kuralı ikinci basamakta kanıtlayacağız.
           </figcaption>
         </figure>
 

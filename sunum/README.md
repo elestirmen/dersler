@@ -31,7 +31,7 @@ turuncu), sağ üstte "2 / 4 ORTA" gibi bir etiket durur. Yazı boyutu içeriğe
 seçilir; uzun başlıklar tek satıra sığacak kadar küçülür. Çizimler konu
 anlatımındaki SVG'lerin açık temada 2× çözünürlükte alınmış PNG kopyalarıdır;
 görseller özgün PNG'lerden (`gorsel/ham/`, yoksa `dist/gorsel/*.webp`) ImageMagick ile
-slayt çerçevesinin oranına kırpılır ve "Yapay zekâ ile üretildi" etiketi taşır.
+slayt çerçevesinin oranına kırpılır.
 
 ## Yeniden üretmek
 

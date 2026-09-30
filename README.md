@@ -90,14 +90,13 @@ Anlatımda kullanılan bloklar: `p.lead-in`, `div.basamak` (`data-basamak="1–4
 (`<summary data-zorluk="kolay|orta|zor">Örnek n — …</summary>`, `ol.steps`). Sunum üreticisi
 bu blokları tanır; yeni bir blok türü eklenirse `sunum/uret.js` de güncellenmelidir.
 
-## Konu anlatımı görselleri (yapay zekâ)
+## Konu anlatımı görselleri
 
 Her konunun anlatımında üç görsel var, toplam 54: **giriş** (konunun simge sahnesi: Ay'da
 çekiç ve tüy, gökkuşağı, düşme kulesi…), **günlük** (Temel basamağın gözlemi) ve **uygulama**
 ("gerçek dünyada" bölümü). Hepsi **Codex'in `$imagegen` becerisiyle**, `gpt-6-luna` modeli en
 yüksek akıl yürütme düzeyinde çalıştırılarak üretildi (yerleşik `image_gen` aracı, `gpt-image`;
-PNG'lerde OpenAI imzalı C2PA kaynak bilgisi var). Sitede ve slaytlarda köşelerinde "Yapay zekâ
-ile üretildi" etiketi taşırlar.
+PNG'lerde OpenAI imzalı C2PA kaynak bilgisi var). Sitede ve slaytlarda üzerlerinde etiket yoktur.
 
 Üslup **sinematik, gerçekçi**: aynı sahneler premium bir resimli üslupla da denendi, gerçekçi
 olan daha kaliteli ve daha uyumlu çıktı. Her görselde model önce istemi becerinin şablonuyla

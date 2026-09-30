@@ -289,10 +289,6 @@ function fotoKart(s, foto, x, y, w, onDark) {
     fill: { color: onDark ? C.inkSoft : C.white }, line: { color: onDark ? "2C3860" : C.line, width: 0.75 },
     shadow: onDark ? undefined : T.shadow({}) });
   s.addImage({ path: img, x, y, w, h: ih });
-  s.addShape("roundRect", { x: x + w - 2.02, y: y + ih - 0.38, w: 1.92, h: 0.27, rectRadius: 0.13,
-    fill: { color: C.ink, transparency: 40 }, line: { type: "none" } });
-  s.addText("Yapay zekâ ile üretildi", { x: x + w - 2.02, y: y + ih - 0.38, w: 1.92, h: 0.27, align: "center",
-    fontFace: F.body, fontSize: 8.5, color: "FFFFFF", isTextBox: true, margin: 0, valign: "middle" });
   return ih;
 }
 
@@ -666,10 +662,6 @@ function kapakSlide(p, ctx, d) {
         { x: x + 0.28, y: by, w: bw - 0.3, h: 0.62, fontFace: F.body, fontSize: 13, valign: "middle", isTextBox: true, margin: 0 });
     });
   }
-  s.addShape("roundRect", { x: W - M - 2.3, y: H - 0.6, w: 2.3, h: 0.3, rectRadius: 0.15, fill: { color: C.ink, transparency: 35 },
-    line: { type: "none" } });
-  s.addText("Görsel: yapay zekâ ile üretildi", { x: W - M - 2.3, y: H - 0.6, w: 2.3, h: 0.3, align: "center",
-    fontFace: F.body, fontSize: 9, color: "E4E9F5", isTextBox: true, margin: 0, valign: "middle" });
   T.footer(s, ctx.foot, null, true);
   s.addNotes((d.leadIn || d.lead) + (g.captionText ? "\n\nKapak görseli: " + g.captionText : ""));
 }
