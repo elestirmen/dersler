@@ -29,7 +29,7 @@ punto (metin 22 pt), anlatımın kendisi slaytta.
 | Şekil | Her çizim ve görsel kendi slaytında, büyük, alt yazısıyla |
 | Kısaca | Bölümün özeti tek başına, büyük: "Bu bölümde öğrendik" |
 | Düşün → Cevap | Her Düşün sorusu için bir soru ve bir cevap slaytı |
-| Çözümlü örnek | Önce **soru** slaytı (soru + Verilenler / İstenen kartları, Kolay / Orta / Zor rozeti), sonra **çözüm** slaytları (slayt başına en çok üç adım) |
+| Çözümlü örnek | Önce **soru** slaytı (soru ve altında büyük durum çizimi, Kolay / Orta / Zor rozeti), sonra **verilenler ve istenen** slaytı, sonra **çözüm** slaytları (slayt başına en çok üç adım, dengeli) |
 | Sıra sende → Cevap | Her alıştırma için soru ve cevap slaytı |
 | Sık yapılan hatalar | Slayt başına dört ✗ / ✓ kartı |
 | Özetle | "Aklında kalsın", temel bağıntılar, sayfa bağlantısı ve sıradaki konu |

@@ -114,6 +114,8 @@ function sayfaIci() {
       if (son !== k[0]) uyari("p.kisaca bölümün son metin bloğu değil: " + b.h.textContent.trim());
       if (k[0].textContent.length > 330) uyari("Kısaca uzun (" + k[0].textContent.length + " kr): " + b.h.textContent.trim());
     }
+    /* her öğretici bölümde konuyu anlatan en az bir SVG çizim (fotoğraf sayılmaz) */
+    if (!b.blok.some(el => el.matches("figure.fig"))) hata("bölüm '" + b.h.textContent.trim() + "': açıklayıcı çizim (figure.fig) yok");
     const w = b.blok.filter(el => el.tagName !== "FIGURE").map(el => el.textContent).join(" ").split(/\s+/).filter(Boolean).length;
     if (w < 110) uyari("bölüm kısa (" + w + " sözcük): " + b.h.textContent.trim());
   });
@@ -150,6 +152,10 @@ function sayfaIci() {
       if (!ver || !/^Verilenler:/.test(ver.textContent.trim()) || ver.firstElementChild.tagName !== "B") hata("örnek " + (i + 1) + ": '<p class=\"verilen\"><b>Verilenler:</b> …</p>' yok");
       if (!ist || !/^İstenen:/.test(ist.textContent.trim()) || ist.firstElementChild.tagName !== "B") hata("örnek " + (i + 1) + ": '<p class=\"istenen\"><b>İstenen:</b> …</p>' yok");
       const ad = [...d.children];
+      /* durum çizimi: İstenen'den hemen sonra, adımlardan önce, tam bir tane */
+      const df = d.querySelectorAll(":scope > figure.fig");
+      if (df.length !== 1) hata("örnek " + (i + 1) + ": tam bir durum çizimi (figure.fig) olmalı (" + df.length + ")");
+      else if (ist && df[0].previousElementSibling !== ist) hata("örnek " + (i + 1) + ": durum çizimi İstenen satırının hemen ardından gelmeli");
       if (ver && ist && !(ad.indexOf(ver) < ad.indexOf(ist) && ad.indexOf(ist) < ad.indexOf(d.querySelector(":scope > ol.steps")))) hata("örnek " + (i + 1) + ": sıra soru → verilen → istenen → adımlar olmalı");
       if (d.querySelector(":scope > ol.steps") && d.querySelector(":scope > ol.steps").children.length > 6) uyari("örnek " + (i + 1) + ": 6'dan çok adım (slaytta sıkışır)");
     });

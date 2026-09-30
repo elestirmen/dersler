@@ -76,6 +76,12 @@ maddelerinin hepsi yerinde duruyor; üstüne kuruldu.
 | **Verilenler / İstenen** (`p.verilen`, `p.istenen`) | Her çözümlü örneğin sorusunun altında | Çözüme başlamadan soruyu parçalara ayırır; gizli verileri de yazar (“serbest bırakılıyor” → v₀ = 0) |
 | **Sıra sende** (`details.alistirma`) | Çözümlü örneklerden sonra | 4–5 yeni soru, kolaydan zora; cevap kapalıdır, açınca kısa çözüm görünür |
 
+**Açıklayıcı çizimler.** Fotoğraflar atmosfer katar, konuyu SVG çizimler anlatır. Basamak 1–3'teki
+her öğretici bölümde en az bir çizim (`figure.fig`) vardır; her çözümlü örneğin İstenen satırının
+hemen ardında da sorudaki durumu gösteren bir **durum çizimi** bulunur: cisimler, verilen değerler
+etiketli, istenen büyüklükler “?” ile; cevap çizimde gösterilmez. Sunumda bu çizim örneğin ilk
+slaytında, sorunun altında büyük durur. `denetim/anlatim.js` iki kuralı da denetler.
+
 Basamak 1–3'teki her başlık bir **Kısaca** kutusuyla biter: bölümü tek başına okunabilecek
 bir iki cümlede özetler; sunumda da o bölüm slaytının başlık cümlesi olur. Aralara cevabı
 kapalı **Düşün** soruları serpiştirilmiştir (konu başına 5–10); öğrenci tahmin eder, sonra

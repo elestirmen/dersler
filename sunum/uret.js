@@ -628,9 +628,35 @@ function exampleSlides(p, ctx, ch, bas, ex, i, total) {
   const alt = ex.title.replace(/^Örnek\s*\d+\s*[—–-]\s*/u, "");
   const bol = t => t.split(/\s+·\s+/).map(x => x.trim()).filter(Boolean);
 
-  /* 1) soru */
-  let s = T.light(p);
-  T.head(s, ch.no, "Örnek " + (i + 1) + " / " + total + " · Soru", tone);
+  /* 0) durum çizimi varsa: soru + çizim, büyük */
+  let s;
+  if (ex.fig && ex.fig.png) {
+    s = T.light(p);
+    T.head(s, ch.no, "Örnek " + (i + 1) + " / " + total + " · Soru", tone);
+    zorlukRozeti(s, ex.zorluk, W - M - 1.25, 0.56);
+    T.lede(s, alt);
+    const qT = ex.intro.map(b => b.text).join("\n");
+    let qs0 = 20;
+    while (qs0 > 14 && textH(qT, CW - 0.7, qs0, false, 1.16) > 1.5) qs0 -= 0.5;
+    const qh0 = Math.min(1.9, textH(qT, CW - 0.7, qs0, false, 1.16) + 0.62);
+    T.card(s, { x: M, y: 1.8, w: CW, h: qh0, fill: C.softer });
+    s.addText("SORU", { x: M + 0.35, y: 1.94, w: 3, h: 0.26, fontFace: F.body, fontSize: 10.5, bold: true, color: tone, charSpacing: 2, isTextBox: true, margin: 0 });
+    s.addText(joinParas(ex.intro), { x: M + 0.35, y: 2.22, w: CW - 0.7, h: qh0 - 0.5, fontFace: F.body, fontSize: qs0, color: C.ink,
+      lineSpacingMultiple: 1.16, valign: "top", isTextBox: true, margin: 0 });
+    const fy = 1.8 + qh0 + 0.22, fh = BOTTOM - fy - 0.12;
+    let fw = Math.min(CW - 1.0, fh * ex.fig.ratio), fhh = fw / ex.fig.ratio;
+    const fx = (W - fw) / 2;
+    s.addShape("roundRect", { x: fx - 0.25, y: fy, w: fw + 0.5, h: fhh + 0.24, rectRadius: 0.16, fill: { color: C.white },
+      line: { color: C.line, width: 0.75 }, shadow: T.shadow({}) });
+    s.addImage({ path: ex.fig.png, x: fx, y: fy + 0.12, w: fw, h: fhh });
+    ctx.page++;
+    T.footer(s, ctx.foot, ctx.page);
+    s.addNotes([ex.title, qT, "Durum çizimi: " + ex.fig.captionText, "Önce çizimi birlikte okuyun: ne verilmiş, ne soruluyor?"].join("\n\n"));
+  }
+
+  /* 1) soru + verilenler / istenen */
+  s = T.light(p);
+  T.head(s, ch.no, "Örnek " + (i + 1) + " / " + total + (ex.fig && ex.fig.png ? " · Verilenler ve istenen" : " · Soru"), tone);
   zorlukRozeti(s, ex.zorluk, W - M - 1.25, 0.56);
   T.lede(s, alt);
   const qText = ex.intro.map(b => b.text).join("\n");
@@ -1135,6 +1161,11 @@ function extractInPage() {
         const kc = k.getAttribute("class") || "";
         if (kt === "p" && /verilen/.test(kc)) { ex.verilen = { runs: runs(k), text: txt(k) }; return; }
         if (kt === "p" && /istenen/.test(kc)) { ex.istenen = { runs: runs(k), text: txt(k) }; return; }
+        if (kt === "figure" && /\bfig\b/.test(kc)) {
+          const cap = k.querySelector("figcaption");
+          ex.fig = { type: "fig", index: figIndex++, caption: cap ? runs(cap) : [], captionText: txt(cap) };
+          return;
+        }
         if (kt === "ol" || kt === "ul") { seenList = true; ex.steps.push(...[...k.children].map(li => ({ runs: runs(li), text: txt(li) }))); }
         else if (kt === "div" && /formula/.test(k.getAttribute("class") || "")) { const t = [...k.querySelectorAll("code")].map(txt).join("   "); (seenList ? ex.outro : ex.intro).push({ runs: [{ t, mono: true }], text: t }); }
         else (seenList ? ex.outro : ex.intro).push({ runs: runs(k), text: txt(k) });
@@ -1211,10 +1242,17 @@ async function readTopic(page, slug) {
              border: 0 !important; box-shadow: none !important; }
     .modal-body { overflow: visible !important; }
     body::before { display: none !important; }` });
-  await page.evaluate(() => { document.getElementById("konu").setAttribute("open", ""); });
+  await page.evaluate(() => {
+    document.getElementById("konu").setAttribute("open", "");
+    document.querySelectorAll("#konu-body details").forEach(x => { x.open = true; });
+  });
   const svgs = await page.$$("#konu-body figure.fig > svg");
   const figs = [];
-  d.chapters.forEach(ch => ch.blocks.forEach(b => { if (b.type === "fig") figs.push(b); }));
+  d.chapters.forEach(ch => ch.blocks.forEach(b => {
+    if (b.type === "fig") figs.push(b);
+    if (b.type === "example" && b.fig) figs.push(b.fig);
+  }));
+  figs.sort((a, b) => a.index - b.index);
   for (let i = 0; i < svgs.length && i < figs.length; i++) {
     const box = await svgs[i].boundingBox();
     const png = path.join(FIGDIR, slug + "-" + String(i + 1).padStart(2, "0") + ".png");
