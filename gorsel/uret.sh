@@ -13,13 +13,14 @@
 # oturumlar birbirinin görselini kapabilir). Sonra: bash gorsel/donustur.sh (→ dist/gorsel, yayın).
 D=$(cd "$(dirname "$0")" && pwd)
 OUTD="${CIKTI:-$D/ham}"
+ISTEK="${ISTEK:-$D/istekler.json}"     # ek görseller için: ISTEK=gorsel/istekler-ek.json
 if [ "$1" = "--hepsi" ]; then
-  python3 -c "import json; print('\n'.join(x['id'] for x in json.load(open('$D/istekler.json'))))" | xargs -P "${PARALEL:-6}" -I{} bash "$D/uret.sh" {}
+  python3 -c "import json; print('\n'.join(x['id'] for x in json.load(open('$ISTEK'))))" | ISTEK="$ISTEK" xargs -P "${PARALEL:-6}" -I{} bash "$D/uret.sh" {}
   exit
 fi
 id=$1
-sahne=$(python3 -c "import json,sys; print(next((x['sahne'] for x in json.load(open('$D/istekler.json')) if x['id']=='$id'), ''))")
-[ -z "$sahne" ] && { echo "istekler.json'da yok: $id"; exit 1; }
+sahne=$(python3 -c "import json,sys; print(next((x['sahne'] for x in json.load(open('$ISTEK')) if x['id']=='$id'), ''))")
+[ -z "$sahne" ] && { echo "$(basename "$ISTEK")'da yok: $id"; exit 1; }
 # her stil kendi iş ve günlük klasörünü kullanır; aynı konunun iki stili aynı anda koşabilir
 L="$D/log/${STIL:-foto}"; W="$D/is/${STIL:-foto}/$id"; mkdir -p "$W" "$OUTD" "$L"
 # STIL=foto | illustrasyon (varsayılan: foto — iki üslup karşılaştırıldı, sinematik gerçekçi olan daha kaliteli çıktı)

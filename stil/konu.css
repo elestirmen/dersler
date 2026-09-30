@@ -1680,6 +1680,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;

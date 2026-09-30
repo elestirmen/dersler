@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2400,6 +2469,22 @@
           <span>Önce sezgi: kaşığa ve aynalara bak, çukur ile tümseği ayır, odak ile merkezin ne olduğunu kavra. Hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Yansıma yasası:</strong> ışık aynaya çarpınca gelme açısı yansıma açısına eşit olur (i = r).
+              İki açı da yüzeye dik çizilen normalden ölçülür.</li>
+            <li><strong>Gerçek ve sanal görüntü:</strong> ışınların kendisi bir noktada buluşursa görüntü gerçektir ve
+              perdeye düşer. Yalnızca uzantıları buluşursa sanaldır; düzlem aynadaki görüntün böyledir.</li>
+            <li><strong>Merkez ve yarıçap:</strong> bir kürenin merkezinden yüzeyine olan uzaklık yarıçaptır ve
+              çapın yarısıdır. Çapı 40 cm olan bir topun yarıçapı 20 cm'dir.</li>
+            <li><strong>Kesirlerle işlem:</strong> paydaları eşitle, sonra payları topla ya da çıkar:
+              1/20 − 1/40 = 2/40 − 1/40 = 1/40. Sonuç eksi de çıkabilir: 1/20 − 1/10 = −1/20.</li>
+            <li><strong>Oran:</strong> bir sayının ötekinin kaç katı olduğu. 12 cm'lik bir boy, 24 cm'lik bir boyun
+              12 / 24 = 0,5 katı, yani yarısıdır.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: kaşıkta neden baş aşağısın?</h3>
         <p>
           Parlak bir çorba kaşığını kolunu uzatarak tut ve iç yüzüne bak. Yüzün küçülmüş ve
@@ -2522,6 +2607,15 @@
             deney yapacaksan ışığı bir kartona düşür.
           </p>
         </div>
+        <figure class="foto">
+          <img src="gorsel/kuresel-aynalar-ek1.webp?v=2" srcset="gorsel/kuresel-aynalar-ek1-800.webp?v=2 800w, gorsel/kuresel-aynalar-ek1.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir bahçede eski ahşap bir masanın üstünde krom çerçeveli, ayaklı yuvarlak bir ayna duruyor; yüzeyinde güneşin parıltısı ile gökyüzü ve ağaçların yansıması görünüyor. Sağda bir elin tuttuğu kahverengi kartonun ortasında küçük, çok parlak bir ışık lekesi var.">
+          <figcaption>
+            <b>Çukur ayna</b> Güneş'ten gelen paralel ışınları odağında toplar; karton odağa getirildiğinde ışık küçük ve çok parlak bir lekede birikir. Işınlar oradan gerçekten geçtiği için çukur aynanın odağı gerçektir. Bu lekeye ve aynanın yansıttığı güneşe doğrudan bakma.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: El fenerinin ampulü odaktan biraz aynaya doğru kaydırılırsa ışık demeti nasıl değişir?</summary>
           <p>
@@ -2765,6 +2859,16 @@
           <code>1/f = 1/a + 1/b</code>
           <code>f = r/2</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>f</td><td>odak uzaklığı: odak ile tepe arası (çukurda +, tümsekte −)</td><td>cm</td></tr>
+          <tr><td>r</td><td>eğrilik yarıçapı: merkez ile tepe arası</td><td>cm</td></tr>
+          <tr><td>a</td><td>cismin aynaya uzaklığı</td><td>cm</td></tr>
+          <tr><td>b</td><td>görüntünün aynaya uzaklığı (+ ise önde ve gerçek, − ise arkada ve sanal)</td><td>cm</td></tr>
+          <tr><td>h</td><td>cismin boyu</td><td>cm</td></tr>
+          <tr><td>h′</td><td>görüntünün boyu</td><td>cm</td></tr>
+        </table>
         <h4>Denklem nereden geliyor?</h4>
         <ol>
           <li><strong>Tepe ışını:</strong> Tepeye gelen ışın simetrik yansır; cisim, görüntü ve tepe iki benzer üçgen kurar: h′/h = b/a.</li>
@@ -2942,6 +3046,15 @@
           yan şeridi, kör noktaya yakın bölgeyi ve kaldırımı birlikte gösterir. Güvenlik için geniş görüş,
           küçük görüntüden daha değerlidir.
         </p>
+        <figure class="foto">
+          <img src="gorsel/kuresel-aynalar-ek2.webp?v=1" srcset="gorsel/kuresel-aynalar-ek2-800.webp?v=1 800w, gorsel/kuresel-aynalar-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Araç içinden yan aynaya bakılıyor: aynada aracın kendi yan gövdesi, arkada uzanan kesikli şeritli yol, uzakta küçük görünen koyu renkli bir araba, yol kenarındaki çam ağaçları ve kayalık şev yer alıyor. Aynanın çevresindeki yol, araç hareket ettiği için bulanık görünüyor.">
+          <figcaption>
+            <b>Tümsek yan ayna</b> arkadaki yolu küçülterek gösterir; bu sayede tek bakışta yan şerit ve yol kenarı da görünür. Görüntü küçük olduğu için beyin arkadaki arabayı olduğundan daha uzakta sanar; yan aynalardaki “cisimler göründüğünden daha yakındır” uyarısı bu yanılgı içindir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Yan aynalar tümsek olduğu hâlde arabanın iç dikiz aynası neden genellikle düzdür?</summary>
           <p>
@@ -3089,6 +3202,8 @@
             Eğrilik yarıçapı 40 cm olan çukur aynanın 40 cm önüne bir cisim konuyor. Görüntünün yeri,
             türü ve boyu nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> çukur ayna · r = 40 cm · a = 40 cm</p>
+          <p class="istenen"><b>İstenen:</b> görüntünün yeri b · türü · boyu (büyütme m)</p>
           <ol class="steps">
             <li>f = r/2 = 40/2 = 20 cm; cisim 2f = 40 cm'de, yani <strong>merkezde</strong>.</li>
             <li>1/20 = 1/40 + 1/b → 1/b = 1/20 − 1/40 = 1/40 → b = <strong>40 cm</strong></li>
@@ -3102,6 +3217,8 @@
             Odak uzaklığı 15 cm olan çukur aynanın önüne bir cisim sırayla 50 cm, 22 cm ve 8 cm uzaklığa
             konuyor. Her durumda görüntünün türünü denklem çözmeden söyleyiniz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> çukur ayna · f = 15 cm · üç ayrı durumda a = 50 cm, 22 cm ve 8 cm</p>
+          <p class="istenen"><b>İstenen:</b> her durumda görüntünün türü (denklem çözmeden)</p>
           <ol class="steps">
             <li>Sınırlar: f = 15 cm, merkez 2f = 30 cm.</li>
             <li>50 cm &gt; 30 cm (merkezin ötesi) → <strong>gerçek, ters, küçük</strong></li>
@@ -3117,6 +3234,8 @@
             Eğrilik yarıçapı 60 cm olan çukur aynanın önüne, 45 cm uzaklığa bir cisim
             konuyor. Görüntünün yerini ve büyütmesini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> çukur ayna · r = 60 cm · a = 45 cm</p>
+          <p class="istenen"><b>İstenen:</b> görüntünün yeri b · büyütme m</p>
           <ol class="steps">
             <li>f = r/2 = 60/2 = 30 cm</li>
             <li>1/30 = 1/45 + 1/b → 1/b = 1/30 − 1/45 = (3 − 2)/90 = 1/90</li>
@@ -3131,6 +3250,8 @@
             Odak uzaklığı 20 cm olan çukur aynanın önüne 10 cm uzaklığa bir cisim konuyor.
             Görüntü nerede oluşur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> çukur ayna · f = 20 cm · a = 10 cm</p>
+          <p class="istenen"><b>İstenen:</b> görüntünün yeri b ve türü</p>
           <ol class="steps">
             <li>1/20 = 1/10 + 1/b → 1/b = 1/20 − 1/10 = −1/20</li>
             <li>b = <strong>−20 cm</strong>: eksi işaret görüntünün aynanın arkasında olduğunu
@@ -3146,6 +3267,8 @@
             Eğrilik yarıçapı 40 cm olan tümsek aynanın 60 cm önünde bir cisim vardır.
             Görüntünün yeri ve büyütmesi nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> tümsek ayna (f negatif alınır) · r = 40 cm · a = 60 cm</p>
+          <p class="istenen"><b>İstenen:</b> görüntünün yeri b · büyütme m</p>
           <ol class="steps">
             <li>Tümsek aynada f = −r/2 = <strong>−20 cm</strong></li>
             <li>1/(−20) = 1/60 + 1/b → 1/b = −1/20 − 1/60 = (−3 − 1)/60 = −4/60</li>
@@ -3160,6 +3283,8 @@
             Odak uzaklığı 15 cm olan çukur aynada, cismin 3 katı büyüklükte <strong>gerçek</strong>
             bir görüntü isteniyor. Cisim aynadan kaç cm uzağa konmalıdır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> çukur ayna · f = 15 cm · m = 3 · görüntü gerçek (b &gt; 0)</p>
+          <p class="istenen"><b>İstenen:</b> cismin aynaya uzaklığı a</p>
           <ol class="steps">
             <li>Gerçek görüntüde b = m·a = 3a</li>
             <li>1/15 = 1/a + 1/(3a) = (3 + 1)/(3a) = 4/(3a)</li>
@@ -3175,6 +3300,8 @@
             Yüzünü aynadan 15 cm uzakta tutan biri, yüzünün <strong>3 kat büyük ve düz</strong> görüntüsünü
             görmek istiyor. Çukur aynanın eğrilik yarıçapı ne olmalıdır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> çukur ayna · a = 15 cm · m = 3 · görüntü düz, yani sanal (b &lt; 0)</p>
+          <p class="istenen"><b>İstenen:</b> aynanın eğrilik yarıçapı r</p>
           <ol class="steps">
             <li>Düz ve büyük görüntü sanaldır: b = −m·a = −3 · 15 = −45 cm</li>
             <li>1/f = 1/15 + 1/(−45) = (3 − 1)/45 = 2/45</li>
@@ -3190,12 +3317,48 @@
             Çukur bir aynanın önündeki mumun 2 kat büyük görüntüsü, aynaya mumdan 30 cm daha uzak olan bir
             perdede net olarak oluşuyor. Aynanın odak uzaklığı kaç cm'dir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> çukur ayna · m = 2 · görüntü perdede, yani gerçek (b &gt; 0) · perde aynaya mumdan 30 cm daha uzak: b − a = 30 cm</p>
+          <p class="istenen"><b>İstenen:</b> aynanın odak uzaklığı f</p>
           <ol class="steps">
             <li>Görüntü perdeye düştüğüne göre gerçektir: b = 2a</li>
             <li>Perde mumdan 30 cm uzakta: b − a = 30 → 2a − a = 30 → a = 30 cm, b = 60 cm</li>
             <li>1/f = 1/30 + 1/60 = (2 + 1)/60 = 3/60 → f = <strong>20 cm</strong></li>
             <li>Kontrol: a = 30 cm, f = 20 ile 2f = 40 cm arasında; görüntü gerçek, ters ve büyük olmalı ✓</li>
           </ol>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (Çukur aynada f &gt; 0, tümsek aynada f &lt; 0; b &lt; 0 çıkarsa görüntü sanaldır.)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Odak uzaklığı 10 cm olan çukur aynanın 30 cm önüne bir cisim konuyor. Görüntü aynadan kaç cm uzakta oluşur?</summary>
+          <p><b>Cevap:</b> 1/f = 1/a + 1/b → 1/10 = 1/30 + 1/b → 1/b = 3/30 − 1/30 = 2/30 → <strong>b = 15 cm</strong>
+            (pozitif: aynanın önünde, gerçek görüntü).</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Çukur aynanın 20 cm önündeki bir cismin görüntüsü aynanın 60 cm önünde oluşuyor. Büyütme kaçtır? Görüntü ters mi, düz mü?</summary>
+          <p><b>Cevap:</b> m = |b / a| = 60 / 20 = <strong>3</strong>. Görüntü aynanın önünde, yani gerçektir; gerçek görüntü
+            her zaman <strong>terstir</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Eğrilik yarıçapı 60 cm olan tümsek aynanın 30 cm önünde bir cisim var. Görüntünün yeri ve büyütmesi nedir?</summary>
+          <p><b>Cevap:</b> Tümsekte f = −r / 2 = −30 cm. 1/b = 1/f − 1/a = −1/30 − 1/30 = −2/30 → <strong>b = −15 cm</strong>
+            (aynanın arkasında, sanal). m = 15 / 30 = <strong>0,5</strong>: görüntü düz ve cismin yarısı boyunda.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Odak uzaklığı 30 cm olan çukur aynanın 20 cm önüne bir cisim konuyor. Görüntünün yeri, türü ve büyütmesi nedir?</summary>
+          <p><b>Cevap:</b> 1/b = 1/30 − 1/20 = 2/60 − 3/60 = −1/60 → <strong>b = −60 cm</strong>: görüntü aynanın arkasında,
+            <strong>sanal ve düz</strong>. m = 60 / 20 = <strong>3</strong>. Cisim odağın içinde olduğu için böyle çıktı.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Çukur aynanın 60 cm önündeki bir cismin görüntüsü ters ve cismin yarısı boyunda. Aynanın eğrilik yarıçapı kaç cm'dir?</summary>
+          <p><b>Cevap:</b> Ters görüntü gerçektir: b = m · a = 0,5 · 60 = 30 cm. 1/f = 1/60 + 1/30 = 1/60 + 2/60 = 3/60 →
+            f = 20 cm → <strong>r = 2f = 40 cm</strong>. Kontrol: a = 60 cm, 2f = 40 cm'den büyük; merkezin ötesindeki
+            cisim gerçek, ters ve küçük görüntü verir ✓</p>
         </details>
 
         <h3 id="k14">Sık yapılan hatalar</h3>

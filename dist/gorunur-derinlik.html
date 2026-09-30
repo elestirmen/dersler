@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2383,6 +2452,22 @@
           <span>Önce sezgi: suyun altındaki cisimlerin neden olduğundan yukarıda göründüğünü formülsüz kavra ve yanılgının büyüklüğünü basit bir kuralla hisset.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Kırılma:</strong> ışığın bir saydam ortamdan ötekine geçerken yön değiştirmesi.
+              Sudan havaya çıkan ışın normalden uzaklaşır.</li>
+            <li><strong>Kırılma indisi (n):</strong> ışığın bir ortamda kaç kat yavaşladığını söyleyen
+              sayı. Hava için 1, su için 4/3 ≈ 1,33, cam için 1,5.</li>
+            <li><strong>Normal:</strong> yüzeye dik çizilen yardımcı çizgi. Su yüzeyi yatay olduğu için
+              normali dikeydir; “dik bakmak”, suya tam yukarıdan bakmaktır.</li>
+            <li><strong>Düzlem aynadaki görüntü:</strong> aynanın arkasındaymış gibi görünür ama oraya
+              uzanıp onu tutamazsın. Göz, gelen ışınların hep düz geldiğini sanır.</li>
+            <li><strong>Kesre bölmek:</strong> bir sayıyı kesre bölmek, kesri ters çevirip çarpmaktır: 2
+              ÷ (4/3) = 2 · 3/4 = 1,5. Ayrıca 3/4 = 0,75, yani %75.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: su neden sığ görünür?</h3>
         <p>
           Bir havuzun kenarına eğilip dibe bak. Fayanslar, elini uzatsan dokunabileceğin kadar yakın
@@ -2551,6 +2636,14 @@
           <code>h′ = h / n</code>
           <code>n = h / h′</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>h</td><td>cismin gerçek derinliği: yüzeyden cisme olan uzaklık</td><td>m ya da cm</td></tr>
+          <tr><td>h′</td><td>görünen derinlik: gözün cismi gördüğü derinlik</td><td>h ile aynı</td></tr>
+          <tr><td>n</td><td>sıvının kırılma indisi (su için 4/3)</td><td>—</td></tr>
+          <tr><td>Δh</td><td>yükselme miktarı: h − h′ (bir sonraki bölümde)</td><td>h ile aynı</td></tr>
+        </table>
         <ul>
           <li><strong>h:</strong> cismin gerçek derinliği.</li>
           <li><strong>h′:</strong> görünen derinlik (her zaman daha küçük).</li>
@@ -2662,6 +2755,15 @@
           1,5 metre derinliğinde görünen havuz aslında 2 metredir; boyu 1,6 m olan biri orada ayağı yere
           değerken başını sudan çıkaramaz.
         </p>
+        <figure class="foto">
+          <img src="gorsel/gorunur-derinlik-ek1.webp?v=1" srcset="gorsel/gorunur-derinlik-ek1-800.webp?v=1 800w, gorsel/gorunur-derinlik-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir havuzda suyun bel hizasına geldiği yerde dik duran bir genç, havuz kenarından yukarıdan ve çaprazdan görülüyor; mavi şortu ve bacakları suyun altında. Suyun altındaki bacaklar gövdeye göre kısa görünüyor, çıplak ayakları dipteki mavi fayanslara basıyor.">
+          <figcaption>
+            <b>Suyun içinde kısalan bacaklar</b> gövdeye göre kısa duruyor, çünkü bacağın her noktası olduğundan yukarıda görünür ve derindeki noktalar daha çok yükselir. Yükselme Δh = h(1 − 1/n) derinlikle orantılı olduğu için ayaklar dizlerden, dizler de belden daha çok yukarı kayar; suyun altındaki kısım böylece sıkışmış görünür. Aynı yanılgı havuzun dibini de yakın gösterir: 2 metrelik bir havuz 1,5 metre derinmiş gibi görünür.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Havuza su doldurulurken dipteki fayansın görünen derinliği nasıl değişir?</summary>
           <p>
@@ -2810,6 +2912,15 @@
           <li><strong>Sıra önemli değildir:</strong> dik bakışta toplam, katmanların hangi sırayla dizildiğinden bağımsızdır.</li>
           <li><strong>Hava katmanı olduğu gibi kalır:</strong> indisi 1 olduğu için kısalmaz.</li>
         </ul>
+        <figure class="foto">
+          <img src="gorsel/gorunur-derinlik-ek2.webp?v=1" srcset="gorsel/gorunur-derinlik-ek2-800.webp?v=1 800w, gorsel/gorunur-derinlik-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Aydınlık bir mutfakta beyaz mermer tezgâhta duran saydam bir bardak: altta berrak su, üstünde net bir çizgiyle ayrılmış altın sarısı bir yağ tabakası var. Bardağın dibinde bir madeni para duruyor.">
+          <figcaption>
+            <b>Su ve yağ</b> bardakta üst üste iki katman oluşturuyor: dipteki paradan gelen ışık önce sudan yağa, sonra yağdan havaya geçer ve her sınırda yeniden kırılır. Her katman kendi kalınlığını kendi indisine bölerek kısaltır; paranın görünen derinliği h′ = h₁/n₁ + h₂/n₂, yani bu kısalmış kalınlıkların toplamıdır. Toplam derinliği tek bir indise bölmek bu yüzden yanlış sonuç verir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Suyun içine yatay bir cam levha konuyor. Levhanın dibe ya da yüzeye yakın durması, dipteki paranın görünen derinliğini değiştirir mi?</summary>
           <p>
@@ -2982,6 +3093,8 @@
             Derinliği 2 m olan bir havuzun dibi, yukarıdan bakan biri için kaç metre derinlikte
             görünür? (n(su) = 4/3)
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 2 m (havuzun gerçek derinliği) · n(su) = 4/3 · n(hava) = 1 · bakış dik</p>
+          <p class="istenen"><b>İstenen:</b> havuz dibinin görünen derinliği h′</p>
           <ol class="steps">
             <li>h′ = h/n = 2 / (4/3) = 2 · 3/4</li>
             <li>h′ = <strong>1,5 m</strong></li>
@@ -2995,6 +3108,8 @@
             Bir kaptaki sıvının 60 cm derinliğindeki cisim, 40 cm derinlikte görünüyor.
             Sıvının kırılma indisi nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 60 cm (gerçek derinlik) · h′ = 40 cm (görünen derinlik) · c = 3·10⁸ m/s</p>
+          <p class="istenen"><b>İstenen:</b> sıvının kırılma indisi n · (ek olarak) ışığın bu sıvıdaki hızı v</p>
           <ol class="steps">
             <li>n = h / h′ = 60 / 40</li>
             <li>n = <strong>1,5</strong></li>
@@ -3008,6 +3123,8 @@
             Su altındaki bir dalgıç, yüzeyden 120 cm yukarıdaki bir lambaya bakıyor.
             Lamba kaç cm yükseklikte görünür? (n = 4/3)
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 120 cm (lambanın yüzeyden yüksekliği) · n(su) = 4/3 · n(hava) = 1 · gözlemci suyun içinde</p>
+          <p class="istenen"><b>İstenen:</b> lambanın dalgıca görünen yüksekliği h′</p>
           <ol class="steps">
             <li>Gözlemci yoğun ortamda: h′ = n·h</li>
             <li>h′ = (4/3) · 120 = <strong>160 cm</strong></li>
@@ -3021,6 +3138,8 @@
             Kalınlığı 9 cm, indisi 1,5 olan cam levha bir yazının üzerine konuyor.
             Yazı ne kadar yükselmiş görünür?
           </p>
+          <p class="verilen"><b>Verilenler:</b> t = 9 cm (levhanın kalınlığı) · n = 1,5 (cam)</p>
+          <p class="istenen"><b>İstenen:</b> yazının yükselme miktarı Δ</p>
           <ol class="steps">
             <li>Δ = t (1 − 1/n) = 9 · (1 − 1/1,5)</li>
             <li>Δ = 9 · (1 − 0,667) = 9 · 0,333</li>
@@ -3035,6 +3154,8 @@
             Suyla dolu bir kabın dibindeki taş, yukarıdan bakınca gerçek yerinden 30 cm yukarıda
             görünüyor. Kabın derinliği ve taşın görünen derinliği nedir? (n = 4/3)
           </p>
+          <p class="verilen"><b>Verilenler:</b> Δh = 30 cm (taşın yükselme miktarı) · n(su) = 4/3</p>
+          <p class="istenen"><b>İstenen:</b> kabın gerçek derinliği h · taşın görünen derinliği h′</p>
           <ol class="steps">
             <li>Yükselme: Δh = h (1 − 1/n) = h (1 − 3/4) = h/4.</li>
             <li>h/4 = 30 cm → h = <strong>120 cm</strong>.</li>
@@ -3049,6 +3170,8 @@
             Bir kapta 20 cm su (n = 4/3) ve suyun üstünde 15 cm yağ (n = 1,5) var. Kabın dibindeki
             para, yukarıdan bakan birine kaç cm derinde görünür? Para kaç cm yükselmiş görünür?
           </p>
+          <p class="verilen"><b>Verilenler:</b> h₁ = 20 cm (su) · n₁ = 4/3 (su) · h₂ = 15 cm (yağ) · n₂ = 1,5 (yağ) · bakış dik</p>
+          <p class="istenen"><b>İstenen:</b> paranın görünen derinliği h′ · paranın yükselme miktarı Δh</p>
           <ol class="steps">
             <li>Her katman kendi indisine bölünür: h′ = h₁/n₁ + h₂/n₂.</li>
             <li>Yağ katmanı: 15 / 1,5 = 10 cm.</li>
@@ -3069,6 +3192,8 @@
             yukarısında duruyor. (a) Dalgıç martıyı kaç metre uzakta görür? (b) Martı dalgıcı kaç metre
             uzakta görür? (n = 4/3)
           </p>
+          <p class="verilen"><b>Verilenler:</b> dalgıcın gözü yüzeyin 1,2 m altında · martı tam üstünde, yüzeyin 0,9 m yukarısında · n(su) = 4/3 · n(hava) = 1</p>
+          <p class="istenen"><b>İstenen:</b> (a) dalgıcın martıyı gördüğü uzaklık · (b) martının dalgıcı gördüğü uzaklık</p>
           <ol class="steps">
             <li>Gerçek uzaklık: 1,2 + 0,9 = 2,1 m.</li>
             <li><strong>(a)</strong> Dalgıç suda: martının yüksekliği n kat görünür: 0,9 · 4/3 = 1,2 m.</li>
@@ -3080,6 +3205,40 @@
             İkisi birbirini farklı uzaklıkta görür: dalgıç için martı uzaklaşmış, martı için dalgıç
             yaklaşmıştır. Oran 2,4 / 1,8 = 4/3, yani tam suyun indisidir.
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (dik bakış; n(hava) = 1, n(su) = 4/3, n(cam) = 1,5)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Derinliği 80 cm olan, suyla dolu bir akvaryumun tabanı yukarıdan bakınca kaç cm derinde görünür?</summary>
+          <p><b>Cevap:</b> h′ = h / n = 80 / (4/3) = 80 · 3/4 = <strong>60 cm</strong>. Taban 80 − 60 =
+            20 cm yükselmiş görünür.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Bir sıvının 50 cm derinliğindeki boncuk, yukarıdan bakınca 40 cm derinde görünüyor. Sıvının kırılma indisi kaçtır?</summary>
+          <p><b>Cevap:</b> n = h / h′ = 50 / 40 = <strong>1,25</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Havuzdaki bir dalgıç, su yüzeyinin 1,8 m yukarısındaki tramplenin ucuna bakıyor. Tramplen ona kaç m yüksekte görünür?</summary>
+          <p><b>Cevap:</b> Gözlemci suyun içinde, cisim havada; bu yüzden çarpılır: h′ = n · h = (4/3) ·
+            1,8 = <strong>2,4 m</strong>. Tramplen 0,6 m daha yüksekte görünür.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Suyla dolu bir havuzun dibindeki para, yukarıdan bakınca 1,2 m derinde görünüyor. Havuz gerçekte kaç m derin, para kaç cm yükselmiş görünür?</summary>
+          <p><b>Cevap:</b> n = h / h′ → h = n · h′ = (4/3) · 1,2 = <strong>1,6 m</strong>. Yükselme Δh =
+            h − h′ = 1,6 − 1,2 = 0,4 m = <strong>40 cm</strong>. Kontrol: derinliğin dörtte biri 1,6 / 4
+            = 0,4 m ✓</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Bir akvaryumun 3 cm kalınlığındaki cam tabanının üstünde 36 cm su var. Tabanın hemen altındaki yazı, yukarıdan bakınca kaç cm derinde görünür?</summary>
+          <p><b>Cevap:</b> Her katman kendi indisine bölünür: su 36 / (4/3) = 27 cm, cam 3 / 1,5 = 2 cm.
+            Görünen derinlik h′ = 27 + 2 = <strong>29 cm</strong>. Gerçek derinlik 36 + 3 = 39 cm olduğu
+            için yazı 10 cm yükselmiş görünür.</p>
         </details>
 
         <h3 id="k13">Sık yapılan hatalar</h3>

@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2398,6 +2467,23 @@
           <span>Önce sezgi: gökkuşağına ve bir cam prizmaya bak, ışığın neden büküldüğünü ve renklerin nereden geldiğini gör. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Normal:</strong> ışığın yüzeye çarptığı noktada yüzeye dik çizilen hayalî doğru.
+              Geliş ve kırılma açıları yüzeyden değil, bu doğrudan ölçülür.</li>
+            <li><strong>Kırılma:</strong> ışık havadan cama geçerken yavaşlar ve yön değiştirir. Cama girerken
+              normale yaklaşır, camdan havaya çıkarken normalden uzaklaşır. Suya daldırılan kalemin kırık
+              görünmesi bundandır.</li>
+            <li><strong>Kırılma indisi (n):</strong> bir maddenin ışığı ne kadar yavaşlattığını gösteren sayı.
+              Hava için 1, su için 1,33, cam için yaklaşık 1,5'tir; n büyüdükçe ışık daha çok bükülür.</li>
+            <li><strong>Sinüs ve Snell yasası:</strong> sin30° = 0,5 ve sin90° = 1 gibi değerler tablodan ya da
+              hesap makinesinden okunur. Kırılmada n₁ · sin θ₁ = n₂ · sin θ₂ bağıntısı kullanılır.</li>
+            <li><strong>Sınır açı ve tam yansıma:</strong> camdan havaya çıkan ışık normalle çok büyük bir açı
+              yaparsa (camda yaklaşık 42°'den büyük) dışarı çıkamaz, tamamı geri yansır.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: yağmurdan sonra gökyüzündeki renkler nereden gelir?</h3>
         <p>
           Yağmur yeni dinmiş, güneş alçakta ve arkanda. Önündeki karanlık bulutların üstünde renkli bir
@@ -2578,6 +2664,15 @@
           <code>r₁ + r₂ = A</code>
           <code>δ = i₁ + i₂ − A</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>i₁, i₂</td><td>ışının dışarıda, havada normalle yaptığı açılar: i₁ girerken, i₂ çıkarken</td><td>derece (°)</td></tr>
+          <tr><td>r₁, r₂</td><td>ışının camın içinde normalle yaptığı açılar: r₁ birinci yüzeyde, r₂ ikinci yüzeyde</td><td>derece (°)</td></tr>
+          <tr><td>A</td><td>tepe açısı: ışığın girdiği ve çıktığı iki yüzey arasındaki açı</td><td>derece (°)</td></tr>
+          <tr><td>n</td><td>prizmanın kırılma indisi (cam için yaklaşık 1,5)</td><td>—</td></tr>
+          <tr><td>δ</td><td>sapma açısı: gelen ışın ile çıkan ışının doğrultuları arasındaki açı</td><td>derece (°)</td></tr>
+        </table>
         <ul>
           <li><strong>i₁:</strong> birinci yüzeye geliş açısı, <strong>r₁:</strong> içerideki kırılma açısı.</li>
           <li><strong>r₂:</strong> ikinci yüzeye geliş açısı, <strong>i₂:</strong> çıkış açısı.</li>
@@ -2658,6 +2753,15 @@
           40°'den 48,6°'ye çıkınca sapma yalnızca 1,3° değişiyor. Sayfanın 01 numaralı bölümünde gelme
           açısını kaydırıp bu “dip” noktasını kendin bulabilirsin.
         </p>
+        <figure class="foto">
+          <img src="gorsel/prizmalar-ek1.webp?v=1" srcset="gorsel/prizmalar-ek1-800.webp?v=1 800w, gorsel/prizmalar-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir laboratuvarda, kenarında çentik çizgileri olan metal bir döner tablanın ortasında tepesi yukarıda duran üçgen bir cam prizma var. Soldaki lazerden gelen ince kırmızı ışın prizmanın bir yüzünden girip öbür yüzünden aşağıya doğru bükülerek çıkıyor ve sağdaki beyaz perdede parlak bir nokta oluşturuyor; bir el tablanın kenarını tutuyor.">
+          <figcaption>
+            <b>Prizmayı döner tablayla çevirdiğinde</b> ışının prizmaya gelme açısı değişir ve perdedeki kırmızı nokta kayar. Tablayı hep aynı yöne çevirsen de nokta önce bir yana kayar, sonra durup geri döner; geri döndüğü yer sapmanın en küçük olduğu yerdir. Tablodaki sayılar bu hareketi anlatır: 60°'lik, 1,50 indisli prizmada sapma 47,1°'den 37,2°'ye iner, sonra yeniden artar.
+          </figcaption>
+        </figure>
+
         <p class="kisaca">
           <b>Kısaca:</b> 60°'lik, 1,50 indisli prizmada sapma önce azalır, gelme açısı 48,6° iken en küçük
           değerine (37,2°) iner, sonra yeniden artar. Gelme açısı yaklaşık 28°'nin altındaysa ışık ikinci
@@ -2764,6 +2868,15 @@
           10°'lik ince bir cam prizma kırmızıyı yaklaşık 5,13°, moru 5,38° saptırır; renkler arasındaki
           açı yalnızca 0,25°'dir.
         </p>
+        <figure class="foto">
+          <img src="gorsel/prizmalar-ek2.webp?v=1" srcset="gorsel/prizmalar-ek2-800.webp?v=1 800w, gorsel/prizmalar-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir masada tepesi yukarıda duran üçgen bir cam prizma. Soldan üst üste gelen kırmızı, yeşil ve mor üç ince lazer ışını prizmaya aynı açıyla giriyor; çıkışta kırmızı en az, mor en çok aşağıya, prizmanın tabanına doğru bükülüyor ve sağdaki beyaz kartta üç ayrı renkli nokta oluşuyor.">
+          <figcaption>
+            <b>Aynı cam, üç ayrı bükülme.</b> Üç ışın prizmaya aynı açıyla girer ama aynı miktarda bükülmez: cam mor ışığı kırmızıdan daha çok kırar, çünkü mor için indisi daha büyüktür. Beyaz ışığın bir prizmada renk şeridine açılmasının nedeni budur; her renk kendi indisiyle kendi açısında sapar.
+          </figcaption>
+        </figure>
+
         <p class="kisaca">
           <b>Kısaca:</b> Camın indisi mordan kırmızıya doğru biraz azalır; bu yüzden mor en çok, kırmızı en
           az sapar. 60°'lik prizmada fark yaklaşık 2°, ince prizmada Δδ ≈ (n(mor) − n(kırmızı))·A kadardır.
@@ -2959,6 +3072,8 @@
             Tepe açısı 60° olan prizmaya 45° ile giren ışın, ikinci yüzeyden 52° ile çıkıyor.
             Sapma açısı kaçtır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> A = 60° · i₁ = 45° · i₂ = 52°</p>
+          <p class="istenen"><b>İstenen:</b> sapma açısı δ</p>
           <ol class="steps">
             <li>δ = i₁ + i₂ − A</li>
             <li>δ = 45 + 52 − 60</li>
@@ -2972,6 +3087,8 @@
             45° – 45° – 90° prizmada ışık hipotenüse 45° ile çarpıyor. Prizmanın indisi 1,5 ise
             ışık ne yapar?
           </p>
+          <p class="verilen"><b>Verilenler:</b> 45° – 45° – 90° prizma · hipotenüse geliş açısı 45° · n = 1,5 · çevre hava (n = 1)</p>
+          <p class="istenen"><b>İstenen:</b> ışığın hipotenüsten çıkıp çıkmadığı ya da tam yansıyıp yansımadığı</p>
           <ol class="steps">
             <li>Sınır açı: sin θ = 1/1,5 = 0,667 → θ = 41,8°</li>
             <li>Geliş açısı 45° &gt; 41,8° olduğu için <strong>tam yansıma</strong> olur.</li>
@@ -2987,6 +3104,8 @@
             Tepe açısı 60° olan bir prizmada en küçük sapma açısı 30° ölçülüyor. Prizmanın
             kırılma indisi nedir? (sin45° = 0,707 · sin30° = 0,5)
           </p>
+          <p class="verilen"><b>Verilenler:</b> A = 60° · δ(min) = 30° · sin45° = 0,707 · sin30° = 0,5</p>
+          <p class="istenen"><b>İstenen:</b> prizmanın kırılma indisi n</p>
           <ol class="steps">
             <li>n = sin((A + δ)/2) / sin(A/2)</li>
             <li>n = sin((60 + 30)/2) / sin30° = sin45° / sin30°</li>
@@ -3001,6 +3120,8 @@
             Tepe açısı 60°, indisi 1,5 olan prizmaya 30° ile giren ışın için r₁, r₂ ve
             çıkabilme durumunu inceleyiniz. (sin30° = 0,5)
           </p>
+          <p class="verilen"><b>Verilenler:</b> A = 60° · n = 1,5 · i₁ = 30° · sin30° = 0,5 · çevre hava (n = 1)</p>
+          <p class="istenen"><b>İstenen:</b> r₁ · r₂ · ışının ikinci yüzeyden çıkıp çıkamayacağı</p>
           <ol class="steps">
             <li>sin r₁ = sin30°/1,5 = 0,333 → r₁ ≈ 19,5°</li>
             <li>r₂ = A − r₁ = 60 − 19,5 = <strong>40,5°</strong></li>
@@ -3017,6 +3138,8 @@
             Işık prizmaya neredeyse dik geliyor. (a) Her rengin sapmasını, (b) iki renk arasındaki açıyı,
             (c) 2 m uzaktaki perdede tayfın genişliğini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> A = 8° (ince prizma) · n(kırmızı) = 1,513 · n(mor) = 1,538 · ışık neredeyse dik geliyor · perdenin uzaklığı 2 m</p>
+          <p class="istenen"><b>İstenen:</b> (a) iki rengin sapma açıları δ · (b) iki renk arasındaki açı Δδ · (c) perdedeki tayfın genişliği</p>
           <ol class="steps">
             <li>İnce prizma: δ ≈ (n − 1)·A</li>
             <li><strong>(a)</strong> Kırmızı: 0,513 · 8° ≈ <strong>4,10°</strong>; mor: 0,538 · 8° ≈ <strong>4,30°</strong></li>
@@ -3032,6 +3155,8 @@
             Tepe açısı 60°, indisi 1,50 olan bir prizmada ışığın ikinci yüzeyden çıkabilmesi için
             birinci yüzeye en az hangi açıyla gelmesi gerekir? (sin18,2° ≈ 0,312)
           </p>
+          <p class="verilen"><b>Verilenler:</b> A = 60° · n = 1,50 · çevre hava (n = 1) · sin18,2° ≈ 0,312</p>
+          <p class="istenen"><b>İstenen:</b> ışığın ikinci yüzeyden çıkabilmesi için en küçük gelme açısı i₁</p>
           <ol class="steps">
             <li>Sınır açı: sin θ = 1/1,50 ≈ 0,667 → θ ≈ 41,8°</li>
             <li>Çıkabilmesi için r₂ ≤ 41,8° olmalı → r₁ = A − r₂ ≥ 60° − 41,8° = 18,2°</li>
@@ -3047,6 +3172,8 @@
             İndisi 1,50 olan 45° – 45° – 90° bir prizma tamamen suya (n = 1,33) batırılıyor. Hipotenüse
             içeriden 45° ile çarpan ışık ne yapar? Çıkıyorsa suya hangi açıyla geçer? (sin45° = 0,707)
           </p>
+          <p class="verilen"><b>Verilenler:</b> 45° – 45° – 90° prizma · n(prizma) = 1,50 · n(su) = 1,33 · hipotenüse içeriden geliş açısı 45° · sin45° = 0,707</p>
+          <p class="istenen"><b>İstenen:</b> ışığın tam yansıyıp yansımadığı · çıkıyorsa suya geçtiği açı x</p>
           <ol class="steps">
             <li>Havada: θ(sınır) = 41,8° &lt; 45° → tam yansıma olurdu (Örnek 2).</li>
             <li>Suda sınır açı: sin θ = 1,33/1,50 ≈ 0,887 → θ ≈ 62,5°</li>
@@ -3054,6 +3181,38 @@
             <li>1,50 · sin45° = 1,33 · sin x → sin x ≈ 1,061/1,33 ≈ 0,797 → x ≈ <strong>52,9°</strong></li>
             <li>Suyun içinde bu prizma ayna gibi çalışmaz; ışığın büyük kısmı suya kaçar.</li>
           </ol>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (Prizmanın çevresi havadır, n = 1; gereken sinüs değerleri sorunun içinde verilmiştir.)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Tepe açısı 50° olan bir prizmaya 45° ile giren ışın, ikinci yüzeyden 34° ile çıkıyor. Sapma açısı kaç derecedir?</summary>
+          <p><b>Cevap:</b> δ = i₁ + i₂ − A = 45 + 34 − 50 = <strong>29°</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Tepe açısı 60° olan bir prizmada ışın birinci yüzeyde 25° ile kırılıyor (r₁ = 25°). İçerideki ışının ikinci yüzeye geliş açısı r₂ kaç derecedir?</summary>
+          <p><b>Cevap:</b> r₁ + r₂ = A olduğundan r₂ = A − r₁ = 60 − 25 = <strong>35°</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: İndisi 1,6 olan bir prizmaya ışın 53° ile giriyor. Birinci yüzeydeki kırılma açısı r₁ kaç derecedir? (sin53° = 0,8 · sin30° = 0,5)</summary>
+          <p><b>Cevap:</b> sin i₁ = n · sin r₁ → 0,8 = 1,6 · sin r₁ → sin r₁ = 0,8 / 1,6 = 0,5 → <strong>r₁ = 30°</strong>.
+            Işın cama girerken normale yaklaştı: 53°'den 30°'ye.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Tepe açısı 60°, indisi 1,6 olan bir prizmada en küçük sapma açısı kaç derecedir? (sin30° = 0,5 · sin53° = 0,8)</summary>
+          <p><b>Cevap:</b> En küçük sapmada ışın simetrik geçer: r₁ = r₂ = A/2 = 30°. sin i = n · sin r = 1,6 · 0,5 = 0,8 → i = 53°.
+            δ(min) = 2i − A = 106 − 60 = <strong>46°</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Tepe açısı 80°, indisi √2 (≈ 1,41) olan bir prizmaya ışın 45° ile giriyor. Işık ikinci yüzeyden çıkabilir mi? (sin45° = √2/2 · sin30° = 1/2)</summary>
+          <p><b>Cevap:</b> Birinci yüzey: sin r₁ = sin45° / √2 = (√2/2) / √2 = 1/2 → r₁ = 30°. İkinci yüzeye geliş: r₂ = 80 − 30 = 50°.
+            Sınır açı: sin θ = 1/√2 = √2/2 → θ = 45°. r₂ = 50° sınır açıdan büyük olduğu için ışık
+            <strong>çıkamaz, ikinci yüzeyde tam yansır</strong>. Tepe açısı en çok 30 + 45 = 75° olsaydı ışık çıkabilirdi.</p>
         </details>
 
         <h3 id="k12">Sık yapılan hatalar</h3>

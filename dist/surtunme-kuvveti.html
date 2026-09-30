@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2426,6 +2495,22 @@
           <span>Önce sezgi: sürtünmeyi gündelik sahnelerde gözle, adını koy ve durgun cisimle kayan cisim arasındaki farkı gör. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Kuvvet ve net kuvvet:</strong> kuvvet bir itme ya da çekmedir ve newton (N) ile ölçülür.
+              Zıt yönlü kuvvetler birbirinden çıkarılır: 50 N ileri, 20 N geri → net 30 N ileri.</li>
+            <li><strong>Newton'un 2. yasası:</strong> net kuvvet cismi ivmelendirir: a = ΣF / m. 10 N'luk net kuvvet
+              5 kg'lık bir kutuya 10 / 5 = 2 m/s² ivme verir.</li>
+            <li><strong>Ağırlık:</strong> Dünya'nın bir cismi çekme kuvveti: G = m · g. 20 kg'lık bir kutunun ağırlığı
+              20 · 10 = 200 N'dur.</li>
+            <li><strong>İvme ve yavaşlama:</strong> ivme, hızın her saniye ne kadar değiştiğidir. Her saniye 2 m/s
+              yavaşlayan ve 10 m/s ile giden bir bisiklet 5 saniyede durur.</li>
+            <li><strong>Sinüs, kosinüs, tanjant:</strong> kenarları 3, 4, 5 olan dik üçgende sin37° = 0,6,
+              cos37° = 0,8 ve tan37° = sin37° / cos37° = 0,6 / 0,8 = 0,75.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: sürtünme ne zaman ortaya çıkar?</h3>
         <p>
           Evde kitap dolu bir koliyi yerde itmeyi düşün. Önce hafifçe itersin; koli kıpırdamaz. Biraz daha
@@ -2663,6 +2748,16 @@
           <code>f<sub>k</sub> = μ<sub>k</sub> · N</code>
           <code>μ<sub>k</sub> &lt; μ<sub>s</sub></code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>f<sub>s</sub></td><td>statik sürtünme: cisim dururken oluşan sürtünme</td><td>N</td></tr>
+          <tr><td>F<sub>uygulanan</sub></td><td>senin cisme uyguladığın itme ya da çekme kuvveti</td><td>N</td></tr>
+          <tr><td>μ<sub>s</sub></td><td>statik sürtünme katsayısı: yüzeyler duran cismi ne kadar “tutuyor”</td><td>—</td></tr>
+          <tr><td>N</td><td>normal kuvvet: zeminin cismi dik olarak itmesi (yatay zeminde m·g)</td><td>N</td></tr>
+          <tr><td>f<sub>k</sub></td><td>kinetik sürtünme: cisim kayarken oluşan sürtünme</td><td>N</td></tr>
+          <tr><td>μ<sub>k</sub></td><td>kinetik sürtünme katsayısı; genellikle μ<sub>s</sub>'den küçüktür</td><td>—</td></tr>
+        </table>
         <p>
           Kinetik katsayı genellikle statik katsayıdan küçüktür. Bu yüzden ağır bir dolabı
           <strong>yerinden oynatmak</strong>, oynadıktan sonra <strong>itmeye devam etmekten</strong>
@@ -3070,6 +3165,15 @@
           kitabın ağırlığı sürtünmeyi artırmaz, yalnızca taşınması gereken yükü artırır; sürtünmeyi
           artırmanın tek yolu daha sıkı bastırmaktır.
         </p>
+        <figure class="foto">
+          <img src="gorsel/surtunme-kuvveti-ek1.webp?v=1" srcset="gorsel/surtunme-kuvveti-ek1-800.webp?v=1 800w, gorsel/surtunme-kuvveti-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karlı bir parkta üzerinde birer karton koli bulunan iki tahta kızak arka arkaya ilerliyor. Öndeki kız kendi kızağını omuz hizasında tuttuğu, yukarı doğru eğik uzanan bir iple çekiyor; arkadaki oğlan öne eğilip kollarını aşağı doğru uzatarak öbür kızağı arkasından itiyor.">
+          <figcaption>
+            <b>Benzer yük taşıyan iki kızaktan</b> öndeki yukarı doğru eğik bir iple çekiliyor, arkadaki ise aşağı doğru eğik kollarla itiliyor. Eğik ipin düşey bileşeni kızağı biraz kaldırır, N = m·g − F·sinα küçülür ve sürtünme azalır; aşağı doğru eğik itiş ise kızağı kara bastırır, N = m·g + F·sinα büyür ve sürtünme artar. Bu yüzden aynı kızağı çekmek, itmekten daha kolaydır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Karda bir kızağı ipiyle yukarı doğru eğik çekmek mi, arkadan aşağı doğru eğik itmek mi daha kolaydır?</summary>
           <p>
@@ -3113,6 +3217,15 @@
           <li><strong>Yuvarlanmak kaymaktan çok kolaydır:</strong> yuvarlanma direnci katsayısı araba lastiğinde yaklaşık 0,01'dir, çelik tren tekerleğinde bundan da birkaç kat küçüktür.</li>
           <li><strong>Yumuşak malzemede alan biraz etkiler:</strong> kauçuğun katsayısı basınç arttıkça bir miktar düşer; "alan fark etmez" kuralı sert yüzeylerde daha iyi tutar.</li>
         </ul>
+        <figure class="foto">
+          <img src="gorsel/surtunme-kuvveti-ek2.webp?v=1" srcset="gorsel/surtunme-kuvveti-ek2-800.webp?v=1 800w, gorsel/surtunme-kuvveti-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Bulutlu bir günde düz bir kır yolunda fren lambaları yanan gri bir otomobil arkadan görülüyor. Aracın tekerleklerinden geriye doğru, görüntünün ön kenarına kadar uzanan iki uzun siyah fren izi asfaltta açıkça seçiliyor.">
+          <figcaption>
+            <b>Asfalttaki iki siyah fren izi</b> tekerleklerin kilitlenip yol üzerinde kaydığını gösteriyor. Kayan lastikte devreye daha küçük olan kinetik sürtünme girer; sürtünme lastiği ısıtıp aşındırarak yolda iz bırakır, direksiyonu çevirsen de araç düz gitmeyi sürdürür. ABS tekerleği kilitlenme sınırında döndürür; böylece daha büyük olan statik sürtünmeden yararlanılır ve direksiyon hâkimiyeti korunur.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Temas alanı sürtünmeyi değiştirmiyorsa yarış arabalarının lastikleri neden bu kadar geniştir?</summary>
           <p>
@@ -3188,6 +3301,8 @@
             (a) 80 N'luk yatay kuvvet uygulanırsa kutu hareket eder mi, sürtünme kaç N olur?
             (b) Kuvvet 120 N'a çıkarılırsa ivme ne olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 20 kg · μ<sub>s</sub> = 0,5 · μ<sub>k</sub> = 0,4 · kutu başta duruyor · yatay kuvvet (a) F = 80 N, (b) F = 120 N · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) kutu hareket eder mi, sürtünme f kaç N · (b) ivme a</p>
           <ol class="steps">
             <li>N = m·g = 200 N, statik eşik: μ<sub>s</sub>·N = 0,5 · 200 = <strong>100 N</strong></li>
             <li><strong>(a)</strong> 80 N &lt; 100 N olduğu için kutu <strong>hareket etmez</strong>;
@@ -3205,6 +3320,8 @@
             gösteriyor. (a) μ<sub>k</sub> kaçtır? (b) Kutunun üstüne 5 kg'lık ikinci bir kutu konup ikisi
             yine sabit hızla çekilirse dinamometre kaç N gösterir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 5 kg · sabit hız → a = 0 · dinamometre F = 15 N · (b) üstüne 5 kg daha → toplam 10 kg · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) kinetik sürtünme katsayısı μ<sub>k</sub> · (b) iki kutu sabit hızla çekilirken dinamometrenin gösterdiği F</p>
           <ol class="steps">
             <li>Sabit hız → net kuvvet sıfır → kinetik sürtünme çekme kuvvetine eşit: f = 15 N</li>
             <li>N = m·g = 5 · 10 = 50 N</li>
@@ -3219,6 +3336,8 @@
             Yatay zeminde 10 m/s hızla kayan 5 kg'lık cisim, μ<sub>k</sub> = 0,25 olan yüzeyde
             yavaşlıyor. Kaç metre sonra ve kaç saniyede durur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> v₀ = 10 m/s · m = 5 kg · μ<sub>k</sub> = 0,25 · son hız v = 0 (cisim duruyor) · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> durma mesafesi d · durma süresi t</p>
           <ol class="steps">
             <li>Tek yatay kuvvet sürtünmedir: f = μ<sub>k</sub>·m·g = 0,25 · 5 · 10 = 12,5 N</li>
             <li>a = −f/m = −2,5 m/s² (yavaşlatıcı)</li>
@@ -3235,6 +3354,8 @@
             (a) μ<sub>s</sub> kaçtır? (b) μ<sub>k</sub> = 0,5 ise kaymaya başladıktan sonraki
             ivmesi nedir? (sin37° = 0,6 · cos37° = 0,8)
           </p>
+          <p class="verilen"><b>Verilenler:</b> kaymanın başladığı açı θ<sub>kritik</sub> = 37° · μ<sub>k</sub> = 0,5 · sin37° = 0,6 · cos37° = 0,8 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) statik sürtünme katsayısı μ<sub>s</sub> · (b) kaymaya başladıktan sonraki ivme a</p>
           <ol class="steps">
             <li><strong>(a)</strong> tanθ = μ<sub>s</sub> → μ<sub>s</sub> = tan37° = 0,6/0,8 = <strong>0,75</strong></li>
             <li><strong>(b)</strong> a = g·(sinθ − μ<sub>k</sub>·cosθ) = 10·(0,6 − 0,5·0,8)</li>
@@ -3250,6 +3371,8 @@
             süresi 1 s'dir. (a) Toplam durma mesafesi nedir? (b) Hız iki katına çıkarsa
             fren mesafesi ne olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> v = 72 km/h · μ = 0,5 · t<sub>tepki</sub> = 1 s · g = 10 m/s² · (b) hız iki katına çıkıyor</p>
+          <p class="istenen"><b>İstenen:</b> (a) toplam durma mesafesi d<sub>toplam</sub> · (b) iki kat hızda fren mesafesi d<sub>fren</sub></p>
           <ol class="steps">
             <li>72 km/h = 72/3,6 = <strong>20 m/s</strong></li>
             <li><strong>(a)</strong> Tepki mesafesi: 20 · 1 = 20 m</li>
@@ -3266,6 +3389,8 @@
             uygulanıyor; μ<sub>k</sub> = 0,2. Kuvvet (a) yukarı doğru eğik çekerek, (b) aşağı doğru eğik
             iterek uygulanırsa kızağın ivmesi ne olur? (sin37° = 0,6 · cos37° = 0,8)
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 20 kg · F = 100 N · yatayla açı α = 37° · μ<sub>k</sub> = 0,2 · kızak zaten kayıyor · sin37° = 0,6 · cos37° = 0,8 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> kızağın ivmesi a: (a) yukarı doğru eğik çekerken · (b) aşağı doğru eğik iterken</p>
           <ol class="steps">
             <li>Kuvvetin bileşenleri: yatay 100 · 0,8 = 80 N, düşey 100 · 0,6 = 60 N; ağırlık 200 N.</li>
             <li><strong>(a)</strong> Çekerken düşey bileşen yukarı: N = 200 − 60 = 140 N → f = 0,2 · 140 = 28 N</li>
@@ -3282,6 +3407,8 @@
             (μ<sub>s</sub> = 0,7 · μ<sub>k</sub> = 0,5). (a) Blok eğim boyunca kaç metre çıkar? (b) Tepede
             kalır mı? (c) Kalmıyorsa başlangıç noktasına hangi süratle döner?
           </p>
+          <p class="verilen"><b>Verilenler:</b> θ = 37° · v₀ = 10 m/s (eğim boyunca yukarı) · μ<sub>s</sub> = 0,7 · μ<sub>k</sub> = 0,5 · sin37° = 0,6 · cos37° = 0,8 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) eğim boyunca çıkış mesafesi d · (b) blok tepede kalır mı · (c) başlangıç noktasına dönüş sürati v</p>
           <ol class="steps">
             <li>Çıkarken sürtünme de ağırlığın paralel bileşeni de aşağı yönlüdür:
               a = g·(sinθ + μ<sub>k</sub>·cosθ) = 10·(0,6 + 0,4) = 10 m/s² (yavaşlatıcı)</li>
@@ -3294,6 +3421,39 @@
             Serbest düşmedeki simetri burada yoktur: blok 1 s'de çıkar, ama √5 ≈ 2,2 s'de iner ve
             fırlatıldığı hızın yarısından azıyla döner. Aradaki enerji sürtünmeyle ısıya dönüşmüştür.
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (g = 10 m/s², sin37° = 0,6 · cos37° = 0,8)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Yatay zeminde kayan 10 kg'lık bir kutu için μ<sub>k</sub> = 0,3'tür. Kutuya etki eden kinetik sürtünme kuvveti kaç N'dur?</summary>
+          <p><b>Cevap:</b> N = m · g = 10 · 10 = 100 N. f<sub>k</sub> = μ<sub>k</sub> · N = 0,3 · 100 = <strong>30 N</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Yatay zeminde duran 30 kg'lık bir sandık için μ<sub>s</sub> = 0,4'tür. Sandığı kıpırdatmak için en az kaç N'luk yatay kuvvet gerekir?</summary>
+          <p><b>Cevap:</b> N = m · g = 30 · 10 = 300 N. Eşik μ<sub>s</sub> · N = 0,4 · 300 = <strong>120 N</strong>; kuvvet bunu aşınca
+            sandık kaymaya başlar.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Buz pistinde 6 m/s hızla kaymaya başlayan bir disk için μ<sub>k</sub> = 0,1'dir. Disk kaç metre sonra ve kaç saniyede durur?</summary>
+          <p><b>Cevap:</b> Tek yatay kuvvet sürtünmedir: a = μ<sub>k</sub> · g = 0,1 · 10 = 1 m/s² (yavaşlatıcı). Mesafe
+            d = v² / (2a) = 36 / 2 = <strong>18 m</strong>. Süre t = v / a = 6 / 1 = <strong>6 s</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: 37°'lik bir eğik düzlemde aşağı doğru kayan cisim için μ<sub>k</sub> = 0,25'tir. Cismin ivmesi kaç m/s²'dir?</summary>
+          <p><b>Cevap:</b> a = g · (sinθ − μ<sub>k</sub> · cosθ) = 10 · (0,6 − 0,25 · 0,8) = 10 · (0,6 − 0,2) = <strong>4 m/s²</strong>.
+            Kütle gerekmedi; sonuç her kütle için aynıdır.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Yatay zeminde duran 10 kg'lık bir kutu, 60 N'luk yatay kuvvetle 5 s kaydırılıp bırakılıyor (μ<sub>k</sub> = 0,2). Bırakıldıktan sonra kutu kaç metre daha kayar?</summary>
+          <p><b>Cevap:</b> Sürtünme f = μ<sub>k</sub> · m · g = 0,2 · 100 = 20 N. İtilirken a = (60 − 20) / 10 = 4 m/s²; 5 s sonunda
+            v = 4 · 5 = 20 m/s. Bırakılınca yalnızca sürtünme kalır: yavaşlama μ<sub>k</sub> · g = 2 m/s². Kayma mesafesi
+            d = v² / (2 · 2) = 400 / 4 = <strong>100 m</strong>.</p>
         </details>
 
         <h3 id="k13">Sık yapılan hatalar</h3>

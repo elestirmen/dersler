@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2396,6 +2465,22 @@
           <span>Önce sezgi: aynaya bak, gördüğünü adlandır ve ışığın aynadan nasıl döndüğünü tanı. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Görmek:</strong> bir cismi görmen için ondan çıkan ya da yansıyan ışığın gözüne gelmesi
+              gerekir. Işık bu yolu düz çizgiler boyunca gider.</li>
+            <li><strong>Açı ve derece:</strong> iki çizginin arasındaki açıklığa açı denir; derece (°) ile ölçülür.
+              Dik açı 90°, düz bir çizgi 180°, tam tur 360°'dir.</li>
+            <li><strong>Tümler açı:</strong> toplamı 90° olan iki açı. 25° ile 65° birbirinin tümleridir:
+              25 + 65 = 90.</li>
+            <li><strong>Simetri:</strong> bir kâğıdı katlayınca üst üste gelen iki şekil, kat çizgisine göre
+              simetriktir. Simetrik iki nokta kat çizgisine eşit uzaklıktadır.</li>
+            <li><strong>Hız:</strong> bir saniyede alınan yol. 2 m/s hızla giden bir oyuncak araba her saniye
+              2 metre yol alır.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: aynada ne görürsün?</h3>
         <p>
           Sabah aynanın karşısına geçtiğinde gördüğün şeyi hiç dikkatle inceledin mi? Görüntün aynanın
@@ -2725,6 +2810,14 @@
           <code>L = h / 2</code>
           <code>alt kenar = y / 2</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>L</td><td>kendini tepeden tırnağa görmek için gereken en kısa ayna boyu</td><td>cm</td></tr>
+          <tr><td>h</td><td>kişinin boyu</td><td>cm</td></tr>
+          <tr><td>y</td><td>kişinin gözünün yerden yüksekliği</td><td>cm</td></tr>
+          <tr><td>alt kenar</td><td>aynanın alt kenarının yerden yüksekliği</td><td>cm</td></tr>
+        </table>
         <table class="tbl">
           <tr><th>Boy (h)</th><th>Göz yüksekliği (y)</th><th>Ayna boyu</th><th>Alt kenar</th></tr>
           <tr><td>120 cm</td><td>110 cm</td><td>60 cm</td><td>55 cm</td></tr>
@@ -2878,6 +2971,13 @@
         <div class="formula">
           <code>n = 360 / α − 1</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>n</td><td>görüntü sayısı (cismin kendisi sayılmaz)</td><td>—</td></tr>
+          <tr><td>α</td><td>iki aynanın arasındaki açı (aynanın dönmesindeki α'dan farklıdır)</td><td>derece (°)</td></tr>
+          <tr><td>360 / α</td><td>çembere sığan kopya sayısı: cisim ve bütün görüntüleri</td><td>—</td></tr>
+        </table>
         <table class="tbl">
           <tr><th>Aynalar arası açı</th><th>360 / α</th><th>Görüntü sayısı</th></tr>
           <tr><td>180° (tek düz ayna)</td><td>2</td><td>1</td></tr>
@@ -2969,6 +3069,15 @@
           ters çevirdiği için ikinci yansıma birincisinin yaptığını geri alır. Bu görüntüde sağ elini
           kaldırdığında görüntü de kendi sağ elini kaldırır; kendini başkalarının seni gördüğü gibi görürsün.
         </p>
+        <figure class="foto">
+          <img src="gorsel/duzlem-aynalar-ek1.webp?v=1" srcset="gorsel/duzlem-aynalar-ek1-800.webp?v=1 800w, gorsel/duzlem-aynalar-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşin ufka yakın olduğu bir saatte durgun bir dağ gölü: kıyıdaki çam ormanı, karlı kayalık zirve, güneş, bulutlar ve kıyıya yakın duran ahşap bir sandal suyun yüzeyinde baş aşağı yansıyor. Kıyı çizgisinin altındaki yansıma, manzaranın yukarısı ile aşağısı yer değiştirmiş bir kopyası gibi duruyor.">
+          <figcaption>
+            <b>Durgun göl</b> yatay duran bir düzlem ayna gibi davranır: ağaçların ve dağın tepesi suyun içinde aşağıyı gösterir, ama sağ ile sol yer değiştirmez. Solda batan ya da doğan güneş, yansımada da solda kalır. Ayna yalnızca kendisine dik doğrultuyu ters çevirir; yatay aynada o doğrultu yukarı–aşağıdır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Birbirine dik iki aynanın köşesine bakıp sağ gözünü kırparsan görüntü hangi gözünü kırpar?</summary>
           <p>
@@ -3010,6 +3119,15 @@
             açıortay üzerindeyken bir görüntü eksilir. Bu ayrıntılar ileri düzey sorularda karşımıza çıkar.
           </p>
         </div>
+        <figure class="foto">
+          <img src="gorsel/duzlem-aynalar-ek2.webp?v=2" srcset="gorsel/duzlem-aynalar-ek2-800.webp?v=2 800w, gorsel/duzlem-aynalar-ek2.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Eski tarz bir berber dükkânında, önde bulanık görünen kırmızı deri bir berber koltuğunun arkasından ahşap çerçeveli büyük bir duvar aynasına bakılıyor. Aynada koltuğun önden görünen yansıması ve onun gerisinde, duvar lambalarıyla birlikte giderek küçülen, kararıp yeşile çalan iç içe çerçevelerden oluşan uzun bir koridor var.">
+          <figcaption>
+            <b>Böyle bitmeyen bir koridor</b>, karşılıklı duran iki paralel aynada oluşur: her görüntü öbür ayna için yeni bir cisim olur ve görüntüler sırayla birbirinin arkasına dizilir. Aynalar paralelken α = 0 olduğu için 360/α sonsuza gider ve görüntü sayısı kuramsal olarak sonsuzdur. Ama her yansımada ışığın bir kısmı soğurulduğundan uzaktaki kopyalar giderek kararır; ışığın %90'ını yansıtan bir aynada 10 yansımadan sonra ışığın ancak üçte biri kalır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Aralarında 72° bulunan iki ayna arasında, açıortaydaki bir cismin kaç görüntüsü oluşur?</summary>
           <p>
@@ -3087,6 +3205,8 @@
             Bir ışın düzlem aynanın yüzeyiyle 25° açı yapacak şekilde geliyor. Gelme açısı,
             yansıma açısı ve iki ışın arasındaki açı kaç derecedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> ışının ayna yüzeyiyle yaptığı açı 25° · açılar normalden ölçülür (normal ile yüzey arası 90°)</p>
+          <p class="istenen"><b>İstenen:</b> gelme açısı i · yansıma açısı r · gelen ile yansıyan ışın arasındaki açı</p>
           <ol class="steps">
             <li>Gelme açısı normalle ölçülür: i = 90° − 25° = <strong>65°</strong></li>
             <li>Yansıma açısı: r = i = <strong>65°</strong></li>
@@ -3100,6 +3220,8 @@
             Sabit bir ışın demeti düzlem aynaya düşerken ayna 12° döndürülüyor. Yansıyan ışın
             kaç derece döner?
           </p>
+          <p class="verilen"><b>Verilenler:</b> gelen ışın sabit · aynanın dönme açısı α = 12°</p>
+          <p class="istenen"><b>İstenen:</b> yansıyan ışının kaç derece döndüğü</p>
           <ol class="steps">
             <li>Ayna α = 12° dönerse normal de 12° döner.</li>
             <li>Gelme açısı 12° değişir; yansıma açısı da 12° değişir.</li>
@@ -3113,6 +3235,8 @@
             Bir öğrenci düzlem aynanın 1,5 m önünde duruyor. (a) Görüntüsü kendisinden kaç m uzaktadır?
             (b) Aynaya 0,5 m yaklaşırsa görüntüsüne uzaklığı ne olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> öğrencinin aynaya uzaklığı 1,5 m · (b)'de aynaya 0,5 m yaklaşıyor</p>
+          <p class="istenen"><b>İstenen:</b> (a) görüntüsüne uzaklığı · (b) yaklaştıktan sonra görüntüsüne uzaklığı</p>
           <ol class="steps">
             <li><strong>(a)</strong> Görüntü aynanın 1,5 m arkasındadır: 1,5 + 1,5 = <strong>3 m</strong></li>
             <li><strong>(b)</strong> Aynaya uzaklık 1,5 − 0,5 = 1 m olur; görüntüye uzaklık 2 · 1 = <strong>2 m</strong></li>
@@ -3127,6 +3251,8 @@
             Aralarında 40° açı bulunan iki düzlem ayna arasına, açıortay üzerine bir cisim konuyor.
             Kaç görüntü oluşur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> aynalar arası açı α = 40° · cisim açıortay üzerinde</p>
+          <p class="istenen"><b>İstenen:</b> görüntü sayısı n</p>
           <ol class="steps">
             <li>360 / α = 360 / 40 = 9</li>
             <li>n = 9 − 1 = <strong>8 görüntü</strong></li>
@@ -3144,6 +3270,8 @@
             Boyu 180 cm, göz yüksekliği 170 cm olan bir kişi kendini tepeden tırnağa görmek
             istiyor. Aynanın boyu ve alt kenarının yerden yüksekliği ne olmalıdır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> boy h = 180 cm · göz yüksekliği y = 170 cm</p>
+          <p class="istenen"><b>İstenen:</b> gereken ayna boyu L · aynanın alt kenarının yerden yüksekliği</p>
           <ol class="steps">
             <li>Ayna boyu = h/2 = 180/2 = <strong>90 cm</strong></li>
             <li>Alt kenar, göz ile ayak arasının ortası: 170/2 = <strong>85 cm</strong></li>
@@ -3159,6 +3287,8 @@
             üzerinde arabaya doğru 1 m/s hızla itiliyor (hızlar yere göre). (a) Görüntünün yere göre hızı
             nedir? (b) Araba ile görüntüsü birbirine hangi hızla yaklaşır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> v<sub>araba</sub> = 2 m/s (aynaya doğru) · v<sub>ayna</sub> = 1 m/s (arabaya doğru) · iki hız da yere göre</p>
+          <p class="istenen"><b>İstenen:</b> (a) görüntünün yere göre hızı · (b) araba ile görüntüsünün birbirine yaklaşma hızı</p>
           <ol class="steps">
             <li>Arabadan aynaya doğru yönü pozitif al: v<sub>araba</sub> = +2 m/s, v<sub>ayna</sub> = −1 m/s.</li>
             <li>Görüntü her an aynanın, araba kadar arkasındadır: x<sub>g</sub> = 2·x<sub>ayna</sub> − x<sub>araba</sub>.
@@ -3177,6 +3307,8 @@
             yüksekte olan bir aynanın karşısında duruyor. (a) Başının tepesini görebilir mi? (b) Bedeninin
             yerden kaç cm'ye kadarki bölümünü göremez? (c) Kendini tepeden tırnağa görmesi için ne yapılmalı?
           </p>
+          <p class="verilen"><b>Verilenler:</b> boy h = 170 cm · göz yüksekliği y = 160 cm · aynanın alt kenarı yerden 100 cm · üst kenarı yerden 190 cm</p>
+          <p class="istenen"><b>İstenen:</b> (a) başının tepesini görüp göremeyeceği · (b) bedeninin yerden kaç cm'ye kadar görünmediği · (c) tam boy görmesi için yapılması gereken değişiklik</p>
           <ol class="steps">
             <li>Yerden y yüksekliğindeki bir noktadan gelen ışın, (y + 160)/2 yüksekliğinde yansır.</li>
             <li><strong>(a)</strong> Baş için (170 + 160)/2 = 165 cm; bu nokta üst kenarın (190 cm) altında: <strong>görür</strong>.</li>
@@ -3194,6 +3326,8 @@
             ikinci aynaya çarpıyor. (a) İkinci aynadaki gelme açısı kaç derecedir? (b) İkinci aynadan çıkan
             ışın ilk gelen ışına göre hangi doğrultuda ilerler?
           </p>
+          <p class="verilen"><b>Verilenler:</b> aynalar arası açı 90° · birinci aynada gelme açısı 35°</p>
+          <p class="istenen"><b>İstenen:</b> (a) ikinci aynadaki gelme açısı · (b) ikinci aynadan çıkan ışının ilk gelen ışına göre doğrultusu</p>
           <ol class="steps">
             <li>Birinci aynadan yansıyan ışın, yüzeyle 90° − 35° = 55° açı yapar.</li>
             <li>İki ayna ve ışın bir üçgen oluşturur; köşedeki açı 90° olduğundan ışının ikinci ayna
@@ -3206,6 +3340,38 @@
             Bu sonuç gelme açısından bağımsızdır: dik aynalarda iki gelme açısının toplamı her zaman 90°'dir.
             Köşe yansıtıcıların, bisiklet reflektörlerinin ve Ay'daki yansıtıcıların çalışma ilkesi budur.
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (Açıları hep normalden ölç.)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Aralarında 36° açı bulunan iki düzlem ayna arasına bir cisim konuyor. Kaç görüntü oluşur?</summary>
+          <p><b>Cevap:</b> n = 360 / α − 1 = 360 / 36 − 1 = 10 − 1 = <strong>9 görüntü</strong>. 360 / 36 = 10 çift sayı
+            olduğu için cismin yeri sonucu değiştirmez.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Boyu 150 cm olan bir çocuk kendini tepeden tırnağa görmek istiyor. Aynanın boyu en az kaç cm olmalıdır?</summary>
+          <p><b>Cevap:</b> L = h / 2 = 150 / 2 = <strong>75 cm</strong>. Çocuğun aynaya uzaklığı bu sonucu değiştirmez.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Düzlem aynanın 4 m önündeki bir çocuk aynaya doğru 1 m/s hızla yürüyor. 2 s sonra çocuk ile görüntüsü arasındaki uzaklık kaç m olur?</summary>
+          <p><b>Cevap:</b> Çocuk 2 s'de 1 · 2 = 2 m yürür; aynaya uzaklığı 4 − 2 = 2 m olur. Görüntü de aynanın 2 m
+            arkasındadır: aradaki uzaklık 2 + 2 = <strong>4 m</strong>. Başta 8 m'ydi; her saniye 2 m kısaldı.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Boyu 160 cm, göz yüksekliği 150 cm olan biri kendini tam boy görmek istiyor. Aynanın alt ve üst kenarı yerden kaç cm yüksekte olmalı?</summary>
+          <p><b>Cevap:</b> Alt kenar y / 2 = 150 / 2 = <strong>75 cm</strong>. Üst kenar (h + y) / 2 = (160 + 150) / 2 =
+            <strong>155 cm</strong>. Kontrol: ayna boyu 155 − 75 = 80 cm = h / 2 ✓</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: İki düzlem ayna arasında, açıortaydaki bir cismin 7 görüntüsü oluşuyor. Aynalar arasındaki açı 15° azaltılırsa kaç görüntü oluşur?</summary>
+          <p><b>Cevap:</b> 360 / α − 1 = 7 → 360 / α = 8 → α = 45°. Yeni açı 45° − 15° = 30°:
+            n = 360 / 30 − 1 = <strong>11 görüntü</strong>.</p>
         </details>
 
         <h3 id="k14">Sık yapılan hatalar</h3>

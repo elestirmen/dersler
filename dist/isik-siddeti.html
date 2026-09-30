@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2418,6 +2487,22 @@
           <span>Önce sezgi: ışığın nasıl yayıldığını gör ve birbirine çok benzeyen üç büyüklüğü formülsüz ayırt et.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Güç ve watt:</strong> güç, bir aletin her saniye harcadığı enerjidir ve watt (W) ile
+              ölçülür. 60 W'lık bir ampul her saniye 60 joule elektrik enerjisi çeker.</li>
+            <li><strong>Alan:</strong> bir yüzeyin kapladığı yer; metrekare (m²) ile ölçülür. 2 m'ye 3 m'lik
+              bir masanın alanı 2 · 3 = 6 m²'dir.</li>
+            <li><strong>Paylaştırmak:</strong> aynı miktar daha büyük bir yere yayılırsa her parçaya daha az
+              düşer. Bir pastayı 4 yerine 8 kişi paylaşırsa herkesin payı yarıya iner.</li>
+            <li><strong>Kare ve karekök:</strong> 3² = 3 · 3 = 9 ve √9 = 3. Formüllerde d² “d'nin karesi” diye
+              okunur; d iki katına çıkarsa d² dört katına çıkar.</li>
+            <li><strong>Normal ve kosinüs:</strong> normal, yüzeye dik (90°) çizilen hayalî çizgidir. Açı
+              büyüdükçe cos küçülür: cos0° = 1, cos37° = 0,8, cos53° = 0,6, cos60° = 0,5, cos90° = 0.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: sokak lambalarının altı</h3>
         <p>
           Gece, lambalarla aydınlatılmış bir sokakta yürüdüğünü düşün. Bir direğin dibine geldiğinde
@@ -2558,6 +2643,15 @@
           <tr><td>Işık şiddeti</td><td>I</td><td>kandela (cd)</td><td>kaynağın, bir yönde</td></tr>
           <tr><td>Aydınlanma şiddeti</td><td>E</td><td>lüks (lx)</td><td>yüzeyin</td></tr>
         </table>
+        <figure class="foto">
+          <img src="gorsel/isik-siddeti-ek1.webp?v=1" srcset="gorsel/isik-siddeti-ek1-800.webp?v=1 800w, gorsel/isik-siddeti-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir bahçede, çimin ortasındaki ince metal ayaklı bir fıskiye su huzmelerini yukarıya ve yanlara doğru geniş bir yelpaze hâlinde püskürtüyor. Fıskiyenin dibindeki toprak ıslanmış, çimlerin üstünde su damlaları parlıyor.">
+          <figcaption>
+            <b>Işığı fıskiye gibi düşün:</b> fıskiyenin saniyede püskürttüğü toplam su ışık akısına, tek bir yöne giden su ışık şiddetine, çimin bir metrekaresine düşen su da aydınlanmaya benzer. Fıskiyeden uzaklaştıkça aynı su daha geniş bir alana dağılır; ışıkta da kaynaktan uzaklaşınca her metrekareye daha az ışık düşer.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Aynı lamba masanı aydınlatıyor ama odanın köşesi loş kalıyorsa hangi büyüklük değişmiştir?</summary>
           <p>
@@ -2664,6 +2758,15 @@
           <code>I = Φ / ω</code>
           <code>1 cd = 1 lm / sr</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>Φ</td><td>ışık akısı: koninin içinden geçen ışık miktarı</td><td>lümen (lm)</td></tr>
+          <tr><td>I</td><td>ışık şiddeti: o yöne giden ışığın yoğunluğu</td><td>kandela (cd)</td></tr>
+          <tr><td>ω</td><td>katı açı: ışık konisinin ne kadar geniş olduğu</td><td>steradyan (sr)</td></tr>
+          <tr><td>A</td><td>koninin, kaynağı saran küre üzerinde kapladığı alan</td><td>m²</td></tr>
+          <tr><td>r</td><td>o kürenin yarıçapı, yani kaynağa uzaklık</td><td>m</td></tr>
+        </table>
         <h4>Toplam akı nereden geliyor?</h4>
         <ol>
           <li><strong>Tanımı çevir:</strong> I = Φ/ω ise bir koninin içindeki akı <strong>Φ = I·ω</strong>'dır.</li>
@@ -2731,6 +2834,15 @@
           <code>1 lx = 1 lm / m²</code>
           <code>E = I / d²</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>E</td><td>aydınlanma şiddeti: yüzeyin bir metrekaresine düşen ışık</td><td>lüks (lx)</td></tr>
+          <tr><td>Φ</td><td>yüzeye düşen toplam ışık akısı</td><td>lümen (lm)</td></tr>
+          <tr><td>A</td><td>ışığın düştüğü yüzeyin alanı</td><td>m²</td></tr>
+          <tr><td>I</td><td>kaynağın ışık şiddeti</td><td>kandela (cd)</td></tr>
+          <tr><td>d</td><td>kaynak ile yüzey arasındaki uzaklık</td><td>m</td></tr>
+        </table>
         <p>
           Aynı 100 lümen 1 m²'lik bir yüzeye düşerse aydınlanma 100 lx, 4 m²'lik bir yüzeye yayılırsa
           25 lx olur. Işığın toplam miktarı değişmemiştir, yalnızca daha çok metrekareye bölünmüştür.
@@ -3023,6 +3135,15 @@
           uzaklığının iki katı olmalı: x = 2·200/3 ≈ 133 cm. Ölçüm için de bir örnek: 100 cd'lık lamba
           ekrandan 1 m, bilinmeyen lamba 1,5 m uzakta dengeye geliyorsa I₂ = 100 · 1,5² = 225 cd'dır.
         </p>
+        <figure class="foto">
+          <img src="gorsel/isik-siddeti-ek2.webp?v=1" srcset="gorsel/isik-siddeti-ek2-800.webp?v=1 800w, gorsel/isik-siddeti-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Loş bir laboratuvarda, masadaki uzun ahşap rayın sol ucunda büyük ve parlak bir ampul, sağ ucunda daha küçük ve sönük bir ampul yanıyor. Aralarında, tahta bir tutucuya takılı beyaz bir kâğıt ekran küçük ampule belirgin biçimde daha yakın duruyor.">
+          <figcaption>
+            <b>Fotometrede ekran</b>, iki yüzü eşit aydınlanana kadar lambaların arasında kaydırılır. Denge noktası zayıf lambaya daha yakındır: zayıf lamba eksik şiddetini ancak ekrana yakın durarak telafi eder, çünkü aydınlanma uzaklığın karesiyle azalır. Ekranın güçlü lambaya uzaklığı zayıf lambaya uzaklığının iki katıysa, güçlü lamba dört kat şiddetlidir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Fotometrede denge noktası neden her zaman zayıf lambaya daha yakındır?</summary>
           <p>
@@ -3136,6 +3257,8 @@
             Işık şiddeti 200 cd olan noktasal bir lamba, masanın 2 m üzerindedir.
             (a) Masadaki aydınlanma nedir? (b) Lamba 4 m'ye çıkarılırsa ne olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> I = 200 cd · d = 2 m (lamba tam üstte, ışık masaya dik gelir) · (b)'de d = 4 m</p>
+          <p class="istenen"><b>İstenen:</b> (a) masadaki aydınlanma E · (b) lamba 4 m'ye çıkınca yeni aydınlanma</p>
           <ol class="steps">
             <li>(a) E = I/d² = 200 / 2² = 200/4 = <strong>50 lx</strong></li>
             <li>(b) d 2 katına çıktı → E dörtte bire iner</li>
@@ -3150,6 +3273,8 @@
             Her yöne eşit ışık yayan bir kaynağın ışık şiddeti 100 cd'dır.
             (a) Toplam akısı nedir? (b) 0,5 sr'lık bir koniye gönderdiği akı nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> I = 100 cd (her yöne eşit) · ω = 0,5 sr · π ≈ 3,14</p>
+          <p class="istenen"><b>İstenen:</b> (a) toplam akı Φ(toplam) · (b) 0,5 sr'lık koniye giden akı Φ</p>
           <ol class="steps">
             <li>(a) Φ = 4π·I = 4 · 3,14 · 100 ≈ <strong>1256 lm</strong></li>
             <li>(b) Φ = I·ω = 100 · 0,5 = <strong>50 lm</strong></li>
@@ -3163,6 +3288,8 @@
             500 cd'lık lamba, yüzeyin 2 m üzerindedir. Yüzey 60° eğildiğinde aydınlanma
             nasıl değişir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> I = 500 cd · d = 2 m · dik durumda θ = 0° (cos0° = 1) · eğik durumda θ = 60° (cos60° = 0,5)</p>
+          <p class="istenen"><b>İstenen:</b> dik durumdaki ve 60° eğik durumdaki aydınlanma E</p>
           <ol class="steps">
             <li>Dik durumda: E = 500 / 4 = <strong>125 lx</strong></li>
             <li>Eğik durumda: E = I·cos60° / d² = 500 · 0,5 / 4</li>
@@ -3178,6 +3305,8 @@
             lamba kitabın tam üstüne en fazla kaç metre yükseğe konabilir? Lamba 1 m'ye çıkarılırsa
             aydınlanma kaç lüks olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> I = 100 cd · gereken en az aydınlanma E = 400 lx · ikinci durumda d = 1 m</p>
+          <p class="istenen"><b>İstenen:</b> lambanın konabileceği en büyük yükseklik d · lamba 1 m'deyken aydınlanma E</p>
           <ol class="steps">
             <li>E = I/d² → d² = I/E = 100/400 = 0,25 m²</li>
             <li>d = √0,25 = <strong>0,5 m</strong>; lamba bundan yükseğe konmamalı.</li>
@@ -3192,6 +3321,8 @@
             8 m × 6 m boyutlarındaki bir sınıfın zemininde ortalama 500 lx aydınlanma isteniyor. Her
             armatür 3000 lm akı veriyor. Işığın tamamının zemine ulaştığı varsayılırsa kaç armatür gerekir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> zemin 8 m × 6 m · istenen E = 500 lx · bir armatürün akısı 3000 lm · ışığın tamamı zemine ulaşır</p>
+          <p class="istenen"><b>İstenen:</b> gereken armatür sayısı</p>
           <ol class="steps">
             <li>Alan: A = 8 · 6 = 48 m²</li>
             <li>Gereken akı: Φ = E·A = 500 · 48 = <strong>24 000 lm</strong></li>
@@ -3210,6 +3341,8 @@
             Aralarında 3 m olan iki lambadan biri 400 cd, diğeri 100 cd'dır. İkisinin
             ortasındaki bir ekranın iki yüzü nerede eşit aydınlanır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> lambalar arası L = 3 m · I₁ = 400 cd · I₂ = 100 cd · ekranın iki yüzü eşit aydınlanır</p>
+          <p class="istenen"><b>İstenen:</b> ekranın 400 cd'lık lambaya uzaklığı x</p>
           <ol class="steps">
             <li>Eşitlik: I₁/x² = I₂/(L−x)²</li>
             <li>Karekök: √I₁/x = √I₂/(L−x) → 20/x = 10/(3−x)</li>
@@ -3224,6 +3357,8 @@
             Işık şiddeti 64 cd olan bir lamba masanın 0,8 m üzerindedir. (a) Lambanın tam altındaki
             noktada, (b) bu noktadan 0,6 m yana kaymış masa kenarında aydınlanma kaç lükstür?
           </p>
+          <p class="verilen"><b>Verilenler:</b> I = 64 cd · lambanın masadan yüksekliği 0,8 m · masa kenarının tam alttaki noktaya uzaklığı 0,6 m</p>
+          <p class="istenen"><b>İstenen:</b> (a) lambanın tam altındaki aydınlanma · (b) masa kenarındaki aydınlanma</p>
           <ol class="steps">
             <li><strong>(a)</strong> Tam altta ışık dik gelir: E = 64 / 0,8² = 64 / 0,64 = <strong>100 lx</strong></li>
             <li><strong>(b)</strong> Lambaya uzaklık: d = √(0,8² + 0,6²) = √1 = 1 m</li>
@@ -3240,6 +3375,8 @@
             biçimde dikilmiştir. (a) İki direğin tam ortasındaki noktada, (b) bir direğin dibinde yerdeki
             aydınlanmayı bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> her lambada I = 500 cd · lambaların yerden yüksekliği 3 m · iki direk arası 8 m</p>
+          <p class="istenen"><b>İstenen:</b> (a) iki direğin tam ortasında yerdeki aydınlanma · (b) bir direğin dibinde yerdeki aydınlanma</p>
           <ol class="steps">
             <li><strong>(a)</strong> Orta noktanın her lambaya uzaklığı: d = √(3² + 4²) = 5 m; cosθ = 3/5 = 0,6</li>
             <li>Her lambadan: E = 500 · 0,6 / 5² = 12 lx → iki lamba birlikte <strong>24 lx</strong></li>
@@ -3251,6 +3388,37 @@
             Kaldırımdaki ışık havuzları ve aralarındaki sönük bölgeler bu hesabın sonucudur. Direkleri
             sıklaştırmak ya da yükseltmek iki değeri birbirine yaklaştırır.
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (Kaynaklar noktasal; cos37° = 0,8)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Işık şiddeti 180 cd olan bir lamba masanın 3 m üzerinde. Lambanın tam altındaki noktada aydınlanma kaç lükstür?</summary>
+          <p><b>Cevap:</b> Işık masaya dik gelir: E = I / d² = 180 / 3² = 180 / 9 = <strong>20 lx</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: 1200 lümenlik ışık, 4 m²'lik bir tezgâha eşit olarak yayılıyor. Tezgâhtaki aydınlanma kaç lükstür?</summary>
+          <p><b>Cevap:</b> E = Φ / A = 1200 / 4 = <strong>300 lx</strong>. Her metrekareye 300 lümen düşer.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Bir lamba masanın 1 m üzerindeyken masadaki aydınlanma 360 lükstür. Lamba 3 m yüksekliğe çıkarılırsa aydınlanma kaç lüks olur?</summary>
+          <p><b>Cevap:</b> Uzaklık 3 katına çıktı, aydınlanma 3² = 9'da bire iner: 360 / 9 = <strong>40 lx</strong>.
+            Kontrol: I = E · d² = 360 · 1² = 360 cd ve E = 360 / 3² = 40 lx ✓</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Işık şiddeti 250 cd olan bir lamba 5 m uzaktaki bir yüzeyi aydınlatıyor. Işın, yüzeyin normaliyle 37° açı yapıyor. Aydınlanma kaç lükstür?</summary>
+          <p><b>Cevap:</b> E = I · cosθ / d² = 250 · 0,8 / 5² = 200 / 25 = <strong>8 lx</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Işık şiddeti 90 cd olan bir lamba masanın 1,2 m üzerinde. Lambanın tam altından 0,9 m uzaktaki noktada aydınlanma kaç lükstür?</summary>
+          <p><b>Cevap:</b> Lambaya uzaklık d = √(1,2² + 0,9²) = √2,25 = 1,5 m. Işın masanın normaliyle θ açısı yapar:
+            cosθ = 1,2 / 1,5 = 0,8. E = I · cosθ / d² = 90 · 0,8 / 2,25 = 72 / 2,25 = <strong>32 lx</strong>.
+            Tam altta 90 / 1,2² = 62,5 lx olurdu.</p>
         </details>
 
         <h3 id="k14">Sık yapılan hatalar</h3>

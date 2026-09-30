@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2394,6 +2463,23 @@
           <span>Önce sezgi: merceğin ışığı nasıl büktüğünü gör, üç ışınla görüntüyü çiz ve cismin yeri değişince neyin değiştiğini fark et.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Kırılma:</strong> ışık havadan cama geçerken yavaşlar ve yönü bükülür. Suya daldırılan
+              bir kalemin kırık görünmesi bundandır.</li>
+            <li><strong>Prizma:</strong> havadaki bir cam prizma ışığı her zaman kalın tabanına doğru büker. Bunu
+              bir önceki konuda gördün.</li>
+            <li><strong>Odak ve görüntü (aynalar):</strong> çukur aynaya eksene paralel gelen ışınlar odak
+              noktasında toplanır. Perdeye düşen görüntü gerçektir; düzlem aynadaki gibi perdeye düşmeyen
+              görüntü sanaldır.</li>
+            <li><strong>Kesirlerle işlem:</strong> önce paydaları eşitle, sonra çıkar: 1/4 − 1/6 = 3/12 − 2/12 = 1/12.
+              1/b = 1/12 ise b = 12'dir.</li>
+            <li><strong>Santimetre ve metre:</strong> 100 cm = 1 m, yani 50 cm = 0,5 m ve 25 cm = 0,25 m.
+              1/0,5 = 2 ve 1/0,25 = 4 eder.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: bir büyüteç ne yapar?</h3>
         <p>
           Bir büyüteci gazete yazısının hemen üstünde tut ve yavaşça yukarı kaldır. Harfler önce büyür,
@@ -2672,6 +2758,14 @@
           <code>1/f = 1/a + 1/b</code>
           <code>m = |b / a|</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>f</td><td>odak uzaklığı: odak noktasının merceğin merkezine uzaklığı (ince kenarlıda artı, kalın kenarlıda eksi)</td><td>cm ya da m</td></tr>
+          <tr><td>a</td><td>cismin merceğe uzaklığı</td><td>cm ya da m</td></tr>
+          <tr><td>b</td><td>görüntünün merceğe uzaklığı (artıysa görüntü gerçek, eksiyse sanal)</td><td>cm ya da m</td></tr>
+          <tr><td>m</td><td>büyütme: görüntünün boyu, cismin boyunun kaç katı</td><td>—</td></tr>
+        </table>
         <h4>Denklem nereden geliyor?</h4>
         <p>Üç asal ışın çiziminde cismin tepesinden çıkan iki ışını izle; gerisi benzer üçgenlerdir:</p>
         <ol>
@@ -2757,6 +2851,15 @@
           büyümek zorundadır. 120 ile 40 çiftini aklında tut; sayfanın 04 numaralı bölümünde yeniden karşına
           çıkacak.
         </p>
+        <figure class="foto">
+          <img src="gorsel/mercekler-ek1.webp?v=1" srcset="gorsel/mercekler-ek1-800.webp?v=1 800w, gorsel/mercekler-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Loş bir laboratuvarda üzerinde ölçek çizgileri olan uzun bir optik rayda solda yanan bir mum, muma yakın duran pirinç çerçeveli yuvarlak bir mercek ve sağda beyaz bir perde var. Perdede mum alevinin baş aşağı, gerçek alevden büyük bir görüntüsü ve onun üstünde mumun gövdesinden gelen parlak bir şerit görülüyor.">
+          <figcaption>
+            <b>Perdeye düşen alev</b> baş aşağı: mercek mumdan çıkan ışınları perdede yeniden topladığı için orada gerçek ve ters bir görüntü oluşur, mumun gövdesi de bu yüzden alevin üstünde parlak bir şerit olarak görünür. Mercek muma perdeden daha yakın durduğu için b &gt; a'dır ve m = |b/a| büyütmesiyle alev olduğundan büyük çıkar. Mumu odağa doğru biraz daha yaklaştırırsan net görüntü için perdeyi geri çekmen gerekir ve alev daha da büyür.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: f = 30 cm'lik mercekte cisim 60 cm'den 40 cm'ye, 20 cm yaklaşıyor. Görüntü de 20 cm mi uzaklaşır?</summary>
           <p>
@@ -2996,6 +3099,15 @@
           <strong>açısal büyütme</strong> (M) iki odak uzaklığının oranıdır. Galileo 1609'da Hollanda'daki ilk dürbünlerin haberini alınca
           kendi teleskobunu yaptı; Ay'daki dağları ve Jüpiter'in çevresinde dönen dört uyduyu gözledi.
         </p>
+        <figure class="foto">
+          <img src="gorsel/mercekler-ek2.webp?v=1" srcset="gorsel/mercekler-ek2-800.webp?v=1 800w, gorsel/mercekler-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Aydınlık bir laboratuvarda beyaz önlüklü bir öğrenci, beyaz masadaki tek göz mercekli bir ışık mikroskobuna eğilip bakıyor; bir eliyle tabladaki cam preparatı, öbürüyle ayar düğmesini tutuyor. Döner başlıkta farklı boylarda üç objektif, tablanın altında ise yukarı ışık veren bir lamba görünüyor.">
+          <figcaption>
+            <b>Mikroskopta iki mercek</b> art arda çalışır: preparata en yakın duran objektif, küçük cismin büyük, gerçek ve ters bir görüntüsünü tüpün içinde oluşturur. Öğrencinin gözünü dayadığı göz merceği bu görüntüye büyüteç gibi bakar ve onu yeniden büyütür; birinci merceğin görüntüsü ikinciye cisim olur. Toplam büyütme iki büyütmenin çarpımıdır: 40 kat büyüten bir objektif ile 10 kat büyüten bir göz merceği birlikte 400 kat büyütür.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Teleskobun objektifi neden büyük çaplı yapılır; büyütmeyi artırmak için mi?</summary>
           <p>
@@ -3034,6 +3146,15 @@
           Kamera ve mikroskop objektifleri bu yüzden farklı camlardan yapılmış birkaç mercek içerir; bir ince
           kenarlı ile bir kalın kenarlı merceği birleştirmek renk sapmasını büyük ölçüde giderir.
         </p>
+        <figure class="foto">
+          <img src="gorsel/mercekler-ek3.webp?v=1" srcset="gorsel/mercekler-ek3-800.webp?v=1 800w, gorsel/mercekler-ek3.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Yarısına kadar su dolu cam bir akvaryumun içinde bir el, yuvarlak bir cam merceği dik tutuyor; su yüzeyi merceği ortadan kesiyor. Akvaryumun arkasındaki siyah-beyaz dama deseni merceğin havada kalan üst yarısında çok büyümüş, su altındaki alt yarısında ise neredeyse dışarıdaki kadar görünüyor.">
+          <figcaption>
+            <b>Suda zayıflayan büyüteç</b> aynı anda iki farklı mercek gibi davranıyor: havada kalan üst yarı arkadaki kareleri belirgin biçimde büyütürken su altındaki alt yarı onları neredeyse olduğu gibi gösteriyor. Cam ile su arasındaki indis farkı, cam ile hava arasındakinden çok küçüktür; ışık suda daha az bükülür ve indisi 1,5 olan bir cam merceğin odak uzaklığı yaklaşık 4 katına çıkar. Mercek denklemi havadaki mercek için kurulmuştur; ortam değişince f de değişir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Yüzerken gözlerini açınca her şey neden bulanık görünür; deniz gözlüğü bunu nasıl düzeltir?</summary>
           <p>
@@ -3104,6 +3225,8 @@
             Odak uzaklığı 20 cm olan ince kenarlı merceğin 30 cm önüne bir cisim konuyor.
             Görüntünün yeri ve büyütmesi nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> f = +20 cm (ince kenarlı mercek) · a = 30 cm</p>
+          <p class="istenen"><b>İstenen:</b> görüntünün yeri b · büyütme m</p>
           <ol class="steps">
             <li>1/20 = 1/30 + 1/b → 1/b = 1/20 − 1/30 = (3 − 2)/60 = 1/60</li>
             <li>b = <strong>60 cm</strong> (pozitif → gerçek, merceğin öbür tarafında)</li>
@@ -3117,6 +3240,8 @@
           <p>
             Uzak noktası 50 cm olan miyop bir göz için gereken gözlük numarası kaç diyoptridir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> miyop göz · uzak nokta d<sub>uzak</sub> = 50 cm = 0,5 m · bakılacak cisimler çok uzakta (sonsuzda, 1/a = 0)</p>
+          <p class="istenen"><b>İstenen:</b> gözlüğün gücü P (diyoptri)</p>
           <ol class="steps">
             <li>Gözlük, sonsuzdaki cismin görüntüsünü uzak noktaya düşürmelidir.</li>
             <li>f = −50 cm = −0,5 m</li>
@@ -3130,6 +3255,8 @@
           <p>
             Odak uzaklığı 15 cm olan merceğin 10 cm önündeki cismin görüntüsü nasıldır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> f = +15 cm (büyüteç, yani ince kenarlı mercek) · a = 10 cm</p>
+          <p class="istenen"><b>İstenen:</b> görüntünün yeri b · büyütme m · görüntünün türü</p>
           <ol class="steps">
             <li>1/15 = 1/10 + 1/b → 1/b = 1/15 − 1/10 = (2 − 3)/30 = −1/30</li>
             <li>b = <strong>−30 cm</strong>: eksi işaret görüntünün cisimle aynı tarafta
@@ -3145,6 +3272,8 @@
             Odak uzaklığı 20 cm olan kalın kenarlı merceğin 30 cm önündeki cismin görüntüsü
             nerededir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> f = −20 cm (kalın kenarlı mercekte f eksi) · a = 30 cm</p>
+          <p class="istenen"><b>İstenen:</b> görüntünün yeri b ve türü</p>
           <ol class="steps">
             <li>Kalın kenarlı mercekte f = <strong>−20 cm</strong></li>
             <li>1/(−20) = 1/30 + 1/b → 1/b = −1/20 − 1/30 = (−3 − 2)/60 = −5/60</li>
@@ -3159,6 +3288,8 @@
             Yakın noktası 50 cm olan hipermetrop bir kişi, kitabı 25 cm'den okuyabilmek için kaç
             diyoptrilik gözlük takmalıdır? Camın odak uzaklığı kaç cm'dir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> hipermetrop göz · yakın nokta d<sub>yakın</sub> = 50 cm = 0,5 m · kitabın uzaklığı a = 25 cm = 0,25 m</p>
+          <p class="istenen"><b>İstenen:</b> gözlüğün gücü P (diyoptri) · camın odak uzaklığı f</p>
           <ol class="steps">
             <li>Gözlük, 25 cm'deki yazının sanal görüntüsünü yakın noktaya düşürmeli: a = 0,25 m, b = −0,5 m.</li>
             <li>P = 1/a + 1/b = 1/0,25 + 1/(−0,5) = 4 − 2 = <strong>+2 diyoptri</strong></li>
@@ -3173,6 +3304,8 @@
             Bir mum ile perde arasındaki uzaklık 90 cm'dir. Odak uzaklığı 20 cm olan ince kenarlı mercek,
             perdede net görüntü oluşması için mumdan kaç cm uzağa konmalıdır? Her konumda büyütme nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> mum–perde uzaklığı D = 90 cm · f = +20 cm (ince kenarlı) · görüntü perdeye düşüyor (gerçek): a + b = 90 cm</p>
+          <p class="istenen"><b>İstenen:</b> merceğin mumdan uzaklığı a (iki konum) · her konumda büyütme m</p>
           <ol class="steps">
             <li>İki koşul: a + b = 90 ve 1/a + 1/b = 1/20.</li>
             <li>b = 90 − a yazılırsa a² − 90·a + 1800 = 0 olur.</li>
@@ -3191,6 +3324,8 @@
             Bu mercekten 34 cm uzakta, odak uzaklığı 5 cm olan ikinci bir ince kenarlı mercek var. Son
             görüntünün türünü ve boyunu bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> f₁ = +10 cm · a₁ = 15 cm · cismin boyu 1 mm · mercekler arası uzaklık 34 cm · f₂ = +5 cm (ikisi de ince kenarlı)</p>
+          <p class="istenen"><b>İstenen:</b> son görüntünün türü · son görüntünün boyu</p>
           <ol class="steps">
             <li>Birinci mercek: 1/b₁ = 1/10 − 1/15 = (3 − 2)/30 → b₁ = 30 cm, m₁ = 30/15 = 2 (gerçek, ters).</li>
             <li>Bu görüntü ikinci mercekten 34 − 30 = 4 cm öndedir ve ona cisim olur: a₂ = 4 cm, odağın içinde.</li>
@@ -3199,6 +3334,40 @@
             <li>Birinci mercek görüntüyü ters çevirdi, ikinci mercek büyüteç gibi düz bıraktı: son görüntü
               <strong>sanal, ters ve 10 kat büyüktür</strong>. Mikroskop böyle çalışır.</li>
           </ol>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (İnce kenarlı mercekte f artı, kalın kenarlıda eksidir; diyoptri hesabında f metreyle yazılır.)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Odak uzaklığı 25 cm olan ince kenarlı bir merceğin gücü kaç diyoptridir?</summary>
+          <p><b>Cevap:</b> Önce metreye çevir: f = 25 cm = 0,25 m. P = 1/f = 1/0,25 = <strong>+4 D</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Mercekten 20 cm uzaktaki bir cismin görüntüsü merceğin öbür tarafında, 60 cm uzakta oluşuyor. Büyütme kaçtır?</summary>
+          <p><b>Cevap:</b> m = |b / a| = 60 / 20 = <strong>3</strong>. Görüntü cismin 3 katı boyundadır; merceğin öbür tarafında
+            oluştuğu için gerçek ve terstir.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Odak uzaklığı 10 cm olan ince kenarlı bir merceğin 30 cm önüne bir cisim konuyor. Görüntü nerede oluşur, büyütme kaçtır?</summary>
+          <p><b>Cevap:</b> 1/10 = 1/30 + 1/b → 1/b = 3/30 − 1/30 = 2/30 = 1/15 → <strong>b = 15 cm</strong> (artı: gerçek,
+            merceğin öbür tarafında). m = |b / a| = 15 / 30 = <strong>0,5</strong>; görüntü ters ve cismin yarısı boyundadır.
+            Cisim 2f'nin dışında olduğu için bu beklenen sonuçtur.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Odak uzaklığı 12 cm olan bir büyüteç, 8 cm uzaktaki bir harfe tutuluyor. Görüntü nerede oluşur, harf kaç kat büyük görünür?</summary>
+          <p><b>Cevap:</b> 1/12 = 1/8 + 1/b → 1/b = 2/24 − 3/24 = −1/24 → <strong>b = −24 cm</strong>. Eksi işaret görüntünün
+            harfle aynı tarafta, yani sanal olduğunu söyler. m = |−24 / 8| = <strong>3 kat</strong>; görüntü düz ve büyüktür.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Odak uzaklığı 15 cm olan ince kenarlı bir mercek, bir cismin 3 kat büyük görüntüsünü perdeye düşürüyor. Cisim ve perde mercekten kaç cm uzaktadır?</summary>
+          <p><b>Cevap:</b> Görüntü perdede olduğu için gerçektir ve b / a = 3, yani b = 3a. Denklem:
+            1/15 = 1/a + 1/(3a) = 3/(3a) + 1/(3a) = 4/(3a) → 3a = 60 → <strong>a = 20 cm</strong>, <strong>b = 60 cm</strong>.
+            Kontrol: 1/20 + 1/60 = 3/60 + 1/60 = 4/60 = 1/15 ✓</p>
         </details>
 
         <h3 id="k14">Sık yapılan hatalar</h3>

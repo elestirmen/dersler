@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2420,6 +2489,22 @@
           <span>Önce sezgi: alanı demir tozuyla görünür kıl, kaynağını tanı ve yönleri sağ elinle bulmayı öğren. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Elektrik akımı:</strong> bir telde yüklerin akmasıdır ve amper (A) ile ölçülür. 2 A'lik
+              akım, telin bir kesitinden her saniye 2 coulomb yük geçmesi demektir.</li>
+            <li><strong>Elektrik yükü:</strong> protonlar pozitif (+), elektronlar negatif (−) yüklüdür; yükün
+              birimi coulomb (C). Bir elektronun yükü çok küçüktür: 1,6·10⁻¹⁹ C.</li>
+            <li><strong>Kuvvet ve yön:</strong> kuvvet bir itme ya da çekmedir ve newton (N) ile ölçülür. Kuvvetin
+              de hızın da hem büyüklüğü hem yönü vardır; ikisini de okla gösteririz.</li>
+            <li><strong>Sinüs:</strong> formüllerde açının etkisini verir. sin 0° = 0, sin 30° = 0,5,
+              sin 90° = 1; yani dik açıda etki en büyük, sıfır açıda hiç yoktur.</li>
+            <li><strong>Çok küçük sayılar:</strong> 10⁻⁷ = 0,0000001 demektir (virgülden sonraki 7. basamakta 1).
+              Mikro (µ) milyonda bir demektir: 40 µT = 40·10⁻⁶ T = 4·10⁻⁵ T.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: demir tozu neyi gösterir?</h3>
         <p>
           Bir çubuk mıknatısın üstüne beyaz bir kâğıt koy, üzerine demir tozu serp ve kâğıda parmağınla
@@ -2574,6 +2659,15 @@
           elektronlar. Her elektron minicik bir mıknatıs gibi davranır; demirde bu minik mıknatısların
           çoğu aynı yöne dizilince etkileri toplanır.
         </p>
+        <figure class="foto">
+          <img src="gorsel/manyetik-alan-ek1.webp?v=1" srcset="gorsel/manyetik-alan-ek1-800.webp?v=1 800w, gorsel/manyetik-alan-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Sınıftaki bir masada iki tahta ayağın tepesine gerilmiş çıplak bir bakır tel var; tel kırmızı ve siyah kablolarla iki pilli bir pil kutusuna ve bir düğmeli anahtara bağlı. Bir el düğmeye basıyor; telin altında masada duran pusulanın kırmızı ucu tele dik doğrultuda, masanın gerisini gösteriyor.">
+          <figcaption>
+            <b>Düğmeye bastığında</b> telden akım geçer ve telin altındaki pusulanın iğnesi tele dik doğrultuya döner. İğneyi çeviren, akımın telin çevresinde oluşturduğu manyetik alandır; düz telin alan çizgileri teli saran çemberler olduğu için telin altında alan yatay ve tele diktir. Düğmeyi bırakıp akımı kesince iğne yeniden kuzeyi gösterir, pilleri ters çevirirsen ters yöne sapar.
+          </figcaption>
+        </figure>
+
         <p class="kisaca">
           <b>Kısaca:</b> Akım taşıyan tel çevresinde manyetik alan oluşturur; düz telde alan çizgileri teli
           çevreleyen çemberlerdir. Teli bobin hâlinde sarınca alan güçlenir ve bobin bir mıknatıs gibi
@@ -2670,6 +2764,15 @@
           <code>μ₀ / 2π = 2·10⁻⁷ T·m/A</code>
           <code>B = 2·10⁻⁷ · I / r</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>B</td><td>telin oluşturduğu manyetik alanın büyüklüğü</td><td>T</td></tr>
+          <tr><td>I</td><td>telden geçen akım</td><td>A</td></tr>
+          <tr><td>r</td><td>telden, alanı bulmak istediğin noktaya olan uzaklık</td><td>m</td></tr>
+          <tr><td>μ₀</td><td>boşluğun manyetik geçirgenliği; değeri hiç değişmeyen bir sabit (4π·10⁻⁷)</td><td>T·m/A</td></tr>
+          <tr><td>π</td><td>pi sayısı, yaklaşık 3,14</td><td>—</td></tr>
+        </table>
         <h4>Bağıntı nereden geliyor?</h4>
         <ol>
           <li><strong>Akımla orantı:</strong> Akımı iki katına çıkarınca ölçülen alan da iki katına çıkar: B ∝ I.</li>
@@ -2928,6 +3031,16 @@
           <code>r = m·v / (q·B)</code>
           <code>T = 2π·m / (q·B)</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>q</td><td>parçacığın yükünün büyüklüğü</td><td>C</td></tr>
+          <tr><td>v</td><td>parçacığın hızı</td><td>m/s</td></tr>
+          <tr><td>m</td><td>parçacığın kütlesi</td><td>kg</td></tr>
+          <tr><td>B</td><td>parçacığın içinde döndüğü manyetik alan</td><td>T</td></tr>
+          <tr><td>r</td><td>parçacığın çizdiği çemberin yarıçapı (telden uzaklık değil)</td><td>m</td></tr>
+          <tr><td>T</td><td>periyot: bir tam turun süresi; alanın birimi olan tesla (T) ile karıştırma</td><td>s</td></tr>
+        </table>
         <ol>
           <li><strong>Kuvvet merkeze yönelir:</strong> Büyüklüğü sabit ve hep hıza dik bir kuvvet cismi düzgün çembersel harekete zorlar; bunun için gereken merkezcil kuvvet m·v²/r'dir.</li>
           <li><strong>Eşitle:</strong> Bu kuvveti manyetik kuvvet sağlar: q·v·B = m·v²/r.</li>
@@ -3036,6 +3149,15 @@
             gibi maddeler alanı yüzlerce kat güçlendirebilir.
           </p>
         </div>
+        <figure class="foto">
+          <img src="gorsel/manyetik-alan-ek2.webp?v=2" srcset="gorsel/manyetik-alan-ek2-800.webp?v=2 800w, gorsel/manyetik-alan-ek2.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Bir laboratuvar sehpasında üstte ve altta iki tahta çubuğa tutturulmuş, düşey duran iki alüminyum folyo şerit var; şeritler ortalarında hafifçe birbirine doğru bükülmüş, aralarında küçük bir boşluk kalıyor. Pilden çıkan kırmızı kablo ikiye ayrılıp iki şeridin üst ucuna, siyah kablolar iki şeridin alt ucundan pile dönüyor.">
+          <figcaption>
+            <b>İki folyo şerit</b> ortalarından hafifçe birbirine doğru bükülmüş. Pilin kablosu iki şeridin üst ucuna ayrıldığı için akım ikisinde de aynı yönde akar, ve aynı yönde akım taşıyan paralel iletkenler birbirini çeker: F/L = 2·10⁻⁷·I₁·I₂/d. Akımlardan birinin yönünü çevirirsen şeritler bu kez birbirinden uzaklaşır; zıt yönlü akımlar iter.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Evdeki uzatma kablosundan 10 A geçerken yanına konan pusula neden neredeyse hiç sapmaz?</summary>
           <p>
@@ -3084,6 +3206,15 @@
             kaybeder; büyük hızlandırıcılar bu yüzden alanı ya da frekansı hıza göre ayarlar.
           </p>
         </div>
+        <figure class="foto">
+          <img src="gorsel/manyetik-alan-ek3.webp?v=2" srcset="gorsel/manyetik-alan-ek3-800.webp?v=2 800w, gorsel/manyetik-alan-ek3.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir laboratuvarda karşılıklı duran iki büyük bakır halka bobinin arasında cam bir küre var; kürenin içinde bobinlerin ekseni boyunca ilerleyen, yandan bakınca dalga gibi görünen tek bir parlak mavi-yeşil sarmal ışıldıyor.">
+          <figcaption>
+            <b>Işıldayan sarmal</b>, iki halka bobinin arasındaki alana eğik gönderilen elektron demetinin yoludur: hızın alana dik bileşeni demeti döndürür, alana paralel bileşeni ise onu bobinlerin ekseni boyunca taşır. Yandan baktığın için sarmal bir dalga gibi görünür; her turda eksen boyunca alınan yol sarmalın adımıdır. Güneş'ten gelen parçacıklar da Dünya'nın alan çizgilerine böyle sarılarak kutuplara taşınır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Kutup ışıkları neden ekvatorda değil de kutuplara yakın bölgelerde görülür?</summary>
           <p>
@@ -3196,6 +3327,8 @@
             20 A akım taşıyan düz bir telden 10 cm uzaklıktaki manyetik alanın büyüklüğü nedir?
             Uzaklık iki katına çıkarılırsa alan ne olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> I = 20 A · r = 10 cm = 0,1 m · μ₀/2π = 2·10⁻⁷ T·m/A</p>
+          <p class="istenen"><b>İstenen:</b> 10 cm'deki alan B · uzaklık iki katına (20 cm) çıkınca alan</p>
           <ol class="steps">
             <li>B = 2·10⁻⁷ · I / r = 2·10⁻⁷ · 20 / 0,1</li>
             <li>B = 4·10⁻⁵ T = <strong>40 µT</strong> (Dünya'nın alanı mertebesinde)</li>
@@ -3209,6 +3342,8 @@
             0,5 T'lık düzgün manyetik alana dik olarak yerleştirilmiş 40 cm uzunluğundaki telden
             6 A akım geçiyor. Tele etki eden kuvvet nedir? Tel alana 30° açı yapsaydı?
           </p>
+          <p class="verilen"><b>Verilenler:</b> B = 0,5 T · L = 40 cm = 0,4 m · I = 6 A · tel alana dik: α = 90° (sin90° = 1) · ikinci durumda α = 30° (sin30° = 0,5)</p>
+          <p class="istenen"><b>İstenen:</b> tel alana dikken kuvvet F · tel alana 30° açı yaparken kuvvet F</p>
           <ol class="steps">
             <li>Dik durumda: F = B·I·L = 0,5 · 6 · 0,4 = <strong>1,2 N</strong></li>
             <li>30° için: F = B·I·L·sin30° = 1,2 · 0,5 = <strong>0,6 N</strong></li>
@@ -3222,6 +3357,8 @@
             Sayfa düzleminde sağa doğru hareket eden bir elektron, sayfaya doğru (⊗) yönelmiş
             manyetik alana giriyor. Elektron hangi yöne sapar?
           </p>
+          <p class="verilen"><b>Verilenler:</b> yük negatif (elektron) · hız sağa doğru · alan sayfaya doğru (⊗)</p>
+          <p class="istenen"><b>İstenen:</b> elektrona etki eden manyetik kuvvetin yönü, yani sapma yönü</p>
           <ol class="steps">
             <li>Önce <strong>pozitif</strong> yük varmış gibi düşün: parmaklar hız (sağa) yönünden
               alan (sayfaya doğru) yönüne döndürülür; başparmak <strong>yukarıyı</strong> gösterir.</li>
@@ -3237,6 +3374,8 @@
             Kütlesi 9,1·10⁻³¹ kg, yükü 1,6·10⁻¹⁹ C olan bir elektron, 2·10⁷ m/s hızla 1 mT'lık
             alana dik giriyor. Yörüngenin yarıçapı ve periyodu nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 9,1·10⁻³¹ kg · q = 1,6·10⁻¹⁹ C · v = 2·10⁷ m/s · B = 1 mT = 10⁻³ T · hız alana dik · π ≈ 3,14</p>
+          <p class="istenen"><b>İstenen:</b> yörüngenin yarıçapı r · periyot T</p>
           <ol class="steps">
             <li>r = m·v/(q·B) = (9,1·10⁻³¹ · 2·10⁷) / (1,6·10⁻¹⁹ · 10⁻³)</li>
             <li>r = 1,82·10⁻²³ / 1,6·10⁻²² ≈ <strong>0,114 m ≈ 11,4 cm</strong></li>
@@ -3252,6 +3391,8 @@
             (a) Tellerin tam ortasındaki net manyetik alanı, (b) net alanın sıfır olduğu noktayı,
             (c) tellerin birbirine uyguladığı birim uzunluk başına kuvveti bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> teller arası uzaklık d = 10 cm = 0,1 m · I₁ = 10 A · I₂ = 30 A · akımlar aynı yönde · μ₀/2π = 2·10⁻⁷ T·m/A</p>
+          <p class="istenen"><b>İstenen:</b> (a) tam ortadaki net alan · (b) net alanın sıfır olduğu nokta · (c) birim uzunluk başına kuvvet F/L</p>
           <ol class="steps">
             <li>Orta nokta her telden 5 cm uzaktadır: B₁ = 2·10⁻⁷ · 10 / 0,05 = 4·10⁻⁵ T,
               B₂ = 2·10⁻⁷ · 30 / 0,05 = 1,2·10⁻⁴ T.</li>
@@ -3271,6 +3412,8 @@
             giriyor, yarım çember çizip giriş noktasıyla aynı hizadaki bir levhaya çarpıyor. Levhadaki
             iki iz arasındaki uzaklık nedir? (1 u = 1,66·10⁻²⁷ kg; kütleler 20 u ve 22 u)
           </p>
+          <p class="verilen"><b>Verilenler:</b> q = 1,6·10⁻¹⁹ C · v = 1·10⁵ m/s · B = 0,5 T · kütleler 20 u ve 22 u · 1 u = 1,66·10⁻²⁷ kg · iyonlar alana dik girip yarım çember çiziyor</p>
+          <p class="istenen"><b>İstenen:</b> levhadaki iki iz arasındaki uzaklık</p>
           <ol class="steps">
             <li>Yarıçap r = m·v/(q·B); hız, yük ve alan ikisi için de aynıdır, yalnızca kütle farklıdır.</li>
             <li>r₂₀ = (20 · 1,66·10⁻²⁷ · 10⁵) / (1,6·10⁻¹⁹ · 0,5) = 3,32·10⁻²¹ / 8·10⁻²⁰ ≈ <strong>4,15 cm</strong></li>
@@ -3282,6 +3425,39 @@
             Kütledeki %10'luk fark yarıçapta da %10'luk fark yaratır. Neonun iki farklı kütlede atomu
             olduğu 20. yüzyılın başında bu tür sapma deneyleriyle anlaşıldı.
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (μ₀/2π = 2·10⁻⁷ T·m/A, sin30° = 0,5; yüklü parçacıklarda yerçekimini ihmal et.)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: 5 A akım taşıyan düz ve uzun bir telden 2 cm uzaktaki manyetik alan kaç µT'dır?</summary>
+          <p><b>Cevap:</b> Uzaklığı metreye çevir: r = 0,02 m. B = 2·10⁻⁷ · I / r = 2·10⁻⁷ · 5 / 0,02 = 5·10⁻⁵ T =
+            <strong>50 µT</strong>. Bu, Dünya'nın manyetik alanı kadardır.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: 0,2 T'lık düzgün alana dik duran 50 cm'lik telden 4 A akım geçiyor. Tele etki eden kuvvet kaç N'dur?</summary>
+          <p><b>Cevap:</b> L = 0,5 m. Tel alana dik olduğu için sinα = 1: F = B · I · L = 0,2 · 4 · 0,5 = <strong>0,4 N</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Bir proton (q = 1,6·10⁻¹⁹ C) 10⁶ m/s hızla 0,5 T'lık alana, alanla 30° açı yapacak biçimde giriyor. Protona etki eden kuvvet kaç N'dur?</summary>
+          <p><b>Cevap:</b> F = q · v · B · sinα = 1,6·10⁻¹⁹ · 10⁶ · 0,5 · 0,5 = <strong>4·10⁻¹⁴ N</strong>. Önce sayıları çarp
+            (1,6 · 0,5 · 0,5 = 0,4), sonra 10'un kuvvetlerini birleştir (10⁻¹⁹ · 10⁶ = 10⁻¹³): 0,4·10⁻¹³ = 4·10⁻¹⁴ N.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Uzun bir telden 10 cm uzaktaki alan 60 µT'dır. Telden kaç A akım geçer? Aynı telden 30 cm uzaktaki alan kaç µT olur?</summary>
+          <p><b>Cevap:</b> I = B · r / (2·10⁻⁷) = 6·10⁻⁵ · 0,1 / (2·10⁻⁷) = <strong>30 A</strong>. Uzaklık 3 katına çıkınca
+            alan 3'te birine iner: 60 / 3 = <strong>20 µT</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Kütlesi 8·10⁻²⁷ kg, yükü 3,2·10⁻¹⁹ C olan bir iyon 0,5 T'lık alana 4·10⁵ m/s hızla dik giriyor. Yörünge yarıçapı kaç cm'dir? Hız iki katına çıkarsa yarıçap ve periyot ne olur?</summary>
+          <p><b>Cevap:</b> r = m · v / (q · B) = 8·10⁻²⁷ · 4·10⁵ / (3,2·10⁻¹⁹ · 0,5) = 3,2·10⁻²¹ / 1,6·10⁻¹⁹ = 0,02 m =
+            <strong>2 cm</strong>. Hız iki katına çıkarsa yarıçap da iki katına çıkar: <strong>4 cm</strong>. Periyot
+            T = 2π·m / (q·B) hıza bağlı olmadığı için <strong>değişmez</strong>.</p>
         </details>
 
         <h3 id="k14">Sık yapılan hatalar</h3>

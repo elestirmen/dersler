@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2434,6 +2503,22 @@
           <span>Önce sezgi: atılan bir cismin yoluna bak, hareketi iki eksene ayır ve iki eksenin neden birbirini etkilemediğini gör. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Sabit hızla gitmek:</strong> hız hiç değişmiyorsa alınan yol = hız × süre. 10 m/s ile
+              giden bir bisiklet 3 saniyede 10 · 3 = 30 m yol alır.</li>
+            <li><strong>Serbest düşme:</strong> bırakılan bir cisim her saniye yaklaşık 10 m/s hızlanır. Bu
+              sayıya yerçekimi ivmesi denir ve g ile gösterilir: g = 10 m/s².</li>
+            <li><strong>Vektör:</strong> hem büyüklüğü hem yönü olan bir nicelik; ok ile çizilir. “5 m/s” bir
+              sürattir, “doğuya doğru 5 m/s” ise bir hız vektörüdür.</li>
+            <li><strong>Dik üçgen ve Pisagor:</strong> dik kenarları 3 ve 4 olan üçgenin en uzun kenarı
+              (hipotenüsü) 5'tir, çünkü 3² + 4² = 9 + 16 = 25 = 5².</li>
+            <li><strong>Sinüs ve kosinüs:</strong> dik üçgende sin = karşı kenar / hipotenüs, cos = komşu kenar /
+              hipotenüs. 3-4-5 üçgeninde sin37° = 3/5 = 0,6 ve cos37° = 4/5 = 0,8.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: atılan bir cisim nasıl bir yol çizer?</h3>
         <p>
           Bahçe hortumunun ağzını yere paralel tut ve musluğu aç. Su ağızdan dümdüz ileri çıkar, ama
@@ -2643,6 +2728,16 @@
           <code>v₀ₓ = v₀·cosα</code>
           <code>v₀ᵧ = v₀·sinα</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>v⃗₀, v₀</td><td>ilk hız ve büyüklüğü (atış sürati)</td><td>m/s</td></tr>
+          <tr><td>v₀ₓ, v₀ᵧ</td><td>ilk hızın yatay ve düşey bileşeni</td><td>m/s</td></tr>
+          <tr><td>α</td><td>atış açısı (yatayla ölçülür)</td><td>°</td></tr>
+          <tr><td>a⃗</td><td>ivme; atışlarda g, yönü hep aşağı</td><td>m/s²</td></tr>
+          <tr><td>r⃗</td><td>cismin konumu (x: yatay, y: düşey)</td><td>m</td></tr>
+          <tr><td>t</td><td>atıştan beri geçen süre</td><td>s</td></tr>
+        </table>
         <h4>Bileşenler nereden geliyor?</h4>
         <ol>
           <li><strong>Dik üçgen kur:</strong> ilk hız vektörü hipotenüstür; yatay ve düşey bileşenler üçgenin iki dik kenarıdır.</li>
@@ -3123,6 +3218,15 @@
           yataya vermek daha kârlıdır. Aynı kuleden 20 m/s ile atınca en iyi açı yaklaşık 35°'ye çıkar:
           ilk hız yüksekliğe göre büyüdükçe en iyi açı 45°'ye yaklaşır.
         </p>
+        <figure class="foto">
+          <img src="gorsel/iki-boyutta-hareket-ek1.webp?v=3" srcset="gorsel/iki-boyutta-hareket-ek1-800.webp?v=3 800w, gorsel/iki-boyutta-hareket-ek1.webp?v=3 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Gün batımında denize bakan kayalık bir yarın kenarında bir genç kolunu ileri uzatmış; attığı taş havada. İnce soluk bir çizgi taşın yolunu gösteriyor: elden biraz yükselip tepe noktasından sonra aşağıdaki denize doğru uzun bir eğriyle iniyor.">
+          <figcaption>
+            <b>Yüksekten atılan taşın yolu</b> simetrik değildir: taş el hizasının biraz üstüne çıkıp geri döner, ama yolunun çok daha uzun kısmı ondan sonra, kayalığın dibindeki denize doğru süren düşüşte kalır. Hava direnci ihmal edilirse taşın yatay hızı yol boyunca değişmez; düşüş uzadıkça büyüyen yalnızca düşey hızdır. Taş zaten yüksekten düşeceği için havada kalma süresini artırmaya pek gerek yoktur; hızın büyük kısmını yataya vermek, yani 45°'den daha yatık atmak menzili artırır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Bu kulede yatay atış ile 45°'lik atış aynı yere düşüyor. Hangisi yere daha hızlı çarpar?</summary>
           <p>
@@ -3158,6 +3262,15 @@
           <li><strong>Açı fark etmez:</strong> nişan eğik de olsa sonuç aynıdır; iki cisim de düz çizgiden aynı miktarda sapar.</li>
           <li><strong>Hız fark etmez:</strong> mermi yavaşsa ikisi daha çok düşer ama yine buluşur; yeter ki hedef yere değmeden varsın.</li>
         </ul>
+        <figure class="foto">
+          <img src="gorsel/iki-boyutta-hareket-ek2.webp?v=1" srcset="gorsel/iki-boyutta-hareket-ek2-800.webp?v=1 800w, gorsel/iki-boyutta-hareket-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Fizik laboratuvarında bir öğrenci masadaki yaylı metal fırlatma tüpünü tutuyor, iki arkadaşı da izliyor; tüpten çıkan sarı top eğik bir yolla sağa doğru uçuyor. Sağdaki uzun metal direğin kolundaki tutucudan bırakılmış oyuncak maymun, arkasında hareket izi bırakarak aşağı düşüyor.">
+          <figcaption>
+            <b>Düşen hedef deneyinde</b> tüp doğrudan oyuncağın ilk yerine nişanlanır ve top tüpten çıktığı anda tutucu oyuncağı bırakır. Top da oyuncak da aynı sürede aynı ½·g·t² kadar düştüğü için top, nişan çizgisinin altında ama tam oyuncağın hizasında onunla buluşur.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Maymun kendini bırakmasaydı, 200 m/s'lik mermi 100 m ötede ona göre nereden geçerdi?</summary>
           <p>
@@ -3192,6 +3305,15 @@
           uzaklığın çok gerisinde kalır. Badminton topu ya da pinpon topu gibi hafif cisimlerde fark çok
           daha büyüktür. Hava direncinin ayrıntıları bu ünitenin “Limit hız” konusunda.
         </p>
+        <figure class="foto">
+          <img src="gorsel/iki-boyutta-hareket-ek3.webp?v=2" srcset="gorsel/iki-boyutta-hareket-ek3-800.webp?v=2 800w, gorsel/iki-boyutta-hareket-ek3.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Kapalı bir badminton salonunda soldaki oyuncu raketini başının üstüne uzatarak topa yukarı doğru vurmuş; tüylü topun ince bir çizgiyle birleştirilmiş art arda görüntüleri yatık bir yayla yükseliyor. Tepe noktasından sonra top, çıkıştakinden daha dik bir yolla sahanın sağ tarafına iniyor.">
+          <figcaption>
+            <b>Tüylü top</b> hafif ve geniş olduğu için hava direnci onun için ağırlığının yanında büyüktür ve yatay hızını hızla azaltır. Bu yüzden top yatık bir yayla çıkar, ama tepe noktasından sonra çıkıştakinden daha dik bir yolla iner. Havasız ortamda çizeceği simetrik parabolün yerini yamuk bir eğri alır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Hava direnci varken eğik atılan bir topun çıkışı mı daha uzun sürer, inişi mi?</summary>
           <p>
@@ -3254,6 +3376,8 @@
             ayağından 1,2 m ötede yere düşüyor. (a) Düşme süresini, (b) bilyenin masadan ayrılma
             süratini, (c) yere çarpma süratini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 0,8 m · x = 1,2 m · yatay yuvarlanıyor → v₀ᵧ = 0 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) düşme süresi t · (b) masadan ayrılma sürati v₀ · (c) yere çarpma sürati v</p>
           <ol class="steps">
             <li><strong>(a)</strong> Düşeyde serbest düşme: 0,8 = ½·10·t² → t² = 0,16 → <strong>t = 0,4 s</strong></li>
             <li><strong>(b)</strong> Yatayda sabit hız: v₀ = x / t = 1,2 / 0,4 = <strong>3 m/s</strong></li>
@@ -3267,6 +3391,8 @@
             80 m yüksekliğindeki bir kuleden yatay doğrultuda 30 m/s süratle atılan cisim için:
             (a) uçuş süresini, (b) menzili, (c) yere çarpma süratini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 80 m · v₀ = 30 m/s (yatay atış → v₀ᵧ = 0) · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) uçuş süresi t · (b) menzil x · (c) yere çarpma sürati v</p>
           <ol class="steps">
             <li><strong>(a)</strong> Düşey hareket serbest düşmedir: 80 = ½·10·t² → t² = 16 → <strong>t = 4 s</strong></li>
             <li><strong>(b)</strong> Yatayda sabit hız: x = 30 · 4 = <strong>120 m</strong></li>
@@ -3282,6 +3408,8 @@
             (a) tepe noktasına çıkma süresini, (b) maksimum yüksekliği, (c) menzili bulunuz.
             (sin53° = 0,8 · cos53° = 0,6)
           </p>
+          <p class="verilen"><b>Verilenler:</b> v₀ = 50 m/s · α = 53° · sin53° = 0,8 · cos53° = 0,6 · g = 10 m/s² · cisim yerden atılıp yere iniyor</p>
+          <p class="istenen"><b>İstenen:</b> (a) tepeye çıkma süresi t<sub>tepe</sub> · (b) maksimum yükseklik h<sub>maks</sub> · (c) menzil R</p>
           <ol class="steps">
             <li>Bileşenler: v₀ₓ = 50·0,6 = <strong>30 m/s</strong>, v₀ᵧ = 50·0,8 = <strong>40 m/s</strong></li>
             <li><strong>(a)</strong> Tepede v<sub>y</sub> = 0 → 0 = 40 − 10·t → <strong>t = 4 s</strong></li>
@@ -3296,6 +3424,8 @@
           <p>
             20 m/s süratle atılan bir cismin 30°, 45° ve 60° için menzillerini karşılaştırınız.
           </p>
+          <p class="verilen"><b>Verilenler:</b> v₀ = 20 m/s · α = 30°, 45° ve 60° · g = 10 m/s² · sin60° = sin120° ≈ 0,866 · sin90° = 1</p>
+          <p class="istenen"><b>İstenen:</b> üç açı için menzil R ve menzillerin karşılaştırılması</p>
           <ol class="steps">
             <li>R = v₀²·sin2α / g = 400·sin2α / 10 = 40·sin2α</li>
             <li>30° → 40·sin60° = 40·0,866 ≈ <strong>34,6 m</strong></li>
@@ -3313,6 +3443,8 @@
             bırakacak. (a) Paket kaç saniyede yere iner? (b) Uçak, hedefin kaç metre gerisindeyken paketi
             bırakmalıdır? (c) Paket yere değdiğinde uçak nerededir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 500 m · uçağın yatay hızı 100 m/s → paketin ilk hızı v₀ = 100 m/s, v₀ᵧ = 0 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) iniş süresi t · (b) bırakma anında hedefe yatay uzaklık x · (c) paket yere değince uçağın yeri</p>
           <ol class="steps">
             <li>Paket bırakıldığı anda uçağın yatay hızına sahiptir: v₀ = 100 m/s, v₀ᵧ = 0 (yatay atış).</li>
             <li><strong>(a)</strong> 500 = ½·10·t² → t² = 100 → <strong>t = 10 s</strong></li>
@@ -3329,6 +3461,8 @@
             bir duvara doğru gidiyor. (a) Top duvarı aşar mı? (b) Duvarın hizasından geçerken yükselmekte
             mi, alçalmakta mıdır? (c) Duvar olmasaydı top nereye düşerdi? (sin37° = 0,6 · cos37° = 0,8)
           </p>
+          <p class="verilen"><b>Verilenler:</b> v₀ = 25 m/s · α = 37° · sin37° = 0,6 · cos37° = 0,8 · duvara uzaklık 20 m · duvar yüksekliği 8 m · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) top duvarı aşar mı · (b) duvar hizasında yükseliyor mu, alçalıyor mu · (c) duvar olmasaydı menzil R</p>
           <ol class="steps">
             <li>Bileşenler: v₀ₓ = 25·0,8 = 20 m/s, v₀ᵧ = 25·0,6 = 15 m/s</li>
             <li>Duvara varış: t = 20 / 20 = 1 s</li>
@@ -3345,6 +3479,8 @@
             (a) yere çarpma süresini, (b) yatay uzaklığı, (c) çarpma süratini bulunuz.
             (sin37° = 0,6 · cos37° = 0,8)
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 20 m · v₀ = 25 m/s · α = 37° · sin37° = 0,6 · cos37° = 0,8 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) yere çarpma süresi t · (b) yatay uzaklık x · (c) çarpma sürati v</p>
           <ol class="steps">
             <li>Bileşenler: v₀ₓ = 25·0,8 = 20 m/s, v₀ᵧ = 25·0,6 = 15 m/s</li>
             <li><strong>(a)</strong> Yere değince y = 0: 20 + 15t − 5t² = 0 → t² − 3t − 4 = 0 →
@@ -3355,6 +3491,40 @@
             <li>Kısa yol: v² = v₀² + 2gh = 625 + 2·10·20 = 1025 ✓ (yükseklik farkı aynıysa
               atış açısı sürati değiştirmez)</li>
           </ol>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (g = 10 m/s², hava direnci yok, sin37° = 0,6 · cos37° = 0,8)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: 1,25 m yüksekliğindeki bir masanın kenarından yatay yuvarlanan bilye kaç saniyede yere düşer?</summary>
+          <p><b>Cevap:</b> Düşeyde serbest düşme vardır: t = √(2h / g) = √(2 · 1,25 / 10) = √0,25 = <strong>0,5 s</strong>.
+            Bilyenin masadan ayrılma sürati bu süreyi değiştirmez.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Bir top 40 m/s süratle, yatayla 37° açı yapacak biçimde atılıyor. İlk hızın yatay ve düşey bileşenleri kaç m/s'dir?</summary>
+          <p><b>Cevap:</b> v₀ₓ = v₀ · cos37° = 40 · 0,8 = <strong>32 m/s</strong>, v₀ᵧ = v₀ · sin37° = 40 · 0,6 = <strong>24 m/s</strong>.
+            Kontrol: 32² + 24² = 1024 + 576 = 1600 = 40² ✓</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: 20 m yüksekliğindeki bir çatıdan 15 m/s ile yatay atılan top, binanın kaç metre ötesine düşer ve yere kaç m/s süratle çarpar?</summary>
+          <p><b>Cevap:</b> Süre t = √(2 · 20 / 10) = 2 s. Yatayda x = v₀ · t = 15 · 2 = <strong>30 m</strong>. Düşey hız
+            v<sub>y</sub> = g · t = 20 m/s → v = √(15² + 20²) = √625 = <strong>25 m/s</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Yerden atılan bir topun ilk hız bileşenleri v₀ₓ = 10 m/s ve v₀ᵧ = 20 m/s'dir. Top kaç saniye havada kalır, kaç metre öteye düşer ve tepede sürati kaç m/s olur?</summary>
+          <p><b>Cevap:</b> Tepeye çıkış t<sub>tepe</sub> = v₀ᵧ / g = 20 / 10 = 2 s, iniş de 2 s sürer: top <strong>4 s</strong> havada
+            kalır. Menzil R = v₀ₓ · t = 10 · 4 = <strong>40 m</strong>. Tepede v<sub>y</sub> = 0 olur ama yatay hız sürer: sürat sıfır değil, <strong>10 m/s</strong>'dir.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: 20 m/s ile yatay atılan bir taşın hızı kaç saniye sonra yatayla 45° açı yapar? O ana kadar taş kaç metre düşmüştür?</summary>
+          <p><b>Cevap:</b> 45°'de tanθ = v<sub>y</sub> / v<sub>x</sub> = 1 olur, yani v<sub>y</sub> = v<sub>x</sub> = 20 m/s olmalı.
+            v<sub>y</sub> = g · t → 20 = 10 · t → <strong>t = 2 s</strong>. Bu sürede düşülen yol ½ · g · t² = 5 · 2² = <strong>20 m</strong>.
+            O anki sürat √(20² + 20²) ≈ 28,3 m/s olur.</p>
         </details>
 
         <h3 id="k15">Sık yapılan hatalar</h3>

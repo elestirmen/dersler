@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2409,6 +2478,22 @@
           <span>Önce sezgi: yüklü bir cismin ne yaptığını gözle, yükü tanı ve cisimlerin nasıl yüklendiğini gör. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Atom:</strong> her madde atomlardan oluşur. Atomun ortasında çekirdek, çevresinde çok küçük
+              ve hafif elektronlar bulunur.</li>
+            <li><strong>Kuvvet ve etki–tepki:</strong> kuvvet itme ya da çekmedir, newton (N) ile ölçülür. İki cisim
+              birbirine her zaman eşit büyüklükte, zıt yönlü kuvvet uygular: duvarı ittiğinde duvar da seni iter.</li>
+            <li><strong>Kuvvetleri toplamak:</strong> aynı yöndeki kuvvetler toplanır, zıt yöndekiler çıkarılır.
+              Birbirine dik 3 N ile 4 N'un toplamı Pisagor'la bulunur: √(9 + 16) = 5 N.</li>
+            <li><strong>Üslü sayılar:</strong> 10⁻⁶ milyonda bir (mikro, µ), 10⁹ bir milyar demektir. Çarparken
+              üsler toplanır: 10⁹ · 10⁻⁶ = 10³.</li>
+            <li><strong>Birim çevirme ve kare:</strong> 30 cm = 0,3 m ve 0,3² = 0,3 · 0,3 = 0,09. Bir uzaklık
+              2 katına çıkınca karesi 4 katına çıkar.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: balon saçı neden çeker?</h3>
         <p>
           Bir balonu saçına birkaç kez sürt ve yavaşça başının üstüne kaldır. Saç telleri, balona
@@ -2542,6 +2627,15 @@
           Buna <strong>kutuplanma</strong> denir. Yakındaki çekme uzaktaki itmeden güçlü olduğu için
           sonuç çekmedir. Nötr kâğıt parçalarının yüklü tarağa sıçraması da böyledir.
         </p>
+        <figure class="foto">
+          <img src="gorsel/elektriksel-kuvvet-ek1.webp?v=1" srcset="gorsel/elektriksel-kuvvet-ek1-800.webp?v=1 800w, gorsel/elektriksel-kuvvet-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Açık renkli ahşap bir masanın üstünde bir el, koyu mavi plastik bir tarağı küçük beyaz kâğıt parçalarından oluşan bir yığının üstünde tutuyor. Bazı kâğıt parçaları tarağın dişlerine yapışmış, birkaçı da yığınla tarak arasında havada duruyor.">
+          <figcaption>
+            <b>Saça sürtülen tarak</b> yüklenir, kâğıt parçaları ise nötrdür. Tarak yaklaşınca kâğıttaki yükler hafifçe kayar: tarağa bakan yüzde zıt işaretli yük öne çıkar ve yakındaki bu çekme uzaktaki itmeden güçlü olduğu için kâğıt tarağa sıçrar. Bu olaya <b>kutuplanma</b> denir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Kış aylarında kapı koluna dokununca neden daha sık çarpılırsın?</summary>
           <p>
@@ -2571,6 +2665,15 @@
           <code>F = k · q₁ · q₂ / r²</code>
           <code>k = 9 · 10⁹ N·m²/C²</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>F</td><td>iki yükün birbirine uyguladığı elektriksel kuvvetin büyüklüğü</td><td>N</td></tr>
+          <tr><td>k</td><td>Coulomb sabiti; havada ve boşlukta 9 · 10⁹</td><td>N·m²/C²</td></tr>
+          <tr><td>q₁</td><td>birinci cismin yükü (hesapta işaretini yazma, yalnızca büyüklüğünü koy)</td><td>C</td></tr>
+          <tr><td>q₂</td><td>ikinci cismin yükü</td><td>C</td></tr>
+          <tr><td>r</td><td>iki yük arasındaki uzaklık (küreler için merkezden merkeze)</td><td>m</td></tr>
+        </table>
         <p>
           Kuvvet, yükleri birleştiren doğru üzerindedir: aynı işaretlilerde <strong>itici</strong>,
           zıt işaretlilerde <strong>çekici</strong>. Yükler farklı büyüklükte olsa bile
@@ -3086,6 +3189,15 @@
             “merkezler arası uzaklık” basitliği bozulur.
           </p>
         </div>
+        <figure class="foto">
+          <img src="gorsel/elektriksel-kuvvet-ek2.webp?v=1" srcset="gorsel/elektriksel-kuvvet-ek2-800.webp?v=1 800w, gorsel/elektriksel-kuvvet-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir gösteri salonunda, platformun üstündeki küre biçimli büyük bir tel örgü kafesin içinde bir adam sakin biçimde duruyor. Sağdaki bakır gövdeli, tepesi simit biçimli metal başlıklı yüksek gerilim bobininden çıkan mavi-mor kıvılcımlar kafesin dış yüzeyine çarpıp üzerinde dallanıyor; önde izleyicilerin siluetleri görülüyor.">
+          <figcaption>
+            <b>Faraday kafesine</b> çarpan kıvılcımların getirdiği yük, iletken kafesin dış yüzeyine dağılır ve içeri geçmez. İletkenin içinde alan sıfır kaldığı için içerideki kişi kıvılcımların yolunda değildir. Yıldırım düşen otomobilin ya da uçağın içindekileri koruyan da aynı ilkedir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Yıldırımlı havada otomobilin içi neden görece güvenlidir?</summary>
           <p>
@@ -3155,6 +3267,8 @@
             Havada birbirinden 30 cm uzaklıkta duran q₁ = +2 µC ve q₂ = −3 µC yükleri arasındaki
             kuvvetin büyüklüğünü ve türünü bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> q₁ = +2 µC · q₂ = −3 µC · r = 30 cm = 0,3 m · k = 9·10⁹ N·m²/C²</p>
+          <p class="istenen"><b>İstenen:</b> kuvvetin büyüklüğü F ve türü (itme mi, çekme mi?)</p>
           <ol class="steps">
             <li>Birimleri çevir: q₁ = 2·10⁻⁶ C, q₂ = 3·10⁻⁶ C, r = 0,3 m</li>
             <li>F = k·q₁·q₂/r² = 9·10⁹ · (2·10⁻⁶ · 3·10⁻⁶) / 0,09</li>
@@ -3171,6 +3285,8 @@
             3 katına çıkarılırsa kuvvet ne olur? Uzaklık aynı kalıp yüklerden biri 2 katına
             çıkarılsaydı?
           </p>
+          <p class="verilen"><b>Verilenler:</b> ilk kuvvet F = 36 N · 1. durum: yükler aynı, uzaklık 3 katına çıkıyor · 2. durum: uzaklık aynı, yüklerden biri 2 katına çıkıyor</p>
+          <p class="istenen"><b>İstenen:</b> iki durumda yeni kuvvet</p>
           <ol class="steps">
             <li>F ∼ 1/r² → r 3 katına çıkarsa F, 9'da birine iner: 36/9 = <strong>4 N</strong></li>
             <li>F ∼ q₁·q₂ → yüklerden biri 2 katına çıkarsa F de 2 katına çıkar: <strong>72 N</strong></li>
@@ -3184,6 +3300,8 @@
             q = +4 µC'luk noktasal yükten 20 cm uzaktaki bir noktada (a) alanın büyüklüğünü ve yönünü,
             (b) bu noktaya −2 µC'luk bir yük konursa ona etki eden kuvveti bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> kaynak yük q = +4 µC · r = 20 cm = 0,2 m · konan yük −2 µC · k = 9·10⁹ N·m²/C²</p>
+          <p class="istenen"><b>İstenen:</b> (a) alanın büyüklüğü E ve yönü · (b) −2 µC'luk yüke etki eden kuvvet F</p>
           <ol class="steps">
             <li><strong>(a)</strong> E = k·q/r² = 9·10⁹ · 4·10⁻⁶ / 0,04 = <strong>9·10⁵ N/C</strong></li>
             <li>Kaynak pozitif olduğu için alan <strong>yükten dışarı</strong> doğrudur.</li>
@@ -3198,6 +3316,8 @@
             q₃ = +1 µC'luk yükün 10 cm soluna q₁ = +1 µC, 15 cm aşağısına q₂ = −3 µC yerleştiriliyor.
             q₃'e etki eden net kuvvetin büyüklüğünü bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> q₃ = +1 µC · q₁ = +1 µC, q₃'ün 10 cm = 0,1 m solunda · q₂ = −3 µC, q₃'ün 15 cm = 0,15 m aşağısında · k = 9·10⁹ N·m²/C²</p>
+          <p class="istenen"><b>İstenen:</b> q₃'e etki eden net kuvvetin büyüklüğü F<sub>net</sub></p>
           <ol class="steps">
             <li>F₁ = 9·10⁹ · 1·10⁻⁶ · 1·10⁻⁶ / 0,01 = <strong>0,9 N</strong>; aynı işaretli, q₃'ü sağa iter.</li>
             <li>F₂ = 9·10⁹ · 3·10⁻⁶ · 1·10⁻⁶ / 0,0225 = <strong>1,2 N</strong>; zıt işaretli, q₃'ü aşağı çeker.</li>
@@ -3212,6 +3332,8 @@
             Aralarında 30 cm bulunan q₁ = +4 µC ve q₂ = +1 µC yükleri için, aralarındaki doğru
             üzerinde alanın sıfır olduğu noktayı bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> q₁ = +4 µC · q₂ = +1 µC · aradaki uzaklık 30 cm</p>
+          <p class="istenen"><b>İstenen:</b> iki yükü birleştiren doğru üzerinde alanın sıfır olduğu noktanın yeri</p>
           <ol class="steps">
             <li>Aynı işaretli yüklerde sıfır noktası <strong>aralarındadır</strong>; yükler eşit değilse küçük yüke daha yakındır.</li>
             <li>q₁'den x uzaklıkta olsun: k·4/x² = k·1/(30−x)²</li>
@@ -3227,6 +3349,8 @@
             4,8·10⁻¹⁵ kg olan küçük bir yağ damlası levhalar arasında hareketsiz duruyor. Damlanın yükünün
             işaretini ve büyüklüğünü bulunuz; bu yük kaç elektrona karşılık gelir? (g = 10 m/s²)
           </p>
+          <p class="verilen"><b>Verilenler:</b> d = 1 cm = 0,01 m · V = 1000 V (üst levha +) · m = 4,8·10⁻¹⁵ kg · damla hareketsiz, yani net kuvvet sıfır · g = 10 m/s² · e = 1,6·10⁻¹⁹ C</p>
+          <p class="istenen"><b>İstenen:</b> damlanın yükünün işareti ve büyüklüğü q · bu yükün kaç elektrona karşılık geldiği</p>
           <ol class="steps">
             <li>E = V/d = 1000 / 0,01 = <strong>10⁵ N/C</strong>; alan pozitif üst levhadan aşağı doğrudur.</li>
             <li>Damla durduğuna göre elektriksel kuvvet ağırlığı dengeler ve <strong>yukarı</strong> doğrudur. Kuvvet alana zıt olduğundan yük <strong>negatiftir</strong>.</li>
@@ -3247,6 +3371,8 @@
             (b) elektrona etki eden kuvvet, (c) 8 cm'lik levhaları geçerken sapması nedir?
             (e = 1,6·10⁻¹⁹ C; m = 9,1·10⁻³¹ kg)
           </p>
+          <p class="verilen"><b>Verilenler:</b> d = 2 cm = 0,02 m · V = 200 V · v₀ = 6·10⁶ m/s (levhalara paralel, tam ortadan giriyor: levhalara uzaklık 1 cm) · L = 8 cm = 0,08 m · e = 1,6·10⁻¹⁹ C · m = 9,1·10⁻³¹ kg</p>
+          <p class="istenen"><b>İstenen:</b> (a) alan şiddeti E · (b) elektrona etki eden kuvvet F · (c) levhaları geçerken sapma y</p>
           <ol class="steps">
             <li><strong>(a)</strong> E = V/d = 200 / 0,02 = <strong>10⁴ N/C</strong></li>
             <li><strong>(b)</strong> F = q·E = 1,6·10⁻¹⁹ · 10⁴ = <strong>1,6·10⁻¹⁵ N</strong></li>
@@ -3261,6 +3387,40 @@
             Çarpmadan geçmesi için y ≤ 1 cm olmalıdır; bu da v₀'ın yaklaşık 2,4·10⁷ m/s'den büyük olmasını
             gerektirir. Sayfanın 04 numaralı bölümündeki levhalar bu örnektekilerle aynı boyuttadır.
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz; yükleri coulomba,
+          uzaklıkları metreye çevirmeyi unutma. (k = 9·10⁹ N·m²/C²)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: 30 cm arayla duran +1 µC ve −1 µC'luk iki yük arasındaki kuvvet kaç N'dur? Kuvvet itme mi, çekme mi?</summary>
+          <p><b>Cevap:</b> q₁ = q₂ = 1·10⁻⁶ C, r = 0,3 m. F = k · q₁ · q₂ / r² = 9·10⁹ · 1·10⁻⁶ · 1·10⁻⁶ / 0,09 =
+            9·10⁻³ / 0,09 = <strong>0,1 N</strong>. Yükler zıt işaretli olduğu için kuvvet <strong>çekmedir</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Elektriksel alanın 3·10⁴ N/C olduğu bir noktaya 2 µC'luk bir yük konuyor. Yüke etki eden kuvvet kaç N'dur?</summary>
+          <p><b>Cevap:</b> F = q · E = 2·10⁻⁶ · 3·10⁴ = 6·10⁻² = <strong>0,06 N</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Aralarındaki kuvvet 10 N olan iki yükten biri 2 katına çıkarılıyor, aradaki uzaklık da yarıya indiriliyor. Yeni kuvvet kaç N olur?</summary>
+          <p><b>Cevap:</b> Yük 2 katı → kuvvet 2 katı. Uzaklık yarıya → kuvvet 2² = 4 katı. Yeni kuvvet
+            10 · 2 · 4 = <strong>80 N</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Aralarında 2 cm bulunan paralel levhalara 400 V uygulanıyor. Levhalar arasındaki 5 µC'luk yüke etki eden kuvvet kaç N'dur?</summary>
+          <p><b>Cevap:</b> E = V / d = 400 / 0,02 = 2·10⁴ N/C. F = q · E = 5·10⁻⁶ · 2·10⁴ = <strong>0,1 N</strong>.
+            Düzgün alanda bu kuvvet levhalar arasının her noktasında aynıdır.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Aralarında 30 cm bulunan q₁ = +4 µC ve q₂ = −1 µC yüklerini birleştiren doğru üzerinde net alan hangi noktada sıfırdır?</summary>
+          <p><b>Cevap:</b> Zıt işaretli yüklerde sıfır noktası dışarıda, küçük yükün (q₂) ötesindedir. q₂'den x uzakta olsun:
+            k · 4 / (30 + x)² = k · 1 / x². Karekök alınca 30 + x = 2x → x = 30 cm. Nokta
+            <strong>q₂'nin 30 cm ötesinde</strong>, q₁'den 60 cm uzaktadır.</p>
         </details>
 
         <h3 id="k14">Sık yapılan hatalar</h3>

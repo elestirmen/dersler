@@ -26,7 +26,7 @@ function sayfaIci() {
     const t = el.tagName.toLowerCase(), c = el.getAttribute("class") || "";
     if (t === "svg") return /figdefs/.test(c);
     if (["p", "h3", "h4", "ul", "ol", "table", "details"].includes(t)) return true;
-    if (t === "div") return /^(formula|callout( warn)?|basamak)$/.test(c);
+    if (t === "div") return /^(formula|callout( warn)?|basamak|hatirla)$/.test(c);
     if (t === "figure") return /^(fig|foto)$/.test(c);
     return false;
   };
@@ -66,6 +66,30 @@ function sayfaIci() {
   if (s4 !== 2) hata("Pekiştir basamağında tam 2 bölüm olmalı: Çözümlü örnekler + Sık yapılan hatalar (" + s4 + ")");
   const top = bolumler.length;
   if (top < 11 || top > 16) hata("toplam bölüm 11–16 arası olmalı (" + top + ")");
+
+  /* önce hatırlayalım: basamak 1 bandının hemen ardından, 3–6 madde */
+  const hat1 = kids.filter(el => el.matches("div.hatirla"));
+  if (hat1.length !== 1) hata("tam bir div.hatirla (Önce hatırlayalım) olmalı (" + hat1.length + ")");
+  else {
+    const h = hat1[0];
+    if (kids[kids.indexOf(bands[0]) + 1] !== h) hata("div.hatirla basamak 1 bandının hemen ardından gelmeli");
+    const b0 = h.querySelector(":scope > b"), ul0 = h.querySelector(":scope > ul");
+    if (!b0 || b0.textContent.trim() !== "Önce hatırlayalım") hata("div.hatirla '<b>Önce hatırlayalım</b>' ile başlamalı");
+    if (!ul0 || ul0.children.length < 3 || ul0.children.length > 6) hata("div.hatirla içinde 3–6 maddelik ul olmalı");
+    else [...ul0.children].forEach((li, i) => { const f = li.firstElementChild; if (!f || f.tagName !== "STRONG" || li.firstChild !== f) hata("hatırla maddesi " + (i + 1) + " <strong>terim:</strong> ile başlamalı"); });
+  }
+  /* formüldeki harfler: basamak 2'de en az bir semboller tablosu, önünde h4 */
+  const semb = [...body.querySelectorAll(":scope > table.semboller")];
+  if (!semb.length) hata("basamak 2'de en az bir table.tbl.semboller (Sembol | Anlamı | Birimi) olmalı");
+  semb.forEach((t, i) => {
+    const bb = bolumler.find(x => x.blok.includes(t));
+    if (!bb || bb.bas !== 2) hata("semboller tablosu " + (i + 1) + " basamak 2'de olmalı");
+    const bas_ = [...t.rows[0].cells].map(c => c.textContent.trim()).join("|");
+    if (bas_ !== "Sembol|Anlamı|Birimi") hata("semboller tablosu " + (i + 1) + " başlığı 'Sembol | Anlamı | Birimi' olmalı: " + bas_);
+    if (t.rows.length > 7) uyari("semboller tablosu " + (i + 1) + " 6 satırdan uzun");
+    const once = t.previousElementSibling;
+    if (!once || once.tagName !== "H4") hata("semboller tablosunun önünde bir h4 başlık olmalı");
+  });
 
   /* kimlikler ve çipler */
   bolumler.forEach((b, i) => { if (b.h.id !== "k" + (i + 1)) hata("h3 kimliği k" + (i + 1) + " olmalı: " + b.h.id + " — " + b.h.textContent.trim()); });
@@ -111,7 +135,7 @@ function sayfaIci() {
   if (!orn || orn.bas !== 4) hata("'Çözümlü örnekler' bölümü basamak 4'te olmalı");
   if (!hat || hat.bas !== 4) hata("'Sık yapılan hatalar' bölümü basamak 4'te olmalı");
   if (orn) {
-    const ex = orn.blok.filter(el => el.matches("details:not(.dusun)"));
+    const ex = orn.blok.filter(el => el.matches("details:not(.dusun):not(.alistirma)"));
     if (ex.length < 6) hata("en az 6 çözümlü örnek olmalı (" + ex.length + ")");
     const sira = { kolay: 1, orta: 2, zor: 3 }; let onceki = 0; const n = { kolay: 0, orta: 0, zor: 0 };
     ex.forEach((d, i) => {
@@ -122,10 +146,34 @@ function sayfaIci() {
       onceki = sira[z];
       if (!new RegExp("^Örnek " + (i + 1) + " — .+").test(s.textContent.trim())) hata("summary 'Örnek " + (i + 1) + " — başlık' biçiminde olmalı: " + s.textContent.trim());
       if (!d.querySelector(":scope > ol.steps")) hata("örnek " + (i + 1) + ": ol.steps yok");
+      const ver = d.querySelector(":scope > p.verilen"), ist = d.querySelector(":scope > p.istenen");
+      if (!ver || !/^Verilenler:/.test(ver.textContent.trim()) || ver.firstElementChild.tagName !== "B") hata("örnek " + (i + 1) + ": '<p class=\"verilen\"><b>Verilenler:</b> …</p>' yok");
+      if (!ist || !/^İstenen:/.test(ist.textContent.trim()) || ist.firstElementChild.tagName !== "B") hata("örnek " + (i + 1) + ": '<p class=\"istenen\"><b>İstenen:</b> …</p>' yok");
+      const ad = [...d.children];
+      if (ver && ist && !(ad.indexOf(ver) < ad.indexOf(ist) && ad.indexOf(ist) < ad.indexOf(d.querySelector(":scope > ol.steps")))) hata("örnek " + (i + 1) + ": sıra soru → verilen → istenen → adımlar olmalı");
       if (d.querySelector(":scope > ol.steps") && d.querySelector(":scope > ol.steps").children.length > 6) uyari("örnek " + (i + 1) + ": 6'dan çok adım (slaytta sıkışır)");
     });
     Object.keys(n).forEach(k => { if (n[k] < 2) hata("en az 2 '" + k + "' örnek olmalı (" + n[k] + ")"); });
     if (orn.blok.some(el => el.matches("details.dusun, p.kisaca"))) hata("Çözümlü örnekler bölümünde dusun/kisaca olmamalı");
+    /* sıra sende: örneklerden sonra, 'Sıra sende' h4 başlığı altında 4–5 alıştırma, kolaydan zora */
+    const al = orn.blok.filter(el => el.matches("details.alistirma"));
+    if (al.length < 4 || al.length > 5) hata("4–5 'Sıra sende' alıştırması (details.alistirma) olmalı (" + al.length + ")");
+    const sonEx = ex[ex.length - 1], h4s = orn.blok.find(el => el.tagName === "H4" && el.textContent.trim() === "Sıra sende");
+    if (!h4s) hata("alıştırmaların önünde '<h4>Sıra sende</h4>' olmalı");
+    else if (sonEx && orn.blok.indexOf(h4s) < orn.blok.indexOf(sonEx)) hata("'Sıra sende' bütün örneklerden sonra gelmeli");
+    let onc = 0; const nz = { kolay: 0, orta: 0, zor: 0 };
+    al.forEach((d, i) => {
+      const s = d.querySelector("summary"), z = s && s.dataset.zorluk;
+      if (!sira[z]) { hata("alıştırma " + (i + 1) + ": summary data-zorluk kolay|orta|zor olmalı"); return; }
+      nz[z]++;
+      if (sira[z] < onc) hata("alıştırmalar kolaydan zora sıralı olmalı: " + (i + 1));
+      onc = sira[z];
+      if (!new RegExp("^Sıra sende " + (i + 1) + ": .+").test(s.textContent.trim())) hata("alıştırma summary 'Sıra sende " + (i + 1) + ": …' biçiminde olmalı: " + s.textContent.trim());
+      const c = d.querySelector(":scope > p");
+      if (!c || !/^Cevap:/.test(c.textContent.trim())) hata("alıştırma " + (i + 1) + ": cevap '<p><b>Cevap:</b> …</p>' ile başlamalı");
+      if (s.textContent.length > 230) uyari("alıştırma " + (i + 1) + " sorusu uzun (" + s.textContent.length + " kr)");
+    });
+    if (!nz.kolay || !nz.zor) hata("alıştırmalarda en az bir kolay ve bir zor olmalı");
   }
   if (hat) {
     const ul = hat.blok.find(el => el.tagName === "UL");
@@ -138,29 +186,34 @@ function sayfaIci() {
     if (!son.matches("div.callout") || !/^Kendini sına/.test(son.textContent.trim())) hata("en sonda 'Kendini sına' callout'u olmalı");
   }
 
-  /* görseller */
+  /* görseller: giris (girişte), gunluk (basamak 1), uygulama (basamak 3); isteğe bağlı ek1–ek3 (basamak 1–3) */
   const fotolar = [...body.querySelectorAll("figure.foto")];
   const slug = location.pathname.split("/").pop().replace(/\.html$/, "");
-  const beklenen = ["giris", "gunluk", "uygulama"].map(a => "gorsel/" + slug + "-" + a + ".webp");
-  if (fotolar.length !== 3) hata("tam 3 figure.foto olmalı (" + fotolar.length + ")");
+  const adlar = fotolar.map(f => { const i = f.querySelector(":scope > img"); const m = i && (i.getAttribute("src") || "").match(/^gorsel\/(.+)-(giris|gunluk|uygulama|ek[1-3])\.webp(\?v=\d+)?$/); return m && m[1] === slug ? m[2] : null; });
+  ["giris", "gunluk", "uygulama"].forEach(a => { if (adlar.filter(x => x === a).length !== 1) hata("tam bir '" + a + "' görseli olmalı"); });
+  if (adlar.filter(x => x && x.startsWith("ek")).length > 3) hata("en çok 3 ek görsel olabilir");
+  if (ilkFoto && adlar[fotolar.indexOf(ilkFoto)] !== "giris") hata("lead-in'in ardındaki görsel 'giris' olmalı");
   fotolar.forEach((f, i) => {
     const img = f.querySelector(":scope > img"), cap = f.querySelector(":scope > figcaption");
     if (!img) { hata("foto " + (i + 1) + ": img yok"); return; }
+    const ad = adlar[i];
+    if (!ad) { hata("foto " + (i + 1) + ": src 'gorsel/" + slug + "-<giris|gunluk|uygulama|ekN>.webp[?v=N]' olmalı: " + img.getAttribute("src")); return; }
+    const kok = "gorsel/" + slug + "-" + ad + ".webp";
     /* adresler önbellek kırmak için ?v=N taşıyabilir (görsel değişince N artırılır) */
     const src = img.getAttribute("src") || "", surum = (src.match(/\?v=\d+$/) || [""])[0];
-    if (src !== beklenen[i] + surum) hata("foto " + (i + 1) + " src " + beklenen[i] + "[?v=N] olmalı: " + src);
     const ss = img.getAttribute("srcset") || "";
-    if (ss !== beklenen[i].replace(".webp", "-800.webp") + surum + " 800w, " + beklenen[i] + surum + " 1536w") hata("foto " + (i + 1) + ": srcset kalıbı yanlış (src ile aynı sürüm olmalı)");
-    if (img.getAttribute("sizes") !== "(max-width: 760px) 100vw, 884px") hata("foto " + (i + 1) + ": sizes yanlış");
-    ["alt", "width", "height", "loading", "decoding"].forEach(a => { if (!img.getAttribute(a)) hata("foto " + (i + 1) + ": " + a + " yok"); });
-    if (img.getAttribute("width") !== "1536" || img.getAttribute("height") !== "1024") hata("foto " + (i + 1) + ": width=1536 height=1024 olmalı");
-    if (img.getAttribute("loading") !== "lazy" || img.getAttribute("decoding") !== "async") hata("foto " + (i + 1) + ": loading=lazy decoding=async olmalı");
-    if ((img.getAttribute("alt") || "").length < 40) hata("foto " + (i + 1) + ": alt metni açıklayıcı olmalı");
-    if (!cap || cap.textContent.trim().length < 80) hata("foto " + (i + 1) + ": figcaption en az 80 karakter olmalı");
+    if (ss !== kok.replace(".webp", "-800.webp") + surum + " 800w, " + kok + surum + " 1536w") hata("foto " + ad + ": srcset kalıbı yanlış (src ile aynı sürüm olmalı)");
+    if (img.getAttribute("sizes") !== "(max-width: 760px) 100vw, 884px") hata("foto " + ad + ": sizes yanlış");
+    ["alt", "width", "height", "loading", "decoding"].forEach(x => { if (!img.getAttribute(x)) hata("foto " + ad + ": " + x + " yok"); });
+    if (img.getAttribute("width") !== "1536" || img.getAttribute("height") !== "1024") hata("foto " + ad + ": width=1536 height=1024 olmalı");
+    if (img.getAttribute("loading") !== "lazy" || img.getAttribute("decoding") !== "async") hata("foto " + ad + ": loading=lazy decoding=async olmalı");
+    if ((img.getAttribute("alt") || "").length < 40) hata("foto " + ad + ": alt metni açıklayıcı olmalı");
+    if (!cap || cap.textContent.trim().length < 80) hata("foto " + ad + ": figcaption en az 80 karakter olmalı");
+    const bb = bolumler.find(x => x.blok.includes(f));
+    if (ad === "gunluk" && (!bb || bb.bas !== 1)) hata("günlük görsel basamak 1'de olmalı");
+    if (ad === "uygulama" && (!bb || bb.bas !== 3)) hata("uygulama görseli basamak 3'te olmalı");
+    if (ad.startsWith("ek") && (!bb || bb.bas > 3)) hata("ek görsel " + ad + " basamak 1–3'teki bir bölümde olmalı");
   });
-  const fotoBas = fotolar.map(f => { const b = bolumler.find(x => x.blok.includes(f)); return b ? b.bas : 0; });
-  if (fotolar[1] && fotoBas[1] !== 1) hata("günlük görsel (2. foto) basamak 1'de olmalı");
-  if (fotolar[2] && fotoBas[2] !== 3) hata("uygulama görseli (3. foto) basamak 3'te olmalı");
 
   /* SVG çizimler: taşma ve marker */
   const svgs = [...body.querySelectorAll("figure.fig > svg")];
@@ -196,7 +249,8 @@ function sayfaIci() {
   const metin = kids.filter(el => !el.matches("svg, figure")).map(el => el.textContent).join(" ");
   const kelime = metin.split(/\s+/).filter(Boolean).length;
   const ozet = { bolum: top, basamak: [s1, s2, s3, s4].join("/"), kelime, cizim: svgs.length, foto: fotolar.length,
-    dusun: dusun.length, ornek: orn ? orn.blok.filter(el => el.matches("details:not(.dusun)")).length : 0,
+    dusun: dusun.length, ornek: orn ? orn.blok.filter(el => el.matches("details:not(.dusun):not(.alistirma)")).length : 0,
+    alistirma: body.querySelectorAll("details.alistirma").length,
     lesson: (document.querySelector(".lesson-card p") || {}).textContent };
   return { H, U, ozet };
 }
@@ -230,7 +284,7 @@ function sayfaIci() {
     r.ozet.kelime = m ? m[1].replace(/<svg[\s\S]*?<\/svg>/g, "").replace(/<figcaption>[\s\S]*?<\/figcaption>/g, "").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length : 0;
     konsol.forEach(k => r.H.push(k));
     const o = r.ozet;
-    console.log((r.H.length ? "✗ " : "✓ ") + slug.padEnd(21) + ` bölüm ${o.bolum} (${o.basamak}) · ${o.kelime} sözcük · çizim ${o.cizim} · foto ${o.foto} · düşün ${o.dusun} · örnek ${o.ornek}`);
+    console.log((r.H.length ? "✗ " : "✓ ") + slug.padEnd(21) + ` bölüm ${o.bolum} (${o.basamak}) · ${o.kelime} sözcük · çizim ${o.cizim} · foto ${o.foto} · düşün ${o.dusun} · örnek ${o.ornek} · alıştırma ${o.alistirma}`);
     r.H.forEach(x => console.log("    HATA  " + x));
     r.U.forEach(x => console.log("    uyarı " + x));
     if (r.H.length) kotu++;

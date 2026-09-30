@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2438,6 +2507,22 @@
           <span>Önce sezgi: günlük bir savrulmayı gözle, kuvvete ve net kuvvete ad koy, eylemsizliği ve kütle ile ağırlığın farkını kavra. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Hız:</strong> bir cismin bir saniyede aldığı yol. Metre/saniye (m/s) ile ölçülür;
+              10 m/s, “her saniye 10 metre” demektir.</li>
+            <li><strong>İvme:</strong> hızın her saniye ne kadar değiştiği; birimi m/s². 2 m/s² ile hızlanan
+              bir araba her saniye 2 m/s daha hızlı gider. Serbest düşen bir cismin ivmesi g ≈ 10 m/s²'dir.</li>
+            <li><strong>Vektör:</strong> hem büyüklüğü hem yönü olan bir nicelik; ok ile çizilir. Aynı yönlü iki ok
+              toplanır, zıt yönlü iki ok birbirinden çıkarılır.</li>
+            <li><strong>Doğru ve ters orantı:</strong> doğru orantıda biri 2 katına çıkınca öbürü de 2 katına çıkar;
+              ters orantıda biri 2 katına çıkınca öbürü yarıya iner.</li>
+            <li><strong>Dik üçgen, sinüs ve kosinüs:</strong> kenarları 3, 4, 5 olan dik üçgende 3² + 4² = 5² olur;
+              bu üçgende sin37° = 3/5 = 0,6 ve cos37° = 4/5 = 0,8.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: otobüs ani fren yapınca ne olur?</h3>
         <p>
           Ayakta durduğun bir otobüs aniden fren yapıyor. Tutunduğun kol gerilir, gövden öne doğru
@@ -2665,6 +2750,15 @@
             ve g'ye bağlıdır: Ay'da kütlen aynı, ağırlığın altıda birdir.
           </p>
         </div>
+        <figure class="foto">
+          <img src="gorsel/newton-yasalari-ek1.webp?v=1" srcset="gorsel/newton-yasalari-ek1-800.webp?v=1 800w, gorsel/newton-yasalari-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Uzay istasyonunun içinde süzülen bir astronot, ayaklarını alttaki mavi bir tutamağın altına takmış, havada duran büyük, beyaz kumaş kaplı bir yük kutusunu iki avucuyla itiyor. Başının yanında küçük, şeffaf bir içecek poşeti süzülüyor.">
+          <figcaption>
+            <b>İstasyonda her şey süzülür</b>, ama büyük yük kutusunun kütlesi, yani eylemsizliği yerindedir. Astronot onu harekete geçirmek için ayaklarını tutamağa takıp güçlü itmek zorundadır ve kutu yine de yavaş hızlanır; yanında süzülen küçük poşeti ise hafif bir fiske bile hızla uzaklaştırır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Uzay istasyonunda süzülen 100 kg'lık bir dolabı itmek, 1 kg'lık bir kutuyu itmek kadar kolay mıdır?</summary>
           <p>
@@ -2693,6 +2787,14 @@
           <code>a = ΣF / m</code>
           <code>1 N = 1 kg · m/s²</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>ΣF</td><td>net kuvvet (Σ: “toplam” demek)</td><td>N</td></tr>
+          <tr><td>m</td><td>kütle (m/s²'deki m ise metre)</td><td>kg</td></tr>
+          <tr><td>a</td><td>ivme: hızın saniyedeki değişimi</td><td>m/s²</td></tr>
+          <tr><td>N</td><td>burada newton, kuvvet birimi</td><td>—</td></tr>
+        </table>
         <h4>Yasa nereden geliyor?</h4>
         <p>
           2. yasa bir matematik türetmesi değil, deneylerden çıkan bir genellemedir. Sürtünmesiz bir
@@ -2788,6 +2890,15 @@
           Topun 2000 m/s²'lik ivmesi ise yalnızca yaklaşık 0,01 saniyelik temas süresince sürer; bu kısa
           sürede top 20 m/s'ye (72 km/h) ulaşır.
         </p>
+        <figure class="foto">
+          <img src="gorsel/newton-yasalari-ek2.webp?v=1" srcset="gorsel/newton-yasalari-ek2-800.webp?v=1 800w, gorsel/newton-yasalari-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Çimenli bir stadyum sahasında, yerden çok yakından görülen siyah bir krampon siyah-beyaz bir futbol topuna vuruyor; top ayakkabının değdiği yerden belirgin biçimde içe çökmüş. Çevreye su damlaları, çimen ve toprak parçaları sıçrıyor, arkada bulanık tribünler görünüyor.">
+          <figcaption>
+            <b>Kramponun topa değdiği anda</b> top, ayakkabının bastığı yerden gözle görülür biçimde içe çöküyor; tekmenin kuvveti bu kısa temas süresinde çok büyüktür. Topun kütlesi küçük olduğu için a = ΣF/m çok büyük çıkar: tablodaki 900 N'luk tekme 0,45 kg'lık topa 2000 m/s²'lik ivme verir. Aynı kuvvet 1200 kg'lık bir otomobile ancak 0,75 m/s² ivme verirdi; aradaki farkı yalnızca kütle yaratır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Topa vurulan 900 N'luk kuvvet 1200 kg'lık otomobile uygulansaydı ivmesi ne olurdu?</summary>
           <p>
@@ -3158,6 +3269,15 @@
           kutuyu yalnızca ip çeker: T = 4 · 2 = <strong>8 N</strong>. Kontrol: sarkan yük için
           10 − 8 = 2 N = 1 · 2 ✓.
         </p>
+        <figure class="foto">
+          <img src="gorsel/newton-yasalari-ek3.webp?v=1" srcset="gorsel/newton-yasalari-ek3-800.webp?v=1 800w, gorsel/newton-yasalari-ek3.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Fizik laboratuvarında masanın üstündeki düz bir rayda dört tekerlekli küçük metal bir araba duruyor; önüne bağlı ip masanın kenarına kıskaçla tutturulmuş makaradan geçip düşey olarak aşağı sarkıyor. İpin ucunda, bir askıya takılı üst üste beş disk biçimli metal ağırlık asılı.">
+          <figcaption>
+            <b>Masadaki araba ile sarkan yük</b> aynı gergin ipe bağlı olduğu için, bırakıldıklarında aynı büyüklükte ivmeyle hareket eder. Sistemi yürüten dış kuvvet sarkan yükün ağırlığıdır ve bu kuvvet iki kütleyi birlikte hızlandırır: a = ΣF<sub>dış</sub>/m<sub>toplam</sub>. İpteki gerilme ise bir iç kuvvettir; onu bulmak için arabayı ya da yükü ayrı ayrı incelersin ve gerilmenin yükün ağırlığından küçük çıktığını görürsün.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Bu örnekte ipteki gerilme neden sarkan yükün ağırlığından (10 N) küçük çıktı?</summary>
           <p>
@@ -3252,6 +3372,8 @@
             uygulanıyor. Kuvvetler (a) aynı yönde, (b) zıt yönde, (c) birbirine dik olduğunda kutunun
             ivmesini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 5 kg · F₁ = 30 N · F₂ = 40 N (ikisi de yatay) · zemin sürtünmesiz</p>
+          <p class="istenen"><b>İstenen:</b> kuvvetler (a) aynı yönde · (b) zıt yönde · (c) birbirine dik olduğunda kutunun ivmesi a</p>
           <ol class="steps">
             <li><strong>(a)</strong> ΣF = 30 + 40 = 70 N → a = 70 / 5 = <strong>14 m/s²</strong></li>
             <li><strong>(b)</strong> ΣF = 40 − 30 = 10 N (40 N'un yönünde) → a = <strong>2 m/s²</strong></li>
@@ -3265,6 +3387,8 @@
             Sürtünme katsayısı 0,2 olan yatay bir zeminde duran 4 kg'lık kutuya yatay
             doğrultuda 12 N'luk kuvvet uygulanıyor. Kutunun ivmesini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 4 kg · F = 12 N (yatay) · μ = 0,2 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> kutunun ivmesi a</p>
           <ol class="steps">
             <li>Düşeyde denge: N = m·g = 4 · 10 = <strong>40 N</strong></li>
             <li>Sürtünme kuvveti: f = μ·N = 0,2 · 40 = <strong>8 N</strong></li>
@@ -3280,6 +3404,8 @@
             60 kg kütleli bir kişi, 2 m/s² ile yukarı doğru hızlanan bir asansörde tartının
             üzerinde duruyor. Tartı kaç kilogram gösterir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 60 kg · asansörün ivmesi a = 2 m/s² (yukarı) · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> tartının gösterdiği değer (kg olarak)</p>
           <ol class="steps">
             <li>Kişiye etki eden kuvvetler: ağırlık G = 600 N (aşağı), normal kuvvet N (yukarı).</li>
             <li>Net kuvvet yukarı olmalı: N − G = m·a</li>
@@ -3295,6 +3421,8 @@
             kuvvetle çekiliyor (kuvvet 2 kg'lık cisme uygulanıyor). Sistemin ivmesini ve
             ipteki gerilme kuvvetini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> m₁ = 2 kg · m₂ = 3 kg · F = 20 N (2 kg'lık cisme uygulanıyor) · zemin sürtünmesiz</p>
+          <p class="istenen"><b>İstenen:</b> sistemin ivmesi a · ipteki gerilme kuvveti T</p>
           <ol class="steps">
             <li>Sistemi tek cisim gibi düşün: a = F / (m₁ + m₂) = 20 / 5 = <strong>4 m/s²</strong></li>
             <li>Şimdi yalnızca 3 kg'lık cismi incele: ona etki eden tek yatay kuvvet ip gerilmesidir.</li>
@@ -3309,6 +3437,8 @@
             Yatayla 37° açı yapan eğik düzlemde 10 kg'lık bir cisim aşağı doğru kayıyor.
             Sürtünme katsayısı 0,2 ise ivmesi nedir? (sin37° = 0,6 · cos37° = 0,8)
           </p>
+          <p class="verilen"><b>Verilenler:</b> θ = 37° · m = 10 kg · μ = 0,2 · sin37° = 0,6 · cos37° = 0,8 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> aşağı doğru kayan cismin ivmesi a</p>
           <ol class="steps">
             <li>Eğime paralel bileşen: m·g·sinθ = 10 · 10 · 0,6 = <strong>60 N</strong></li>
             <li>Eğime dik denge: N = m·g·cosθ = 10 · 10 · 0,8 = <strong>80 N</strong></li>
@@ -3324,6 +3454,8 @@
             bir iple 50 N'luk kuvvetle çekilerek kaydırılıyor. Kutunun ivmesini bulunuz.
             (sin37° = 0,6 · cos37° = 0,8)
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 10 kg · F = 50 N · ipin yatayla açısı α = 37° · μk = 0,2 · sin37° = 0,6 · cos37° = 0,8 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> kutunun ivmesi a</p>
           <ol class="steps">
             <li>Kuvvetin bileşenleri: Fₓ = 50 · 0,8 = 40 N (ileri), Fᵧ = 50 · 0,6 = 30 N (yukarı)</li>
             <li>Düşeyde denge: N + 30 − 100 = 0 → <strong>N = 70 N</strong> (m·g değil!)</li>
@@ -3340,6 +3472,8 @@
             sürtünmesiz makaradan geçen iple 2 kg'lık sarkan bir yüke bağlıdır. Sistem serbest
             bırakılıyor. (a) Sistemin ivmesini, (b) ipteki gerilmeyi bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> masadaki kutu m₁ = 3 kg · sarkan yük m₂ = 2 kg · μk = 0,2 · makara sürtünmesiz · sistem durgunken bırakılıyor · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) sistemin ivmesi a · (b) ipteki gerilme T</p>
           <ol class="steps">
             <li>Hareket yönündeki dış kuvvetler: sarkan yükün ağırlığı 2 · 10 = 20 N, kutudaki sürtünme 0,2 · 30 = 6 N (zıt).</li>
             <li><strong>(a)</strong> a = (20 − 6) / (3 + 2) = 14 / 5 = <strong>2,8 m/s²</strong></li>
@@ -3347,6 +3481,38 @@
             <li>Kontrol (kutu): T − f = 14,4 − 6 = 8,4 N = 3 · 2,8 ✓</li>
           </ol>
           <p>Gerilme sarkan yükün ağırlığından küçüktür, çünkü yük aşağı doğru hızlanmaktadır.</p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (g = 10 m/s²)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Sürtünmesiz yatay zeminde duran 4 kg'lık bir kutuya 20 N'luk yatay kuvvet uygulanıyor. Kutunun ivmesi kaç m/s² olur?</summary>
+          <p><b>Cevap:</b> a = ΣF / m = 20 / 4 = <strong>5 m/s²</strong>. Kutu her saniye 5 m/s daha hızlı gider.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: 0,5 kg'lık bir top, vurulduğu anda 40 m/s² ivme kazanıyor. Topa etki eden net kuvvet kaç N'dur?</summary>
+          <p><b>Cevap:</b> ΣF = m · a = 0,5 · 40 = <strong>20 N</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Kinetik sürtünme katsayısı 0,3 olan yatay zeminde 5 kg'lık bir kutu 25 N'luk yatay kuvvetle kaydırılıyor. Kutunun ivmesi kaç m/s²'dir?</summary>
+          <p><b>Cevap:</b> N = m · g = 5 · 10 = 50 N. Sürtünme f = μ · N = 0,3 · 50 = 15 N. Net kuvvet ΣF = 25 − 15 = 10 N →
+            a = 10 / 5 = <strong>2 m/s²</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: 50 kg'lık bir öğrenci, aşağı doğru 2 m/s² ile hızlanan bir asansörde tartının üstünde duruyor. Tartı kaç kg gösterir?</summary>
+          <p><b>Cevap:</b> İvme aşağı olduğu için N ağırlıktan küçüktür: N = m · (g − a) = 50 · (10 − 2) = 400 N. Tartı
+            400 / 10 = <strong>40 kg</strong> gösterir; öğrencinin kütlesi yine 50 kg'dır.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Sürtünmesiz bir makaranın iki yanında, iple bağlı 3 kg ve 2 kg'lık iki yük asılı. Serbest bırakılınca sistemin ivmesi ve ipteki gerilme ne olur?</summary>
+          <p><b>Cevap:</b> 3 kg'lık yük aşağı, 2 kg'lık yük yukarı gider. Sistemi yürüten net kuvvet 30 − 20 = 10 N, toplam kütle 5 kg:
+            a = 10 / 5 = <strong>2 m/s²</strong>. Yukarı çıkan 2 kg'lık yük için T − 20 = 2 · 2 → <strong>T = 24 N</strong>.
+            Kontrol (3 kg): 30 − 24 = 6 N = 3 · 2 ✓</p>
         </details>
 
         <h3 id="k15">Sık yapılan hatalar</h3>

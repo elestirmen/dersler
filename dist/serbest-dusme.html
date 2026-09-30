@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2406,6 +2475,22 @@
           <span>Önce sezgi: düşen bir cisme bak, ne yaptığını gör ve adını koy. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Hız:</strong> bir cismin bir saniyede aldığı yol. Metre/saniye (m/s) ile ölçülür;
+              10 m/s, “her saniye 10 metre” demektir.</li>
+            <li><strong>Hızlanmak:</strong> hızın zamanla artması. Yokuş aşağı bırakılan bir bisiklet
+              kendiliğinden giderek hızlanır.</li>
+            <li><strong>Kuvvet:</strong> bir cismi itmek ya da çekmek. Newton (N) ile ölçülür; bir cisme
+              kuvvet uygulanınca hızı değişir.</li>
+            <li><strong>Ağırlık:</strong> Dünya'nın bir cismi kendine doğru çekme kuvveti. Kütlesi büyük olan
+              cismin ağırlığı da büyüktür.</li>
+            <li><strong>Kare ve karekök:</strong> 3² = 3 · 3 = 9 ve √9 = 3. Formüllerde t² “t'nin karesi”
+              diye okunur.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: düşen bir cisim ne yapar?</h3>
         <p>
           Elindeki anahtarı bırak. Önce yavaş ayrılır, sonra giderek hızlanarak yere çarpar. Bu
@@ -2633,6 +2718,15 @@
           <code>t = √(2h / g)</code>
           <code>v<sub>ort</sub> = h / t = v / 2</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>v</td><td>cismin o anki hızı</td><td>m/s</td></tr>
+          <tr><td>g</td><td>yerçekimi ivmesi (Dünya'da yaklaşık 10)</td><td>m/s²</td></tr>
+          <tr><td>t</td><td>cisim bırakıldığından beri geçen süre</td><td>s</td></tr>
+          <tr><td>h</td><td>alınan yol, yani düşülen yükseklik</td><td>m</td></tr>
+          <tr><td>v₀</td><td>ilk hız (serbest düşmede sıfır)</td><td>m/s</td></tr>
+        </table>
         <h4>Bağıntılar nereden geliyor?</h4>
         <p>
           Hiçbirini ezberlemek gerekmez; üçü de ivmenin tanımından adım adım çıkar.
@@ -2722,6 +2816,15 @@
             yaklaşık 0,2 saniye demektir.
           </p>
         </div>
+        <figure class="foto">
+          <img src="gorsel/serbest-dusme-ek1.webp?v=1" srcset="gorsel/serbest-dusme-ek1-800.webp?v=1 800w, gorsel/serbest-dusme-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Laboratuvar masasında iki öğrenci cetvelle tepki süresi deneyi yapıyor: soldaki öğrenci tahta cetveli az önce bırakmış, açık eli cetvelin üst ucunun biraz üstünde duruyor. Sağdaki öğrenci, parmaklarını açtığı elini cetvelin alt ucunun hemen yanında tutarak onu yakalamaya hazırlanıyor.">
+          <figcaption>
+            <b>Cetvel bırakıldığı anda</b> serbest düşmeye başlar ve yakalanana kadar düştüğü mesafe, geçen süreyi söyler: t = √(2d / g). Cetvel parmaklarının arasından ne kadar çok kayarsa tepki süren o kadar uzundur; 20 cm yaklaşık 0,2 saniye demektir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: 5 m yükseklikten düşüş 1 s sürüyorsa, 20 m yükseklikten kaç saniye sürer?</summary>
           <p>
@@ -3088,6 +3191,8 @@
             Bir köprüden serbest bırakılan taş 2 saniye sonra suya çarpıyor. (a) Taşın suya çarpma
             hızını, (b) köprünün su yüzeyinden yüksekliğini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> v₀ = 0 (taş serbest bırakılıyor) · t = 2 s · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) suya çarpma hızı v · (b) köprünün yüksekliği h</p>
           <ol class="steps">
             <li><strong>(a)</strong> Hız her saniye 10 m/s artar: v = g·t = 10 · 2 = <strong>20 m/s</strong></li>
             <li><strong>(b)</strong> h = ½·g·t² = ½ · 10 · 2² = <strong>20 m</strong></li>
@@ -3101,6 +3206,8 @@
             45 m yüksekten serbest bırakılan bir cisim için: (a) düşme süresini,
             (b) yere çarpma hızını, (c) hareketin 2. saniyesinde aldığı yolu bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 45 m · v₀ = 0 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) düşme süresi t · (b) çarpma hızı v · (c) 2. saniyede alınan yol</p>
           <ol class="steps">
             <li><strong>(a)</strong> h = ½·g·t² → 45 = ½·10·t² → t² = 9 → <strong>t = 3 s</strong></li>
             <li><strong>(b)</strong> v = g·t = 10 · 3 → <strong>v = 30 m/s</strong>
@@ -3116,6 +3223,8 @@
             10 m yüksekten bırakılan bir cisim Dünya'da ve Ay'da kaç saniyede yere iner?
             (g<sub>Dünya</sub> = 9,81 m/s², g<sub>Ay</sub> = 1,62 m/s²)
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 10 m · v₀ = 0 · g<sub>Dünya</sub> = 9,81 m/s² · g<sub>Ay</sub> = 1,62 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> iki gökcisminde düşme süreleri ve oranları</p>
           <ol class="steps">
             <li>t = √(2h / g) bağıntısı kullanılır.</li>
             <li>Dünya: t = √(20 / 9,81) ≈ <strong>1,43 s</strong></li>
@@ -3131,6 +3240,8 @@
             Yerden 20 m/s hızla düşey yukarı atılan cisim için: (a) çıkabileceği en büyük
             yüksekliği, (b) havada kalma süresini, (c) 15 m yükseklikteki süratini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> v₀ = 20 m/s (yukarı) · g = 10 m/s² (aşağı)</p>
+          <p class="istenen"><b>İstenen:</b> (a) en büyük yükseklik h<sub>maks</sub> · (b) havada kalma süresi · (c) 15 m'deki sürat</p>
           <ol class="steps">
             <li><strong>(a)</strong> h<sub>maks</sub> = v₀² / (2g) = 400 / 20 = <strong>20 m</strong></li>
             <li><strong>(b)</strong> t<sub>çıkış</sub> = v₀ / g = 2 s → toplam <strong>4 s</strong></li>
@@ -3145,6 +3256,8 @@
             Serbest bırakılan bir cisim, yere çarpmadan önceki son 1 saniyede 25 m yol alıyor.
             Cisim kaç metreden bırakılmıştır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> v₀ = 0 · son 1 saniyedeki yol = 25 m · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> cismin bırakıldığı yükseklik h</p>
           <ol class="steps">
             <li>Toplam süreye t diyelim. Son saniyedeki yol = h(t) − h(t−1) = 25 m.</li>
             <li>5t² − 5(t−1)² = 25 → 5(2t − 1) = 25 → 2t − 1 = 5 → <strong>t = 3 s</strong></li>
@@ -3162,6 +3275,8 @@
             Bir balkondan 10 m/s hızla düşey yukarı atılan top, atıldıktan 3 s sonra yere çarpıyor.
             (a) Balkonun yerden yüksekliğini, (b) topun yere çarpma süratini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> v₀ = 10 m/s (yukarı) · topun havada kaldığı süre t = 3 s · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) balkonun yerden yüksekliği · (b) topun yere çarpma sürati</p>
           <ol class="steps">
             <li>Yukarıyı pozitif seçelim: v₀ = +10 m/s, ivme −10 m/s². Konum: y = v₀·t − ½·g·t².</li>
             <li>t = 3 s'de y = 10·3 − 5·9 = 30 − 45 = −15 m. Eksi işaret topun balkonun
@@ -3171,6 +3286,38 @@
               sonra 20 m'den serbest düşer: 2 s. Toplam 3 s ✓</li>
           </ol>
         </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (g = 10 m/s²)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Serbest bırakılan bir taşın hızı 3 saniye sonra kaç m/s olur?</summary>
+          <p><b>Cevap:</b> Hız her saniye 10 m/s artar: v = g · t = 10 · 3 = <strong>30 m/s</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: 20 m yükseklikten bırakılan bir cisim kaç saniyede yere düşer?</summary>
+          <p><b>Cevap:</b> h = ½ · g · t² → 20 = 5 · t² → t² = 4 → <strong>t = 2 s</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: 80 m yükseklikten bırakılan bir top yere kaç m/s hızla çarpar?</summary>
+          <p><b>Cevap:</b> Süre sorulmadığı için v² = 2 · g · h: v² = 2 · 10 · 80 = 1600 → <strong>v = 40 m/s</strong>.
+            Kontrol: 80 = 5 · t² → t = 4 s ve v = 10 · 4 = 40 m/s ✓</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: 30 m/s hızla yukarı atılan bir top en fazla kaç metre yükselir ve kaç saniye sonra atıldığı yere döner?</summary>
+          <p><b>Cevap:</b> h<sub>maks</sub> = v₀² / (2g) = 900 / 20 = <strong>45 m</strong>. Çıkış 30 / 10 = 3 s, iniş de 3 s sürer:
+            <strong>6 s</strong> sonra geri döner.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Serbest bırakılan bir cisim hareketinin 4. saniyesinde kaç metre yol alır?</summary>
+          <p><b>Cevap:</b> İlk 4 saniyede 5 · 4² = 80 m, ilk 3 saniyede 5 · 3² = 45 m yol alır. 4. saniyedeki yol farktır:
+            80 − 45 = <strong>35 m</strong>. 1 : 3 : 5 : 7 kuralıyla da aynı sonuç çıkar: 7 · 5 = 35 m.</p>
+        </details>
+
 
         <h3 id="k12">Sık yapılan hatalar</h3>
         <ul>

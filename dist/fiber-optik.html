@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2386,6 +2455,22 @@
           <span>Önce sezgi: ışığın bir su akıntısında ve cam lifte nasıl tutulduğunu gör, fiberin parçalarını tanı. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Kırılma indisi (n):</strong> ışığın bir ortamda kaç kat yavaşladığını söyleyen
+              sayı: n = c/v. Hava için 1, cam için yaklaşık 1,5.</li>
+            <li><strong>Snell yasası:</strong> ışık bir ortamdan ötekine geçerken n₁·sin i = n₂·sin r
+              olur. Açılar yüzeyden değil, yüzeye dik çizilen normalden ölçülür.</li>
+            <li><strong>Sinüs:</strong> sin90° = 1'dir ve hiçbir açının sinüsü 1'den büyük olmaz. Sık
+              kullanılanlar: sin30° = 0,5, sin37° = 0,6, sin53° = 0,8.</li>
+            <li><strong>Tümler açılar:</strong> toplamı 90° olan iki açı. 37° ile 53°, 10° ile 80°
+              birbirinin tümleridir.</li>
+            <li><strong>Süre = yol ÷ hız:</strong> 600 km'yi saatte 100 km hızla giden araç 6 saatte
+              alır. Çok kısa süreler mikrosaniyeyle yazılır: 1 µs, saniyenin milyonda biridir.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: ışık bir su akıntısını izleyebilir mi?</h3>
         <p>
           Karanlık bir odada saydam bir kabın yan duvarına küçük bir delik aç; su dışarı, eğri bir yay
@@ -2574,6 +2659,16 @@
           <code>sin θ(sınır) = n₂ / n₁</code>
           <code>α(maks) = 90° − θ(sınır)</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>n₁</td><td>çekirdeğin kırılma indisi (büyük olan)</td><td>—</td></tr>
+          <tr><td>n₂</td><td>kılıfın kırılma indisi (n₂ &lt; n₁)</td><td>—</td></tr>
+          <tr><td>θ₁</td><td>ışının çekirdekten duvara geliş açısı (duvarın normalinden ölçülür)</td><td>derece (°)</td></tr>
+          <tr><td>θ₂</td><td>kılıfa geçen ışının kırılma açısı</td><td>derece (°)</td></tr>
+          <tr><td>θ(sınır)</td><td>sınır açı: kırılma açısını 90° yapan geliş açısı</td><td>derece (°)</td></tr>
+          <tr><td>α(maks)</td><td>ışının fiber ekseniyle yapabileceği en büyük açı</td><td>derece (°)</td></tr>
+        </table>
         <p>
           Sağ taraf iki indisin oranıdır ve birimsizdir, tıpkı bir sinüs gibi. Bu oran 1'den küçük olmak
           zorundadır; n₂ &gt; n₁ olsaydı sinüs 1'i aşardı ve sınır açı hiç olmazdı. Tam yansımanın
@@ -2585,6 +2680,15 @@
           eksenle en çok 90° − 76,7° = 13,3° açı yaparsa taşınır. Sayfanın 01 numaralı laboratuvarında
           indisleri değiştirip bu sınırı canlı izleyebilirsin.
         </p>
+        <figure class="foto">
+          <img src="gorsel/fiber-optik-ek1.webp?v=2" srcset="gorsel/fiber-optik-ek1-800.webp?v=2 800w, gorsel/fiber-optik-ek1.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir masadaki beyaz kâğıdın üzerinde yarım daire biçimli saydam bir blok duruyor; soldaki kutudan çıkan kırmızı lazer ışını kavisli yüzden girip düz yüzün ortasına varıyor, oradan kâğıttaki dik çizginin öbür yanına yansıyarak kavisli yüze gidiyor. Düz yüzden havaya çıkan bir ışın görünmüyor.">
+          <figcaption>
+            <b>Yarım daire blokta</b> kırmızı ışın düz yüzün tam ortasına, kâğıda çizilmiş normal çizgisinin dibine varıyor ve normalin öbür yanına aynı açıyla geri dönüyor. Düz yüzden havaya geçen bir ışın yok; geliş açısı sin θ(sınır) = n₂/n₁ bağıntısının verdiği sınır açıdan büyük olduğu için ışığın tamamı bloğun içine yansır. Kaynağı kaydırıp geliş açısını küçültürsen önce düz yüzü yalayan, sonra havaya çıkan bir ışın belirir; yalayarak çıktığı andaki açı sınır açıdır.
+          </figcaption>
+        </figure>
+
         <p class="kisaca">
           <b>Kısaca:</b> Snell yasasında kırılma açısı 90° alınınca sin θ(sınır) = n₂/n₁ çıkar. Işın
           duvara bundan büyük açıyla çarpmalı, yani fiber ekseniyle 90° − θ(sınır)'dan küçük açı yapmalıdır.
@@ -2847,6 +2951,15 @@
           yol aldıktan sonra bile büyük ölçüde ayaktadır; yüzlerce kilometrelik hatlarda ise belli
           aralıklarla yükseltilir.
         </p>
+        <figure class="foto">
+          <img src="gorsel/fiber-optik-ek2.webp?v=1" srcset="gorsel/fiber-optik-ek2-800.webp?v=1 800w, gorsel/fiber-optik-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir masada duran sarı bir kurşun kalemin sivri ucuna yakın kısmına ince sarı bir kablo birkaç tur sarılmış; kablo soldaki kırmızı ışık veren kaynaktan geliyor. Kablonun kalemin çevresinde kıvrıldığı yer içeriden kırmızı parlıyor, düz kısımları ise sarı kalıyor.">
+          <figcaption>
+            <b>Kaleme sarılan fiber</b> yalnızca sıkı kıvrıldığı yerde kırmızı parlıyor; kaynaktan gelen ışık düz kısımlarda çekirdekte kalıp dışarı sızmıyor. Kalemin çevresindeki dar kıvrımda ışın dış duvara daha dik çarpar, geliş açısı sınır açının altına iner ve tam yansıma bozulur. Kablonun dışına kaçıp onu parlatan bu ışık, bükülme kaybının gözle görülen hâlidir.
+          </figcaption>
+        </figure>
+
         <p class="kisaca">
           <b>Kısaca:</b> Modern fiberde kayıp kilometrede yaklaşık 0,2 dB'dir: 50 km sonra ışığın onda
           biri, 100 km sonra yüzde biri kalır. Kayıpların kaynağı tam yansıma değil; soğurma, saçılma ve
@@ -2939,6 +3052,8 @@
             Çekirdek indisi 1,50, kılıf indisi 1,20 olan bir fiberde çekirdek–kılıf sınır açısı
             kaç derecedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> n₁ = 1,50 (çekirdek) · n₂ = 1,20 (kılıf) · sin53° = 0,8</p>
+          <p class="istenen"><b>İstenen:</b> çekirdek–kılıf sınır açısı θ(sınır)</p>
           <ol class="steps">
             <li>sin θ = n₂/n₁ = 1,20/1,50 = 0,8</li>
             <li>θ = <strong>53°</strong></li>
@@ -2951,6 +3066,8 @@
           <p>
             Kırılma indisi 1,5 olan 30 km'lik fiber kabloda ışık ne kadar sürede yol alır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> n = 1,5 · L = 30 km = 30 000 m · c = 3·10⁸ m/s</p>
+          <p class="istenen"><b>İstenen:</b> ışığın kabloyu geçme süresi t</p>
           <ol class="steps">
             <li>v = c/n = 3·10⁸/1,5 = 2·10⁸ m/s</li>
             <li>t = L/v = 30 000 / 2·10⁸</li>
@@ -2964,6 +3081,8 @@
           <p>
             n₁ = 1,50 ve n₂ = 1,46 olan fiberin sayısal açıklığı ve kabul açısı nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> n₁ = 1,50 (çekirdek) · n₂ = 1,46 (kılıf) · dış ortam hava (n = 1)</p>
+          <p class="istenen"><b>İstenen:</b> sayısal açıklık NA · kabul açısı θ(kabul)</p>
           <ol class="steps">
             <li>NA = √(n₁² − n₂²) = √(2,25 − 2,1316) = √0,1184</li>
             <li>NA ≈ <strong>0,344</strong></li>
@@ -2978,6 +3097,8 @@
             n₁ = 1,50 ve n₂ = 1,46 olan fiberin ucuna havadan gelen iki ışın, eksenle (a) 14° ve
             (b) 32° açı yaparak giriyor. Hangisi taşınır? (sin14° ≈ 0,242 · sin32° ≈ 0,530)
           </p>
+          <p class="verilen"><b>Verilenler:</b> n₁ = 1,50 · n₂ = 1,46 · dış ortam hava (n = 1) · eksenle giriş açıları (a) 14° · (b) 32° · sin14° ≈ 0,242 · sin32° ≈ 0,530</p>
+          <p class="istenen"><b>İstenen:</b> (a) ve (b) ışınlarının her biri taşınır mı, kaçar mı?</p>
           <ol class="steps">
             <li>Sınır açı: sin θ = 1,46/1,50 ≈ 0,973 → θ(sınır) ≈ 76,7°</li>
             <li><strong>(a)</strong> sin α = 0,242/1,50 ≈ 0,161 → α ≈ 9,3°; duvara geliş 90° − 9,3° = 80,7°</li>
@@ -2993,6 +3114,8 @@
             Çekirdek çapı 50 µm olan fiberde, eksenle 10° açı yapan ışın 1 metrede kabaca kaç
             kez yansır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> çekirdek çapı = 50 µm = 50·10⁻⁶ m · ışının eksenle açısı 10° · fiber uzunluğu 1 m · tan10° ≈ 0,176</p>
+          <p class="istenen"><b>İstenen:</b> 1 metredeki yaklaşık yansıma sayısı</p>
           <ol class="steps">
             <li>Bir yansımadan diğerine ilerlenen eksenel mesafe: d = çap / tan10°</li>
             <li>d = 50·10⁻⁶ / 0,176 ≈ 2,84·10⁻⁴ m</li>
@@ -3008,6 +3131,8 @@
             (b) en yatık taşınan ışının varış süresini, (c) saniyede en fazla kaç ayrı darbe
             gönderilebileceğini bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> n₁ = 1,50 · n₂ = 1,46 · L = 10 km = 10⁴ m · c = 3·10⁸ m/s</p>
+          <p class="istenen"><b>İstenen:</b> (a) eksen boyunca giden ışının varış süresi t(min) · (b) en yatık taşınan ışının varış süresi t(maks) · (c) saniyede gönderilebilecek en fazla darbe sayısı</p>
           <ol class="steps">
             <li><strong>(a)</strong> t(min) = n₁·L/c = 1,5 · 10⁴ / 3·10⁸ = 5·10⁻⁵ s = <strong>50 µs</strong></li>
             <li><strong>(b)</strong> En yatık ışının yolu L·n₁/n₂ = 10 km · 1,50/1,46 ≈ 10,27 km</li>
@@ -3023,6 +3148,8 @@
             Çekirdek yarıçapı 25 µm, çekirdek indisi 1,50 olan bir fiber için ışın modeline göre en küçük
             bükülme yarıçapını (a) n₂ = 1,46 ve (b) n₂ = 1,40 için bulunuz. (c) Sonucu yorumlayınız.
           </p>
+          <p class="verilen"><b>Verilenler:</b> a = 25 µm (çekirdek yarıçapı) · n₁ = 1,50 · (a) n₂ = 1,46 · (b) n₂ = 1,40</p>
+          <p class="istenen"><b>İstenen:</b> (a) ve (b) için en küçük bükülme yarıçapı R(min) · (c) sonucun yorumu</p>
           <ol class="steps">
             <li>R(min) = a·(n₁ + n₂)/(n₁ − n₂)</li>
             <li><strong>(a)</strong> R(min) = 25 µm · 2,96/0,04 = 1850 µm = <strong>1,85 mm</strong></li>
@@ -3030,6 +3157,42 @@
             <li><strong>(c)</strong> İndis farkı büyüdükçe sınır açı küçülür ve fiber daha keskin bükülebilir;
               küçük indis farklı fiberler bükülmeye karşı daha hassastır.</li>
           </ol>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (c = 3·10⁸ m/s; dış ortam hava, n = 1; sin30° = 0,5; sin53° = 0,8)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Çekirdek indisi 1,25 olan bir fiberde ışık kaç m/s hızla ilerler?</summary>
+          <p><b>Cevap:</b> v = c / n₁ = 3·10⁸ / 1,25 = <strong>2,4·10⁸ m/s</strong>. Işık boşluktakinden
+            1,25 kat yavaş gider.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Çekirdek indisi 1,60, kılıf indisi 1,28 olan bir fiberde çekirdek–kılıf sınır açısı kaç derecedir?</summary>
+          <p><b>Cevap:</b> sin θ(sınır) = n₂ / n₁ = 1,28 / 1,60 = 0,8 → <strong>θ(sınır) =
+            53°</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Çekirdek indisi 1,3, kılıf indisi 1,2 olan bir fiberin sayısal açıklığı ve havadaki kabul açısı nedir?</summary>
+          <p><b>Cevap:</b> NA = √(n₁² − n₂²) = √(1,69 − 1,44) = √0,25 = <strong>0,5</strong>. sin
+            θ(kabul) = 0,5 → <strong>θ(kabul) = 30°</strong>. Uca eksenle 30°'den küçük açıyla giren
+            ışınlar taşınır.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Sıra sende 2'deki fiberde (n₁ = 1,60, n₂ = 1,28) çekirdekte eksenle 40° açı yaparak ilerleyen ışın taşınır mı?</summary>
+          <p><b>Cevap:</b> θ(sınır) = 53° olduğundan ışın eksenle en çok α(maks) = 90° − 53° = 37°
+            yapabilir. 40° bundan büyük: ışın duvara 90° − 40° = 50° ile çarpar, bu da 53°'den küçüktür.
+            Tam yansıma olmaz, ışın <strong>kılıfa kaçar</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: n₁ = 1,50, n₂ = 1,44 olan 6 km'lik çok modlu bir fiberde, eksen boyunca giden ışın ile en yatık taşınan ışının varış süreleri kaç µs farklıdır?</summary>
+          <p><b>Cevap:</b> En hızlı ışın: t(min) = n₁·L / c = 1,5 · 6000 / 3·10⁸ = 3·10⁻⁵ s = 30 µs. En
+            yatık ışın n₁/n₂ kat uzun yol alır: t(maks) = 30 · 1,50 / 1,44 = 31,25 µs. Fark Δt = 31,25 −
+            30 = <strong>1,25 µs</strong>.</p>
         </details>
 
         <h3 id="k12">Sık yapılan hatalar</h3>

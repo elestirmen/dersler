@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2397,6 +2466,22 @@
           <span>Önce sezgi: transformatörün neden gerektiğini, nelerden yapıldığını ve neden yalnızca değişen akımla çalıştığını formülsüz kavra.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Gerilim ve akım:</strong> gerilim (V) yükleri iten etkidir ve volt ile ölçülür; akım (I) telden
+              her saniye geçen yük miktarıdır ve amper (A) ile ölçülür. Prizde yaklaşık 220 V vardır.</li>
+            <li><strong>Elektriksel güç:</strong> bir cihazın her saniye harcadığı enerjidir: P = V · I, birimi watt (W).
+              220 V'ta 5 A çeken bir ısıtıcının gücü 220 · 5 = 1100 W'tır.</li>
+            <li><strong>Direnç ve ısınma:</strong> akım geçen tel ısınır; ısıya giden güç P = I² · R'dir. Akım 2 katına
+              çıkarsa ısınma 4 katına çıkar.</li>
+            <li><strong>İndüksiyon:</strong> bir bobinden geçen manyetik akı değişirse bobinde bir gerilim (emk) doğar.
+              Akı değişmezse, alan ne kadar güçlü olursa olsun gerilim doğmaz.</li>
+            <li><strong>Oran ve orantı:</strong> 2 / 4 = 5 / x ise çapraz çarparsın: 2 · x = 4 · 5, yani x = 10.
+              Transformatör sorularının çoğu böyle bir orantıdır.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: prizden telefona</h3>
         <p>
           Telefonunu şarj ederken aslında iki ayrı dünyayı birbirine bağlıyorsun. Duvardaki prizde
@@ -2696,6 +2781,15 @@
           <code>V₁ = N₁ · ΔΦ/Δt</code>
           <code>V₂ = N₂ · ΔΦ/Δt</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>V₁</td><td>primere (kaynağa bağlı bobine) uygulanan gerilim</td><td>V</td></tr>
+          <tr><td>V₂</td><td>sekonderde (yüke bağlı bobinde) oluşan gerilim</td><td>V</td></tr>
+          <tr><td>N₁</td><td>primerin sarım sayısı</td><td>—</td></tr>
+          <tr><td>N₂</td><td>sekonderin sarım sayısı</td><td>—</td></tr>
+          <tr><td>ΔΦ/Δt</td><td>nüvedeki akının değişim hızı: akının bir saniyede ne kadar değiştiği</td><td>Wb/s</td></tr>
+        </table>
         <ol>
           <li><strong>Sekonder:</strong> her sarımda ΔΦ/Δt kadar emk doğar; N₂ sarım seri bağlı olduğu
             için toplam <strong>V₂ = N₂·ΔΦ/Δt</strong> olur.</li>
@@ -2772,6 +2866,14 @@
           <code>V₁·I₁ = V₂·I₂</code>
           <code>I₁ / I₂ = N₂ / N₁</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>P₁</td><td>primere giren güç</td><td>W</td></tr>
+          <tr><td>P₂</td><td>sekonderden çıkan, yüke verilen güç</td><td>W</td></tr>
+          <tr><td>I₁</td><td>primerden geçen akım</td><td>A</td></tr>
+          <tr><td>I₂</td><td>sekonderden geçen akım</td><td>A</td></tr>
+        </table>
         <ol>
           <li><strong>Enerji korunumu:</strong> ideal transformatörde ısıya giden bir şey yoksa primerden
             giren güç sekonderden çıkar: P₁ = P₂.</li>
@@ -3018,6 +3120,15 @@
           transformatöre verir. Akı çok hızlı değiştiği için aynı gerilimi çok daha az demir ve sarımla elde
           eder. İlke yine aynıdır: <strong>değişen akı</strong>.
         </p>
+        <figure class="foto">
+          <img src="gorsel/transformatorler-ek1.webp?v=1" srcset="gorsel/transformatorler-ek1-800.webp?v=1 800w, gorsel/transformatorler-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Ahşap bir masada kapakları çıkarılmış iki fişli adaptör yan yana duruyor: soldaki siyah kutunun içini üst üste dizilmiş gri demir saclardan bir nüve ve iki bakır sargıdan oluşan iri bir transformatör dolduruyor. Sağdaki beyaz şarj cihazında ise yeşil bir devre kartının üzerinde, kondansatörlerin arasında küçük bir transformatör görünüyor.">
+          <figcaption>
+            <b>Eski ve yeni adaptörü</b> yan yana açınca fark hemen görülür: soldakinin içini demir saclı iri bir nüve ve iki bakır sargı doldururken, sağdaki şarj cihazının transformatörü devre kartındaki küçük parçalardan biridir. Eski adaptör şebekenin 50 Hz'lik gerilimiyle çalışır; bu yavaş değişim için büyük bir demir nüve ve çok sarım gerekir. Yeni şarj cihazı gerilimi saniyede on binlerce kez açıp kapattığı için akı çok hızlı değişir ve aynı gerilim çok daha az demir ve sarımla elde edilir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Telefon bağlı değilken prizde takılı duran adaptör neden neredeyse hiç enerji harcamaz?</summary>
           <p>
@@ -3093,6 +3204,8 @@
             220 V'luk şebekeden 12 V elde etmek isteyen bir adaptörün primeri 1100 sarımlıdır.
             Sekonder kaç sarım olmalıdır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> V₁ = 220 V · V₂ = 12 V · N₁ = 1100</p>
+          <p class="istenen"><b>İstenen:</b> sekonderin sarım sayısı N₂</p>
           <ol class="steps">
             <li>N₂ = N₁ · V₂/V₁</li>
             <li>N₂ = 1100 · 12/220 = 1100 · 0,0545…</li>
@@ -3107,6 +3220,8 @@
             Primeri 500, sekonderi 100 sarımlı ideal bir transformatörün primerine 220 V
             uygulanıyor. Sekonderden 3 A akım çekiliyor. V₂, I₁ ve güçleri bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> N₁ = 500 · N₂ = 100 · V₁ = 220 V · I₂ = 3 A · transformatör ideal (P₁ = P₂)</p>
+          <p class="istenen"><b>İstenen:</b> sekonder gerilimi V₂ · primer akımı I₁ · güçler P₁ ve P₂</p>
           <ol class="steps">
             <li>V₂ = V₁·N₂/N₁ = 220 · 100/500 = <strong>44 V</strong></li>
             <li>P₂ = V₂·I₂ = 44 · 3 = <strong>132 W</strong></li>
@@ -3122,6 +3237,8 @@
             Bir transformatörün primerinden 4 A akım geçerken uçlarındaki gerilim 220 V'tur.
             Sekonderde 44 V altında 17 A akım ölçülmüştür. Verimi bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> I₁ = 4 A · V₁ = 220 V · V₂ = 44 V · I₂ = 17 A</p>
+          <p class="istenen"><b>İstenen:</b> verim (P₂ / P₁)</p>
           <ol class="steps">
             <li>P₁ = 220 · 4 = <strong>880 W</strong></li>
             <li>P₂ = 44 · 17 = <strong>748 W</strong></li>
@@ -3136,6 +3253,8 @@
             Bir santral 1 MW gücü, toplam direnci 5 Ω olan bir hatla taşıyor. İletim gerilimi
             (a) 10 kV (b) 100 kV ise hatta kaybedilen güçleri karşılaştırınız.
           </p>
+          <p class="verilen"><b>Verilenler:</b> P = 1 MW = 10⁶ W · R<sub>hat</sub> = 5 Ω · (a) V = 10 kV = 10⁴ V · (b) V = 100 kV = 10⁵ V</p>
+          <p class="istenen"><b>İstenen:</b> iki durumda hattaki kayıp P<sub>kayıp</sub> ve karşılaştırması</p>
           <ol class="steps">
             <li>(a) I = P/V = 10⁶/10⁴ = 100 A → P<sub>kayıp</sub> = 100² · 5 = <strong>50 kW</strong> (%5)</li>
             <li>(b) I = 10⁶/10⁵ = 10 A → P<sub>kayıp</sub> = 10² · 5 = <strong>500 W</strong> (%0,05)</li>
@@ -3150,6 +3269,8 @@
             Sekondere 11 Ω'luk bir direnç bağlanıyor. Verim %80 ise (a) sekonder akımını,
             (b) primer akımını, (c) ısıya dönüşen gücü bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> N₁ = 1000 · N₂ = 200 · V₁ = 220 V · sekonderdeki yük R = 11 Ω · verim = %80 = 0,80</p>
+          <p class="istenen"><b>İstenen:</b> (a) sekonder akımı I₂ · (b) primer akımı I₁ · (c) ısıya dönüşen güç</p>
           <ol class="steps">
             <li>V₂ = 220 · 200/1000 = 44 V → <strong>(a)</strong> I₂ = V₂/R = 44/11 = <strong>4 A</strong></li>
             <li>P₂ = 44 · 4 = 176 W</li>
@@ -3170,6 +3291,8 @@
             şehre taşınacak. (a) Güç doğrudan 10 kV ile gönderilirse, (b) önce sarım oranı
             N₁ : N₂ = 1 : 20 olan bir yükseltici kullanılırsa hattaki kayıp ne olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> P = 2 MW = 2·10⁶ W · santral gerilimi V = 10 kV = 10⁴ V · R<sub>hat</sub> = 10 Ω · yükselticide N₁ : N₂ = 1 : 20</p>
+          <p class="istenen"><b>İstenen:</b> (a) doğrudan 10 kV ile gönderilince hattaki kayıp · (b) yükseltici kullanılınca hattaki kayıp</p>
           <ol class="steps">
             <li><strong>(a)</strong> I = 2·10⁶ / 10⁴ = 200 A → P<sub>kayıp</sub> = 200² · 10 = <strong>400 kW</strong> (%20)</li>
             <li><strong>(b)</strong> Yükseltici çıkışı: V₂ = 10 kV · 20 = 200 kV</li>
@@ -3186,6 +3309,8 @@
             kV'luk iletim gerilimi gerekir? (c) Santral 10 kV ürettiğine göre yükselticinin sarım oranı
             ne olmalıdır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> P = 10 MW = 10⁷ W · R<sub>hat</sub> = 5 Ω · izin verilen kayıp = gücün %0,5'i · santral gerilimi V₁ = 10 kV</p>
+          <p class="istenen"><b>İstenen:</b> (a) en büyük hat akımı I · (b) en küçük iletim gerilimi V · (c) yükselticinin sarım oranı N₁ : N₂</p>
           <ol class="steps">
             <li>İzin verilen kayıp: 0,005 · 10⁷ W = 5·10⁴ W = 50 kW</li>
             <li><strong>(a)</strong> I² · 5 = 5·10⁴ → I² = 10⁴ → <strong>I = 100 A</strong></li>
@@ -3196,6 +3321,38 @@
             Kontrol: 100 kV'ta I = 100 A, kayıp 100² · 5 = 50 kW = %0,5 ✓. Gerilim bundan yüksek
             seçilirse kayıp daha da küçülür.
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (Aksi söylenmedikçe transformatörü ideal kabul et.)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Primeri 400, sekonderi 1200 sarımlı bir transformatörün primerine 220 V uygulanıyor. Sekonder gerilimi kaç V'tur? Transformatör yükseltici mi, düşürücü mü?</summary>
+          <p><b>Cevap:</b> V₂ = V₁ · N₂ / N₁ = 220 · 1200 / 400 = <strong>660 V</strong>. Sekonderde sarım daha çok olduğu için
+            transformatör <strong>yükselticidir</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Bir transformatörün sekonderinden 11 V'ta 10 A akım çekiliyor. Primer 220 V'a bağlıysa primer akımı kaç A'dir?</summary>
+          <p><b>Cevap:</b> İdeal transformatörde V₁ · I₁ = V₂ · I₂: 220 · I₁ = 11 · 10 = 110 → I₁ = 110 / 220 = <strong>0,5 A</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Primerine 220 V'ta 2 A giren bir transformatörün sekonderinden 22 V'ta 18 A çekiliyor. Verimi yüzde kaçtır? Kaç W ısıya dönüşür?</summary>
+          <p><b>Cevap:</b> P₁ = 220 · 2 = 440 W, P₂ = 22 · 18 = 396 W. Verim = 396 / 440 = 0,9 → <strong>%90</strong>.
+            Isıya dönüşen güç: 440 − 396 = <strong>44 W</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: 100 kW'lık güç, toplam direnci 2 Ω olan bir hattan 10 kV gerilimle iletiliyor. Hat akımı kaç A, hattaki kayıp kaç W'tır?</summary>
+          <p><b>Cevap:</b> I = P / V = 100 000 / 10 000 = <strong>10 A</strong>. P<sub>kayıp</sub> = I² · R<sub>hat</sub> = 10² · 2 =
+            <strong>200 W</strong>; bu, taşınan gücün yalnızca %0,2'sidir.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Primeri 1100 sarımlı bir transformatör 220 V'a bağlı. Sekondere bağlı 11 Ω'luk dirençten 2 A akım geçiyor. Sekonder kaç sarımlıdır? Primer akımı kaç A'dir?</summary>
+          <p><b>Cevap:</b> Önce sekonder gerilimini bul: V₂ = I₂ · R = 2 · 11 = 22 V. Sarım: N₂ = N₁ · V₂ / V₁ = 1100 · 22 / 220 =
+            <strong>110 sarım</strong>. Güç: P₂ = 22 · 2 = 44 W = P₁, primer akımı I₁ = 44 / 220 = <strong>0,2 A</strong>.</p>
         </details>
 
         <h3 id="k12">Sık yapılan hatalar</h3>

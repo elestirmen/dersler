@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2410,6 +2479,22 @@
           <span>Önce sezgi: akım nereden doğuyor, akı ne demek ve doğa değişime neden karşı koyuyor? Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Manyetik alan (B):</strong> mıknatısın ya da akım taşıyan telin çevresindeki etki bölgesi.
+              Birimi tesla (T); Dünya'nın alanı yaklaşık 50 µT'dır.</li>
+            <li><strong>Yüzey alanı (A):</strong> bir yüzeyin büyüklüğü, m² ile ölçülür. 20 cm × 10 cm'lik bir
+              çerçevenin alanı 0,2 m · 0,1 m = 0,02 m²'dir.</li>
+            <li><strong>Normal ve kosinüs:</strong> normal, bir yüzeye dik çizilen doğrudur; masanın normali tavana
+              bakar. cos 0° = 1, cos 60° = 0,5, cos 90° = 0.</li>
+            <li><strong>Değişim (Δ):</strong> Δ “son değer eksi ilk değer” demektir. Sıcaklık 20 °C'den 26 °C'ye
+              çıktıysa değişim 6 °C'dir; bu 3 saniyede olduysa sıcaklık her saniye 2 °C değişmiştir.</li>
+            <li><strong>Ohm yasası ve güç:</strong> akım = gerilim / direnç (I = V / R). 6 V'luk pile bağlı 3 Ω'luk
+              dirençten 2 A geçer ve dirençte P = I² · R = 12 W ısıya dönüşür.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: bisiklet farı nasıl yanar?</h3>
         <p>
           Birçok bisiklette farın pili yoktur. Ön tekerleğin yanına küçük bir
@@ -2696,6 +2781,16 @@
           <code>ε = −N · ΔΦ / Δt</code>
           <code>I = ε / R</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>ε</td><td>indüklenen emk, yani devrede akımı süren gerilim (baştaki eksi yalnızca yönü söyler)</td><td>V</td></tr>
+          <tr><td>N</td><td>bobinin sarım sayısı</td><td>—</td></tr>
+          <tr><td>ΔΦ</td><td>akının değişimi: son akı eksi ilk akı (Φ₂ − Φ₁)</td><td>Wb</td></tr>
+          <tr><td>Δt</td><td>akının değiştiği süre</td><td>s</td></tr>
+          <tr><td>I</td><td>devreden geçen indüksiyon akımı</td><td>A</td></tr>
+          <tr><td>R</td><td>devrenin direnci</td><td>Ω</td></tr>
+        </table>
         <p>
           N sarım sayısıdır: aynı akı değişimi N kez sayıldığı için emk sarımla doğru orantılı
           büyür. Her sarım küçük bir pil gibidir ve sarımlar seri bağlı piller gibi gerilimlerini
@@ -2714,6 +2809,15 @@
             Akının değişim hızı gerçekten bir gerilimdir.
           </p>
         </div>
+        <figure class="foto">
+          <img src="gorsel/induksiyon-akimi-ek1.webp?v=1" srcset="gorsel/induksiyon-akimi-ek1-800.webp?v=1 800w, gorsel/induksiyon-akimi-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Sınıftaki bir laboratuvar masasında bir el, yarısı mavi yarısı kırmızı bir çubuk mıknatısı kırmızı ucu önde, saydam bir makaraya sarılmış bakır bobinin ağzına itiyor; mıknatısın ucu hareketten bulanık. Bobinin uçları kırmızı ve siyah kablolarla ibreli bir ölçere bağlı, ölçerin iğnesi ortadan sağa doğru belirgin biçimde sapmış.">
+          <figcaption>
+            <b>Mıknatısı bobine ittiğinde</b> bobinden geçen akı değişir ve bobine bağlı ölçerin iğnesi ortadan bir yana sapar. İğnenin sapması akının değişim hızına bağlıdır: mıknatısı durdurursan akı sabitlenir ve iğne ortaya döner, daha hızlı itersen ΔΦ/Δt büyür ve iğne daha çok sapar. Bobindeki çok sayıda sarım da emk'yi büyütür; ε = −N·ΔΦ/Δt'de her sarım seri bağlı küçük bir pil gibi katkı verir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Φ–t grafiğinde akının tepe yaptığı anda emk neden sıfırdır?</summary>
           <p>
@@ -2887,6 +2991,15 @@
           <code>ε = N·B·A·ω·sin(ω·t)</code>
           <code>ε(maks) = B·A·ω·N</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>ω</td><td>çerçevenin açısal hızı: bir saniyede döndüğü açı (ω = 2π·f)</td><td>rad/s</td></tr>
+          <tr><td>f</td><td>çerçevenin bir saniyedeki tur sayısı (frekans)</td><td>Hz</td></tr>
+          <tr><td>t</td><td>çerçevenin alana dik durduğu andan beri geçen süre</td><td>s</td></tr>
+          <tr><td>A</td><td>çerçevenin yüzey alanı</td><td>m²</td></tr>
+          <tr><td>ε(maks)</td><td>emk'nin tepe değeri: çerçeve alana paralelken görülen en büyük emk</td><td>V</td></tr>
+        </table>
         <p>
           Burada ω, çerçevenin açısal hızıdır (ω = 2π·f). Tepe değer, hareketli çubuk bağıntısından
           adım adım çıkar:
@@ -3047,6 +3160,15 @@
           bobininde de işe koşulur: birincil bobindeki akım aniden kesilince hızla çöken manyetik alan,
           çok sarımlı ikincil bobinde on binlerce voltluk bir emk doğurur ve bujide kıvılcım çakar.
         </p>
+        <figure class="foto">
+          <img src="gorsel/induksiyon-akimi-ek2.webp?v=1" srcset="gorsel/induksiyon-akimi-ek2-800.webp?v=1 800w, gorsel/induksiyon-akimi-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Loş bir ortamda eski bir tahta masanın üzerinde siyah kutulu bir pil, demir çekirdekli büyük bir bakır bobin ve tahta tabanlı bir bıçaklı anahtar kablolarla birbirine bağlı. Bir el anahtarın bakır dilini tahta sapından tutup kaldırıyor; dil ile kontak arasında mavimsi beyaz bir kıvılcım çakıyor.">
+          <figcaption>
+            <b>Anahtar açılırken</b> bakır dil ile kontak arasında mavimsi beyaz bir kıvılcım çakıyor. Devre açıldığı anda bobinden geçen akım birden kesilir ve bobinin kendi akısı hızla çöker; bobin bu değişime karşı koyan büyük bir emk üretir ve akım bir anlığına aradaki havadan atlar. Bobinin kendi akımındaki değişime böyle direnmesine öz-indüksiyon denir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Bir elektrik motorunun mili sıkışıp dönemezse motor neden ısınıp yanabilir?</summary>
           <p>
@@ -3111,6 +3233,8 @@
             Alanı 0,2 m² olan bir çerçeve, 0,4 T'lık düzgün alan içinde duruyor. Çerçevenin normali
             alanla (a) 0°, (b) 60°, (c) 90° açı yaptığında akı kaç Wb olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> A = 0,2 m² · B = 0,4 T · normal ile alan arasındaki açı: (a) α = 0° · (b) α = 60° · (c) α = 90° · cos0° = 1, cos60° = 0,5, cos90° = 0</p>
+          <p class="istenen"><b>İstenen:</b> üç durumda çerçeveden geçen akı Φ</p>
           <ol class="steps">
             <li><strong>(a)</strong> Φ = B·A·cos0° = 0,4 · 0,2 · 1 = <strong>0,08 Wb</strong></li>
             <li><strong>(b)</strong> Φ = 0,08 · cos60° = 0,08 · 0,5 = <strong>0,04 Wb</strong></li>
@@ -3125,6 +3249,8 @@
             200 sarımlı bir bobinden geçen manyetik akı 0,1 saniyede 4·10⁻³ Wb'den 1·10⁻³ Wb'e
             düşüyor. İndüklenen emk'nin büyüklüğü nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> N = 200 · ilk akı Φ₁ = 4·10⁻³ Wb · son akı Φ₂ = 1·10⁻³ Wb · Δt = 0,1 s</p>
+          <p class="istenen"><b>İstenen:</b> indüklenen emk'nin büyüklüğü |ε|</p>
           <ol class="steps">
             <li>ΔΦ = 1·10⁻³ − 4·10⁻³ = −3·10⁻³ Wb</li>
             <li>|ε| = N·|ΔΦ|/Δt = 200 · 3·10⁻³ / 0,1</li>
@@ -3139,6 +3265,8 @@
             Bir mıknatısın <strong>N kutbu</strong> bobine yaklaştırılıyor. Bobinin mıknatısa bakan
             yüzü hangi kutup gibi davranır ve neden?
           </p>
+          <p class="verilen"><b>Verilenler:</b> mıknatısın bobine bakan ucu N kutbu · mıknatıs bobine yaklaşıyor</p>
+          <p class="istenen"><b>İstenen:</b> bobinin mıknatısa bakan yüzünün hangi kutup gibi davrandığı ve nedeni</p>
           <ol class="steps">
             <li>N kutbu yaklaştıkça bobinden geçen akı <strong>artar</strong>.</li>
             <li>Lenz yasası: indüksiyon akımı bu artışa karşı koyar, yani mıknatısı
@@ -3155,6 +3283,8 @@
             0,5 T'lık alanda, 40 cm uzunluğundaki çubuk raylar üzerinde 5 m/s hızla kayıyor.
             Devrenin direnci 2 Ω'dur. emk, akım ve çubuğa etki eden karşı kuvveti bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> B = 0,5 T · L = 40 cm = 0,4 m · v = 5 m/s · R = 2 Ω</p>
+          <p class="istenen"><b>İstenen:</b> emk ε · akım I · çubuğa etki eden karşı kuvvet F</p>
           <ol class="steps">
             <li>ε = B·L·v = 0,5 · 0,4 · 5 = <strong>1 V</strong></li>
             <li>I = ε/R = 1/2 = <strong>0,5 A</strong></li>
@@ -3170,6 +3300,8 @@
             atarken, (b) saniyede 50 tur atarken tepe emk nedir? (c) 50 tur/s'de tepe emk'nin şebekenin
             325 V'luk tepe değerine ulaşması için en az kaç sarım gerekir? (π ≈ 3,14)
           </p>
+          <p class="verilen"><b>Verilenler:</b> N = 100 · A = 0,02 m² · B = 0,5 T · (a) f = 2 tur/s · (b) f = 50 tur/s · (c) hedef tepe emk = 325 V · π ≈ 3,14</p>
+          <p class="istenen"><b>İstenen:</b> (a) saniyede 2 tur atarken tepe emk · (b) saniyede 50 tur atarken tepe emk · (c) 50 tur/s'de 325 V için gereken en az sarım sayısı N</p>
           <ol class="steps">
             <li><strong>(a)</strong> ω = 2π·f = 2 · 3,14 · 2 ≈ 12,6 rad/s → ε<sub>maks</sub> = N·B·A·ω = 100 · 0,5 · 0,02 · 12,6 ≈ <strong>12,6 V</strong></li>
             <li><strong>(b)</strong> ω = 2 · 3,14 · 50 = 314 rad/s → ε<sub>maks</sub> = 100 · 0,5 · 0,02 · 314 = <strong>314 V</strong></li>
@@ -3185,6 +3317,8 @@
             Devrenin direnci 2 Ω'dur; sürtünme yoktur. Çubuğun ulaşacağı en büyük hızı, bu hızdaki emk'yi,
             akımı ve dirençteki gücü bulunuz.
           </p>
+          <p class="verilen"><b>Verilenler:</b> B = 0,5 T · L = 0,5 m · sabit çekme kuvveti F = 0,5 N · R = 2 Ω · sürtünme yok</p>
+          <p class="istenen"><b>İstenen:</b> en büyük hız v · bu hızdaki emk ε · akım I · dirençteki güç P</p>
           <ol class="steps">
             <li>Çubuk hızlandıkça karşı kuvvet B²L²v/R büyür; çekme kuvvetine eşitlendiğinde ivme biter.</li>
             <li>F = B²L²v/R → v = F·R/(B²L²) = 0,5 · 2 / (0,25 · 0,25) = <strong>16 m/s</strong></li>
@@ -3195,6 +3329,36 @@
             Bu durum, havada düşen cismin limit hıza ulaşmasına benzer: sürükleyen kuvvet sabit, frenleyen
             kuvvet hızla büyür ve ikisi eşitlenince hız sabitlenir.
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (π ≈ 3,14; emk'nin yalnızca büyüklüğünü hesapla.)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: 0,5 T'lık düzgün alan, 0,04 m²'lik bir çerçevenin yüzeyine dik geçiyor. Çerçeveden geçen akı kaç Wb'dir?</summary>
+          <p><b>Cevap:</b> Alan yüzeye dik olduğu için α = 0° ve cos0° = 1: Φ = B · A = 0,5 · 0,04 = <strong>0,02 Wb</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: 100 sarımlı bir bobinden geçen akı 0,5 saniyede 0,02 Wb artıyor. Bobinde indüklenen emk kaç volttur?</summary>
+          <p><b>Cevap:</b> |ε| = N · ΔΦ / Δt = 100 · 0,02 / 0,5 = <strong>4 V</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: 0,4 T'lık alanda raylar üzerindeki 50 cm'lik çubuk 10 m/s hızla kayıyor. Devrenin direnci 4 Ω ise emk ve akım kaçtır?</summary>
+          <p><b>Cevap:</b> L = 0,5 m. ε = B · L · v = 0,4 · 0,5 · 10 = <strong>2 V</strong>; I = ε / R = 2 / 4 = <strong>0,5 A</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: 200 sarımlı, 0,05 m² yüzeyli bir bobinin yüzeyine dik alan 0,1 s'de 0,2 T'dan 0,6 T'ya çıkıyor. Emk kaç V olur? Devrenin direnci 10 Ω ise akım kaç A'dir?</summary>
+          <p><b>Cevap:</b> ΔΦ = ΔB · A = (0,6 − 0,2) · 0,05 = 0,02 Wb. |ε| = N · ΔΦ / Δt = 200 · 0,02 / 0,1 = <strong>40 V</strong>;
+            I = ε / R = 40 / 10 = <strong>4 A</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: 100 sarımlı, 0,01 m²'lik bir çerçeve 0,2 T'lık düzgün alanda dönüyor. Tepe emk'nin 31,4 V olması için çerçeve saniyede kaç tur atmalıdır?</summary>
+          <p><b>Cevap:</b> ε(maks) = N · B · A · ω → 31,4 = 100 · 0,2 · 0,01 · ω = 0,2 · ω → ω = 157 rad/s. ω = 2π · f olduğundan
+            f = 157 / (2 · 3,14) = <strong>25 tur/s</strong>.</p>
         </details>
 
         <h3 id="k14">Sık yapılan hatalar</h3>

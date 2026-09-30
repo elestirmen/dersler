@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2405,6 +2474,22 @@
           <span>Önce sezgi: ışığın yol değiştirdiği sahnelere bak, kırılmanın ne olduğunu ve ışının hangi yöne saptığını formülsüz kavra.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Hız:</strong> bir şeyin bir saniyede aldığı yol. Metre/saniye (m/s) ile ölçülür;
+              ışık boşlukta her saniye yaklaşık 300 000 km yol alır.</li>
+            <li><strong>Normal:</strong> ışının yüzeye çarptığı noktada yüzeye dik (90°) çizilen
+              yardımcı çizgi. Aynalar konusunda açıları hep bu çizgiden ölçmüştün.</li>
+            <li><strong>Yansıma:</strong> ışığın bir yüzeye çarpıp geri dönmesi. Gelme açısı yansıma
+              açısına eşittir; aynada kendini bu sayede görürsün.</li>
+            <li><strong>Sinüs:</strong> dik üçgende bir açının karşısındaki kenarın en uzun kenara
+              bölümü. sin30° = 0,5 ve sin90° = 1'dir; hiçbir açının sinüsü 1'den büyük olmaz.</li>
+            <li><strong>Oran:</strong> “kaç katı?” sorusunun cevabı. 6 ÷ 2 = 3 ise 6, 2'nin 3 katıdır.
+              m/s'yi m/s'ye bölünce birim sadeleşir, geriye yalın bir sayı kalır.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: ışık ne zaman yolundan sapar?</h3>
         <p>
           Işık, aynı saydam ortamda kaldığı sürece <strong>doğru boyunca</strong> ilerler: odaya
@@ -2664,6 +2749,15 @@
         <div class="formula">
           <code>n₁ · sin i = n₂ · sin r</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>n₁</td><td>ışığın geldiği ortamın kırılma indisi (hava için 1)</td><td>—</td></tr>
+          <tr><td>n₂</td><td>ışığın geçtiği ortamın kırılma indisi (su için 4/3 ≈ 1,33)</td><td>—</td></tr>
+          <tr><td>i</td><td>gelme açısı: gelen ışının normalle yaptığı açı</td><td>derece (°)</td></tr>
+          <tr><td>r</td><td>kırılma açısı: kırılan ışının normalle yaptığı açı</td><td>derece (°)</td></tr>
+          <tr><td>sin i, sin r</td><td>bu açıların sinüsü; soruda verilir (ör. sin53° = 0,8)</td><td>—</td></tr>
+        </table>
         <ul>
           <li><strong>Az yoğundan çok yoğuna</strong> (n₁ &lt; n₂): ışın normale
             <strong>yaklaşır</strong>, r &lt; i.</li>
@@ -2752,6 +2846,15 @@
           Son madde ise bir sonraki konunun, görünür derinliğin temelidir: dike yakın bakışta açılar
           küçüktür ve hesap basit bir bölmeye iner.
         </p>
+        <figure class="foto">
+          <img src="gorsel/kirilma-ek1.webp?v=2" srcset="gorsel/kirilma-ek1-800.webp?v=2 800w, gorsel/kirilma-ek1.webp?v=2 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Karanlık bir laboratuvarda su dolu dikdörtgen bir cam tank yandan görülüyor; bir elin tuttuğu lazer kalemden çıkan yeşil ışın su yüzeyine eğik çarpıyor, suyun içinde yön değiştirip daha dik bir doğru boyunca tankın dibine iniyor. Işının suya girdiği noktadan yukarı doğru soluk bir yansıyan ışın çıkıyor.">
+          <figcaption>
+            <b>Suya giren yeşil lazer ışını</b> yüzeye çarptığı noktada bükülüyor ve suyun içinde daha dik bir yol izliyor; su ışığı yavaşlattığı için ışın normale yaklaşır. Giriş noktasından yukarı dönen soluk ışın, kırılmada ışığın bir kısmının her zaman yansıdığını gösterir. Ne kadar büküleceğini Snell yasası belirler: tablodaki gibi havadan 60° ile gelen ışın suda 40,6° ile ilerler, yani normale yalnızca 20° kadar yaklaşır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Havadan suya 30° ile giren ışın suda 22,1° ile gidiyor. Sudan havaya 22,1° ile çıkan ışın havada kaç derece yapar?</summary>
           <p>
@@ -3024,6 +3127,15 @@
           görüntüsünü, yani “su”yu görür. Birinci basamaktaki görselde arabanın altında beliren ters
           görüntü, olayın bir yansıma gibi davrandığını gösterir.
         </p>
+        <figure class="foto">
+          <img src="gorsel/kirilma-ek2.webp?v=1" srcset="gorsel/kirilma-ek2-800.webp?v=1 800w, gorsel/kirilma-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Sakin bir denizin ufkunda batan Güneş: turuncu-sarı disk alttan ufuk çizgisiyle kesilmiş, genişliği yüksekliğinin birkaç katı olan basık bir oval gibi görünüyor ve önünden ince koyu bir bulut şeridi geçiyor. Gökyüzü turuncu ve kızıl, denizde Güneş'ten göze doğru uzanan parıltılı bir yansıma şeridi var.">
+          <figcaption>
+            <b>Batan Güneş</b> ufka yaklaştığında genişliği aynı kalırken dikey yönde kısalır ve basık bir disk gibi görünür. Ufka yakın ışınlar atmosferin katmanlarından geçerken indisin büyük olduğu tarafa, aşağıya doğru bükülür; diskin alt kenarından gelen ışık daha yoğun katmanlardan geçtiği için daha çok bükülür ve alt kenar üst kenardan daha çok yükselmiş görünür. Buradaki basıklık abartılıdır: gerçek bir gün batımında disk dikey yönde yalnızca altıda bir kadar kısalır.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Güneş batarken ufka değdiğini gördüğün anda Güneş gerçekte nerededir?</summary>
           <p>
@@ -3095,6 +3207,8 @@
             Havadan (n = 1) suya (n = 4/3) 53° ile giren ışının kırılma açısını bulunuz.
             (sin53° = 0,8)
           </p>
+          <p class="verilen"><b>Verilenler:</b> n₁ = 1 (hava) · n₂ = 4/3 (su) · i = 53° · sin53° = 0,8 · sin37° = 0,6</p>
+          <p class="istenen"><b>İstenen:</b> kırılma açısı r</p>
           <ol class="steps">
             <li>n₁·sin i = n₂·sin r → 1 · 0,8 = (4/3) · sin r</li>
             <li>sin r = 0,8 · 3/4 = <strong>0,6</strong></li>
@@ -3109,6 +3223,8 @@
             Dalga boyu havada 600 nm olan ışık, kırılma indisi 1,5 olan cama giriyor.
             Camdaki hızı ve dalga boyu nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> λ₀ = 600 nm (havadaki dalga boyu) · n = 1,5 (cam) · c = 3·10⁸ m/s</p>
+          <p class="istenen"><b>İstenen:</b> camdaki hız v · camdaki dalga boyu λ</p>
           <ol class="steps">
             <li>v = c/n = 3·10⁸ / 1,5 = <strong>2·10⁸ m/s</strong></li>
             <li>λ = λ₀/n = 600/1,5 = <strong>400 nm</strong></li>
@@ -3122,6 +3238,8 @@
           <p>
             Kırılma indisi 2 olan bir ortamdan havaya geçişte sınır açı kaç derecedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> n₁ = 2 (ışığın çıktığı ortam) · n₂ = 1 (hava) · sin30° = 0,5</p>
+          <p class="istenen"><b>İstenen:</b> sınır açı θ</p>
           <ol class="steps">
             <li>sin θ = n₂/n₁ = 1/2 = 0,5</li>
             <li>θ = <strong>30°</strong></li>
@@ -3135,6 +3253,8 @@
             Suyun (n = 4/3) içindeki bir kaynaktan çıkan iki ışın su yüzeyine 37° ve 60° ile geliyor.
             Her birine ne olur? (sin37° = 0,6; sin60° ≈ 0,87)
           </p>
+          <p class="verilen"><b>Verilenler:</b> n₁ = 4/3 (su) · n₂ = 1 (hava) · gelme açıları 37° ve 60° · sin37° = 0,6 · sin53° = 0,8 · sin60° ≈ 0,87</p>
+          <p class="istenen"><b>İstenen:</b> her ışın için: havaya kırılarak mı çıkar, tam mı yansır? Kırılıyorsa kırılma açısı r</p>
           <ol class="steps">
             <li>Işık yoğun ortamdan çıkıyor; önce sınır açıyı bul: sin θ = 1 / (4/3) = 0,75 → θ ≈ 48,6°.</li>
             <li>37° &lt; 48,6° olduğu için ilk ışın kırılır: (4/3) · 0,6 = 1 · sin r → sin r = <strong>0,8</strong> → r = <strong>53°</strong>.</li>
@@ -3153,6 +3273,8 @@
             Kalınlığı 6 cm olan cam levhaya (n = 1,5) 50° ile gelen ışının yandan kayması
             ne kadardır?
           </p>
+          <p class="verilen"><b>Verilenler:</b> t = 6 cm (levhanın kalınlığı) · n = 1,5 (cam) · n(hava) = 1 · i = 50° · sin50° ≈ 0,766</p>
+          <p class="istenen"><b>İstenen:</b> yandan kayma d</p>
           <ol class="steps">
             <li>sin r = sin50° / 1,5 = 0,766/1,5 = 0,511 → r ≈ 30,7°</li>
             <li>d = t·sin(i − r)/cos r = 6 · sin(19,3°) / cos(30,7°)</li>
@@ -3168,6 +3290,8 @@
             (n = 4/3) giriyor. Işının camdaki ve sudaki kırılma açılarını bulunuz. (sin53° = 0,8;
             sin37° = 0,6)
           </p>
+          <p class="verilen"><b>Verilenler:</b> i = 53° (havada) · n(hava) = 1 · n(cam) = 1,5 · n(su) = 4/3 · sin53° = 0,8 · sin37° = 0,6</p>
+          <p class="istenen"><b>İstenen:</b> camdaki kırılma açısı r₁ · sudaki kırılma açısı r₂</p>
           <ol class="steps">
             <li>Hava → cam: 1 · 0,8 = 1,5 · sin r₁ → sin r₁ ≈ 0,53 → r₁ ≈ <strong>32°</strong>.</li>
             <li>Cam–su sınırı üst yüze paralel olduğu için ışın bu sınıra da r₁ açısıyla gelir.</li>
@@ -3186,6 +3310,8 @@
             Bir havuzun 2 m derinliğindeki küçük lamba her yöne ışık yayıyor. Su yüzeyinde ışığın dışarı
             çıkabildiği dairenin yarıçapı kaç metredir? (n = 4/3; sin θ = 0,75 için tan θ ≈ 1,13)
           </p>
+          <p class="verilen"><b>Verilenler:</b> h = 2 m (lambanın derinliği) · n(su) = 4/3 · n(hava) = 1 · sin θ = 0,75 için tan θ ≈ 1,13</p>
+          <p class="istenen"><b>İstenen:</b> ışığın su yüzeyinden çıktığı dairenin yarıçapı R</p>
           <ol class="steps">
             <li>Yüzeye sınır açıdan küçük açıyla gelen ışınlar dışarı çıkar, büyük açıyla gelenler tam yansır.</li>
             <li>sin θ = 1 / (4/3) = 0,75 → θ ≈ 48,6°.</li>
@@ -3197,6 +3323,41 @@
             Aynı geometri ters çalışır: su altındaki bir dalgıç gökyüzünün tamamını yaklaşık 97°'lik bir
             koninin içinde, parlak bir pencere gibi görür (<b>Snell penceresi</b>).
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (c = 3·10⁸ m/s; havanın indisi 1; sin30° = 0,5; sin37° = 0,6; sin53° = 0,8)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Işık bir plastiğin içinde 2,5·10⁸ m/s hızla ilerliyor. Bu plastiğin kırılma indisi kaçtır?</summary>
+          <p><b>Cevap:</b> n = c / v = 3·10⁸ / 2,5·10⁸ = <strong>1,2</strong>. İki hız birbirine
+            bölündüğü için indisin birimi yoktur.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Havadan kırılma indisi 1,6 olan bir cama 53° ile giren ışın camda kaç derecelik kırılma açısıyla ilerler?</summary>
+          <p><b>Cevap:</b> n₁·sin i = n₂·sin r → 1 · 0,8 = 1,6 · sin r → sin r = 0,5 → <strong>r =
+            30°</strong>. Işın normale yaklaştı (30° &lt; 53°) ✓</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Işık, kırılma indisi 1,2 olan bir sıvıdan indisi 1,6 olan bir cama 53° ile geçiyor. Kırılma açısı kaç derecedir?</summary>
+          <p><b>Cevap:</b> n₁·sin i = n₂·sin r → 1,2 · 0,8 = 1,6 · sin r → 0,96 = 1,6 · sin r → sin r =
+            0,6 → <strong>r = 37°</strong>. Işık indisi büyük ortama geçtiği için normale yaklaştı ✓</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Kırılma indisi 5/3 olan bir camın içinden cam–hava yüzeyine 45° ile gelen ışın havaya çıkar mı, yoksa tam mı yansır?</summary>
+          <p><b>Cevap:</b> Önce sınır açıyı bul: sin θ = n₂ / n₁ = 1 / (5/3) = 3/5 = 0,6 → θ = 37°.
+            Gelme açısı 45°, sınır açıdan büyük; ışın havaya çıkamaz ve <strong>tam yansır</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Işığın hızı A ortamında 2·10⁸ m/s, B ortamında 1,5·10⁸ m/s. A'dan B'ye 53° ile geçen ışının kırılma açısı kaç derecedir?</summary>
+          <p><b>Cevap:</b> Önce indisler: n<sub>A</sub> = c / v<sub>A</sub> = 3·10⁸ / 2·10⁸ = 1,5 ve
+            n<sub>B</sub> = 3·10⁸ / 1,5·10⁸ = 2. Snell: 1,5 · 0,8 = 2 · sin r → 1,2 = 2 · sin r → sin r
+            = 0,6 → <strong>r = 37°</strong>. Işık yavaşladığı ortama geçtiği için normale yaklaştı
+            ✓</p>
         </details>
 
         <h3 id="k13">Sık yapılan hatalar</h3>

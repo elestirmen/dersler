@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2404,6 +2473,23 @@
           <span>Önce sezgi: hava direncini yağmurda, bisiklette ve paraşütte gözle; neden bir hız sınırı olduğunu kuvvetlerle anla. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Hız ve ivme:</strong> hız, bir saniyede alınan yoldur (m/s). İvme ise hızın her saniye
+              ne kadar değiştiğidir (m/s²); ivme sıfırsa hız sabit kalır.</li>
+            <li><strong>Serbest düşme:</strong> hava olmasaydı düşen her cisim her saniye yaklaşık 10 m/s daha
+              hızlanırdı (g = 10 m/s²). Bu hızlanmanın bir sonu olmazdı.</li>
+            <li><strong>Ağırlık:</strong> Dünya'nın bir cismi kendine çekme kuvvetidir ve m·g ile bulunur.
+              2 kg'lık bir çantanın ağırlığı 2 · 10 = 20 N'dur.</li>
+            <li><strong>Net kuvvet:</strong> cisme etki eden kuvvetlerin toplamıdır. 20 N aşağı, 5 N yukarı kuvvet
+              varsa net kuvvet 20 − 5 = 15 N, aşağı yönlüdür. Net kuvvet ivme doğurur: a = F<sub>net</sub> / m;
+              net kuvvet sıfırsa ivme de sıfırdır.</li>
+            <li><strong>Kare ve karekök:</strong> 3² = 3 · 3 = 9 ve √9 = 3. Bir sayı 2 katına çıkınca karesi
+              4 katına çıkar.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: yağmur neden canımızı yakmaz?</h3>
         <p>
           Yağmur damlaları bulutlardan, yani yaklaşık 2 km yüksekten düşer. Serbest düşme konusundaki hesap,
@@ -2602,6 +2688,16 @@
           <code>F<sub>d</sub> = k · v²</code>
           <code>k = ½ · ρ · C · A</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>F<sub>d</sub></td><td>hava direnci (sürükleme kuvveti); harekete zıt yöndedir</td><td>N</td></tr>
+          <tr><td>k</td><td>direnç katsayısı: havayı, cismin biçimini ve alanını tek sayıda toplar</td><td>kg/m</td></tr>
+          <tr><td>v</td><td>cismin o anki hızı</td><td>m/s</td></tr>
+          <tr><td>ρ</td><td>havanın yoğunluğu (okunuşu “ro”; deniz seviyesinde yaklaşık 1,2)</td><td>kg/m³</td></tr>
+          <tr><td>C</td><td>sürükleme katsayısı: cismin şekline bağlı, birimsiz bir sayı</td><td>—</td></tr>
+          <tr><td>A</td><td>kesit alanı: cisme hareket yönünden bakınca görünen yüzey</td><td>m²</td></tr>
+        </table>
         <ul>
           <li><strong>ρ</strong>: havanın yoğunluğu (deniz seviyesinde ≈ 1,2 kg/m³)</li>
           <li><strong>C</strong>: sürükleme katsayısı — cismin <em>şekline</em> bağlı (küre ≈ 0,5; düz levha ≈ 1,2)</li>
@@ -2629,6 +2725,15 @@
           Bu bağıntı bir <strong>modeldir</strong>: yağmur damlasından paraşütçüye kadar gündelik boyuttaki
           cisimlerde çok iyi çalışır. Sınırlarına üçüncü basamakta döneceğiz.
         </p>
+        <figure class="foto">
+          <img src="gorsel/limit-hiz-ek1.webp?v=1" srcset="gorsel/limit-hiz-ek1-800.webp?v=1 800w, gorsel/limit-hiz-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Rüzgâr tünelinde, yere sabitlenmiş bir düzeneğe bağlı zaman yarışı bisikletinin üzerinde öne iyice eğilmiş, önkollarını gidona dayamış bir bisikletçi yandan görülüyor. Soldan gelen düzgün beyaz duman çizgileri kaskının ve sırtının üzerinden kıvrılarak akıyor, arkasında dağınık girdaplara dönüşüyor.">
+          <figcaption>
+            <b>Duman çizgileri</b>, bisikletçinin önündeki havanın nasıl itilip gövdenin çevresinden dolaştığını ve arkasında nasıl girdaplara dönüştüğünü görünür kılar. Öne eğilmek, önden görünen alanı (A) küçültür; akıcı kask ve dar giysi de havanın gövdeyi kolay sarmasını sağlayıp sürükleme katsayısını (C) düşürür. İkisi birlikte k'yi, dolayısıyla aynı hızdaki hava direncini azaltır.
+          </figcaption>
+        </figure>
+
         <p class="kisaca">
           <b>Kısaca:</b> Günlük hızlarda hava direnci F<sub>d</sub> = k·v²'dir; k = ½·ρ·C·A havanın
           yoğunluğunu, cismin şeklini ve kesit alanını bir araya toplar. v² çarpanı, hem itilen hava
@@ -3060,6 +3165,8 @@
             80 kg kütleli bir paraşütçü, paraşütü kapalıyken 50 m/s'lik limit hızıyla düşmektedir.
             (a) Bu anda hava direnci kaç N'dur? (b) İvmesi nedir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 80 kg · v<sub>l</sub> = 50 m/s (paraşütçü limit hızda düşüyor) · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) hava direnci F<sub>d</sub> · (b) ivme a</p>
           <ol class="steps">
             <li><strong>(a)</strong> Limit hızda net kuvvet sıfırdır: F<sub>d</sub> = m·g = 80 · 10 = <strong>800 N</strong></li>
             <li><strong>(b)</strong> ΣF = 0 olduğu için <strong>a = 0</strong>'dır.</li>
@@ -3073,6 +3180,8 @@
             Bir bisikletli 5 m/s hızla giderken 8 N'luk hava direnciyle karşılaşıyor. (a) Direnç katsayısı
             k kaçtır? Hızını (b) 10 m/s'ye, (c) 15 m/s'ye çıkarırsa hava direnci kaç N olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> v = 5 m/s iken F<sub>d</sub> = 8 N · yeni hızlar 10 m/s ve 15 m/s</p>
+          <p class="istenen"><b>İstenen:</b> (a) direnç katsayısı k · (b) 10 m/s'deki direnç · (c) 15 m/s'deki direnç</p>
           <ol class="steps">
             <li><strong>(a)</strong> F<sub>d</sub> = k·v² → k = 8 / 5² = 8 / 25 = <strong>0,32 kg/m</strong></li>
             <li><strong>(b)</strong> Hız 2 katı → direnç 2² = 4 katı: 4 · 8 = <strong>32 N</strong> (kontrol: 0,32 · 100 = 32 N ✓)</li>
@@ -3087,6 +3196,8 @@
             Aynı kâğıttan yapılmış açık bir levha ile buruşturulmuş bir top düşünelim.
             Buruşturunca kesit alanı dokuzda birine iniyorsa limit hız nasıl değişir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> aynı kâğıt, yani m değişmiyor · kesit alanı A → A/9 (dokuzda birine iniyor)</p>
+          <p class="istenen"><b>İstenen:</b> limit hızın kaç katına çıktığı</p>
           <ol class="steps">
             <li>Kütle değişmedi; yalnızca A küçüldü: A → A/9</li>
             <li>v<sub>l</sub> = √(2mg / (ρCA)) ∝ 1/√A → A dokuzda birine inince v<sub>l</sub> <strong>3 katına</strong> çıkar.</li>
@@ -3100,6 +3211,8 @@
             Bir cismin kütlesi 2 kg, limit hızı 20 m/s ölçülüyor. Direnç F<sub>d</sub> = k·v²
             modeliyle veriliyorsa k kaçtır? Hız 10 m/s iken ivme ne olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 2 kg · v<sub>l</sub> = 20 m/s · F<sub>d</sub> = k·v² · ara hız v = 10 m/s · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> direnç katsayısı k · hız 10 m/s iken ivme a</p>
           <ol class="steps">
             <li>Limit hızda: m·g = k·v<sub>l</sub>² → 20 = k · 400 → <strong>k = 0,05 kg/m</strong></li>
             <li>v = 10 m/s iken direnç: F<sub>d</sub> = 0,05 · 100 = 5 N</li>
@@ -3114,6 +3227,8 @@
             Limit hızı 50 m/s olan paraşütçü, paraşütünü açtığında yüzey alanı 25 katına çıkıyor.
             (a) Yeni limit hız nedir? (b) Açılma anında ivmesi ne olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> v<sub>l</sub> = 50 m/s (paraşüt kapalıyken) · yeni alan 25·A · açılma anında hız hâlâ 50 m/s · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) yeni limit hız · (b) açılma anındaki ivme a</p>
           <ol class="steps">
             <li><strong>(a)</strong> v<sub>l</sub> ∝ 1/√A olduğundan: 50 / √25 = <strong>10 m/s</strong></li>
             <li><strong>(b)</strong> Açılma anında hız hâlâ 50 m/s. Yeni k ile direnç:
@@ -3130,6 +3245,8 @@
             (ρ<sub>su</sub> = 1000 kg/m³, ρ<sub>hava</sub> = 1,2 kg/m³, C = 0,5; kürenin hacmi
             (4/3)·π·r³, kesit alanı π·r²)
           </p>
+          <p class="verilen"><b>Verilenler:</b> r = 1 mm = 0,001 m · ρ<sub>su</sub> = 1000 kg/m³ · ρ<sub>hava</sub> = 1,2 kg/m³ · C = 0,5 · g = 10 m/s² · küre: hacim (4/3)·π·r³, kesit alanı π·r²</p>
+          <p class="istenen"><b>İstenen:</b> damlanın limit hızı v<sub>l</sub></p>
           <ol class="steps">
             <li>Belirleyici olan m/A oranıdır: m/A = ρ<sub>su</sub>·(4/3)·π·r³ / (π·r²) = (4/3)·ρ<sub>su</sub>·r; π sadeleşir.</li>
             <li>m/A = (4/3) · 1000 · 0,001 ≈ 1,33 kg/m²</li>
@@ -3141,6 +3258,38 @@
             Ölçülen değer 2 mm çaplı damla için yaklaşık 6,5 m/s'dir; bu basit model gerçeğe oldukça yakın
             sonuç verir. İri damlaların 9 m/s civarında düşmesi de bu karekök ilişkisinden gelir.
           </p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (g = 10 m/s²)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: Direnç katsayısı k = 0,5 kg/m olan bir cisim 6 m/s hızla düşüyor. Cisme etki eden hava direnci kaç N'dur?</summary>
+          <p><b>Cevap:</b> F<sub>d</sub> = k · v² = 0,5 · 6² = 0,5 · 36 = <strong>18 N</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: Kütlesi 2 kg, direnç katsayısı k = 0,2 kg/m olan bir cismin limit hızı kaç m/s'dir?</summary>
+          <p><b>Cevap:</b> v<sub>l</sub> = √(m · g / k) = √(2 · 10 / 0,2) = √100 = <strong>10 m/s</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: 0,5 kg'lık bir top 10 m/s hızla düşerken ona 1 N'luk hava direnci etki ediyor. Topun o anki ivmesi kaç m/s²'dir?</summary>
+          <p><b>Cevap:</b> Ağırlık m · g = 0,5 · 10 = 5 N (aşağı), direnç 1 N (yukarı). Net kuvvet 5 − 1 = 4 N →
+            a = F<sub>net</sub> / m = 4 / 0,5 = <strong>8 m/s²</strong>, aşağı. Top hâlâ hızlanıyor, ama ivmesi g'den küçük.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Aynı boyda ve biçimde iki kutudan dolu olanın kütlesi boş olanın 4 katıdır. Boş kutunun limit hızı 6 m/s ise dolu kutununki kaç m/s'dir?</summary>
+          <p><b>Cevap:</b> Boy ve biçim aynı olduğu için k da aynıdır. v<sub>l</sub> = √(m · g / k) olduğundan limit hız
+            √m ile büyür: kütle 4 katı → hız √4 = 2 katı. Dolu kutu 2 · 6 = <strong>12 m/s</strong> ile düşer.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: Paraşütü açık, 80 kg'lık bir paraşütçünün limit hızı 5 m/s'dir. Hızı 10 m/s iken ivmesi kaç m/s²'dir ve hangi yöndedir?</summary>
+          <p><b>Cevap:</b> Limit hızda k · v<sub>l</sub>² = m · g → k = 800 / 25 = 32 kg/m. Hız 10 m/s iken
+            F<sub>d</sub> = 32 · 10² = 3200 N. Net kuvvet 3200 − 800 = 2400 N, yukarı →
+            a = 2400 / 80 = <strong>30 m/s², yukarı</strong>. Paraşütçü hâlâ aşağı iner, ama hızla yavaşlar.</p>
         </details>
 
         <h3 id="k12">Sık yapılan hatalar</h3>

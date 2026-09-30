@@ -1713,6 +1713,75 @@
       summary[data-zorluk="orta"]::after { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
       summary[data-zorluk="zor"]::after { background: color-mix(in srgb, var(--rose) 12%, transparent); color: var(--rose); }
 
+      /* önce hatırlayalım: konudan önce bilinmesi gerekenler */
+      .modal-body .hatirla {
+        margin: 20px 0 8px;
+        padding: 16px 20px 6px;
+        border: 1px dashed color-mix(in srgb, var(--ton, var(--lime)) 50%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ton, var(--lime)) 5%, var(--surface));
+      }
+
+      .modal-body .hatirla > b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ton, var(--lime));
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .modal-body .hatirla ul { margin-bottom: 8px; }
+
+      /* formüldeki harfler tablosu */
+      .modal-body .tbl.semboller td:first-child {
+        color: var(--blue);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      /* çözümlü örnekte verilenler / istenen */
+      .modal-body details p.verilen,
+      .modal-body details p.istenen {
+        margin: 8px 0 0;
+        padding: 8px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        background: var(--surface-2);
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .modal-body details p.verilen > b:first-child { color: var(--blue); }
+      .modal-body details p.istenen > b:first-child { color: var(--violet); }
+      .modal-body details p.istenen + ol.steps { margin-top: 14px; }
+
+      /* sıra sende: cevabı kapalı alıştırma */
+      details.alistirma {
+        border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+        background:
+          linear-gradient(120deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%),
+          var(--surface);
+      }
+
+      details.alistirma summary { font-weight: 600; line-height: 1.5; }
+
+      details.alistirma summary::before {
+        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
+        background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+        color: var(--amber);
+        content: "✎";
+      }
+
+      details.alistirma[open] summary::before { content: "✓"; }
+
+      details.alistirma > p:first-of-type { margin-top: 12px; }
+
+      details.alistirma > :last-child { margin-bottom: 0; }
+
       /* anlatım görselleri */
       .foto {
         margin: 20px 0 22px;
@@ -2411,6 +2480,22 @@
           <span>Önce sezgi: dönen bir cisme bak, neyin sabit kalıp neyin değiştiğini gör ve adını koy. Bu basamakta hesap yok denecek kadar az.</span>
         </div>
 
+        <div class="hatirla">
+          <b>Önce hatırlayalım</b>
+          <ul>
+            <li><strong>Sürat ve hız:</strong> sürat, bir saniyede alınan yoldur (ör. 5 m/s). Hız ise sürata bir
+              yön ekler: “doğuya doğru 5 m/s” gibi. Yön değişirse hız da değişmiş olur.</li>
+            <li><strong>İvme:</strong> hızın her saniye ne kadar değiştiğidir; birimi m/s². Hız hiç değişmiyorsa
+              ivme sıfırdır.</li>
+            <li><strong>Newton'un yasaları:</strong> net kuvvet yoksa cisim düz bir çizgide sabit hızla gider.
+              Net kuvvet varsa cisim ivmelenir: F = m · a.</li>
+            <li><strong>Çember:</strong> merkezden aynı uzaklıktaki noktaların oluşturduğu eğridir; bu uzaklığa
+              yarıçap (r) denir. Çemberin çevresi 2 · π · r'dir; π ≈ 3,14, sorularda çoğu zaman 3 alınır.</li>
+            <li><strong>Kare ve karekök:</strong> 4² = 4 · 4 = 16 ve √16 = 4. Bir sayı 2 katına çıkınca karesi
+              4 katına çıkar.</li>
+          </ul>
+        </div>
+
         <h3 id="k1">Önce gözlemle: virajı dönen bir arabada ne olur?</h3>
         <p>
           Bir dağ yolunda arabayla ilerlediğini düşün. Sürücü gaza da frene de dokunmuyor;
@@ -2659,6 +2744,16 @@
           <code>ω = 2π / T = 2π·f</code>
           <code>v = ω · r</code>
         </div>
+        <h4>Formüldeki harfler ne anlama geliyor?</h4>
+        <table class="tbl semboller">
+          <tr><th>Sembol</th><th>Anlamı</th><th>Birimi</th></tr>
+          <tr><td>v</td><td>çizgisel hız: cismin çember boyunca sürati</td><td>m/s</td></tr>
+          <tr><td>r</td><td>yarıçap: merkezle cisim arasındaki uzaklık</td><td>m</td></tr>
+          <tr><td>T</td><td>periyot: bir tam turun süresi</td><td>s</td></tr>
+          <tr><td>f</td><td>frekans: bir saniyedeki tur sayısı</td><td>Hz (1/s)</td></tr>
+          <tr><td>ω</td><td>açısal hız: bir saniyede taranan açı (okunuşu “omega”)</td><td>rad/s</td></tr>
+          <tr><td>π</td><td>pi sayısı, yaklaşık 3,14; 2πr bir turda alınan yol, yani çemberin çevresi</td><td>—</td></tr>
+        </table>
         <p>
           <strong>Açısal hız (ω)</strong>, birim zamanda taranan açıdır; birimi rad/s'dir.
           Aynı disk üzerindeki noktaların ω'sı ortaktır, ama v = ω·r olduğu için
@@ -2940,6 +3035,15 @@
           <strong>merkeze doğrudur</strong> ve koltuğu çemberde tutar; koltuktaki kişi ise kendini dışarı
           savruluyor hisseder.
         </p>
+        <figure class="foto">
+          <img src="gorsel/cembersel-hareket-ek1.webp?v=1" srcset="gorsel/cembersel-hareket-ek1-800.webp?v=1 800w, gorsel/cembersel-hareket-ek1.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Şehir otobüsünün içi koridordan öne doğru görülüyor; ön camdan yolun sola kıvrıldığı seçiliyor. Ayaktaki dört yolcu tavandaki tutamaklara tutunmuş, gövdeleri hep birlikte otobüsün sağ yanına, yani virajın dışına doğru yatmış.">
+          <figcaption>
+            <b>Otobüs sola dönerken</b> ayaktaki yolcuların gövdeleri sağa, virajın dışına doğru yatar. Onları dışarı iten bir kuvvet yoktur: gövdeleri eylemsizlikle düz gitmeyi sürdürürken otobüs altlarından döner. Yolcuları dönüşe katan, tutamağın ve tabanın onlara uyguladığı <b>içeri doğru</b> kuvvettir.
+          </figcaption>
+        </figure>
+
         <details class="dusun">
           <summary>Düşün: Dönen bir platformun kenarında tuttuğun topu bırakırsan, yerdeki biri topu nasıl bir yolda görür?</summary>
           <p>
@@ -3065,6 +3169,15 @@
             merkeze doğru bileşen için a = v²/r her an geçerlidir; v yerine o andaki sürat konur.
           </p>
         </div>
+        <figure class="foto">
+          <img src="gorsel/cembersel-hareket-ek2.webp?v=1" srcset="gorsel/cembersel-hareket-ek2-800.webp?v=1 800w, gorsel/cembersel-hareket-ek2.webp?v=1 1536w" sizes="(max-width: 760px) 100vw, 884px"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Güneşli bir bahçede bir genç kolunu başının üstüne dik uzatmış, içinde mavi su bulunan şeffaf bir kovayı sapından tutuyor; kova çemberin tepesinde, ağzı aşağı bakıyor. Çevresindeki bulanık halka kovanın düşey bir çember çizdiğini gösteriyor; su kovanın yukarıda kalan dibine toplanmış, ağzından dökülmüyor.">
+          <figcaption>
+            <b>Kovanın baş aşağı durduğu tepe noktada</b> suya etki eden ağırlık da kovanın dibinin itişi de aşağıya, çemberin merkezine bakar; ikisi birlikte suyu çemberde tutar. Kova yeterince hızlı dönüyorsa ağırlık tek başına yetmez, kovanın dibi de suyu iter ve su dibe bastırılmış kalır. Hız √(g·r)'nin altına düşerse ağırlık gerekenden büyük gelir ve su kovadan ayrılır.
+          </figcaption>
+        </figure>
+
         <p class="kisaca">
           <b>Kısaca:</b> Düşey çemberin tepesinde ağırlık ve normal kuvvet birlikte merkeze bakar; cismin
           çemberde kalması için orada v ≥ √(g·r) olmalıdır. İp ya da ray en çok en alt noktada zorlanır.
@@ -3125,6 +3238,8 @@
             2 m yarıçaplı çember üzerinde dolanan 0,5 kg'lık bir cisim, 4 saniyede bir tur atıyor.
             Frekansını, çizgisel hızını, merkezcil ivmesini ve merkezcil kuvveti bulunuz. (π ≈ 3)
           </p>
+          <p class="verilen"><b>Verilenler:</b> r = 2 m · m = 0,5 kg · T = 4 s (4 saniyede bir tur) · π ≈ 3</p>
+          <p class="istenen"><b>İstenen:</b> frekans f · çizgisel hız v · merkezcil ivme a · merkezcil kuvvet F</p>
           <ol class="steps">
             <li>f = 1/T = 1/4 = <strong>0,25 Hz</strong></li>
             <li>v = 2πr/T = (2·3·2)/4 = <strong>3 m/s</strong></li>
@@ -3139,6 +3254,8 @@
             Dönen bir diskin merkezinden 20 cm ve 60 cm uzaklıktaki iki noktası için periyot,
             çizgisel hız ve merkezcil ivme oranlarını karşılaştırınız.
           </p>
+          <p class="verilen"><b>Verilenler:</b> aynı disk, yani T ve ω ortak · r₁ = 20 cm · r₂ = 60 cm</p>
+          <p class="istenen"><b>İstenen:</b> periyotların, çizgisel hızların (v₂/v₁) ve merkezcil ivmelerin (a₂/a₁) karşılaştırması</p>
           <ol class="steps">
             <li>Periyotlar <strong>eşittir</strong>: katı cismin her noktası aynı sürede bir tur atar (T₁ = T₂).</li>
             <li>Açısal hızlar da eşittir: ω = 2π/T.</li>
@@ -3153,6 +3270,8 @@
             Sabit yarıçaplı bir çemberde dolanan cismin periyodu yarıya indirilirse çizgisel hızı
             ve merkezcil ivmesi nasıl değişir?
           </p>
+          <p class="verilen"><b>Verilenler:</b> r sabit · yeni periyot T₂ = T₁ / 2</p>
+          <p class="istenen"><b>İstenen:</b> çizgisel hızın ve merkezcil ivmenin kaç katına çıktığı</p>
           <ol class="steps">
             <li>v = 2πr/T → T yarıya inerse v <strong>iki katına</strong> çıkar.</li>
             <li>a = v²/r → v iki katına çıkınca a <strong>dört katına</strong> çıkar.</li>
@@ -3168,6 +3287,8 @@
             Yarıçapı 50 m olan bir virajda lastik–yol sürtünme katsayısı 0,5'tir. Aracın
             savrulmadan alabileceği en büyük hız nedir? Yol karla kaplanıp μ 0,2'ye düşerse bu hız ne olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> r = 50 m · μ = 0,5 · karlı yolda μ = 0,2 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> iki yol durumu için savrulmadan alınabilecek en büyük hız v<sub>maks</sub></p>
           <ol class="steps">
             <li>Gereken kuvvet mv²/r, sağlanabilen en büyük kuvvet μmg → v<sub>maks</sub> = √(μgr)</li>
             <li>μ = 0,5: v = √(0,5 · 10 · 50) = √250 ≈ <strong>15,8 m/s ≈ 57 km/h</strong></li>
@@ -3183,6 +3304,8 @@
             0,25 m. (a) Frekansı ve periyodu, (b) çepere yapışan çamaşırın çizgisel hızını,
             (c) merkezcil ivmesini, (d) 0,1 kg'lık ıslak bir çorabı çemberde tutan kuvveti bulunuz. (π ≈ 3)
           </p>
+          <p class="verilen"><b>Verilenler:</b> dakikada 1200 devir · r = 0,25 m · çorabın kütlesi m = 0,1 kg · π ≈ 3</p>
+          <p class="istenen"><b>İstenen:</b> (a) frekans f ve periyot T · (b) çizgisel hız v · (c) merkezcil ivme a · (d) çorabı tutan kuvvet F</p>
           <ol class="steps">
             <li><strong>(a)</strong> f = 1200 / 60 = <strong>20 Hz</strong>, T = 1/20 = <strong>0,05 s</strong></li>
             <li><strong>(b)</strong> v = 2πr/T = (2 · 3 · 0,25) / 0,05 = <strong>30 m/s</strong></li>
@@ -3199,6 +3322,8 @@
             düşeyle 37° açı yapıyor. Koltuk ve yolcunun toplam kütlesi 60 kg'dır. (a) Koltuğun süratini,
             (b) bir turun süresini, (c) zincirdeki kuvveti bulunuz. (tan 37° = 0,75, cos 37° = 0,8, π ≈ 3)
           </p>
+          <p class="verilen"><b>Verilenler:</b> r = 7,5 m · zincirin düşeyle açısı 37° · m = 60 kg · tan 37° = 0,75 · cos 37° = 0,8 · π ≈ 3 · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) koltuğun sürati v · (b) bir turun süresi · (c) zincirdeki kuvvet F</p>
           <ol class="steps">
             <li>Kuvvetler: ağırlık (aşağı) ve zincir kuvveti F (zincir boyunca). Düşey: F·cos 37° = m·g; merkeze doğru: F·sin 37° = m·v²/r.</li>
             <li><strong>(a)</strong> Taraf tarafa bölersen tan 37° = v²/(g·r) → v² = 10 · 7,5 · 0,75 = 56,25 → <strong>v = 7,5 m/s</strong></li>
@@ -3219,6 +3344,8 @@
             (b) El taşı her noktada 4 m/s süratte tutarsa ipteki gerilme (T) tepe noktada ve en alt
             noktada kaç N olur?
           </p>
+          <p class="verilen"><b>Verilenler:</b> m = 0,5 kg · r = 0,8 m (ip uzunluğu) · (b) şıkkında v = 4 m/s · g = 10 m/s²</p>
+          <p class="istenen"><b>İstenen:</b> (a) tepe noktadaki en küçük hız v<sub>min</sub> · (b) tepe ve alt noktada ipteki gerilme T</p>
           <ol class="steps">
             <li><strong>(a)</strong> Tepe: T + m·g = m·v²/r. En küçük hızda ip gevşemek üzeredir, T = 0 → v = √(g·r) = √8 ≈ <strong>2,8 m/s</strong></li>
             <li><strong>(b)</strong> Gereken merkezcil kuvvet her noktada aynıdır: m·v²/r = 0,5 · 16 / 0,8 = 10 N. Ağırlık m·g = 5 N.</li>
@@ -3226,6 +3353,36 @@
             <li>Alt: ağırlık dışa bakar → T = 10 + 5 = <strong>15 N</strong></li>
           </ol>
           <p>İp en alt noktada tepe noktadakinin üç katı gerilir; ip koparsa en olası yer orasıdır.</p>
+        </details>
+
+        <h4>Sıra sende</h4>
+        <p>Önce kendin çöz, sonra cevaba bak. Her soruda önce verilenleri ve isteneni yaz. (g = 10 m/s², π ≈ 3)</p>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 1: 3 m yarıçaplı bir çemberde dolanan cisim bir turu 6 saniyede atıyor. Çizgisel hızı kaç m/s'dir?</summary>
+          <p><b>Cevap:</b> v = 2πr / T = (2 · 3 · 3) / 6 = 18 / 6 = <strong>3 m/s</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="kolay">Sıra sende 2: 2 m yarıçaplı bir çemberde 4 m/s süratle dolanan cismin merkezcil ivmesi kaç m/s²'dir?</summary>
+          <p><b>Cevap:</b> a = v² / r = 4² / 2 = 16 / 2 = <strong>8 m/s²</strong>, merkeze doğru.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 3: Sürtünmesiz yatay bir masada 2 kg'lık bir cisim, 0,5 m'lik bir ipin ucunda 3 m/s süratle dönüyor. İpteki gerilme kaç N'dur?</summary>
+          <p><b>Cevap:</b> Merkezcil kuvvet görevini ipteki gerilme üstlenir: gerilme = m · v² / r = 2 · 3² / 0,5 = 18 / 0,5 =
+            <strong>36 N</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="orta">Sıra sende 4: Dakikada 6 tur atan bir atlıkarıncada merkezden 5 m uzaktaki atın çizgisel hızı kaç m/s'dir?</summary>
+          <p><b>Cevap:</b> f = 6 / 60 = 0,1 Hz → T = 1 / f = 10 s. v = 2πr / T = (2 · 3 · 5) / 10 = <strong>3 m/s</strong>.</p>
+        </details>
+
+        <details class="alistirma">
+          <summary data-zorluk="zor">Sıra sende 5: 10 m yarıçaplı düşey bir döngünün tepesinden 20 m/s ile geçen vagondaki 50 kg'lık yolcuya koltuk kaç N kuvvet uygular?</summary>
+          <p><b>Cevap:</b> Tepede hem ağırlık hem koltuğun kuvveti N aşağı, yani merkeze bakar: N + m · g = m · v² / r.
+            m · v² / r = 50 · 400 / 10 = 2000 N ve m · g = 500 N → N = 2000 − 500 = <strong>1500 N</strong>.</p>
         </details>
 
         <h3 id="k14">Sık yapılan hatalar</h3>
