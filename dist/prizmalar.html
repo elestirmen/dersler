@@ -2373,13 +2373,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3637,7 +3637,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -4962,10 +4962,39 @@
 
           var DATA = [
             {
+              q: "Havadaki bir cam prizmadan geçen ışın hangi yöne sapar?",
+              o: [
+                "Tepe açısına doğru",
+                "Hiç sapmaz, yalnızca yana kayar",
+                "Gelme açısına göre bazen tepeye, bazen tabana",
+                "Prizmanın tabanına doğru"
+              ],
+              a: 3,
+              why: "Prizmanın iki yüzü paralel olmadığı için iki kırılma birbirini götürmez, toplanır; ışın hep kalın tabana doğru döner. Doğrultusunu koruyup yalnızca yana kayan ışık, paralel kenarlı levhada görülür."
+            },
+            {
               q: "Tepe açısı 60° olan prizmaya 50° ile giren ışın 40° ile çıkıyorsa sapma açısı kaçtır?",
               o: ["20°", "30°", "40°", "90°"],
               a: 1,
               why: "δ = i₁ + i₂ − A = 50 + 40 − 60 = 30°. Sapma açısı, gelen ışının doğrultusu ile çıkan ışının doğrultusu arasındaki açıdır."
+            },
+            {
+              q: "Prizmada sapma deneyinde tepe açısı 60° ve ilk kırılma açısı r₁ = 28,1° okunuyor. İkinci yüzeydeki açı r₂ kaç derecedir?",
+              o: ["28,1°", "31,9°", "60,0°", "88,1°"],
+              a: 1,
+              why: "Prizmanın içinde r₁ + r₂ = A'dır: r₂ = 60 − 28,1 = 31,9°. r₁ ile r₂ yalnızca en küçük sapmada, ışın prizmadan simetrik geçtiğinde eşit olur; burada değil."
+            },
+            {
+              q: "Prizmada sapma deneyinde A = 60° ve n = 1,50 sabit. Gelme açısını 30°'den 80°'ye yavaş yavaş artırırsan sapma açısı nasıl değişir?",
+              o: ["Önce azalır, sonra artar", "Sürekli artar", "Sürekli azalır", "Hiç değişmez"],
+              a: 0,
+              why: "Sapma 30°'de 47,1°'dir; gelme açısı 48,6° olunca en küçük değerine, 37,2°'ye iner, sonra yeniden artar ve 80°'de 49,2° olur. En küçük sapmada ışın prizmadan simetrik geçer."
+            },
+            {
+              q: "Prizmanın beyaz ışığı renklere ayırmasına ne ad verilir?",
+              o: ["Yansıma", "Girişim", "Dispersiyon", "Kırınım"],
+              a: 2,
+              why: "Kırılma indisinin dalga boyuna bağlı olması yüzünden renklerin ayrılmasına dispersiyon (dağılma) denir. Oluşan renk şeridine tayf adı verilir."
             },
             {
               q: "Beyaz ışık prizmadan geçerken hangi renk en çok sapar?",
@@ -4974,15 +5003,21 @@
               why: "Kırılma indisi dalga boyu kısaldıkça büyür; mor ışık için indis en büyüktür, bu yüzden en çok mor sapar. Kırmızı en az sapar."
             },
             {
-              q: "Prizmanın beyaz ışığı renklere ayırmasına ne ad verilir?",
-              o: ["Yansıma", "Dispersiyon", "Girişim", "Kırınım"],
-              a: 1,
-              why: "Kırılma indisinin dalga boyuna bağlı olması yüzünden renklerin ayrılmasına dispersiyon (dağılma) denir. Oluşan renk şeridine tayf adı verilir."
+              q: "Prizmadan çıkan kırmızı ışığı ikinci bir prizmadan geçiriyorsun. Ne olur?",
+              o: ["Yine renklerine ayrılır", "Mora dönüşür", "Sapar ama kırmızı kalır", "Hiç sapmadan geçer"],
+              a: 2,
+              why: "Kırmızı ışık tek renktir: ikinci prizmada yine kırılıp sapar ama içinde ayrılacak başka renk olmadığı için kırmızı kalır. Newton bununla prizmanın renk üretmediğini, yalnızca beyaz ışıktaki renkleri ayırdığını gösterdi."
+            },
+            {
+              q: "Tepe açısı 6° olan ince bir cam prizmaya (n = 1,5) ışık neredeyse dik geliyor. Sapma açısı yaklaşık kaç derecedir?",
+              o: ["3°", "4°", "6°", "9°"],
+              a: 0,
+              why: "İnce prizmada δ ≈ (n − 1)·A = (1,5 − 1) · 6° = 3°. n·A = 9° yazmak (n − 1) çarpanını unutmaktır; 4° ise tepe açısını indise bölmekten çıkar."
             },
             {
               q: "Kırılma indisi 1,5 olan 45°–45°–90° prizmada ışık hipotenüse 45° ile çarparsa ne olur?",
-              o: ["Tamamen yansır", "Tamamen geçer", "Yarısı yansır", "Renklerine ayrılır"],
-              a: 0,
+              o: ["Tamamen geçer", "Yarısı yansır", "Renklerine ayrılır", "Tamamen yansır"],
+              a: 3,
               why: "Sınır açı sin θ = 1/1,5 → θ ≈ 41,8°'dir. Geliş açısı 45° bundan büyük olduğu için tam yansıma olur; bu yüzden dürbünlerde ayna yerine prizma kullanılır."
             },
             {
@@ -5001,8 +5036,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

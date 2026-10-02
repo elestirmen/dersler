@@ -2382,13 +2382,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3874,7 +3874,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5054,33 +5054,73 @@
           var DATA = [
             {
               q: "Bir bobinin içinde hareketsiz duran güçlü bir mıknatıs için hangisi doğrudur?",
-              o: ["Sürekli akım üretir", "Akım üretmez; akı değişmiyordur", "Akım yalnızca N kutbu yakınken oluşur", "Bobinin direncine bağlıdır"],
-              a: 1,
+              o: ["Akım üretmez; akı değişmiyordur", "Sürekli akım üretir", "Akım yalnızca N kutbu yakınken oluşur", "Bobinin direncine bağlıdır"],
+              a: 0,
               why: "İndüksiyon için manyetik akının değişmesi gerekir. Sabit bir akı, ne kadar büyük olursa olsun emk üretmez: ε = −N·ΔΦ/Δt bağıntısında ΔΦ = 0'dır."
             },
             {
+              q: "Düzgün manyetik alandaki bir çerçeveyi, yüzeyi alan çizgilerine paralel olacak biçimde çevirirsen içinden geçen akı ne olur?",
+              o: ["En büyük değerini alır", "Yarıya iner", "Sıfır olur", "Değişmez; alan aynı kalmıştır"],
+              a: 2,
+              why: "Φ = B·A·cosα'da α, alan ile yüzeyin normali arasındaki açıdır. Yüzey alana paralelse normal alana diktir: α = 90°, cos90° = 0 ve akı sıfırdır. Alan aynı kalsa bile açı değişince akı değişir."
+            },
+            {
               q: "Bir mıknatısın N kutbu bobine yaklaştırılıyor. Bobinin mıknatısa bakan yüzü nasıl davranır?",
-              o: ["S kutbu gibi; mıknatısı çeker", "N kutbu gibi; mıknatısı iter", "Nötr kalır", "Önce S sonra N kutbu gibi"],
-              a: 1,
+              o: ["S kutbu gibi; mıknatısı çeker", "Nötr kalır", "Önce S sonra N kutbu gibi", "N kutbu gibi; mıknatısı iter"],
+              a: 3,
               why: "Lenz yasası: indüksiyon akımı akı artışına karşı koyar, yani mıknatısı iter. İtebilmek için bobinin o yüzü N kutbu gibi davranmalıdır. Mıknatıs uzaklaştırılsaydı S kutbu gibi davranıp çekerdi."
             },
             {
-              q: "200 sarımlı bobinden geçen akı 0,1 s'de 4 mWb'den 1 mWb'ye düşerse indüklenen emk kaç volttur?",
-              o: ["0,6 V", "6 V", "60 V", "0,06 V"],
+              q: "01 deneyinde mıknatıs bobine yaklaşıyor, içinden geçiyor ve öbür taraftan uzaklaşıyor. Bu sırada galvanometre nasıl sapar?",
+              o: [
+                "Hep aynı yöne sapar",
+                "Önce bir yöne, sonra ters yöne sapar",
+                "Yalnızca mıknatıs bobinin ortasındayken sapar",
+                "Hiç sapmaz; mıknatıs bobine değmez"
+              ],
               a: 1,
+              why: "Mıknatıs yaklaşırken bobinden geçen akı artar, uzaklaşırken azalır. Lenz yasasına göre bu iki değişime karşı koyan akımlar zıt yönlüdür. Mıknatıs ortadayken akı tepededir, değişmez; emk o an sıfırdır."
+            },
+            {
+              q: "200 sarımlı bobinden geçen akı 0,1 s'de 4 mWb'den 1 mWb'ye düşerse indüklenen emk kaç volttur?",
+              o: ["0,06 V", "0,6 V", "6 V", "60 V"],
+              a: 2,
               why: "|ε| = N·|ΔΦ|/Δt = 200 · (3·10⁻³ Wb) / 0,1 s = 6 V. Akının mWb cinsinden verildiğine dikkat: 3 mWb = 3·10⁻³ Wb."
             },
             {
-              q: "Manyetik alan içinde raylar üzerinde kayan çubuğa etki eden indüksiyon kuvveti hangi yöndedir?",
-              o: ["Hareket yönünde", "Harekete zıt yönde", "Alan yönünde", "Kuvvet oluşmaz"],
+              q: "Düzgün manyetik alanda dönen bir çerçevede, akının en büyük olduğu anda indüklenen emk nedir?",
+              o: ["Sıfırdır", "En büyüktür", "Yarı değerindedir", "Negatiftir"],
+              a: 0,
+              why: "emk, akının değişim hızıdır (ε = −N·ΔΦ/Δt). Φ tepe noktasındayken değişim hızı (eğim) sıfırdır, dolayısıyla emk sıfırdır. Φ sıfırdan geçerken ise en hızlı değiştiği için emk en büyüktür."
+            },
+            {
+              q: "02 deneyinde dönme hızını 2 tur/s'den 4 tur/s'ye, alanı da 0,5 T'dan 1 T'ya çıkarırsan tepe emk kaç katına çıkar?",
+              o: ["2 katına çıkar", "4 katına çıkar", "8 katına çıkar", "16 katına çıkar"],
               a: 1,
+              why: "ε(maks) = N·B·A·ω ve ω = 2π·f. Hem B hem f 2 katına çıktığı için tepe emk 2 · 2 = 4 katına çıkar: 12,6 V'tan yaklaşık 50 V'a. Bağıntıda kare yoktur; 16 kat diyen çarpanların karesini almıştır."
+            },
+            {
+              q: "Manyetik alan içinde raylar üzerinde kayan çubuğa etki eden indüksiyon kuvveti hangi yöndedir?",
+              o: ["Hareket yönünde", "Alan yönünde", "Harekete zıt yönde", "Kuvvet oluşmaz"],
+              a: 2,
               why: "Lenz yasası gereği indüksiyon akımının oluşturduğu kuvvet, kendisini doğuran değişime (yani harekete) karşı koyar. Aksi hâlde çubuk kendiliğinden hızlanır, enerji korunumu bozulurdu."
             },
             {
-              q: "Düzgün manyetik alanda dönen bir çerçevede, akının en büyük olduğu anda indüklenen emk nedir?",
-              o: ["En büyüktür", "Sıfırdır", "Yarı değerindedir", "Negatiftir"],
+              q: "03 deneyinde B = 0,5 T, çubuğun boyu L = 0,5 m ve devre direnci R = 2 Ω. Çubuğu 8 m/s hızla itersen devreden kaç A akım geçer?",
+              o: ["0,5 A", "1 A", "2 A", "4 A"],
               a: 1,
-              why: "emk, akının değişim hızıdır (ε = −N·ΔΦ/Δt). Φ tepe noktasındayken değişim hızı (eğim) sıfırdır, dolayısıyla emk sıfırdır. Φ sıfırdan geçerken ise en hızlı değiştiği için emk en büyüktür."
+              why: "ε = B·L·v = 0,5 · 0,5 · 8 = 2 V ve I = ε/R = 2/2 = 1 A. 2 A diyen emk'yi akım sanmış, 4 A diyen emk'yi dirence bölmek yerine dirençle çarpmıştır."
+            },
+            {
+              q: "04 deneyinde aynı mıknatıs plastik boruda yaklaşık 0,49 s'de, bakır boruda ise yaklaşık 5,5 s'de düşüyor. Bakır boruda yavaşlamasının sebebi nedir?",
+              o: [
+                "Bakır, mıknatısı demir gibi kendine çeker",
+                "Bakır boruda hava direnci daha büyüktür",
+                "Mıknatıs bakır borunun çeperine sürtünür",
+                "Boruda doğan girdap akımları mıknatısı yukarı iter"
+              ],
+              a: 3,
+              why: "Mıknatıs düşerken bakır borunun çeperinden geçen akı değişir ve çeperde girdap akımları doğar. Lenz yasası gereği bu akımlar değişime karşı koyar, mıknatısı yukarı iterek frenler. Bakır mıknatıslanmaz; plastik iletken olmadığı için orada akım doğmaz."
             }
           ];
 
@@ -5092,8 +5132,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

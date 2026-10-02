@@ -2426,13 +2426,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -4137,7 +4137,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -7059,19 +7059,44 @@
 
           var DATA = [
             {
-              q: "Aşağıdakilerden hangisi bir tepkime hızı birimi olamaz?",
+              q: "Aşağıdakilerden hangisi bir tepkime hızı birimi <b>olamaz</b>?",
               o: ["M/s", "g/dk", "mL/s", "mol/L"],
               a: 3,
               why: "Hız, miktardaki değişimin süreye bölümüdür; birimin paydasında bir zaman birimi bulunur. mol/L derişimin birimidir, içinde zaman yoktur."
             },
             {
+              q: "Sabit hacimli bir kapta ve sabit sıcaklıkta yürüyen tepkimelerden hangisinin hızı, kaptaki toplam basınç ölçülerek <b>izlenemez</b>?",
+              o: ["2N₂O₅(g) → 4NO₂(g) + O₂(g)", "N₂(g) + 3H₂(g) → 2NH₃(g)", "H₂(g) + I₂(g) → 2HI(g)", "2SO₂(g) + O₂(g) → 2SO₃(g)"],
+              a: 2,
+              why: "Sabit hacim ve sıcaklıkta basınç, yalnız gazların toplam mol sayısı değişirse değişir. H₂ + I₂ → 2HI'de iki tarafta da 2 mol gaz var; basınç hep aynı kalır, bu tepkimeyi mor iyot buharının rengi açılırken izlersin. Ötekilerde gaz mol sayısı değişir: 2'den 5'e, 4'ten 2'ye, 3'ten 2'ye."
+            },
+            {
+              q: "03 bölümünde Mg şerit fazla HCl ile tepkimeye giriyor. Şırıngaya her 10 saniyede giren H₂ giderek azalıyor. Bunun nedeni hangisidir?",
+              o: [
+                "Mg küçüldükçe yüzeyi daralıyor, HCl de azalıyor; etkin çarpışma seyrekleşiyor.",
+                "Mg harcandıkça Mg'nin derişimi azalıyor; katı seyreldikçe tepkime yavaşlıyor.",
+                "Tanecikler zamanla yoruluyor; her çarpışmada ürün verme şansları azalıyor.",
+                "Tepkimenin aktifleşme enerjisi zamanla büyüyor; tepe yükseldikçe hız düşüyor."
+              ],
+              a: 0,
+              why: "Katının derişimi yoğunluğuyla belirlenir; Mg harcansa da değişmez. Değişen, asitle temas eden yüzeyi ve HCl'nin derişimidir; ikisi de birim zamandaki etkin çarpışmayı azaltır. Tanecikler yorulmaz, Ea da tepkimenin değişmeyen bir özelliğidir."
+            },
+            {
               q: "Girenlerin hız ifadesine neden eksi işareti konur: Hız = −Δ[X] / Δt?",
-              o: ["Girenler ürünlerden daha yavaş harcandığı için",
-                  "Δ[X] negatif çıktığı için; eksi işareti hızı pozitif yapar",
-                  "Girenlerin hızı her zaman negatif bir sayı olduğu için",
-                  "Girenlerin katsayıları denklemde negatif yazıldığı için"],
-              a: 1,
+              o: [
+                "Girenler ürünlerden daha yavaş harcandığı için",
+                "Girenlerin hızı her zaman negatif bir sayı olduğu için",
+                "Girenlerin katsayıları denklemde negatif yazıldığı için",
+                "Δ[X] negatif çıktığı için; eksi işareti hızı pozitif yapar"
+              ],
+              a: 3,
               why: "Giren harcandıkça derişimi azalır, yani Δ[X] negatiftir. Hız ise her zaman pozitif bir büyüklüktür; eksi işareti bu negatif değişimi pozitife çevirir."
+            },
+            {
+              q: "2 L'lik bir kapta N₂(g) + 3H₂(g) → 2NH₃(g) tepkimesi yürüyor. İlk 10 saniyede 0,40 mol NH₃ oluşuyor. NH₃'ün ortalama oluşma hızı kaç M/s'dir?",
+              o: ["0,010", "0,020", "0,040", "0,20"],
+              a: 1,
+              why: "Önce derişime çevir: Δ[NH₃] = 0,40 mol ÷ 2 L = 0,20 M. Sonra süreye böl: 0,20 ÷ 10 = 0,020 M/s. 0,040 hacme bölmeyi unutmaktan (o sayı mol/s'dir); 0,010 NH₃'ün katsayısına bölmekten gelir: o sayı tepkime hızıdır, NH₃'ün hızı değil."
             },
             {
               q: "4NH₃(g) + 5O₂(g) → 4NO(g) + 6H₂O(g) tepkimesinde NO'nun oluşma hızı 0,8 M/s'dir. O₂'nin harcanma hızı kaç M/s'dir?",
@@ -7080,13 +7105,32 @@
               why: "Hızlar katsayılarla orantılıdır: Hız(O₂) / 5 = Hız(NO) / 4. Buradan Hız(O₂) = 0,8 · 5 / 4 = 1,0 M/s."
             },
             {
-              q: "Bir derişim–zaman grafiğinde [X], 10. saniyede 0,60 M, 30. saniyede 0,30 M, 50. saniyede 0,15 M okunuyor. Hangisi doğrudur?",
-              o: ["İki aralıkta da X'in ortalama harcanma hızı 0,015 M/s'dir.",
-                  "10–30 s'de 0,015 M/s, 30–50 s'de 0,0075 M/s: hız azalmıştır.",
-                  "10–30 s'de 0,030 M/s, 30–50 s'de 0,015 M/s: hız azalmıştır.",
-                  "30–50 s'de hız daha büyüktür; çünkü tepkime daha uzun sürmüştür."],
+              q: "01 laboratuvarında 2N₂O₅(g) → 4NO₂(g) + O₂(g) tepkimesinde [N₂O₅] ilk 100 saniyede 1,00 M'den 0,50 M'ye iniyor. Bu aralıkta tepkime hızı, yani her maddenin hızının kendi katsayısına bölünmüş değeri, kaç M/s'dir?",
+              o: ["0,00125", "0,0025", "0,0050", "0,010"],
               a: 1,
+              why: "N₂O₅'in harcanma hızı 0,50 ÷ 100 = 0,0050 M/s; katsayısı 2 olduğu için tepkime hızı 0,0050 ÷ 2 = 0,0025 M/s. NO₂'den bakınca da aynı sayı çıkar: NO₂ 1,00 M artar, 0,010 M/s ÷ 4 = 0,0025 M/s. 0,0050 N₂O₅'in, 0,010 NO₂'nin kendi hızıdır."
+            },
+            {
+              q: "Bir derişim–zaman grafiğinde [X], 10. saniyede 0,60 M, 30. saniyede 0,30 M, 50. saniyede 0,15 M okunuyor. Hangisi doğrudur?",
+              o: [
+                "10–30 s'de 0,015 M/s, 30–50 s'de 0,0075 M/s: hız azalmıştır.",
+                "İki aralıkta da X'in ortalama harcanma hızı 0,015 M/s'dir.",
+                "10–30 s'de 0,030 M/s, 30–50 s'de 0,015 M/s: hız azalmıştır.",
+                "30–50 s'de hız daha büyüktür; çünkü tepkime daha uzun sürmüştür."
+              ],
+              a: 0,
               why: "10–30 s: (0,60 − 0,30) / 20 = 0,015 M/s. 30–50 s: (0,30 − 0,15) / 20 = 0,0075 M/s. Eşit sürelerde harcanan miktar küçüldü: X azaldıkça tepkime yavaşlıyor."
+            },
+            {
+              q: "01 laboratuvarında t₁ = 0, t₂ = 200 s seçince N₂O₅'in ortalama harcanma hızı 3,75·10⁻³ M/s çıkıyor. Teğeti açıp t = 0'daki anlık harcanma hızına bakarsan ne bulursun?",
+              o: [
+                "3,75·10⁻³ M/s'ye eşittir; ortalama hız her an aynıdır.",
+                "3,75·10⁻³ M/s'den küçüktür; tepkime henüz yeni başlamıştır.",
+                "Sıfırdır; t = 0'da henüz hiç ürün oluşmamıştır.",
+                "3,75·10⁻³ M/s'den büyüktür; eğri en dik başlangıçtadır."
+              ],
+              a: 3,
+              why: "Anlık hız teğetin, ortalama hız kesenin eğiminin büyüklüğüdür. Tepken azaldıkça hız düştüğü için aralığın başındaki anlık hız ortalamadan büyüktür: t = 0'da yaklaşık 6,9·10⁻³ M/s. Laboratuvardaki “Anlık tepkime hızı” satırı bunun katsayıya (2) bölünmüşünü, 0,00347 M/s'yi gösterir. Başta ürün olmaması hızı sıfır yapmaz."
             },
             {
               q: "CaCO₃(k) + 2HCl(suda) → CaCl₂(suda) + H₂O(s) + CO₂(g) tepkimesinde CO₂ 0,22 g/s hızla çıkıyor. HCl'nin harcanma hızı kaç mol/s'dir? (CO₂ = 44 g/mol)",
@@ -7104,8 +7148,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

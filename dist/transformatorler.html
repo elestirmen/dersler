@@ -2373,13 +2373,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3761,7 +3761,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5094,6 +5094,12 @@
 
           var DATA = [
             {
+              q: "Bir transformatörün primerine pil (doğru akım kaynağı) bağlanırsa sekonderde ne gözlenir?",
+              o: ["Primerdekiyle aynı gerilim", "Sarım oranına göre bir gerilim", "Primerdekinin iki katı gerilim", "Hiçbir gerilim indüklenmez"],
+              a: 3,
+              why: "Doğru akımda akım sabittir, nüvedeki manyetik akı değişmez. Faraday yasasına göre emk ancak akı değişirse indüklenir; bu yüzden transformatör yalnızca alternatif akımla çalışır."
+            },
+            {
               q: "Primeri 200, sekonderi 800 sarımlı ideal bir transformatörün primerine 110 V uygulanıyor. Sekonderdeki gerilim kaç volttur?",
               o: ["27,5 V", "110 V", "440 V", "880 V"],
               a: 2,
@@ -5106,22 +5112,56 @@
               why: "İdeal transformatörde P₁ = P₂'dir: 110 · 8 = 880 W. Sekonderde I₂ = P/V₂ = 880/440 = 2 A. Gerilim 4 katına çıkarken akım 4'te bire iner."
             },
             {
-              q: "Bir transformatörün primerine pil (doğru akım kaynağı) bağlanırsa sekonderde ne gözlenir?",
-              o: ["Primerdekiyle aynı gerilim", "Sarım oranına göre bir gerilim", "Hiçbir gerilim indüklenmez", "Primerdekinin iki katı gerilim"],
-              a: 2,
-              why: "Doğru akımda akım sabittir, nüvedeki manyetik akı değişmez. Faraday yasasına göre emk ancak akı değişirse indüklenir; bu yüzden transformatör yalnızca alternatif akımla çalışır."
+              q: "04 oyununda giriş 220 V, primer 1100 sarımlı. Hedef çıkış 110 V ise sekonder kaç sarımlı olmalıdır?",
+              o: ["110 sarım", "550 sarım", "1100 sarım", "2200 sarım"],
+              a: 1,
+              why: "N₂ = N₁ · V₂/V₁ = 1100 · 110/220 = 550 sarım. Gerilim yarıya inecekse sekonderin sarımı da primerinkinin yarısı olmalıdır. 2200 sarım oranı ters kurmaktan gelir; o transformatör gerilimi yükseltirdi."
+            },
+            {
+              q: "01 laboratuvarında giriş 220 V, N₁ = 500, N₂ = 1000. Yük direncini 100 Ω'dan 200 Ω'a çıkarırsan çıkış akımı kaç A olur?",
+              o: ["1,1 A", "2,2 A", "4,4 A", "8,8 A"],
+              a: 1,
+              why: "Sarım oranı değişmediği için V₂ = 220 · 1000/500 = 440 V kalır. Akımı yük belirler: I₂ = V₂/R = 440/200 = 2,2 A. Direnç 2 katına çıkınca çıkış akımı yarıya iner; transformatör akımı kendiliğinden sabit tutmaz."
+            },
+            {
+              q: "Primerine 50 Hz'lik alternatif gerilim uygulanan yükseltici bir transformatörün sekonderindeki gerilimin frekansı nedir?",
+              o: ["50 Hz; frekans değişmez", "Sarım oranı kadar büyür", "Sarım oranı kadar küçülür", "Sıfırdır; sekonder doğru akım verir"],
+              a: 0,
+              why: "İki sarımdan aynı akı geçer. Sekonderdeki emk bu akının değişimini izlediği için primerle aynı ritimde salınır. Transformatör gerilimi ve akımı değiştirir, frekansı değiştirmez."
             },
             {
               q: "Primerinden 500 W güç çeken bir transformatörün sekonderinde 450 W ölçülüyor. Verimi ve kaybı nedir?",
-              o: ["%90 · 50 W", "%111 · 50 W", "%90 · 450 W", "%50 · 90 W"],
-              a: 0,
+              o: ["%111 · 50 W", "%50 · 90 W", "%90 · 50 W", "%90 · 450 W"],
+              a: 2,
               why: "verim = P₂/P₁ = 450/500 = 0,90 → %90. Kayıp = 500 − 450 = 50 W'tır ve bakır, girdap akımı ile histerezis kayıpları olarak ısıya dönüşür."
+            },
+            {
+              q: "Transformatörün nüvesi neden tek parça demir yerine yalıtılmış ince levhalardan yapılır?",
+              o: [
+                "Girdap akımlarının yolunu kesip ısı kaybını azaltmak için",
+                "Nüveyi hafifletip sarım sayısını artırmak için",
+                "Primer ile sekonder arasında tel bağlantısı kurmak için",
+                "Nüvedeki akının değişmesini engellemek için"
+              ],
+              a: 0,
+              why: "Değişen akı tek parça demirde girdap akımları doğurur ve nüveyi ısıtır. Yalıtılmış ince levhalar bu akımların yolunu keser, kayıp azalır. Akının değişmesi engellenmez; transformatör zaten bu değişimle çalışır."
             },
             {
               q: "Sabit bir gücü taşıyan iletim hattında gerilim 5 katına çıkarılırsa hatta kaybedilen güç nasıl değişir?",
               o: ["5 katına çıkar", "5'te birine iner", "25 katına çıkar", "25'te birine iner"],
               a: 3,
               why: "P = V·I sabitken gerilim 5 katına çıkınca akım 5'te bire iner. Kayıp P = I²·R olduğu için akımın karesiyle, yani 25'te bire düşer. Yüksek gerilimle iletimin tek sebebi budur."
+            },
+            {
+              q: "03 bölümünde 1 MW'lık güç, direnci 10 Ω olan hattan 10 kV ile gönderiliyor. Hattaki kaybı en çok hangisi azaltır?",
+              o: [
+                "Direnci 10 Ω'dan 5 Ω'a indirmek",
+                "Direnci 10 Ω'dan 8 Ω'a indirmek",
+                "Gerilimi 10 kV'tan 20 kV'a çıkarmak",
+                "Gerilimi 10 kV'tan 12 kV'a çıkarmak"
+              ],
+              a: 2,
+              why: "I = P/V = 10⁶/10⁴ = 100 A ve kayıp I²·R = 100 kW. Direnci yarıya indirmek kaybı yarıya (50 kW) indirir; gerilimi 2 katına çıkarmak akımı yarıya, kaybı dörtte bire (25 kW) indirir. Kayıp R ile doğru, akımın karesiyle orantılıdır."
             }
           ];
 
@@ -5133,8 +5173,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

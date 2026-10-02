@@ -2356,13 +2356,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3681,7 +3681,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5043,16 +5043,50 @@
 
           var DATA = [
             {
+              q: "Suyun içindeki bir taş için hangisi doğrudur?",
+              o: [
+                "Görüntüsü sanaldır, olduğundan yukarıda görünür",
+                "Gerçekten yukarı çıkar",
+                "Görüntüsü gerçektir, perdeye düşer",
+                "Görüntüsü olduğundan derinde görünür"
+              ],
+              a: 0,
+              why: "Taş yerinde durur; değişen, göze ulaşan ışınların doğrultusudur. Kırılan ışınların uzantıları gerçek yerin yukarısında kesişir ve sanal bir görüntü oluşturur."
+            },
+            {
               q: "Derinliği 120 cm olan bir havuzun dibi, yukarıdan bakan biri için kaç cm derinlikte görünür? (n = 4/3)",
               o: ["90 cm", "120 cm", "160 cm", "180 cm"],
               a: 0,
               why: "h′ = h/n = 120/(4/3) = 120 · 3/4 = 90 cm. Su içindeki cisimler gerçek derinliğinin dörtte üçünde görünür."
             },
             {
+              q: "Havuz laboratuvarındaki h′–h grafiğinde görünen derinlik, orijinden geçen bir doğrudur. Sıvı su iken (n = 4/3) bu doğrunun eğimi kaçtır?",
+              o: ["0,25", "0,75", "1", "1,33"],
+              a: 1,
+              why: "Eğim h′/h = 1/n = 3/4 = 0,75'tir: her 1 cm gerçek derinlik 0,75 cm görünür. 0,25 yükselme oranıdır; eğimi 1 olan kesikli doğru ise gerçek derinliği gösterir."
+            },
+            {
               q: "Bir sıvının 80 cm derinliğindeki cisim 50 cm'de görünüyorsa sıvının kırılma indisi kaçtır?",
               o: ["0,62", "1,30", "1,60", "2,00"],
               a: 2,
               why: "n = h/h′ = 80/50 = 1,6. Görünen derinlik ne kadar küçükse indis o kadar büyüktür."
+            },
+            {
+              q: "Havuz laboratuvarında sıvı su (n = 4/3) ve yükselme 40 cm okunuyor. Havuzun gerçek derinliği kaç cm'dir?",
+              o: ["30 cm", "53 cm", "120 cm", "160 cm"],
+              a: 3,
+              why: "Suda yükselme derinliğin dörtte biridir: Δh = h(1 − 3/4) = h/4. h/4 = 40 cm → h = 160 cm; taban 120 cm'de görünür. 120 cm görünen derinliktir, gerçek derinlik değil."
+            },
+            {
+              q: "Havuzun dibine tam yukarıdan değil, çok yatık bir açıyla bakıyorsun. Dip nasıl görünür?",
+              o: [
+                "Gerçek derinliğinde görünür",
+                "Dik bakıştakinden daha derin görünür",
+                "Dik bakıştakiyle aynı, h/n derinliğinde görünür",
+                "Dik bakıştakinden daha sığ görünür"
+              ],
+              a: 3,
+              why: "h′ = h/n yalnızca dike yakın bakış için geçerlidir. Bakış yatıklaştıkça ışınların uzantıları daha yukarıda kesişir ve dip daha da sığ görünür; suda 60°'lik bakışta derinlik yaklaşık yarısı kadar görünür."
             },
             {
               q: "Su altındaki bir dalgıç, yüzeyden 90 cm yukarıdaki bir cismi kaç cm yükseklikte görür? (n = 4/3)",
@@ -5067,10 +5101,16 @@
               why: "Δ = t(1 − 1/n) = 6 · (1 − 1/1,5) = 6 · (1/3) = 2 cm. Yükselme levhanın kalınlığı kadar değil, onun üçte biri kadardır."
             },
             {
-              q: "Suyun içindeki bir taş için hangisi doğrudur?",
-              o: ["Gerçekten yukarı çıkar", "Görüntüsü gerçektir, perdeye düşer", "Görüntüsü sanaldır, olduğundan yukarıda görünür", "Görüntüsü olduğundan derinde görünür"],
-              a: 2,
-              why: "Taş yerinde durur; değişen, göze ulaşan ışınların doğrultusudur. Kırılan ışınların uzantıları gerçek yerin yukarısında kesişir ve sanal bir görüntü oluşturur."
+              q: "Kalın bir cam levhayı yazının üstüne koymak yerine yazıdan birkaç cm yukarıda tutuyorsun. Yazının yükselme miktarı nasıl değişir?",
+              o: ["Artar", "Azalır", "Sıfır olur", "Değişmez"],
+              a: 3,
+              why: "Yükselme Δ = t(1 − 1/n) yalnızca levhanın kalınlığına ve indisine bağlıdır. Levha ile yazı arasındaki hava aralığı olduğu gibi görünür ve hesapta sadeleşir; bu yüzden yükselme değişmez."
+            },
+            {
+              q: "Bir bardakta 12 cm su (n = 4/3), suyun üstünde de 9 cm yağ (n = 1,5) var. Dipteki para, yukarıdan dik bakınca kaç cm derinde görünür?",
+              o: ["14 cm", "15 cm", "15,75 cm", "21 cm"],
+              a: 1,
+              why: "Her katman kendi indisine bölünür: su 12 · 3/4 = 9 cm, yağ 9/1,5 = 6 cm; toplam 15 cm. 21 cm'yi tek bir indise bölmek yanlıştır: 4/3'e bölmek 15,75 cm, 1,5'e bölmek 14 cm verir."
             }
           ];
 
@@ -5082,8 +5122,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

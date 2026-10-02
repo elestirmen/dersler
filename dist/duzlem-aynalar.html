@@ -2368,13 +2368,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3911,7 +3911,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5327,10 +5327,45 @@
               why: "Açılar yüzeyle değil normalle ölçülür. Yüzeyle 30° yapan ışın, normalle 90° − 30° = 60° yapar; yansıma açısı da 60°'dir."
             },
             {
-              q: "Düzlem aynada oluşan görüntü için hangisi yanlıştır?",
+              q: "Yansıma laboratuvarında gelme açısını 40°'den 55°'ye çıkarıyorsun. Gelen ışın ile yansıyan ışın arasındaki açı kaç derece olur?",
+              o: ["35°", "55°", "70°", "110°"],
+              a: 3,
+              why: "İki ışın arasındaki açı, gelme ve yansıma açılarının toplamıdır: i + r = 55° + 55° = 110°. Başlangıçta laboratuvar 40° + 40° = 80° gösteriyordu. 35°, ışının ayna yüzeyiyle yaptığı açıdır; açılar normalden ölçülür."
+            },
+            {
+              q: "Beyaz bir duvar üzerine düşen ışığın çoğunu geri yansıtır, ama duvarda kendi görüntünü göremezsin. Bunun sebebi nedir?",
+              o: [
+                "Pürüzlü yüzeyde normaller farklı yönlere bakar",
+                "Duvarda gelme açısı yansıma açısına eşit olmaz",
+                "Duvar yalnızca dik gelen ışığı geri yansıtır",
+                "Duvardan yansıyan ışınlar birbirine paralel kalır"
+              ],
+              a: 0,
+              why: "Duvar dağınık yansıma yapar: pürüzlü yüzeyin her noktasında normal farklı yöne bakar, bu yüzden paralel gelen ışınlar her yöne dağılır ve görüntü oluşmaz. i = r kuralı her ışın için yine geçerlidir. Yansıyan ışınların paralel kalması aynada, yani düzgün yansımada olur."
+            },
+            {
+              q: "Düzlem aynada oluşan görüntü için hangisi <b>yanlıştır</b>?",
               o: ["Sanaldır", "Cisimle eşit boydadır", "Perdeye düşürülebilir", "Aynaya eşit uzaklıktadır"],
               a: 2,
               why: "Sanal görüntü, ışınların gerçekte kesişmesiyle değil uzantılarının kesişmesiyle oluşur; bu yüzden perdeye düşürülemez. Diğer üç özellik doğrudur."
+            },
+            {
+              q: "Duvardaki saatin akrebi 2'yi, yelkovanı 12'yi gösteriyor. Karşıdaki düzlem aynada bu saat kaçı gösteriyor gibi görünür?",
+              o: ["2:00", "4:00", "8:00", "10:00"],
+              a: 3,
+              why: "Ayna sağ ile solu yer değiştirmiş gösterir: akrep 2'nin yerine 10'un üzerinde görünür, 12'deki yelkovan yerinde kalır. Kısa yol: 12:00 − 2:00 = 10:00. 2:00 demek, aynadaki sağ–sol yer değişimini hesaba katmamaktır."
+            },
+            {
+              q: "Boyu 160 cm olan bir kişinin kendini tepeden tırnağa görebilmesi için gereken en küçük ayna boyu nedir?",
+              o: ["40 cm", "80 cm", "120 cm", "160 cm"],
+              a: 1,
+              why: "Gereken ayna boyu, kişinin boyunun yarısıdır: 160/2 = 80 cm. Bu sonuç kişinin aynaya olan uzaklığından bağımsızdır."
+            },
+            {
+              q: "Görüntü deneyinde cisim aynadan 80 cm uzakta. “Aynaya yaklaştır” düğmesine basınca cisim 30 cm/s hızla aynaya yaklaşıyor. 2 s sonra cisim ile görüntüsü arasındaki uzaklık kaç cm olur?",
+              o: ["20 cm", "40 cm", "60 cm", "100 cm"],
+              a: 1,
+              why: "Cisim 2 s'de 30 · 2 = 60 cm yol alır ve aynaya uzaklığı 80 − 60 = 20 cm olur. Görüntü de aynanın 20 cm arkasındadır: aradaki uzaklık 20 + 20 = 40 cm. 100 cm, görüntünün yerinde durduğunu sanmaktan çıkar; oysa görüntü de aynı hızla aynaya yaklaşır."
             },
             {
               q: "Gelen ışın sabitken düzlem ayna 15° döndürülürse yansıyan ışın kaç derece döner?",
@@ -5345,10 +5380,15 @@
               why: "n = 360/α − 1 = 360/45 − 1 = 8 − 1 = 7 görüntü oluşur. 360/α değeri toplam nokta sayısıdır; biri cismin kendisidir."
             },
             {
-              q: "Boyu 160 cm olan bir kişinin kendini tepeden tırnağa görebilmesi için gereken en küçük ayna boyu nedir?",
-              o: ["40 cm", "80 cm", "120 cm", "160 cm"],
-              a: 1,
-              why: "Gereken ayna boyu, kişinin boyunun yarısıdır: 160/2 = 80 cm. Bu sonuç kişinin aynaya olan uzaklığından bağımsızdır."
+              q: "Birbirine dik iki düzlem aynadan birine gelen ışın, iki aynadan da yansıyıp çıkıyor. Çıkan ışın, gelen ışına göre nasıl ilerler?",
+              o: [
+                "Gelen ışına paralel ve ters yönde",
+                "Gelen ışına dik bir doğrultuda",
+                "Gelen ışına paralel ve aynı yönde",
+                "Gelme açısına bağlı bir doğrultuda"
+              ],
+              a: 0,
+              why: "Aralarında α açısı olan iki aynadan art arda yansıyan ışın 2α döner: 2 · 90° = 180°. Gelme açısı ne olursa olsun ışın geldiği yöne paralel olarak geri gider; bisiklet reflektörü bu ilkeyle çalışır. Aynı yönde çıkma, periskoptaki paralel aynalarda olur."
             }
           ];
 
@@ -5360,8 +5400,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

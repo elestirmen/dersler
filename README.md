@@ -201,7 +201,7 @@ Dört etkileşimli deney, canlı grafikler ve konunun tamamını anlatan bir mod
 | 02 | Tüy ve bilye | Havalı tüpte tüy limit hıza takılır, vakumlu tüpte ikisi aynı anda iner. Karesel sürtünme modeli sayısal olarak çözülür. |
 | 03 | 1 : 3 : 5 kuralı | Eşit zaman aralıkları adım adım açılır; çubuklar tek sayı oranını, toplamlar 1:4:9:16:25'i gösterir. |
 | 04 | Cetvelle tepki süresi | Cetvel habersizce bırakılır, boşluk tuşuyla yakalanır; düşme mesafesinden `t = √(2d/g)` hesaplanır. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta on iki başlık, yedi çizim ve üç görsel içerir: düşen
 elmanın strobo gözleminden formül türetmelerine, grafik yorumundan düşey atışa ve düşme
@@ -218,7 +218,7 @@ etkileşimli bölüm:
 | 02 | Bırakılan ve atılan | Aynı yükseklikten biri bırakılır, biri yatay atılır; kesikli çizgiler her an iki cismi aynı yükseklikte birleştirir. Bağımsızlık ilkesinin doğrudan gösterimi. |
 | 03 | Menzil ve açı | Aynı süratle 15°–75° arası beş açı sırayla atılır (sıradaki atışın yolu soluk önizlemeyle görünür); tümler açıların aynı noktaya düştüğü, 45°'nin en uzağa gittiği ekranda kalır. |
 | 04 | Hedefi vur | Rastgele uzaklık ve yükseklikteki hedefe açı + sürat ayarlanarak atış yapılır. İpucu düğmesi o açı için gereken sürati formülden hesaplar. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta on beş başlık, yedi çizim ve üç görsel içerir:
 bağımsızlık ilkesinden vektörel bağıntılara, yatay ve eğik atıştan yörünge denklemine,
@@ -234,7 +234,7 @@ Kuvveti ve sonucunu ölçülebilir hâle getiren dört etkileşimli bölüm:
 | 02 | Sürtünmeyi azaltınca | Aynı hızla itilen dört disk halı, parke, buz ve sürtünmesiz ortamda; durma mesafeleri `d = v²/(2μg)`. Sürtünmesiz şerit hiç durmaz — 1. yasanın deneysel yüzü. |
 | 03 | Etki ve tepki | İki araba birbirini iter; kuvvetler eşit, ivmeler kütleyle ters orantılı. Ayrılma hızlarının oranı kütle oranının tersidir. |
 | 04 | Asansörde görünen ağırlık | Kütle ve asansör durumu seçilir; `N = m(g + a)` ile tartının yazdığı değer değişir, serbest düşmede sıfırlanır. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta on beş başlık, yedi çizim ve üç görsel içerir: net
 kuvvetten serbest cisim diyagramına, sürtünmeden asansöre ve birlikte hareket eden
@@ -250,7 +250,7 @@ Statik ve kinetik sürtünmeyi ölçülebilir hâle getiren dört bölüm:
 | 02 | Eğik düzlemde kritik açı | Eğim, **tepesinden sürüklenerek** ya da kaydırıcıyla artırılır; kayma açısının tanjantı doğrudan μs'yi verir. |
 | 03 | Temas alanı | Aynı kütleli üç farklı yüzey aynı noktada durur: f = μ·N bağıntısında alan yoktur. |
 | 04 | Fren mesafesi | Hız, tepki süresi ve yol durumu seçilir; tepki + fren mesafesi ayrı ayrı gösterilir. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Konu 05 · Limit hız
 
@@ -262,7 +262,7 @@ Hava direncinin hıza bağlılığını ve denge hızını gösteren dört böl�
 | 02 | Paraşüt açılıyor | Sayısal çözüm; v–t eğrisinde iki plato (55 m/s ve 5,1 m/s). |
 | 03 | Kâğıt deneyi | Aynı kütleli açık ve buruşturulmuş kâğıt ile bilye; belirleyici olan m/A oranı. |
 | 04 | Neye bağlı? | Limit hızın kütle ve alana bağlılığı iki eğri üzerinde canlı gösterilir. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Konu 06 · Düzgün çembersel hareket
 
@@ -274,7 +274,7 @@ Sabit süratli ama ivmeli hareketi gösteren dört bölüm:
 | 02 | İpi kes | İp kesildiğinde cisim teğet doğrultuda gider; "merkezden dışarı" sanısı da çizilir. |
 | 03 | Aynı disk | Üç farklı yarıçaptaki nokta: T ve ω ortak, v ve a farklı. |
 | 04 | Virajda savrulma | Gereken merkezcil kuvvet ile sürtünme sınırı karşılaştırılır; sınır hız √(μgr). |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Elektrik ve Manyetizma · Konu 01 · Elektriksel kuvvet ve alan
 
@@ -286,7 +286,7 @@ Yüklerin birbirine dokunmadan uyguladığı kuvveti ve alan kavramını kuran d
 | 02 | Alan haritası | Izgara üzerinde alan okları çizilir; tek yük, dipol ve aynı işaretli iki yük seçilebilir. Tıklanan noktaya test yükü konur, gördüğü kuvvet okla gösterilir. |
 | 03 | Alanın sıfırlandığı nokta | İkinci yükün değeri değiştirilir, **prob eksende sürüklenir**; bileşke alanın sıfırlandığı nokta sayısal taramayla bulunur ve işaretlenir. |
 | 04 | Paralel levhalar | `E = V/d` ile düzgün alan kurulur; elektron ya da proton atılır, parabolik yörünge ve levhaya çarpma izlenir. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Elektrik ve Manyetizma · Konu 02 · Manyetik alan ve manyetik kuvvet
 
@@ -298,7 +298,7 @@ Akımın ürettiği alanı ve alanın uyguladığı kuvveti gösteren dört böl
 | 02 | Tele etkiyen kuvvet | Alan, akım ve açı değiştirilir; `F = B·I·L·sinα` kuvvet oku ve sinüs eğrisi aynı sahnede gösterilir. |
 | 03 | Dairesel hareket | Alana dik giren elektron/protonun yarıçapı `r = mv/(qB)` ve periyodu `T = 2πm/(qB)`; ölçek çubuğuyla birlikte. |
 | 04 | Sağ el kuralı alıştırması | Rastgele akım–alan çiftleri için kuvvet yönü sorulur; puan ve doğruluk oranı tutulur. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Elektrik ve Manyetizma · Konu 03 · İndüksiyon akımı
 
@@ -310,7 +310,7 @@ Değişen akının akım doğurmasını dört ayrı deneyle gösteren bölümler
 | 02 | Jeneratör | Dönen çerçevede `Φ = B·A·cosωt` ve `ε = N·B·A·ω·sinωt`; çeyrek periyotluk faz farkı grafikte görünür. |
 | 03 | Hareketli çubuk | `ε = B·L·v`, `I = ε/R` ve karşı kuvvet `F = B·I·L` hesaplanır; mekanik güç ile elektriksel güç karşılaştırılır. |
 | 04 | Bakır boru | Aynı mıknatıs plastik ve bakır borudan bırakılır: 0,49 s'e karşı 5,5 s. Lenz yasasının en çarpıcı gösterimi. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Elektrik ve Manyetizma · Konu 04 · Transformatörler
 
@@ -322,7 +322,7 @@ Gerilim–akım dönüşümünü ve enerji iletimini gösteren dört bölüm:
 | 02 | Güç ve verim | Giren güç ve verim değiştirilir; çıkan güç, kayıp ve ısıya dönüşen pay çubuklarda gösterilir. |
 | 03 | Enerji iletimi | 1 MW gücün iletiminde gerilim ve hat direnci değiştirilir; `I = P/V` ve `P(kayıp) = I²R` ile kayıp oranı hesaplanır, santral–şehir hattı canlandırılır. |
 | 04 | Hedef gerilim | Verilen `V₁` ve `N₁` için istenen çıkışı üretecek sekonder sarımı bulunur; %2 tolerans, deneme listesi ve başarı oranı. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Optik · Konu 01 · Işık şiddeti, ışık akısı ve aydınlanma
 
@@ -334,7 +334,7 @@ Kandela, lümen ve lüksü birbirinden ayıran dört bölüm:
 | 02 | Ters kare yasası | Perde uzaklaştıkça aynı akının 1, 4, 9 birim kareye yayılması; karşıdan görünüm ızgarasıyla. |
 | 03 | Fotometre | İki lambanın arasındaki ekran kaydırılır; eşit aydınlanma noktası `x/(L−x) = √(I₁/I₂)` ile bulunur, iki eğri tek panelde çizilir. |
 | 04 | Oda aydınlatma tasarımı | Kullanım amacı, oda alanı ve ampul lümeni seçilir; gereken toplam akı ve ampul sayısı hesaplanır, oda üstten çizilir. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Optik · Konu 02 · Düzlem aynalar
 
@@ -346,7 +346,7 @@ Tek bir yasadan (i = r) türeyen dört bölüm:
 | 02 | Görüntü oluşumu | Cisim konumlandırılır; iki ışın göze gider, uzantıları aynanın arkasındaki sanal görüntüde kesişir. Yaklaşma animasyonunda bağıl hızın `2v` olduğu okunur. |
 | 03 | İki ayna | Aynalar arası açı seçilir; görüntüler çember üzerinde ardışık yansımalarla hesaplanıp çizilir, `n = 360/α − 1` doğrulanır. |
 | 04 | Boy aynası | Boy ve aynaya uzaklık değiştirilir; baş ve ayaktan gelen ışınlarla gereken `h/2`'lik ayna ve alt kenar yüksekliği bulunur. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Optik · Konu 03 · Küresel aynalar
 
@@ -358,7 +358,7 @@ Tek bir yasadan (i = r) türeyen dört bölüm:
 | 02 | Beş cisim konumu | Merkezin ötesinden odak içine beş konum; görüntünün yeri, türü ve boyu eşzamanlı güncellenir, "sırayla göster" ile tur atar. |
 | 03 | Tümsek ayna | Güvenlik aynasının görüş açısı, aynı boyuttaki düzlem aynayla karşılaştırılır; görüntünün hep sanal, düz ve küçük olduğu görülür. |
 | 04 | Hedef büyütme | İstenen büyütme ve görüntü türü için cisim uzaklığı bulunur; %5 tolerans, deneme listesi ve başarı oranı. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Optik · Konu 04 · Kırılma
 
@@ -370,7 +370,7 @@ Snell yasasını dört ayrı yüzüyle gösteren bölümler:
 | 02 | Tam yansıma | Yoğun ortamın indisi ve gelme açısı değiştirilir; sınır açıya yaklaşırken kırılan ışın sönükleşir, aşıldığında tamamen yansır. |
 | 03 | Hız ve dalga boyu | Dalga cepheleri sınırda sıklaşarak yön değiştirir; `v = c/n`, `λ = λ₀/n` ve frekansın değişmediği vurgulanır. |
 | 04 | Yandan kayma | Paralel kenarlı levhada `d = t·sin(i−r)/cos r` ölçülür; çıkan ışının gelene paralel olduğu çizimle gösterilir. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Optik · Konu 05 · Görünür derinlik
 
@@ -382,7 +382,7 @@ Kırılmanın günlük sonuçlarını işleyen dört bölüm:
 | 02 | Balığa nişan almak | Rastgele derinlikteki balığın görünen yeri hesaplanır; nişan açısıyla mızrak atılır, sapma santimetre cinsinden bildirilir. |
 | 03 | Sudan havaya bakış | Su altındaki gözlemci için `h′ = n·h`; cismin uzaklaşmış görünmesi ışın çizimiyle gösterilir. |
 | 04 | Cam levha | Levhanın kalınlığı ve indisi değiştirilir; altındaki yazının `t(1 − 1/n)` kadar yükselmesi ölçülür. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Optik · Konu 06 · Fiber optik
 
@@ -394,7 +394,7 @@ Tam yansımanın mühendislik uygulaması, dört bölümde:
 | 02 | Kabul açısı | `NA = √(n₁²−n₂²)` ve kabul konisi çizilir; koninin içinden ve dışından gelen iki ışının akıbeti gösterilir. |
 | 03 | Sinyal gecikmesi | Kablo uzunluğuna göre `v = c/n₁`, varış süresi ve mod dağılımından doğan gecikme farkı hesaplanır. |
 | 04 | Bükülme sınırı | Bükülme yarıçapı küçültülür; `R(min) = a(n₁+n₂)/(n₁−n₂)` altına inince ışığın sızdığı canlandırılır. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Optik · Konu 07 · Prizmalar
 
@@ -406,7 +406,7 @@ Tam yansımanın mühendislik uygulaması, dört bölümde:
 | 02 | Renklere ayrılma | Altı renk kendi indisiyle ayrı ayrı izlenir; perdeye düşen tayf büyütülmüş bir şerit olarak gösterilir. |
 | 03 | Tam yansımalı prizma | 45° prizmada ışığın 90° ya da 180° döndürülmesi; indis düşürülünce tam yansımanın bozulması. |
 | 04 | Gökkuşağı | Su damlasında kırılma + iç yansıma + kırılma; sapma–çarpma parametresi eğrisinin en küçüğü 42°'lik gökkuşağı açısını verir. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Optik · Konu 08 · Mercekler
 
@@ -418,7 +418,7 @@ Tam yansımanın mühendislik uygulaması, dört bölümde:
 | 02 | Beş cisim konumu | Her konum bir optik aletle eşleştirilir: fotoğraf makinesi, fotokopi, projeksiyon, projektör, büyüteç. |
 | 03 | Göz kusurları | Miyop ve hipermetrop göz modeli; odağın retinanın önüne/arkasına düşmesi ve gözlük takılınca düzelmesi, gereken diyoptriyle birlikte. |
 | 04 | Perdeye net görüntü | Cisim–perde uzaklığı sabitken mercek kaydırılır; `D > 4f` olduğunda iki net konumun bulunduğu bulanıklık göstergesiyle gösterilir. |
-| 05 | Hızlı kontrol | Beş soruluk test. |
+| 05 | Hızlı kontrol | On soruluk test. |
 
 ### Kimya · Enerji · Konu 01 · Tepkimelerde enerji değişimi
 
@@ -430,7 +430,7 @@ Isı alan ve ısı veren olayları ölçülebilir kılan dört bölüm:
 | 02 | Isı alır mı, verir mi? | 22 kartlık sınıflandırma oyunu (fiziksel ve kimyasal olaylar): cevaptan sonra ısı okları, entalpi diyagramı, ΔH ve gerekçe; puan tutulur. |
 | 03 | Yakıtları karşılaştır | On yakıt mol ve gram başına; 1 kg suyu 20 °C'den 100 °C'ye ısıtmak için verime göre gereken yakıt, çıkan CO₂ ve gaz hacmi. |
 | 04 | Besinlerin enerjisi | Altı besinli kahvaltı tabağı: toplam kJ ve kcal, yağın payı ve yaklaşık yürüyüş süresi. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta 21 çizim ve 4 görsel içerir.
 
@@ -444,7 +444,7 @@ Kırılan ve oluşan bağlardan tepkime ısısına giden dört bölüm:
 | 02 | Bağın gücü ve uzunluğu | Sekiz bağın potansiyel enerji–uzaklık eğrisi; atom **sürüklenerek** uzaklaştırılır. Kuyunun dibi bağ enerjisi, yeri bağ uzunluğudur. |
 | 03 | Bilinmeyen bağ enerjisi | On soruluk bulmaca: ΔH ve öteki bağlardan bilinmeyen bağ bulunur; ±%2 tolerans, ipucu ve adım adım çözüm. |
 | 04 | Hesap ne kadar doğru? | Bağ enerjileriyle hesaplanan ΔH ile oluşum entalpilerinden gelen ölçülen değer yan yana; farkın nedenleri (ortalama değer, hâl değişimi). |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta 21 çizim ve 3 görsel içerir.
 
@@ -458,7 +458,7 @@ Elementlerin sıfır noktasından tepkime ısısına giden dört bölüm:
 | 02 | Kararlılık çizelgesi | ΔH°f çubukları sıfırın altında ve üstünde; dokunulan maddenin oluşum denklemi ve yorumu; allotroplar (grafit/elmas, O₂/O₃). |
 | 03 | Fiziksel hâl farkı | H₂, CH₄ ve C₃H₈ yanmasında ürün suyun hâli (buz, sıvı, buhar): ΔH farkı ve moleküllerin düzeni. |
 | 04 | Ne kadar ısı? | Gram, NK'da litre ya da mol ile ısı hesabı; **Hedef ısı** görevi, ±%2. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta 21 çizim ve 3 görsel içerir.
 
@@ -472,7 +472,7 @@ Konu anlatımı dört basamakta 21 çizim ve 3 görsel içerir.
 | 02 | Doğru uç, doğru yön | CO + NO₂: CO **sürüklenerek** yöneltilir; etkin çarpışmada aktifleşmiş kompleks ve CO₂ + NO oluşur, değilse esnek sekme. |
 | 03 | Enerji tepesi | Potansiyel enerji grafiğinde top enerjinin korunumuyla tepeye tırmanır; Ea(ileri), Ea(geri) ve ΔH okları. |
 | 04 | Kendini sürdüren tepkime | Izgarada kıvılcımla başlayan tepkime: ekzotermikte açığa çıkan ısı komşulara yeterse yayılır; endotermikte yalnız ısıtıcının altı tepkir. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta 20 çizim ve 3 görsel içerir.
 
@@ -486,7 +486,7 @@ Hızın tanımını, ölçümünü ve birimlerini işleyen dört bölüm:
 | 02 | Katsayılar ve hızlar | Dört tepkimede bir maddenin hızı verilir; bütün maddelerin hızları katsayı oranında bloklarla gösterilir. |
 | 03 | Hızı ölçmek | Mg + HCl gaz şırıngasıyla ya da CaCO₃ + HCl teraziyle: 10 s'de bir tablo satırı, aralık hızları ve mol/s. |
 | 04 | Aynı hız, farklı birimler | On iki soruluk dönüşüm bulmacası: g/s, mol/s, L/s (NK), M/s. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta 19 çizim ve 4 görsel içerir.
 
@@ -500,7 +500,7 @@ Maddenin cinsi ve hâli, derişim ve sıcaklık; dört bölüm:
 | 02 | Sıcaklık ve enerji dağılımı | T₁ ve T₂ dağılımları, eşiği aşan paylar ve hız oranı; hazır sıcaklıklar (buzdolabı, oda, ateşli hasta, kaynar su). |
 | 03 | Maddenin cinsi | HCl'de Mg, Zn, Fe ve Cu; ikinci kipte Ag⁺ + Cl⁻ anında çöker. |
 | 04 | Fiziksel hâl | Pb(NO₃)₂ + 2KI: katı + katı ile çözelti + çözelti; iyonların yakın görünümü ve PbI₂ kütlesi–zaman grafiği. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta 19 çizim ve 4 görsel içerir.
 
@@ -514,7 +514,7 @@ Katalizörün açtığı yolu ve temas yüzeyini gösteren dört bölüm:
 | 02 | Hidrojen peroksit ve katalizör | Katalizörsüz, MnO₂, KI ve patates: O₂ hacmi–zaman eğrileri; son hacim aynı, MnO₂ kütlesi değişmez. |
 | 03 | Temas yüzeyi | 2 cm'lik mermer küp k³ parçaya bölünür (yüzey 24·k cm²); tek parça ile bölünmüş mermerin yarışı. |
 | 04 | Katalizör yüzeyinde | Katalitik konvertör benzetimi: CO ve O₂ platine tutunur, CO₂ oluşup ayrılır; zehirlenme anahtarı. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta 20 çizim ve 4 görsel içerir.
 
@@ -528,7 +528,7 @@ Hız denklemini deneyle bulan ve basamakları ayıran dört bölüm:
 | 02 | Derece ve grafik | 0., 1. ve 2. derecede Hız–[X] eğrisi; nokta **sürüklenir**, "2 katına çık" ×2ⁿ'i gösterir. |
 | 03 | Hacim değişince | Piston **sürüklenerek** hacim değişir; hız çarpanı (V₀/V)ⁿ; katı tepken hız denkleminde yer almaz. |
 | 04 | Çok basamaklı tepkime | Üç mekanizma bant benzetimiyle; ürün hızı en yavaş basamağa eşit kalır, ara ürün sayılır; çok tepeli potansiyel enerji eğrisi. |
-| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+| 05 | Hızlı kontrol | On soruluk test, anında geri bildirim ve açıklama. |
 
 Konu anlatımı dört basamakta 21 çizim ve 3 görsel içerir.
 
@@ -696,12 +696,22 @@ Sayfalar açık temayla açılır, üst bardaki düğmeyle koyu temaya geçer ve
 tarayıcıda saklanır. Tuval renkleri CSS değişkenlerinden okunduğu için
 animasyonlar tema değişiminde yeniden çizilir.
 
+Her konunun **Hızlı kontrol** testi on sorudur (2 Ekim 2026'ya kadar beşti): kolaydan zora
+sıralıdır, en az ikisi sayfadaki deneylere dayanır; her sorunun dört seçeneği ve cevaptan sonra
+açılan, nedenini anlatan kısa bir açıklaması vardır. Çeldiriciler tipik hatalardan doğar (kareyi
+unutmak, birim çevirmemek, işaret…); doğru cevaplar A–D arasında dengeli dağılır (her harf 2–3
+kez). Sorular sayfa betiğindeki `DATA` dizisindedir (`q`, `o`, `a`, `why`): `q` HTML olarak
+basılır (yalnız `<br>`, `<b>`, `<i>`; olumsuz kök `<b>` ile vurgulanır), seçenekler ve açıklama
+düz metin. Bitiş cümlesi doğru sayısının %60 eşiğine göre seçilir. Bir açıklama başka bir
+sorunun cevabını ele vermemelidir: sorular sayfada aynı anda görünür.
+
 Hızlı kontrol testi tamamlanınca sonuç (`doğru / toplam`, tarih) yalnızca o
 tarayıcının `localStorage` alanına yazılır (`dersler-skor`); sayfa yeniden
 açıldığında skor kutusunda "Son sonucun" rozeti görünür. Ana sayfa aynı kaydı
 okuyup konu kartlarına ✓ rozetini, ünite künyesine "n konu çalışıldı" satırını
 ekler ve sağ üstteki kartı "Kaldığın yer" kartına çevirir. Sunucuya hiçbir şey
-gitmez.
+gitmez. Beş soruluk dönemden kalan sonuçlar `x / 5` olarak görünür; test yeniden
+çözülünce güncellenir.
 
 Deneylerde ortak etkileşimler:
 

@@ -2419,13 +2419,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -4036,7 +4036,7 @@
 
         <div class="callout">
           <p>
-            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki beş soruyu çöz.
+            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki on soruyu çöz.
             Takıldığın yerde buraya dönüp ilgili başlığı yeniden oku.
           </p>
         </div>
@@ -6726,6 +6726,40 @@
               why: "Sıfır yalnızca elementin 25 °C ve 1 atm'deki en kararlı hâline aittir. Brom bu koşulda sıvıdır, bu yüzden ΔH°f(Br₂, s) = 0. Ozon (+142,7), elmas (+1,9) ve tek H atomu (+218,0) aynı elementlerin daha az kararlı hâlleridir; her element sıfır değildir."
             },
             {
+              q: "Aşağıdakilerden hangisi NH₃(g)'nin standart oluşum denklemidir?",
+              o: ["N₂(g) + 3H₂(g) → 2NH₃(g)", "½N₂(g) + 3/2 H₂(g) → NH₃(g)", "N(g) + 3H(g) → NH₃(g)", "NH₄Cl(k) → NH₃(g) + HCl(g)"],
+              a: 1,
+              why: "Oluşum denklemi 1 mol ürün verir ve yalnızca elementlerin en kararlı hâllerinden başlar: ½N₂(g) + 3/2 H₂(g) → NH₃(g), ΔH°f = −46,1 kJ/mol. N₂ + 3H₂ → 2NH₃ denklemi 2 mol NH₃ verir; N(g) ve H(g) en kararlı hâl değildir; NH₄Cl ise bir bileşiktir."
+            },
+            {
+              q: "Kararlılık çizelgesinde NO(g) çubuğu sıfırın üstüne (+90,3 kJ/mol), HCl(g) çubuğu sıfırın altına (−92,3 kJ/mol) uzanıyor. Hangisi doğrudur?",
+              o: [
+                "NO oluşurken ısı alır; elementlerine göre daha az kararlıdır",
+                "NO oluşurken ısı verir; elementlerine göre daha kararlıdır",
+                "HCl oluşurken ısı alır; elementlerine göre daha az kararlıdır",
+                "Çubukların boyu yakın olduğu için ikisi aynı kararlılıktadır"
+              ],
+              a: 0,
+              why: "Çubuk sıfırın üstündeyse madde elementlerinden oluşurken ısı alır ve onlardan yüksekte, yani daha az kararlı durur: ½N₂ + ½O₂ + 90,3 kJ → NO. HCl ise oluşurken 92,3 kJ verir ve elementlerinden daha kararlıdır. Boylar yakın ama yönler zıttır; işaret belirleyicidir."
+            },
+            {
+              q: "Bir öğrenci “CO₂'nin ΔH°f'si çok eksi (−393,5 kJ/mol); demek ki CO₂ iyi bir yakıttır” diyor. Hangisi doğrudur?",
+              o: [
+                "Haklı: ΔH°f'si en eksi olan madde en iyi yakıttır",
+                "Haklı: CO₂ yanınca 393,5 kJ ısı verir",
+                "Yanlış: CO₂ zaten yanmış bir maddedir, yanarak ısı veremez",
+                "Yanlış: ΔH°f'si eksi olan hiçbir madde yanmaz"
+              ],
+              a: 2,
+              why: "CO₂, karbonun tam yanma ürünüdür; oksijenle daha aşağı bir seviyeye inemez. Yakıtlar yanma ürünlerinden çok yukarıda durur (CH₄ −74,8, C₂H₂ +226,7 kJ/mol); CO₂ (−393,5) ve H₂O (−285,8) ise en aşağıdadır. ΔH°f'si eksi olan metan ve etanol de yanar."
+            },
+            {
+              q: "Oluşum entalpisi laboratuvarında amonyak sentezini (N₂ + 3H₂ → 2NH₃) seçip “Tepkimeyi ters çevir” kutusunu işaretliyorsun. 2NH₃(g) → N₂(g) + 3H₂(g) tepkimesinin ΔH°'si kaç kJ'dir? (ΔH°f: NH₃ −46,1 kJ/mol)",
+              o: ["−92,2 kJ", "−46,1 kJ", "+46,1 kJ", "+92,2 kJ"],
+              a: 3,
+              why: "ΔH° = Σürünler − Σgirenler = [0 + 3·0] − [2·(−46,1)] = +92,2 kJ. N₂ ve H₂ kararlı element olduğu için sıfırdır. Ters tepkimede işaret değişir: sentez −92,2, ayrışma +92,2 kJ'dir. ±46,1 bulursan NH₃'ün katsayısı 2'yi unutmuşsundur."
+            },
+            {
               q: "C₂H₄(g) + 3O₂(g) → 2CO₂(g) + 2H₂O(s) tepkimesinin ΔH°'si kaç kJ'dir? (ΔH°f: C₂H₄ +52,3; CO₂ −393,5; H₂O(s) −285,8 kJ/mol)",
               o: ["−1410,9", "−1306,3", "−1125,1", "+1410,9"],
               a: 0,
@@ -6741,6 +6775,12 @@
               ],
               a: 1,
               why: "Hâl değişimi de bir enerji alışverişidir: −241,8 buhar, −285,8 sıvı, −291,8 buzdur. Buhar sıvıya yoğuşurken 44,0 kJ, sıvı donarken 6,0 kJ daha verir. Bu yüzden buz oluşurken en çok, buhar oluşurken en az ısı açığa çıkar."
+            },
+            {
+              q: "“Fiziksel hâl farkı” bölümünde propanı seçiyorsun: C₃H₈(g) + 5O₂(g) → 3CO₂(g) + 4H₂O. Su buhar yerine sıvı oluşursa tepkime kaç kJ daha çok ısı verir? (ΔH°f: H₂O(g) −241,8; H₂O(s) −285,8 kJ/mol)",
+              o: ["44,0 kJ", "88,0 kJ", "176,0 kJ", "220,0 kJ"],
+              a: 2,
+              why: "1 mol buhar sıvıya yoğuşurken 285,8 − 241,8 = 44,0 kJ verir. Propan yanınca 4 mol su oluşur: 4 · 44,0 = 176,0 kJ (−2043,9 yerine −2219,9 kJ). 88,0 metandaki 2 mol suyun farkıdır; 220,0 ise O₂'nin katsayısını (5) kullanmaktan gelir."
             },
             {
               q: "CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(s) tepkimesinde ΔH° = −890 kJ'dir. Normal koşullarda 8,96 L metan yanınca kaç kJ ısı açığa çıkar?",
@@ -6764,8 +6804,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

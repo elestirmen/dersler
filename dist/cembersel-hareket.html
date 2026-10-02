@@ -2388,13 +2388,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3858,7 +3858,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5145,22 +5145,62 @@
               why: "İp kesilince merkezcil kuvvet ortadan kalkar ve net kuvvet sıfır olur. Newton'un 1. yasası gereği cisim o andaki hızıyla, yani teğet doğrultuda düzgün doğrusal hareket yapar."
             },
             {
-              q: "Yarıçapı sabit tutup çizgisel hızı iki katına çıkarırsan merkezcil ivme nasıl değişir?",
-              o: ["İki katına çıkar", "Dört katına çıkar", "Yarıya iner", "Değişmez"],
-              a: 1,
-              why: "a = v²/r bağıntısında ivme hızın karesiyle orantılıdır: v → 2v olursa a → 4a olur. Gereken merkezcil kuvvet de dört katına çıkar."
+              q: "Sola dönen bir otobüste ayakta duran yolcuların gövdeleri sağa, virajın dışına doğru yatar. Yerdeki bir gözlemciye göre bunun nedeni nedir?",
+              o: [
+                "Yolculara dışa doğru merkezkaç kuvveti etki eder",
+                "Otobüs yolcuları dışa doğru iter",
+                "Yolcunun ağırlığı virajda dışa doğru döner",
+                "Gövde eylemsizlikle düz gitmeyi sürdürür"
+              ],
+              a: 3,
+              why: "Yolcuyu dışarı iten bir kuvvet yoktur. Gövde eylemsizlik gereği o anki doğrultuda düz gitmeyi sürdürür, otobüs ise altından sola döner. Yolcuyu dönüşe katan, tutamağın ve tabanın uyguladığı içeri doğru kuvvettir; merkezkaç, dönen sistemin içinden bakınca varsayılan hayalî bir kuvvettir."
             },
             {
-              q: "Dönen bir diskin merkezine 10 cm ve 30 cm uzaklıktaki iki noktası için hangisi yanlıştır?",
+              q: "Dönen bir diskin merkezine 10 cm ve 30 cm uzaklıktaki iki noktası için hangisi <b>yanlıştır</b>?",
               o: ["Periyotları eşittir", "Açısal hızları eşittir", "Çizgisel hızları eşittir", "Dıştaki noktanın ivmesi daha büyüktür"],
               a: 2,
               why: "Katı cisimde bütün noktaların T ve ω değeri ortaktır. Ama v = ω·r olduğu için çizgisel hız yarıçapla artar: dıştaki nokta üç kat hızlıdır ve ivmesi de üç kat büyüktür."
+            },
+            {
+              q: "Bir atlıkarınca dakikada 4 tur atıyor. Merkezden 3 m uzaktaki atın çizgisel hızı kaç m/s'dir? (π ≈ 3)",
+              o: ["0,6 m/s", "1,2 m/s", "4,5 m/s", "72 m/s"],
+              a: 1,
+              why: "Dakikada 4 tur, bir turun 60 / 4 = 15 s sürdüğünü gösterir: T = 15 s. v = 2πr / T = (2 · 3 · 3) / 15 = 1,2 m/s. T'yi 4 s alırsan 4,5 m/s, dakikayı saniyeye çevirmeyi unutursan 72 bulursun."
+            },
+            {
+              q: "Yarıçapı sabit tutup çizgisel hızı iki katına çıkarırsan merkezcil ivme nasıl değişir?",
+              o: ["Yarıya iner", "Değişmez", "İki katına çıkar", "Dört katına çıkar"],
+              a: 3,
+              why: "a = v²/r bağıntısında ivme hızın karesiyle orantılıdır: v → 2v olursa a → 4a olur. Gereken merkezcil kuvvet de dört katına çıkar."
+            },
+            {
+              q: "Çember laboratuvarında yarıçap 1 m, periyot 4 s, kütle 2 kg. Yarıçapı ve periyodu değiştirmeden kütleyi 6 kg yaparsan merkezcil ivme ve merkezcil kuvvet nasıl değişir?",
+              o: ["İvme değişmez, kuvvet 3 katına çıkar", "İkisi de 3 katına çıkar", "İvme 3'te birine iner, kuvvet değişmez", "İkisi de değişmez"],
+              a: 0,
+              why: "Merkezcil ivme a = v²/r = ω²·r yalnız hıza ve yarıçapa bağlıdır; kütle bağıntıda yoktur, ivme değişmez. Kuvvet ise F = m·a olduğu için kütleyle doğru orantılıdır ve 3 katına çıkar: ekranda ivme 2,47 m/s²'de kalır, kuvvet 4,9 N'dan yaklaşık 14,8 N'a çıkar."
+            },
+            {
+              q: "Dünya çevresinde çembere yakın bir yörüngede dolanan uyduyu çemberde tutan merkezcil kuvvet görevini hangisi üstlenir?",
+              o: [
+                "Dünya'nın uyguladığı yerçekimi kuvveti",
+                "Uyduya dışa doğru etki eden merkezkaç kuvveti",
+                "Uydunun motorlarının itme kuvveti",
+                "Kuvvet gerekmez; o yükseklikte yerçekimi yoktur"
+              ],
+              a: 0,
+              why: "Merkezcil kuvvet ayrı bir kuvvet değil, bir roldür; uyduda bu rolü yerçekimi üstlenir: m·g = m·v²/r. 400 km yükseklikte bile g yerdekinin yaklaşık %89'u kadardır. Uydu sürekli düşer, ama yana o kadar hızlı gider ki çemberde kalır; motor gerekmez."
             },
             {
               q: "Yarıçapı 40 m olan bir virajda μ = 0,5 ise savrulmadan alınabilecek en büyük hız nedir? (g = 10 m/s²)",
               o: ["10 m/s", "14,1 m/s", "20 m/s", "Aracın kütlesine bağlıdır"],
               a: 1,
               why: "v = √(μ·g·r) = √(0,5 · 10 · 40) = √200 ≈ 14,1 m/s. Kütle hem gereken kuvvette hem de sürtünmede bulunduğu için sadeleşir; sınır hız kütleden bağımsızdır."
+            },
+            {
+              q: "Viraj deneyinde 1000 kg'lık araç kuru yolda (μ = 0,80), 100 m yarıçaplı virajı 90 km/h ile alıyor. Ekranda gereken kuvvet 6250 N, en büyük sürtünme 7848 N yazıyor. Araç virajı dönerken yolun lastiklere uyguladığı sürtünme kuvveti kaç N'dur?",
+              o: ["0 N", "1598 N", "6250 N", "7848 N"],
+              a: 2,
+              why: "Gereken kuvvet (6250 N) sınırın (7848 N) altında, araç savrulmaz. Statik sürtünme gerektiği kadar oluşur ve merkezcil kuvvet görevini üstlenir: tam 6250 N. 7848 N yalnız üst sınırdır; aradaki 1598 N bir kuvvet değil, güvenlik payıdır."
             }
           ];
 
@@ -5172,8 +5212,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

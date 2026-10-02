@@ -2378,13 +2378,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3601,7 +3601,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -4966,16 +4966,32 @@
               why: "Limit hızda hava direnci ağırlığa eşitlenir, net kuvvet sıfır olur ve ivme sıfırlanır. Hız sıfır değildir; cisim sabit (ve genellikle büyük) bir hızla düşmeye devam eder."
             },
             {
-              q: "Aynı kâğıttan yapılan açık bir levha ile buruşturulmuş bir top aynı yükseklikten bırakılıyor. Hangisi önce yere iner ve neden?",
-              o: ["Levha; yüzeyi büyük olduğu için havayı daha iyi yarar", "Top; kütlesi daha büyüktür", "Top; yüzey alanı küçük olduğu için limit hızı büyüktür", "Aynı anda inerler; kütleleri eşittir"],
-              a: 2,
-              why: "İki kâğıdın kütlesi aynıdır. Buruşturunca kesit alanı küçülür, k = ½ρCA azalır ve v = √(mg/k) büyür. Belirleyici olan kütle değil, kütlenin alana oranıdır."
-            },
-            {
               q: "Hava direnci F = k·v² modeline göre, hız iki katına çıkarsa direnç kuvveti nasıl değişir?",
               o: ["İki katına çıkar", "Dört katına çıkar", "Değişmez", "Yarıya iner"],
               a: 1,
               why: "Direnç hızın karesiyle orantılıdır: v → 2v olursa F → 4F olur. Bu yüzden hız arttıkça direnç çok hızlı büyür ve denge kısa sürede kurulur."
+            },
+            {
+              q: "Laboratuvarda cismi bıraktığında v – t eğrisi önce dik yükseliyor, sonra eğimi giderek azalıyor. Eğimin azalması neyi gösterir?",
+              o: [
+                "İvme azalıyor; net kuvvet küçülüyor",
+                "Hız azalıyor; cisim yavaşlıyor",
+                "Direnç azalıyor; net kuvvet büyüyor",
+                "Ağırlık azalıyor; cisim hafifliyor"
+              ],
+              a: 0,
+              why: "v – t grafiğinin eğimi ivmedir. Hız arttıkça direnç büyür, net kuvvet (m·g − k·v²) küçülür ve ivme azalır. Hız azalmıyor, yalnız daha yavaş artıyor; eğim sıfıra inince cisim limit hıza oturur."
+            },
+            {
+              q: "Paraşüt deneyinin v – t grafiğinde iki düz bölüm (plato) görülür: önce yaklaşık 55 m/s, paraşüt açılınca yaklaşık 5 m/s. Bu iki platoda paraşütçüye etki eden hava direnci için hangisi doğrudur?",
+              o: [
+                "55 m/s'de daha büyüktür; hız daha büyüktür",
+                "5 m/s'de daha büyüktür; alan daha büyüktür",
+                "İkisinde de sıfırdır; ivme sıfırdır",
+                "İkisinde de ağırlığa eşittir; ivme sıfırdır"
+              ],
+              a: 3,
+              why: "Plato, limit hızdaki dengedir: iki platoda da ivme sıfırdır, yani direnç ağırlığa (m·g) eşittir. Açık paraşütün büyük alanı aynı direnci çok daha küçük bir hızda üretir. İvmenin sıfır olması direncin değil, net kuvvetin sıfır olduğunu gösterir."
             },
             {
               q: "Paraşüt açıldığı anda paraşütçünün ivmesi için hangisi doğrudur?",
@@ -4984,10 +5000,39 @@
               why: "Açılma anında hız hâlâ eski limit hızdır, ama k birden büyüdüğü için direnç ağırlığın çok üstüne çıkar. Net kuvvet yukarı yöndedir ve büyüklüğü mg'nin katlarına ulaşır; bu yüzden sert bir yavaşlama hissedilir."
             },
             {
+              q: "Aynı kâğıttan yapılan açık bir levha ile buruşturulmuş bir top aynı yükseklikten bırakılıyor. Hangisi önce yere iner ve neden?",
+              o: [
+                "Top; yüzey alanı küçük olduğu için limit hızı büyüktür",
+                "Top; kütlesi daha büyüktür",
+                "Levha; yüzeyi büyük olduğu için havayı daha iyi yarar",
+                "Aynı anda inerler; kütleleri eşittir"
+              ],
+              a: 0,
+              why: "İki kâğıdın kütlesi aynıdır. Buruşturunca kesit alanı küçülür, k = ½ρCA azalır ve v = √(mg/k) büyür. Belirleyici olan kütle değil, kütlenin alana oranıdır."
+            },
+            {
               q: "Limit hızı 40 m/s olan bir cismin kütlesi dört katına çıkarılırsa (şekli ve alanı aynı kalmak üzere) yeni limit hızı ne olur?",
               o: ["20 m/s", "40 m/s", "80 m/s", "160 m/s"],
               a: 2,
               why: "v = √(mg/k) bağıntısında hız kütlenin kareköküyle orantılıdır. Kütle 4 katına çıkarsa hız √4 = 2 katına, yani 80 m/s'ye çıkar."
+            },
+            {
+              q: "“Limit hız neye bağlı?” bölümünde kütleyi 40 kg'dan 80 kg'a, yüzey alanını da 0,35 m²'den 0,70 m²'ye çıkarıyorsun. Limit hız nasıl değişir?",
+              o: ["Yarıya iner", "Değişmez", "√2 katına çıkar", "2 katına çıkar"],
+              a: 1,
+              why: "v = √(m·g/k) ve k alanla orantılı olduğu için limit hızı m/A oranı belirler. Kütle de alan da 2 katına çıkınca m/A aynı kalır, limit hız değişmez. Yalnız kütleye bakarsan √2 kat artış beklersin; alanın artışı bu etkiyi tam olarak götürür."
+            },
+            {
+              q: "Limit hızı 20 m/s olan bir cisim, bırakıldıktan bir süre sonra 10 m/s hızla düşüyor. Direnç F = k·v² ise bu anda cismin ivmesi kaç m/s²'dir? (g = 10 m/s²)",
+              o: ["0 m/s²", "2,5 m/s²", "5 m/s²", "7,5 m/s²"],
+              a: 3,
+              why: "Limit hızda direnç ağırlığa eşittir: k·20² = m·g. Hız limitin yarısı olduğu için direnç ağırlığın (1/2)² = 1/4'ü kadardır. Net kuvvet m·g − m·g/4 = (3/4)·m·g, ivme (3/4) · 10 = 7,5 m/s². Direnci hızla doğru orantılı sanırsan 5 m/s² bulursun."
+            },
+            {
+              q: "Havada yukarı atılan bir top, tepe noktasında bir an duruyor. Bu anda topun ivmesi için hangisi doğrudur?",
+              o: ["Sıfırdır", "g'den küçüktür", "g'ye eşittir", "g'den büyüktür"],
+              a: 2,
+              why: "Tepe noktada hız sıfırdır, bu yüzden hava direnci de sıfırdır; topa yalnız ağırlık etki eder ve ivme g olur. Hızın sıfır olması ivmenin sıfır olduğu anlamına gelmez. Çıkarken direnç ağırlığa eklenir (ivme g'den büyük), inerken ağırlıktan çıkar (g'den küçük)."
             }
           ];
 
@@ -4999,8 +5044,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

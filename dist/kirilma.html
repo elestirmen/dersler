@@ -2378,13 +2378,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3753,7 +3753,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -4992,16 +4992,61 @@
               why: "n = c/v → v = c/n = 3·10⁸ / 1,5 = 2·10⁸ m/s. İndis büyüdükçe ışık ortamda daha yavaş ilerler."
             },
             {
+              q: "Zeytinyağı sudan hafiftir ve suyun üstünde yüzer. Kırılma indisi ise yaklaşık 1,47'dir, suyunki 1,33. Buna göre hangisi doğrudur?",
+              o: [
+                "Zeytinyağı optik olarak sudan daha az yoğundur",
+                "Işık zeytinyağında sudan daha hızlı ilerler",
+                "Zeytinyağı optik olarak sudan daha yoğundur",
+                "Optik yoğunluk, kütle yoğunluğuyla aynı şeydir"
+              ],
+              a: 2,
+              why: "Optik yoğunluğu kırılma indisi belirler, kütle yoğunluğu değil. Zeytinyağının indisi sudan büyük olduğu için optik olarak sudan daha yoğundur ve ışık onun içinde daha yavaş ilerler (v = c/n). Sudan hafif olması bunu değiştirmez."
+            },
+            {
               q: "Işık çok yoğun ortamdan az yoğun ortama geçerken kırılan ışın için ne söylenebilir?",
               o: ["Normale yaklaşır", "Normalden uzaklaşır", "Doğrultusu değişmez", "Her zaman tam yansır"],
               a: 1,
               why: "n₁ > n₂ ise Snell yasası gereği sin r > sin i olur, yani r > i: ışın normalden uzaklaşır. Gelme açısı sınır açıyı geçerse kırılma tamamen biter."
             },
             {
+              q: "Işık havadan suya geçiyor ve yüzeye dik geliyor (gelme açısı 0°). Ne olur?",
+              o: [
+                "Doğrultusu değişir, hızı azalır",
+                "Suya geçmez, tamamen geri yansır",
+                "Doğrultusu da hızı da değişmez",
+                "Doğrultusu değişmez, hızı azalır"
+              ],
+              a: 3,
+              why: "i = 0 ise Snell yasasından sin r = 0, yani r = 0 çıkar: dik gelen ışın kırılmaz, doğrultusunu korur. Ama su ışığı yine yavaşlatır: v = c/n = 3·10⁸ / 1,33 ≈ 2,26·10⁸ m/s. Hız ortam değişince değişir; doğrultu ise yalnız eğik gelişte değişir."
+            },
+            {
+              q: "Işık havadan, kırılma indisi 1,2 olan bir sıvıya 37° gelme açısıyla giriyor. Kırılma açısı kaç derecedir? (sin30° = 0,5; sin37° = 0,6; sin53° = 0,8)",
+              o: ["30°", "37°", "53°", "60°"],
+              a: 0,
+              why: "n₁·sin i = n₂·sin r → 1 · 0,6 = 1,2 · sin r → sin r = 0,5 → r = 30°. Işın yoğun ortama girdiği için normale yaklaştı (30° < 37°). 60°, kırılan ışının yüzeyle yaptığı açıdır; açılar normalden ölçülür."
+            },
+            {
+              q: "Hız ve dalga boyu deneyinde ışığın havadaki dalga boyu 600 nm. İkinci ortamın indisini 1,50'den 2,00'ye çıkarırsan ortamdaki dalga boyu nasıl değişir?",
+              o: ["400 nm'de kalır", "400 nm'den 533 nm'ye çıkar", "400 nm'den 200 nm'ye iner", "400 nm'den 300 nm'ye iner"],
+              a: 3,
+              why: "Ortamdaki dalga boyu λ = λ₀/n'dir: 600/1,5 = 400 nm iken 600/2 = 300 nm olur. İndis büyüdükçe dalga boyu küçülür; değişmeyen frekanstır. 200 nm, 400 nm'yi yeniden 2'ye bölmekten çıkar; bölünen her zaman havadaki 600 nm'dir."
+            },
+            {
               q: "Kırılma indisi 2 olan bir ortamdan havaya geçişte sınır açı kaç derecedir?",
               o: ["30°", "45°", "60°", "90°"],
               a: 0,
               why: "sin θ = n₂/n₁ = 1/2 = 0,5 → θ = 30°. Bu açıdan büyük açılarla gelen ışınlar ortamı terk edemez; tam yansımaya uğrar."
+            },
+            {
+              q: "Tam yansıma deneyinde yoğun ortam su (n = 1,33) ve sınır açı 48,8°. Gelme açısını 40°'den 60°'ye çıkarırsan ne olur?",
+              o: [
+                "Işın normale yaklaşarak havaya çıkar",
+                "Işın yüzeyi yalayarak ilerler",
+                "Işın normalden uzaklaşarak havaya çıkar",
+                "Işığın tamamı suya geri yansır"
+              ],
+              a: 3,
+              why: "Işık sudan havaya geçiyor ve 60° sınır açıdan (48,8°) büyük. Snell yasası sin r = 1,33 · sin60° ≈ 1,15 ister; sinüs 1'i aşamayacağı için kırılan ışın kalmaz ve ışığın tamamı yansır. Yüzeyi yalamak yalnızca gelme açısı tam sınır açıya eşitken olur."
             },
             {
               q: "Paralel kenarlı cam levhadan geçen ışın için hangisi doğrudur?",
@@ -5019,8 +5064,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

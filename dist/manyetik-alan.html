@@ -2392,13 +2392,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -5153,15 +5153,45 @@
               why: "B = μ₀I/(2πr) bağıntısında alan uzaklıkla ters orantılıdır (1/r). Elektriksel alandaki 1/r² bağımlılığıyla karıştırmamak gerekir."
             },
             {
-              q: "Manyetik alana paralel olarak giren yüklü bir parçacığa etki eden manyetik kuvvet ne olur?",
-              o: ["En büyük değerini alır", "Sıfırdır", "Hıza eşittir", "Alanın yarısı kadardır"],
+              q: "01 deneyinde akım sayfaya doğru (⊗) iken alan çizgileri teli saat yönünde dolanır. Akımı sayfadan dışarı (⊙) çevirirsen alanın yönü ne olur?",
+              o: ["Yine saat yönünde dolanır", "Tele doğru, merkeze yönelir", "Telden dışarı doğru yönelir", "Saatin tersi yönünde dolanır"],
+              a: 3,
+              why: "Sağ el kuralı: başparmak akımı gösterirken bükülen parmaklar alanı verir. Başparmağını sana doğru (⊙) çevirince parmakların saatin tersi yönünde kıvrılır. Telin alan çizgileri teli saran çemberlerdir; tele doğru ya da telden dışarı bakmaz."
+            },
+            {
+              q: "01 deneyinde 10 A'lik akım, 5 cm uzaktaki pusulada 40 µT alan oluşturuyor. Akımı 4 A, uzaklığı 2 cm yaparsan alan kaç µT olur?",
+              o: ["6,4 µT", "16 µT", "40 µT", "100 µT"],
+              a: 2,
+              why: "B = 2·10⁻⁷·I/r = 2·10⁻⁷ · 4 / 0,02 = 4·10⁻⁵ T = 40 µT. Akım da uzaklık da 0,4 katına indi; alan I/r oranına bağlı olduğu için değişmez. 16 µT diyen uzaklığın etkisini unutmuştur."
+            },
+            {
+              q: "0,5 T'lık alana dik yerleştirilmiş 40 cm'lik telden 6 A akım geçiyor. Tele etki eden kuvvet kaç N'dur?",
+              o: ["0,12 N", "1,2 N", "3 N", "12 N"],
               a: 1,
+              why: "F = B·I·L·sin90° = 0,5 · 6 · 0,4 · 1 = 1,2 N. Uzunluğu metreye çevirmeyi (40 cm = 0,4 m) unutmamak gerekir."
+            },
+            {
+              q: "02 deneyinde I = 5 A, B = 0,40 T ve tel alana dikken kuvvet 1,00 N. Akım ile alan arasındaki açıyı 30° yaparsan kuvvet kaç N olur?",
+              o: ["0,33 N", "0,50 N", "0,87 N", "1,00 N"],
+              a: 1,
+              why: "F = B·I·L·sinα ve sin30° = 0,5 olduğundan kuvvet yarıya iner: 1,00 · 0,5 = 0,50 N. Kuvvet açıyla doğru orantılı değildir (0,33 N); sinüs yerine kosinüs kullanmak da 0,87 N verir."
+            },
+            {
+              q: "Manyetik alana paralel olarak giren yüklü bir parçacığa etki eden manyetik kuvvet ne olur?",
+              o: ["En büyük değerini alır", "Hıza eşittir", "Sıfırdır", "Alanın yarısı kadardır"],
+              a: 2,
               why: "F = q·v·B·sinα bağıntısında α = 0° için sinα = 0 olur; kuvvet sıfırdır. Kuvvet en büyük değerini parçacık alana dik girdiğinde (α = 90°) alır."
             },
             {
+              q: "04 alıştırmasında negatif yüklü bir parçacık yukarı doğru hareket ediyor; alan sayfaya doğru (⊗). Parçacığa etki eden manyetik kuvvet hangi yöndedir?",
+              o: ["Yukarı ↑", "Aşağı ↓", "Sola ←", "Sağa →"],
+              a: 3,
+              why: "Önce pozitif yük gibi düşün: parmaklar hız yönünden (yukarı) alana (sayfaya doğru) döndürülünce başparmak sola bakar. Yük negatif olduğu için yön ters çevrilir: sağa. Sola diyen ters çevirmeyi unutmuştur; kuvvet hıza dik olduğu için yukarı ya da aşağı olamaz."
+            },
+            {
               q: "Manyetik kuvvetin yaptığı iş için hangisi doğrudur?",
-              o: ["Hızı artırır, iş yapar", "Sıfırdır; kinetik enerji değişmez", "Kütleye bağlıdır", "Alanla doğru orantılıdır"],
-              a: 1,
+              o: ["Sıfırdır; kinetik enerji değişmez", "Hızı artırır, iş yapar", "Kütleye bağlıdır", "Alanla doğru orantılıdır"],
+              a: 0,
               why: "Manyetik kuvvet daima hıza diktir. Kuvvet yer değiştirmeye dik olduğu için yaptığı iş sıfırdır: parçacığın sürati ve kinetik enerjisi değişmez, yalnızca yönü değişir."
             },
             {
@@ -5171,10 +5201,10 @@
               why: "r = mv/(qB) olduğu için yarıçap hızla doğru orantılıdır. T = 2πm/(qB) bağıntısında ise hız yoktur: periyot hızdan bağımsızdır. Siklotronun çalışma ilkesi budur."
             },
             {
-              q: "0,5 T'lık alana dik yerleştirilmiş 40 cm'lik telden 6 A akım geçiyor. Tele etki eden kuvvet kaç N'dur?",
-              o: ["0,12 N", "1,2 N", "12 N", "3 N"],
-              a: 1,
-              why: "F = B·I·L·sin90° = 0,5 · 6 · 0,4 · 1 = 1,2 N. Uzunluğu metreye çevirmeyi (40 cm = 0,4 m) unutmamak gerekir."
+              q: "Birbirine paralel iki uzun telden aynı yönde akım geçiyor. Teller birbirine nasıl etki eder?",
+              o: ["Birbirini iter", "Kuvvet uygulamaz; teller yüksüzdür", "Birbirini çeker", "Yalnız büyük akımlı tel ötekini çeker"],
+              a: 2,
+              why: "Her telin alanı öbür telin akımına kuvvet uygular. Sağ el kuralıyla bakınca aynı yönlü akımlar birbirini çeker, zıt yönlüler iter; elektrikteki “benzerler iter” kuralının tersidir. Kuvvetler etki–tepki çiftidir, iki tele eşit büyüklükte etki eder."
             }
           ];
 
@@ -5186,8 +5216,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

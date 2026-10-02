@@ -2360,13 +2360,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3612,7 +3612,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -4812,8 +4812,8 @@
           var DATA = [
             {
               q: "Fiber optik kabloda ışığın taşınmasını sağlayan olay nedir?",
-              o: ["Yansıma ve soğurma", "Tam yansıma", "Kırılma ve dağılma", "Girişim"],
-              a: 1,
+              o: ["Yansıma ve soğurma", "Kırılma ve dağılma", "Tam yansıma", "Girişim"],
+              a: 2,
               why: "Çekirdek–kılıf sınırına sınır açıdan büyük açıyla çarpan ışık tamamen geri yansır. Bu tam yansıma binlerce kez tekrarlanarak ışığı kilometrelerce taşır."
             },
             {
@@ -4829,16 +4829,66 @@
               why: "sin θ = n₂/n₁ = 1,2/1,5 = 0,8 → θ = 53°. Duvara bundan büyük açıyla çarpan ışınlar taşınır."
             },
             {
+              q: "Sınır açısı 70° olan bir plastik fiberde ışın, çekirdekte eksenle 15° açı yaparak ilerliyor. Hangisi doğrudur?",
+              o: [
+                "Duvara 15° ile çarpar, kılıfa kaçar",
+                "Duvara 15° ile çarpar, taşınır",
+                "Duvara 75° ile çarpar, kılıfa kaçar",
+                "Duvara 75° ile çarpar, taşınır"
+              ],
+              a: 3,
+              why: "Duvara geliş açısı duvarın normalinden ölçülür ve eksen açısının tümleridir: 90° − 15° = 75°. 75° sınır açıdan (70°) büyük olduğu için tam yansıma olur ve ışın taşınır. 15° eksene göre ölçülen açıdır."
+            },
+            {
+              q: "Fiber laboratuvarında n₁ = 1,70 ve n₂ = 1,50 seçiyorsun. Fiberin havadaki kabul açısı kaç derece olur? (sin53° = 0,8)",
+              o: ["12°", "37°", "53°", "62°"],
+              a: 2,
+              why: "NA = √(n₁² − n₂²) = √(2,89 − 2,25) = √0,64 = 0,8 ve sin θ(kabul) = 0,8 → θ = 53°. 62° çekirdek–kılıf sınır açısıdır (sin θ = 1,50/1,70); kabul açısı ise fiberin ucunda tanımlıdır."
+            },
+            {
               q: "Kırılma indisi 1,5 olan 60 km'lik fiberde sinyal ne kadar sürede varır?",
               o: ["200 µs", "300 µs", "400 µs", "600 µs"],
               a: 1,
               why: "v = c/n = 2·10⁸ m/s; t = L/v = 60 000/2·10⁸ = 3·10⁻⁴ s = 300 µs. Boşlukta aynı yol 200 µs sürerdi."
             },
             {
-              q: "Fiber optik kablonun bakır kabloya göre üstünlüğü için hangisi yanlıştır?",
+              q: "Sinyal deneyinde iki ışın fibere aynı anda giriyor: biri eksen boyunca, öbürü zikzak çizerek gidiyor. Hangisi doğrudur?",
+              o: [
+                "İkisi aynı anda varır, çünkü hızları aynıdır",
+                "Zikzak ışın önce varır, çünkü yansımalarda hızlanır",
+                "Eksen boyunca giden önce varır, çünkü yolu daha kısadır",
+                "Zikzak ışın önce varır, çünkü kılıfta daha hızlı gider"
+              ],
+              a: 2,
+              why: "İki ışın da çekirdekte aynı hızla (c/n₁) gider; zikzak ışın daha uzun yol aldığı için geç varır. Bu fark mod dağılımıdır: 10 km'lik fiberde (1,50 / 1,46) en yatık ışın yaklaşık 1,4 µs geç kalır."
+            },
+            {
+              q: "Tam yansımada ışık kaybolmaz. Öyleyse fiberde ışık uzun yolda neden yine de zayıflar?",
+              o: [
+                "Camın ışığı soğurması ve saçması yüzünden",
+                "Her tam yansımada biraz ışık kılıfa geçtiği için",
+                "Işık fiberde boşluktakinden yavaş gittiği için",
+                "Çekirdeğin indisi kılıfınkinden büyük olduğu için"
+              ],
+              a: 0,
+              why: "Kaybın kaynağı tam yansıma değildir: camın kendi kusurları ışığı soğurur, küçük düzensizlikler saçar, keskin kıvrımlarda da ışık kaçar. Modern fiberde kayıp kilometrede yalnızca 0,2 dB kadardır."
+            },
+            {
+              q: "Fiber optik kablonun bakır kabloya göre üstünlüğü için hangisi <b>yanlıştır</b>?",
               o: ["Daha geniş bant genişliği", "Elektromanyetik girişimden etkilenmez", "Daha düşük kayıp", "İstenildiği kadar keskin bükülebilir"],
               a: 3,
               why: "Fiber keskin bükülemez: bükülme yarıçapı küçüldükçe ışın dış duvara daha dik çarpar, tam yansıma bozulur ve ışık sızar. Diğer üç madde fiberin gerçek üstünlükleridir."
+            },
+            {
+              q: "Bükülme deneyinde n₂ = 1,46 iken en küçük bükülme yarıçapı 1,85 mm. n₂'yi 1,40'a düşürünce yaklaşık 0,7 mm oluyor. Bu sonuç neyi gösterir?",
+              o: [
+                "İndis farkı büyüdükçe fiber daha az bükülebilir",
+                "İndis farkı büyüdükçe fiber daha keskin bükülebilir",
+                "Kılıfın indisi küçüldükçe sınır açı büyür",
+                "Bükülme sınırı yalnızca çekirdeğin kalınlığına bağlıdır"
+              ],
+              a: 1,
+              why: "n₂ küçülünce n₁ − n₂ farkı büyür ve sınır açı 76,7°'den yaklaşık 69°'ye iner; dış duvara daha dik çarpan ışın da tam yansır. Bu yüzden R(min) = a(n₁ + n₂)/(n₁ − n₂) küçülür ve fiber daha keskin bükülebilir."
             }
           ];
 
@@ -4850,8 +4900,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

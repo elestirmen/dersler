@@ -2371,13 +2371,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3904,7 +3904,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5465,28 +5465,68 @@
               why: "Odak, tepe ile merkezin tam ortasındadır: f = r/2 = 40/2 = 20 cm. En sık yapılan hata f = r almaktır."
             },
             {
+              q: "Işın çizimi laboratuvarında çukur aynanın merkezinden geçerek gelen ışın, yansıdıktan sonra nasıl ilerler?",
+              o: ["Odak noktasından geçer", "Asal eksene paralel gider", "Asal eksene göre simetrik yansır", "Kendi üzerinden geri döner"],
+              a: 3,
+              why: "Kürenin yarıçapı yüzeye her noktada diktir; merkezden gelen ışın aynaya dik çarpar ve kendi üzerinden geri döner. Odaktan geçmek eksene paralel gelen ışının, eksene paralel gitmek odaktan gelen ışının, simetrik yansımak tepeye gelen ışının kuralıdır."
+            },
+            {
               q: "Odak uzaklığı 15 cm olan çukur aynanın 30 cm önüne konan cismin görüntüsü nasıldır?",
-              o: ["Sanal, düz, büyük", "Gerçek, ters, eşit", "Gerçek, ters, küçük", "Görüntü oluşmaz"],
-              a: 1,
+              o: ["Gerçek, ters, eşit", "Sanal, düz, büyük", "Gerçek, ters, küçük", "Görüntü oluşmaz"],
+              a: 0,
               why: "Cisim merkezdedir (a = 2f = 30 cm). 1/15 = 1/30 + 1/b → b = 30 cm; m = 30/30 = 1. Görüntü merkezde, gerçek, ters ve cisimle eşit boydadır."
             },
             {
+              q: "Çukur aynada cisim odak noktasına konursa ne olur?",
+              o: [
+                "Görüntü odakta oluşur",
+                "Görüntü merkezde oluşur",
+                "Yansıyan ışınlar paralel olur, görüntü oluşmaz",
+                "Görüntü aynanın arkasında oluşur"
+              ],
+              a: 2,
+              why: "a = f olduğunda 1/b = 1/f − 1/f = 0 çıkar; b sonsuza gider. Yansıyan ışınlar birbirine paralel olduğu için kesişmez ve görüntü oluşmaz. El feneri tam bu ilkeyle çalışır."
+            },
+            {
+              q: "Beş cisim konumu deneyinde çukur aynanın önündeki cisim, merkezin ötesinden odağa doğru yürüyor. Bu sırada görüntü nasıl değişir?",
+              o: ["Aynadan uzaklaşır ve büyür", "Aynaya yaklaşır ve küçülür", "Yerinde kalır, yalnızca büyür", "Aynanın arkasına geçer ve küçülür"],
+              a: 0,
+              why: "Cisim aynaya yaklaştıkça görüntü aynadan uzaklaşır ve büyür: odak ile merkez arasından yola çıkar, merkezi geçer ve cisim odağa varınca sonsuza kaçar. Görüntü bu yol boyunca gerçek ve terstir; aynanın arkasına ancak cisim odağın içine girince geçer."
+            },
+            {
               q: "Tümsek aynada oluşan görüntü için hangisi her zaman doğrudur?",
-              o: ["Gerçek ve terstir", "Sanal, düz ve küçüktür", "Cisimle eşit boydadır", "Cismin yerine göre değişir"],
-              a: 1,
+              o: ["Gerçek ve terstir", "Cisimle eşit boydadır", "Cismin yerine göre değişir", "Sanal, düz ve küçüktür"],
+              a: 3,
               why: "Tümsek aynada cisim nerede olursa olsun görüntü sanal, düz ve küçüktür; tepe ile odak arasında oluşur. Bu yüzden geniş alan gösteren güvenlik aynası olarak kullanılır."
             },
             {
-              q: "Çukur aynada cisim odak noktasına konursa ne olur?",
-              o: ["Görüntü odakta oluşur", "Görüntü merkezde oluşur", "Yansıyan ışınlar paralel olur, görüntü oluşmaz", "Görüntü aynanın arkasında oluşur"],
-              a: 2,
-              why: "a = f olduğunda 1/b = 1/f − 1/f = 0 çıkar; b sonsuza gider. Yansıyan ışınlar birbirine paralel olduğu için kesişmez ve görüntü oluşmaz. El feneri tam bu ilkeyle çalışır."
+              q: "Tümsek ayna deneyinde eğrilik yarıçapını 120 cm, cismin uzaklığını 60 cm yapıyorsun. Görüntü nerede oluşur?",
+              o: [
+                "Aynanın 30 cm önünde, gerçek",
+                "Aynanın 30 cm arkasında, sanal",
+                "Aynanın 40 cm arkasında, sanal",
+                "Aynanın 60 cm arkasında, sanal"
+              ],
+              a: 1,
+              why: "Tümsekte f = −r/2 = −60 cm. 1/b = 1/f − 1/a = −1/60 − 1/60 = −2/60 → b = −30 cm; eksi işaret görüntünün aynanın arkasında ve sanal olduğunu söyler. f = −r alınırsa 40 cm çıkar. Tümsek ayna hiçbir zaman gerçek görüntü vermez."
+            },
+            {
+              q: "Çukur aynanın önündeki bir mumun görüntüsü bir perdeye net olarak düşüyor. Bu görüntü için hangisi kesinlikle doğrudur?",
+              o: ["Cisimden büyüktür", "Aynanın arkasında oluşur", "Düz ve sanaldır", "Ters ve gerçektir"],
+              a: 3,
+              why: "Perdeye yalnızca ışınların kendilerinin kesiştiği gerçek görüntü düşer ve gerçek görüntü her zaman terstir. Boyu ise cismin yerine bağlıdır: merkezin ötesindeki cisim küçük, merkez ile odak arasındaki cisim büyük görüntü verir."
             },
             {
               q: "Odak uzaklığı 10 cm olan çukur aynanın 5 cm önündeki cismin büyütmesi kaçtır?",
               o: ["0,5", "1", "2", "4"],
               a: 2,
               why: "1/10 = 1/5 + 1/b → 1/b = 1/10 − 1/5 = −1/10 → b = −10 cm (sanal). m = |b/a| = 10/5 = 2. Görüntü düz ve iki kat büyüktür; makyaj aynası böyle çalışır."
+            },
+            {
+              q: "Hedef büyütme oyununda çukur aynanın odak uzaklığı 20 cm. Cismin 4 kat büyük, gerçek görüntüsünü elde etmek için cismi aynadan kaç cm uzağa koymalısın?",
+              o: ["15 cm", "25 cm", "40 cm", "80 cm"],
+              a: 1,
+              why: "Gerçek görüntüde b = 4a: 1/20 = 1/a + 1/(4a) = 5/(4a) → a = 25 cm, b = 100 cm ve m = 100/25 = 4 ✓. 15 cm de 4 kat büyütür, ama cisim odağın içinde kaldığı için görüntü sanal ve düz olur. 40 cm merkezdir; orada görüntü eşit boydadır."
             }
           ];
 
@@ -5498,8 +5538,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

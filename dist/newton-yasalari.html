@@ -2405,13 +2405,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3959,7 +3959,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5383,22 +5383,72 @@
 
           var DATA = [
             {
+              q: "Ani fren yapan bir otobüste yolcunun öne doğru savrulmasının sebebi nedir?",
+              o: [
+                "Yolcuya öne doğru bir kuvvet etki eder",
+                "Sürtünme kuvveti yön değiştirir",
+                "Yerçekimi öne doğru etki eder",
+                "Yolcu eski hızını korumaya çalışır (eylemsizlik)"
+              ],
+              a: 3,
+              why: "Yolcuyu öne iten bir kuvvet yoktur; otobüs yavaşlarken yolcu 1. yasa gereği eski hızıyla hareketini sürdürmek ister. Emniyet kemeri tam da bu yüzden gereklidir."
+            },
+            {
               q: "Düz bir yolda sabit hızla giden otomobile etki eden net kuvvet nedir?",
-              o: ["Hareket yönünde sabit bir kuvvet", "Sıfır", "Hıza ters yönde bir kuvvet", "Hızla birlikte artan bir kuvvet"],
-              a: 1,
+              o: ["Hareket yönünde sabit bir kuvvet", "Hıza ters yönde bir kuvvet", "Hızla birlikte artan bir kuvvet", "Sıfır"],
+              a: 3,
               why: "Sabit hız demek ivme sıfır demektir; a = 0 ise ΣF = m·a = 0'dır. Motorun sağladığı kuvvet, sürtünme ve hava direncini tam olarak dengeler."
             },
             {
+              q: "Kütlesi 60 kg olan bir astronot Dünya'dan Ay'a gidiyor. Ay'da kütlesi ve ağırlığı için hangisi doğrudur?",
+              o: [
+                "Kütlesi aynı kalır, ağırlığı azalır.",
+                "Kütlesi de ağırlığı da azalır.",
+                "Kütlesi azalır, ağırlığı aynı kalır.",
+                "Kütlesi aynı kalır, ağırlığı sıfır olur."
+              ],
+              a: 0,
+              why: "Kütle eylemsizliğin ölçüsüdür, gidilen yere göre değişmez: 60 kg kalır. Ağırlık G = m·g olduğu için g ile değişir: Ay'da 60 · 1,62 ≈ 97 N, Dünya'dakinin (≈ 589 N) yaklaşık altıda biri. Ay'da da çekim vardır; ağırlık sıfır olmaz."
+            },
+            {
+              q: "Sabit bir net kuvvet etkisindeki cismin kütlesi iki katına çıkarılırsa ivmesi ne olur?",
+              o: ["Yarıya iner", "Değişmez", "İki katına çıkar", "Dört katına çıkar"],
+              a: 0,
+              why: "a = ΣF / m bağıntısında kütle paydadadır: ivme kütleyle ters orantılıdır. Aynı kuvvetle iki kat ağır cismi yarı ivmeyle hızlandırabilirsin."
+            },
+            {
+              q: "Sürtünmesiz yatay zeminde duran 4 kg'lık bir kutuya birbirine dik 12 N ve 16 N'luk iki yatay kuvvet etki ediyor. Kutunun ivmesi kaç m/s² olur?",
+              o: ["1 m/s²", "5 m/s²", "7 m/s²", "20 m/s²"],
+              a: 1,
+              why: "Dik kuvvetler Pisagor ile toplanır: ΣF = √(12² + 16²) = 20 N. Buradan a = ΣF / m = 20 / 4 = 5 m/s². Kuvvetleri sayı gibi toplarsan 28 N ve 7 m/s² bulursun; 20 ise ivme değil, net kuvvetin newton cinsinden değeridir."
+            },
+            {
               q: "Masanın üzerinde duran bir kitabın ağırlığının tepki kuvveti hangisidir?",
-              o: ["Masanın kitaba uyguladığı normal kuvvet", "Kitabın masaya uyguladığı kuvvet", "Kitabın Dünya'ya uyguladığı çekim kuvveti", "Kitabın eylemsizliği"],
+              o: [
+                "Masanın kitaba uyguladığı normal kuvvet",
+                "Kitabın masaya uyguladığı kuvvet",
+                "Kitabın Dünya'ya uyguladığı çekim kuvveti",
+                "Kitabın eylemsizliği"
+              ],
               a: 2,
               why: "Etki–tepki çifti aynı türden kuvvetlerdir ve farklı cisimlere etki eder. Dünya kitabı çekiyorsa, kitap da Dünya'yı aynı büyüklükte çeker. Normal kuvvet ağırlığı dengeler ama onun tepkisi değildir."
             },
             {
-              q: "Sabit bir net kuvvet etkisindeki cismin kütlesi iki katına çıkarılırsa ivmesi ne olur?",
-              o: ["İki katına çıkar", "Değişmez", "Yarıya iner", "Dört katına çıkar"],
-              a: 2,
-              why: "a = ΣF / m bağıntısında kütle paydadadır: ivme kütleyle ters orantılıdır. Aynı kuvvetle iki kat ağır cismi yarı ivmeyle hızlandırabilirsin."
+              q: "Laboratuvardaki etki–tepki deneyinde 2 kg'lık mavi araba ile 6 kg'lık mor araba birbirini itiyor. Hangisi doğrudur?",
+              o: [
+                "Kuvvetler eşittir; mavinin ivmesi 3 kat büyüktür.",
+                "Mavi arabaya 3 kat büyük kuvvet etki eder.",
+                "Mor arabaya 3 kat büyük kuvvet etki eder.",
+                "Kuvvetler eşittir; ivmeler de eşittir."
+              ],
+              a: 0,
+              why: "Etki ve tepki her zaman eşit büyüklüktedir, ama ivme a = F/m ile bulunur. Kütlesi 3 kat küçük olan mavi araba 3 kat büyük ivme kazanır ve 3 kat büyük hızla ayrılır. Hafif arabanın daha çok hızlanması ona daha büyük kuvvet etki ettiğini göstermez."
+            },
+            {
+              q: "Laboratuvardaki “Kuvvet yetersiz” deneyinde halı zemindeki (μ = 0,50) 10 kg'lık kutuya 12 N uygulanıyor ve kutu kıpırdamıyor. Kutuya etki eden sürtünme kuvveti kaç N'dur?",
+              o: ["0 N", "12 N", "37 N", "49 N"],
+              a: 1,
+              why: "Kutu durgun kaldığına göre net kuvvet sıfırdır; statik sürtünme uygulanan kuvveti tam dengeler: 12 N. 49 N (μ·m·g) zeminin verebileceği en büyük sürtünmedir; sürtünme yalnızca gerektiği kadarını üretir. Kutu dursa da sürtünme sıfır değildir."
             },
             {
               q: "Halatı kopmuş, serbest düşen bir asansörde tartının üzerinde duran kişi için tartı ne gösterir?",
@@ -5407,10 +5457,10 @@
               why: "Kişi de tartı da aynı g ivmesiyle düşer; aralarında itme kuvveti kalmaz, yani N = 0 olur. Tartı normal kuvveti ölçtüğü için sıfır gösterir. Yerçekimi ortadan kalkmış değildir."
             },
             {
-              q: "Ani fren yapan bir otobüste yolcunun öne doğru savrulmasının sebebi nedir?",
-              o: ["Yolcuya öne doğru bir kuvvet etki eder", "Yolcu eski hızını korumaya çalışır (eylemsizlik)", "Sürtünme kuvveti yön değiştirir", "Yerçekimi öne doğru etki eder"],
-              a: 1,
-              why: "Yolcuyu öne iten bir kuvvet yoktur; otobüs yavaşlarken yolcu 1. yasa gereği eski hızıyla hareketini sürdürmek ister. Emniyet kemeri tam da bu yüzden gereklidir."
+              q: "Laboratuvardaki asansörde kütleyi 60 kg'da bırakıp “Yukarı hızlanıyor” (a = +3 m/s²) durumunu seçiyorsun. Tartı yaklaşık kaç kg yazar? (g = 10 m/s² al)",
+              o: ["18 kg", "42 kg", "60 kg", "78 kg"],
+              a: 3,
+              why: "İvme yukarı olduğu için N = m·(g + a) = 60 · 13 = 780 N; tartı N / g = 78 kg yazar. Laboratuvar g = 9,81 kullandığı için ekranda 78,3 kg görürsün. 42 kg aşağı doğru hızlanan asansörün değeridir. Kütle ise hâlâ 60 kg'dır."
             }
           ];
 
@@ -5422,8 +5472,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

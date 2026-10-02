@@ -2399,13 +2399,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3958,7 +3958,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5388,10 +5388,44 @@
               why: "Cisim hareket etmiyorsa net kuvvet sıfırdır; statik sürtünme uygulanan kuvvete eşit büyüklükte ortaya çıkar. μs·N yalnızca bu kuvvetin üst sınırıdır."
             },
             {
+              q: "Yürürken her adımda ayağın yeri geriye doğru iter. Yerin ayağına uyguladığı sürtünme kuvveti hangi yöndedir?",
+              o: ["İleri, yürüdüğün yönde", "Geri, yürüdüğün yönün tersine", "Yukarı, yere dik doğrultuda", "Sürtünme oluşmaz; ayak kaymıyor"],
+              a: 0,
+              why: "Sürtünme harekete değil, bağıl kaymaya zıttır. Ayak yeri geriye iter, yani geriye kaymaya çalışır; sürtünme bunun tersine, ileri doğru oluşur ve seni ileri iter. Ayak kaymasa da statik sürtünme vardır; yere dik olan kuvvet ise normal kuvvettir."
+            },
+            {
+              q: "Ağır bir dolabı yerinden oynatmak, oynadıktan sonra itmeye devam etmekten neden daha zordur?",
+              o: [
+                "Kütle hareket başlayınca azalır",
+                "Statik sürtünme katsayısı kinetikten büyüktür",
+                "Normal kuvvet hareket başlayınca azalır",
+                "Hareket başlayınca yerçekimi etkisi azalır"
+              ],
+              a: 1,
+              why: "Genellikle μs > μk'dir. Kopuş anında aşılması gereken eşik μs·N iken, kayma başladıktan sonra karşı koyan kuvvet daha küçük olan μk·N'dir."
+            },
+            {
+              q: "Laboratuvarda 10 kg'lık ahşap kutu için ekranda statik eşik 49,1 N, kinetik sürtünme 34,3 N yazıyor. Uygulanan kuvveti 60 N'a getirirsen kutunun ivmesi yaklaşık kaç m/s² olur?",
+              o: ["0 m/s²", "1,1 m/s²", "2,6 m/s²", "6,0 m/s²"],
+              a: 2,
+              why: "60 N eşiği (49,1 N) aştığı için kutu kayar ve sürtünme kinetik değere düşer: a = (60 − 34,3) / 10 ≈ 2,6 m/s². Eşik değerini çıkarırsan 1,1 m/s² bulursun; ama kayan kutuda geçerli olan μk·N'dir."
+            },
+            {
               q: "Bir tuğlayı geniş yüzeyi yerine dar yüzeyi üzerinde sürüklersen kinetik sürtünme kuvveti nasıl değişir?",
               o: ["Artar", "Azalır", "Değişmez", "Önce artar sonra azalır"],
               a: 2,
               why: "f = μ·N bağıntısında temas alanı yoktur. Alan küçülünce basınç artar ama normal kuvvet aynı kaldığı için sürtünme kuvveti değişmez."
+            },
+            {
+              q: "Buz pistinde 5 kg'lık ve 50 kg'lık iki disk aynı hızla kaymaya başlıyor. İki disk için μk aynı. Hangisi doğrudur?",
+              o: [
+                "50 kg'lık disk daha önce durur; sürtünmesi büyüktür",
+                "50 kg'lık disk daha uzağa kayar; eylemsizliği büyüktür",
+                "İkisi aynı mesafede durur; sürtünme kuvvetleri eşittir",
+                "İkisi aynı mesafede durur; yavaşlamaları eşittir"
+              ],
+              a: 3,
+              why: "Ağır diskteki sürtünme 10 kat büyüktür (f = μk·m·g), ama onu durdurmak da 10 kat zordur. Kütle sadeleşir: a = μk·g. İki disk aynı yavaşlamayla aynı mesafede durur; eşit olan sürtünme kuvveti değil, yavaşlamadır."
             },
             {
               q: "Eğimi yavaşça artırılan bir düzlemde cisim 30°'de kaymaya başlıyorsa statik sürtünme katsayısı yaklaşık kaçtır?",
@@ -5401,15 +5435,26 @@
             },
             {
               q: "Aynı yolda hızını iki katına çıkaran bir aracın fren mesafesi nasıl değişir?",
-              o: ["İki katına çıkar", "Dört katına çıkar", "Değişmez", "Karekök kadar artar"],
-              a: 1,
+              o: ["Değişmez", "Karekök kadar artar", "İki katına çıkar", "Dört katına çıkar"],
+              a: 3,
               why: "d = v² / (2μg) bağıntısında mesafe hızın karesiyle orantılıdır: hız 2 katına çıkarsa mesafe 2² = 4 katına çıkar. Hızla doğru orantılı olan tepki mesafesidir."
             },
             {
-              q: "Ağır bir dolabı yerinden oynatmak, oynadıktan sonra itmeye devam etmekten neden daha zordur?",
-              o: ["Kütle hareket başlayınca azalır", "Statik sürtünme katsayısı kinetikten büyüktür", "Normal kuvvet hareket başlayınca azalır", "Hareket başlayınca yerçekimi etkisi azalır"],
-              a: 1,
-              why: "Genellikle μs > μk'dir. Kopuş anında aşılması gereken eşik μs·N iken, kayma başladıktan sonra karşı koyan kuvvet daha küçük olan μk·N'dir."
+              q: "Fren mesafesi deneyinde hız 90 km/h ve yol kuruyken (μ = 0,80) fren mesafesi 39,8 m çıkıyor. Hızı değiştirmeden Kar düğmesine (μ = 0,20) basarsan fren mesafesi yaklaşık kaç m olur?",
+              o: ["10 m", "80 m", "159 m", "637 m"],
+              a: 2,
+              why: "d = v² / (2·μ·g) bağıntısında μ paydadadır: μ 4 kat küçülünce (0,80 → 0,20) fren mesafesi 4 katına çıkar: 39,8 · 4 ≈ 159 m. Kare yalnız hızın üzerindedir; μ ile mesafe ters orantılıdır, bu yüzden 16 kat değil 4 kat artar."
+            },
+            {
+              q: "Karda kayan bir kızağa aynı büyüklükte kuvvet uyguluyorsun: bir kez ipiyle yukarı doğru eğik çekerek, bir kez arkadan aşağı doğru eğik iterek (açı ikisinde de aynı). Çekmek neden daha kolaydır?",
+              o: [
+                "Çekerken normal kuvvet azalır, sürtünme de azalır",
+                "Çekerken kuvvetin yatay bileşeni daha büyüktür",
+                "Çekerken sürtünme katsayısı küçülür",
+                "Çekerken kızağın ağırlığı azalır"
+              ],
+              a: 0,
+              why: "Eğik çekerken kuvvetin düşey bileşeni kızağı biraz kaldırır: N = m·g − F·sinα küçülür, sürtünme μk·N de küçülür. Eğik iterken düşey bileşen kızağı kara bastırır ve N büyür. Yatay bileşen iki durumda da aynıdır; ağırlık ve μ değişmez."
             }
           ];
 
@@ -5421,8 +5466,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

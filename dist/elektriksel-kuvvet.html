@@ -2385,13 +2385,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -3927,7 +3927,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5208,9 +5208,20 @@
           var DATA = [
             {
               q: "q₁ = +4 µC ve q₂ = +1 µC yükleri birbirine kuvvet uyguluyor. Bu kuvvetler için hangisi doğrudur?",
-              o: ["q₁'in uyguladığı kuvvet 4 kat büyüktür", "Eşit büyüklükte ve zıt yönlüdür", "q₂'nin uyguladığı kuvvet 4 kat büyüktür", "Yüklerin büyüklüğüne göre değişir"],
+              o: [
+                "q₁'in uyguladığı kuvvet 4 kat büyüktür",
+                "Eşit büyüklükte ve zıt yönlüdür",
+                "q₂'nin uyguladığı kuvvet 4 kat büyüktür",
+                "Yüklerin büyüklüğüne göre değişir"
+              ],
               a: 1,
               why: "Coulomb yasasında iki yük de aynı çarpımda yer alır; ayrıca Newton'un 3. yasası gereği etki ve tepki eşit büyüklükte ve zıt yöndedir. Farklı olan, kütleleri farklıysa kazanacakları ivmelerdir."
+            },
+            {
+              q: "Coulomb laboratuvarında q₁ = q₂ = +2 µC ve uzaklık 20 cm iken kuvvet 0,90 N. Uzaklığı ve q₂'yi değiştirmeden q₁'i +6 µC yaparsan kuvvet kaç N olur?",
+              o: ["0,30 N", "0,90 N", "2,7 N", "8,1 N"],
+              a: 2,
+              why: "F = k·q₁·q₂/r² bağıntısında kuvvet her bir yükle doğru orantılıdır: q₁ 3 katına çıkınca F de 3 katına çıkar, 0,90 · 3 = 2,7 N. Kare yalnızca uzaklıktadır; 8,1 N diyen yükün karesini almıştır."
             },
             {
               q: "İki nokta yük arasındaki uzaklık 3 katına çıkarılırsa aralarındaki kuvvet nasıl değişir?",
@@ -5220,9 +5231,43 @@
             },
             {
               q: "Bir noktadaki elektriksel alanın yönü nasıl tanımlanır?",
-              o: ["Oraya konan pozitif yüke etki eden kuvvetin yönü", "Oraya konan negatif yüke etki eden kuvvetin yönü", "Yükten uzaklaşan yön", "Alan çizgilerinin kesiştiği yön"],
+              o: [
+                "Oraya konan pozitif yüke etki eden kuvvetin yönü",
+                "Oraya konan negatif yüke etki eden kuvvetin yönü",
+                "Yükten uzaklaşan yön",
+                "Alan çizgilerinin kesiştiği yön"
+              ],
               a: 0,
               why: "Alanın yönü, o noktaya konan pozitif bir test yükünün iteleceği yön olarak tanımlanır. Negatif yüke etki eden kuvvet alana zıt yöndedir. Alan çizgileri ise asla kesişmez."
+            },
+            {
+              q: "Bir noktadaki elektriksel alanı bulmak için oraya +1 nC'lik test yükü konuyor. Test yükü yerine +2 nC'lik yük konursa o noktadaki alan nasıl değişir?",
+              o: ["2 katına çıkar", "Yarıya iner", "Değişmez", "4 katına çıkar"],
+              a: 2,
+              why: "E = F/q oranında test yükü 2 katına çıkınca ona etki eden kuvvet de 2 katına çıkar; oran, yani alan aynı kalır. Alan yalnızca kaynak yüklere ve konuma bağlıdır. 2 katına çıkan, yüke etki eden kuvvettir."
+            },
+            {
+              q: "Elektriksel alan şiddeti 2·10⁴ N/C olan bir noktaya 3 µC'lik yük konulursa bu yüke etki eden kuvvet kaç N olur?",
+              o: ["6·10⁻³ N", "0,06 N", "0,6 N", "6 N"],
+              a: 1,
+              why: "F = q·E = 3·10⁻⁶ C · 2·10⁴ N/C = 6·10⁻² N = 0,06 N. Birim çevirmeyi (µC → 10⁻⁶ C) atlamamak gerekir."
+            },
+            {
+              q: "03 bölümünde q₁ = +1 µC 0 cm'de, q₂ 100 cm'de duruyor. q₂'yi −8 µC yaparsan net alanın sıfır olduğu nokta nerede olur?",
+              o: [
+                "Dışarıda, q₁'in ötesinde (0 cm'nin solunda)",
+                "İki yükün arasında, q₁'e daha yakın",
+                "İki yükün arasında, q₂'ye daha yakın",
+                "Dışarıda, q₂'nin ötesinde (100 cm'nin sağında)"
+              ],
+              a: 0,
+              why: "Zıt işaretli yüklerin arasında iki alan da q₂'ye doğru bakar ve toplanır; orada sıfır olamaz. Sıfır noktası dışarıda, küçük yükün (q₁) ötesindedir: yaklaşık −55 cm. q₂'nin ötesinde ise hem büyük hem yakın olan q₂'nin alanı hep baskın kalır."
+            },
+            {
+              q: "04 bölümünde levhalar arası uzaklık 2 cm. Levha gerilimini 400 V yaparsan levhalar arasındaki alan kaç N/C olur?",
+              o: ["8 N/C", "200 N/C", "2 000 N/C", "20 000 N/C"],
+              a: 3,
+              why: "E = V/d = 400 V / 0,02 m = 20 000 N/C, yani 2·10⁴ N/C. Uzaklığı metreye çevirmeden bölen 200 N/C, gerilim ile uzaklığı çarpan 8 N/C bulur. Düzgün alanda bu değer levhalar arasının her noktasında aynıdır."
             },
             {
               q: "Paralel levhalar arasındaki düzgün alana, levhalara paralel olarak giren bir elektron nasıl bir yörünge izler?",
@@ -5231,10 +5276,15 @@
               why: "Alan düzgün olduğu için kuvvet ve ivme sabittir: yatayda sabit hız, düşeyde sabit ivme. Bu, yatay atışın birebir aynısıdır ve yörünge paraboldür."
             },
             {
-              q: "Elektriksel alan şiddeti 2·10⁴ N/C olan bir noktaya 3 µC'lik yük konulursa bu yüke etki eden kuvvet kaç N olur?",
-              o: ["0,06 N", "0,6 N", "6 N", "6·10⁻³ N"],
-              a: 0,
-              why: "F = q·E = 3·10⁻⁶ C · 2·10⁴ N/C = 6·10⁻² N = 0,06 N. Birim çevirmeyi (µC → 10⁻⁶ C) atlamamak gerekir."
+              q: "04 bölümünde elektron yerine proton aynı hızla levhalar arasına gönderiliyor. Proton, elektrona göre nasıl sapar?",
+              o: [
+                "Aynı yöne, aynı miktarda sapar",
+                "Ters yöne, çok daha az sapar",
+                "Ters yöne, aynı miktarda sapar",
+                "Ters yöne, çok daha fazla sapar"
+              ],
+              a: 1,
+              why: "Protonun yükü elektronunkiyle aynı büyüklükte ama pozitiftir: kuvvet aynı büyüklükte, ters yöndedir ve proton negatif levhaya sapar. Kütlesi yaklaşık 1836 kat büyük olduğu için ivmesi ve sapması da yaklaşık 1836 kat küçüktür."
             }
           ];
 
@@ -5246,8 +5296,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

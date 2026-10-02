@@ -2450,13 +2450,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -4144,7 +4144,7 @@
 
         <div class="callout">
           <p>
-            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki beş soruyu
+            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki on soruyu
             çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
@@ -7256,34 +7256,99 @@
 
           var DATA = [
             {
-              q: "Sabit sıcaklıkta 2 L'lik bir kapta 0,4 mol H₂(g) ve 0,4 mol I₂(g) var. Aşağıdaki işlemlerden hangisi birim hacimde H₂ ile I₂ molekülleri arasındaki çarpışma sıklığını 4 katına çıkarır?",
-              o: ["Kaba 0,4 mol daha H₂ eklemek", "Kabın hacmini 1 L'ye indirmek", "Sabit hacimde kaba 0,4 mol He eklemek", "Kabın hacmini 4 L'ye çıkarmak"],
-              a: 1,
-              why: "Hacim yarıya inince [H₂] 0,2 M'den 0,4 M'ye, [I₂] de 0,2 M'den 0,4 M'ye çıkar. Birim hacimdeki çarpışma sıklığı [H₂]·[I₂] ile orantılı olduğundan 2·2 = 4 katına çıkar (kaptaki toplam çarpışma 2 katına çıkar, ama bu çarpışmalar yarı hacimde olur). Yalnız H₂ eklemek sıklığı 2 katına çıkarır; sabit hacimde He eklemek H₂ ve I₂ derişimlerini değiştirmez; hacmi 4 L yapmak sıklığı dörtte birine indirir."
-            },
-            {
               q: "Zn(k) + CuSO₄(suda) → ZnSO₄(suda) + Cu(k) tepkimesi sabit sıcaklıkta yürüyor. Hangisi tepkenlerden birinin derişimini artırmaz?",
-              o: ["Çözeltide bir miktar daha CuSO₄ katısı çözmek", "Çözeltiden bir miktar suyu buharlaştırmak", "Kaba bir parça daha Zn eklemek", "Daha derişik bir CuSO₄ çözeltisi kullanmak"],
+              o: [
+                "Çözeltide bir miktar daha CuSO₄ katısı çözmek",
+                "Çözeltiden bir miktar suyu buharlaştırmak",
+                "Kaba bir parça daha Zn eklemek",
+                "Daha derişik bir CuSO₄ çözeltisi kullanmak"
+              ],
               a: 2,
               why: "Saf katıların (ve saf sıvıların) derişimi sabittir: Zn parçası eklemek hiçbir tepkenin derişimini değiştirmez. Çözünen eklemek, suyu buharlaştırmak ya da daha derişik çözelti kullanmak [Cu²⁺]'yı artırır. Parça sayısı artınca toplam yüzey büyüyebilir; bu temas yüzeyi etkisidir ve bir sonraki konunun işidir."
             },
             {
-              q: "Bir tepkimenin sıcaklığı 25 °C'den 45 °C'ye çıkarılıyor. Aşağıdakilerden hangisi yanlıştır?",
-              o: ["Taneciklerin ortalama kinetik enerjisi artar", "Eşik enerjisini aşan tanecik sayısı artar", "Aktifleşme enerjisi küçülür", "Tepkime ister ekzotermik ister endotermik olsun hızlanır"],
+              q: "01 bölümünde temel ayardan (10 A + 10 B · 1 L) “A ve B iki katı” deneyine geçiyorsun; hacim ve sıcaklık aynı kalıyor. Aşağıdakilerden hangisi <b>değişmez</b>?",
+              o: ["Birim zamandaki A–B çarpışma sayısı", "Eşiği aşan taneciklerin sayısı", "Tepkime hızı", "Eşiği aşan taneciklerin payı (yüzdesi)"],
+              a: 3,
+              why: "Hacim aynıyken A ve B iki katına çıkınca derişimler artar: çarpışma sıklığı 4 katına çıkar, eşiği aşan taneciklerin sayısı ve hız da artar. Sıcaklık aynı kaldığı için dağılım eğrisi değişmez; eşiği aşanların payı, yani yüzdesi aynı kalır. Payı büyüten sıcaklıktır."
+            },
+            {
+              q: "Sabit sıcaklıkta 2 L'lik bir kapta 0,4 mol H₂(g) ve 0,4 mol I₂(g) var. Aşağıdaki işlemlerden hangisi birim hacimde H₂ ile I₂ molekülleri arasındaki çarpışma sıklığını 4 katına çıkarır?",
+              o: [
+                "Kaba 0,4 mol daha H₂ eklemek",
+                "Kabın hacmini 1 L'ye indirmek",
+                "Sabit hacimde kaba 0,4 mol He eklemek",
+                "Kabın hacmini 4 L'ye çıkarmak"
+              ],
+              a: 1,
+              why: "Hacim yarıya inince [H₂] 0,2 M'den 0,4 M'ye, [I₂] de 0,2 M'den 0,4 M'ye çıkar. Birim hacimdeki çarpışma sıklığı [H₂]·[I₂] ile orantılı olduğundan 2·2 = 4 katına çıkar (kaptaki toplam çarpışma 2 katına çıkar, ama bu çarpışmalar yarı hacimde olur). Yalnız H₂ eklemek sıklığı 2 katına çıkarır; sabit hacimde He eklemek H₂ ve I₂ derişimlerini değiştirmez; hacmi 4 L yapmak sıklığı dörtte birine indirir."
+            },
+            {
+              q: "02 bölümünde T₂'yi 25 °C'den 100 °C'ye çıkarıyorsun. Kinetik enerji dağılımı eğrisi için hangisi doğrudur?",
+              o: [
+                "Tepesi yükselir ve sağa kayar; eğrinin altındaki alan büyür.",
+                "Tepesi alçalır ve sağa kayar; eğrinin altındaki alan aynı kalır.",
+                "Tepesi alçalır ve sağa kayar; eğrinin altındaki alan büyür.",
+                "Tepesi yükselir ve sola kayar; eğrinin altındaki alan aynı kalır."
+              ],
+              a: 1,
+              why: "Sıcaklık artınca ortalama kinetik enerji artar: eğri sağa kayar, yayılır ve tepesi alçalır. Eğrinin altındaki alan tanecik sayısıdır; tanecik eklenmediği için aynı kalır. Tepenin yükselip sola kayması soğutunca olur."
+            },
+            {
+              q: "Bir tepkimenin sıcaklığı 25 °C'den 45 °C'ye çıkarılıyor. Aşağıdakilerden hangisi <b>yanlıştır</b>?",
+              o: [
+                "Taneciklerin ortalama kinetik enerjisi artar",
+                "Eşik enerjisini aşan tanecik sayısı artar",
+                "Aktifleşme enerjisi küçülür",
+                "Tepkime ister ekzotermik ister endotermik olsun hızlanır"
+              ],
               a: 2,
               why: "Sıcaklık Ea'yı ve eşik enerjisini değiştirmez. Değişen, kinetik enerji dağılımıdır: eğri basıklaşıp sağa yayılır, eşiği aşan taneciklerin payı büyür, tepkime hızlanır. Bu, ekzotermik ve endotermik bütün tepkimeler için geçerlidir."
             },
             {
+              q: "25 °C'deki bir gazın taneciklerinin ortalama kinetik enerjisini 2 katına çıkarmak için gazı kaç °C'ye ısıtmalısın?",
+              o: ["50 °C", "298 °C", "323 °C", "596 °C"],
+              a: 2,
+              why: "Ortalama kinetik enerji mutlak sıcaklıkla (kelvin) orantılıdır, °C ile değil. 25 °C = 298 K; bunun 2 katı 596 K'dir, yani 596 − 273 = 323 °C. 50 °C, °C değerini ikiye katlamaktan; 596 °C, kelvin değerini °C diye yazmaktan gelir."
+            },
+            {
+              q: "Hızının her 10 °C'lik artışta 2 katına çıktığı kabul edilen bir tepkime 20 °C'de 48 dakikada tamamlanıyor. Aynı madde miktarlarıyla 50 °C'de kaç dakikada tamamlanır?",
+              o: ["6", "8", "24", "384"],
+              a: 0,
+              why: "20 °C'den 50 °C'ye üç tane 10 °C'lik adım var: hız 2 · 2 · 2 = 8 katına çıkar. Süre hızla ters orantılı olduğundan 48 ÷ 8 = 6 dakika. 8 dakika, üç adımı 2 · 3 = 6 kat sanmaktan; 384 dakika, süreyi kısaltacağına 8 katına çıkarmaktan gelir."
+            },
+            {
               q: "Oda koşullarında ve eşit derişimlerle yürüyen aşağıdaki tepkimelerden hangisinin en hızlı olması beklenir?",
-              o: ["Ag⁺(suda) + Cl⁻(suda) → AgCl(k)", "Fe(k) + 2HCl(suda) → FeCl₂(suda) + H₂(g)", "NO₂(g) + CO(g) → NO(g) + CO₂(g)", "2SO₂(g) + O₂(g) → 2SO₃(g) (katalizörsüz)"],
+              o: [
+                "Ag⁺(suda) + Cl⁻(suda) → AgCl(k)",
+                "Fe(k) + 2HCl(suda) → FeCl₂(suda) + H₂(g)",
+                "NO₂(g) + CO(g) → NO(g) + CO₂(g)",
+                "2SO₂(g) + O₂(g) → 2SO₃(g) (katalizörsüz)"
+              ],
               a: 0,
               why: "Zıt yüklü iyonlar birbirini çeker ve kırılması gereken bir bağ yoktur; bu yüzden Ag⁺ + Cl⁻ çökelmesi karıştırıldığı anda biter. Demirin asitle tepkimesi yavaştır; NO₂ + CO ile SO₂ + O₂ tepkimelerinde önce güçlü kovalent bağlar kırılmalıdır; ikisi de oda sıcaklığında, katalizörsüz, fark edilmeyecek kadar yavaştır."
             },
             {
               q: "Aynı miktarlarda Pb(NO₃)₂ ve KI ile iki deney yapılıyor: I. iki katı toz havanda eziliyor; II. iki maddenin sulu çözeltileri karıştırılıyor. Oluşan sarı PbI₂ kütlesi – zaman grafikleri için hangisi doğrudur?",
-              o: ["II'nin eğrisi çok dik başlar; yeterince beklenirse iki deneyde aynı kütle oluşur", "I'de daha çok PbI₂ oluşur, çünkü katılar daha yoğundur", "İki eğri aynıdır; fiziksel hâl hızı değiştirmez", "II'de iki kat PbI₂ oluşur, çünkü çözeltide iyonlar daha çoktur"],
+              o: [
+                "II'nin eğrisi çok dik başlar; yeterince beklenirse iki deneyde aynı kütle oluşur",
+                "I'de daha çok PbI₂ oluşur, çünkü katılar daha yoğundur",
+                "İki eğri aynıdır; fiziksel hâl hızı değiştirmez",
+                "II'de iki kat PbI₂ oluşur, çünkü çözeltide iyonlar daha çoktur"
+              ],
               a: 0,
               why: "Çözeltide iyonlar serbestçe dolaşır ve her yerde çarpışır: PbI₂ hemen oluşur, eğri çok dik başlar. Katılarda iyonlar kristalde sabittir, tepkime yalnız temas noktalarında yavaşça ilerler. Tepken miktarları eşit olduğu için oluşabilecek en çok PbI₂ iki deneyde de aynıdır; değişen yalnız hızdır."
+            },
+            {
+              q: "Aynı kütlede ve aynı büyüklükte mermer parçalarıyla (mermer iki deneyde de fazladır) 25 °C'de iki deney yapılıyor: CaCO₃(k) + 2HCl(suda) → CaCl₂(suda) + H₂O(s) + CO₂(g).<br>I. 100 mL 1 M HCl<br>II. 200 mL 1 M HCl<br>II'nin CO₂ kütlesi–zaman eğrisi I'inkine göre nasıldır?",
+              o: [
+                "Daha dik başlar; aynı yükseklikte düzleşir.",
+                "Daha dik başlar; iki kat yükseklikte düzleşir.",
+                "Aynı eğimle başlar; aynı yükseklikte düzleşir.",
+                "Aynı eğimle başlar; iki kat yükseklikte düzleşir."
+              ],
+              a: 3,
+              why: "HCl'nin derişimi iki deneyde de 1 M; sıcaklık ve mermer de aynı: başlangıç eğimi, yani hız aynıdır. Mermer fazla olduğu için CO₂ miktarını HCl'nin molü belirler: I'de 0,1 mol HCl'den 0,05 mol (2,2 g), II'de 0,2 mol'den 0,10 mol (4,4 g) CO₂ çıkar. Aynı derişimde daha çok çözelti kullanmak hızı değil, ürünü artırır."
             }
           ];
 
@@ -7295,8 +7360,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

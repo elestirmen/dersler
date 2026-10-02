@@ -2479,13 +2479,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -4149,7 +4149,7 @@
 
         <div class="callout">
           <p>
-            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki beş soruyu çöz;
+            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki on soruyu çöz;
             takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
@@ -7492,15 +7492,42 @@
           var DATA = [
             {
               q: "Kalorimetrede NaOH suda çözünüyor ve suyun sıcaklığı yükseliyor. Bu deneyde sistem ve çevre hangisidir?",
-              o: ["Sistem: su · çevre: NaOH", "Sistem: çözünen NaOH · çevre: su, bardak ve termometre", "Sistem: bardak · çevre: laboratuvar", "Sistem: termometre · çevre: su"],
-              a: 1,
+              o: [
+                "Sistem: su · çevre: NaOH",
+                "Sistem: bardak · çevre: laboratuvar",
+                "Sistem: termometre · çevre: su",
+                "Sistem: çözünen NaOH · çevre: su, bardak ve termometre"
+              ],
+              a: 3,
               why: "İncelenen olay NaOH'ın çözünmesidir; bu yüzden sistem çözünen maddedir. Su, bardak ve termometre sistemle ısı alışverişi yapan çevredir. Termometre çevrenin sıcaklığını ölçer: su ısındığına göre sistem ısı vermiştir."
             },
             {
+              q: "“Isı alır mı, verir mi?” bölümündeki kartlardan dördü aşağıda. Hangisi endotermiktir?",
+              o: [
+                "Su buharının yoğuşması: H₂O(g) → H₂O(s)",
+                "Kırağı oluşması: H₂O(g) → H₂O(k)",
+                "İyotun süblimleşmesi: I₂(k) → I₂(g)",
+                "H–H bağının oluşması: 2H(g) → H₂(g)"
+              ],
+              a: 2,
+              why: "Katı iyot gaza dönerken tanecikler birbirinden koparılır; bu enerji ister, olay ısı alır (ΔH = +62,4 kJ). Yoğuşma ve kırağılaşma tanecikleri yaklaştırır, ısı verir. Bağ oluşurken de enerji açığa çıkar: 2H(g) → H₂(g), ΔH = −436 kJ."
+            },
+            {
               q: "CaO(k) + H₂O(s) → Ca(OH)₂(k) + 65 kJ tepkimesi için hangisi doğrudur?",
-              o: ["Isı ürünler tarafında olduğu için ΔH = +65 kJ'dür", "ΔH = −65 kJ'dür; sistem çevreye ısı verir", "ΔH = −65 kJ'dür; çevre soğur", "Tepkime ilerledikçe evrenin toplam enerjisi artar"],
-              a: 1,
+              o: [
+                "ΔH = −65 kJ'dür; sistem çevreye ısı verir",
+                "Isı ürünler tarafında olduğu için ΔH = +65 kJ'dür",
+                "ΔH = −65 kJ'dür; çevre soğur",
+                "Tepkime ilerledikçe evrenin toplam enerjisi artar"
+              ],
+              a: 0,
               why: "Isı ürünler tarafına yazılmışsa sistem ısı veriyordur: tepkime ekzotermiktir ve ΔH = −65 kJ olur. Çevre bu ısıyı alıp ısınır. Evrenin toplam enerjisi değişmez; enerji yalnızca sistemden çevreye geçer."
+            },
+            {
+              q: "CaCO₃(k) → CaO(k) + CO₂(g) tepkimesinde ΔH = +178,3 kJ'dür. Buna göre 2CaO(k) + 2CO₂(g) → 2CaCO₃(k) tepkimesinin ΔH'si kaç kJ'dir?",
+              o: ["−356,6 kJ", "−178,3 kJ", "+178,3 kJ", "+356,6 kJ"],
+              a: 0,
+              why: "Tepkime ters çevrilince ΔH'nin işareti değişir: −178,3 kJ. Katsayılar 2 ile çarpıldığı için ΔH de 2 ile çarpılır: 2 · (−178,3) = −356,6 kJ. +356,6 bulursan ters çevirince işareti değiştirmeyi unutmuşsundur; −178,3 ise katsayıyı unutmaktan gelir."
             },
             {
               q: "Kalorimetredeki 150 g suyun sıcaklığı 20,0 °C'den 28,0 °C'ye çıktı. Su kaç kJ ısı almıştır? (c = 4,18 J/(g·°C))",
@@ -7515,10 +7542,48 @@
               why: "Suyun (çevrenin) sıcaklığı düşüyorsa sistem çevreden ısı alıyordur: olay endotermiktir. Seçeneklerden yalnızca NH₄NO₃'ın çözünmesi endotermiktir (ΔH = +25,7 kJ/mol); ötekiler suyu ısıtır."
             },
             {
+              q: "Kalorimetre laboratuvarında 0,10 mol NaOH 100 g suda çözününce sıcaklık 10,6 °C artıyor. “Aynı NaOH, yarı su” deneyinde aynı 0,10 mol NaOH 50 g suda çözünüyor. Ne olur?",
+              o: [
+                "ΔT ≈ 5,3 °C olur; ölçülen ΔH yine ≈ −44,5 kJ/mol",
+                "ΔT yine 10,6 °C olur; ölçülen ΔH ≈ −22 kJ/mol",
+                "ΔT ≈ 21,3 °C olur; ölçülen ΔH ≈ −89 kJ/mol",
+                "ΔT ≈ 21,3 °C olur; ölçülen ΔH yine ≈ −44,5 kJ/mol"
+              ],
+              a: 3,
+              why: "Açığa çıkan ısı NaOH'ın mol sayısına bağlıdır, yine 4,45 kJ'dür. Bu ısıyı yarı kadar su paylaştığı için ΔT iki katına çıkar: 4450 ÷ (50 · 4,18) ≈ 21,3 °C. ΔH = −q/n mol başına değerdir; su miktarıyla değişmez."
+            },
+            {
               q: "Propanın molar yanma ısısı 2220 kJ/mol, metanınki 890 kJ/mol. Aynı kütlede yakıt yakılırsa hangisi doğrudur? (C₃H₈ = 44 g/mol, CH₄ = 16 g/mol)",
-              o: ["Propan yaklaşık 2,5 kat fazla ısı verir", "Metan biraz daha fazla ısı verir", "İkisi eşit ısı verir", "Mol başına ısısı büyük olan her zaman daha iyi yakıttır"],
+              o: [
+                "Propan yaklaşık 2,5 kat fazla ısı verir",
+                "Metan biraz daha fazla ısı verir",
+                "İkisi eşit ısı verir",
+                "Mol başına ısısı büyük olan her zaman daha iyi yakıttır"
+              ],
               a: 1,
               why: "Gram başına ısıyı karşılaştırmak gerekir: propan 2220 ÷ 44 ≈ 50,5 kJ/g, metan 890 ÷ 16 ≈ 55,6 kJ/g. Mol başına ısı yanıltır, çünkü 1 mol propan 1 mol metandan neredeyse 3 kat ağırdır."
+            },
+            {
+              q: "“Yakıtları karşılaştır” bölümünde aynı görevi (1 kg suyu 20 °C'den 100 °C'ye ısıtmak, verim %50) sırayla metan, kömür ve hidrojenle yapıyorsun. Yanmada çıkan CO₂ için hangisi doğrudur?",
+              o: [
+                "Kömür metanın iki katından fazla CO₂ verir; hidrojen hiç vermez",
+                "Üçü aynı ısıyı verdiği için üçünde de aynı miktarda CO₂ çıkar",
+                "En çok CO₂'yi metan verir; kömür ve hidrojen daha az verir",
+                "Hidrojen de CO₂ verir, ama metandan biraz daha az verir"
+              ],
+              a: 0,
+              why: "Aynı 669 kJ ısı için metan ≈ 33 g, kömür (saf karbon) ≈ 75 g CO₂ verir. Metanın enerjisinin bir kısmı hidrojenin suya dönüşmesinden gelir; kömürünkinin tamamı C → CO₂ dönüşümünden. Hidrojen yanınca yalnızca su oluşur."
+            },
+            {
+              q: "10 g şeker (tamamı karbonhidrat) ile 10 g zeytinyağı (tamamı yağ) karşılaştırılıyor. Vücutta kullanıldıklarında hangisi doğrudur?",
+              o: [
+                "Şeker daha çok enerji verir, çünkü hızlı yanar",
+                "İkisi aynı enerjiyi verir, çünkü kütleleri eşittir",
+                "Zeytinyağı yaklaşık 9 kat daha çok enerji verir",
+                "Zeytinyağı yaklaşık 2 kat daha çok enerji verir"
+              ],
+              a: 3,
+              why: "Karbonhidrat ≈ 17 kJ/g, yağ ≈ 37 kJ/g verir: 10 g şeker ≈ 170 kJ, 10 g zeytinyağı ≈ 370 kJ; oran 37 ÷ 17 ≈ 2,2. 9 sayısı yağın kcal/g değeridir, kat değildir. Yağ çoğunlukla C ve H'den oluşur; karbonhidrat çok oksijen taşır."
             }
           ];
 
@@ -7530,8 +7595,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

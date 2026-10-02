@@ -2393,13 +2393,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -4000,7 +4000,7 @@
         <div class="callout">
           <p>
             <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki
-            beş soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
+            on soruyu çöz; takıldığın yerde buraya dönüp ilgili başlığı tekrar oku.
           </p>
         </div>
       </div>
@@ -5438,10 +5438,16 @@
               why: "Işık akısının birimi lümendir; kutudaki 800 lm değeri budur. Watt, ampulün çektiği elektrik gücüdür ve yaydığı ışığın ölçüsü değildir."
             },
             {
-              q: "Noktasal bir kaynaktan 2 m uzaklıktaki aydınlanma 100 lüks ise, 4 m uzaklıkta kaç lüks olur?",
-              o: ["50 lx", "25 lx", "12,5 lx", "400 lx"],
-              a: 1,
-              why: "E = I/d² olduğundan aydınlanma uzaklığın karesiyle ters orantılıdır. Uzaklık 2 katına çıkınca aydınlanma 2² = 4'te bire iner: 100/4 = 25 lüks."
+              q: "Aşağıdakilerden hangisi yüzeyin özelliğidir, kaynağın değil?",
+              o: ["Aydınlanma şiddeti", "Işık akısı", "Işık şiddeti", "Katı açı"],
+              a: 0,
+              why: "Aydınlanma şiddeti (lüks), bir yüzeyin birim alanına düşen akıdır; aynı lamba farklı uzaklıktaki yüzeyleri farklı aydınlatır. Akı ve şiddet ise kaynağın özellikleridir."
+            },
+            {
+              q: "Aydınlanma şiddetinin birimi lükstür. 1 lüks hangisine eşittir?",
+              o: ["1 lm / sr", "1 W / m²", "1 lm / m²", "1 lm · m²"],
+              a: 2,
+              why: "Aydınlanma, yüzeyin birim alanına düşen ışık akısıdır: E = Φ/A, yani 1 lx = 1 lm/m². 1 lm/sr kandeladır, yani ışık şiddetinin birimidir; watt ise ampulün çektiği elektrik gücünü ölçer."
             },
             {
               q: "Işık şiddeti 100 cd olan ve ışığı her yöne eşit yayan bir kaynağın toplam ışık akısı yaklaşık kaç lümendir?",
@@ -5450,16 +5456,50 @@
               why: "Tüm uzay 4π steradyandır: Φ = 4π·I = 4 · 3,14 · 100 ≈ 1256 lm. Yaygın hata, akıyı doğrudan şiddete eşitlemektir."
             },
             {
+              q: "El fenerinde ampulün çevresindeki parlak yansıtıcıyı çıkarırsan ışık akısı ve ileri yöndeki ışık şiddeti nasıl değişir?",
+              o: [
+                "Akı aynı kalır, ileri yöndeki şiddet azalır",
+                "Akı azalır, ileri yöndeki şiddet aynı kalır",
+                "Akı da ileri yöndeki şiddet de aynı kalır",
+                "Akı aynı kalır, ileri yöndeki şiddet artar"
+              ],
+              a: 0,
+              why: "Yansıtıcı ışık üretmez, yalnızca yönlendirir; ampul hemen hemen aynı akıyı yaymaya devam eder. Işık artık dar bir koniye toplanmadığı için I = Φ/ω bağıntısında katı açı büyür ve ileri yöndeki şiddet azalır: duvardaki leke büyür ama sönükleşir."
+            },
+            {
+              q: "Noktasal bir kaynaktan 2 m uzaklıktaki aydınlanma 100 lüks ise, 4 m uzaklıkta kaç lüks olur?",
+              o: ["50 lx", "25 lx", "12,5 lx", "400 lx"],
+              a: 1,
+              why: "E = I/d² olduğundan aydınlanma uzaklığın karesiyle ters orantılıdır. Uzaklık 2 katına çıkınca aydınlanma 2² = 4'te bire iner: 100/4 = 25 lüks."
+            },
+            {
               q: "Bir masa lambasının altındaki defter 60° eğildiğinde aydınlanma nasıl değişir?",
               o: ["Değişmez", "Yarıya iner", "İki katına çıkar", "Sıfır olur"],
               a: 1,
               why: "Eğik yüzeyde E = I·cosθ/d²'dir. cos60° = 0,5 olduğu için aydınlanma yarıya iner. Sıfır olması için açının 90° olması, yani ışığın yüzeye teğet gelmesi gerekirdi."
             },
             {
-              q: "Aşağıdakilerden hangisi yüzeyin özelliğidir, kaynağın değil?",
-              o: ["Işık akısı", "Işık şiddeti", "Aydınlanma şiddeti", "Katı açı"],
+              q: "Aydınlanma laboratuvarının hazır sahnelerinde masa lambası 50 cd ve 0,5 m yüksekte, sokak lambası 2000 cd ve 6 m yüksekte. Hangi lambanın tam altındaki yüzey daha çok aydınlanır?",
+              o: [
+                "Sokak lambasının, 40 kat fazla",
+                "Sokak lambasının, yaklaşık 3 kat fazla",
+                "Masa lambasının, 144 kat fazla",
+                "Masa lambasının, yaklaşık 3,6 kat fazla"
+              ],
+              a: 3,
+              why: "E = I/d²: masa lambası 50/0,5² = 200 lx, sokak lambası 2000/6² ≈ 56 lx verir. Sokak lambası 12 kat uzakta olduğu için ışığı 144 kat geniş alana yayılır; 40 kat büyük şiddet bunu karşılayamaz ve masa lambası 144/40 = 3,6 kat fazla aydınlatır."
+            },
+            {
+              q: "Oda aydınlatma tasarımında 16 m²'lik oda, 800 lümenlik 10 ampulle 500 lükse ulaşıyor. Aynı ampullerle 32 m²'lik bir odayı da 500 lükse getirmek için kaç ampul gerekir?",
+              o: ["5 ampul", "10 ampul", "20 ampul", "40 ampul"],
               a: 2,
-              why: "Aydınlanma şiddeti (lüks), bir yüzeyin birim alanına düşen akıdır; aynı lamba farklı uzaklıktaki yüzeyleri farklı aydınlatır. Akı ve şiddet ise kaynağın özellikleridir."
+              why: "Gereken toplam akı Φ = E·A'dır ve alanla doğru orantılıdır: 500 · 32 = 16 000 lm, 16 000/800 = 20 ampul. Alan 2 katına çıkınca ampul sayısı da 2 katına çıkar. 40 ampul, ters kare yasasını burada da uygulayıp oranın karesini almaktan çıkar."
+            },
+            {
+              q: "Fotometre deneyinde lambalar arası 200 cm. Sol lambayı 900 cd, sağ lambayı 100 cd yaparsan ekran sol lambadan kaç cm uzakta dengeye gelir?",
+              o: ["50 cm", "100 cm", "150 cm", "180 cm"],
+              a: 2,
+              why: "Dengede x/(L − x) = √(I₁/I₂) = √(900/100) = 3 olur: x = 3·(200 − x) → x = 150 cm. Kontrol: 900/1,5² = 100/0,5² = 400 lx ✓. Ekran zayıf lambaya yakındır. 180 cm, uzaklık oranını şiddet oranına (9) eşitlemekten çıkar."
             }
           ];
 
@@ -5471,8 +5511,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

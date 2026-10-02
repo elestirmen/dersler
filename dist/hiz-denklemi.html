@@ -2457,13 +2457,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -4288,7 +4288,7 @@
 
         <div class="callout">
           <p>
-            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki beş soruyu çöz;
+            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki on soruyu çöz;
             takıldığın yerde buraya dönüp ilgili başlığı tekrar oku. 01 numaralı laboratuvarda gizli bir tepkimenin
             hız denklemini kendi deneylerinle bulmayı da dene.
           </p>
@@ -7311,10 +7311,27 @@
               why: "Tek basamaklı tepkimede üsler girenlerin katsayılarıdır: X için 2. Y katıdır; katının derişimi miktarıyla değişmediği için hız denkleminde yazılmaz. Ürünler de hız denklemine girmez."
             },
             {
+              q: "02 bölümünde X → ürünler tepkimesi için bir derece seçilmiş; tabloda şu değerler okunuyor:<br>[X] = 0,10 M → 0,10·10⁻³ M/s<br>[X] = 0,20 M → 0,40·10⁻³ M/s<br>[X] = 0,40 M → 1,60·10⁻³ M/s<br>Hız–derişim grafiği nasıldır, tepkime kaçıncı derecedendir?",
+              o: [
+                "Yatay bir doğru; 0. derece",
+                "Orijinden geçen bir doğru; 1. derece",
+                "Yukarı kıvrılan bir parabol; 2. derece",
+                "Yukarı kıvrılan bir parabol; 4. derece"
+              ],
+              a: 2,
+              why: "[X] her 2 katına çıktığında hız 4 katına çıkıyor: 2ⁿ = 4, n = 2. Hız = k·[X]² olduğu için grafik yukarı kıvrılan bir paraboldür. Hızın 4 katına çıkması derecenin 4 olduğu anlamına gelmez; 4. derecede 2 kat derişim 2⁴ = 16 kat hız verirdi."
+            },
+            {
               q: "Hız = k·[A]·[B]² olan bir tepkimede sıcaklık sabitken [A] 2 katına çıkarılıyor, [B] yarıya indiriliyor. Tepkime hızı nasıl değişir?",
               o: ["2 katına çıkar", "Değişmez", "4 katına çıkar", "Yarısına iner"],
               a: 3,
               why: "Hız çarpanı = 2¹ · (½)² = 2 · ¼ = ½. [B]'nin üssü 2 olduğu için onun yarıya inmesi hızı dörtte birine indirir; [A]'nın 2 katı bunu ancak yarıya çıkarır. Sonuçta hız yarısına iner."
+            },
+            {
+              q: "Hız = k·[X]·[Y] olan bir gaz tepkimesinde aşağıdaki işlemlerden hangisi hız sabiti k'nın değerini değiştirir?",
+              o: ["Sıcaklığı artırmak", "[X]'i iki katına çıkarmak", "Kabın hacmini yarıya indirmek", "Sabit hacimli kaba helyum eklemek"],
+              a: 0,
+              why: "k sıcaklığa, katalizöre ve katının temas yüzeyine bağlıdır; sıcaklık artınca k büyür. Derişimi artırmak ya da hacmi küçültmek yalnız köşeli parantezli terimleri değiştirir: hız artar, k aynı kalır. Sabit hacimde helyum eklemek ne derişimleri ne de k'yı değiştirir."
             },
             {
               q: "Tek basamakta gerçekleşen 2NO(g) + Cl₂(g) → 2NOCl(g) tepkimesinin kabının hacmi, sıcaklık sabitken yarıya indiriliyor. Tepkime hızı kaç katına çıkar?",
@@ -7323,14 +7340,42 @@
               why: "Tepkime tek basamaklı olduğu için Hız = k·[NO]²·[Cl₂]. Hacim yarıya inince kaptaki her gazın derişimi 2 katına çıkar: hız 2²·2 = 8 katına çıkar. k derişimle değil sıcaklıkla değişir; k'nın sabit kalması hızın sabit kalması demek değildir."
             },
             {
+              q: "Hız = k·[X]² olan bir tepkimede [X] = 0,20 M iken hız 2,0·10⁻³ M/s ölçülüyor. k'nın değeri ve birimi nedir?",
+              o: ["0,010 M⁻¹·s⁻¹", "0,050 s⁻¹", "8,0·10⁻⁵ M⁻¹·s⁻¹", "0,050 M⁻¹·s⁻¹"],
+              a: 3,
+              why: "k = Hız ÷ [X]² = 2,0·10⁻³ ÷ 0,20² = 2,0·10⁻³ ÷ 0,040 = 0,050. Toplam derece 2 olduğu için birim M¹⁻²·s⁻¹ = M⁻¹·s⁻¹. 0,010 karesini almayı unutmaktan, 8,0·10⁻⁵ bölmek yerine çarpmaktan gelir; s⁻¹ ise 1. derecenin birimidir."
+            },
+            {
               q: "X + Y → ürün tepkimesi için sabit sıcaklıkta şu başlangıç hızları ölçülüyor:<br>Deney 1: [X] = 0,10 M, [Y] = 0,10 M → 2,0·10⁻³ M/s<br>Deney 2: [X] = 0,20 M, [Y] = 0,10 M → 8,0·10⁻³ M/s<br>Deney 3: [X] = 0,20 M, [Y] = 0,20 M → 8,0·10⁻³ M/s<br>Tepkimenin hız denklemi hangisidir?",
               o: ["Hız = k·[X]·[Y]", "Hız = k·[X]²·[Y]", "Hız = k·[X]²", "Hız = k·[Y]²"],
               a: 2,
               why: "Deney 1 → 2: [Y] sabit, [X] 2 katı, hız 4 katı: 2ᵃ = 4, a = 2. Deney 2 → 3: [X] sabit, [Y] 2 katı, hız değişmiyor: b = 0, yani Y hız denkleminde yer almaz. Hız = k·[X]², tepkime 2. derecedendir."
             },
             {
+              q: "Aşağıdaki tepkimelerden hangisi tek basamakta <b>gerçekleşemez</b>?",
+              o: [
+                "NO(g) + O₃(g) → NO₂(g) + O₂(g)",
+                "2NO(g) + O₂(g) → 2NO₂(g)",
+                "N₂(g) + 3H₂(g) → 2NH₃(g)",
+                "CH₃Br(suda) + OH⁻(suda) → CH₃OH(suda) + Br⁻(suda)"
+              ],
+              a: 2,
+              why: "Tek basamaklı tepkimede girenlerin hepsi aynı anda çarpışmalıdır. Üçten çok taneciğin aynı anda ve doğru yönelimle buluşması olanaksız kabul edilir; N₂ + 3H₂'de girenler tarafında 4 tanecik var. 2NO + O₂'deki üç tanecik nadir ama olası bir çarpışmadır; bu tepkime tek basamaklıdır."
+            },
+            {
+              q: "04 bölümündeki NO₂ + CO → NO + CO₂ tepkimesi iki basamakta yürür:<br>1) 2NO₂ → NO₃ + NO (yavaş)<br>2) NO₃ + CO → NO₂ + CO₂ (hızlı)<br>Sıcaklık sabitken [NO₂] 2 katına, [CO] 3 katına çıkarılırsa tepkime hızı kaç katına çıkar?",
+              o: ["2 katına", "4 katına", "6 katına", "12 katına"],
+              a: 1,
+              why: "Hız denklemi yavaş basamağın girenlerinden yazılır: Hız = k·[NO₂]². CO yalnız hızlı basamakta harcandığı için hızı etkilemez: hız 2² = 4 katına çıkar. 6, net denklemden Hız = k·[NO₂]·[CO] yazmaktan; 12, CO'yu da hız denklemine katmaktan gelir."
+            },
+            {
               q: "İki basamaklı bir tepkimenin potansiyel enerji grafiğinden okunan değerler: girenler 0 kJ, 1. tepe 110 kJ, ara ürün 30 kJ, 2. tepe 70 kJ, ürünler −90 kJ. Aşağıdakilerden hangisi doğrudur?",
-              o: ["Ea₂ = 70 kJ; yavaş basamak 2. basamaktır.", "Ea₁ = 110 kJ, Ea₂ = 40 kJ; yavaş basamak 1. basamaktır.", "ΔH = +90 kJ; tepkime endotermiktir.", "Ara ürün 30 kJ seviyesinde durduğu için net denklemde yer alır."],
+              o: [
+                "Ea₂ = 70 kJ; yavaş basamak 2. basamaktır.",
+                "Ea₁ = 110 kJ, Ea₂ = 40 kJ; yavaş basamak 1. basamaktır.",
+                "ΔH = +90 kJ; tepkime endotermiktir.",
+                "Ara ürün 30 kJ seviyesinde durduğu için net denklemde yer alır."
+              ],
               a: 1,
               why: "Her basamağın aktifleşme enerjisi kendi başladığı seviyeden tepeye ölçülür: Ea₁ = 110 − 0 = 110 kJ, Ea₂ = 70 − 30 = 40 kJ. Aktifleşme enerjisi büyük olan 1. basamak yavaştır ve hızı o belirler. ΔH = −90 − 0 = −90 kJ, tepkime ekzotermiktir. Ara ürün oluşup harcandığı için net denklemde yer almaz."
             }
@@ -7344,8 +7389,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }

@@ -2469,13 +2469,13 @@
       <section class="section reveal" id="test" aria-labelledby="test-title">
         <div class="section-heading">
           <h2 id="test-title"><em>05</em> Hızlı kontrol</h2>
-          <p>Beş soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
+          <p>On soru, anında geri bildirim. Yanlışta nedenini de okuyabilirsin.</p>
         </div>
 
         <div class="quiz" id="quiz"></div>
 
         <div class="score">
-          <span>Doğru sayın: <b id="quiz-score">0 / 5</b></span>
+          <span>Doğru sayın: <b id="quiz-score">0 / 10</b></span>
           <button class="button ghost" type="button" id="quiz-reset">Testi sıfırla</button>
           <span class="final" id="quiz-final"></span>
         </div>
@@ -4076,7 +4076,7 @@
 
         <div class="callout">
           <p>
-            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki beş soruyu
+            <b>Kendini sına:</b> Sayfayı kapatmadan 05 numaralı <b>Hızlı kontrol</b> bölümündeki on soruyu
             çöz; takıldığın yerde buraya dönüp ilgili başlığı yeniden oku.
           </p>
         </div>
@@ -7007,9 +7007,48 @@
           var DATA = [
             {
               q: "İki tanecik çarpışıyor. Hangi durumda ürün oluşur?",
-              o: ["Çok hızlı ama yanlış uçlarıyla çarpışırlarsa", "Doğru uçlarıyla ama eşikten az enerjiyle çarpışırlarsa", "Doğru uçlarıyla ve eşiği aşan enerjiyle çarpışırlarsa", "Birbirlerine yaklaşıp değmeden geçerlerse"],
+              o: [
+                "Çok hızlı ama yanlış uçlarıyla çarpışırlarsa",
+                "Doğru uçlarıyla ama eşikten az enerjiyle çarpışırlarsa",
+                "Doğru uçlarıyla ve eşiği aşan enerjiyle çarpışırlarsa",
+                "Birbirlerine yaklaşıp değmeden geçerlerse"
+              ],
               a: 2,
               why: "Etkin çarpışma için iki şart birlikte sağlanmalı: uygun yönelim ve eşiği aşan enerji. Biri bile eksikse tanecikler seker, ürün oluşmaz."
+            },
+            {
+              q: "Çarpışma kutusunda oda sıcaklığında yeterli enerjili çarpışmaların payı %13,5, uygun yönelimlilerin payı %22,2, etkin çarpışmaların payı %3,0 bekleniyor. “Yönelim şartı yok” deneyinde etkin pay yaklaşık yüzde kaç olur?",
+              o: ["%3,0", "%13,5", "%22,2", "%35,7"],
+              a: 1,
+              why: "Etkin çarpışma için iki şart birlikte gerekir: 0,135 · 0,222 ≈ 0,030, yani %3,0. Yönelim şartı kalkınca eşiği aşan her çarpışma etkin olur ve pay %13,5'e çıkar. %35,7 payları toplamaktan gelir; etkin pay, yeterli enerjili çarpışmaların payını aşamaz."
+            },
+            {
+              q: "Çarpışma kutusunda sıcaklığı 300 K yerine 700 K yapıyorsun (“Sıcak kutu”). Yeterli enerjili çarpışmaların payı yaklaşık %13,5'ten %42'ye çıkıyor. Bu artışı en iyi hangisi açıklar?",
+              o: [
+                "Eşik aynı kalır; tanecikler hızlandığı için daha çoğu eşiği aşar",
+                "Eşik düşer; bu yüzden daha çok çarpışma eşiği aşar",
+                "Eşik yükselir; ama tanecikler daha sık çarpıştığı için pay artar",
+                "Yönelim şartı kalkar; her çarpışma uygun yönden olur"
+              ],
+              a: 0,
+              why: "Eşik enerjisi tepkimenin kendisine bağlıdır; sıcaklıkla değişmez, kaydırıcıda 5,0 kJ/mol olarak kalır. Isınınca tanecikler ortalamada hızlanır, enerji dağılımı sağa yayılır ve eşiği aşan çarpışmaların payı büyür. Eşiği ve Ea'yı düşüren sıcaklık değil katalizördür."
+            },
+            {
+              q: "Aktifleşmiş kompleks için hangisi doğrudur?",
+              o: [
+                "Çok kısa ömürlü, kararsız bir geçiş yapısıdır",
+                "Potansiyel enerji grafiğinin en alçak noktasıdır",
+                "Tepkime bitince kapta birikir, şişede saklanabilir",
+                "Yalnızca ekzotermik tepkimelerde oluşur"
+              ],
+              a: 0,
+              why: "Aktifleşmiş kompleks enerji tepesindeki geçiş yapısıdır: en yüksek enerjili, kararsız ve çok kısa ömürlüdür. Ya ürünlere ya da geri girenlere dağılır; ekzotermik ve endotermik bütün tepkimelerde oluşur."
+            },
+            {
+              q: "“Enerji tepesi” bölümündeki “Enerji yetmiyor” grafiğinde Ea(ileri) = 120 kJ/mol, ΔH = −40 kJ ve çarpışan taneciklerin kinetik enerjisi 90 kJ/mol'dür. Tepenin aşılması için kinetik enerji en az kaç kJ/mol olmalıdır?",
+              o: ["40 kJ/mol", "80 kJ/mol", "120 kJ/mol", "160 kJ/mol"],
+              a: 2,
+              why: "Tepe girenlerden Ea(ileri) = 120 kJ/mol yukarıdadır; tanecikler en az bu kadar kinetik enerji getirmelidir. 90 kJ/mol yetmez, tanecikler geri seker. Ürünlerin alçakta olması tepeyi alçaltmaz (80 bu hatadan gelir); 160 ise Ea(geri), yani ürünlerden tepeye olan yüksekliktir."
             },
             {
               q: "Bir tepkimenin potansiyel enerji grafiğinde girenler 30 kJ/mol, aktifleşmiş kompleks 150 kJ/mol, ürünler −20 kJ/mol seviyesindedir. Ea(ileri) ve Ea(geri) (kJ/mol) ile ΔH (kJ) sırasıyla nedir?",
@@ -7024,16 +7063,32 @@
               why: "ΔH = Ea(ileri) − Ea(geri) = 60 − 140 = −80 kJ. ΔH negatif olduğu için tepkime ekzotermiktir: ürünler girenlerden 80 kJ/mol daha düşük enerjidedir."
             },
             {
-              q: "Aktifleşmiş kompleks için hangisi doğrudur?",
-              o: ["Çok kısa ömürlü, kararsız bir geçiş yapısıdır", "Potansiyel enerji grafiğinin en alçak noktasıdır", "Tepkime bitince kapta birikir, şişede saklanabilir", "Yalnızca ekzotermik tepkimelerde oluşur"],
-              a: 0,
-              why: "Aktifleşmiş kompleks enerji tepesindeki geçiş yapısıdır: en yüksek enerjili, kararsız ve çok kısa ömürlüdür. Ya ürünlere ya da geri girenlere dağılır; ekzotermik ve endotermik bütün tepkimelerde oluşur."
+              q: "X → Y tepkimesinin ileri aktifleşme enerjisi 65 kJ, ΔH'si −45 kJ'dir. Ters yöndeki Y → X tepkimesinin aktifleşme enerjisi kaç kJ'dir?",
+              o: ["20 kJ", "45 kJ", "65 kJ", "110 kJ"],
+              a: 3,
+              why: "Önce X → Y'nin Ea(geri)'sini bul: ΔH = Ea(ileri) − Ea(geri) → −45 = 65 − Ea(geri), Ea(geri) = 110 kJ. Y → X aynı tepeyi Y tarafından aşar: aktifleşme enerjisi 110 kJ, ΔH'si +45 kJ'dir. 20 kJ, 65'ten 45'i çıkarmaktan gelir."
             },
             {
               q: "Sıcaklık ve derişim gibi diğer şartlar aynıyken iki tepkime karşılaştırılıyor: I'in aktifleşme enerjisi 40 kJ/mol, II'ninki 120 kJ/mol. Hangisi doğrudur?",
-              o: ["II daha hızlıdır, çünkü tepesi daha yüksektir", "Aktifleşme enerjisi hızı etkilemez, yalnız ΔH etkiler", "I daha hızlıdır, çünkü eşiği aşan çarpışma payı daha büyüktür", "II daha çok ısı verir, çünkü aktifleşme enerjisi büyüktür"],
+              o: [
+                "II daha hızlıdır, çünkü tepesi daha yüksektir",
+                "Aktifleşme enerjisi hızı etkilemez, yalnız ΔH etkiler",
+                "I daha hızlıdır, çünkü eşiği aşan çarpışma payı daha büyüktür",
+                "II daha çok ısı verir, çünkü aktifleşme enerjisi büyüktür"
+              ],
               a: 2,
               why: "Diğer şartlar aynıysa Ea küçük olan tepkimede çarpışmaların daha büyük bir kısmı eşiği aşar; birim zamandaki etkin çarpışma sayısı artar ve tepkime hızlanır. Ea ile ΔH ayrı şeylerdir: büyük Ea daha çok ısı vermek demek değildir."
+            },
+            {
+              q: "“Kendini sürdüren tepkime” bölümünde endotermik tepkime ısıtıcıyla yürüyor; ısıtıcı kapanınca tepkime duruyor. Bunun nedeni nedir?",
+              o: [
+                "Isıtıcı Ea'yı düşürür; kapanınca Ea yeniden yükselir",
+                "Tepkiyen tanecik aldığından az enerji verir; komşular eşiği aşamaz",
+                "Ürünler girenlerden alçakta durduğu için tanecikler geri döner",
+                "Endotermik tepkimede aktifleşmiş kompleks oluşmaz"
+              ],
+              a: 1,
+              why: "Endotermik tepkimede Ea(geri) = Ea − |ΔH| olduğundan tepkiyen tanecik ürünlere inerken aldığı Ea'dan az enerji verir; bu, komşuların eşiği aşmasına yetmez ve çevre soğur. Isıtıcı Ea'yı değiştirmez, eksik enerjiyi dışarıdan verir. Endotermikte ürünler girenlerden yüksektedir."
             }
           ];
 
@@ -7045,8 +7100,8 @@
           function finish() {
             if (!finalEl) return;
             finalEl.textContent = score === DATA.length
-              ? "Kusursuz — beşi de doğru."
-              : score >= 3
+              ? "Kusursuz — hepsi doğru."
+              : score >= Math.ceil(DATA.length * 0.6)
                 ? "İyi gidiyor; yanlışların açıklamasını bir kez daha oku."
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }
