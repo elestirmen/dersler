@@ -71,9 +71,16 @@ olan değerler (ör. H₂'nin yanma ısısı) kullanılmadı.
 | 04 | Katalizör ve temas yüzeyi | [`dist/katalizor.html`](dist/katalizor.html) | [`dist/sunum/katalizor.pptx`](dist/sunum/katalizor.pptx) |
 | 05 | Hız denklemi | [`dist/hiz-denklemi.html`](dist/hiz-denklemi.html) | [`dist/sunum/hiz-denklemi.pptx`](dist/sunum/hiz-denklemi.pptx) |
 
-Ana sayfa her üniteyi bir blok olarak gösterir, konuları numaralandırır; arama
-kutusu ve ünite süzgeçleriyle daraltılır. Her konu sayfası künyesinde üniteye
-döner, altında önceki ve sonraki konuya geçiş şeridi taşır.
+Ana sayfada dersler birbirinden ayrı durur: girişin altında her dersin kendi rengi, simgesi ve
+sayılarıyla bir **ders kartı** var (Fizik mavi, Kimya camgöbeği); kart seçilince altında yalnız
+o dersin **paneli** görünür — büyük renkli ders başlığı, dersin kendi ünite süzgeçleri, sonra
+üniteler ve numaralı konular. Sunumlar bölümü de seçili dersin destelerini gösterir (üstünde
+aynı seçim için küçük bir düğme grubu). Seçim tarayıcıda hatırlanır; adresteki `#kimya` ya da
+`#optik` gibi bir parça o dersi açıp oraya kaydırır. Arama kutusu bütün derslerde arar: sonuçlar
+ders başlıklarıyla ayrılır, kartlarda her dersin sonuç sayısı görünür. Betik yoksa bütün dersler
+alt alta durur. Kartlardaki ve panellerdeki ünite/konu/deney sayılarını betik sayfadaki konu
+kartlarından sayar. Her konu sayfası künyesinde üniteye döner (`index.html#<ünite>`), altında
+önceki ve sonraki konuya geçiş şeridi taşır.
 
 ## Konu anlatımı: dört basamak, kolaydan zora
 
@@ -751,7 +758,7 @@ her karede ikinci bir geçiş olarak değil, CSS maskesi olarak uygulanır.
 
 ```
 dist/                        yayınlanan kök (nginx bunu sunar)
-  index.html                 giriş sayfası (arama + ünite filtresi)
+  index.html                 giriş sayfası (ders kartları, ders panelleri, arama)
   serbest-dusme.html         1. ünite · konu 01 · serbest düşme
   iki-boyutta-hareket.html   1. ünite · konu 02 · iki boyutta sabit ivmeli hareket
   newton-yasalari.html       1. ünite · konu 03 · Newton'un hareket yasaları
@@ -995,8 +1002,34 @@ Denetim aracı yeni sayfayı kendiliğinden bulur; tek başına denetlemek için
 `NODE_PATH=$(npm root -g) node denetim/deney.js --konu yeni-konu` (dosya adı,
 `.html` olmadan; bkz. "Deneyleri denetlemek").
 
+Yeni kart, dersinin panelinde (`.ders-panel`) ilgili ünitenin ızgarasına girer; sunum kartı
+`data-ders` ile dersinin sunum etiketinin (`p.dl-ders`) arkasına.
+
 Konu anlatımı dört basamaklı yapıya uymalıdır (bkz. "Konu anlatımı: dört basamak"):
 üç görsel için `gorsel/istekler.json`'a `<konu>-giris`, `-gunluk`, `-uygulama`
 sahnelerini ekleyip `bash gorsel/uret.sh <id>` ve `bash gorsel/donustur.sh` çalıştır, sonra
 `NODE_PATH=$(npm root -g) node denetim/anlatim.js yeni-konu` ile yapıyı denetle. Sunum
 üreticisi yeni sayfayı da kendiliğinden bulur.
+
+## Yeni ders eklemek
+
+Matematik, Türkçe gibi yeni bir ders ana sayfada kendi kartı ve paneliyle durur:
+
+1. **Renk:** `stil/anasayfa.css` "ders renkleri" bölümüne iki temada da `--d-<ders>` ekle
+   (açık temada beyaz zeminde en az 4,5:1), sonra `node stil/uygula.js`.
+2. **Kart:** `dist/index.html` içinde `nav.ders-kartlar`'a bir `a.ders-kart` kopyala:
+   `href="#<ders>"`, `data-ders="<ders>"`, `style="--ders: var(--d-<ders>)"`, simge (24×24
+   çizgi SVG), sınıf, ad, ünite adları. Sayılar (`data-say`) betikçe yeniden sayılır.
+3. **Panel:** katalogdaki son `.ders-panel`'in ardına `div.ders-panel` (`id` ve `data-ders` =
+   ders kodu): `header.ders-bas` (simge, künye, `h2`, özet, sayılar), ünite süzgeci
+   (`.filters`, her ünite için `data-unit` düğmesi), sonra `article.unit` blokları. Ünite
+   kimlikleri sayfa genelinde tek olmalı; konu sayfalarının künyesi `index.html#<ünite>`'ye döner.
+4. **Sunumlar:** `.ders-sec`'e `data-ders-sec="<ders>"` düğmesi; ızgaraya `p.dl-ders` etiketi ve
+   `data-ders`'li sunum kartları. Alt bilgideki "Dersler" listesine bağlantı; üst barın
+   `brand small` yazısı (ör. "fizik · kimya") ve 404 sayfası da güncellenir.
+5. **Konu sayfaları:** `.site-header .brand small` dersin adını taşır — sunum üreticisi kapakta
+   dersin adını oradan alır. Konular `sunucu/konular.js`'e yeni bir ünite bloğuyla girer
+   (bkz. "Yeni konu eklemek"); kapıyı yeniden başlatınca kapalı başlarlar.
+
+Ana sayfanın betiği dersleri panellerden okur; ders listesi, renk ya da sayı için koda dokunmak
+gerekmez.

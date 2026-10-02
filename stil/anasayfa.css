@@ -185,38 +185,320 @@
 
       .latest.continue .status::before { background: var(--blue); box-shadow: 0 0 0 4px color-mix(in srgb, var(--blue) 18%, transparent); }
 
-      /* ================= sayılar şeridi ================= */
-      .stats-strip {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 12px;
-        margin: 64px 0 0;
-        padding: 0;
-        list-style: none;
+      /* ================= ders renkleri ================= */
+      /* Her dersin kimlik rengi: ders kartı, panel başlığı, seçili süzgeç ve sunum
+         seçicisi bundan boyanır. Yeni ders eklerken iki temaya da --d-<ders>
+         ekle; kartta, panelde ve sunum düğmesinde style="--ders: var(--d-<ders>)"
+         ver. Açık temada beyaz zeminde en az 4,5:1 kontrast. */
+      :root {
+        --d-fizik: #2957d4;
+        --d-kimya: #0a7568;
+        --ders-ink: #ffffff;
       }
 
-      .stats-strip li {
+      :root[data-theme="dark"] {
+        --d-fizik: #82aaff;
+        --d-kimya: #5fd6c1;
+        --ders-ink: #0a0e1b;
+      }
+
+      /* ================= ders seçimi ================= */
+      .ders-secim { margin-top: 64px; scroll-margin-top: 84px; }
+
+      .secim-bas {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 6px 20px;
+        margin: 0 6px 14px;
+      }
+
+      .secim-bas h2 {
+        margin: 0;
+        color: var(--dim);
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .secim-bas p { margin: 0; color: var(--dim); font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+
+      .secim-bas p b { color: var(--ink); font-weight: 650; }
+
+      .ders-kartlar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 14px;
+      }
+
+      .ders-kart {
+        --ders: var(--blue);
+        position: relative;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: 3px 18px;
+        padding: 22px 24px 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--r-xl);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+        color: var(--ink);
+        text-decoration: none;
+        transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, opacity 180ms ease;
+      }
+
+      .ders-kart:hover {
+        border-color: color-mix(in srgb, var(--ders) 45%, var(--line));
+        box-shadow: var(--shadow), var(--edge);
+        transform: translateY(-2px);
+      }
+
+      .ders-kart:focus-visible { outline: 3px solid color-mix(in srgb, var(--ders) 55%, transparent); outline-offset: 3px; }
+
+      .ders-kart[aria-current="true"] {
+        border-color: var(--ders);
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--ders) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: 0 0 0 1px var(--ders), var(--shadow), var(--edge);
+      }
+
+      .ders-ikon {
+        display: grid;
+        width: 56px;
+        height: 56px;
+        place-items: center;
+        border-radius: 18px;
+        background: color-mix(in srgb, var(--ders) 12%, var(--surface));
+        color: var(--ders);
+        transition: background 180ms ease, color 180ms ease;
+      }
+
+      .ders-ikon svg { width: 30px; height: 30px; }
+
+      .ders-kart .ders-ikon { grid-row: span 2; }
+
+      .ders-kart[aria-current="true"] .ders-ikon { background: var(--ders); color: var(--ders-ink); }
+
+      .dk-sinif {
+        align-self: end;
+        color: var(--ders);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .dk-ad {
+        align-self: start;
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.025em;
+        line-height: 1.05;
+      }
+
+      .dk-uniteler { grid-column: 1 / -1; margin-top: 12px; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+
+      .dk-sayilar {
+        display: flex;
+        flex-wrap: wrap;
+        grid-column: 1 / -1;
+        gap: 4px 20px;
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+        color: var(--dim);
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+
+      .dk-sayilar b {
+        margin-right: 4px;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 560;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* köşedeki durum: seçili dersin rozeti, aramada dersin sonuç sayısı */
+      .dk-isaret,
+      .dk-bulgu {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 11px 4px 8px;
+        border-radius: 999px;
+        font-size: 0.74rem;
+        font-weight: 700;
+      }
+
+      .dk-isaret {
+        background: var(--ders);
+        color: var(--ders-ink);
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 180ms ease, transform 180ms ease;
+      }
+
+      .dk-isaret svg { width: 13px; height: 13px; }
+
+      .ders-kart[aria-current="true"] .dk-isaret { opacity: 1; transform: none; }
+
+      .dk-bulgu { padding-left: 11px; background: color-mix(in srgb, var(--ders) 14%, var(--surface)); color: var(--ink); }
+
+      .dk-bulgu[hidden] { display: none; }
+
+      .ariyor .dk-isaret { display: none; }
+
+      .ariyor .ders-kart.bos { opacity: 0.55; }
+
+      .ariyor .ders-kart.bos .dk-bulgu { background: var(--surface-3); color: var(--dim); }
+
+      /* erişim betiği: dersin konuları açık mı (yalnız açık ve kapalı bir aradayken) */
+      .dk-erisim { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; color: var(--dim); font-size: 0.78rem; font-weight: 650; }
+
+      .dk-erisim svg { width: 12px; height: 12px; }
+
+      .dk-erisim.acik { color: var(--lime); }
+
+      .dk-erisim.kismi { color: var(--ink); }
+
+      .erisim-ayrimli .ders-kart[data-erisim="kilitli"]:not([aria-current="true"]) .ders-ikon { background: var(--surface-3); color: var(--dim); }
+
+      .hero + .erisim-serit { margin: 56px 0 0; }
+
+      .erisim-serit:not([hidden]) + .ders-secim { margin-top: 28px; }
+
+      /* ================= ders paneli ================= */
+      .ders-panel { --ders: var(--blue); margin-top: 22px; scroll-margin-top: 84px; }
+
+      .ders-panel[hidden] { display: none; }
+
+      /* aramada (ya da betik yokken) birden çok ders görünür: aralarında belirgin boşluk */
+      .ders-panel:not([hidden]) ~ .ders-panel { margin-top: 64px; }
+
+      .ders-bas {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 18px 24px;
+        padding: 26px 28px;
+        border: 1px solid color-mix(in srgb, var(--ders) 34%, var(--line));
+        border-radius: 28px;
+        background:
+          linear-gradient(110deg, color-mix(in srgb, var(--ders) 15%, transparent), color-mix(in srgb, var(--ders) 4%, transparent) 60%, transparent),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .ders-bas .ders-ikon { width: 68px; height: 68px; border-radius: 20px; background: var(--ders); color: var(--ders-ink); }
+
+      .ders-bas .ders-ikon svg { width: 38px; height: 38px; }
+
+      .ders-kunye {
+        margin: 0 0 6px;
+        color: var(--ders);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .ders-bas h2 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: clamp(2.3rem, 4.4vw, 3.2rem);
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+
+      .ders-bas h2:focus { outline: none; }
+
+      .ders-ozet { max-width: 640px; margin: 10px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+
+      .ders-sayilar { display: flex; gap: 10px; margin: 0; padding: 0; list-style: none; }
+
+      .ders-sayilar li {
         display: flex;
         flex-direction: column;
-        gap: 2px;
-        padding: 20px 22px;
+        align-items: center;
+        min-width: 78px;
+        padding: 11px 14px;
+        border: 1px solid color-mix(in srgb, var(--ders) 24%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--surface) 72%, transparent);
+        color: var(--dim);
+        font-size: 0.76rem;
+        font-weight: 600;
+      }
+
+      .ders-sayilar b {
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.6rem;
+        font-weight: 560;
+        font-variant-numeric: tabular-nums;
+        line-height: 1.1;
+      }
+
+      .ders-panel .filters { margin: 18px 6px 0; }
+
+      .ders-panel .filters button[aria-pressed="true"] { border-color: var(--ders); background: var(--ders); color: var(--ders-ink); }
+
+      /* ================= sunumların dersi ================= */
+      .ders-sec {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 20px;
+        padding: 5px;
         border: 1px solid var(--line);
-        border-radius: var(--r-lg);
+        border-radius: 999px;
         background: var(--surface);
         box-shadow: var(--shadow-sm), var(--edge);
       }
 
-      .stats-strip b {
-        font-family: var(--font-display);
-        font-size: clamp(1.9rem, 3vw, 2.5rem);
-        font-weight: 560;
-        font-variation-settings: "SOFT" 30, "WONK" 0;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.03em;
-        line-height: 1.05;
+      .ders-sec[hidden], :root:not(.js) .ders-sec { display: none; }
+
+      .ders-sec button {
+        --ders: var(--blue);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 16px 7px 13px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.86rem;
+        font-weight: 650;
+        cursor: pointer;
+        transition: background 160ms ease, color 160ms ease;
       }
 
-      .stats-strip span { color: var(--dim); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.01em; }
+      .ders-sec button::before { width: 8px; height: 8px; border-radius: 50%; background: var(--ders); content: ""; }
+
+      .ders-sec button:hover { color: var(--ink); }
+
+      .ders-sec button[aria-pressed="true"] { background: var(--ders); color: var(--ders-ink); }
+
+      .ders-sec button[aria-pressed="true"]::before { background: currentColor; }
+
+      .dl-bos { margin: 4px 6px 0; color: var(--dim); font-size: 0.92rem; }
+
+      .dl-bos[hidden] { display: none; }
 
       /* ================= bölümler ================= */
       .section { margin-top: 96px; scroll-margin-top: 84px; }
@@ -225,46 +507,7 @@
 
       .section-heading b { color: var(--ink); font-weight: 650; }
 
-      /* ================= dersler ================= */
-      .filtre-grup { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-
-      .filters .filtre-ders {
-        align-self: center;
-        margin: 0 0 0 10px;
-        color: var(--dim);
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-      }
-
-      .ders-bas {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        gap: 6px 16px;
-        margin: 56px 6px 0;
-        padding-bottom: 12px;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .ders-bas.ilk { margin-top: 18px; }
-      .ders-bas[hidden] { display: none; }
-
-      .ders-bas h3 {
-        margin: 0;
-        font-family: var(--font-display);
-        font-size: 2.2rem;
-        font-weight: 560;
-        font-style: italic;
-        font-variation-settings: "SOFT" 30, "WONK" 0;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-      }
-
-      .ders-bas p { margin: 0; color: var(--dim); font-size: 0.88rem; }
-      .ders-bas p b { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
-
+      /* ================= sunum ızgarasında ders etiketi (aramada) ================= */
       .dl-grid .dl-ders {
         grid-column: 1 / -1;
         margin: 10px 4px -2px;
@@ -289,6 +532,7 @@
       .unit {
         --utone: var(--blue);
         margin-top: 22px;
+        scroll-margin-top: 84px;
         padding: 24px;
         border: 1px solid var(--line);
         border-radius: 28px;
@@ -849,7 +1093,9 @@
       @media (max-width: 900px) {
         .hero { grid-template-columns: 1fr; gap: 34px; }
         .steps { grid-template-columns: 1fr; }
-        .stats-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 48px; }
+        .ders-secim { margin-top: 48px; }
+        .ders-bas { grid-template-columns: auto minmax(0, 1fr); }
+        .ders-sayilar { grid-column: 1 / -1; }
       }
 
       @media (max-width: 760px) {
@@ -860,6 +1106,26 @@
         .search kbd { display: none; }
         .search input { padding-right: 18px; }
         .grid { grid-template-columns: 1fr; }
-        .stats-strip li { padding: 16px 18px; }
+        .ders-kartlar { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .ders-kart { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 16px 16px 14px; border-radius: var(--r-lg); }
+        .ders-kart .ders-ikon { grid-row: auto; width: 42px; height: 42px; margin-bottom: 10px; border-radius: 14px; }
+        .ders-kart .ders-ikon svg { width: 24px; height: 24px; }
+        .dk-ad { font-size: 1.5rem; }
+        .dk-uniteler { display: none; }
+        .dk-sayilar { gap: 2px 12px; margin-top: 10px; padding-top: 10px; font-size: 0.78rem; }
+        .dk-sayilar b { font-size: 1.05rem; }
+        .dk-sayilar span:first-child { display: none; }
+        .dk-erisim { margin-left: 0; flex-basis: 100%; }
+        .dk-isaret, .dk-bulgu { top: 14px; right: 12px; }
+        .dk-isaret { padding: 5px; }
+        .dk-isaret span { display: none; }
+        .ders-bas { gap: 14px 16px; padding: 20px; border-radius: 22px; }
+        .ders-bas .ders-ikon { width: 52px; height: 52px; border-radius: 16px; }
+        .ders-bas .ders-ikon svg { width: 30px; height: 30px; }
+        .ders-bas h2 { font-size: 2.2rem; }
+        .ders-bas { align-items: start; }
+        .ders-ozet { font-size: 0.9rem; }
+        .ders-sayilar li { flex: 1 1 0; min-width: 0; padding: 9px 6px; }
+        .ders-sayilar b { font-size: 1.35rem; }
         .hero-art { top: -60px; left: -14px; width: calc(100% + 28px); height: calc(100% + 100px); }
       }

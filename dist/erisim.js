@@ -96,8 +96,8 @@
   function inerMi(d, slug) { return d.indirilebilir.indexOf(slug) >= 0; }
 
   /* Ünite başına açık/toplam sayısından ana sayfanın üst katmanlarını
-     işaretler: ünite başlıkları, ilk ekrandaki süzgeç düğmeleri ve açılış
-     kartı. Kartlara inmeden hangi ünitenin açık olduğu okunur. */
+     işaretler: ders kartları, ünite başlıkları, derslerin ünite süzgeçleri
+     ve açılış kartı. Kartlara inmeden hangi ünitenin açık olduğu okunur. */
   function isaretle(d, unite, acikKart, kartSayisi) {
     function durumu(id) {
       var u = unite[id];
@@ -120,7 +120,28 @@
       kunye.insertBefore(satir, kunye.querySelector(".prog"));
     });
 
-    hepsi("#filters button[data-unit]").forEach(function (dugme) {
+    /* Ana sayfadaki ders kartları: dersin bütün konuları açık mı, kapalı mı? */
+    hepsi(".ders-kart").forEach(function (kart) {
+      var panel = document.getElementById(kart.dataset.ders);
+      var sayilar = kart.querySelector(".dk-sayilar");
+      if (!panel || !sayilar || kart.dataset.erisim) return;
+      var toplam = 0, acik = 0;
+      hepsi("article.lesson", panel).forEach(function (l) {
+        toplam++;
+        if (!l.classList.contains("kilitli")) acik++;
+      });
+      if (!toplam) return;
+      var durum = acik === toplam ? "acik" : acik === 0 ? "kilitli" : "kismi";
+      kart.dataset.erisim = durum;
+      var satir = document.createElement("span");
+      satir.className = "dk-erisim " + durum;
+      if (durum === "kilitli") satir.append(kilitSvg(), document.createTextNode("Ders koduyla açılır"));
+      else if (durum === "kismi") satir.textContent = acik + " konu açık · " + (toplam - acik) + " kodla";
+      else satir.textContent = "Hepsi açık";
+      sayilar.append(satir);
+    });
+
+    hepsi(".filters button[data-unit]").forEach(function (dugme) {
       var durum = durumu(dugme.dataset.unit);
       if (!durum || dugme.dataset.erisim) return;
       var u = unite[dugme.dataset.unit];
@@ -232,7 +253,7 @@
       if (cumleKap) {
         cumle(cumleKap, [
           { metin: "Hepsi bir arada:", kalin: true },
-          { metin: " on sekiz sunum tek ZIP dosyasında — ders koduyla açılır." },
+          { metin: " bütün sunumlar tek ZIP dosyasında — ders koduyla açılır." },
         ]);
       }
       bag.textContent = "";
@@ -250,8 +271,8 @@
         var giris = bolum.querySelector(".section-heading p");
         if (giris) {
           giris.textContent =
-            "Size açık " + kalan + " sunum: her biri 16–19 slayt, konu anlatımıyla " +
-            "birebir aynı bölümler ve her slaytta konuşmacı notu.";
+            "Size açık " + kalan + " sunum: konu anlatımıyla birebir aynı bölümler, " +
+            "küçük adımlı slaytlar ve her slaytta konuşmacı notu.";
         }
       }
     }

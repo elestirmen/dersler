@@ -988,38 +988,320 @@
 
       .latest.continue .status::before { background: var(--blue); box-shadow: 0 0 0 4px color-mix(in srgb, var(--blue) 18%, transparent); }
 
-      /* ================= sayılar şeridi ================= */
-      .stats-strip {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 12px;
-        margin: 64px 0 0;
-        padding: 0;
-        list-style: none;
+      /* ================= ders renkleri ================= */
+      /* Her dersin kimlik rengi: ders kartı, panel başlığı, seçili süzgeç ve sunum
+         seçicisi bundan boyanır. Yeni ders eklerken iki temaya da --d-<ders>
+         ekle; kartta, panelde ve sunum düğmesinde style="--ders: var(--d-<ders>)"
+         ver. Açık temada beyaz zeminde en az 4,5:1 kontrast. */
+      :root {
+        --d-fizik: #2957d4;
+        --d-kimya: #0a7568;
+        --ders-ink: #ffffff;
       }
 
-      .stats-strip li {
+      :root[data-theme="dark"] {
+        --d-fizik: #82aaff;
+        --d-kimya: #5fd6c1;
+        --ders-ink: #0a0e1b;
+      }
+
+      /* ================= ders seçimi ================= */
+      .ders-secim { margin-top: 64px; scroll-margin-top: 84px; }
+
+      .secim-bas {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 6px 20px;
+        margin: 0 6px 14px;
+      }
+
+      .secim-bas h2 {
+        margin: 0;
+        color: var(--dim);
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .secim-bas p { margin: 0; color: var(--dim); font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+
+      .secim-bas p b { color: var(--ink); font-weight: 650; }
+
+      .ders-kartlar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 14px;
+      }
+
+      .ders-kart {
+        --ders: var(--blue);
+        position: relative;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: 3px 18px;
+        padding: 22px 24px 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--r-xl);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+        color: var(--ink);
+        text-decoration: none;
+        transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, opacity 180ms ease;
+      }
+
+      .ders-kart:hover {
+        border-color: color-mix(in srgb, var(--ders) 45%, var(--line));
+        box-shadow: var(--shadow), var(--edge);
+        transform: translateY(-2px);
+      }
+
+      .ders-kart:focus-visible { outline: 3px solid color-mix(in srgb, var(--ders) 55%, transparent); outline-offset: 3px; }
+
+      .ders-kart[aria-current="true"] {
+        border-color: var(--ders);
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--ders) 13%, transparent), transparent 72%),
+          var(--surface);
+        box-shadow: 0 0 0 1px var(--ders), var(--shadow), var(--edge);
+      }
+
+      .ders-ikon {
+        display: grid;
+        width: 56px;
+        height: 56px;
+        place-items: center;
+        border-radius: 18px;
+        background: color-mix(in srgb, var(--ders) 12%, var(--surface));
+        color: var(--ders);
+        transition: background 180ms ease, color 180ms ease;
+      }
+
+      .ders-ikon svg { width: 30px; height: 30px; }
+
+      .ders-kart .ders-ikon { grid-row: span 2; }
+
+      .ders-kart[aria-current="true"] .ders-ikon { background: var(--ders); color: var(--ders-ink); }
+
+      .dk-sinif {
+        align-self: end;
+        color: var(--ders);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .dk-ad {
+        align-self: start;
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.025em;
+        line-height: 1.05;
+      }
+
+      .dk-uniteler { grid-column: 1 / -1; margin-top: 12px; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+
+      .dk-sayilar {
+        display: flex;
+        flex-wrap: wrap;
+        grid-column: 1 / -1;
+        gap: 4px 20px;
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+        color: var(--dim);
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+
+      .dk-sayilar b {
+        margin-right: 4px;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 560;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* köşedeki durum: seçili dersin rozeti, aramada dersin sonuç sayısı */
+      .dk-isaret,
+      .dk-bulgu {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 11px 4px 8px;
+        border-radius: 999px;
+        font-size: 0.74rem;
+        font-weight: 700;
+      }
+
+      .dk-isaret {
+        background: var(--ders);
+        color: var(--ders-ink);
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 180ms ease, transform 180ms ease;
+      }
+
+      .dk-isaret svg { width: 13px; height: 13px; }
+
+      .ders-kart[aria-current="true"] .dk-isaret { opacity: 1; transform: none; }
+
+      .dk-bulgu { padding-left: 11px; background: color-mix(in srgb, var(--ders) 14%, var(--surface)); color: var(--ink); }
+
+      .dk-bulgu[hidden] { display: none; }
+
+      .ariyor .dk-isaret { display: none; }
+
+      .ariyor .ders-kart.bos { opacity: 0.55; }
+
+      .ariyor .ders-kart.bos .dk-bulgu { background: var(--surface-3); color: var(--dim); }
+
+      /* erişim betiği: dersin konuları açık mı (yalnız açık ve kapalı bir aradayken) */
+      .dk-erisim { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; color: var(--dim); font-size: 0.78rem; font-weight: 650; }
+
+      .dk-erisim svg { width: 12px; height: 12px; }
+
+      .dk-erisim.acik { color: var(--lime); }
+
+      .dk-erisim.kismi { color: var(--ink); }
+
+      .erisim-ayrimli .ders-kart[data-erisim="kilitli"]:not([aria-current="true"]) .ders-ikon { background: var(--surface-3); color: var(--dim); }
+
+      .hero + .erisim-serit { margin: 56px 0 0; }
+
+      .erisim-serit:not([hidden]) + .ders-secim { margin-top: 28px; }
+
+      /* ================= ders paneli ================= */
+      .ders-panel { --ders: var(--blue); margin-top: 22px; scroll-margin-top: 84px; }
+
+      .ders-panel[hidden] { display: none; }
+
+      /* aramada (ya da betik yokken) birden çok ders görünür: aralarında belirgin boşluk */
+      .ders-panel:not([hidden]) ~ .ders-panel { margin-top: 64px; }
+
+      .ders-bas {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 18px 24px;
+        padding: 26px 28px;
+        border: 1px solid color-mix(in srgb, var(--ders) 34%, var(--line));
+        border-radius: 28px;
+        background:
+          linear-gradient(110deg, color-mix(in srgb, var(--ders) 15%, transparent), color-mix(in srgb, var(--ders) 4%, transparent) 60%, transparent),
+          var(--surface);
+        box-shadow: var(--shadow-sm), var(--edge);
+      }
+
+      .ders-bas .ders-ikon { width: 68px; height: 68px; border-radius: 20px; background: var(--ders); color: var(--ders-ink); }
+
+      .ders-bas .ders-ikon svg { width: 38px; height: 38px; }
+
+      .ders-kunye {
+        margin: 0 0 6px;
+        color: var(--ders);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .ders-bas h2 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: clamp(2.3rem, 4.4vw, 3.2rem);
+        font-weight: 560;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+
+      .ders-bas h2:focus { outline: none; }
+
+      .ders-ozet { max-width: 640px; margin: 10px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+
+      .ders-sayilar { display: flex; gap: 10px; margin: 0; padding: 0; list-style: none; }
+
+      .ders-sayilar li {
         display: flex;
         flex-direction: column;
-        gap: 2px;
-        padding: 20px 22px;
+        align-items: center;
+        min-width: 78px;
+        padding: 11px 14px;
+        border: 1px solid color-mix(in srgb, var(--ders) 24%, var(--line));
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--surface) 72%, transparent);
+        color: var(--dim);
+        font-size: 0.76rem;
+        font-weight: 600;
+      }
+
+      .ders-sayilar b {
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 1.6rem;
+        font-weight: 560;
+        font-variant-numeric: tabular-nums;
+        line-height: 1.1;
+      }
+
+      .ders-panel .filters { margin: 18px 6px 0; }
+
+      .ders-panel .filters button[aria-pressed="true"] { border-color: var(--ders); background: var(--ders); color: var(--ders-ink); }
+
+      /* ================= sunumların dersi ================= */
+      .ders-sec {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 20px;
+        padding: 5px;
         border: 1px solid var(--line);
-        border-radius: var(--r-lg);
+        border-radius: 999px;
         background: var(--surface);
         box-shadow: var(--shadow-sm), var(--edge);
       }
 
-      .stats-strip b {
-        font-family: var(--font-display);
-        font-size: clamp(1.9rem, 3vw, 2.5rem);
-        font-weight: 560;
-        font-variation-settings: "SOFT" 30, "WONK" 0;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.03em;
-        line-height: 1.05;
+      .ders-sec[hidden], :root:not(.js) .ders-sec { display: none; }
+
+      .ders-sec button {
+        --ders: var(--blue);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 16px 7px 13px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.86rem;
+        font-weight: 650;
+        cursor: pointer;
+        transition: background 160ms ease, color 160ms ease;
       }
 
-      .stats-strip span { color: var(--dim); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.01em; }
+      .ders-sec button::before { width: 8px; height: 8px; border-radius: 50%; background: var(--ders); content: ""; }
+
+      .ders-sec button:hover { color: var(--ink); }
+
+      .ders-sec button[aria-pressed="true"] { background: var(--ders); color: var(--ders-ink); }
+
+      .ders-sec button[aria-pressed="true"]::before { background: currentColor; }
+
+      .dl-bos { margin: 4px 6px 0; color: var(--dim); font-size: 0.92rem; }
+
+      .dl-bos[hidden] { display: none; }
 
       /* ================= bölümler ================= */
       .section { margin-top: 96px; scroll-margin-top: 84px; }
@@ -1028,46 +1310,7 @@
 
       .section-heading b { color: var(--ink); font-weight: 650; }
 
-      /* ================= dersler ================= */
-      .filtre-grup { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-
-      .filters .filtre-ders {
-        align-self: center;
-        margin: 0 0 0 10px;
-        color: var(--dim);
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-      }
-
-      .ders-bas {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        gap: 6px 16px;
-        margin: 56px 6px 0;
-        padding-bottom: 12px;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .ders-bas.ilk { margin-top: 18px; }
-      .ders-bas[hidden] { display: none; }
-
-      .ders-bas h3 {
-        margin: 0;
-        font-family: var(--font-display);
-        font-size: 2.2rem;
-        font-weight: 560;
-        font-style: italic;
-        font-variation-settings: "SOFT" 30, "WONK" 0;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-      }
-
-      .ders-bas p { margin: 0; color: var(--dim); font-size: 0.88rem; }
-      .ders-bas p b { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
-
+      /* ================= sunum ızgarasında ders etiketi (aramada) ================= */
       .dl-grid .dl-ders {
         grid-column: 1 / -1;
         margin: 10px 4px -2px;
@@ -1092,6 +1335,7 @@
       .unit {
         --utone: var(--blue);
         margin-top: 22px;
+        scroll-margin-top: 84px;
         padding: 24px;
         border: 1px solid var(--line);
         border-radius: 28px;
@@ -1652,7 +1896,9 @@
       @media (max-width: 900px) {
         .hero { grid-template-columns: 1fr; gap: 34px; }
         .steps { grid-template-columns: 1fr; }
-        .stats-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 48px; }
+        .ders-secim { margin-top: 48px; }
+        .ders-bas { grid-template-columns: auto minmax(0, 1fr); }
+        .ders-sayilar { grid-column: 1 / -1; }
       }
 
       @media (max-width: 760px) {
@@ -1663,7 +1909,27 @@
         .search kbd { display: none; }
         .search input { padding-right: 18px; }
         .grid { grid-template-columns: 1fr; }
-        .stats-strip li { padding: 16px 18px; }
+        .ders-kartlar { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .ders-kart { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 16px 16px 14px; border-radius: var(--r-lg); }
+        .ders-kart .ders-ikon { grid-row: auto; width: 42px; height: 42px; margin-bottom: 10px; border-radius: 14px; }
+        .ders-kart .ders-ikon svg { width: 24px; height: 24px; }
+        .dk-ad { font-size: 1.5rem; }
+        .dk-uniteler { display: none; }
+        .dk-sayilar { gap: 2px 12px; margin-top: 10px; padding-top: 10px; font-size: 0.78rem; }
+        .dk-sayilar b { font-size: 1.05rem; }
+        .dk-sayilar span:first-child { display: none; }
+        .dk-erisim { margin-left: 0; flex-basis: 100%; }
+        .dk-isaret, .dk-bulgu { top: 14px; right: 12px; }
+        .dk-isaret { padding: 5px; }
+        .dk-isaret span { display: none; }
+        .ders-bas { gap: 14px 16px; padding: 20px; border-radius: 22px; }
+        .ders-bas .ders-ikon { width: 52px; height: 52px; border-radius: 16px; }
+        .ders-bas .ders-ikon svg { width: 30px; height: 30px; }
+        .ders-bas h2 { font-size: 2.2rem; }
+        .ders-bas { align-items: start; }
+        .ders-ozet { font-size: 0.9rem; }
+        .ders-sayilar li { flex: 1 1 0; min-width: 0; padding: 9px 6px; }
+        .ders-sayilar b { font-size: 1.35rem; }
         .hero-art { top: -60px; left: -14px; width: calc(100% + 28px); height: calc(100% + 100px); }
       }
     </style>
@@ -1692,7 +1958,7 @@
         </a>
 
         <nav class="header-nav" aria-label="Bölümler">
-          <a class="nav-link" href="#dersler">Üniteler</a>
+          <a class="nav-link" href="#dersler">Dersler</a>
           <a class="nav-link" href="#sunumlar">Sunumlar</a>
           <a class="nav-link" href="#nasil">Nasıl çalışır?</a>
         </nav>
@@ -1736,24 +2002,9 @@
             </svg>
             <input id="q" type="search" autocomplete="off"
               placeholder="Konu ara: kuvvet, mercek, entalpi, katalizör…"
-              aria-label="Konularda ve sunumlarda ara" />
+              aria-label="Bütün derslerin konularında ve sunumlarında ara" />
             <kbd aria-hidden="true">/</kbd>
           </form>
-
-          <div class="filters" id="filters" role="group" aria-label="Konu filtresi">
-            <button type="button" data-unit="all" aria-pressed="true">Tümü</button>
-            <span class="filtre-grup">
-              <span class="filtre-ders" aria-hidden="true">Fizik</span>
-              <button type="button" data-unit="kuvvet-ve-hareket" aria-pressed="false">Kuvvet ve Hareket</button>
-              <button type="button" data-unit="elektrik-ve-manyetizma" aria-pressed="false">Elektrik ve Manyetizma</button>
-              <button type="button" data-unit="optik" aria-pressed="false">Optik</button>
-            </span>
-            <span class="filtre-grup">
-              <span class="filtre-ders" aria-hidden="true">Kimya</span>
-              <button type="button" data-unit="tepkimelerde-enerji" aria-pressed="false">Tepkimelerde Enerji</button>
-              <button type="button" data-unit="tepkimelerde-hiz" aria-pressed="false">Tepkimelerde Hız</button>
-            </span>
-          </div>
         </div>
 
         <aside class="latest" aria-labelledby="latest-title">
@@ -1773,28 +2024,90 @@
         </aside>
       </section>
 
-      <ul class="stats-strip reveal" aria-label="Sitede neler var">
-        <li><b>26</b><span>konu · beş ünite</span></li>
-        <li><b>104</b><span>etkileşimli deney</span></li>
-        <li><b>611</b><span>çizim ve görsel</span></li>
-        <li><b>26</b><span>indirilebilir sunum</span></li>
-      </ul>
-
       <div class="erisim-serit" id="erisim-serit" hidden>
         <p id="erisim-metin"></p>
         <a class="erisim-link" id="erisim-eylem" href="/giris">Kod gir</a>
       </div>
 
-      <section class="section reveal" id="dersler" aria-labelledby="units-title">
-        <div class="section-heading">
-          <h2 id="units-title">Üniteler</h2>
-          <p id="result-count" aria-live="polite"><b>5 ünite</b> · 26 konu · 104 etkileşimli bölüm</p>
+      <section class="ders-secim reveal" id="dersler" aria-labelledby="dersler-title">
+        <div class="secim-bas">
+          <h2 id="dersler-title">Dersini seç</h2>
+          <p id="result-count" aria-live="polite"><b>2 ders</b> · 5 ünite · 26 konu · 104 etkileşimli deney</p>
         </div>
+        <nav class="ders-kartlar" aria-label="Dersler">
+          <a class="ders-kart" href="#fizik" data-ders="fizik" style="--ders: var(--d-fizik)">
+            <span class="ders-ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="12" rx="9.6" ry="3.7" />
+              <ellipse cx="12" cy="12" rx="9.6" ry="3.7" transform="rotate(60 12 12)" />
+              <ellipse cx="12" cy="12" rx="9.6" ry="3.7" transform="rotate(-60 12 12)" />
+              <circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none" />
+            </svg>
+            </span>
+            <span class="dk-sinif">11. sınıf</span>
+            <span class="dk-ad">Fizik</span>
+            <span class="dk-uniteler">Kuvvet ve Hareket · Elektrik ve Manyetizma · Optik</span>
+            <span class="dk-sayilar">
+              <span><b data-say="unite">3</b>ünite</span>
+              <span><b data-say="konu">18</b>konu</span>
+              <span><b data-say="deney">72</b>deney</span>
+            </span>
+            <span class="dk-isaret" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" /></svg><span>Seçili</span></span>
+            <span class="dk-bulgu" hidden></span>
+          </a>
+          <a class="ders-kart" href="#kimya" data-ders="kimya" style="--ders: var(--d-kimya)">
+            <span class="ders-ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 2.8h6" />
+              <path d="M10.2 2.8v5.6L4.6 18.6a1.7 1.7 0 0 0 1.5 2.6h11.8a1.7 1.7 0 0 0 1.5-2.6L13.8 8.4V2.8" />
+              <path d="M6.9 14.6h10.2" />
+              <circle cx="10.4" cy="17.6" r="0.9" fill="currentColor" stroke="none" />
+              <circle cx="13.9" cy="16.6" r="0.6" fill="currentColor" stroke="none" />
+            </svg>
+            </span>
+            <span class="dk-sinif">11. sınıf · 1. tema</span>
+            <span class="dk-ad">Kimya</span>
+            <span class="dk-uniteler">Tepkimelerde Enerji · Tepkimelerde Hız</span>
+            <span class="dk-sayilar">
+              <span><b data-say="unite">2</b>ünite</span>
+              <span><b data-say="konu">8</b>konu</span>
+              <span><b data-say="deney">32</b>deney</span>
+            </span>
+            <span class="dk-isaret" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" /></svg><span>Seçili</span></span>
+            <span class="dk-bulgu" hidden></span>
+          </a>
+        </nav>
+      </section>
 
-        <div class="ders-bas ilk" id="fizik" data-ders="fizik">
-          <h3>Fizik</h3>
-          <p><b>3</b> ünite · <b>18</b> konu · 11. sınıf</p>
-        </div>
+      <section class="katalog reveal" id="katalog" aria-label="Derslerin üniteleri ve konuları">
+        <div class="ders-panel" id="fizik" data-ders="fizik" style="--ders: var(--d-fizik)" aria-labelledby="ders-fizik-baslik">
+          <header class="ders-bas">
+            <span class="ders-ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="12" rx="9.6" ry="3.7" />
+              <ellipse cx="12" cy="12" rx="9.6" ry="3.7" transform="rotate(60 12 12)" />
+              <ellipse cx="12" cy="12" rx="9.6" ry="3.7" transform="rotate(-60 12 12)" />
+              <circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none" />
+            </svg>
+            </span>
+            <div class="ders-bas-metin">
+              <p class="ders-kunye">Ders · 11. sınıf</p>
+              <h2 id="ders-fizik-baslik" tabindex="-1">Fizik</h2>
+              <p class="ders-ozet">Hareketten ışığa üç ünite: önce kuvvet ve hareket, sonra elektrik ve manyetizma, en sonda optik.</p>
+            </div>
+            <ul class="ders-sayilar" aria-label="Fizik dersinde neler var">
+              <li><b data-say="unite">3</b>ünite</li>
+              <li><b data-say="konu">18</b>konu</li>
+              <li><b data-say="deney">72</b>deney</li>
+            </ul>
+          </header>
+
+          <div class="filters" role="group" aria-label="Fizik ünite süzgeci">
+            <button type="button" data-unit="all" aria-pressed="true">Tüm üniteler</button>
+            <button type="button" data-unit="kuvvet-ve-hareket" aria-pressed="false">Kuvvet ve Hareket</button>
+            <button type="button" data-unit="elektrik-ve-manyetizma" aria-pressed="false">Elektrik ve Manyetizma</button>
+            <button type="button" data-unit="optik" aria-pressed="false">Optik</button>
+          </div>
 
         <article class="unit" id="kuvvet-ve-hareket" data-ders="fizik" aria-labelledby="unit-1-title">
           <div class="unit-head">
@@ -2432,11 +2745,36 @@
           </article>
           </div>
         </article>
-
-        <div class="ders-bas" id="kimya" data-ders="kimya">
-          <h3>Kimya</h3>
-          <p><b>2</b> ünite · <b>8</b> konu · 11. sınıf, 1. tema: Etkileşim</p>
         </div>
+
+        <div class="ders-panel" id="kimya" data-ders="kimya" style="--ders: var(--d-kimya)" aria-labelledby="ders-kimya-baslik">
+          <header class="ders-bas">
+            <span class="ders-ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 2.8h6" />
+              <path d="M10.2 2.8v5.6L4.6 18.6a1.7 1.7 0 0 0 1.5 2.6h11.8a1.7 1.7 0 0 0 1.5-2.6L13.8 8.4V2.8" />
+              <path d="M6.9 14.6h10.2" />
+              <circle cx="10.4" cy="17.6" r="0.9" fill="currentColor" stroke="none" />
+              <circle cx="13.9" cy="16.6" r="0.6" fill="currentColor" stroke="none" />
+            </svg>
+            </span>
+            <div class="ders-bas-metin">
+              <p class="ders-kunye">Ders · 11. sınıf · 1. tema: Etkileşim</p>
+              <h2 id="ders-kimya-baslik" tabindex="-1">Kimya</h2>
+              <p class="ders-ozet">Tepkimelerin enerjisi ve hızı: ısı alan ve ısı veren olaylardan bağ enerjilerine, çarpışma teorisinden hız denklemine.</p>
+            </div>
+            <ul class="ders-sayilar" aria-label="Kimya dersinde neler var">
+              <li><b data-say="unite">2</b>ünite</li>
+              <li><b data-say="konu">8</b>konu</li>
+              <li><b data-say="deney">32</b>deney</li>
+            </ul>
+          </header>
+
+          <div class="filters" role="group" aria-label="Kimya ünite süzgeci">
+            <button type="button" data-unit="all" aria-pressed="true">Tüm üniteler</button>
+            <button type="button" data-unit="tepkimelerde-enerji" aria-pressed="false">Tepkimelerde Enerji</button>
+            <button type="button" data-unit="tepkimelerde-hiz" aria-pressed="false">Tepkimelerde Hız</button>
+          </div>
 
         <article class="unit" id="tepkimelerde-enerji" data-ders="kimya" style="--utone: var(--rose)" aria-labelledby="unit-4-title">
           <div class="unit-head">
@@ -2713,6 +3051,7 @@
           </article>
           </div>
         </article>
+        </div>
 
         <p class="empty" id="empty" hidden>
           Aramana uyan konu bulunamadı.
@@ -2724,6 +3063,11 @@
         <div class="section-heading">
           <h2 id="decks-title">Sunumlar</h2>
           <p>Yirmi altı konunun her biri için 117–157 slayt: konu anlatımının dört basamağı küçük adımlarla, çizimler ve görseller, “Düşün” soru–cevap slaytları ve kolaydan zora çözümlü örnekler; her slaytta konuşmacı notu.</p>
+        </div>
+
+        <div class="ders-sec" role="group" aria-label="Sunumların dersi">
+          <button type="button" data-ders-sec="fizik" style="--ders: var(--d-fizik)" aria-pressed="false">Fizik</button>
+          <button type="button" data-ders-sec="kimya" style="--ders: var(--d-kimya)" aria-pressed="false">Kimya</button>
         </div>
 
         <div class="dl-grid" id="deck-grid">
@@ -3070,6 +3414,8 @@
           </a>
         </div>
 
+        <p class="dl-bos" id="deck-empty" hidden>Bu derste sana açık sunum yok; öteki dersi seçebilirsin.</p>
+
         <div class="dl-all">
           <span><b>Hepsi bir arada:</b> yirmi altı sunum tek ZIP dosyasında, yaklaşık 72 MB.</span>
           <a class="button ghost small" href="sunum/dersler-sunumlar.zip" download>
@@ -3121,13 +3467,10 @@
           </a>
           <p>Etkileşimli ders anlatımları için sade bir öğrenme alanı. Her konu tek sayfa: konu anlatımı, dokunup oynadığın laboratuvarlar, canlı grafikler ve hızlı test. Derleme adımı yok, izleme yok; test sonuçların yalnızca kendi tarayıcında durur.</p>
         </div>
-        <nav class="footer-col" aria-label="Üniteler">
-          <h4>Üniteler</h4>
-          <a href="#kuvvet-ve-hareket">Kuvvet ve Hareket</a>
-          <a href="#elektrik-ve-manyetizma">Elektrik ve Manyetizma</a>
-          <a href="#optik">Optik</a>
-          <a href="#tepkimelerde-enerji">Kimyasal Tepkimelerde Enerji</a>
-          <a href="#tepkimelerde-hiz">Kimyasal Tepkimelerde Hız</a>
+        <nav class="footer-col" aria-label="Dersler">
+          <h4>Dersler</h4>
+          <a href="#fizik">Fizik</a>
+          <a href="#kimya">Kimya</a>
         </nav>
         <nav class="footer-col" aria-label="Site">
           <h4>Site</h4>
@@ -3169,15 +3512,54 @@
           for (i = 0; i < targets.length; i++) io.observe(targets[i]);
         }
 
-        /* ---- arama ve filtre ---- */
+        /* ---- dersler, arama ve süzgeç ----
+           Her ders bir panel (.ders-panel, kimliği dersin kodu). Gezinirken yalnız
+           seçili dersin paneli görünür; arama bütün derslerde çalışır, sonuçlar
+           ders başlıklarıyla ayrılır. Seçim bu tarayıcıda hatırlanır; adresteki
+           #ünite ya da #ders o dersi açar. Sayılar kartlardan sayılır: yeni ders
+           ya da konu eklenince elle düzeltilecek bir sayı yok. */
         var input = document.getElementById("q");
-        var filters = document.getElementById("filters");
+        var secimEl = document.getElementById("dersler");
+        var paneller = [].slice.call(document.querySelectorAll(".ders-panel"));
+        var kartlar = [].slice.call(document.querySelectorAll(".ders-kart"));
+        var secDugmeleri = [].slice.call(document.querySelectorAll("[data-ders-sec]"));
+        var secKutusu = document.querySelector(".ders-sec");
         var units = [].slice.call(document.querySelectorAll(".unit"));
         var lessons = [].slice.call(document.querySelectorAll(".unit .lesson"));
         var decks = [].slice.call(document.querySelectorAll("#deck-grid .dl"));
         var countEl = document.getElementById("result-count");
         var emptyEl = document.getElementById("empty");
-        var unit = "all";
+        var deckSection = document.getElementById("sunumlar");
+        var deckEmpty = document.getElementById("deck-empty");
+        var dersler = paneller.map(function (p) { return p.dataset.ders; });
+        var uniteSecimi = {};   /* ders → "all" ya da ünite kimliği */
+        var secili = dersler[0];
+        var aramada = false;
+
+        lessons.forEach(function (el) { el.__ders = el.closest(".ders-panel").dataset.ders; });
+
+        /* ---- sayılar ---- */
+        var SAY = {}, TOPLAM = { ders: dersler.length, unite: 0, konu: 0, deney: 0 };
+        paneller.forEach(function (p) {
+          var d = p.dataset.ders, deney = 0;
+          var ls = [].slice.call(p.querySelectorAll(".lesson"));
+          ls.forEach(function (el) {
+            var meta = el.querySelector(".meta");
+            var m = /(\d+)\s+etkileşimli deney/.exec(meta ? meta.textContent : "");
+            if (m) deney += +m[1];
+          });
+          SAY[d] = { unite: p.querySelectorAll(".unit").length, konu: ls.length, deney: deney };
+          TOPLAM.unite += SAY[d].unite;
+          TOPLAM.konu += ls.length;
+          TOPLAM.deney += deney;
+        });
+        [].forEach.call(document.querySelectorAll("[data-say]"), function (b) {
+          var k = b.closest("[data-ders]");
+          var n = k && SAY[k.dataset.ders] && SAY[k.dataset.ders][b.dataset.say];
+          if (n != null) b.textContent = n;
+        });
+        var TOPLAM_METNI = "<b>" + TOPLAM.ders + " ders</b> · " + TOPLAM.unite + " ünite · " +
+          TOPLAM.konu + " konu · " + TOPLAM.deney + " etkileşimli deney";
 
         /* türkçe karakterleri katlayarak arama: "dusme" → "düşme" */
         var MAP = { "ı": "i", "İ": "i", "ş": "s", "ğ": "g", "ü": "u", "ö": "o", "ç": "c", "â": "a", "î": "i", "û": "u" };
@@ -3193,8 +3575,10 @@
           return el.__hay;
         }
 
-        function matches(el, q) {
-          if (unit !== "all" && el.dataset.unit !== unit) return false;
+        function matches(el, d, q) {
+          if (!q && d !== secili) return false;
+          var u = uniteSecimi[d] || "all";
+          if (u !== "all" && el.dataset.unit !== u) return false;
           if (!q) return true;
           var hay = haystack(el);
           var words = q.split(" ");
@@ -3206,42 +3590,85 @@
 
         function apply() {
           var q = fold(input.value);
-          var shown = 0, deckShown = 0;
+          var shown = 0, deckShown = 0, bulgu = {};
+          aramada = !!q;
           /* erişim betiği kapalı desteleri DOM'dan çıkarabilir; sayım şaşmasın */
           decks = decks.filter(function (el) { return el.isConnected; });
           lessons.forEach(function (el) {
-            var ok = matches(el, q);
+            var ok = matches(el, el.__ders, q);
             el.hidden = !ok;
-            if (ok) shown++;
+            if (ok) { shown++; bulgu[el.__ders] = (bulgu[el.__ders] || 0) + 1; }
           });
           decks.forEach(function (el) {
-            var ok = matches(el, q);
+            var ok = matches(el, el.dataset.ders, q);
             el.hidden = !ok;
             if (ok) deckShown++;
           });
-          /* konusu kalmayan ünite bloğu gizlenir */
+          /* konusu kalmayan ünite, ünitesi kalmayan ders paneli gizlenir */
           units.forEach(function (u) {
-            var any = [].slice.call(u.querySelectorAll(".lesson")).some(function (el) {
-              return !el.hidden;
-            });
-            u.hidden = !any;
+            u.hidden = ![].some.call(u.querySelectorAll(".lesson"), function (el) { return !el.hidden; });
           });
-          /* ünitesi kalmayan ders başlığı da gizlenir */
-          [].slice.call(document.querySelectorAll(".ders-bas")).forEach(function (d) {
-            d.hidden = !units.some(function (u) { return u.dataset.ders === d.dataset.ders && !u.hidden; });
+          paneller.forEach(function (p) {
+            p.hidden = aramada ? !bulgu[p.dataset.ders] : p.dataset.ders !== secili;
           });
-          [].slice.call(document.querySelectorAll(".dl-ders")).forEach(function (d) {
-            d.hidden = !decks.some(function (el) { return el.dataset.ders === d.dataset.ders && !el.hidden; });
+          /* kartlar: aramada her dersin sonuç sayısı */
+          kartlar.forEach(function (k) {
+            var n = bulgu[k.dataset.ders] || 0;
+            var b = k.querySelector(".dk-bulgu");
+            k.classList.toggle("bos", aramada && !n);
+            if (b) {
+              b.hidden = !aramada;
+              b.textContent = n ? n + " konu" : "sonuç yok";
+            }
           });
+          if (secimEl) secimEl.classList.toggle("ariyor", aramada);
+          /* sunumlar: aramada ders etiketleriyle hepsi, gezinirken seçili dersinkiler */
+          [].forEach.call(document.querySelectorAll(".dl-ders"), function (x) {
+            x.hidden = !aramada || !decks.some(function (el) { return el.dataset.ders === x.dataset.ders && !el.hidden; });
+          });
+          if (secKutusu) secKutusu.hidden = aramada;
+          if (deckSection) deckSection.hidden = decks.length === 0 || (aramada && deckShown === 0);
+          if (deckEmpty) deckEmpty.hidden = aramada || deckShown > 0;
           emptyEl.hidden = shown > 0;
-          var deckSection = document.getElementById("sunumlar");
-          if (deckSection) deckSection.hidden = deckShown === 0;
-          if (!q && unit === "all") {
-            countEl.innerHTML = "<b>5 ünite</b> · 26 konu · 104 etkileşimli bölüm";
+          if (!aramada && (uniteSecimi[secili] || "all") === "all") {
+            countEl.innerHTML = TOPLAM_METNI;
+          } else if (!aramada) {
+            countEl.innerHTML = "<b>" + shown + " konu</b> gösteriliyor";
           } else {
-            countEl.innerHTML = "<b>" + shown + " konu</b> gösteriliyor" +
-              (deckShown ? " · " + deckShown + " sunum" : "");
+            countEl.innerHTML = "<b>" + shown + " konu</b> bulundu" + (deckShown ? " · " + deckShown + " sunum" : "");
           }
+        }
+
+        function sec(d, kaydet) {
+          if (dersler.indexOf(d) < 0) return;
+          secili = d;
+          if (kaydet) { try { localStorage.setItem("dersler-ders", d); } catch (e) {} }
+          kartlar.forEach(function (k) { k.setAttribute("aria-current", k.dataset.ders === d ? "true" : "false"); });
+          secDugmeleri.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.dersSec === d ? "true" : "false"); });
+          apply();
+        }
+
+        function suzgeciSifirla(d) {
+          uniteSecimi[d] = "all";
+          var p = document.getElementById(d);
+          [].forEach.call(p ? p.querySelectorAll(".filters button") : [], function (b) {
+            b.setAttribute("aria-pressed", b.dataset.unit === "all" ? "true" : "false");
+          });
+        }
+
+        /* adresteki parça (#optik, #kimya…) hangi dersin içinde? */
+        function hedef(id) {
+          var el = null;
+          try { el = id ? document.getElementById(decodeURIComponent(id)) : null; } catch (e) {}
+          var p = el && el.closest(".ders-panel");
+          return p ? { el: el, ders: p.dataset.ders } : null;
+        }
+
+        /* hedef gizliyse görünür kıl: dersini seç, aramayı ve süzgeci kaldır */
+        function ac(h) {
+          if (aramada) input.value = "";
+          if (h.el.hidden) suzgeciSifirla(h.ders);
+          sec(h.ders, true);
         }
 
         input.addEventListener("input", apply);
@@ -3249,24 +3676,66 @@
           if (e.key === "Escape") { input.value = ""; apply(); }
         });
 
-        filters.addEventListener("click", function (e) {
-          var b = e.target.closest("button");
-          if (!b || !filters.contains(b)) return;
-          var all = filters.querySelectorAll("button");
-          for (var k = 0; k < all.length; k++) {
-            all[k].setAttribute("aria-pressed", all[k] === b ? "true" : "false");
-          }
-          unit = b.dataset.unit;
-          apply();
+        paneller.forEach(function (p) {
+          var f = p.querySelector(".filters");
+          if (!f) return;
+          f.addEventListener("click", function (e) {
+            var b = e.target.closest("button");
+            if (!b || !f.contains(b)) return;
+            [].forEach.call(f.querySelectorAll("button"), function (x) {
+              x.setAttribute("aria-pressed", x === b ? "true" : "false");
+            });
+            uniteSecimi[p.dataset.ders] = b.dataset.unit;
+            apply();
+          });
+        });
+
+        kartlar.forEach(function (k) {
+          k.addEventListener("click", function (e) {
+            e.preventDefault();
+            var d = k.dataset.ders;
+            var panel = document.getElementById(d);
+            sec(d, true);
+            /* adreste başka dersin parçası kalmasın (yenileyince o ders açılmasın) */
+            var h = hedef(location.hash.slice(1));
+            if (h && h.ders !== d) {
+              try { history.replaceState(null, "", location.pathname + location.search); } catch (x) {}
+            }
+            if (!panel || panel.hidden) return;
+            /* panel ekranın alt kısmında kaldıysa başlığını görünür alana getir */
+            if (aramada || panel.getBoundingClientRect().top > innerHeight * 0.7) panel.scrollIntoView({ block: "start" });
+            /* klavyeyle seçildiyse odak dersin başlığına geçsin */
+            if (e.detail === 0) {
+              var h2 = panel.querySelector(".ders-bas h2");
+              if (h2) h2.focus({ preventScroll: true });
+            }
+          });
+        });
+
+        secDugmeleri.forEach(function (b) {
+          b.addEventListener("click", function () { sec(b.dataset.dersSec, true); });
+        });
+
+        /* sayfa içi bağlantılar (#optik, açılış kartı, alt bilgi): önce hedefin
+           dersi açılır, kaydırmayı tarayıcı yapar */
+        document.addEventListener("click", function (e) {
+          var a = e.target.closest && e.target.closest('a[href^="#"]');
+          if (!a || a.classList.contains("ders-kart")) return;
+          var h = hedef(a.getAttribute("href").slice(1));
+          if (h) ac(h);
+        });
+
+        /* geri/ileri ya da elle yazılan parça */
+        window.addEventListener("hashchange", function () {
+          var h = hedef(location.hash.slice(1));
+          if (!h || (h.ders === secili && !aramada && !h.el.hidden)) return;
+          ac(h);
+          h.el.scrollIntoView({ block: "start" });
         });
 
         document.getElementById("clear-search").addEventListener("click", function () {
           input.value = "";
-          unit = "all";
-          var all = filters.querySelectorAll("button");
-          for (var k = 0; k < all.length; k++) {
-            all[k].setAttribute("aria-pressed", all[k].dataset.unit === "all" ? "true" : "false");
-          }
+          dersler.forEach(suzgeciSifirla);
           apply();
           input.focus();
         });
@@ -3281,7 +3750,34 @@
           input.select();
         });
 
-        apply();
+        /* ilk ders: adresteki parça > bu tarayıcıdaki son seçim > ilk ders */
+        var ilk = hedef(location.hash.slice(1));
+        var kayitli = null;
+        try { kayitli = localStorage.getItem("dersler-ders"); } catch (e) {}
+        dersler.forEach(function (d) { uniteSecimi[d] = "all"; });
+        sec(ilk ? ilk.ders : dersler.indexOf(kayitli) >= 0 ? kayitli : dersler[0], !!ilk);
+        if (ilk) {
+          /* tarayıcı parçaya, ders paneli gizliyken kaydırmış olabilir. Belirme
+             kayması (18 px) hedefi oynatmasın: bölümü geçişsiz belirt. */
+          var belir = ilk.el.closest(".reveal");
+          if (belir && !belir.classList.contains("in")) {
+            belir.style.transition = "none";
+            belir.classList.add("in");
+            void belir.offsetHeight;
+            belir.style.transition = "";
+          }
+          requestAnimationFrame(function () { ilk.el.scrollIntoView({ block: "start", behavior: "instant" }); });
+          /* erişim betiği şeridi sonradan açınca hedef aşağı kayar (bitince aramaya
+             "input" gönderir); kullanıcı o arada kaydırmadıysa yeniden hizala */
+          var elle = false;
+          ["wheel", "touchstart", "keydown"].forEach(function (t) {
+            window.addEventListener(t, function () { elle = true; }, { once: true, passive: true });
+          });
+          input.addEventListener("input", function hizala(e) {
+            input.removeEventListener("input", hizala);
+            if (!e.isTrusted && !elle) ilk.el.scrollIntoView({ block: "start", behavior: "instant" });
+          });
+        }
 
         /* ---- tema ---- */
         var btn = document.getElementById("theme-toggle");
@@ -3491,6 +3987,6 @@
         })();
       })();
     </script>
-    <script src="erisim.js" defer></script>
+    <script src="erisim.js?v=2" defer></script>
   </body>
 </html>
