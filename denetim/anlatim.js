@@ -103,6 +103,20 @@ function sayfaIci() {
     if (c.textContent.trim().length > 26) uyari("çip etiketi uzun: " + c.textContent.trim());
   });
 
+  /* basamak sekmeleri (modal) ve sayfanın üç adımı */
+  const tabs = [...document.querySelectorAll("#konu .basamaklar button")];
+  if (tabs.map(t => t.dataset.bas).join("") !== "1234") hata("modalda dört basamak sekmesi (data-bas 1–4) olmalı");
+  const chipsBox = document.querySelector("#konu .chips");
+  if (!chipsBox || chipsBox.dataset.aktif !== "1") hata('.chips başlangıçta data-aktif="1" taşımalı');
+  const adimlar = [...document.querySelectorAll(".hero .adimlar [data-step]")].map(a => a.dataset.step).join(",");
+  if (adimlar !== "oku,dene,sina") hata("girişteki adım kartı oku, dene, sina adımlarını taşımalı: " + adimlar);
+  const ustBar = [...document.querySelectorAll(".header-nav .step[data-step]")].map(a => a.dataset.step).join(",");
+  if (ustBar !== "oku,dene,sina") hata("üst bar üç adımı taşımalı: " + ustBar);
+  const dene = document.querySelector('.adimlar [data-step="dene"]');
+  if (dene && !document.querySelector(dene.getAttribute("href"))) hata("Dene adımının hedefi yok: " + dene.getAttribute("href"));
+  if (document.querySelector(".facts, .lesson-card, .hero-card:not(.yol)")) hata("girişte eski formül çipleri ya da anlatım kartı kalmış");
+  if (!document.querySelector(".formuller .formula-list")) hata("katlanır formül kutusu (details.formuller) yok");
+
   /* her öğretici bölüm "Kısaca" ile biter */
   bolumler.filter(b => b.bas < 4).forEach(b => {
     const k = b.blok.filter(el => el.matches("p.kisaca"));

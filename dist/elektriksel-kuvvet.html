@@ -2041,6 +2041,196 @@
         font-weight: 650;
       }
 
+      /* ================= yol haritası ================= */
+      /* üst barda üç adım: Oku · Dene · Sına */
+      .nav-link.step {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 0;
+        background: none;
+        font: inherit;
+        font-size: 0.86rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .nav-link.step b {
+        display: grid;
+        width: 22px;
+        height: 22px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+      }
+
+      .nav-link.step.active b { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+
+      .nav-link.step.done b { border-color: var(--lime); background: var(--lime); color: #16260a; }
+
+      /* girişteki adım kartı */
+      .adimlar { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+
+      .adimlar li:nth-child(1) { --ton: var(--lime); }
+      .adimlar li:nth-child(2) { --ton: var(--blue); }
+      .adimlar li:nth-child(3) { --ton: var(--amber); }
+
+      .adimlar a,
+      .adimlar button {
+        display: grid;
+        grid-template-columns: 36px minmax(0, 1fr);
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 11px 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: var(--r);
+        background: var(--surface-2);
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        text-decoration: none;
+        cursor: pointer;
+        transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+      }
+
+      .adimlar a:hover,
+      .adimlar button:hover { border-color: color-mix(in srgb, var(--ton) 55%, var(--line)); background: var(--surface); transform: translateX(3px); }
+
+      .adimlar b {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--ton) 16%, transparent);
+        color: var(--ton);
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+
+      .adimlar .done b { background: var(--ton); color: #fff; }
+
+      .adimlar li:nth-child(1) .done b { color: #16260a; }
+
+      .adimlar strong { display: block; font-size: 0.98rem; font-weight: 650; letter-spacing: -0.015em; }
+
+      .adimlar small { display: block; margin-top: 1px; color: var(--dim); font-size: 0.8rem; line-height: 1.4; }
+
+      /* katlanmış formül özeti (girişin altında) */
+      .formuller { margin-top: 24px; }
+
+      .formuller summary { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+
+      .formuller summary .card-label { margin: 0; }
+
+      .formuller .formula-list { margin-top: 14px; }
+
+      .formuller .card-foot { margin-top: 14px; }
+
+      /* deney panelinde küçük istatistikler katlı durur */
+      .ayrinti {
+        padding: 0;
+        border: 0;
+        border-top: 1px solid var(--line);
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+      }
+
+      .ayrinti summary { padding: 14px 0 0; color: var(--dim); font-size: 0.85rem; font-weight: 600; }
+
+      .ayrinti .mini { padding-top: 12px; border-top: 0; }
+
+      /* modalda basamak sekmeleri; çipler seçili basamağa göre süzülür */
+      .basamaklar {
+        display: flex;
+        gap: 6px;
+        padding: 14px 28px 0;
+        background: var(--surface-2);
+      }
+
+      .basamaklar button {
+        flex: 1 1 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 9px 10px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.84rem;
+        font-weight: 650;
+        cursor: pointer;
+        transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+      }
+
+      .basamaklar button[data-bas="1"] { --ton: var(--lime); }
+      .basamaklar button[data-bas="2"] { --ton: var(--blue); }
+      .basamaklar button[data-bas="3"] { --ton: var(--violet); }
+      .basamaklar button[data-bas="4"] { --ton: var(--amber); }
+
+      .basamaklar button b {
+        display: grid;
+        width: 20px;
+        height: 20px;
+        place-items: center;
+        border-radius: 6px;
+        background: color-mix(in srgb, var(--ton) 16%, transparent);
+        color: var(--ton);
+        font-size: 0.68rem;
+        font-weight: 750;
+      }
+
+      .basamaklar button:hover { border-color: color-mix(in srgb, var(--ton) 55%, var(--line)); color: var(--ink); }
+
+      .basamaklar button[aria-pressed="true"] { border-color: var(--ton); background: color-mix(in srgb, var(--ton) 10%, var(--surface)); color: var(--ink); }
+
+      .chips[data-aktif] { padding-top: 11px; }
+
+      .chips[data-aktif] button[data-basamak] { display: none; }
+
+      .chips[data-aktif="1"] button[data-basamak="1"],
+      .chips[data-aktif="2"] button[data-basamak="2"],
+      .chips[data-aktif="3"] button[data-basamak="3"],
+      .chips[data-aktif="4"] button[data-basamak="4"] { display: inline-flex; }
+
+      /* test: bir seferde bir soru, üstte ilerleme */
+      .q-progress { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+
+      .q-progress li { height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--ink) 10%, transparent); transition: background 200ms ease; }
+
+      .q-progress li.cur { background: color-mix(in srgb, var(--violet) 55%, transparent); }
+
+      .q-progress li.right { background: var(--lime); }
+
+      .q-progress li.wrong { background: var(--rose); }
+
+      .q-next { display: flex; justify-content: flex-end; margin-top: 16px; }
+
+      .q-ozet {
+        padding: 16px 20px;
+        border: 1px solid color-mix(in srgb, var(--violet) 30%, var(--line));
+        border-radius: var(--r-lg);
+        background: color-mix(in srgb, var(--violet) 7%, var(--surface));
+        color: var(--muted);
+        font-size: 0.93rem;
+        line-height: 1.55;
+      }
+
+      .q-ozet b { color: var(--ink); font-size: 1.1rem; }
+
+      .q > p:focus { outline: none; }
+
       /* ================= duyarlılık ================= */
       @media (max-width: 1000px) {
         .header-nav { display: none; }
@@ -2065,6 +2255,8 @@
         .lesson-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px; padding: 18px; }
         .lesson-card .go { display: none; }
         .modal-head, .chips, .modal-body { padding-left: 18px; padding-right: 18px; }
+        .basamaklar { padding-left: 18px; padding-right: 18px; }
+        .basamaklar button { gap: 6px; padding: 8px 6px; font-size: 0.78rem; }
         .fig { padding: 12px 10px 11px; }
         .topic-nav { grid-template-columns: 1fr 1fr; }
         .topic-nav .mid { grid-column: 1 / -1; order: 3; }
@@ -2113,12 +2305,10 @@
           <span>Dersler<small>fizik</small></span>
         </a>
 
-        <nav class="header-nav" aria-label="Bölümler">
-          <a class="nav-link" href="#lab">Coulomb</a>
-          <a class="nav-link" href="#alan">Alan haritası</a>
-          <a class="nav-link" href="#sifir">Sıfır noktası</a>
-          <a class="nav-link" href="#levha">Paralel levhalar</a>
-          <a class="nav-link" href="#test">Test</a>
+        <nav class="header-nav" aria-label="Adımlar">
+          <button class="nav-link step" type="button" data-open-modal data-step="oku"><b>1</b>Oku</button>
+          <a class="nav-link step" href="#lab" data-step="dene"><b>2</b>Dene</a>
+          <a class="nav-link step" href="#test" data-step="sina"><b>3</b>Sına</a>
         </nav>
 
         <div class="header-tools">
@@ -2148,58 +2338,36 @@
             uzayın her noktasında, oraya konacak bir yükün ne hissedeceğini söyleyen bir harita.
           </p>
           <div class="cta-row">
-            <button class="button" type="button" data-open-modal>
-              Konu anlatımını aç
+            <button class="button" type="button" data-open-modal data-step="oku">
+              Başla: konu anlatımı
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </button>
-            <a class="button ghost" href="#lab">Laboratuvara in</a>
-            <a class="button ghost" href="sunum/elektriksel-kuvvet.pptx" download>
-              Sunum (PPTX)
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
-              </svg>
-            </a>
+            <a class="button ghost" href="#lab">Deneylere geç</a>
           </div>
-
-          <ul class="facts">
-            <li>Kuvvet <b>1/r² ile</b> azalır</li>
-            <li>Alan <b>E = F/q</b></li>
-            <li>Çizgiler <b>+'dan −'ye</b></li>
-            <li>Düzgün alanda <b>parabol</b></li>
-          </ul>
         </div>
 
-        <aside class="hero-card" aria-label="Temel bağıntılar">
-          <span class="card-label">Temel bağıntılar</span>
-          <ul class="formula-list">
+        <aside class="hero-card yol" aria-label="Bu sayfada">
+          <span class="card-label">Bu sayfada · üç adım</span>
+          <ol class="adimlar">
+            <li><button type="button" data-open-modal data-step="oku"><b>1</b><span><strong>Oku</strong><small>Konu anlatımı: önce gözlem, sonra bağıntılar, en sonda çözümlü örnekler</small></span></button></li>
+            <li><a href="#lab" data-step="dene"><b>2</b><span><strong>Dene</strong><small>Dört etkileşimli deney: Coulomb · Alan haritası · Sıfır noktası · Paralel levhalar</small></span></a></li>
+            <li><a href="#test" data-step="sina"><b>3</b><span><strong>Sına</strong><small>On soruluk hızlı kontrol, her soruda açıklama</small></span></a></li>
+          </ol>
+        </aside>
+      </section>
+
+      <details class="formuller reveal">
+        <summary><span class="card-label">Formüller</span> Bu konudaki dört bağıntı</summary>
+        <ul class="formula-list">
             <li><code>F = k·q₁·q₂ / r²</code> <span>Coulomb yasası</span></li>
             <li><code>E = F / q = k·q / r²</code> <span>elektriksel alan</span></li>
             <li><code>E = V / d</code> <span>paralel levhalar arası</span></li>
             <li><code>k = 9·10⁹ N·m²/C²</code> <span>Coulomb sabiti</span></li>
           </ul>
-          <div class="card-foot"><span class="dot" aria-hidden="true"></span> 1 µC = 10⁻⁶ C · elektron yükü 1,6·10⁻¹⁹ C</div>
-        </aside>
-      </section>
-
-      <button class="lesson-card reveal" type="button" data-open-modal>
-        <span class="badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 6.5C10.5 5 8.5 4.5 6 4.5H3.5v13H6c2.5 0 4.5.5 6 2 1.5-1.5 3.5-2 6-2h2.5v-13H18c-2.5 0-4.5.5-6 2z" />
-            <path d="M12 6.5v13" />
-          </svg>
-        </span>
-        <span>
-          <h3>Konu anlatımı: Elektriksel kuvvet ve alan</h3>
-          <p>Dört basamakta: önce yük ve yüklenme üzerine sezgi, sonra Coulomb yasası, süperpozisyon ve elektriksel alan, ardından düzgün alanda hareket, iletkenler ve yıldırım; en sonda kolaydan zora çözümlü örnekler. Tıkla, açılsın.</p>
-        </span>
-        <span class="go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </span>
-      </button>
+        <div class="card-foot"><span class="dot" aria-hidden="true"></span> 1 µC = 10⁻⁶ C · elektron yükü 1,6·10⁻¹⁹ C</div>
+      </details>
 
       <!-- 01 — Coulomb laboratuvarı -->
       <section class="section reveal" id="lab" aria-labelledby="lab-title">
@@ -2248,12 +2416,18 @@
               <label><input type="checkbox" id="c-field" checked /> q₁'in alan okları</label>
             </div>
 
-            <ul class="mini">
+            <details class="ayrinti">
+
+              <summary>Ayrıntılar</summary>
+
+              <ul class="mini">
               <li>Coulomb sabiti k <b>9·10⁹ N·m²/C²</b></li>
               <li>q₁'e etki eden <b id="s-f1">0,90 N</b></li>
               <li>q₂'ye etki eden <b id="s-f2">0,90 N</b></li>
               <li>Etkileşim <b id="s-kind">itme</b></li>
             </ul>
+
+            </details>
           </div>
         </div>
 
@@ -2372,11 +2546,14 @@
               <button class="button" type="button" id="pl-play">Gönder</button>
               <button class="button ghost" type="button" id="pl-reset">Sıfırla</button>
             </div>
-            <ul class="mini">
-              <li>Alan E <b id="pl-e">4000 N/C</b></li>
-              <li>Kuvvet F <b id="pl-f">6,4·10⁻¹⁶ N</b></li>
-              <li>Sapma <b id="pl-y">2,4 mm</b></li>
-            </ul>
+            <details class="ayrinti">
+              <summary>Ayrıntılar</summary>
+              <ul class="mini">
+                <li>Alan E <b id="pl-e">4000 N/C</b></li>
+                <li>Kuvvet F <b id="pl-f">6,4·10⁻¹⁶ N</b></li>
+                <li>Sapma <b id="pl-y">2,4 mm</b></li>
+              </ul>
+            </details>
           </div>
         </div>
       </section>
@@ -2467,7 +2644,13 @@
         </button>
       </div>
 
-      <div class="chips">
+      <div class="basamaklar" aria-label="Basamaklar">
+        <button type="button" data-bas="1" aria-pressed="true"><b>1</b>Temel</button>
+        <button type="button" data-bas="2" aria-pressed="false"><b>2</b>Orta</button>
+        <button type="button" data-bas="3" aria-pressed="false"><b>3</b>İleri</button>
+        <button type="button" data-bas="4" aria-pressed="false"><b>4</b>Pekiştir</button>
+      </div>
+      <div class="chips" data-aktif="1">
         <button type="button" data-goto="k1" data-basamak="1">Gözlem</button>
         <button type="button" data-goto="k2" data-basamak="1">Elektrik yükü</button>
         <button type="button" data-goto="k3" data-basamak="1">Yüklenme yolları</button>
@@ -5291,7 +5474,13 @@
           var KEYS = ["A", "B", "C", "D"];
           var scoreEl = document.getElementById("quiz-score");
           var finalEl = document.getElementById("quiz-final");
-          var score = 0;
+          var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          var score = 0, sira = 0, cevaplar = [];
+          var prog = document.createElement("ol");
+          prog.className = "q-progress";
+          prog.setAttribute("aria-label", "İlerleme");
+          prog.style.gridTemplateColumns = "repeat(" + DATA.length + ", minmax(0, 1fr))";
+          for (var pi = 0; pi < DATA.length; pi++) prog.appendChild(document.createElement("li"));
 
           function finish() {
             if (!finalEl) return;
@@ -5302,61 +5491,128 @@
                 : "Konu anlatımına dönüp tekrar denemek iyi olur.";
           }
 
-          function build() {
+          function ilerleme() {
+            for (var i = 0; i < DATA.length; i++) {
+              var c = cevaplar[i];
+              prog.children[i].className = c == null ? (i === sira ? "cur" : "") : (c === DATA[i].a ? "right" : "wrong");
+            }
+          }
+
+          /* Bir soru kartı. secili verilirse kart cevaplanmış hâliyle (gözden geçirme) kurulur. */
+          function kart(item, qi, secili) {
+            var card = document.createElement("div");
+            card.className = "q";
+
+            var p = document.createElement("p");
+            p.innerHTML = "<span>SORU " + (qi + 1) + " / " + DATA.length + "</span><br>" + item.q;
+            card.appendChild(p);
+
+            var opts = document.createElement("div");
+            opts.className = "opts";
+
+            var why = document.createElement("p");
+            why.className = "why";
+            why.hidden = secili == null;
+            why.textContent = item.why;
+
+            item.o.forEach(function (text, oi) {
+              var b = document.createElement("button");
+              b.type = "button";
+              b.textContent = text;
+              b.dataset.key = KEYS[oi];
+              if (secili != null) {
+                b.disabled = true;
+                if (oi === item.a) b.classList.add("right");
+                if (oi === secili && oi !== item.a) b.classList.add("wrong");
+              } else {
+                b.addEventListener("click", function () { cevapla(card, opts, why, item, qi, oi, b); });
+              }
+              opts.appendChild(b);
+            });
+
+            card.appendChild(opts);
+            card.appendChild(why);
+            return card;
+          }
+
+          function cevapla(card, opts, why, item, qi, oi, b) {
+            var all = opts.querySelectorAll("button");
+            for (var i = 0; i < all.length; i++) all[i].disabled = true;
+            all[item.a].classList.add("right");
+            if (oi !== item.a) {
+              b.classList.add("wrong");
+            } else {
+              score++;
+              scoreEl.textContent = score + " / " + DATA.length;
+            }
+            cevaplar[qi] = oi;
+            ilerleme();
+            /* Sonuç ekranda yalnızca renk ve CSS'le çizilen ✓/✕; ekran okuyucu için
+               açıklamanın başına yazılır ve odak oraya taşınır. */
+            var sonuc = document.createElement("span");
+            sonuc.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap";
+            sonuc.textContent = oi === item.a ? "Doğru. " : "Yanlış; doğru cevap " + KEYS[item.a] + ". ";
+            why.insertBefore(sonuc, why.firstChild);
+            why.tabIndex = -1;
+            why.hidden = false;
+            why.focus({ preventScroll: true });
+
+            var son = qi === DATA.length - 1;
+            var row = document.createElement("div");
+            row.className = "q-next";
+            var nb = document.createElement("button");
+            nb.type = "button";
+            nb.className = "button small";
+            nb.textContent = son ? "Sonucu gör" : "Sonraki soru →";
+            nb.addEventListener("click", function () {
+              if (son) { bitir(); return; }
+              sira = qi + 1;
+              goster();
+            });
+            row.appendChild(nb);
+            card.appendChild(row);
+          }
+
+          /* yalnız sıradaki soru görünür */
+          function goster() {
             box.innerHTML = "";
+            box.appendChild(prog);
+            ilerleme();
+            var card = kart(DATA[sira], sira, null);
+            box.appendChild(card);
+            var p = card.querySelector("p");
+            p.tabIndex = -1;
+            p.focus({ preventScroll: true });
+          }
+
+          /* bitince: sonuç ve bütün sorular cevaplarıyla */
+          function bitir() {
+            finish();
+            box.innerHTML = "";
+            box.appendChild(prog);
+            ilerleme();
+            var ozet = document.createElement("div");
+            ozet.className = "q-ozet";
+            ozet.innerHTML = "<b>" + score + " / " + DATA.length + "</b> doğru. " + (finalEl ? finalEl.textContent : "") +
+              " Bütün sorular cevaplarınla birlikte aşağıda; yanlışların açıklamasını oku.";
+            box.appendChild(ozet);
+            DATA.forEach(function (item, qi) { box.appendChild(kart(item, qi, cevaplar[qi])); });
+            var sec = document.getElementById("test");
+            if (sec) sec.scrollIntoView({ block: "start", behavior: reduced ? "auto" : "smooth" });
+          }
+
+          function build() {
             score = 0;
+            sira = 0;
+            cevaplar = [];
+            for (var i = 0; i < DATA.length; i++) cevaplar.push(null);
             scoreEl.textContent = "0 / " + DATA.length;
             if (finalEl) {
               finalEl.textContent = "";
               /* bitiş cümlesi, odağı kaçırmadan duyurulsun */
               finalEl.setAttribute("aria-live", "polite");
             }
-            DATA.forEach(function (item, qi) {
-              var card = document.createElement("div");
-              card.className = "q";
-              var p = document.createElement("p");
-              p.innerHTML = "<span>SORU " + (qi + 1) + "</span><br>" + item.q;
-              card.appendChild(p);
-              var opts = document.createElement("div");
-              opts.className = "opts";
-              var why = document.createElement("p");
-              why.className = "why";
-              why.hidden = true;
-              why.textContent = item.why;
-              item.o.forEach(function (text, oi) {
-                var b = document.createElement("button");
-                b.type = "button";
-                b.textContent = text;
-                b.dataset.key = KEYS[oi];
-                b.addEventListener("click", function () {
-                  var all = opts.querySelectorAll("button");
-                  for (var i = 0; i < all.length; i++) all[i].disabled = true;
-                  all[item.a].classList.add("right");
-                  if (oi !== item.a) {
-                    b.classList.add("wrong");
-                  } else {
-                    score++;
-                    scoreEl.textContent = score + " / " + DATA.length;
-                  }
-                  /* Sonuç ekranda yalnızca renk ve CSS'le çizilen ✓/✕ idi; ekran
-                     okuyucuya hiçbir şey söylenmiyordu. Seçenekler devre dışı
-                     kalınca odak da kayboluyordu. Açıklamanın başına sonuç yazılır
-                     (yalnızca ekran okuyucu için) ve odak oraya taşınır. */
-                  var sonuc = document.createElement("span");
-                  sonuc.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap";
-                  sonuc.textContent = oi === item.a ? "Doğru. " : "Yanlış; doğru cevap " + KEYS[item.a] + ". ";
-                  why.insertBefore(sonuc, why.firstChild);
-                  why.tabIndex = -1;
-                  why.hidden = false;
-                  why.focus();
-                  if (box.querySelectorAll(".opts button.right").length === DATA.length) finish();
-                });
-                opts.appendChild(b);
-              });
-              card.appendChild(opts);
-              card.appendChild(why);
-              box.appendChild(card);
-            });
+            goster();
           }
 
           document.getElementById("quiz-reset").addEventListener("click", build);
@@ -5499,10 +5755,129 @@
                 if (heads[k].h.getBoundingClientRect().top <= top) cur = heads[k];
               }
               for (var m = 0; m < heads.length; m++) heads[m].chip.classList.toggle("active", heads[m] === cur);
+              /* okunan başlığın basamağı sekmede seçili olsun, çipler ona göre süzülsün */
+              var bas = cur.chip.dataset.basamak, cb = cur.chip.parentNode;
+              if (cb.dataset.kilit) {
+for (var m = 0; m < heads.length; m++) heads[m].chip.classList.toggle("active", heads[m] === cur);        /* sekmeye tıklandı: kaydırma durana dek sekmeye dokunma */
+for (var m = 0; m < heads.length; m++) heads[m].chip.classList.toggle("active", heads[m] === cur);        clearTimeout(cb._kilitZ);
+for (var m = 0; m < heads.length; m++) heads[m].chip.classList.toggle("active", heads[m] === cur);        cb._kilitZ = setTimeout(function () { delete cb.dataset.kilit; }, 220);
+for (var m = 0; m < heads.length; m++) heads[m].chip.classList.toggle("active", heads[m] === cur);      } else if (bas && cb.dataset.aktif !== bas) {
+                cb.dataset.aktif = bas;
+                var tb = document.querySelectorAll(".basamaklar button");
+                for (var t = 0; t < tb.length; t++) tb[t].setAttribute("aria-pressed", tb[t].dataset.bas === bas ? "true" : "false");
+              }
             }, { passive: true });
           }
 
         })();
+
+        /* ============ yol haritası: adımlar ve basamak sekmeleri ============ */
+
+
+        (function yol() {
+
+          var slug = (location.pathname.split("/").pop() || "index").replace(/\.html$/, "");
+
+          var OKU = "dersler-okundu";
+
+          var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+          function isaretle(adim) {
+
+            var el = document.querySelectorAll('[data-step="' + adim + '"]');
+
+            for (var i = 0; i < el.length; i++) {
+
+              el[i].classList.add("done");
+
+              var b = el[i].querySelector("b");
+
+              if (b) b.textContent = "✓";
+
+            }
+
+          }
+
+          function oku() { try { return JSON.parse(localStorage.getItem(OKU) || "{}") || {}; } catch (e) { return {}; } }
+
+          if (oku()[slug]) isaretle("oku");
+
+          document.addEventListener("click", function (e) {
+
+            if (!e.target.closest || !e.target.closest("[data-open-modal]")) return;
+
+            var all = oku();
+
+            all[slug] = Date.now();
+
+            try { localStorage.setItem(OKU, JSON.stringify(all)); } catch (err) {}
+
+            isaretle("oku");
+
+          });
+
+          try {
+
+            var skor = JSON.parse(localStorage.getItem("dersler-skor") || "{}")[slug];
+
+            if (skor && skor.n) isaretle("sina");
+
+          } catch (e) {}
+
+          var finalEl = document.getElementById("quiz-final");
+
+          if (finalEl && "MutationObserver" in window) {
+
+            new MutationObserver(function () { if (finalEl.textContent.trim()) isaretle("sina"); })
+
+              .observe(finalEl, { childList: true, characterData: true, subtree: true });
+
+          }
+
+
+          /* basamak sekmesi: çipleri süzer, basamağın ilk başlığına kaydırır */
+
+          var chipsBox = document.querySelector("#konu .chips");
+
+          var tabs = document.querySelectorAll(".basamaklar button");
+
+          var govde = document.getElementById("konu-body");
+
+          if (!chipsBox || !tabs.length) return;
+
+          for (var t = 0; t < tabs.length; t++) {
+
+            tabs[t].addEventListener("click", function () {
+
+              var n = this.dataset.bas;
+
+              chipsBox.dataset.aktif = n;
+
+              chipsBox.dataset.kilit = "1"; /* kaydırma bitene dek izleyici sekmeyi değiştirmesin */
+
+              clearTimeout(chipsBox._kilitZ);
+
+              chipsBox._kilitZ = setTimeout(function () { delete chipsBox.dataset.kilit; }, 1500); /* kaydırma hiç olmazsa */
+
+              for (var i = 0; i < tabs.length; i++) tabs[i].setAttribute("aria-pressed", tabs[i].dataset.bas === n ? "true" : "false");
+
+              var ilk = chipsBox.querySelector('button[data-basamak="' + n + '"]');
+
+              var hedef = ilk && document.getElementById(ilk.dataset.goto);
+
+              if (!hedef || !govde) return;
+
+              var dy = hedef.getBoundingClientRect().top - govde.getBoundingClientRect().top;
+
+              govde.scrollTo({ top: govde.scrollTop + dy - 10, behavior: reduced ? "auto" : "smooth" });
+
+            });
+
+          }
+
+        })();
+
 
         /* ============ tema ============ */
 

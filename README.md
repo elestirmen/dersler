@@ -82,6 +82,28 @@ alt alta durur. Kartlardaki ve panellerdeki ünite/konu/deney sayılarını beti
 kartlarından sayar. Her konu sayfası künyesinde üniteye döner (`index.html#<ünite>`), altında
 önceki ve sonraki konuya geçiş şeridi taşır.
 
+## Konu sayfası: üç adım
+
+Her konu sayfası aynı yolu gösterir: **1 Oku** (konu anlatımı) → **2 Dene** (dört deney) →
+**3 Sına** (hızlı kontrol). Giriş yalnızca başlık, bir cümle ve iki düğmeden oluşur ("Başla:
+konu anlatımı", "Deneylere geç"); sağdaki **"Bu sayfada · üç adım"** kartı (`aside.hero-card.yol`,
+`ol.adimlar`) adımları listeler, tıklanınca oraya götürür. Üst barda bölüm adları yerine aynı üç
+adım durur (`.header-nav .step`); kaydırdıkça etkin adım koyulaşır. Anlatım açıldığında Oku,
+test bitirildiğinde Sına adımı ✓ alır (tarayıcıdaki `dersler-okundu` ve `dersler-skor`
+kayıtları). Konunun temel bağıntıları girişin altında katlı **Formüller** kutusunda durur
+(`details.formuller`; düzlem aynalarda "Kurallar"), laboratuvar panelindeki küçük istatistikler
+de **Ayrıntılar** altındadır (`details.ayrinti`). 2 Ekim 2026'dan önce giriş aynı formülleri
+üç kez (cümle, çipler, kart), anlatım girişini de üç kez gösteriyordu; ilk ekranda okunacak
+şey azaltıldı, bilgi silinmedi.
+
+Anlatım penceresi dört **basamak sekmesiyle** açılır (`.basamaklar`: Temel · Orta · İleri ·
+Pekiştir); başlık çipleri (`.chips[data-aktif]`) yalnız seçili basamağınkileri gösterir, okudukça
+sekme kendiliğinden ilerler. Hızlı kontrol **bir seferde tek soru** gösterir: üstte soru sayısı
+kadar parçalı ilerleme çubuğu (`.q-progress`, yeşil doğru / kırmızı yanlış), cevaptan sonra
+açıklama ve "Sonraki soru"; son sorudan sonra sonuç kutusu (`.q-ozet`) ve bütün sorular
+cevaplarıyla gözden geçirme için açılır. `denetim/anlatim.js` sekmeleri, adım kartını ve eski
+giriş öğelerinin kalmadığını da denetler.
+
 ## Konu anlatımı: dört basamak, kolaydan zora
 
 Her konu sayfasındaki **Konu anlatımı** penceresi (`<dialog id="konu">`) konunun yazılı
@@ -116,8 +138,8 @@ slaytında, sorunun altında büyük durur. `denetim/anlatim.js` iki kuralı da 
 Basamak 1–3'teki her başlık bir **Kısaca** kutusuyla biter: bölümü tek başına okunabilecek
 bir iki cümlede özetler; sunumda da o bölüm slaytının başlık cümlesi olur. Aralara cevabı
 kapalı **Düşün** soruları serpiştirilmiştir (konu başına 5–10); öğrenci tahmin eder, sonra
-açıp nedenini okur. Başlık çipleri ait oldukları basamağın rengini taşır; telefonda tek
-satırda yatay kayar.
+açıp nedenini okur. Başlık çipleri ait oldukları basamağın rengini taşır ve yalnız seçili basamağınkiler
+görünür; telefonda tek satırda yatay kayar.
 
 Yapıyı `denetim/anlatim.js` denetler (basamak sırası ve sayıları, her bölümde bir Kısaca,
 her basamakta Düşün, örneklerin zorluk sırası, görsel dosyaları, çip–başlık eşleşmesi,
@@ -702,8 +724,9 @@ açılan, nedenini anlatan kısa bir açıklaması vardır. Çeldiriciler tipik 
 unutmak, birim çevirmemek, işaret…); doğru cevaplar A–D arasında dengeli dağılır (her harf 2–3
 kez). Sorular sayfa betiğindeki `DATA` dizisindedir (`q`, `o`, `a`, `why`): `q` HTML olarak
 basılır (yalnız `<br>`, `<b>`, `<i>`; olumsuz kök `<b>` ile vurgulanır), seçenekler ve açıklama
-düz metin. Bitiş cümlesi doğru sayısının %60 eşiğine göre seçilir. Bir açıklama başka bir
-sorunun cevabını ele vermemelidir: sorular sayfada aynı anda görünür.
+düz metin. Bitiş cümlesi doğru sayısının %60 eşiğine göre seçilir. Sorular tek tek gösterilir; yine
+de bir açıklama başka bir sorunun cevabını ele vermemelidir, çünkü bitişteki gözden geçirmede
+hepsi birlikte görünür.
 
 Hızlı kontrol testi tamamlanınca sonuç (`doğru / toplam`, tarih) yalnızca o
 tarayıcının `localStorage` alanına yazılır (`dersler-skor`); sayfa yeniden
