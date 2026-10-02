@@ -108,14 +108,17 @@ function baslat(s, id) {
   }, id);
 }
 
-/* yapışkan/sabit öğeler öğe görüntüsüne girmesin; visibility yerleşimi bozmaz */
-const GIZLE = ".site-header, .to-top, .skip { visibility: hidden !important; }";
+/* yapışkan/sabit öğeler öğe görüntüsüne girmesin; visibility yerleşimi bozmaz.
+   Sayfanın yumuşak kaydırması (html { scroll-behavior: smooth }) çekim sırasında sürüp
+   görüntüyü kaydırıyordu: çekimde kaydırma anında olsun. */
+const GIZLE = ".site-header, .to-top, .skip { visibility: hidden !important; } html { scroll-behavior: auto !important; }";
 
 async function tuvalleriCek(s, ad, id, genislik) {
   const tuvaller = await s.$$(`#${id} canvas`);
   for (let i = 0; i < tuvaller.length; i++) {
-    await s.evaluate((el) => el.scrollIntoView({ block: "center" }), tuvaller[i]);
-    await tuvaller[i].screenshot({ path: path.join(EKRAN, genislik, `${ad}--${id}${tuvaller.length > 1 ? "-" + i : ""}.png`) }).catch(() => {});
+    await s.evaluate((el) => el.scrollIntoView({ block: "center", behavior: "instant" }), tuvaller[i]);
+    await new Promise((r) => setTimeout(r, 60));
+    await tuvaller[i].screenshot({ path: path.join(EKRAN, genislik, `${ad}--${id}${tuvaller.length > 1 ? "-" + i : ""}.png`), captureBeyondViewport: false }).catch(() => {});
   }
 }
 

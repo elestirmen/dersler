@@ -637,8 +637,9 @@ function exampleSlides(p, ctx, ch, bas, ex, i, total) {
     T.lede(s, alt);
     const qT = ex.intro.map(b => b.text).join("\n");
     let qs0 = 20;
-    while (qs0 > 14 && textH(qT, CW - 0.7, qs0, false, 1.16) > 1.5) qs0 -= 0.5;
-    const qh0 = Math.min(1.9, textH(qT, CW - 0.7, qs0, false, 1.16) + 0.62);
+    while (qs0 > 13 && textH(qT, CW - 0.7, qs0, false, 1.16) > 1.5) qs0 -= 0.5;
+    /* uzun (çok şıklı) sorularda kutu büyür, çizim alanı küçülür; metin kutudan taşmaz */
+    const qh0 = Math.min(2.5, textH(qT, CW - 0.7, qs0, false, 1.16) + 0.62);
     T.card(s, { x: M, y: 1.8, w: CW, h: qh0, fill: C.softer });
     s.addText("SORU", { x: M + 0.35, y: 1.94, w: 3, h: 0.26, fontFace: F.body, fontSize: 10.5, bold: true, color: tone, charSpacing: 2, isTextBox: true, margin: 0 });
     s.addText(joinParas(ex.intro), { x: M + 0.35, y: 2.22, w: CW - 0.7, h: qh0 - 0.5, fontFace: F.body, fontSize: qs0, color: C.ink,
@@ -806,7 +807,7 @@ function kapakSlide(p, ctx, d) {
     while (formul.join("   ·   ").length > 66 && formul.length > 1) formul = formul.slice(0, -1);
     B.kapak(p, { ust: (d.unit + " · Konu " + d.topicNo).toLocaleUpperCase("tr-TR"), baslik: d.title, lede: d.lead,
       ledeSize: d.lead.length > 250 ? 13.5 : (d.lead.length > 200 ? 14.5 : 15.5), formul: formul.join("   ·   "),
-      link: ctx.foot, not: d.leadIn || d.lead });
+      link: ctx.foot, not: d.leadIn || d.lead, ders: d.ders });
     return;
   }
   const s = T.dark(p);
@@ -817,7 +818,7 @@ function kapakSlide(p, ctx, d) {
      "-composite"]);
   s.addImage({ path: img, x: px, y: 0, w: pw, h: H });
   s.addShape("roundRect", { x: 0.95, y: 0.9, w: 0.34, h: 0.34, rectRadius: 0.1, fill: { color: "A9E648" }, line: { type: "none" } });
-  s.addText([{ text: "Dersler", options: { color: C.white, bold: true } }, { text: "  ·  fizik", options: { color: C.paleDim } }],
+  s.addText([{ text: "Dersler", options: { color: C.white, bold: true } }, { text: "  ·  " + d.ders, options: { color: C.paleDim } }],
     { x: 1.4, y: 0.9, w: 4, h: 0.34, fontFace: F.body, fontSize: 12.5, valign: "middle", isTextBox: true, margin: 0 });
   s.addShape("rect", { x: 0.7, y: 2.15, w: 0.06, h: 1.2, fill: { color: C.limeBright }, line: { type: "none" } });
   s.addText((d.unit + " · Konu " + d.topicNo).toLocaleUpperCase("tr-TR"), { x: 0.95, y: 1.7, w: 6.4, h: 0.35,
@@ -1029,7 +1030,7 @@ function summarySlide(p, ctx, d) {
 /* ------------------------------------------------------------ deste kur */
 function buildDeck(d) {
   const p = new pptxgen();
-  T.deck(p, d.title + " — Dersler", "Fizik · " + d.unit);
+  T.deck(p, d.title + " — Dersler", d.ders.charAt(0).toLocaleUpperCase("tr-TR") + d.ders.slice(1) + " · " + d.unit);
   const ctx = { page: 1, foot: SITE + "/" + d.slug + ".html" };
   const rec = PREVIEW ? recordSlides(p) : null;
 
@@ -1189,6 +1190,8 @@ function extractInPage() {
   const introFotos = intro.filter(b => b.type === "foto");
   return {
     title: txt(q("#konu-title")),
+    /* ders adı markadaki küçük yazıdan: "fizik", "kimya" */
+    ders: (txt(q(".site-header .brand small")) || "fizik").toLocaleLowerCase("tr-TR"),
     unit: txt(eyebrow.querySelector("a")),
     unitId: (eyebrow.querySelector("a").getAttribute("href").split("#")[1] || ""),
     topicNo: (txt(eyebrow).match(/Konu\s+(\d+)/) || [, "01"])[1],

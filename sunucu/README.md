@@ -27,9 +27,9 @@ zaman görme hakkının alt kümesidir.
 | Yol | Kim görür |
 |---|---|
 | `/`, `index.html`, `404.html`, simgeler, `erisim.js` | herkes |
-| `*.html` (18 konu sayfası) | konu herkese açıksa herkes; değilse kodunda o konu olanlar |
+| `*.html` (26 konu sayfası) | konu herkese açıksa herkes; değilse kodunda o konu olanlar |
 | `/sunum/*.pptx` | konu herkese açık **ve** herkese indirme açıksa herkes; değilse kodunda o konu **ve** indirme izni olanlar |
-| `/sunum/dersler-sunumlar.zip` | on sekiz destenin hepsini indirebilenler |
+| `/sunum/dersler-sunumlar.zip` | bütün desteleri (26) indirebilenler |
 | kataloğa girmemiş ama var olan dosya | yalnızca yönetici (bkz. aşağıda) |
 | `/yonetim/*` | yönetici parolasıyla girenler |
 

@@ -1,19 +1,19 @@
 # Deney denetimi
 
-On sekiz konu sayfasının etkileşimli deneylerini gerçek bir tarayıcıda
+Bütün konu sayfalarının (26) etkileşimli deneylerini gerçek bir tarayıcıda
 (puppeteer) çalıştırır ve bozulmaları sayar. Sayfalar diskten, sahte bir kaynak
 (`https://dersler.test`) altında sunulur: kapıya, yönetici parolasına ya da
 çalışan bir sunucuya gerek yoktur, arka planda süreç kalmaz. Her sayfa taze bir
 tarayıcıda açılır.
 
 ```bash
-NODE_PATH=$(npm root -g) node denetim/deney.js                      # 18 konu
+NODE_PATH=$(npm root -g) node denetim/deney.js                      # bütün konular
 NODE_PATH=$(npm root -g) node denetim/deney.js --konu kirilma       # tek konu
 NODE_PATH=$(npm root -g) node denetim/deney.js --kok /tmp/kopya     # dist'in bir kopyası
 NODE_PATH=$(npm root -g) node denetim/deney.js --ekran /tmp/denetim # görüntüler
 ```
 
-On sekiz sayfa yaklaşık altı dakika sürer (sayfa başına ~20 sn); `--ekran` ile
+Yirmi altı sayfa yaklaşık dokuz dakika sürer (sayfa başına ~20 sn); `--ekran` ile
 iki katına yakın.
 
 Her sayfa önce 1280 px genişlikte açılır. Tuvalli her bölüm ekranın ortasına

@@ -1,10 +1,11 @@
 # Dersler
 
 Etkileşimli ders anlatımları için sade, statik bir öğrenme alanı.
-İçerik **ders → ünite → konu** hiyerarşisiyle düzenlenir.
+İçerik **ders → ünite → konu** hiyerarşisiyle düzenlenir: Fizik (üç ünite, 18 konu) ve
+Kimya (iki ünite, 8 konu).
 Derleme adımı, paket bağımlılığı ve JavaScript çatısı yok: her sayfa kendi
 stilini ve betiğini taşıyan tek bir HTML dosyası. Ortak tasarım dili
-(`stil/`) tüm sayfalarda aynıdır; on sekiz konu sayfası bire bir aynı stil
+(`stil/`) tüm sayfalarda aynıdır; yirmi altı konu sayfası bire bir aynı stil
 bloğunu paylaşır.
 
 **Canlı:** [dersler.perinet.org](https://dersler.perinet.org)
@@ -47,6 +48,29 @@ bir sunum:
 | 07 | Prizmalar | [`dist/prizmalar.html`](dist/prizmalar.html) | [`dist/sunum/prizmalar.pptx`](dist/sunum/prizmalar.pptx) |
 | 08 | Mercekler | [`dist/mercekler.html`](dist/mercekler.html) | [`dist/sunum/mercekler.pptx`](dist/sunum/mercekler.pptx) |
 
+### Kimya · Kimyasal Tepkimelerde Enerji ünitesi
+
+11. sınıf kimya, 1. tema (Etkileşim). Konuların sırası ve kapsamı Maarif Modeli kazanımlarını
+(KİM.11.1.1–11.1.8) ve okulda kullanılan konu anlatım fasikülünü (Fasikül 1–8) izler. Fasikül
+yalnızca kapsam rehberidir: metinler, örnekler, çizimler ve sayılar özgündür; fasikülde hatalı
+olan değerler (ör. H₂'nin yanma ısısı) kullanılmadı.
+
+| # | Konu | Sayfa | Sunum |
+|---|---|---|---|
+| 01 | Tepkimelerde enerji değişimi | [`dist/enerji-degisimi.html`](dist/enerji-degisimi.html) | [`dist/sunum/enerji-degisimi.pptx`](dist/sunum/enerji-degisimi.pptx) |
+| 02 | Bağ enerjileri ve tepkime entalpisi | [`dist/bag-enerjisi.html`](dist/bag-enerjisi.html) | [`dist/sunum/bag-enerjisi.pptx`](dist/sunum/bag-enerjisi.pptx) |
+| 03 | Standart oluşum ve tepkime entalpisi | [`dist/olusum-entalpisi.html`](dist/olusum-entalpisi.html) | [`dist/sunum/olusum-entalpisi.pptx`](dist/sunum/olusum-entalpisi.pptx) |
+
+### Kimya · Kimyasal Tepkimelerde Hız ünitesi
+
+| # | Konu | Sayfa | Sunum |
+|---|---|---|---|
+| 01 | Tepkimelerin gerçekleşme şartları | [`dist/carpisma-teorisi.html`](dist/carpisma-teorisi.html) | [`dist/sunum/carpisma-teorisi.pptx`](dist/sunum/carpisma-teorisi.pptx) |
+| 02 | Ortalama tepkime hızı | [`dist/tepkime-hizi.html`](dist/tepkime-hizi.html) | [`dist/sunum/tepkime-hizi.pptx`](dist/sunum/tepkime-hizi.pptx) |
+| 03 | Tepkime hızına etki eden faktörler | [`dist/hiz-faktorleri.html`](dist/hiz-faktorleri.html) | [`dist/sunum/hiz-faktorleri.pptx`](dist/sunum/hiz-faktorleri.pptx) |
+| 04 | Katalizör ve temas yüzeyi | [`dist/katalizor.html`](dist/katalizor.html) | [`dist/sunum/katalizor.pptx`](dist/sunum/katalizor.pptx) |
+| 05 | Hız denklemi | [`dist/hiz-denklemi.html`](dist/hiz-denklemi.html) | [`dist/sunum/hiz-denklemi.pptx`](dist/sunum/hiz-denklemi.pptx) |
+
 Ana sayfa her üniteyi bir blok olarak gösterir, konuları numaralandırır; arama
 kutusu ve ünite süzgeçleriyle daraltılır. Her konu sayfası künyesinde üniteye
 döner, altında önceki ve sonraki konuya geçiş şeridi taşır.
@@ -54,7 +78,7 @@ döner, altında önceki ve sonraki konuya geçiş şeridi taşır.
 ## Konu anlatımı: dört basamak, kolaydan zora
 
 Her konu sayfasındaki **Konu anlatımı** penceresi (`<dialog id="konu">`) konunun yazılı
-anlatımıdır ve on sekiz konuda aynı yolu izler: önce sezgi, sonra bağıntılar, sonra
+anlatımıdır ve yirmi altı konuda aynı yolu izler: önce sezgi, sonra bağıntılar, sonra
 derinleşme, en sonda pekiştirme. Konu başına 12–15 başlık ve yaklaşık 3 000–4 500 sözcük;
 eski dokuz başlıklık anlatımın 2,5–5 katı. Eski anlatımdaki bilgi, çizim, örnek ve hata
 maddelerinin hepsi yerinde duruyor; üstüne kuruldu.
@@ -93,7 +117,7 @@ her basamakta Düşün, örneklerin zorluk sırası, görsel dosyaları, çip–
 çizim taşmaları ve modalın 390 px'te yatay taşmaması):
 
 ```bash
-NODE_PATH=$(npm root -g) node denetim/anlatim.js              # 18 konu
+NODE_PATH=$(npm root -g) node denetim/anlatim.js              # bütün konular (26)
 NODE_PATH=$(npm root -g) node denetim/anlatim.js kirilma
 ```
 
@@ -111,10 +135,11 @@ bu blokları tanır; yeni bir blok türü eklenirse `sunum/uret.js` de güncelle
 
 ## Konu anlatımı görselleri
 
-Her konunun anlatımında üç görsel var, toplam 54: **giriş** (konunun simge sahnesi: Ay'da
+Her konunun anlatımında üç temel görsel var (fizikte 54, kimyada 24; kimyada ayrıca 4 ek görsel): **giriş** (konunun simge sahnesi: Ay'da
 çekiç ve tüy, gökkuşağı, düşme kulesi…), **günlük** (Temel basamağın gözlemi) ve **uygulama**
-("gerçek dünyada" bölümü). Hepsi **Codex'in `$imagegen` becerisiyle**, `gpt-6-luna` modeli en
-yüksek akıl yürütme düzeyinde çalıştırılarak üretildi (yerleşik `image_gen` aracı, `gpt-image`;
+("gerçek dünyada" bölümü). Hepsi **Codex'in `$imagegen` becerisiyle** üretildi: fizik görselleri
+`gpt-6-luna` modeli en yüksek akıl yürütme düzeyinde, kimya görselleri `gpt-6.1-sol` ile
+(`uret.sh` modeli artık `~/.codex/config.toml`'dan alır) (yerleşik `image_gen` aracı, `gpt-image`;
 PNG'lerde OpenAI imzalı C2PA kaynak bilgisi var). Sitede ve slaytlarda üzerlerinde etiket yoktur.
 
 Üslup **sinematik, gerçekçi**: aynı sahneler premium bir resimli üslupla da denendi, gerçekçi
@@ -134,8 +159,9 @@ söyler.
 
 | Dosya | İş |
 |---|---|
-| `gorsel/istekler.json` | 54 sahne tarifi (İngilizce; fiziksel ayrıntılar açıkça yazılı) |
-| `gorsel/uret.sh` | Codex'i (`gpt-6-luna`) `$imagegen` ile çalıştırır; üret–incele–düzelt döngüsü ve üslup (`STIL=foto`, varsayılan; `STIL=illustrasyon` da var) istemin içinde |
+| `gorsel/istekler.json` | fiziğin 54 sahne tarifi (İngilizce; fiziksel ayrıntılar açıkça yazılı) |
+| `gorsel/istekler-kimya.json`, `istekler-kimya-ek.json` | kimyanın 24 + 4 sahne tarifi; `DERS=kimya ISTEK=gorsel/istekler-kimya.json bash gorsel/uret.sh --hepsi` |
+| `gorsel/uret.sh` | Codex'i `$imagegen` ile çalıştırır (model config'ten, `MODEL=` ile değişir; `DERS=fizik\|kimya` istemdeki ders ve doğruluk şartı); üret–incele–düzelt döngüsü ve üslup (`STIL=foto`, varsayılan; `STIL=illustrasyon` da var) istemin içinde |
 | `gorsel/donustur.sh` | `ham/*.png` → `dist/gorsel/<konu>-<ad>.webp` (1536 px) ve `-800.webp` |
 | `gorsel/ham/` | özgün PNG'ler (depoya girmez; sunucuda durur). Sunum üreticisi slayt görsellerini WebP'den değil bunlardan kırpar |
 
@@ -387,9 +413,154 @@ Tam yansımanın mühendislik uygulaması, dört bölümde:
 | 04 | Perdeye net görüntü | Cisim–perde uzaklığı sabitken mercek kaydırılır; `D > 4f` olduğunda iki net konumun bulunduğu bulanıklık göstergesiyle gösterilir. |
 | 05 | Hızlı kontrol | Beş soruluk test. |
 
+### Kimya · Enerji · Konu 01 · Tepkimelerde enerji değişimi
+
+Isı alan ve ısı veren olayları ölçülebilir kılan dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Kalorimetre laboratuvarı | Köpük bardakta beş olay: NaOH, CaCl₂, NH₄NO₃ ve NH₄Cl'nin çözünmesi, HCl + NaOH nötrleşmesi. Madde miktarı ve su kütlesi seçilir; **Ekle** ile sıcaklık ΔT = −n·ΔH/(m·c) değerine üstel yaklaşır. Sistem–çevre ısı okları, q ve ΔH okumaları; **T–t** grafiği sürüklenerek okunur. |
+| 02 | Isı alır mı, verir mi? | 22 kartlık sınıflandırma oyunu (fiziksel ve kimyasal olaylar): cevaptan sonra ısı okları, entalpi diyagramı, ΔH ve gerekçe; puan tutulur. |
+| 03 | Yakıtları karşılaştır | On yakıt mol ve gram başına; 1 kg suyu 20 °C'den 100 °C'ye ısıtmak için verime göre gereken yakıt, çıkan CO₂ ve gaz hacmi. |
+| 04 | Besinlerin enerjisi | Altı besinli kahvaltı tabağı: toplam kJ ve kcal, yağın payı ve yaklaşık yürüyüş süresi. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı dört basamakta 21 çizim ve 4 görsel içerir.
+
+### Kimya · Enerji · Konu 02 · Bağ enerjileri ve tepkime entalpisi
+
+Kırılan ve oluşan bağlardan tepkime ısısına giden dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Bağ kır, bağ kur | Altı tepkimede bağlar tek tek kırılır ve yeniden kurulur; altta enerji merdiveni: Σkırılan, Σoluşan ve ΔH. Adım adım ilerletilebilir. |
+| 02 | Bağın gücü ve uzunluğu | Sekiz bağın potansiyel enerji–uzaklık eğrisi; atom **sürüklenerek** uzaklaştırılır. Kuyunun dibi bağ enerjisi, yeri bağ uzunluğudur. |
+| 03 | Bilinmeyen bağ enerjisi | On soruluk bulmaca: ΔH ve öteki bağlardan bilinmeyen bağ bulunur; ±%2 tolerans, ipucu ve adım adım çözüm. |
+| 04 | Hesap ne kadar doğru? | Bağ enerjileriyle hesaplanan ΔH ile oluşum entalpilerinden gelen ölçülen değer yan yana; farkın nedenleri (ortalama değer, hâl değişimi). |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı dört basamakta 21 çizim ve 3 görsel içerir.
+
+### Kimya · Enerji · Konu 03 · Standart oluşum ve tepkime entalpisi
+
+Elementlerin sıfır noktasından tepkime ısısına giden dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Oluşum entalpisi laboratuvarı | Sekiz tepkime; entalpi diyagramında girenler → elementler (0) → ürünler yolu **Yolu göster** ile canlanır, hesap tablosu satır satır vurgulanır. |
+| 02 | Kararlılık çizelgesi | ΔH°f çubukları sıfırın altında ve üstünde; dokunulan maddenin oluşum denklemi ve yorumu; allotroplar (grafit/elmas, O₂/O₃). |
+| 03 | Fiziksel hâl farkı | H₂, CH₄ ve C₃H₈ yanmasında ürün suyun hâli (buz, sıvı, buhar): ΔH farkı ve moleküllerin düzeni. |
+| 04 | Ne kadar ısı? | Gram, NK'da litre ya da mol ile ısı hesabı; **Hedef ısı** görevi, ±%2. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı dört basamakta 21 çizim ve 3 görsel içerir.
+
+### Kimya · Hız · Konu 01 · Tepkimelerin gerçekleşme şartları
+
+Çarpışma teorisini ve aktifleşme enerjisini gösteren dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Çarpışma kutusu | A ve B tanecikleri çarpışır; çarpışma doğrultusundaki bağıl kinetik enerji eşikle karşılaştırılır, yönelim şartı açılıp kapatılır. Ürün–zaman grafiği ve çarpışma dökümü. |
+| 02 | Doğru uç, doğru yön | CO + NO₂: CO **sürüklenerek** yöneltilir; etkin çarpışmada aktifleşmiş kompleks ve CO₂ + NO oluşur, değilse esnek sekme. |
+| 03 | Enerji tepesi | Potansiyel enerji grafiğinde top enerjinin korunumuyla tepeye tırmanır; Ea(ileri), Ea(geri) ve ΔH okları. |
+| 04 | Kendini sürdüren tepkime | Izgarada kıvılcımla başlayan tepkime: ekzotermikte açığa çıkan ısı komşulara yeterse yayılır; endotermikte yalnız ısıtıcının altı tepkir. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı dört basamakta 20 çizim ve 3 görsel içerir.
+
+### Kimya · Hız · Konu 02 · Ortalama tepkime hızı
+
+Hızın tanımını, ölçümünü ve birimlerini işleyen dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Derişim–zaman laboratuvarı | 2N₂O₅ → 4NO₂ + O₂: üç derişim eğrisi; iki zaman işaretçisi **sürüklenerek** kesen ve ortalama hızlar; teğetle anlık hız. |
+| 02 | Katsayılar ve hızlar | Dört tepkimede bir maddenin hızı verilir; bütün maddelerin hızları katsayı oranında bloklarla gösterilir. |
+| 03 | Hızı ölçmek | Mg + HCl gaz şırıngasıyla ya da CaCO₃ + HCl teraziyle: 10 s'de bir tablo satırı, aralık hızları ve mol/s. |
+| 04 | Aynı hız, farklı birimler | On iki soruluk dönüşüm bulmacası: g/s, mol/s, L/s (NK), M/s. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı dört basamakta 19 çizim ve 4 görsel içerir.
+
+### Kimya · Hız · Konu 03 · Tepkime hızına etki eden faktörler
+
+Maddenin cinsi ve hâli, derişim ve sıcaklık; dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Derişim laboratuvarı | Pistonlu kapta A–B çarpışmaları sayılır; çarpışma sıklığı [A]·[B] ile orantılıdır. Piston **sürüklenir**. |
+| 02 | Sıcaklık ve enerji dağılımı | T₁ ve T₂ dağılımları, eşiği aşan paylar ve hız oranı; hazır sıcaklıklar (buzdolabı, oda, ateşli hasta, kaynar su). |
+| 03 | Maddenin cinsi | HCl'de Mg, Zn, Fe ve Cu; ikinci kipte Ag⁺ + Cl⁻ anında çöker. |
+| 04 | Fiziksel hâl | Pb(NO₃)₂ + 2KI: katı + katı ile çözelti + çözelti; iyonların yakın görünümü ve PbI₂ kütlesi–zaman grafiği. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı dört basamakta 19 çizim ve 4 görsel içerir.
+
+### Kimya · Hız · Konu 04 · Katalizör ve temas yüzeyi
+
+Katalizörün açtığı yolu ve temas yüzeyini gösteren dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Katalizör laboratuvarı | Potansiyel enerji eğrileri ve kinetik enerji dağılımı yan yana; tepe ya da eşik **sürüklenince** Ea(ileri) ve Ea(geri) aynı miktar değişir, ΔH sabit kalır. Katalizör ya da inhibitör. |
+| 02 | Hidrojen peroksit ve katalizör | Katalizörsüz, MnO₂, KI ve patates: O₂ hacmi–zaman eğrileri; son hacim aynı, MnO₂ kütlesi değişmez. |
+| 03 | Temas yüzeyi | 2 cm'lik mermer küp k³ parçaya bölünür (yüzey 24·k cm²); tek parça ile bölünmüş mermerin yarışı. |
+| 04 | Katalizör yüzeyinde | Katalitik konvertör benzetimi: CO ve O₂ platine tutunur, CO₂ oluşup ayrılır; zehirlenme anahtarı. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı dört basamakta 20 çizim ve 4 görsel içerir.
+
+### Kimya · Hız · Konu 05 · Hız denklemi
+
+Hız denklemini deneyle bulan ve basamakları ayıran dört bölüm:
+
+| # | Bölüm | Ne yapıyor |
+|---|---|---|
+| 01 | Başlangıç hızları laboratuvarı | Gizli dereceli tepkimede deney kurulur, başlangıç hızları tabloya yazılır; a ve b tahmin edilir, doğruysa k birimiyle hesaplanır. |
+| 02 | Derece ve grafik | 0., 1. ve 2. derecede Hız–[X] eğrisi; nokta **sürüklenir**, "2 katına çık" ×2ⁿ'i gösterir. |
+| 03 | Hacim değişince | Piston **sürüklenerek** hacim değişir; hız çarpanı (V₀/V)ⁿ; katı tepken hız denkleminde yer almaz. |
+| 04 | Çok basamaklı tepkime | Üç mekanizma bant benzetimiyle; ürün hızı en yavaş basamağa eşit kalır, ara ürün sayılır; çok tepeli potansiyel enerji eğrisi. |
+| 05 | Hızlı kontrol | Beş soruluk test, anında geri bildirim ve açıklama. |
+
+Konu anlatımı dört basamakta 21 çizim ve 3 görsel içerir.
+
+## Kimya bölümü: ortak kurallar
+
+Kimya sayfaları fizik sayfalarıyla aynı iskeleti, aynı stil bloğunu ve aynı tuval altyapısını
+(`kit`, tek animasyon döngüsü, `surukle`, grafik panelleri) taşır; marka satırında "kimya" yazar.
+Betik bloklarında ayrıca **kimya yardımcıları** vardır: `formul` (CH4 → CH₄), `atom`, `bag`,
+`molekul` ve sık kullanılan molekül şablonları (`MOL`), `okDikey`, potansiyel enerji–tepkime
+koordinatı paneli (`peDeger`, `pePanel`; kısımlar kosinüs eğrisiyle birleşir, tepe tam Ea
+seviyesindedir) ve kinetik enerji dağılımı paneli (`dagilim`, `esikUstu`, `mbPanel`; üç boyutlu
+ideal gaz dağılımı, eşik üstü pay erfc ile).
+
+Atomların renkleri alışılmış CPK renkleridir ve tema belirteçlerinden gelir (`--c-atom-h`,
+`--c-atom-c`, `--c-atom-o`, `--c-atom-n`, `--c-atom-cl`, … ; X, Y, Z genel tanecikler mor,
+turuncu, camgöbeği). SVG çizimlerde atom `circle.at.at-o`, üstündeki sembol `text.atl`
+(açık renkli atomlarda `atl dk`); koyu temada bütün semboller kendiliğinden koyu yazılır
+(karşıtlık ≥ 6 : 1).
+
+Çizimlerde renklerin anlamı: mavi girenler, yeşil ürünler ve sonuç, sarı ısı/enerji ve ΔH, mor
+aktifleşmiş kompleks, katalizörlü yol ya da ikinci sıcaklık, kırmızı enerji engeli (Ea), kırılan
+bağ ya da yanlış. Enerji grafiklerinde seviyeler ve ok boyları değerlerle orantılıdır.
+
+Bütün konularda aynı veri kullanılır: ortalama bağ enerjileri (C=O genel 745, CO₂'deki 799),
+standart oluşum entalpileri, yakıtların molar ve gram başına yanma ısıları (gram başına değerler
+tam sayılı mol kütleleriyle: H₂ 142,9 · CH₄ 55,6 · C₃H₈ 50,5 kJ/g), besin enerjileri (17 / 17 /
+37 kJ/g), su için c = 4,18 J/(g·°C), NK'da 22,4 L/mol. Gösterim: hâl simgeleri (k), (s), (g),
+(suda); ondalık virgül; bilimsel gösterim 2,0·10⁻³; dört haneli sayılarda binlik ayraç yok, beş
+ve daha çok hanede dar bölünmez boşluk; "25 °C'de". Lise kabulleri fasikülle uyumludur:
+sıcaklık, katalizör ve temas yüzeyi k'yı değiştirir, derişim değiştirmez; katalizör Ea(ileri) ve
+Ea(geri)'yi aynı miktar düşürür, ΔH'yi değiştirmez; katı ve saf sıvılar hız denkleminde yer almaz.
+
+Her konu yazıldıktan sonra bağımsız bir kimya hakeminden geçti (bütün sayılar yeniden
+hesaplandı, çizimler koordinattan ölçüldü, deney okumaları tarayıcıda denendi); bulunan hatalar
+düzeltildi.
+
 ## Sunumlar
 
-On sekiz konunun her biri için, sitede indirilebilir 38–47 slaytlık PowerPoint
+Yirmi altı konunun her biri için, sitede indirilebilir 117–157 slaytlık PowerPoint
 dosyaları. Her deste o konunun **konu anlatımından üretilir** ve onun dört basamaklı
 yolunu izler: aynı başlıklar, formüller, tablolar, çizimler ve görseller, aynı
 "Düşün" soruları ve kolaydan zora aynı çözümlü örnekler. Slaytta az metin kalır:
@@ -427,6 +598,24 @@ Optik ünitesi:
 | 07 | Prizmalar | [dersler.perinet.org/sunum/prizmalar.pptx](https://dersler.perinet.org/sunum/prizmalar.pptx) |
 | 08 | Mercekler | [dersler.perinet.org/sunum/mercekler.pptx](https://dersler.perinet.org/sunum/mercekler.pptx) |
 
+Kimya · Kimyasal Tepkimelerde Enerji ünitesi:
+
+| # | Sunum | Bağlantı |
+|---|---|---|
+| 01 | Tepkimelerde enerji değişimi | [dersler.perinet.org/sunum/enerji-degisimi.pptx](https://dersler.perinet.org/sunum/enerji-degisimi.pptx) |
+| 02 | Bağ enerjileri ve tepkime entalpisi | [dersler.perinet.org/sunum/bag-enerjisi.pptx](https://dersler.perinet.org/sunum/bag-enerjisi.pptx) |
+| 03 | Standart oluşum ve tepkime entalpisi | [dersler.perinet.org/sunum/olusum-entalpisi.pptx](https://dersler.perinet.org/sunum/olusum-entalpisi.pptx) |
+
+Kimya · Kimyasal Tepkimelerde Hız ünitesi:
+
+| # | Sunum | Bağlantı |
+|---|---|---|
+| 01 | Tepkimelerin gerçekleşme şartları | [dersler.perinet.org/sunum/carpisma-teorisi.pptx](https://dersler.perinet.org/sunum/carpisma-teorisi.pptx) |
+| 02 | Ortalama tepkime hızı | [dersler.perinet.org/sunum/tepkime-hizi.pptx](https://dersler.perinet.org/sunum/tepkime-hizi.pptx) |
+| 03 | Tepkime hızına etki eden faktörler | [dersler.perinet.org/sunum/hiz-faktorleri.pptx](https://dersler.perinet.org/sunum/hiz-faktorleri.pptx) |
+| 04 | Katalizör ve temas yüzeyi | [dersler.perinet.org/sunum/katalizor.pptx](https://dersler.perinet.org/sunum/katalizor.pptx) |
+| 05 | Hız denklemi | [dersler.perinet.org/sunum/hiz-denklemi.pptx](https://dersler.perinet.org/sunum/hiz-denklemi.pptx) |
+
 Her deste giriş görselli bir kapakla açılır; açılış sorusu ve dört sütunlu
 "bu derste" haritasından sonra her basamak koyu bir ayraç slaytıyla başlar (numara,
 açıklama, başlıklar; sağda günlük ya da uygulama görseli, temel bağıntılar ya da
@@ -434,16 +623,16 @@ zorluk rozetli örnek listesi). Bölüm slaytlarında başlığın altında "Kı
 ilgili çizim durur; "Düşün" soruları soru ve cevap olarak iki slayta ayrılır (deste
 başına en çok altı çift). Örnek başına bir çözüm slaydı (Kolay / Orta / Zor rozetiyle),
 iki sütunlu hata kartları ve özetle kapanır; tablolar PowerPoint'in kendi tablo
-nesneleridir. On sekiz dosya
-tek seferde
+nesneleridir. Yirmi altı dosya
+tek seferde (yaklaşık 72 MB)
 [dersler.perinet.org/sunum/dersler-sunumlar.zip](https://dersler.perinet.org/sunum/dersler-sunumlar.zip)
 adresinden de indirilebilir. Dosyalar `sunum/*.js` betikleriyle üretilir;
 ayrıntılar [`sunum/README.md`](sunum/README.md) içinde.
 
 ## Konu anlatımı çizimleri
 
-On sekiz konunun her birinde konu anlatımı modalı, altı–yedi **satır içi SVG
-çizimle** birlikte gelir; toplam 122 çizim. Her biri o başlığın mekanizmasını
+Yirmi altı konunun her birinde konu anlatımı modalı 16–21 **satır içi SVG
+çizimle** birlikte gelir; toplam 492 çizim (fizikte 330, kimyada 162). Her biri o başlığın mekanizmasını
 gösterir: strobo izleri, serbest cisim diyagramları, ışın çizimleri, alan
 haritaları, vektör üçgenleri, karşılaştırma çubukları ve grafikler. Altlarındaki
 açıklama, çizimin ne söylediğini bir paragrafta bağlar. Modalın başında ayrıca
@@ -536,7 +725,7 @@ geçebilecek oklardan ve ışınlardan sonra çizilir; bir etiket dar tuvalde ba
 bir etiketle ya da rozetle çakışacaksa yer değiştirir (ör. aynaya çok yaklaşan
 cismin ölçüleri aynanın iki yanına ayrılır).
 
-Animasyon altyapısı on sekiz sayfada birebir aynıdır (`kit`, tek
+Animasyon altyapısı yirmi altı sayfada birebir aynıdır (`kit`, tek
 `requestAnimationFrame` döngüsü, `surukle`):
 
 - Döngü gerçek geçen süreyle ilerler, kare hızından bağımsızdır; kare başına 50 ms
@@ -581,15 +770,23 @@ dist/                        yayınlanan kök (nginx bunu sunar)
   fiber-optik.html           3. ünite · konu 06 · fiber optik
   prizmalar.html             3. ünite · konu 07 · prizmalar
   mercekler.html             3. ünite · konu 08 · mercekler
+  enerji-degisimi.html       kimya 1. ünite · konu 01 · tepkimelerde enerji değişimi
+  bag-enerjisi.html          kimya 1. ünite · konu 02 · bağ enerjileri ve tepkime entalpisi
+  olusum-entalpisi.html      kimya 1. ünite · konu 03 · standart oluşum ve tepkime entalpisi
+  carpisma-teorisi.html      kimya 2. ünite · konu 01 · tepkimelerin gerçekleşme şartları
+  tepkime-hizi.html          kimya 2. ünite · konu 02 · ortalama tepkime hızı
+  hiz-faktorleri.html        kimya 2. ünite · konu 03 · tepkime hızına etki eden faktörler
+  katalizor.html             kimya 2. ünite · konu 04 · katalizör ve temas yüzeyi
+  hiz-denklemi.html          kimya 2. ünite · konu 05 · hız denklemi
   404.html                   özel hata sayfası (nginx error_page)
   erisim.js                  erişim arayüzü: kilitler, indirme düğmeleri (her sayfada)
   favicon.svg, icon-*.png    site simgesi; apple-touch-icon.png ve maskable ikon
   og.png                     paylaşım kartı görseli (1200×630)
-  gorsel/*.webp              konu anlatımı görselleri (54 × 1536 px ve 800 px; kapısız)
+  gorsel/*.webp              konu anlatımı görselleri (fizik 54, kimya 28; 1536 px ve 800 px; kapısız)
   manifest.webmanifest       ana ekrana ekleme
   sitemap.xml, robots.txt    arama motorları (yalnızca ana sayfa bildirilir)
   sunum/*.pptx               indirilebilir ders sunumları
-  sunum/dersler-sunumlar.zip on sekiz sunum tek dosyada
+  sunum/dersler-sunumlar.zip yirmi altı sunum tek dosyada
 stil/                        ortak tasarım dilinin kaynağı
   konu.css                   konu sayfalarının tamamında birebir aynı stil bloğu
   anasayfa.css               ana sayfaya özgü bileşenler (konu.css tabanının üstüne)
@@ -604,7 +801,8 @@ denetim/                     deneylerin tarayıcıda denetimi (puppeteer)
   deney.js                   hata, boş tuval, taşma, sıfırlama, ekran dışı çizim, takılma
   anlatim.js                 konu anlatımının yapısı: basamaklar, Kısaca, Düşün, örnekler, görseller, 390 px
 gorsel/                      görsellerin üreticisi (Codex $imagegen)
-  istekler.json              54 sahne tarifi
+  istekler.json              fiziğin 54 sahne tarifi
+  istekler-kimya*.json       kimyanın 24 + 4 sahne tarifi
   uret.sh                    codex exec ile tek görsel ya da hepsi (--hepsi)
   donustur.sh                ham PNG → dist/gorsel/*.webp
   ham/                       özgün PNG'ler (depoya girmez)
@@ -635,7 +833,7 @@ düzenlenir ve
 node stil/uygula.js
 ```
 
-çalıştırılır; betik on sekiz konu sayfasının ve ana sayfanın `<style>` bloğunu
+çalıştırılır; betik yirmi altı konu sayfasının ve ana sayfanın `<style>` bloğunu
 yeniler, başka hiçbir şeye dokunmaz. Konu sayfalarına özel bir stil gerekirse
 ilgili sayfanın kendi bloğuna değil, `konu.css` içine yazılmalıdır; aksi hâlde
 bir sonraki uygulamada silinir.
@@ -657,7 +855,7 @@ Denetim tarayıcıda değil sunucuda yapılır. nginx her korunan istek için
 `auth_request` ile kapıya sorar; kapı 204 derse dosyayı nginx verir, 401/403
 derse ziyaretçi giriş ekranına düşer. Sayfalardaki kilit işaretleri yalnızca
 görünürlük içindir — adresi doğrudan yazmak da işe yaramaz. Bu işaretleri ana
-sayfa ile on sekiz konu sayfasının paylaştığı
+sayfa ile yirmi altı konu sayfasının paylaştığı
 [`dist/erisim.js`](dist/erisim.js) koyar: kapalı konular "Kod gerekli"
 rozetiyle görünür, indirilemeyecek bir sunum indirme düğmesi gibi durmaz (kodu
 olmayana kilit, kodu olup izni olmayana hiç görünmez).
@@ -738,7 +936,7 @@ uçlar yine `curl` ile denenebilir.
 ## Deneyleri denetlemek
 
 Sunumlar için `sunum/onizleme.js` neyse, deneyler için `denetim/deney.js` odur:
-on sekiz sayfayı gerçek bir tarayıcıda (puppeteer) açar, her deneyi başlatır ve
+yirmi altı sayfayı gerçek bir tarayıcıda (puppeteer) açar, her deneyi başlatır ve
 bozulmaları sayar.
 
 ```bash

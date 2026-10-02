@@ -64,6 +64,21 @@
         --c-ring: #ffffff;
         --c-outline: #26324f;
         --c-scene: #ffffff;
+
+        /* kimya: atom renkleri (alışılmış CPK renkleri; X, Y, Z genel tanecikler) */
+        --c-atom-h: #f3f5fb;
+        --c-atom-c: #3b4358;
+        --c-atom-o: #d8344e;
+        --c-atom-n: #2f5fd6;
+        --c-atom-cl: #3e9b3a;
+        --c-atom-s: #d9a520;
+        --c-atom-br: #9b3b2a;
+        --c-atom-i: #6d3fb8;
+        --c-atom-x: #6f55e6;
+        --c-atom-y: #e0861b;
+        --c-atom-z: #17988f;
+        --c-atom-m: #9aa3b5;
+        --c-atom-kenar: rgba(14, 20, 38, 0.42);
       }
 
       :root[data-theme="dark"] {
@@ -121,6 +136,20 @@
         --c-ring: #0a0e1b;
         --c-outline: #060a16;
         --c-scene: #0d1223;
+
+        --c-atom-h: #eef1f8;
+        --c-atom-c: #8b94ad;
+        --c-atom-o: #ff667c;
+        --c-atom-n: #7fa6ff;
+        --c-atom-cl: #8edc6a;
+        --c-atom-s: #ffd257;
+        --c-atom-br: #e07a62;
+        --c-atom-i: #b89aff;
+        --c-atom-x: #a493ff;
+        --c-atom-y: #ffb35c;
+        --c-atom-z: #5fd6c9;
+        --c-atom-m: #b6bdcc;
+        --c-atom-kenar: rgba(0, 0, 0, 0.55);
       }
 
       /* ================= temel ================= */
@@ -1522,6 +1551,25 @@
       .fx .wg { fill: color-mix(in srgb, var(--lime) 18%, transparent); }
       .fx .wr { fill: color-mix(in srgb, var(--rose) 15%, transparent); }
       .fx .wk { fill: color-mix(in srgb, var(--ink) 7%, transparent); }
+
+      /* kimya: atomlar (daire) ve üstlerindeki semboller */
+      .fx .at { stroke: var(--c-atom-kenar); stroke-width: 1.4; }
+      .fx .at-h { fill: var(--c-atom-h); }
+      .fx .at-c { fill: var(--c-atom-c); }
+      .fx .at-o { fill: var(--c-atom-o); }
+      .fx .at-n { fill: var(--c-atom-n); }
+      .fx .at-cl { fill: var(--c-atom-cl); }
+      .fx .at-s { fill: var(--c-atom-s); }
+      .fx .at-br { fill: var(--c-atom-br); }
+      .fx .at-i { fill: var(--c-atom-i); }
+      .fx .at-x { fill: var(--c-atom-x); }
+      .fx .at-y { fill: var(--c-atom-y); }
+      .fx .at-z { fill: var(--c-atom-z); }
+      .fx .at-m { fill: var(--c-atom-m); }
+      .fx .atl { font-size: 14px; font-weight: 750; text-anchor: middle; dominant-baseline: central; fill: #ffffff; }
+      .fx .atl.dk { fill: #101528; }
+      /* koyu temada atomlar açık tonlu: bütün semboller koyu yazılır (karşıtlık ≥ 6:1) */
+      :root[data-theme="dark"] .fx .atl { fill: #101528; }
 
       .fx .flow { animation: figflow 1.7s linear infinite; }
 

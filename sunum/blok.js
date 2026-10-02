@@ -20,7 +20,7 @@ function kapak(p, o) {
   s.addShape("roundRect", { x: 0.95, y: 0.9, w: 0.34, h: 0.34, rectRadius: 0.1,
     fill: { color: "A9E648" }, line: { type: "none" } });
   s.addText([{ text: "Dersler", options: { color: C.white, bold: true } },
-    { text: "  ·  fizik", options: { color: "8D97B5" } }],
+    { text: "  ·  " + (o.ders || "fizik"), options: { color: "8D97B5" } }],
     { x: 1.4, y: 0.9, w: 4, h: 0.34, fontFace: F.body, fontSize: 12.5, valign: "middle",
       isTextBox: true, margin: 0 });
   s.addShape("rect", { x: 0.7, y: 2.15, w: 0.06, h: 1.2, fill: { color: C.limeBright },

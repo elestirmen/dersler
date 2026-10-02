@@ -40,6 +40,27 @@ export const UNITELER = [
       { slug: "mercekler", ad: "Mercekler" },
     ],
   },
+  // Kimya
+  {
+    kod: "tepkimelerde-enerji",
+    ad: "Kimyasal Tepkimelerde Enerji",
+    konular: [
+      { slug: "enerji-degisimi", ad: "Tepkimelerde enerji değişimi" },
+      { slug: "bag-enerjisi", ad: "Bağ enerjileri ve tepkime entalpisi" },
+      { slug: "olusum-entalpisi", ad: "Standart oluşum ve tepkime entalpisi" },
+    ],
+  },
+  {
+    kod: "tepkimelerde-hiz",
+    ad: "Kimyasal Tepkimelerde Hız",
+    konular: [
+      { slug: "carpisma-teorisi", ad: "Tepkimelerin gerçekleşme şartları" },
+      { slug: "tepkime-hizi", ad: "Ortalama tepkime hızı" },
+      { slug: "hiz-faktorleri", ad: "Tepkime hızına etki eden faktörler" },
+      { slug: "katalizor", ad: "Katalizör ve temas yüzeyi" },
+      { slug: "hiz-denklemi", ad: "Hız denklemi" },
+    ],
+  },
 ];
 
 // Düz liste: ["serbest-dusme", "iki-boyutta-hareket", ...]

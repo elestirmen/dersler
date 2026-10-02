@@ -1,7 +1,7 @@
 # Sunumlar
 
 Ders sayfalarıyla aynı paleti ve dili kullanan, 16:9 PowerPoint sunumları.
-On sekiz konunun her biri için bir deste; **her deste, o konunun "Konu
+Yirmi altı konunun (fizik 18, kimya 8) her biri için bir deste; **her deste, o konunun "Konu
 anlatımı" modalından üretilir** ve onun dört basamaklı yolunu izler (Temel →
 Orta → İleri → Pekiştir): aynı başlıklar, formüller, tablolar, çizimler ve
 görseller, aynı "Düşün" soruları, kolaydan zora aynı çözümlü örnekler.
@@ -11,7 +11,8 @@ başına 100'ü aşkın slayt.
 Çıktılar doğrudan yayınlanan köke, `dist/sunum/` altına yazılır; yani üretildiği
 anda `dersler.perinet.org/sunum/...` adresinden indirilebilir. Ders sayfalarındaki
 **Sunum (PPTX)** düğmesi ve giriş sayfasındaki *Sunumlar* bölümü buraya bakar;
-`dersler-sunumlar.zip` on sekizini bir arada verir.
+`dersler-sunumlar.zip` hepsini bir arada verir. Kapaktaki ders adı ("Dersler · fizik",
+"Dersler · kimya") konu sayfasının marka satırından okunur.
 
 ## Bir destenin yapısı
 

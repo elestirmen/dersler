@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f4f5f9" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0a0e1b" media="(prefers-color-scheme: dark)" />
-    <meta name="description" content="Fizik dersi üç ünite ve on sekiz konu hâlinde: Kuvvet ve Hareket, Elektrik ve Manyetizma, Optik. Her konu tek sayfa; konu anlatımı, 72 etkileşimli laboratuvar, canlı grafikler, hızlı test ve indirilebilir sunum." />
-    <title>Dersler — Fiziği deneyerek öğren</title>
+    <meta name="description" content="Fizik ve kimya dersleri beş ünite ve yirmi altı konu hâlinde: Kuvvet ve Hareket, Elektrik ve Manyetizma, Optik; Kimyasal Tepkimelerde Enerji ve Hız. Her konu tek sayfa; konu anlatımı, 104 etkileşimli laboratuvar, canlı grafikler, hızlı test ve indirilebilir sunum." />
+    <title>Dersler — Fiziği ve kimyayı deneyerek öğren</title>
     <link rel="canonical" href="https://dersler.perinet.org/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dersler" />
     <meta property="og:locale" content="tr_TR" />
     <meta property="og:title" content="Dersler — Fiziği deneyerek öğren" />
-    <meta property="og:description" content="Fizik dersi üç ünite ve on sekiz konu hâlinde: Kuvvet ve Hareket, Elektrik ve Manyetizma, Optik. Her konu tek sayfa; konu anlatımı, 72 etkileşimli laboratuvar, canlı grafikler, hızlı test ve indirilebilir sunum." />
+    <meta property="og:description" content="Fizik ve kimya dersleri beş ünite ve yirmi altı konu hâlinde: Kuvvet ve Hareket, Elektrik ve Manyetizma, Optik; Kimyasal Tepkimelerde Enerji ve Hız. Her konu tek sayfa; konu anlatımı, 104 etkileşimli laboratuvar, canlı grafikler, hızlı test ve indirilebilir sunum." />
     <meta property="og:url" content="https://dersler.perinet.org/" />
     <meta property="og:image" content="https://dersler.perinet.org/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Dersler — Fiziği deneyerek öğren" />
-    <meta name="twitter:description" content="Fizik dersi üç ünite ve on sekiz konu hâlinde: Kuvvet ve Hareket, Elektrik ve Manyetizma, Optik. Her konu tek sayfa; konu anlatımı, 72 etkileşimli laboratuvar, canlı grafikler, hızlı test ve indirilebilir sunum." />
+    <meta name="twitter:description" content="Fizik ve kimya dersleri beş ünite ve yirmi altı konu hâlinde: Kuvvet ve Hareket, Elektrik ve Manyetizma, Optik; Kimyasal Tepkimelerde Enerji ve Hız. Her konu tek sayfa; konu anlatımı, 104 etkileşimli laboratuvar, canlı grafikler, hızlı test ve indirilebilir sunum." />
     <meta name="twitter:image" content="https://dersler.perinet.org/og.png" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -94,6 +94,21 @@
         --c-ring: #ffffff;
         --c-outline: #26324f;
         --c-scene: #ffffff;
+
+        /* kimya: atom renkleri (alışılmış CPK renkleri; X, Y, Z genel tanecikler) */
+        --c-atom-h: #f3f5fb;
+        --c-atom-c: #3b4358;
+        --c-atom-o: #d8344e;
+        --c-atom-n: #2f5fd6;
+        --c-atom-cl: #3e9b3a;
+        --c-atom-s: #d9a520;
+        --c-atom-br: #9b3b2a;
+        --c-atom-i: #6d3fb8;
+        --c-atom-x: #6f55e6;
+        --c-atom-y: #e0861b;
+        --c-atom-z: #17988f;
+        --c-atom-m: #9aa3b5;
+        --c-atom-kenar: rgba(14, 20, 38, 0.42);
       }
 
       :root[data-theme="dark"] {
@@ -151,6 +166,20 @@
         --c-ring: #0a0e1b;
         --c-outline: #060a16;
         --c-scene: #0d1223;
+
+        --c-atom-h: #eef1f8;
+        --c-atom-c: #8b94ad;
+        --c-atom-o: #ff667c;
+        --c-atom-n: #7fa6ff;
+        --c-atom-cl: #8edc6a;
+        --c-atom-s: #ffd257;
+        --c-atom-br: #e07a62;
+        --c-atom-i: #b89aff;
+        --c-atom-x: #a493ff;
+        --c-atom-y: #ffb35c;
+        --c-atom-z: #5fd6c9;
+        --c-atom-m: #b6bdcc;
+        --c-atom-kenar: rgba(0, 0, 0, 0.55);
       }
 
       /* ================= temel ================= */
@@ -999,6 +1028,59 @@
 
       .section-heading b { color: var(--ink); font-weight: 650; }
 
+      /* ================= dersler ================= */
+      .filtre-grup { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+      .filters .filtre-ders {
+        align-self: center;
+        margin: 0 0 0 10px;
+        color: var(--dim);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .ders-bas {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 6px 16px;
+        margin: 56px 6px 0;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .ders-bas.ilk { margin-top: 18px; }
+      .ders-bas[hidden] { display: none; }
+
+      .ders-bas h3 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 2.2rem;
+        font-weight: 560;
+        font-style: italic;
+        font-variation-settings: "SOFT" 30, "WONK" 0;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+
+      .ders-bas p { margin: 0; color: var(--dim); font-size: 0.88rem; }
+      .ders-bas p b { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
+
+      .dl-grid .dl-ders {
+        grid-column: 1 / -1;
+        margin: 10px 4px -2px;
+        color: var(--dim);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .dl-grid .dl-ders:first-child { margin-top: 0; }
+      .dl-grid .dl-ders[hidden] { display: none; }
+
       /* ================= üniteler ================= */
       .grid {
         display: grid;
@@ -1606,7 +1688,7 @@
               <path d="M4 5.5v16M8 7h8M8 11h7" />
             </svg>
           </span>
-          <span>Dersler<small>fizik</small></span>
+          <span>Dersler<small>fizik · kimya</small></span>
         </a>
 
         <nav class="header-nav" aria-label="Bölümler">
@@ -1641,9 +1723,9 @@
         <canvas class="hero-art" aria-hidden="true"></canvas>
         <div>
           <p class="eyebrow">Öğrenme alanı</p>
-          <h1 id="page-title">Fiziği <span>deneyerek</span> öğren.</h1>
+          <h1 id="page-title">Fiziği ve kimyayı <span>deneyerek</span> öğren.</h1>
           <p class="lead">
-            Fizik dersi, üç ünite ve on sekiz konu hâlinde. Her konu tek sayfa: konu anlatımı,
+            Fizik ve kimya, beş ünite ve yirmi altı konu hâlinde. Her konu tek sayfa: konu anlatımı,
             dokunup oynadığın laboratuvarlar, canlı grafikler ve hızlı test.
           </p>
 
@@ -1653,41 +1735,49 @@
               <path d="m20 20-3.6-3.6" />
             </svg>
             <input id="q" type="search" autocomplete="off"
-              placeholder="Konu ara: kuvvet, mercek, manyetik alan…"
+              placeholder="Konu ara: kuvvet, mercek, entalpi, katalizör…"
               aria-label="Konularda ve sunumlarda ara" />
             <kbd aria-hidden="true">/</kbd>
           </form>
 
           <div class="filters" id="filters" role="group" aria-label="Konu filtresi">
             <button type="button" data-unit="all" aria-pressed="true">Tümü</button>
-            <button type="button" data-unit="kuvvet-ve-hareket" aria-pressed="false">Kuvvet ve Hareket</button>
-            <button type="button" data-unit="elektrik-ve-manyetizma" aria-pressed="false">Elektrik ve Manyetizma</button>
-            <button type="button" data-unit="optik" aria-pressed="false">Optik</button>
+            <span class="filtre-grup">
+              <span class="filtre-ders" aria-hidden="true">Fizik</span>
+              <button type="button" data-unit="kuvvet-ve-hareket" aria-pressed="false">Kuvvet ve Hareket</button>
+              <button type="button" data-unit="elektrik-ve-manyetizma" aria-pressed="false">Elektrik ve Manyetizma</button>
+              <button type="button" data-unit="optik" aria-pressed="false">Optik</button>
+            </span>
+            <span class="filtre-grup">
+              <span class="filtre-ders" aria-hidden="true">Kimya</span>
+              <button type="button" data-unit="tepkimelerde-enerji" aria-pressed="false">Tepkimelerde Enerji</button>
+              <button type="button" data-unit="tepkimelerde-hiz" aria-pressed="false">Tepkimelerde Hız</button>
+            </span>
           </div>
         </div>
 
         <aside class="latest" aria-labelledby="latest-title">
-          <span class="card-label">Yeni · Ünite 03</span>
-          <h2 id="latest-title">Optik</h2>
-          <p>Aydınlanmadan merceklere sekiz konu, otuz iki etkileşimli deney ve sekiz sunum yayında.</p>
-          <a class="button" href="#optik">
+          <span class="card-label">Yeni · Kimya</span>
+          <h2 id="latest-title">Tepkimelerde enerji ve hız</h2>
+          <p>Kimyanın ilk iki ünitesi: ısı veren ve ısı alan olaylardan hız denklemine sekiz konu, otuz iki etkileşimli deney ve sekiz sunum yayında.</p>
+          <a class="button" href="#tepkimelerde-enerji">
             Konulara git
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
           </a>
           <div class="card-footer">
-            <span class="status">18 konu yayında</span>
-            <span>Fizik</span>
+            <span class="status">26 konu yayında</span>
+            <span>Fizik · Kimya</span>
           </div>
         </aside>
       </section>
 
       <ul class="stats-strip reveal" aria-label="Sitede neler var">
-        <li><b>18</b><span>konu · üç ünite</span></li>
-        <li><b>72</b><span>etkileşimli deney</span></li>
-        <li><b>176</b><span>çizim ve görsel</span></li>
-        <li><b>18</b><span>indirilebilir sunum</span></li>
+        <li><b>26</b><span>konu · beş ünite</span></li>
+        <li><b>104</b><span>etkileşimli deney</span></li>
+        <li><b>611</b><span>çizim ve görsel</span></li>
+        <li><b>26</b><span>indirilebilir sunum</span></li>
       </ul>
 
       <div class="erisim-serit" id="erisim-serit" hidden>
@@ -1698,10 +1788,15 @@
       <section class="section reveal" id="dersler" aria-labelledby="units-title">
         <div class="section-heading">
           <h2 id="units-title">Üniteler</h2>
-          <p id="result-count" aria-live="polite"><b>3 ünite</b> · 18 konu · 72 etkileşimli bölüm</p>
+          <p id="result-count" aria-live="polite"><b>5 ünite</b> · 26 konu · 104 etkileşimli bölüm</p>
         </div>
 
-        <article class="unit" id="kuvvet-ve-hareket" aria-labelledby="unit-1-title">
+        <div class="ders-bas ilk" id="fizik" data-ders="fizik">
+          <h3>Fizik</h3>
+          <p><b>3</b> ünite · <b>18</b> konu · 11. sınıf</p>
+        </div>
+
+        <article class="unit" id="kuvvet-ve-hareket" data-ders="fizik" aria-labelledby="unit-1-title">
           <div class="unit-head">
             <span class="unit-no" aria-hidden="true">01</span>
             <div class="unit-title">
@@ -1914,7 +2009,7 @@
           </div>
         </article>
 
-        <article class="unit" id="elektrik-ve-manyetizma" style="--utone: var(--violet)" aria-labelledby="unit-2-title">
+        <article class="unit" id="elektrik-ve-manyetizma" data-ders="fizik" style="--utone: var(--violet)" aria-labelledby="unit-2-title">
           <div class="unit-head">
             <span class="unit-no" aria-hidden="true">02</span>
             <div class="unit-title">
@@ -2061,7 +2156,7 @@
           </div>
         </article>
 
-        <article class="unit" id="optik" style="--utone: var(--amber)" aria-labelledby="unit-3-title">
+        <article class="unit" id="optik" data-ders="fizik" style="--utone: var(--amber)" aria-labelledby="unit-3-title">
           <div class="unit-head">
             <span class="unit-no" aria-hidden="true">03</span>
             <div class="unit-title">
@@ -2338,6 +2433,287 @@
           </div>
         </article>
 
+        <div class="ders-bas" id="kimya" data-ders="kimya">
+          <h3>Kimya</h3>
+          <p><b>2</b> ünite · <b>8</b> konu · 11. sınıf, 1. tema: Etkileşim</p>
+        </div>
+
+        <article class="unit" id="tepkimelerde-enerji" data-ders="kimya" style="--utone: var(--rose)" aria-labelledby="unit-4-title">
+          <div class="unit-head">
+            <span class="unit-no" aria-hidden="true">01</span>
+            <div class="unit-title">
+              <span class="tag">Kimya · Ünite</span>
+              <h3 id="unit-4-title">Kimyasal Tepkimelerde Enerji</h3>
+              <p>Her tepkime bir enerji alışverişidir: önce ısı alan ve ısı veren olaylar, sonra tepkime ısısının bağ enerjileriyle ve oluşum entalpileriyle hesabı. 11. sınıf, 1. tema (Etkileşim); konular Maarif Modeli müfredatındaki sırayla.</p>
+            </div>
+            <span class="unit-meta"><b>3</b> konu</span>
+          </div>
+
+          <div class="grid">
+          <article class="lesson" data-unit="tepkimelerde-enerji"
+            data-tags="enerji değişimi endotermik ekzotermik ısı alan ısı veren sistem çevre evren entalpi ΔH kalorimetre q=mcΔT yakıt yanma ısısı kj/g hidrojen besin enerjisi soğuk kompres sıcak paket fosil yakıt co2 termokimya">
+            <span class="no" aria-hidden="true">01</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.2c.9 3.3 5.2 5.4 5.2 10.1a5.2 5.2 0 0 1-10.4 0c0-2.6 1.4-4.2 2.6-5.7.3 1.7 1 2.7 2.1 3.2-.1-2.6-.5-5.1.5-7.6z" />
+              </svg>
+            </span>
+            <span class="tag">Termokimya · ısı</span>
+            <h3><a href="enerji-degisimi.html">Tepkimelerde enerji değişimi</a></h3>
+            <p>Isı alan ve ısı veren olaylar, sistem ve çevre. Kalorimetre laboratuvarı, endotermik–ekzotermik oyunu, yakıt ve besin karşılaştırması.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>T–t grafiği</li>
+              <li>Yakıtlar kJ/g</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Konuya git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/enerji-degisimi.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+
+          <article class="lesson" data-unit="tepkimelerde-enerji" style="--tone: var(--amber)"
+            data-tags="bağ enerjisi kovalent bağ kırılması oluşumu tepkime entalpisi ortalama bağ enerjisi tekli ikili üçlü bağ uzunluğu potansiyel enerji grafiği metan yanması asetilen kaynak">
+            <span class="no" aria-hidden="true">02</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6.5" cy="12" r="3.4" /><circle cx="17.5" cy="12" r="3.4" /><path d="M9.9 12h1.3M12.8 12h1.3" />
+              </svg>
+            </span>
+            <span class="tag">Termokimya · bağlar</span>
+            <h3><a href="bag-enerjisi.html">Bağ enerjileri ve tepkime entalpisi</a></h3>
+            <p>Bağ kırmak enerji ister, bağ kurmak enerji verir. Bağ kır–bağ kur merdiveni, bağın gücü, bilinmeyen bağ bulmacası ve hesabın sınırları.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>Enerji merdiveni</li>
+              <li>Σkırılan − Σoluşan</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Konuya git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/bag-enerjisi.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+
+          <article class="lesson" data-unit="tepkimelerde-enerji" style="--tone: var(--violet)"
+            data-tags="standart oluşum entalpisi ΔHf° tepkime entalpisi standart koşullar 25 °C 1 atm element sıfır kararlı hâl elmas grafit ozon termit yanma entalpisi fiziksel hâl">
+            <span class="no" aria-hidden="true">03</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.5 6h7M13.5 11.5h7M3.5 18h7" /><path d="M10.5 6l3 5.5M10.5 18l3-6.5" opacity=".55" />
+              </svg>
+            </span>
+            <span class="tag">Termokimya · tablolar</span>
+            <h3><a href="olusum-entalpisi.html">Standart oluşum ve tepkime entalpisi</a></h3>
+            <p>Kararlı elementlerin entalpisi sıfır kabul edilir; her bileşiğin bir oluşum entalpisi vardır. Oluşum entalpisi laboratuvarı, kararlılık çizelgesi, hâl farkı ve ısı hesabı.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>ΔH° = Σürün − Σgiren</li>
+              <li>Elmas ve grafit</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Konuya git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/olusum-entalpisi.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+          </div>
+        </article>
+
+        <article class="unit" id="tepkimelerde-hiz" data-ders="kimya" style="--utone: var(--lime)" aria-labelledby="unit-5-title">
+          <div class="unit-head">
+            <span class="unit-no" aria-hidden="true">02</span>
+            <div class="unit-title">
+              <span class="tag">Kimya · Ünite</span>
+              <h3 id="unit-5-title">Kimyasal Tepkimelerde Hız</h3>
+              <p>Tepkimeler neden ve ne kadar hızlı yürür? Çarpışma teorisi ve aktifleşme enerjisinden ortalama hıza, hızı değiştiren faktörlerden katalizöre ve hız denklemine beş konu. Konular Maarif Modeli müfredatındaki sırayla.</p>
+            </div>
+            <span class="unit-meta"><b>5</b> konu</span>
+          </div>
+
+          <div class="grid">
+          <article class="lesson" data-unit="tepkimelerde-hiz"
+            data-tags="çarpışma teorisi etkin çarpışma yönelim eşik enerjisi aktifleşme enerjisi aktivasyon aktifleşmiş kompleks potansiyel enerji tepkime koordinatı ileri geri ekzotermik endotermik kibrit">
+            <span class="no" aria-hidden="true">01</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8.2" cy="13.5" r="4" /><circle cx="16.6" cy="10.2" r="3" /><path d="M12.4 5.6V3.6M15.4 6.6l1.2-1.6M9.4 6.6 8.2 5" opacity=".6" />
+              </svg>
+            </span>
+            <span class="tag">Kinetik · çarpışma</span>
+            <h3><a href="carpisma-teorisi.html">Tepkimelerin gerçekleşme şartları</a></h3>
+            <p>Tanecikler çarpışmalı, ama her çarpışma ürün vermez. Çarpışma kutusu, yönelim deneyi, enerji tepesi ve kendini sürdüren tepkime.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>Aktifleşme enerjisi</li>
+              <li>Etkin çarpışma</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Konuya git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/carpisma-teorisi.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+
+          <article class="lesson" data-unit="tepkimelerde-hiz" style="--tone: var(--lime)"
+            data-tags="ortalama tepkime hızı anlık hız harcanma hızı oluşma hızı derişim zaman grafiği molarite katsayı mol/s g/s gaz şırıngası kütle kaybı">
+            <span class="no" aria-hidden="true">02</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="13.6" r="7" /><path d="M12 13.6V9.6M10 3h4M12 3v3.6M17.3 6.6l1.4-1.4" />
+              </svg>
+            </span>
+            <span class="tag">Kinetik · hız</span>
+            <h3><a href="tepkime-hizi.html">Ortalama tepkime hızı</a></h3>
+            <p>Birim zamanda harcanan ya da oluşan madde. Derişim–zaman laboratuvarı, katsayılar ve hızlar, gaz şırıngasıyla hız ölçümü ve birim dönüşümü.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>[X]–t grafiği</li>
+              <li>Ortalama ve anlık hız</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Konuya git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/tepkime-hizi.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+
+          <article class="lesson" data-unit="tepkimelerde-hiz" style="--tone: var(--amber)"
+            data-tags="tepkime hızı faktörler derişim sıcaklık maddenin cinsi fiziksel hâl kinetik enerji dağılımı eşik buzdolabı ışık çubuğu çarpışma sayısı metal asit">
+            <span class="no" aria-hidden="true">03</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 4.6a2 2 0 0 1 4 0v8.9a4 4 0 1 1-4 0z" /><path d="M12 9v7.4" /><path d="M17.5 6.5h2M17.5 10h2" opacity=".55" />
+              </svg>
+            </span>
+            <span class="tag">Kinetik · faktörler</span>
+            <h3><a href="hiz-faktorleri.html">Tepkime hızına etki eden faktörler</a></h3>
+            <p>Maddenin cinsi ve hâli, derişim ve sıcaklık. Derişim laboratuvarı, kinetik enerji dağılımı, metal–asit karşılaştırması ve katı–çözelti farkı.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>Enerji dağılımı</li>
+              <li>Derişim ve sıcaklık</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Konuya git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/hiz-faktorleri.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+
+          <article class="lesson" data-unit="tepkimelerde-hiz" style="--tone: var(--violet)"
+            data-tags="katalizör inhibitör enzim katalaz homojen heterojen aktifleşme enerjisi temas yüzeyi toz hidrojen peroksit fil diş macunu katalitik konvertör platin">
+            <span class="no" aria-hidden="true">04</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 17.5c3 0 4.2-10 9-10s6 10 9 10" /><path d="M3 17.5c3 0 5-4.8 9-4.8s6 4.8 9 4.8" stroke-dasharray="2 2.6" opacity=".6" />
+              </svg>
+            </span>
+            <span class="tag">Kinetik · katalizör</span>
+            <h3><a href="katalizor.html">Katalizör ve temas yüzeyi</a></h3>
+            <p>Katalizör daha alçak bir enerji yolu açar; toz hâlindeki katı daha hızlı tepkir. Katalizör laboratuvarı, hidrojen peroksit, küp bölme ve katalitik konvertör.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>Katalizörlü yol</li>
+              <li>Temas yüzeyi</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Konuya git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/katalizor.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+
+          <article class="lesson" data-unit="tepkimelerde-hiz" style="--tone: var(--rose)"
+            data-tags="hız denklemi hız bağıntısı hız sabiti k tepkime derecesi mertebe başlangıç hızları deney tablosu çok basamaklı mekanizma yavaş basamak ara ürün hacim basınç iyot saati">
+            <span class="no" aria-hidden="true">05</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 5h16l-6 7.2v5.6l-4 2.2v-7.8z" />
+              </svg>
+            </span>
+            <span class="tag">Kinetik · hız denklemi</span>
+            <h3><a href="hiz-denklemi.html">Hız denklemi</a></h3>
+            <p>Hız = k·[X]ᵃ·[Y]ᵇ ve üsler deneyle bulunur. Başlangıç hızları oyunu, derece grafiği, piston deneyi ve çok basamaklı tepkime.</p>
+            <ul class="meta">
+              <li>4 etkileşimli deney</li>
+              <li>Tepkime derecesi</li>
+              <li>Yavaş basamak</li>
+            </ul>
+            <div class="foot">
+              <span class="go">Konuya git
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              <a class="pill" href="sunum/hiz-denklemi.pptx" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+                </svg>
+                Sunum
+              </a>
+            </div>
+          </article>
+          </div>
+        </article>
+
         <p class="empty" id="empty" hidden>
           Aramana uyan konu bulunamadı.
           <button type="button" id="clear-search">Aramayı temizle</button>
@@ -2347,11 +2723,13 @@
       <section class="section reveal" id="sunumlar" aria-labelledby="decks-title">
         <div class="section-heading">
           <h2 id="decks-title">Sunumlar</h2>
-          <p>On sekiz konunun her biri için 38–47 slayt: konu anlatımının dört basamağı, çizimler ve görseller, “Düşün” soru–cevap slaytları ve kolaydan zora çözümlü örnekler; her slaytta konuşmacı notu.</p>
+          <p>Yirmi altı konunun her biri için 117–157 slayt: konu anlatımının dört basamağı küçük adımlarla, çizimler ve görseller, “Düşün” soru–cevap slaytları ve kolaydan zora çözümlü örnekler; her slaytta konuşmacı notu.</p>
         </div>
 
         <div class="dl-grid" id="deck-grid">
-          <a class="dl" href="sunum/serbest-dusme.pptx" download data-unit="kuvvet-ve-hareket"
+          <p class="dl-ders" data-ders="fizik">Fizik</p>
+
+          <a class="dl" data-ders="fizik" href="sunum/serbest-dusme.pptx" download data-unit="kuvvet-ve-hareket"
             data-tags="serbest düşme sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2360,11 +2738,11 @@
             </span>
             <span>
               <h3>Serbest düşme</h3>
-              <p>Ünite 01 · Konu 01 · 16 slayt · PPTX</p>
+              <p>Ünite 01 · Konu 01 · 117 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/iki-boyutta-hareket.pptx" download data-unit="kuvvet-ve-hareket"
+          <a class="dl" data-ders="fizik" href="sunum/iki-boyutta-hareket.pptx" download data-unit="kuvvet-ve-hareket"
             data-tags="iki boyutta sabit ivmeli hareket atış sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2373,11 +2751,11 @@
             </span>
             <span>
               <h3>İki boyutta sabit ivmeli hareket</h3>
-              <p>Ünite 01 · Konu 02 · 19 slayt · PPTX</p>
+              <p>Ünite 01 · Konu 02 · 152 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/newton-yasalari.pptx" download data-unit="kuvvet-ve-hareket"
+          <a class="dl" data-ders="fizik" href="sunum/newton-yasalari.pptx" download data-unit="kuvvet-ve-hareket"
             data-tags="newton hareket yasaları kuvvet sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2386,11 +2764,11 @@
             </span>
             <span>
               <h3>Newton'un hareket yasaları</h3>
-              <p>Ünite 01 · Konu 03 · 19 slayt · PPTX</p>
+              <p>Ünite 01 · Konu 03 · 157 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/surtunme-kuvveti.pptx" download data-unit="kuvvet-ve-hareket"
+          <a class="dl" data-ders="fizik" href="sunum/surtunme-kuvveti.pptx" download data-unit="kuvvet-ve-hareket"
             data-tags="sürtünme kuvveti sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2399,11 +2777,11 @@
             </span>
             <span>
               <h3>Sürtünme kuvveti</h3>
-              <p>Ünite 01 · Konu 04 · 18 slayt · PPTX</p>
+              <p>Ünite 01 · Konu 04 · 146 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/limit-hiz.pptx" download data-unit="kuvvet-ve-hareket"
+          <a class="dl" data-ders="fizik" href="sunum/limit-hiz.pptx" download data-unit="kuvvet-ve-hareket"
             data-tags="limit hız hava direnci paraşüt sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2412,11 +2790,11 @@
             </span>
             <span>
               <h3>Limit hız</h3>
-              <p>Ünite 01 · Konu 05 · 16 slayt · PPTX</p>
+              <p>Ünite 01 · Konu 05 · 125 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/cembersel-hareket.pptx" download data-unit="kuvvet-ve-hareket"
+          <a class="dl" data-ders="fizik" href="sunum/cembersel-hareket.pptx" download data-unit="kuvvet-ve-hareket"
             data-tags="düzgün çembersel hareket merkezcil sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2425,11 +2803,11 @@
             </span>
             <span>
               <h3>Düzgün çembersel hareket</h3>
-              <p>Ünite 01 · Konu 06 · 16 slayt · PPTX</p>
+              <p>Ünite 01 · Konu 06 · 137 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/elektriksel-kuvvet.pptx" download data-unit="elektrik-ve-manyetizma"
+          <a class="dl" data-ders="fizik" href="sunum/elektriksel-kuvvet.pptx" download data-unit="elektrik-ve-manyetizma"
             data-tags="elektriksel kuvvet alan coulomb sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2438,11 +2816,11 @@
             </span>
             <span>
               <h3>Elektriksel kuvvet ve alan</h3>
-              <p>Ünite 02 · Konu 01 · 17 slayt · PPTX</p>
+              <p>Ünite 02 · Konu 01 · 138 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/manyetik-alan.pptx" download data-unit="elektrik-ve-manyetizma"
+          <a class="dl" data-ders="fizik" href="sunum/manyetik-alan.pptx" download data-unit="elektrik-ve-manyetizma"
             data-tags="manyetik alan kuvvet sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2451,11 +2829,11 @@
             </span>
             <span>
               <h3>Manyetik alan ve manyetik kuvvet</h3>
-              <p>Ünite 02 · Konu 02 · 16 slayt · PPTX</p>
+              <p>Ünite 02 · Konu 02 · 134 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/induksiyon-akimi.pptx" download data-unit="elektrik-ve-manyetizma"
+          <a class="dl" data-ders="fizik" href="sunum/induksiyon-akimi.pptx" download data-unit="elektrik-ve-manyetizma"
             data-tags="indüksiyon akımı faraday lenz sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2464,11 +2842,11 @@
             </span>
             <span>
               <h3>İndüksiyon akımı</h3>
-              <p>Ünite 02 · Konu 03 · 16 slayt · PPTX</p>
+              <p>Ünite 02 · Konu 03 · 128 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/transformatorler.pptx" download data-unit="elektrik-ve-manyetizma"
+          <a class="dl" data-ders="fizik" href="sunum/transformatorler.pptx" download data-unit="elektrik-ve-manyetizma"
             data-tags="transformatör sarım gerilim sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2477,11 +2855,11 @@
             </span>
             <span>
               <h3>Transformatörler</h3>
-              <p>Ünite 02 · Konu 04 · 17 slayt · PPTX</p>
+              <p>Ünite 02 · Konu 04 · 132 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/isik-siddeti.pptx" download data-unit="optik"
+          <a class="dl" data-ders="fizik" href="sunum/isik-siddeti.pptx" download data-unit="optik"
             data-tags="ışık şiddeti akı aydınlanma lüks sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2490,11 +2868,11 @@
             </span>
             <span>
               <h3>Işık şiddeti, akı ve aydınlanma</h3>
-              <p>Ünite 03 · Konu 01 · 16 slayt · PPTX</p>
+              <p>Ünite 03 · Konu 01 · 143 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/duzlem-aynalar.pptx" download data-unit="optik"
+          <a class="dl" data-ders="fizik" href="sunum/duzlem-aynalar.pptx" download data-unit="optik"
             data-tags="düzlem ayna yansıma sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2503,11 +2881,11 @@
             </span>
             <span>
               <h3>Düzlem aynalar</h3>
-              <p>Ünite 03 · Konu 02 · 16 slayt · PPTX</p>
+              <p>Ünite 03 · Konu 02 · 146 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/kuresel-aynalar.pptx" download data-unit="optik"
+          <a class="dl" data-ders="fizik" href="sunum/kuresel-aynalar.pptx" download data-unit="optik"
             data-tags="küresel ayna çukur tümsek sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2516,11 +2894,11 @@
             </span>
             <span>
               <h3>Küresel aynalar</h3>
-              <p>Ünite 03 · Konu 03 · 16 slayt · PPTX</p>
+              <p>Ünite 03 · Konu 03 · 142 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/kirilma.pptx" download data-unit="optik"
+          <a class="dl" data-ders="fizik" href="sunum/kirilma.pptx" download data-unit="optik"
             data-tags="kırılma snell tam yansıma sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2529,11 +2907,11 @@
             </span>
             <span>
               <h3>Kırılma</h3>
-              <p>Ünite 03 · Konu 04 · 16 slayt · PPTX</p>
+              <p>Ünite 03 · Konu 04 · 137 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/gorunur-derinlik.pptx" download data-unit="optik"
+          <a class="dl" data-ders="fizik" href="sunum/gorunur-derinlik.pptx" download data-unit="optik"
             data-tags="görünür derinlik havuz sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2542,11 +2920,11 @@
             </span>
             <span>
               <h3>Görünür derinlik</h3>
-              <p>Ünite 03 · Konu 05 · 16 slayt · PPTX</p>
+              <p>Ünite 03 · Konu 05 · 124 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/fiber-optik.pptx" download data-unit="optik"
+          <a class="dl" data-ders="fizik" href="sunum/fiber-optik.pptx" download data-unit="optik"
             data-tags="fiber optik tam yansıma sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2555,11 +2933,11 @@
             </span>
             <span>
               <h3>Fiber optik</h3>
-              <p>Ünite 03 · Konu 06 · 16 slayt · PPTX</p>
+              <p>Ünite 03 · Konu 06 · 121 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/prizmalar.pptx" download data-unit="optik"
+          <a class="dl" data-ders="fizik" href="sunum/prizmalar.pptx" download data-unit="optik"
             data-tags="prizma dispersiyon tayf gökkuşağı sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2568,11 +2946,11 @@
             </span>
             <span>
               <h3>Prizmalar</h3>
-              <p>Ünite 03 · Konu 07 · 16 slayt · PPTX</p>
+              <p>Ünite 03 · Konu 07 · 119 slayt · PPTX</p>
             </span>
           </a>
 
-          <a class="dl" href="sunum/mercekler.pptx" download data-unit="optik"
+          <a class="dl" data-ders="fizik" href="sunum/mercekler.pptx" download data-unit="optik"
             data-tags="mercek diyoptri göz kusuru sunum pptx">
             <span class="ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2581,13 +2959,119 @@
             </span>
             <span>
               <h3>Mercekler</h3>
-              <p>Ünite 03 · Konu 08 · 16 slayt · PPTX</p>
+              <p>Ünite 03 · Konu 08 · 137 slayt · PPTX</p>
+            </span>
+          </a>
+
+          <p class="dl-ders" data-ders="kimya">Kimya</p>
+
+          <a class="dl" data-ders="kimya" href="sunum/enerji-degisimi.pptx" download data-unit="tepkimelerde-enerji"
+            data-tags="enerji değişimi endotermik ekzotermik ısı sunum pptx">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Tepkimelerde enerji değişimi</h3>
+              <p>Ünite 01 · Konu 01 · 152 slayt · PPTX</p>
+            </span>
+          </a>
+
+          <a class="dl" data-ders="kimya" href="sunum/bag-enerjisi.pptx" download data-unit="tepkimelerde-enerji"
+            data-tags="bağ enerjisi kovalent bağ kırılması sunum pptx">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Bağ enerjileri ve tepkime entalpisi</h3>
+              <p>Ünite 01 · Konu 02 · 138 slayt · PPTX</p>
+            </span>
+          </a>
+
+          <a class="dl" data-ders="kimya" href="sunum/olusum-entalpisi.pptx" download data-unit="tepkimelerde-enerji"
+            data-tags="standart oluşum entalpisi ΔHf° tepkime sunum pptx">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Standart oluşum ve tepkime entalpisi</h3>
+              <p>Ünite 01 · Konu 03 · 153 slayt · PPTX</p>
+            </span>
+          </a>
+
+          <a class="dl" data-ders="kimya" href="sunum/carpisma-teorisi.pptx" download data-unit="tepkimelerde-hiz"
+            data-tags="çarpışma teorisi etkin çarpışma yönelim sunum pptx">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Tepkimelerin gerçekleşme şartları</h3>
+              <p>Ünite 02 · Konu 01 · 146 slayt · PPTX</p>
+            </span>
+          </a>
+
+          <a class="dl" data-ders="kimya" href="sunum/tepkime-hizi.pptx" download data-unit="tepkimelerde-hiz"
+            data-tags="ortalama tepkime hızı anlık hız sunum pptx">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Ortalama tepkime hızı</h3>
+              <p>Ünite 02 · Konu 02 · 144 slayt · PPTX</p>
+            </span>
+          </a>
+
+          <a class="dl" data-ders="kimya" href="sunum/hiz-faktorleri.pptx" download data-unit="tepkimelerde-hiz"
+            data-tags="tepkime hızı faktörler derişim sıcaklık sunum pptx">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Tepkime hızına etki eden faktörler</h3>
+              <p>Ünite 02 · Konu 03 · 144 slayt · PPTX</p>
+            </span>
+          </a>
+
+          <a class="dl" data-ders="kimya" href="sunum/katalizor.pptx" download data-unit="tepkimelerde-hiz"
+            data-tags="katalizör inhibitör enzim katalaz homojen sunum pptx">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Katalizör ve temas yüzeyi</h3>
+              <p>Ünite 02 · Konu 04 · 146 slayt · PPTX</p>
+            </span>
+          </a>
+
+          <a class="dl" data-ders="kimya" href="sunum/hiz-denklemi.pptx" download data-unit="tepkimelerde-hiz"
+            data-tags="hız denklemi hız bağıntısı hız sunum pptx">
+            <span class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5v11M7.5 11l4.5 4.5 4.5-4.5M4.5 20h15" />
+              </svg>
+            </span>
+            <span>
+              <h3>Hız denklemi</h3>
+              <p>Ünite 02 · Konu 05 · 142 slayt · PPTX</p>
             </span>
           </a>
         </div>
 
         <div class="dl-all">
-          <span><b>Hepsi bir arada:</b> on sekiz sunum tek ZIP dosyasında, yaklaşık 6 MB.</span>
+          <span><b>Hepsi bir arada:</b> yirmi altı sunum tek ZIP dosyasında, yaklaşık 72 MB.</span>
           <a class="button ghost small" href="sunum/dersler-sunumlar.zip" download>
             Tümünü indir (ZIP)
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2600,7 +3084,7 @@
       <section class="section reveal" id="nasil" aria-labelledby="how-title">
         <div class="section-heading">
           <h2 id="how-title">Her ders nasıl çalışır?</h2>
-          <p>On sekiz konu da aynı düzende: önce oku, sonra dene, sonunda ölç.</p>
+          <p>Yirmi altı konunun hepsi aynı düzende: önce oku, sonra dene, sonunda ölç.</p>
         </div>
 
         <div class="steps">
@@ -2633,7 +3117,7 @@
                 <path d="M4 5.5v16M8 7h8M8 11h7" />
               </svg>
             </span>
-            <span>Dersler<small>fizik</small></span>
+            <span>Dersler<small>fizik · kimya</small></span>
           </a>
           <p>Etkileşimli ders anlatımları için sade bir öğrenme alanı. Her konu tek sayfa: konu anlatımı, dokunup oynadığın laboratuvarlar, canlı grafikler ve hızlı test. Derleme adımı yok, izleme yok; test sonuçların yalnızca kendi tarayıcında durur.</p>
         </div>
@@ -2642,6 +3126,8 @@
           <a href="#kuvvet-ve-hareket">Kuvvet ve Hareket</a>
           <a href="#elektrik-ve-manyetizma">Elektrik ve Manyetizma</a>
           <a href="#optik">Optik</a>
+          <a href="#tepkimelerde-enerji">Kimyasal Tepkimelerde Enerji</a>
+          <a href="#tepkimelerde-hiz">Kimyasal Tepkimelerde Hız</a>
         </nav>
         <nav class="footer-col" aria-label="Site">
           <h4>Site</h4>
@@ -2653,7 +3139,7 @@
       </div>
       <div class="shell footer-bottom">
         <span>dersler.perinet.org</span>
-        <span>Fizik · 3 ünite · 18 konu · 72 deney</span>
+        <span>Fizik ve kimya · 5 ünite · 26 konu · 104 deney</span>
         <span><kbd>/</kbd> konu ara · <kbd>Esc</kbd> aramayı temizle</span>
       </div>
     </footer>
@@ -2740,11 +3226,18 @@
             });
             u.hidden = !any;
           });
+          /* ünitesi kalmayan ders başlığı da gizlenir */
+          [].slice.call(document.querySelectorAll(".ders-bas")).forEach(function (d) {
+            d.hidden = !units.some(function (u) { return u.dataset.ders === d.dataset.ders && !u.hidden; });
+          });
+          [].slice.call(document.querySelectorAll(".dl-ders")).forEach(function (d) {
+            d.hidden = !decks.some(function (el) { return el.dataset.ders === d.dataset.ders && !el.hidden; });
+          });
           emptyEl.hidden = shown > 0;
           var deckSection = document.getElementById("sunumlar");
           if (deckSection) deckSection.hidden = deckShown === 0;
           if (!q && unit === "all") {
-            countEl.innerHTML = "<b>3 ünite</b> · 18 konu · 72 etkileşimli bölüm";
+            countEl.innerHTML = "<b>5 ünite</b> · 26 konu · 104 etkileşimli bölüm";
           } else {
             countEl.innerHTML = "<b>" + shown + " konu</b> gösteriliyor" +
               (deckShown ? " · " + deckShown + " sunum" : "");
