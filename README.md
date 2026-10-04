@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/icon.png" alt="dersler simgesi" width="120"></p>
+
 # Dersler
 
 Etkileşimli ders anlatımları için sade, statik bir öğrenme alanı.
